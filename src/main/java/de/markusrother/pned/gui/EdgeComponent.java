@@ -2,6 +2,7 @@ package de.markusrother.pned.gui;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -13,12 +14,11 @@ import java.awt.geom.Point2D;
 
 import javax.swing.JComponent;
 
+import de.markusrother.swing.DragListener;
 import de.markusrother.swing.HoverListener;
-import de.markusrother.swing.snap.SnapPoint;
-import de.markusrother.swing.snap.SnapPointListener;
 
 /**
- * FIXME - use HoverListener!
+ * 
  */
 class EdgeComponent extends JComponent {
 
@@ -52,28 +52,26 @@ class EdgeComponent extends JComponent {
 		return polygon;
 	}
 
-	private final SnapPoint source;
-	private SnapPoint target;
+	Point source;
+	Point target;
+	Component sourceComponent;
+	Component targetComponent;
+
 	private Polygon tip;
 	private Line2D line;
 	private Color fgColor;
 
-	public EdgeComponent(final SnapPoint source) {
+	public EdgeComponent(final Component sourceComponent, final Point source, final Point target) {
+		this.sourceComponent = sourceComponent;
 		this.source = source;
-		this.source.addSnapPointListener(new SnapPointListener() {
-			@Override
-			public void snapPointMoved(final int deltaX, final int deltaY) {
-				source.translate(deltaX, deltaY);
-				repaint();
-			}
-		});
+		this.target = target;
 		this.fgColor = standardColor;
 	}
 
 	@Override
 	protected void paintComponent(final Graphics g) {
 		super.paintComponent(g);
-		final Graphics2D g2 = format(g);
+		final Graphics2D g2 = formatGraphics(g);
 		line = new Line2D.Double(source, target);
 		tip = createTip(getRadiansOfDelta(source, target));
 		tip.translate(target.x, target.y);
@@ -83,35 +81,59 @@ class EdgeComponent extends JComponent {
 		// System.out.println(getBounds());
 	}
 
-	private Graphics2D format(final Graphics g) {
+	private Graphics2D formatGraphics(final Graphics g) {
 		final Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(stroke);
 		setForeground(fgColor);
 		return g2;
 	}
 
-	public void setTarget(final SnapPoint target) {
+	public Class<?> getSourceType() {
+		return sourceComponent.getClass();
+	}
+
+	public Class<?> getTargetType() {
+		return targetComponent.getClass();
+	}
+
+	public boolean hasTargetComponent() {
+		return targetComponent != null;
+	}
+
+	private void setSource(final Point source) {
+		this.source = source;
+		repaint();
+	}
+
+	public void setTarget(final Point target) {
 		this.target = target;
+		repaint();
+	}
+
+	private void setSourceComponent(final Component sourceComponent) {
+		this.sourceComponent = sourceComponent;
+	}
+
+	public void setTargetComponent(final Component targetComponent) {
+		this.targetComponent = targetComponent;
 	}
 
 	public void finishedDrawing() {
-		source.setPermanentlyVisible(true);
-		target.setPermanentlyVisible(true);
-		final SnapPoint t = target;
-		// TODO - create inner class to return SnapPointListener with reference
-		// to this.
-		target.addSnapPointListener(new SnapPointListener() {
+		DragListener.addToComponent(sourceComponent, new DragListener() {
 			@Override
-			public void snapPointMoved(final int deltaX, final int deltaY) {
-				t.translate(deltaX, deltaY);
+			public void onDrag(final int deltaX, final int deltaY) {
+				source.translate(deltaX, deltaY);
 				repaint();
 			}
 		});
-		addHoverListener();
-	}
-
-	private void addHoverListener() {
-		final HoverListener hoverListener = new HoverListener() {
+		DragListener.addToComponent(targetComponent, new DragListener() {
+			@Override
+			public void onDrag(final int deltaX, final int deltaY) {
+				target.translate(deltaX, deltaY);
+				repaint();
+			}
+		});
+		HoverListener.addToComponent(this, new HoverListener() {
 
 			@Override
 			protected boolean inHoverArea(final Point p) {
@@ -129,28 +151,14 @@ class EdgeComponent extends JComponent {
 				fgColor = standardColor;
 				repaint();
 			}
-		};
-		addMouseListener(hoverListener);
-		addMouseMotionListener(hoverListener);
+		});
 	}
 
-	public double length() {
-		return target == null ? 0 : source.distance(target);
-	}
-
-	private boolean edgeContains(final Point point) {
+	boolean edgeContains(final Point point) {
 		// WTF !? line.contains(point) returns false, with the explanation:
 		// "lines never contain AREAS" WTF! A point is not an area...
 		// TODO - line thickness is variable!
 		return line != null && (line.ptSegDistSq(point) < 5 || tip.contains(point));
-	}
-
-	public Class<?> getTargetType() {
-		return target.getTargetComponent().getClass();
-	}
-
-	public Class<?> getSourceType() {
-		return source.getTargetComponent().getClass();
 	}
 
 }

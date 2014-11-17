@@ -1,10 +1,16 @@
 package de.markusrother.swing;
 
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public abstract class HoverListener extends MouseAdapter {
+
+	public static void addToComponent(final Component component, final HoverListener listener) {
+		component.addMouseListener(listener);
+		component.addMouseMotionListener(listener);
+	}
 
 	private boolean hovering = false;
 

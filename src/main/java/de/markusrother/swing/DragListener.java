@@ -1,10 +1,16 @@
 package de.markusrother.swing;
 
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public abstract class DragListener extends MouseAdapter {
+
+	public static void addToComponent(final Component component, final DragListener listener) {
+		component.addMouseListener(listener);
+		component.addMouseMotionListener(listener);
+	}
 
 	private Point point;
 
