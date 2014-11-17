@@ -12,6 +12,8 @@ import java.util.LinkedList;
 
 import javax.swing.JComponent;
 
+import de.markusrother.swing.HoverListener;
+
 // TODO - The goal is to make this independent of the layer management!
 class SnapPointComponent extends JComponent {
 

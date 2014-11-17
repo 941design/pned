@@ -1,4 +1,4 @@
-package de.markusrother.swing.snap;
+package de.markusrother.swing;
 
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -29,6 +29,9 @@ public abstract class HoverListener extends MouseAdapter {
 		}
 	}
 
+	// TODO - this should default to the component area. Either create another
+	// constructor which takes a predicate or create a subclass where this
+	// method is abstract.
 	protected abstract boolean inHoverArea(Point p);
 
 	protected abstract void startHover();

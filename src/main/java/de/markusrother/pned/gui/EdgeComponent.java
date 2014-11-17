@@ -13,7 +13,7 @@ import java.awt.geom.Point2D;
 
 import javax.swing.JComponent;
 
-import de.markusrother.swing.snap.HoverListener;
+import de.markusrother.swing.HoverListener;
 import de.markusrother.swing.snap.SnapPoint;
 import de.markusrother.swing.snap.SnapPointListener;
 
@@ -95,7 +95,7 @@ class EdgeComponent extends JComponent {
 	}
 
 	public boolean targetIsNode() {
-		return target.getTargetComponent() instanceof NodeComponent;
+		return target.getTargetComponent() instanceof Transition;
 	}
 
 	public void finishedDrawing() {

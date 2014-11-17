@@ -8,10 +8,13 @@ import static de.markusrother.swing.snap.SnapLayoutManager.WEST;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import de.markusrother.swing.snap.SnapGridComponent;
@@ -20,14 +23,18 @@ import de.markusrother.swing.snap.SnapTarget;
 
 /**
  * TODO - use MouseAdapter!
+ * 
+ * TODO - public method to add nodes at logical locations?
  */
 class PnGridPanel extends JPanel implements MouseListener, MouseMotionListener {
 
 	private static final Dimension preferredSize = new Dimension(500, 500);
-	private static final Dimension nodeDimensions = new Dimension(50, 50);
+	private static final Dimension transitionDimensions = new Dimension(50, 50);
+	private static final Dimension placeDimensions = new Dimension(50, 50);
 
 	private final SnapGridComponent snapGrid;
 	private EdgeComponent edgeComponent;
+	protected boolean toggle;
 
 	PnGridPanel() {
 		// TODO - add scroll panel
@@ -40,47 +47,66 @@ class PnGridPanel extends JPanel implements MouseListener, MouseMotionListener {
 		snapGrid.addMouseListener(this);
 		snapGrid.addMouseMotionListener(this);
 		add(snapGrid);
-	}
-
-	/**
-	 * logical location
-	 * 
-	 * @param i
-	 * @param j
-	 */
-	public void addNode(final int i, final int j) {
-		// TODO - what if position is taken?
-		final NodeComponent nodeComponent = new NodeComponent("node", nodeDimensions);
-		// TODO - use layout manager to manage preferred sizes!
-		nodeComponent.setPreferredSize(nodeDimensions);
-		add(nodeComponent);
+		//
+		// Adding state type toggle
+		final PnGridPanel that = this;
+		final JButton toggleBtn = new JButton("place");
+		toggleBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				that.toggle = !that.toggle;
+				toggleBtn.setText(that.toggle ? "transition" : "place");
+				// Preferred size changes, but should our snapTargetComponent
+				// adapt dynamically to such changes?
+				// System.out.println(toggleBtn.getPreferredSize());
+			}
+		});
+		snapGrid.createSnapTarget(toggleBtn, new Point(100, 100));
 	}
 
 	@Override
 	public void mouseClicked(final MouseEvent e) {
 		final Point coordinate = snapGrid.getCurrentSnapPoint();
-		final NodeComponent node = new NodeComponent("foo", nodeDimensions);
-		// TODO - adding component should be done by the listener. This
-		// class should then be responsible to add the component at the last
-		// recorded
-		// location.
-		addNodeComponent(node, coordinate);
+		// TODO - adding component should be done by the listener - not
+		// necessarily this class. Factor out listener!
+		if (toggle) {
+			final Transition transition = new Transition("foo", transitionDimensions);
+			addTransition(transition, coordinate);
+		} else {
+			final Place place = new Place(placeDimensions);
+			addPlace(place, coordinate);
+		}
 	}
 
-	private void addNodeComponent(final NodeComponent node, final Point point) {
-		// at grid point
-		final int x = (int) point.getX();
-		final int y = (int) point.getY();
-		final int w = node.getWidth(); // getPreferredSize()
-		final int h = node.getHeight();
-		final Point topLeft = point.getLocation();
+	private void addPlace(final Place place, final Point coordinate) {
+		final int w = place.getWidth(); // getPreferredSize()
+		final int h = place.getHeight();
+		final Point topLeft = coordinate.getLocation();
 		topLeft.translate(-w / 2, -h / 2);
 		// node.setBounds(new Rectangle(topLeft, node.getPreferredSize()));
 		// TODO - use LayoutManager for this?
 		// TODO - constraint CENTERED, or corner/snapPoint
 		// TODO - Subclass SnapTarget to add anonymous snapPoints with a
 		// getPreferredBounds(Component c) method.
-		final SnapTarget snapTarget = snapGrid.addSnapTarget(node, topLeft);
+		final SnapTarget snapTarget = snapGrid.createSnapTarget(place, topLeft);
+		snapGrid.createSnapPoint(snapTarget, NORTH);
+		snapGrid.createSnapPoint(snapTarget, SOUTH);
+		snapGrid.createSnapPoint(snapTarget, EAST);
+		snapGrid.createSnapPoint(snapTarget, WEST);
+		snapTarget.showSnapPoints();
+	}
+
+	private void addTransition(final Transition transition, final Point coordinate) {
+		final int w = transition.getWidth(); // getPreferredSize()
+		final int h = transition.getHeight();
+		final Point topLeft = coordinate.getLocation();
+		topLeft.translate(-w / 2, -h / 2);
+		// node.setBounds(new Rectangle(topLeft, node.getPreferredSize()));
+		// TODO - use LayoutManager for this?
+		// TODO - constraint CENTERED, or corner/snapPoint
+		// TODO - Subclass SnapTarget to add anonymous snapPoints with a
+		// getPreferredBounds(Component c) method.
+		final SnapTarget snapTarget = snapGrid.createSnapTarget(transition, topLeft);
 		snapGrid.createSnapPoint(snapTarget, NORTH);
 		snapGrid.createSnapPoint(snapTarget, SOUTH);
 		snapGrid.createSnapPoint(snapTarget, EAST);

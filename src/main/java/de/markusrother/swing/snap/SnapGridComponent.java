@@ -1,7 +1,5 @@
 package de.markusrother.swing.snap;
 
-import static de.markusrother.swing.snap.SnapLayoutManager.NORTH;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -11,7 +9,6 @@ import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JComponent;
 
 /**
@@ -50,10 +47,6 @@ public class SnapGridComponent extends JComponent {
 		snapGridMouseListener = new SnapGridMouseListener(this);
 		addMouseListener(snapGridMouseListener);
 		addMouseMotionListener(snapGridMouseListener);
-		// test
-		final JButton btn = new JButton("foobar");
-		final SnapTarget snapTargetPanel = addSnapTarget(btn, new Point(100, 100));
-		snapTargetPanel.createSnapPoint(NORTH);
 	}
 
 	/**
@@ -160,7 +153,7 @@ public class SnapGridComponent extends JComponent {
 		return point;
 	}
 
-	public SnapTarget addSnapTarget(final Component component, final Point origin) {
+	public SnapTarget createSnapTarget(final Component component, final Point origin) {
 		// TODO - Positioning should be done by a LayoutManager!
 		// component.addMouseListener(snapGridMouseListener);
 		// component.addMouseMotionListener(snapGridMouseListener);

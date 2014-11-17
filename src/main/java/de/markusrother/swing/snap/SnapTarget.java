@@ -1,6 +1,5 @@
 package de.markusrother.swing.snap;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -11,7 +10,6 @@ import java.awt.event.MouseMotionListener;
 import java.util.List;
 
 import javax.swing.JLayeredPane;
-import javax.swing.border.LineBorder;
 
 public class SnapTarget extends JLayeredPane implements MouseListener, MouseMotionListener {
 
@@ -56,7 +54,9 @@ public class SnapTarget extends JLayeredPane implements MouseListener, MouseMoti
 		snapPointLayer.setBounds(new Rectangle(origin, paddedDimension));
 		add(snapPointLayer, new Integer(1));
 
-		snapPointLayer.setBorder(new LineBorder(Color.GREEN)); // OBSOLETE
+		// OBSOLETE, TEST - Use to check whether the actual bounds enlarge when
+		// adding snap points.
+		// snapPointLayer.setBorder(new LineBorder(Color.GREEN));
 	}
 
 	@Override

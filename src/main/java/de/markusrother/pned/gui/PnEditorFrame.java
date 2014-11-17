@@ -19,7 +19,6 @@ public class PnEditorFrame extends JFrame {
 		setPreferredSize(preferredSize);
 		// add(grid); // TODO ??
 		contentPane.add(grid, BorderLayout.CENTER);
-		grid.addNode(4, 8);
 		pack();
 		setVisible(true);
 	}
