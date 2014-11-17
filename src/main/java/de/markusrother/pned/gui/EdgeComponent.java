@@ -94,10 +94,6 @@ class EdgeComponent extends JComponent {
 		this.target = target;
 	}
 
-	public boolean targetIsNode() {
-		return target.getTargetComponent() instanceof Transition;
-	}
-
 	public void finishedDrawing() {
 		source.setPermanentlyVisible(true);
 		target.setPermanentlyVisible(true);
@@ -147,6 +143,14 @@ class EdgeComponent extends JComponent {
 		// "lines never contain AREAS" WTF! A point is not an area...
 		// TODO - line thickness is variable!
 		return line != null && (line.ptSegDistSq(point) < 5 || tip.contains(point));
+	}
+
+	public Class<?> getTargetType() {
+		return target.getTargetComponent().getClass();
+	}
+
+	public Class<?> getSourceType() {
+		return source.getTargetComponent().getClass();
 	}
 
 }

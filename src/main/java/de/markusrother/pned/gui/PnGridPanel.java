@@ -123,7 +123,8 @@ class PnGridPanel extends JPanel implements MouseListener, MouseMotionListener {
 	public void mouseReleased(final MouseEvent e) {
 		if (hasEdgeComponent()) {
 			// TODO - If edge target is a node,
-			if (edgeComponent.targetIsNode() && edgeComponent.length() > 0) {
+			if (edgeComponent.length() > 0 //
+					&& (edgeComponent.getTargetType() != edgeComponent.getSourceType())) {
 				edgeComponent.finishedDrawing();
 				edgeComponent = null;
 			} else {

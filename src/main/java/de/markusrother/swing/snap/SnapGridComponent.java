@@ -33,10 +33,9 @@ public class SnapGridComponent extends JComponent {
 
 	// TODO - wrap in settings object!
 	private final Color gridColor;
+	// TODO - dimension should be more or less infinite!
 	private final Dimension gridDimension;
-
 	private final List<SnapTarget> snapTargets;
-
 	private SnapPoint currentSnapPoint;
 	private final SnapGridMouseListener snapGridMouseListener;
 
