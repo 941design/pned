@@ -4,14 +4,13 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.List;
 
 import javax.swing.JLayeredPane;
 
-public class SnapTarget extends JLayeredPane implements MouseListener, MouseMotionListener {
+import de.markusrother.swing.DragListener;
+
+public class SnapTarget extends JLayeredPane {
 
 	private static final boolean NOT_VISIBLE = false;
 
@@ -45,8 +44,18 @@ public class SnapTarget extends JLayeredPane implements MouseListener, MouseMoti
 		// Adding component layer:
 		targetComponent.setBounds(new Rectangle(componentOrigin, componentDimension));
 		// TODO - decouple listeners from this! And Create a draggable subclass!
-		targetComponent.addMouseListener(this);
-		targetComponent.addMouseMotionListener(this);
+		final DragListener l = new DragListener() {
+
+			@Override
+			public void onDrag(final int deltaX, final int deltaY) {
+				final Rectangle r = getBounds();
+				r.translate(deltaX, deltaY);
+				setBounds(r);
+				fireComponentMovedEvent(deltaX, deltaY);
+			}
+		};
+		targetComponent.addMouseListener(l);
+		targetComponent.addMouseMotionListener(l);
 		add(targetComponent, new Integer(0));
 
 		// Adding snap point layer:
@@ -57,6 +66,13 @@ public class SnapTarget extends JLayeredPane implements MouseListener, MouseMoti
 		// OBSOLETE, TEST - Use to check whether the actual bounds enlarge when
 		// adding snap points.
 		// snapPointLayer.setBorder(new LineBorder(Color.GREEN));
+	}
+
+	void fireComponentMovedEvent(final int deltaX, final int deltaY) {
+		for (final SnapPointComponent spc : getSnapPointComponents()) {
+			// TODO - we could as well look up the listeners, here!
+			spc.fireComponentMovedEvent(deltaX, deltaY);
+		}
 	}
 
 	@Override
@@ -95,55 +111,6 @@ public class SnapTarget extends JLayeredPane implements MouseListener, MouseMoti
 		// snapPointComponent.addMouseListener(l);
 		// snapPointComponent.addMouseMotionListener(l);
 		// return snapPointComponent;
-	}
-
-	@Override
-	public void mouseDragged(final MouseEvent e) {
-		// NOTE - e.getPoint() is relative to this!
-		// FIXME - stop at grid bounds!!!
-		// TODO - make this sticky! Should stop at the grid's snapPoints.
-		// TODO - components must not overlap!
-		final Point origin = getLocation();
-		final Point current = e.getPoint();
-		final Point newOrigin = new Point( //
-				origin.x + (current.x - dragStart.x), //
-				origin.y + (current.y - dragStart.y) //
-		);
-		setBounds(new Rectangle(newOrigin, getSize()));
-		for (final SnapPointComponent spc : getSnapPointComponents()) {
-			// TODO - we could as well look up the listeners, here!
-			spc.fireComponentMovedEvent(newOrigin.x - origin.x, newOrigin.y - origin.y);
-		}
-	}
-
-	@Override
-	public void mouseMoved(final MouseEvent e) {
-		// IGNORE
-	}
-
-	@Override
-	public void mouseClicked(final MouseEvent e) {
-		// IGNORE
-	}
-
-	@Override
-	public void mousePressed(final MouseEvent e) {
-		dragStart = e.getPoint();
-	}
-
-	@Override
-	public void mouseReleased(final MouseEvent e) {
-		// IGNORE
-	}
-
-	@Override
-	public void mouseEntered(final MouseEvent e) {
-		// IGNORE
-	}
-
-	@Override
-	public void mouseExited(final MouseEvent e) {
-		// IGNORE
 	}
 
 }
