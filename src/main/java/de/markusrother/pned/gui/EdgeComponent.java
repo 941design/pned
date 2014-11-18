@@ -142,20 +142,16 @@ class EdgeComponent extends JComponent {
 	}
 
 	public void finishedDrawing() {
-		DragListener.addToComponent(getSourceComponent(), new DragListener() {
+		final DragListener dragListener = new DragListener() {
 			@Override
 			public void onDrag(final int deltaX, final int deltaY) {
 				connectToSource(getSourceComponent());
-				repaint();
-			}
-		});
-		DragListener.addToComponent(getTargetComponent(), new DragListener() {
-			@Override
-			public void onDrag(final int deltaX, final int deltaY) {
 				connectToTarget(getTargetComponent());
 				repaint();
 			}
-		});
+		};
+		DragListener.addToComponent(getSourceComponent(), dragListener);
+		DragListener.addToComponent(getTargetComponent(), dragListener);
 		HoverListener.addToComponent(this, new HoverListener() {
 
 			@Override
