@@ -72,4 +72,8 @@ public class Place extends AbstractNode {
 				r * (1 + Math.sin(theta)));
 	}
 
+	public void setMarking(final String string) {
+		this.marking.setText(string);
+	}
+
 }

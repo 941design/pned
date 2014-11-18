@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import de.markusrother.swing.snap.SnapGridComponent;
 
@@ -70,6 +71,27 @@ class PnGridPanel extends JPanel {
 		// component.addMouseMotionListener(edgeEditListener);
 	}
 
+	private void addPlaceEditListener(final Place place) {
+		// TODO - create Subclass!
+		place.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(final MouseEvent e) {
+				if (SwingUtilities.isRightMouseButton(e)) {
+					final Place place = (Place) e.getComponent();
+					// TODO - First talk to the model, then to the PnGrid!
+					place.setMarking("foo");
+				}
+			}
+		});
+	}
+
+	private void addTransitionEditListener(final Transition transition) {
+		//
+		transition.addMouseListener(new MouseAdapter() {
+
+		});
+	}
+
 	Point getGridRelativeLocation(final Point pointOnScreen) {
 		return delta(pointOnScreen, snapGrid.getLocationOnScreen());
 	}
@@ -86,6 +108,7 @@ class PnGridPanel extends JPanel {
 		topLeft.translate(-w / 2, -h / 2);
 		snapGrid.createSnapTarget(place, topLeft);
 		addEdgeCreationListener(place);
+		addPlaceEditListener(place);
 		return place;
 	}
 
@@ -97,6 +120,7 @@ class PnGridPanel extends JPanel {
 		topLeft.translate(-w / 2, -h / 2);
 		snapGrid.createSnapTarget(transition, topLeft);
 		addEdgeCreationListener(transition);
+		addTransitionEditListener(transition);
 		return transition;
 	}
 
@@ -119,6 +143,9 @@ class PnGridPanel extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * TODO - split into Creation and edit listener!
+	 */
 	private class EdgeEditListener extends MouseAdapter {
 
 		// TODO - Drawing could also start upon exit!
@@ -130,6 +157,9 @@ class PnGridPanel extends JPanel {
 
 		@Override
 		public void mouseClicked(final MouseEvent e) {
+			if (!SwingUtilities.isLeftMouseButton(e)) {
+				return;
+			}
 			if (edge != null) {
 				// TODO - edge should never have invalid targetComponent!
 				if (edge.acceptsTarget(e.getComponent())) {
