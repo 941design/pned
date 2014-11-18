@@ -12,6 +12,7 @@ import java.awt.Shape;
 import java.awt.geom.Point2D;
 
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 /**
  * This component should neither know its location nor its context!
@@ -57,6 +58,21 @@ class Transition extends AbstractNode {
 
 	private Rectangle getRectangle() {
 		return new Rectangle(0, 0, dimension.width, dimension.height);
+	}
+
+	@Override
+	void setLayout(final State state) {
+		switch (state) {
+		case DEFAULT:
+			setBorder(null);
+			break;
+		case HOVER:
+			setBorder(new LineBorder(Color.GREEN));
+			break;
+		default:
+			break;
+		}
+		repaint();
 	}
 
 	@Override

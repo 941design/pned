@@ -14,12 +14,21 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import de.markusrother.swing.HoverListener;
 import de.markusrother.swing.snap.SnapGridComponent;
 
 /**
- * TODO - use MouseAdapter!
+ * TODO - create MouseListener/Adapter which distinguishes between left and
+ * right click!
+ * 
+ * Each listener should have its own method to be added to components, because
+ * it may be a MouseMotion- or a MouseListener, or both. That should not be the
+ * callers responsibility.
  * 
  * TODO - public method to add nodes at logical locations?
+ * 
+ * TODO - Dispatch all events to all layers: the grid (node layer), the edge
+ * layer, and possibly the root layer, using layer.dispatchEvent(e).
  */
 class PnGridPanel extends JPanel {
 
@@ -30,7 +39,7 @@ class PnGridPanel extends JPanel {
 	private final SnapGridComponent snapGrid;
 	private final MouseAdapter edgeEditListener;
 	private final MouseAdapter nodeCreationListener;
-
+	private final HoverListener nodeHoverListener;
 	private boolean state;
 
 	public static Point delta(final Point a, final Point b) {
@@ -47,6 +56,25 @@ class PnGridPanel extends JPanel {
 		snapGrid.setPreferredSize(preferredSize);
 		edgeEditListener = new EdgeEditListener();
 		nodeCreationListener = new NodeCreationListener();
+		nodeHoverListener = new HoverListener() {
+
+			@Override
+			protected void startHover(final Component component) {
+				final AbstractNode node = (AbstractNode) component;
+				node.setState(AbstractNode.State.HOVER);
+			}
+
+			@Override
+			protected boolean inHoverArea(final Point p) {
+				return true;
+			}
+
+			@Override
+			protected void endHover(final Component component) {
+				final AbstractNode node = (AbstractNode) component;
+				node.setState(AbstractNode.State.DEFAULT);
+			}
+		};
 		add(snapGrid);
 		snapGrid.addMouseListener(nodeCreationListener);
 		snapGrid.addMouseMotionListener(edgeEditListener);
@@ -83,6 +111,7 @@ class PnGridPanel extends JPanel {
 				}
 			}
 		});
+		HoverListener.addToComponent(place, nodeHoverListener);
 	}
 
 	private void addTransitionEditListener(final Transition transition) {
@@ -90,6 +119,7 @@ class PnGridPanel extends JPanel {
 		transition.addMouseListener(new MouseAdapter() {
 
 		});
+		HoverListener.addToComponent(transition, nodeHoverListener);
 	}
 
 	Point getGridRelativeLocation(final Point pointOnScreen) {
@@ -155,6 +185,24 @@ class PnGridPanel extends JPanel {
 		EdgeEditListener() {
 		}
 
+		private void startNewEdge(final AbstractNode source, final Point point) {
+			// TODO - nicer (should not call surrounding class):
+			edge = createEdge(source, point);
+			// The container should then implement createEdge, finishEdge,
+			// removeEdge, etc.
+		}
+
+		private void finishCurrentEdge(final AbstractNode targetNode) {
+			edge.setTargetComponent(targetNode);
+			edge.finishedDrawing();
+			// This is needed for future edges, because the edge
+			// component overlaps the grid!
+			// TODO - maybe the edge should in turn receive a listener for edge
+			// creation events.
+			edge.addMouseMotionListener(edgeEditListener);
+			edge.addMouseListener(nodeCreationListener);
+		}
+
 		@Override
 		public void mouseClicked(final MouseEvent e) {
 			if (!SwingUtilities.isLeftMouseButton(e)) {
@@ -164,19 +212,18 @@ class PnGridPanel extends JPanel {
 				// Connecting existing edge:
 				// TODO - edge should never have invalid targetComponent!
 				if (edge.acceptsTarget(e.getComponent())) {
-					edge.setTargetComponent((AbstractNode) e.getComponent());
-					edge.finishedDrawing();
-					// This is needed for future edges, because the edge
-					// component overlaps the grid!
-					edge.addMouseMotionListener(edgeEditListener);
+					final AbstractNode targetNode = (AbstractNode) e.getComponent();
+					finishCurrentEdge(targetNode);
 				} else {
+					// TODO - nicer (should not call surrounding class):
 					removeEdge(edge);
+					// container.removeEdge(edge);
 				}
 				edge = null;
 			} else {
-				// Creating new edge:
-				edge = createEdge((AbstractNode) e.getComponent(), getGridRelativeLocation(e.getLocationOnScreen()));
-				System.out.println(edge);
+				final AbstractNode sourceNode = (AbstractNode) e.getComponent();
+				final Point point = getGridRelativeLocation(e.getLocationOnScreen());
+				startNewEdge(sourceNode, point);
 			}
 		}
 

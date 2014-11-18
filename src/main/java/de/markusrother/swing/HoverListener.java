@@ -18,7 +18,7 @@ public abstract class HoverListener extends MouseAdapter {
 	public void mouseExited(final MouseEvent e) {
 		if (hovering) {
 			hovering = false;
-			endHover();
+			endHover(e.getComponent());
 		}
 	}
 
@@ -27,11 +27,11 @@ public abstract class HoverListener extends MouseAdapter {
 		if (hovering) {
 			if (!inHoverArea(e.getPoint())) {
 				hovering = false;
-				endHover();
+				endHover(e.getComponent());
 			}
 		} else if (inHoverArea(e.getPoint())) {
 			hovering = true;
-			startHover();
+			startHover(e.getComponent());
 		}
 	}
 
@@ -40,7 +40,7 @@ public abstract class HoverListener extends MouseAdapter {
 	// method is abstract.
 	protected abstract boolean inHoverArea(Point p);
 
-	protected abstract void startHover();
+	protected abstract void startHover(Component component);
 
-	protected abstract void endHover();
+	protected abstract void endHover(Component component);
 }

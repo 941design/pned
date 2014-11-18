@@ -142,6 +142,8 @@ class EdgeComponent extends JComponent {
 	}
 
 	public void finishedDrawing() {
+		// TODO - Must retrieve components dynamically, in case they change (not
+		// yet implemented).
 		final DragListener dragListener = new DragListener() {
 			@Override
 			public void onDrag(final int deltaX, final int deltaY) {
@@ -160,12 +162,12 @@ class EdgeComponent extends JComponent {
 			}
 
 			@Override
-			protected void startHover() {
+			protected void startHover(final Component component) {
 				setColor(hoverColor);
 			}
 
 			@Override
-			protected void endHover() {
+			protected void endHover(final Component component) {
 				highlightStandard();
 			}
 		});

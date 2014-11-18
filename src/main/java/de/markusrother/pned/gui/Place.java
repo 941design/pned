@@ -9,6 +9,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 import javax.swing.JLabel;
+import javax.swing.border.LineBorder;
 
 /**
  * TODO - on hover create pop up with + / - to add/remove weights
@@ -23,7 +24,7 @@ import javax.swing.JLabel;
  */
 public class Place extends AbstractNode {
 
-	private static final Color standardColorBG = new Color(120, 120, 120, 120);
+	private static final Color defaultColor = new Color(120, 120, 120, 120);
 
 	private final Dimension dimension;
 	private final JLabel marking;
@@ -49,13 +50,30 @@ public class Place extends AbstractNode {
 		final Graphics2D g2 = (Graphics2D) g;
 		// TODO - how to manage node locations?
 		// setBackground(standardColorBG);
-		setForeground(standardColorBG);
+		setForeground(defaultColor);
 		g2.fill(getShape());
 	}
 
 	@Override
 	Shape getShape() {
 		return getEllipse();
+	}
+
+	@Override
+	void setLayout(final State state) {
+		switch (state) {
+		case DEFAULT:
+			setForeground(defaultColor);
+			setBorder(null);
+			break;
+		case HOVER:
+			setForeground(Color.BLUE);
+			setBorder(new LineBorder(Color.GREEN));
+			break;
+		default:
+			throw new IllegalStateException();
+		}
+		repaint();
 	}
 
 	private Ellipse2D getEllipse() {

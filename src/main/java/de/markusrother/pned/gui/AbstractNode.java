@@ -8,8 +8,16 @@ import javax.swing.JPanel;
 
 public abstract class AbstractNode extends JPanel {
 
+	public enum State {
+		DEFAULT, //
+		HOVER, //
+	}
+
+	private State state;
+
 	public AbstractNode(final LayoutManager layoutManager) {
 		super(layoutManager);
+		this.state = State.DEFAULT;
 	}
 
 	public AbstractNode() {
@@ -23,5 +31,12 @@ public abstract class AbstractNode extends JPanel {
 	public abstract Point2D getIntersectionWithBounds(final double theta);
 
 	abstract Shape getShape();
+
+	public void setState(final State state) {
+		this.state = state;
+		setLayout(state);
+	}
+
+	abstract void setLayout(State state);
 
 }
