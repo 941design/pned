@@ -148,6 +148,13 @@ class PnGridPanel extends JPanel {
 		public void mouseMoved(final MouseEvent e) {
 			if (edge != null) {
 				edge.setTarget(getGridRelativeLocation(e.getLocationOnScreen()));
+				// TODO - This causes flickering, whereas the solution with
+				// drawing from the center is more pleasing but does not work
+				// with transparent elements. The cleanest solution would be to
+				// manage the edge points at the edge component, too. Then we
+				// can determine the drawing direction more precisely without
+				// the flickering.
+				// edge.connectToSource(edge.getSourceComponent());
 				repaint();
 			}
 		}

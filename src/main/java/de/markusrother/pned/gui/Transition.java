@@ -32,6 +32,7 @@ class Transition extends AbstractNode {
 		// addMouseListener(this);
 		// addMouseMotionListener(this);
 		add(this.label);
+		setOpaque(false);
 	}
 
 	@Override

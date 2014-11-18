@@ -205,6 +205,10 @@ class EdgeComponent extends JComponent {
 				(int) Math.floor(point.getY() + 0.5));
 	}
 
+	/**
+	 * TODO - Currently requires component to be added to parent already, to
+	 * retrieve position!
+	 */
 	public void connectToTarget(final AbstractNode node) {
 		// TODO - make nicer
 		final double angle = getAngle();
@@ -215,6 +219,10 @@ class EdgeComponent extends JComponent {
 		setTarget(getGridRelativeLocation(intersection));
 	}
 
+	/**
+	 * TODO - Currently requires component to be added to parent already, to
+	 * retrieve position!
+	 */
 	public void connectToSource(final AbstractNode node) {
 		// TODO - make nicer
 		final double angle = getAngle();

@@ -66,6 +66,7 @@ public class SnapTarget extends JLayeredPane {
 		// OBSOLETE, TEST - Use to check whether the actual bounds enlarge when
 		// adding snap points.
 		// snapPointLayer.setBorder(new LineBorder(Color.GREEN));
+		setOpaque(false);
 	}
 
 	void fireComponentMovedEvent(final int deltaX, final int deltaY) {

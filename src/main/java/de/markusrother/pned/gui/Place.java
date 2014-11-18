@@ -34,6 +34,7 @@ public class Place extends AbstractNode {
 		this.dimension = dimension;
 		this.marking = new JLabel("23");
 		add(this.marking, PlaceLayout.CENTER);
+		setOpaque(false);
 	}
 
 	@Override
