@@ -161,16 +161,22 @@ class PnGridPanel extends JPanel {
 				return;
 			}
 			if (edge != null) {
+				// Connecting existing edge:
 				// TODO - edge should never have invalid targetComponent!
 				if (edge.acceptsTarget(e.getComponent())) {
 					edge.setTargetComponent((AbstractNode) e.getComponent());
 					edge.finishedDrawing();
+					// This is needed for future edges, because the edge
+					// component overlaps the grid!
+					edge.addMouseMotionListener(edgeEditListener);
 				} else {
 					removeEdge(edge);
 				}
 				edge = null;
 			} else {
+				// Creating new edge:
 				edge = createEdge((AbstractNode) e.getComponent(), getGridRelativeLocation(e.getLocationOnScreen()));
+				System.out.println(edge);
 			}
 		}
 
