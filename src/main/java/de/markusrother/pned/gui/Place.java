@@ -4,10 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  * TODO - on hover create pop up with + / - to add/remove weights
@@ -20,9 +21,10 @@ import javax.swing.JPanel;
  * TODO - create model {marking, label}
  *
  */
-public class Place extends JPanel {
+public class Place extends AbstractNode {
 
 	private static final Color standardColorBG = new Color(120, 120, 120, 120);
+
 	private final Dimension dimension;
 	private final JLabel marking;
 
@@ -47,8 +49,26 @@ public class Place extends JPanel {
 		// TODO - how to manage node locations?
 		// setBackground(standardColorBG);
 		setForeground(standardColorBG);
-		final Ellipse2D shape = new Ellipse2D.Double(0, 0, dimension.width, dimension.height);
-		g2.fill(shape);
+		g2.fill(getShape());
+	}
+
+	@Override
+	Shape getShape() {
+		return getEllipse();
+	}
+
+	private Ellipse2D getEllipse() {
+		return new Ellipse2D.Double(0, 0, dimension.width, dimension.height);
+	}
+
+	@Override
+	public Point2D getIntersectionWithBounds(final double theta) {
+		final Ellipse2D ellipse = getEllipse();
+		// TODO - assumes that ellipse is circle
+		final double r = ellipse.getWidth() / 2.0;
+		return new Point2D.Double( //
+				r * (1 + Math.cos(theta)), //
+				r * (1 + Math.sin(theta)));
 	}
 
 }

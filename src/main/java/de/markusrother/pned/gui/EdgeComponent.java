@@ -1,5 +1,8 @@
 package de.markusrother.pned.gui;
 
+import static de.markusrother.pned.gui.PnGridPanel.delta;
+import static de.markusrother.pned.gui.TrigUtils.getRadiansOfDelta;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
@@ -16,6 +19,7 @@ import javax.swing.JComponent;
 
 import de.markusrother.swing.DragListener;
 import de.markusrother.swing.HoverListener;
+import de.markusrother.swing.snap.SnapGridComponent;
 
 /**
  * 
@@ -23,14 +27,10 @@ import de.markusrother.swing.HoverListener;
 class EdgeComponent extends JComponent {
 
 	private static final Color standardColor = Color.BLACK;
-	private static final Color hoverColor = Color.RED;
+	private static final Color hoverColor = Color.BLUE;
+	private static final Color validColor = Color.GREEN;
+	private static final Color invalidColor = Color.RED;
 	private static final Stroke stroke = new BasicStroke(2);
-
-	private static double getRadiansOfDelta(final Point source, final Point target) {
-		final double x = target.getX() - source.getX();
-		final double y = target.getY() - source.getY();
-		return Math.atan2(y, x);
-	}
 
 	// TODO - allow different tip shapes
 	private static Polygon createTip(final double angle) {
@@ -54,14 +54,14 @@ class EdgeComponent extends JComponent {
 
 	Point source;
 	Point target;
-	Component sourceComponent;
-	Component targetComponent;
+	AbstractNode sourceComponent;
+	AbstractNode targetComponent;
 
 	private Polygon tip;
 	private Line2D line;
 	private Color fgColor;
 
-	public EdgeComponent(final Component sourceComponent, final Point source, final Point target) {
+	public EdgeComponent(final AbstractNode sourceComponent, final Point source, final Point target) {
 		this.sourceComponent = sourceComponent;
 		this.source = source;
 		this.target = target;
@@ -88,6 +88,12 @@ class EdgeComponent extends JComponent {
 		return g2;
 	}
 
+	private Point getGridRelativeLocation(final Point point) {
+		// TODO - this is a somewhat dirty hack! I left in the cast to
+		// illustrate the ugliness!
+		return delta(point, ((SnapGridComponent) getParent()).getLocationOnScreen());
+	}
+
 	public Class<?> getSourceType() {
 		return sourceComponent.getClass();
 	}
@@ -96,11 +102,7 @@ class EdgeComponent extends JComponent {
 		return targetComponent.getClass();
 	}
 
-	public boolean hasTargetComponent() {
-		return targetComponent != null;
-	}
-
-	private void setSource(final Point source) {
+	public void setSource(final Point source) {
 		this.source = source;
 		repaint();
 	}
@@ -110,26 +112,47 @@ class EdgeComponent extends JComponent {
 		repaint();
 	}
 
-	private void setSourceComponent(final Component sourceComponent) {
+	public AbstractNode getSourceComponent() {
+		return sourceComponent;
+	}
+
+	private void setSourceComponent(final AbstractNode sourceComponent) {
 		this.sourceComponent = sourceComponent;
 	}
 
-	public void setTargetComponent(final Component targetComponent) {
+	public AbstractNode getTargetComponent() {
+		return targetComponent;
+	}
+
+	public void setTargetComponent(final AbstractNode targetComponent) {
 		this.targetComponent = targetComponent;
 	}
 
+	public boolean hasTargetComponent() {
+		return targetComponent != null;
+	}
+
+	public void removeTargetComponent() {
+		targetComponent = null;
+	}
+
+	public boolean acceptsTarget(final Component component) {
+		return component instanceof AbstractNode //
+				&& sourceComponent.getClass() != component.getClass();
+	}
+
 	public void finishedDrawing() {
-		DragListener.addToComponent(sourceComponent, new DragListener() {
+		DragListener.addToComponent(getSourceComponent(), new DragListener() {
 			@Override
 			public void onDrag(final int deltaX, final int deltaY) {
-				source.translate(deltaX, deltaY);
+				connectToSource(getSourceComponent());
 				repaint();
 			}
 		});
-		DragListener.addToComponent(targetComponent, new DragListener() {
+		DragListener.addToComponent(getTargetComponent(), new DragListener() {
 			@Override
 			public void onDrag(final int deltaX, final int deltaY) {
-				target.translate(deltaX, deltaY);
+				connectToTarget(getTargetComponent());
 				repaint();
 			}
 		});
@@ -142,16 +165,19 @@ class EdgeComponent extends JComponent {
 
 			@Override
 			protected void startHover() {
-				fgColor = hoverColor;
-				repaint();
+				setColor(hoverColor);
 			}
 
 			@Override
 			protected void endHover() {
-				fgColor = standardColor;
-				repaint();
+				highlightStandard();
 			}
 		});
+	}
+
+	protected void setColor(final Color color) {
+		fgColor = color;
+		repaint();
 	}
 
 	boolean edgeContains(final Point point) {
@@ -159,6 +185,47 @@ class EdgeComponent extends JComponent {
 		// "lines never contain AREAS" WTF! A point is not an area...
 		// TODO - line thickness is variable!
 		return line != null && (line.ptSegDistSq(point) < 5 || tip.contains(point));
+	}
+
+	public void highlightValid() {
+		setColor(validColor);
+	}
+
+	public void highlightInvalid() {
+		setColor(invalidColor);
+	}
+
+	public void highlightStandard() {
+		setColor(standardColor);
+	}
+
+	public double getAngle() {
+		return getRadiansOfDelta(source, target);
+	}
+
+	private Point round(final Point2D point) {
+		return new Point( //
+				(int) Math.floor(point.getX() + 0.5), //
+				(int) Math.floor(point.getY() + 0.5));
+	}
+
+	public void connectToTarget(final AbstractNode node) {
+		// TODO - make nicer
+		final double angle = getAngle();
+		final Point intersection = node.getLocationOnScreen();
+		// TODO - must rotate because...
+		final Point boundary = round(node.getIntersectionWithBounds(angle + Math.PI));
+		intersection.translate(boundary.x, boundary.y);
+		setTarget(getGridRelativeLocation(intersection));
+	}
+
+	public void connectToSource(final AbstractNode node) {
+		// TODO - make nicer
+		final double angle = getAngle();
+		final Point intersection = node.getLocationOnScreen();
+		final Point boundary = round(node.getIntersectionWithBounds(angle));
+		intersection.translate(boundary.x, boundary.y);
+		setSource(getGridRelativeLocation(intersection));
 	}
 
 }

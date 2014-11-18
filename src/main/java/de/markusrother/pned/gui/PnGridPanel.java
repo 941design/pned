@@ -67,11 +67,11 @@ class PnGridPanel extends JPanel {
 
 	private void addEdgeCreationListener(final JComponent component) {
 		component.addMouseListener(edgeEditListener);
-		component.addMouseMotionListener(edgeEditListener);
+		// component.addMouseMotionListener(edgeEditListener);
 	}
 
-	Point getGridRelativeLocation(final Point point) {
-		return delta(point, snapGrid.getLocationOnScreen());
+	Point getGridRelativeLocation(final Point pointOnScreen) {
+		return delta(pointOnScreen, snapGrid.getLocationOnScreen());
 	}
 
 	public boolean getState() {
@@ -106,7 +106,7 @@ class PnGridPanel extends JPanel {
 		return point;
 	}
 
-	public EdgeComponent createEdge(final Component sourceComponent, final Point target) {
+	public EdgeComponent createEdge(final AbstractNode sourceComponent, final Point target) {
 		final Point source = getCenter(sourceComponent);
 		final EdgeComponent edge = new EdgeComponent(sourceComponent, source, target);
 		edge.setBounds(0, 0, getWidth(), getHeight());
@@ -131,15 +131,16 @@ class PnGridPanel extends JPanel {
 		@Override
 		public void mouseClicked(final MouseEvent e) {
 			if (edge != null) {
-				if (edge.hasTargetComponent() && edge.getTargetType() != edge.getSourceType()) {
-					edge.setTargetComponent(e.getComponent());
+				// TODO - edge should never have invalid targetComponent!
+				if (edge.acceptsTarget(e.getComponent())) {
+					edge.setTargetComponent((AbstractNode) e.getComponent());
 					edge.finishedDrawing();
 				} else {
 					removeEdge(edge);
 				}
 				edge = null;
 			} else {
-				edge = createEdge(e.getComponent(), getGridRelativeLocation(e.getLocationOnScreen()));
+				edge = createEdge((AbstractNode) e.getComponent(), getGridRelativeLocation(e.getLocationOnScreen()));
 			}
 		}
 
@@ -148,6 +149,26 @@ class PnGridPanel extends JPanel {
 			if (edge != null) {
 				edge.setTarget(getGridRelativeLocation(e.getLocationOnScreen()));
 				repaint();
+			}
+		}
+
+		@Override
+		public void mouseEntered(final MouseEvent e) {
+			if (edge != null) {
+				final Component possibleTarget = e.getComponent();
+				if (edge.acceptsTarget(possibleTarget)) {
+					edge.connectToTarget((AbstractNode) possibleTarget);
+					edge.highlightValid();
+				} else {
+					edge.highlightInvalid();
+				}
+			}
+		}
+
+		@Override
+		public void mouseExited(final MouseEvent e) {
+			if (edge != null) {
+				edge.highlightStandard();
 			}
 		}
 
