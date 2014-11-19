@@ -16,4 +16,16 @@ public class NodeMovedEvent extends ActionEvent {
 		this.deltaY = deltaY;
 	}
 
+	public List<AbstractNode> getNodes() {
+		return nodes;
+	}
+
+	public int getDeltaX() {
+		return deltaX;
+	}
+
+	public int getDeltaY() {
+		return deltaY;
+	}
+
 }

@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import de.markusrother.swing.DragDropAdapter;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 import de.markusrother.swing.snap.SnapGridComponent;
@@ -88,6 +87,8 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 			}
 		});
 		snapGrid.createSnapTarget(toggleBtn, new Point(100, 100));
+		// TODO - Make this a lazy initialized singleton! First try if a static
+		// singleton works, too
 		eventBus = new EventBus();
 		eventBus.addNodeSelectionListener(this);
 	}
@@ -161,17 +162,20 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 		final Rectangle r = new Rectangle(node.getLocation(), label.getPreferredSize());
 		r.translate(0, -label.getPreferredSize().height);
 		label.setBounds(r);
-		DragDropListener.addToComponent(node, new DragDropAdapter() {
+		snapGrid.add(label);
+		eventBus.addNodeMotionListener(new NodeMotionListener() {
 
 			@Override
-			public void onDrag(final Component component, final int deltaX, final int deltaY) {
-				final Rectangle r = label.getBounds();
-				r.translate(deltaX, deltaY);
-				label.setBounds(r);
-				label.repaint();
+			public void nodeMoved(final NodeMovedEvent event) {
+				if (event.getNodes().contains(node)) {
+					final Rectangle r = label.getBounds();
+					r.translate(event.getDeltaX(), event.getDeltaY());
+					System.out.println(event.getDeltaX() + " " + event.getDeltaY());
+					label.setBounds(r);
+					label.repaint();
+				}
 			}
 		});
-		snapGrid.add(label);
 		return label;
 	}
 
@@ -220,8 +224,8 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 			// component overlaps the grid!
 			// TODO - maybe the edge should in turn receive a listener for edge
 			// creation events.
-			edge.addMouseMotionListener(edgeEditListener);
-			edge.addMouseListener(nodeCreationListener);
+			edge.addMouseMotionListener(this);
+			edge.addMouseListener(this);
 		}
 
 		@Override
@@ -306,13 +310,14 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 	@Override
 	public void nodesSelected(final NodeSelectionEvent event) {
 		final List<AbstractNode> nodes = event.getNodes();
+		// TODO - Extract MultiSelectionDragDropListener
 		final DragDropListener dragListener = new DragDropListener() {
 
-			Point dragStart;
+			Point absStart;
 
 			@Override
 			public void startDrag(final Component component, final Point point) {
-				dragStart = point;
+				absStart = component.getLocation();
 			}
 
 			@Override
@@ -327,11 +332,13 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 
 			@Override
 			public void endDrag(final Component component, final Point dragEnd) {
+				final Point absEnd = component.getLocation();
 				for (final AbstractNode node : nodes) {
 					DragDropListener.removeFromComponent(node, this);
 				}
-				final Point delta = delta(dragStart, dragEnd);
+				final Point delta = delta(absEnd, absStart);
 				eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(UNSELECTED, this, nodes));
+				// TODO - after all, we may want to fire constantly...
 				eventBus.fireNodeMovedEvent(new NodeMovedEvent(this, nodes, delta.x, delta.y));
 			}
 

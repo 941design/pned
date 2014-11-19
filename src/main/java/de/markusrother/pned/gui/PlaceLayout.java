@@ -8,6 +8,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 // TODO - make inner class of Place
+// TODO - create LayoutManagerAdapter?
+/**
+ * used to manage markings in places
+ */
 public class PlaceLayout implements LayoutManager {
 
 	public static final String CENTER = "CENTER";
@@ -60,7 +64,6 @@ public class PlaceLayout implements LayoutManager {
 					(int) Math.floor(centerY - offsetY + 0.5));
 			// System.out.println(origin);
 			center.setBounds(new Rectangle(origin, d));
-
 		}
 	}
 

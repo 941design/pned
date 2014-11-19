@@ -1,45 +1,36 @@
 package de.markusrother.pned.gui;
 
-import java.awt.Component;
 import java.awt.LayoutManager;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 
 import javax.swing.JPanel;
 
-import de.markusrother.swing.DragDropAdapter;
+import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 
 public abstract class AbstractNode extends JPanel implements NodeSelectionListener {
 
+	// TODO - Should be used as EnumSet!
 	public enum State {
 		DEFAULT, //
-		HOVER, //
+		HOVER, // HOVERED
 		SELECTED, //
+		// TODO - UNSELECTABLE/SELECTABLE, MULTISELECTED, DRAGGED
 	}
 
 	private static final LayoutManager NO_LAYOUT_MANAGER = null;
 
-	private final DragDropListener dragListener;
+	private final DragDropListener dragDropListener;
 
 	private State state;
 
 	public AbstractNode(final LayoutManager layoutManager) {
 		super(layoutManager);
-		this.state = State.DEFAULT;
-		this.dragListener = new DragDropAdapter() {
-
-			@Override
-			public void onDrag(final Component component, final int deltaX, final int deltaY) {
-				final Rectangle r = getBounds();
-				r.translate(deltaX, deltaY);
-				setBounds(r);
-			}
-
-		};
-		DragDropListener.addToComponent(this, dragListener);
+		this.state = State.DEFAULT; // TODO - empty EnumSet
+		this.dragDropListener = new DefaultDragDropListener(this);
+		DragDropListener.addToComponent(this, dragDropListener);
 	}
 
 	public AbstractNode() {
@@ -48,6 +39,7 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 
 	/**
 	 * @param theta
+	 *            growing clockwise
 	 * @return A Point on the boundary of this.getShape().
 	 */
 	public abstract Point2D getIntersectionWithBounds(final double theta);
@@ -62,11 +54,11 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 	abstract void setLayout(State state);
 
 	protected void suspendSingleDragListener() {
-		DragDropListener.removeFromComponent(this, dragListener);
+		DragDropListener.removeFromComponent(this, dragDropListener);
 	}
 
 	protected void resumeDragListener() {
-		DragDropListener.addToComponent(this, dragListener);
+		DragDropListener.addToComponent(this, dragDropListener);
 	}
 
 	protected void suspendHoverListener() {

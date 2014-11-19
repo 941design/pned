@@ -18,7 +18,8 @@ import de.markusrother.swing.snap.SnapGridComponent;
 
 /**
  * TODO - make generic of selected component type
- *
+ * 
+ * Class used to mark nodes a.k.a select them for future processing.
  */
 public class NodeSelector extends DragDropListener {
 
@@ -27,13 +28,30 @@ public class NodeSelector extends DragDropListener {
 	public NodeSelector() {
 	}
 
+	private JPanel createSelectionPanel(final Point origin) {
+		final JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(Color.CYAN, 2));
+		panel.setBounds(new Rectangle(origin, new Dimension()));
+		panel.setOpaque(false);
+		return panel;
+	}
+
+	private List<AbstractNode> collectSelectedNodes(final SnapGridComponent sgc, final Rectangle r) {
+		// TODO - get rid of SnapTarget!
+		final List<AbstractNode> selection = new LinkedList<>();
+		for (final Component c : sgc.getComponents()) {
+			if (c instanceof AbstractNode && r.contains(c.getLocation())) {
+				final AbstractNode node = (AbstractNode) c;
+				selection.add(node);
+			}
+		}
+		return selection;
+	}
+
 	@Override
-	public void startDrag(final Component component, final Point point) {
+	public void startDrag(final Component component, final Point origin) {
 		final SnapGridComponent sgc = (SnapGridComponent) component;
-		selectionPanel = new JPanel();
-		selectionPanel.setBorder(new LineBorder(Color.CYAN, 2));
-		selectionPanel.setBounds(new Rectangle(point, new Dimension()));
-		selectionPanel.setOpaque(false);
+		this.selectionPanel = createSelectionPanel(origin);
 		// TODO - make sure panel is on top of nodes! selection layer?
 		sgc.add(selectionPanel);
 		sgc.repaint();
@@ -85,17 +103,5 @@ public class NodeSelector extends DragDropListener {
 		// sgc.revalidate();
 		sgc.repaint();
 		selectionPanel = null;
-	}
-
-	private List<AbstractNode> collectSelectedNodes(final SnapGridComponent sgc, final Rectangle r) {
-		// TODO - get rid of SnapTarget!
-		final List<AbstractNode> selection = new LinkedList<>();
-		for (final Component c : sgc.getComponents()) {
-			if (c instanceof AbstractNode && r.contains(c.getLocation())) {
-				final AbstractNode node = (AbstractNode) c;
-				selection.add(node);
-			}
-		}
-		return selection;
 	}
 }

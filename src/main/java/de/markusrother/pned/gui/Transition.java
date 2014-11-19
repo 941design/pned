@@ -77,22 +77,22 @@ class Transition extends AbstractNode {
 
 	@Override
 	public Point2D getIntersectionWithBounds(final double theta) {
-		final double t = modPi(theta);
+		final double t = modPi(theta); // -PI <= t <= PI
 		// TODO - Assumes that rectangle origin is 0,0!
 		final Rectangle r = getRectangle();
 		final double absTheta = Math.abs(t);
 		if (absTheta <= PI * 0.25) {
 			// theta intersects with right vertical.
-			return new Point2D.Double(r.width, r.height / 2.0 * (1 + Math.tan(theta)));
+			return new Point2D.Double(r.width, r.height * (1 + Math.tan(theta)) / 2.0);
 		} else if (absTheta >= PI * 0.75) {
 			// theta intersects with left vertical.
-			return new Point2D.Double(0, r.height / 2.0 * (1 - Math.tan(theta)));
+			return new Point2D.Double(0, r.height * (1 - Math.tan(theta)) / 2.0);
 		} else if (t > 0) {
 			// theta intersects with top horizontal.
-			return new Point2D.Double(r.width / 2.0 * (1 - Math.cos(theta + PI)), r.height);
+			return new Point2D.Double(r.width * (1 - Math.cos(theta + PI)) / 2.0, r.height);
 		} else if (t < 0) {
 			// theta intersects with bottom horizontal.
-			return new Point2D.Double(r.width / 2.0 * (1 - Math.cos(theta + PI)), 0);
+			return new Point2D.Double(r.width * (1 - Math.cos(theta + PI)) / 2.0, 0);
 		} else {
 			throw new IllegalStateException();
 		}

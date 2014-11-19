@@ -58,6 +58,11 @@ public class EventBus implements AWTEventListener {
 			default:
 				throw new IllegalStateException();
 			}
+		} else if (event instanceof NodeMovedEvent) {
+			final NodeMovedEvent nodeMovedEvent = (NodeMovedEvent) event;
+			for (final NodeMotionListener l : listeners.getListeners(NodeMotionListener.class)) {
+				l.nodeMoved(nodeMovedEvent);
+			}
 		}
 	}
 }

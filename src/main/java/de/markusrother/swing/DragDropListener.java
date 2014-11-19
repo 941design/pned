@@ -53,8 +53,20 @@ public abstract class DragDropListener extends MouseAdapter {
 		}
 	}
 
+	/**
+	 * 
+	 * @param component
+	 * @param point
+	 *            in component
+	 */
 	public abstract void startDrag(Component component, Point point);
 
+	/**
+	 * 
+	 * @param component
+	 * @param point
+	 *            in component
+	 */
 	public abstract void endDrag(Component component, Point point);
 
 	/**
