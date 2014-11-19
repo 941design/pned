@@ -47,7 +47,6 @@ class PnGridPanel extends JPanel {
 	private final SnapGridComponent snapGrid;
 	private final MouseAdapter edgeEditListener;
 	private final MouseAdapter nodeCreationListener;
-	private final HoverListener nodeHoverListener;
 	private final DragListener nodeSelectionListener;
 	private boolean state;
 
@@ -70,25 +69,6 @@ class PnGridPanel extends JPanel {
 		edgeEditListener = new EdgeEditListener();
 		nodeCreationListener = new NodeCreationListener();
 		nodeSelectionListener = new NodeSelectionListener(this);
-		nodeHoverListener = new HoverListener() {
-
-			@Override
-			protected void startHover(final Component component) {
-				final AbstractNode node = (AbstractNode) component;
-				node.setState(AbstractNode.State.HOVER);
-			}
-
-			@Override
-			protected boolean inHoverArea(final Point p) {
-				return true;
-			}
-
-			@Override
-			protected void endHover(final Component component) {
-				final AbstractNode node = (AbstractNode) component;
-				node.setState(AbstractNode.State.DEFAULT);
-			}
-		};
 		add(snapGrid);
 		snapGrid.addMouseListener(nodeCreationListener);
 		snapGrid.addMouseMotionListener(edgeEditListener);
@@ -115,7 +95,8 @@ class PnGridPanel extends JPanel {
 	}
 
 	private void addPlaceEditListener(final Place place) {
-		// TODO - create Subclass!
+		// TODO - This belongs to place and could then be broadcasted on
+		// the general message bus.
 		place.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(final MouseEvent e) {
@@ -126,7 +107,7 @@ class PnGridPanel extends JPanel {
 				}
 			}
 		});
-		HoverListener.addToComponent(place, nodeHoverListener);
+		HoverListener.addToComponent(place, NodeHoverListener.INSTANCE);
 	}
 
 	private void addTransitionEditListener(final Transition transition) {
@@ -134,7 +115,7 @@ class PnGridPanel extends JPanel {
 		transition.addMouseListener(new MouseAdapter() {
 
 		});
-		HoverListener.addToComponent(transition, nodeHoverListener);
+		HoverListener.addToComponent(transition, NodeHoverListener.INSTANCE);
 	}
 
 	Point getGridRelativeLocation(final Point pointOnScreen) {

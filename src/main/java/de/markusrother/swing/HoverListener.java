@@ -37,7 +37,7 @@ public abstract class HoverListener extends MouseAdapter {
 
 	// TODO - this should default to the component area. Either create another
 	// constructor which takes a predicate or create a subclass where this
-	// method is abstract.
+	// method is abstract. Alternatively, getHoverArea() -> Shape
 	protected abstract boolean inHoverArea(Point p);
 
 	protected abstract void startHover(Component component);
