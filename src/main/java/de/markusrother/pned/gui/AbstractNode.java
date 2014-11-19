@@ -2,14 +2,14 @@ package de.markusrother.pned.gui;
 
 import java.awt.Component;
 import java.awt.LayoutManager;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 
 import javax.swing.JPanel;
 
-import de.markusrother.swing.DragListener;
+import de.markusrother.swing.DragDropAdapter;
+import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 
 public abstract class AbstractNode extends JPanel implements NodeSelectionListener {
@@ -22,19 +22,14 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 
 	private static final LayoutManager NO_LAYOUT_MANAGER = null;
 
-	private final DragListener dragListener;
+	private final DragDropListener dragListener;
 
 	private State state;
 
 	public AbstractNode(final LayoutManager layoutManager) {
 		super(layoutManager);
 		this.state = State.DEFAULT;
-		this.dragListener = new DragListener() {
-
-			@Override
-			public void startDrag(final Component component, final Point point) {
-				// IGNORE
-			}
+		this.dragListener = new DragDropAdapter() {
 
 			@Override
 			public void onDrag(final Component component, final int deltaX, final int deltaY) {
@@ -43,13 +38,8 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 				setBounds(r);
 			}
 
-			@Override
-			public void endDrag(final Component component, final Point point) {
-				// IGNORE
-			}
-
 		};
-		DragListener.addToComponent(this, dragListener);
+		DragDropListener.addToComponent(this, dragListener);
 	}
 
 	public AbstractNode() {
@@ -72,11 +62,11 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 	abstract void setLayout(State state);
 
 	protected void suspendSingleDragListener() {
-		DragListener.removeFromComponent(this, dragListener);
+		DragDropListener.removeFromComponent(this, dragListener);
 	}
 
 	protected void resumeDragListener() {
-		DragListener.addToComponent(this, dragListener);
+		DragDropListener.addToComponent(this, dragListener);
 	}
 
 	protected void suspendHoverListener() {

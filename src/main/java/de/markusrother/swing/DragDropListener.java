@@ -5,14 +5,14 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public abstract class DragListener extends MouseAdapter {
+public abstract class DragDropListener extends MouseAdapter {
 
-	public static void addToComponent(final Component component, final DragListener listener) {
+	public static void addToComponent(final Component component, final DragDropListener listener) {
 		component.addMouseListener(listener);
 		component.addMouseMotionListener(listener);
 	}
 
-	public static void removeFromComponent(final Component component, final DragListener listener) {
+	public static void removeFromComponent(final Component component, final DragDropListener listener) {
 		component.removeMouseListener(listener);
 		component.removeMouseMotionListener(listener);
 	}

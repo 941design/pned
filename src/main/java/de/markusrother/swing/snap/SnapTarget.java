@@ -8,7 +8,8 @@ import java.util.List;
 
 import javax.swing.JLayeredPane;
 
-import de.markusrother.swing.DragListener;
+import de.markusrother.swing.DragDropAdapter;
+import de.markusrother.swing.DragDropListener;
 
 public class SnapTarget extends JLayeredPane {
 
@@ -44,12 +45,7 @@ public class SnapTarget extends JLayeredPane {
 		// Adding component layer:
 		targetComponent.setBounds(new Rectangle(componentOrigin, componentDimension));
 		// TODO - decouple listeners from this! And Create a draggable subclass!
-		final DragListener l = new DragListener() {
-
-			@Override
-			public void startDrag(final Component component, final Point point) {
-				// IGNORE
-			}
+		final DragDropListener l = new DragDropAdapter() {
 
 			@Override
 			public void onDrag(final Component component, final int deltaX, final int deltaY) {
@@ -57,11 +53,6 @@ public class SnapTarget extends JLayeredPane {
 				r.translate(deltaX, deltaY);
 				setBounds(r);
 				fireComponentMovedEvent(deltaX, deltaY);
-			}
-
-			@Override
-			public void endDrag(final Component component, final Point point) {
-				// IGNORE
 			}
 
 		};

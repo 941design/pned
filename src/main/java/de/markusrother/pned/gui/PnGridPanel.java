@@ -19,7 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import de.markusrother.swing.DragListener;
+import de.markusrother.swing.DragDropAdapter;
+import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 import de.markusrother.swing.snap.SnapGridComponent;
 
@@ -47,7 +48,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 	private final SnapGridComponent snapGrid;
 	private final MouseAdapter edgeEditListener;
 	private final MouseAdapter nodeCreationListener;
-	private final DragListener nodeSelectionListener;
+	private final DragDropListener nodeSelectionListener;
 	private boolean state;
 
 	public static Point delta(final Point a, final Point b) {
@@ -72,7 +73,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 		add(snapGrid);
 		snapGrid.addMouseListener(nodeCreationListener);
 		snapGrid.addMouseMotionListener(edgeEditListener);
-		DragListener.addToComponent(snapGrid, nodeSelectionListener);
+		DragDropListener.addToComponent(snapGrid, nodeSelectionListener);
 		//
 		// Adding state type toggle
 		final PnGridPanel that = this;
@@ -160,17 +161,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 		final Rectangle r = new Rectangle(node.getLocation(), label.getPreferredSize());
 		r.translate(0, -label.getPreferredSize().height);
 		label.setBounds(r);
-		DragListener.addToComponent(node, new DragListener() {
-
-			@Override
-			public void startDrag(final Component component, final Point point) {
-				// IGNORE
-			}
-
-			@Override
-			public void endDrag(final Component component, final Point point) {
-				// IGNORE
-			}
+		DragDropListener.addToComponent(node, new DragDropAdapter() {
 
 			@Override
 			public void onDrag(final Component component, final int deltaX, final int deltaY) {
@@ -315,7 +306,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 	@Override
 	public void nodesSelected(final NodeSelectionEvent event) {
 		final List<AbstractNode> nodes = event.getNodes();
-		final DragListener dragListener = new DragListener() {
+		final DragDropListener dragListener = new DragDropListener() {
 
 			Point dragStart;
 
@@ -337,7 +328,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 			@Override
 			public void endDrag(final Component component, final Point dragEnd) {
 				for (final AbstractNode node : nodes) {
-					DragListener.removeFromComponent(node, this);
+					DragDropListener.removeFromComponent(node, this);
 				}
 				final Point delta = delta(dragStart, dragEnd);
 				eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(UNSELECTED, this, nodes));
@@ -346,7 +337,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 
 		};
 		for (final AbstractNode node : nodes) {
-			DragListener.addToComponent(node, dragListener);
+			DragDropListener.addToComponent(node, dragListener);
 		}
 	}
 

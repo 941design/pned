@@ -17,7 +17,8 @@ import java.awt.geom.Point2D;
 
 import javax.swing.JComponent;
 
-import de.markusrother.swing.DragListener;
+import de.markusrother.swing.DragDropAdapter;
+import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 import de.markusrother.swing.snap.SnapGridComponent;
 
@@ -144,12 +145,7 @@ class EdgeComponent extends JComponent {
 	public void finishedDrawing() {
 		// TODO - Must retrieve components dynamically, in case they change (not
 		// yet implemented).
-		final DragListener dragListener = new DragListener() {
-
-			@Override
-			public void startDrag(final Component component, final Point point) {
-				// IGNORE
-			}
+		final DragDropListener dragListener = new DragDropAdapter() {
 
 			@Override
 			public void onDrag(final Component component, final int deltaX, final int deltaY) {
@@ -158,14 +154,9 @@ class EdgeComponent extends JComponent {
 				repaint();
 			}
 
-			@Override
-			public void endDrag(final Component component, final Point point) {
-				// IGNORE
-			}
-
 		};
-		DragListener.addToComponent(getSourceComponent(), dragListener);
-		DragListener.addToComponent(getTargetComponent(), dragListener);
+		DragDropListener.addToComponent(getSourceComponent(), dragListener);
+		DragDropListener.addToComponent(getTargetComponent(), dragListener);
 		HoverListener.addToComponent(this, new HoverListener() {
 
 			@Override

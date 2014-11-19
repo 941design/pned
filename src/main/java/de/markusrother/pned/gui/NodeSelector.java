@@ -13,14 +13,14 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import de.markusrother.swing.DragListener;
+import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.snap.SnapGridComponent;
 
 /**
  * TODO - make generic of selected component type
  *
  */
-public class NodeSelector extends DragListener {
+public class NodeSelector extends DragDropListener {
 
 	private JPanel selectionPanel;
 
