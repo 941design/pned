@@ -1,5 +1,6 @@
 package de.markusrother.pned.gui;
 
+import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -291,8 +292,8 @@ class PnGridPanel extends JPanel {
 			} else {
 				createPlace(point);
 			}
+			dispatchEvent(new FooEvent(this, 12345)); // TODO
 		}
-
 	}
 
 	private class NodeSelectionListener extends DragListener {
@@ -404,6 +405,13 @@ class PnGridPanel extends JPanel {
 			}
 			return selection;
 		}
+	}
+
+	@Override
+	protected void processEvent(final AWTEvent e) {
+		super.processEvent(e);
+		// System.out.println(e.getClass());
+		// TODO - Then, if event is of given type, iterate over listeners
 	}
 
 }
