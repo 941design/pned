@@ -1,6 +1,5 @@
 package de.markusrother.pned.gui;
 
-import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -32,11 +31,13 @@ import de.markusrother.swing.snap.SnapGridComponent;
  * TODO - Dispatch all events to all layers: the grid (node layer), the edge
  * layer, and possibly the root layer, using layer.dispatchEvent(e).
  */
-class PnGridPanel extends JPanel {
+class PnGridPanel extends JPanel implements NodeSelectionListener {
 
 	private static final Dimension preferredSize = new Dimension(500, 500);
 	private static final Dimension transitionDimensions = new Dimension(50, 50);
 	private static final Dimension placeDimensions = new Dimension(50, 50);
+
+	static EventBus eventBus;
 
 	private final SnapGridComponent snapGrid;
 	private final MouseAdapter edgeEditListener;
@@ -62,7 +63,7 @@ class PnGridPanel extends JPanel {
 		snapGrid.setPreferredSize(preferredSize);
 		edgeEditListener = new EdgeEditListener();
 		nodeCreationListener = new NodeCreationListener();
-		nodeSelectionListener = new NodeSelectionListener();
+		nodeSelectionListener = new NodeSelector();
 		add(snapGrid);
 		snapGrid.addMouseListener(nodeCreationListener);
 		snapGrid.addMouseMotionListener(edgeEditListener);
@@ -81,6 +82,8 @@ class PnGridPanel extends JPanel {
 			}
 		});
 		snapGrid.createSnapTarget(toggleBtn, new Point(100, 100));
+		eventBus = new EventBus();
+		eventBus.addNodeSelectionListener(this);
 	}
 
 	private void addEdgeCreationListener(final JComponent component) {
@@ -267,15 +270,14 @@ class PnGridPanel extends JPanel {
 			} else {
 				createPlace(point);
 			}
-			dispatchEvent(new FooEvent(this, 12345)); // TODO
+			// TODO - components may dispatch action events directly:
+			// dispatchEvent(new FooEvent(this, ActionEvent.ACTION_PERFORMED));
 		}
 	}
 
 	@Override
-	protected void processEvent(final AWTEvent e) {
-		super.processEvent(e);
-		// System.out.println(e.getClass());
-		// TODO - Then, if event is of given type, iterate over listeners
+	public void nodesSelected(final NodeSelectionEvent event) {
+		System.out.println("pn grid notified");
 	}
 
 }
