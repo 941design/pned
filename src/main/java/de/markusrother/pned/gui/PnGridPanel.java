@@ -15,6 +15,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -138,6 +139,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 		snapGrid.repaint();
 		addEdgeCreationListener(place);
 		addPlaceEditListener(place);
+		createLabel(place, "test");
 		return place;
 	}
 
@@ -151,6 +153,35 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 		addEdgeCreationListener(transition);
 		addTransitionEditListener(transition);
 		return transition;
+	}
+
+	public JLabel createLabel(final AbstractNode node, final String name) {
+		final JLabel label = new JLabel(name);
+		final Rectangle r = new Rectangle(node.getLocation(), label.getPreferredSize());
+		r.translate(0, -label.getPreferredSize().height);
+		label.setBounds(r);
+		DragListener.addToComponent(node, new DragListener() {
+
+			@Override
+			public void startDrag(final Component component, final Point point) {
+				// IGNORE
+			}
+
+			@Override
+			public void endDrag(final Component component, final Point point) {
+				// IGNORE
+			}
+
+			@Override
+			public void onDrag(final Component component, final int deltaX, final int deltaY) {
+				final Rectangle r = label.getBounds();
+				r.translate(deltaX, deltaY);
+				label.setBounds(r);
+				label.repaint();
+			}
+		});
+		snapGrid.add(label);
+		return label;
 	}
 
 	private Point getCenter(final Component component) {
@@ -286,9 +317,11 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 		final List<AbstractNode> nodes = event.getNodes();
 		final DragListener dragListener = new DragListener() {
 
+			Point dragStart;
+
 			@Override
 			public void startDrag(final Component component, final Point point) {
-				// IGNORE
+				dragStart = point;
 			}
 
 			@Override
@@ -302,11 +335,13 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 			}
 
 			@Override
-			public void endDrag(final Component component, final Point point) {
+			public void endDrag(final Component component, final Point dragEnd) {
 				for (final AbstractNode node : nodes) {
 					DragListener.removeFromComponent(node, this);
 				}
+				final Point delta = delta(dragStart, dragEnd);
 				eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(UNSELECTED, this, nodes));
+				eventBus.fireNodeMovedEvent(new NodeMovedEvent(this, nodes, delta.x, delta.y));
 			}
 
 		};

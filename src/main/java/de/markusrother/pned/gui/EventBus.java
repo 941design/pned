@@ -15,10 +15,22 @@ public class EventBus implements AWTEventListener {
 	private final EventListenerList listeners = new EventListenerList();
 
 	public void addNodeSelectionListener(final NodeSelectionListener l) {
+		// TODO - should be defined in an interface
 		listeners.add(NodeSelectionListener.class, l);
 	}
 
+	public void addNodeMotionListener(final NodeMotionListener l) {
+		// TODO - should be defined in an interface
+		listeners.add(NodeMotionListener.class, l);
+	}
+
 	public void fireNodeSelectionEvent(final NodeSelectionEvent e) {
+		// TODO - should be defined in an interface
+		eventDispatched(e);
+	}
+
+	public void fireNodeMovedEvent(final NodeMovedEvent e) {
+		// TODO - should be defined in an interface
 		eventDispatched(e);
 	}
 
