@@ -18,7 +18,7 @@ public class EventBus implements AWTEventListener {
 		listeners.add(NodeSelectionListener.class, l);
 	}
 
-	public void nodesSelected(final NodeSelectionEvent e) {
+	public void fireNodeSelectionEvent(final NodeSelectionEvent e) {
 		eventDispatched(e);
 	}
 
@@ -31,9 +31,20 @@ public class EventBus implements AWTEventListener {
 	@Override
 	public void eventDispatched(final AWTEvent event) {
 		if (event instanceof NodeSelectionEvent) {
-			// TODO - dispatch method according to type!
-			for (final NodeSelectionListener l : listeners.getListeners(NodeSelectionListener.class)) {
-				l.nodesSelected((NodeSelectionEvent) event);
+			final NodeSelectionEvent nodeSelectionEvent = (NodeSelectionEvent) event;
+			switch (nodeSelectionEvent.getType()) {
+			case SELECTED:
+				for (final NodeSelectionListener l : listeners.getListeners(NodeSelectionListener.class)) {
+					l.nodesSelected(nodeSelectionEvent);
+				}
+				break;
+			case UNSELECTED:
+				for (final NodeSelectionListener l : listeners.getListeners(NodeSelectionListener.class)) {
+					l.nodesUnselected(nodeSelectionEvent);
+				}
+				break;
+			default:
+				throw new IllegalStateException();
 			}
 		}
 	}

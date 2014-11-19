@@ -12,6 +12,11 @@ public abstract class DragListener extends MouseAdapter {
 		component.addMouseMotionListener(listener);
 	}
 
+	public static void removeFromComponent(final Component component, final DragListener listener) {
+		component.removeMouseListener(listener);
+		component.removeMouseMotionListener(listener);
+	}
+
 	private Point point;
 	private boolean started;
 

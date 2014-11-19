@@ -1,5 +1,7 @@
 package de.markusrother.pned.gui;
 
+import static de.markusrother.pned.gui.PnGridPanel.eventBus;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -36,6 +38,7 @@ public class Place extends AbstractNode {
 		this.marking = new JLabel("23");
 		add(this.marking, PlaceLayout.CENTER);
 		setOpaque(false);
+		eventBus.addNodeSelectionListener(this);
 	}
 
 	@Override
@@ -95,6 +98,26 @@ public class Place extends AbstractNode {
 
 	public void setMarking(final String string) {
 		this.marking.setText(string);
+	}
+
+	@Override
+	public void nodesSelected(final NodeSelectionEvent event) {
+		// TODO - to improve performance iteration, the grid/container could
+		// instead listen to this event!
+		if (event.getNodes().contains(this)) {
+			suspendSingleDragListener();
+			suspendHoverListener();
+			setState(State.SELECTED); // TODO - in multiselection
+		}
+	}
+
+	@Override
+	public void nodesUnselected(final NodeSelectionEvent event) {
+		if (event.getNodes().contains(this)) {
+			resumeDragListener();
+			resumeHoverListener();
+			setState(State.DEFAULT); // TODO - in multiselection
+		}
 	}
 
 }

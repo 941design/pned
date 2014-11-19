@@ -97,4 +97,16 @@ class Transition extends AbstractNode {
 			throw new IllegalStateException();
 		}
 	}
+
+	@Override
+	public void nodesSelected(final NodeSelectionEvent event) {
+		// TODO
+		throw new RuntimeException("TODO");
+	}
+
+	@Override
+	public void nodesUnselected(final NodeSelectionEvent event) {
+		// TODO
+		throw new RuntimeException("TODO");
+	}
 }

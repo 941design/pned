@@ -1,21 +1,20 @@
 package de.markusrother.pned.gui;
 
+import static de.markusrother.pned.gui.NodeSelectionEvent.Type.SELECTED;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import de.markusrother.pned.gui.AbstractNode.State;
 import de.markusrother.swing.DragListener;
 import de.markusrother.swing.snap.SnapGridComponent;
-import de.markusrother.swing.snap.SnapTarget;
 
 /**
  * TODO - make generic of selected component type
@@ -51,7 +50,8 @@ public class NodeSelector extends DragListener {
 		final SnapGridComponent sgc = (SnapGridComponent) component;
 		final Rectangle r = selectionPanel.getBounds();
 		final List<AbstractNode> nodes = collectSelectedNodes(sgc, r);
-		PnGridPanel.eventBus.nodesSelected(new NodeSelectionEvent(sgc, nodes));
+		PnGridPanel.eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECTED, sgc, nodes));
+
 		// Now we have a selection, and need to do something with it. Obtaining
 		// the selection, altered global state. Many other actions have to
 		// respect that we are now in selection mode, e.g. starting another, new
@@ -81,49 +81,6 @@ public class NodeSelector extends DragListener {
 		// responsible instance take care of it. The event bus could be a
 		// singleton.
 
-		// TODO - SelectionDragListener
-		final DragListener listener = new DragListener() {
-
-			@Override
-			public void mouseClicked(final MouseEvent e) {
-				super.mouseClicked(e);
-				e.consume();
-			}
-
-			@Override
-			public void mouseEntered(final MouseEvent e) {
-				super.mouseEntered(e);
-				e.consume();
-			}
-
-			@Override
-			public void mouseExited(final MouseEvent e) {
-				super.mouseExited(e);
-				e.consume();
-			}
-
-			@Override
-			public void startDrag(final Component component, final Point point) {
-				// TODO
-				throw new RuntimeException("TODO");
-			}
-
-			@Override
-			public void onDrag(final Component component, final int deltaX, final int deltaY) {
-				// TODO
-				throw new RuntimeException("TODO");
-			}
-
-			@Override
-			public void endDrag(final Component component, final Point point) {
-				// TODO
-				throw new RuntimeException("TODO");
-			}
-		};
-		for (final AbstractNode node : nodes) {
-			node.setState(State.SELECTED);
-			DragListener.addToComponent(selectionPanel, listener);
-		}
 		sgc.remove(selectionPanel);
 		// sgc.revalidate();
 		sgc.repaint();
@@ -134,9 +91,8 @@ public class NodeSelector extends DragListener {
 		// TODO - get rid of SnapTarget!
 		final List<AbstractNode> selection = new LinkedList<>();
 		for (final Component c : sgc.getComponents()) {
-			if (c instanceof SnapTarget && r.contains(c.getLocation())) {
-				final SnapTarget st = (SnapTarget) c;
-				final AbstractNode node = (AbstractNode) st.getTargetComponent();
+			if (c instanceof AbstractNode && r.contains(c.getLocation())) {
+				final AbstractNode node = (AbstractNode) c;
 				selection.add(node);
 			}
 		}

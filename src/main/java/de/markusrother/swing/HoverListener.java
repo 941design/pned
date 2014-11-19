@@ -5,11 +5,18 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import de.markusrother.pned.gui.NodeHoverListener;
+
 public abstract class HoverListener extends MouseAdapter {
 
 	public static void addToComponent(final Component component, final HoverListener listener) {
 		component.addMouseListener(listener);
 		component.addMouseMotionListener(listener);
+	}
+
+	public static void removeFromComponent(final Component component, final NodeHoverListener listener) {
+		component.removeMouseListener(listener);
+		component.removeMouseMotionListener(listener);
 	}
 
 	private boolean hovering = false;
