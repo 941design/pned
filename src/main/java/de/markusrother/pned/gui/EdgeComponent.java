@@ -145,12 +145,24 @@ class EdgeComponent extends JComponent {
 		// TODO - Must retrieve components dynamically, in case they change (not
 		// yet implemented).
 		final DragListener dragListener = new DragListener() {
+
 			@Override
-			public void onDrag(final int deltaX, final int deltaY) {
+			public void startDrag(final Component component, final Point point) {
+				// IGNORE
+			}
+
+			@Override
+			public void onDrag(final Component component, final int deltaX, final int deltaY) {
 				connectToSource(getSourceComponent());
 				connectToTarget(getTargetComponent());
 				repaint();
 			}
+
+			@Override
+			public void endDrag(final Component component, final Point point) {
+				// IGNORE
+			}
+
 		};
 		DragListener.addToComponent(getSourceComponent(), dragListener);
 		DragListener.addToComponent(getTargetComponent(), dragListener);

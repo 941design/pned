@@ -47,12 +47,23 @@ public class SnapTarget extends JLayeredPane {
 		final DragListener l = new DragListener() {
 
 			@Override
-			public void onDrag(final int deltaX, final int deltaY) {
+			public void startDrag(final Component component, final Point point) {
+				// IGNORE
+			}
+
+			@Override
+			public void onDrag(final Component component, final int deltaX, final int deltaY) {
 				final Rectangle r = getBounds();
 				r.translate(deltaX, deltaY);
 				setBounds(r);
 				fireComponentMovedEvent(deltaX, deltaY);
 			}
+
+			@Override
+			public void endDrag(final Component component, final Point point) {
+				// IGNORE
+			}
+
 		};
 		targetComponent.addMouseListener(l);
 		targetComponent.addMouseMotionListener(l);

@@ -11,6 +11,7 @@ public abstract class AbstractNode extends JPanel {
 	public enum State {
 		DEFAULT, //
 		HOVER, //
+		SELECTED, //
 	}
 
 	private State state;

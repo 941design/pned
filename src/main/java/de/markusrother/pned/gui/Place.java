@@ -70,6 +70,9 @@ public class Place extends AbstractNode {
 			setForeground(Color.BLUE);
 			setBorder(new LineBorder(Color.GREEN));
 			break;
+		case SELECTED:
+			setBorder(new LineBorder(Color.MAGENTA));
+			break;
 		default:
 			throw new IllegalStateException();
 		}
