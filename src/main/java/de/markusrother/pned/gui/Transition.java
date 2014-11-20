@@ -11,11 +11,9 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 
-import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 /**
- * This component should neither know its location nor its context!
  *
  */
 class Transition extends AbstractNode {
@@ -23,16 +21,11 @@ class Transition extends AbstractNode {
 	private static final Color nodeColorBG = new Color(120, 120, 120, 120);
 
 	private final Dimension dimension;
-	private final JTextField label;
 
-	public Transition(final String label, final Dimension dimension) {
+	public Transition(final Dimension dimension) {
 		super();
-		// TODO - use model instead of label
+		// TODO - use model!
 		this.dimension = dimension;
-		this.label = new JTextField(label);
-		// addMouseListener(this);
-		// addMouseMotionListener(this);
-		add(this.label);
 		setOpaque(false);
 	}
 
@@ -98,15 +91,4 @@ class Transition extends AbstractNode {
 		}
 	}
 
-	@Override
-	public void nodesSelected(final NodeSelectionEvent event) {
-		// TODO
-		throw new RuntimeException("TODO");
-	}
-
-	@Override
-	public void nodesUnselected(final NodeSelectionEvent event) {
-		// TODO
-		throw new RuntimeException("TODO");
-	}
 }

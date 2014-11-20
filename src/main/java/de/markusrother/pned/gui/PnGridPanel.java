@@ -46,7 +46,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 
 	static EventBus eventBus;
 
-	private final SnapGridComponent snapGrid;
+	private final JComponent snapGrid;
 	private final MouseAdapter edgeEditListener;
 	private final MouseAdapter nodeCreationListener;
 	private final DragDropListener nodeSelectionListener;
@@ -88,7 +88,8 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 				// adapt dynamically to such changes?
 			}
 		});
-		snapGrid.createSnapTarget(toggleBtn, new Point(100, 100));
+		snapGrid.add(toggleBtn);
+		toggleBtn.setBounds(new Rectangle(new Point(100, 100), toggleBtn.getPreferredSize()));
 		// TODO - Make this a lazy initialized singleton! First try if a static
 		// singleton works, too
 		eventBus = new EventBus();
@@ -96,12 +97,12 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 		eventBus.addNodeCreationListener(this);
 	}
 
-	private void addEdgeCreationListener(final JComponent component) {
+	private void addEdgeCreationListenerTo(final JComponent component) {
 		component.addMouseListener(edgeEditListener);
 		// component.addMouseMotionListener(edgeEditListener);
 	}
 
-	private void addPlaceEditListener(final Place place) {
+	private void addPlaceEditListenerTo(final Place place) {
 		// TODO - This belongs to place and could then be broadcasted on
 		// the general message bus.
 		place.addMouseListener(new MouseAdapter() {
@@ -117,7 +118,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 		HoverListener.addToComponent(place, NodeHoverListener.INSTANCE);
 	}
 
-	private void addTransitionEditListener(final Transition transition) {
+	private void addTransitionEditListenerTo(final Transition transition) {
 		//
 		transition.addMouseListener(new MouseAdapter() {
 
@@ -135,34 +136,33 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 
 	public Place createPlace(final Point point) {
 		final Place place = new Place(placeDimensions);
-		final int w = place.getWidth(); // getPreferredSize()
-		final int h = place.getHeight();
-		final Point topLeft = point.getLocation();
-		topLeft.translate(-w / 2, -h / 2);
-		place.setBounds(new Rectangle(topLeft, place.getPreferredSize()));
-		snapGrid.add(place);
-		snapGrid.repaint();
-		addEdgeCreationListener(place);
-		addPlaceEditListener(place);
-		// TODO - if Promise is for a model, we have both id and label name.
-		final Promise<String> idPromise = new Promise<>();
-		final Future<String> future = idPromise.get();
-		place.setId(future);
-		createLabel(place, "test", future);
-		eventBus.fireNodeCreationEvent(new NodeCreationEvent(this, place, idPromise));
+		addNodeComponent(place, point);
+		addEdgeCreationListenerTo(place);
+		addPlaceEditListenerTo(place);
 		return place;
 	}
 
 	public Transition createTransition(final Point point) {
-		final Transition transition = new Transition("foo", transitionDimensions);
-		final int w = transition.getWidth(); // getPreferredSize()
-		final int h = transition.getHeight();
-		final Point topLeft = point.getLocation();
-		topLeft.translate(-w / 2, -h / 2);
-		snapGrid.createSnapTarget(transition, topLeft);
-		addEdgeCreationListener(transition);
-		addTransitionEditListener(transition);
+		final Transition transition = new Transition(transitionDimensions);
+		addNodeComponent(transition, point);
+		addEdgeCreationListenerTo(transition);
+		addTransitionEditListenerTo(transition);
 		return transition;
+	}
+
+	public <T extends AbstractNode> void addNodeComponent(final T node, final Point point) {
+		final Dimension d = node.getPreferredSize();
+		final Point topLeft = point.getLocation(); // TODO - Why?
+		topLeft.translate(-d.width / 2, -d.height / 2); // TODO - Why?
+		node.setBounds(new Rectangle(topLeft, node.getPreferredSize()));
+		snapGrid.add(node);
+		snapGrid.repaint(); // TODO - Why?
+		// TODO - if Promise is for a model, we have both id and label name.
+		final Promise<String> idPromise = new Promise<>();
+		final Future<String> future = idPromise.get();
+		node.setId(future);
+		createLabel(node, "test", future);
+		eventBus.fireNodeCreationEvent(new NodeCreationEvent(this, node, idPromise));
 	}
 
 	public JLabel createLabel(final AbstractNode node, final String name, final Future<String> futureNodeId) {

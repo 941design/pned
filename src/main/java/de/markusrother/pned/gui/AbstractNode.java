@@ -1,5 +1,7 @@
 package de.markusrother.pned.gui;
 
+import static de.markusrother.pned.gui.PnGridPanel.eventBus;
+
 import java.awt.LayoutManager;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
@@ -37,6 +39,7 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 		this.state = State.DEFAULT; // TODO - empty EnumSet
 		this.dragDropListener = new DefaultDragDropListener(this);
 		DragDropListener.addToComponent(this, dragDropListener);
+		eventBus.addNodeSelectionListener(this);
 	}
 
 	public AbstractNode() {
@@ -93,6 +96,26 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 
 	protected void resumeHoverListener() {
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
+	}
+
+	@Override
+	public void nodesSelected(final NodeSelectionEvent event) {
+		// TODO - to improve performance iteration, the grid/container could
+		// instead listen to this event!
+		if (event.getNodes().contains(this)) {
+			suspendSingleDragListener();
+			suspendHoverListener();
+			setState(State.SELECTED); // TODO - in multiselection
+		}
+	}
+
+	@Override
+	public void nodesUnselected(final NodeSelectionEvent event) {
+		if (event.getNodes().contains(this)) {
+			resumeDragListener();
+			resumeHoverListener();
+			setState(State.DEFAULT); // TODO - in multiselection
+		}
 	}
 
 }

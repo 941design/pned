@@ -13,12 +13,10 @@ import org.junit.Test;
 
 public class TransitionTest extends AbstractNodeTest {
 
-	private static final String NO_LABEL = null;
-
 	private Transition transition;
 
 	private void createTransition(final Dimension dimension) {
-		transition = new Transition(NO_LABEL, dimension);
+		transition = new Transition(dimension);
 	}
 
 	private void assertAngleIntersectsAt(final double theta, final Point2D expected) {
