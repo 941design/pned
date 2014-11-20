@@ -1,6 +1,5 @@
 package de.markusrother.pned.gui;
 
-import static de.markusrother.pned.gui.PnGridPanel.delta;
 import static de.markusrother.pned.gui.TrigUtils.getRadiansOfDelta;
 
 import java.awt.BasicStroke;
@@ -20,7 +19,6 @@ import javax.swing.JComponent;
 import de.markusrother.swing.DragDropAdapter;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
-import de.markusrother.swing.snap.SnapGridComponent;
 
 /**
  * 
@@ -87,12 +85,6 @@ class EdgeComponent extends JComponent {
 		g2.setStroke(stroke);
 		setForeground(fgColor);
 		return g2;
-	}
-
-	private Point getGridRelativeLocation(final Point point) {
-		// TODO - this is a somewhat dirty hack! I left in the cast to
-		// illustrate the ugliness!
-		return delta(point, ((SnapGridComponent) getParent()).getLocationOnScreen());
 	}
 
 	public Class<?> getSourceType() {
@@ -217,11 +209,11 @@ class EdgeComponent extends JComponent {
 	public void connectToTarget(final AbstractNode node) {
 		// TODO - make nicer
 		final double angle = getAngle();
-		final Point intersection = node.getLocationOnScreen();
+		final Point intersection = node.getLocation();
 		// TODO - must rotate because...
 		final Point boundary = round(node.getIntersectionWithBounds(angle + Math.PI));
 		intersection.translate(boundary.x, boundary.y);
-		setTarget(getGridRelativeLocation(intersection));
+		setTarget(intersection);
 	}
 
 	/**
@@ -231,10 +223,10 @@ class EdgeComponent extends JComponent {
 	public void connectToSource(final AbstractNode node) {
 		// TODO - make nicer
 		final double angle = getAngle();
-		final Point intersection = node.getLocationOnScreen();
+		final Point intersection = node.getLocation();
 		final Point boundary = round(node.getIntersectionWithBounds(angle));
 		intersection.translate(boundary.x, boundary.y);
-		setSource(getGridRelativeLocation(intersection));
+		setSource(intersection);
 	}
 
 }

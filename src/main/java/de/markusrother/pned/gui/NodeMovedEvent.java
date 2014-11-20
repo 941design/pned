@@ -3,6 +3,7 @@ package de.markusrother.pned.gui;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
+// TODO - subclass generic ComponentsMovedEvent
 public class NodeMovedEvent extends ActionEvent {
 
 	private final List<AbstractNode> nodes;

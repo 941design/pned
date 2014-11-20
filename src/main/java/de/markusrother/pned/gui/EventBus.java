@@ -15,6 +15,8 @@ import javax.swing.event.EventListenerList;
  * PnedModelEventMulticaster. Maybe we can get rid of the swing objects here,
  * already.
  * 
+ * TODO - create an PnedEvent superclass. (for what?)
+ * 
  * TODO - which idiom?
  */
 public class EventBus implements AWTEventListener, NodeCreationListener {

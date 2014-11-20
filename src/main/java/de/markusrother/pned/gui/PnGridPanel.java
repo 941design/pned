@@ -17,7 +17,7 @@ import java.util.concurrent.Future;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
 
 import de.markusrother.concurrent.Promise;
 import de.markusrother.swing.DragDropListener;
@@ -36,7 +36,7 @@ import de.markusrother.swing.snap.SnapGridComponent;
  * TODO - Dispatch all events to all layers: the grid (node layer), the edge
  * layer, and possibly the root layer, using layer.dispatchEvent(e).
  */
-class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationListener {
+class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCreationListener {
 
 	private static final Dimension preferredSize = new Dimension(500, 500);
 	private static final Dimension transitionDimensions = new Dimension(50, 50);
@@ -50,6 +50,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 	private final MouseAdapter nodeCreationListener;
 	private final DragDropListener nodeSelectionListener;
 	private boolean state;
+	private final JComponent edgeLayer;
 
 	public static Point delta(final Point a, final Point b) {
 		return new Point(a.x - b.x, a.y - b.y);
@@ -67,6 +68,17 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 		snapGrid = new SnapGridComponent(new Dimension(40, 40), Color.GRAY);
 		// TODO - get preferred size from parent
 		snapGrid.setPreferredSize(preferredSize);
+		// Must set bounds manually for JLayeredPane
+		snapGrid.setBounds(new Rectangle(new Point(0, 0), preferredSize));
+
+		edgeLayer = new JComponent() {
+			// TODO - For some strange reason we cannot add JPanels to
+			// JLayeredPane
+		};
+		// Must set bounds manually for JLayeredPane
+		edgeLayer.setBounds(new Rectangle(new Point(0, 0), preferredSize));
+		edgeLayer.setBackground(Color.LIGHT_GRAY);
+		add(edgeLayer, new Integer(0));
 
 		// new ListenerManager(State) {
 		// List<EventListener> getListeners(EnumSet<State> enumSet) {
@@ -78,7 +90,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 		nodeCreationListener = new NodeCreationListener();
 		nodeSelectionListener = new NodeSelector();
 
-		add(snapGrid);
+		add(snapGrid, new Integer(1));
 		snapGrid.addMouseListener(nodeCreationListener);
 		snapGrid.addMouseMotionListener(edgeCreationListener);
 		DragDropListener.addToComponent(snapGrid, nodeSelectionListener);
@@ -172,7 +184,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 		final Point source = getCenter(sourceComponent);
 		final EdgeComponent edge = new EdgeComponent(sourceComponent, source, target);
 		edge.setBounds(0, 0, getWidth(), getHeight());
-		snapGrid.add(edge);
+		edgeLayer.add(edge);
 		return edge;
 	}
 
