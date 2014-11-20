@@ -3,6 +3,10 @@ package de.markusrother.pned.gui;
 import java.awt.LayoutManager;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import javax.swing.JPanel;
 
@@ -25,6 +29,8 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 	private final DragDropListener dragDropListener;
 
 	private State state;
+	// TODO - This could be substituted with a Model.
+	private Future<String> id;
 
 	public AbstractNode(final LayoutManager layoutManager) {
 		super(layoutManager);
@@ -45,6 +51,26 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 	public abstract Point2D getIntersectionWithBounds(final double theta);
 
 	abstract Shape getShape();
+
+	public String getId() {
+		try {
+			// TODO - to constant:
+			return id.get(500L, TimeUnit.MILLISECONDS);
+		} catch (final InterruptedException e) {
+			// TODO
+			throw new RuntimeException("TODO");
+		} catch (final ExecutionException e) {
+			// TODO
+			throw new RuntimeException("TODO");
+		} catch (final TimeoutException e) {
+			// TODO
+			throw new RuntimeException("TODO");
+		}
+	}
+
+	public void setId(final Future<String> future) {
+		this.id = future;
+	}
 
 	public void setState(final State state) {
 		this.state = state;

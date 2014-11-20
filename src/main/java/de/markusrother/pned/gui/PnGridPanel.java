@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import java.util.concurrent.Future;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -19,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import de.markusrother.concurrent.Promise;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 import de.markusrother.swing.snap.SnapGridComponent;
@@ -36,7 +38,7 @@ import de.markusrother.swing.snap.SnapGridComponent;
  * TODO - Dispatch all events to all layers: the grid (node layer), the edge
  * layer, and possibly the root layer, using layer.dispatchEvent(e).
  */
-class PnGridPanel extends JPanel implements NodeSelectionListener {
+class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationListener {
 
 	private static final Dimension preferredSize = new Dimension(500, 500);
 	private static final Dimension transitionDimensions = new Dimension(50, 50);
@@ -91,6 +93,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 		// singleton works, too
 		eventBus = new EventBus();
 		eventBus.addNodeSelectionListener(this);
+		eventBus.addNodeCreationListener(this);
 	}
 
 	private void addEdgeCreationListener(final JComponent component) {
@@ -141,7 +144,12 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 		snapGrid.repaint();
 		addEdgeCreationListener(place);
 		addPlaceEditListener(place);
-		createLabel(place, "test");
+		// TODO - if Promise is for a model, we have both id and label name.
+		final Promise<String> idPromise = new Promise<>();
+		final Future<String> future = idPromise.get();
+		place.setId(future);
+		createLabel(place, "test", future);
+		eventBus.fireNodeCreationEvent(new NodeCreationEvent(this, place, idPromise));
 		return place;
 	}
 
@@ -157,7 +165,11 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 		return transition;
 	}
 
-	public JLabel createLabel(final AbstractNode node, final String name) {
+	public JLabel createLabel(final AbstractNode node, final String name, final Future<String> futureNodeId) {
+		// TODO - Get rid of node argument!
+		// TODO - We could create an edge that connects label with node, synced
+		// similarly to the node.
+		// TODO - Extract class!
 		final JLabel label = new JLabel(name);
 		final Rectangle r = new Rectangle(node.getLocation(), label.getPreferredSize());
 		r.translate(0, -label.getPreferredSize().height);
@@ -350,7 +362,17 @@ class PnGridPanel extends JPanel implements NodeSelectionListener {
 
 	@Override
 	public void nodesUnselected(final NodeSelectionEvent event) {
-		// IGNORE
+		// TODO - ignore only if source is self
+	}
+
+	@Override
+	public void nodeCreated(final NodeCreationEvent e) {
+		if (e.getSource() == this) {
+			// IGNORE - Node was created and added to panel, already.
+			return;
+		}
+		// TODO
+		throw new RuntimeException("TODO");
 	}
 
 }
