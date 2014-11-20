@@ -1,14 +1,13 @@
 package de.markusrother.pned.gui;
 
 import java.awt.Component;
-import java.awt.Point;
 
-import de.markusrother.swing.HoverListener;
+import de.markusrother.swing.HoverAdapter;
 
 /**
  * TODO - subclass for node types
  */
-public class NodeHoverListener extends HoverListener {
+public class NodeHoverListener extends HoverAdapter {
 
 	public static NodeHoverListener INSTANCE = new NodeHoverListener();
 
@@ -19,11 +18,6 @@ public class NodeHoverListener extends HoverListener {
 	protected void startHover(final Component component) {
 		final AbstractNode node = (AbstractNode) component;
 		node.setState(AbstractNode.State.HOVER);
-	}
-
-	@Override
-	protected boolean inHoverArea(final Point p) {
-		return true;
 	}
 
 	@Override
