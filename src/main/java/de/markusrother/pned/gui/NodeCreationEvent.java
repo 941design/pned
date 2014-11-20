@@ -7,13 +7,21 @@ import de.markusrother.concurrent.Promise;
 public class NodeCreationEvent extends ActionEvent {
 
 	private final AbstractNode node;
-	private final Promise<String> idPromise;
+	private final Promise<String> nodeIdPromise;
 
-	public NodeCreationEvent(final Object source, final AbstractNode node, final Promise<String> idPromise) {
+	public NodeCreationEvent(final Object source, final AbstractNode node, final Promise<String> nodeIdPromise) {
 		// TODO - create abstract class for duplex events!
 		super(source, ActionEvent.ACTION_PERFORMED, "no command string");
 		this.node = node;
-		this.idPromise = idPromise;
+		this.nodeIdPromise = nodeIdPromise;
+	}
+
+	public AbstractNode getNode() {
+		return node;
+	}
+
+	public void fulfillNodeIdPromise(final String value) {
+		nodeIdPromise.fulfill(value);
 	}
 
 }

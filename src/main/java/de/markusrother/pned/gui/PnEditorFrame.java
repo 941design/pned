@@ -1,5 +1,7 @@
 package de.markusrother.pned.gui;
 
+import static de.markusrother.pned.gui.PnGridPanel.eventBus;
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -21,6 +23,8 @@ public class PnEditorFrame extends JFrame {
 		contentPane.add(grid, BorderLayout.CENTER);
 		pack();
 		setVisible(true);
+		// TEST
+		eventBus.addNodeCreationListener(new MockDataProvider());
 	}
 
 	public static void main(final String... args) {

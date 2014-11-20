@@ -18,7 +18,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import de.markusrother.concurrent.Promise;
 import de.markusrother.swing.DragDropListener;
@@ -42,11 +41,12 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 	private static final Dimension preferredSize = new Dimension(500, 500);
 	private static final Dimension transitionDimensions = new Dimension(50, 50);
 	private static final Dimension placeDimensions = new Dimension(50, 50);
+	private static final int labelHeight = 20;
 
 	static EventBus eventBus;
 
 	private final JComponent snapGrid;
-	private final MouseAdapter edgeEditListener;
+	private final MouseAdapter edgeCreationListener;
 	private final MouseAdapter nodeCreationListener;
 	private final DragDropListener nodeSelectionListener;
 	private boolean state;
@@ -68,14 +68,19 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 		// TODO - get preferred size from parent
 		snapGrid.setPreferredSize(preferredSize);
 
+		// new ListenerManager(State) {
+		// List<EventListener> getListeners(EnumSet<State> enumSet) {
+		// if...else
+		// }
+		// }
 		// Listeners that are needed by children, are kept here:
-		edgeEditListener = new EdgeEditListener();
+		edgeCreationListener = new EdgeCreationListener(this);
 		nodeCreationListener = new NodeCreationListener();
 		nodeSelectionListener = new NodeSelector();
 
 		add(snapGrid);
 		snapGrid.addMouseListener(nodeCreationListener);
-		snapGrid.addMouseMotionListener(edgeEditListener);
+		snapGrid.addMouseMotionListener(edgeCreationListener);
 		DragDropListener.addToComponent(snapGrid, nodeSelectionListener);
 
 		// Adding state type toggle
@@ -101,7 +106,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 	}
 
 	private void addEdgeCreationListenerTo(final JComponent component) {
-		component.addMouseListener(edgeEditListener);
+		component.addMouseListener(edgeCreationListener);
 		// component.addMouseMotionListener(edgeEditListener);
 	}
 
@@ -127,45 +132,34 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 		return transition;
 	}
 
-	public <T extends AbstractNode> void addNodeComponent(final T node, final Point point) {
+	private <T extends AbstractNode> void addNodeComponent(final T node, final Point origin) {
+		// TODO - this method is too big!
 		final Dimension d = node.getPreferredSize();
-		final Point topLeft = point.getLocation(); // TODO - Why?
-		topLeft.translate(-d.width / 2, -d.height / 2); // TODO - Why?
-		node.setBounds(new Rectangle(topLeft, node.getPreferredSize()));
+		final Point nodeOrigin = origin.getLocation(); // TODO - Why?
+		nodeOrigin.translate(-d.width / 2, -d.height / 2); // TODO - Why?
+		node.setBounds(new Rectangle(nodeOrigin, node.getPreferredSize()));
 		snapGrid.add(node);
 		snapGrid.repaint(); // TODO - Why?
 		// TODO - if Promise is for a model, we have both id and label name.
 		final Promise<String> idPromise = new Promise<>();
-		final Future<String> future = idPromise.get();
-		node.setId(future);
-		createLabel(node, "test", future);
+		final Future<String> futureId = idPromise.ask();
+		node.setId(futureId);
+		// TODO - do one thing only...
 		eventBus.nodeCreated(new NodeCreationEvent(this, node, idPromise));
 	}
 
-	public JLabel createLabel(final AbstractNode node, final String name, final Future<String> futureNodeId) {
-		// TODO - Get rid of node argument!
+	public JLabel createLabel(final Point origin, final String nodeId) {
 		// TODO - We could create an edge that connects label with node, synced
 		// similarly to the node.
-		// TODO - Extract class!
-		final JLabel label = new JLabel(name);
-		final Rectangle r = new Rectangle(node.getLocation(), label.getPreferredSize());
-		r.translate(0, -label.getPreferredSize().height);
-		label.setBounds(r);
-		snapGrid.add(label);
-		eventBus.addNodeMotionListener(new NodeMotionListener() {
-
-			@Override
-			public void nodeMoved(final NodeMovedEvent event) {
-				if (event.getNodes().contains(node)) {
-					final Rectangle r = label.getBounds();
-					r.translate(event.getDeltaX(), event.getDeltaY());
-					System.out.println(event.getDeltaX() + " " + event.getDeltaY());
-					label.setBounds(r);
-					label.repaint();
-				}
-			}
-		});
+		final NodeLabel label = new NodeLabel(nodeId);
+		addLabelComponent(label, origin);
+		// eventBus.fireLabelCreatedEvent(null);
 		return label;
+	}
+
+	private void addLabelComponent(final NodeLabel label, final Point origin) {
+		label.setBounds(new Rectangle(origin, label.getPreferredSize()));
+		snapGrid.add(label);
 	}
 
 	private Point getCenter(final Component component) {
@@ -187,99 +181,6 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 		repaint();
 	}
 
-	/**
-	 * TODO - split into Creation and edit listener!
-	 */
-	private class EdgeEditListener extends MouseAdapter {
-
-		// TODO - Drawing could also start upon exit!
-
-		private EdgeComponent edge;
-
-		EdgeEditListener() {
-		}
-
-		private void startNewEdge(final AbstractNode source, final Point point) {
-			// TODO - nicer (should not call surrounding class):
-			edge = createEdge(source, point);
-			// The container should then implement createEdge, finishEdge,
-			// removeEdge, etc.
-		}
-
-		private void finishCurrentEdge(final AbstractNode targetNode) {
-			edge.setTargetComponent(targetNode);
-			edge.finishedDrawing();
-			// This is needed for future edges, because the edge
-			// component overlaps the grid!
-			// TODO - maybe the edge should in turn receive a listener for edge
-			// creation events.
-			edge.addMouseMotionListener(this);
-			edge.addMouseListener(this);
-		}
-
-		@Override
-		public void mouseClicked(final MouseEvent e) {
-			if (!SwingUtilities.isLeftMouseButton(e)) {
-				return;
-			}
-			if (edge != null) {
-				// Connecting existing edge:
-				// TODO - edge should never have invalid targetComponent!
-				if (edge.acceptsTarget(e.getComponent())) {
-					final AbstractNode targetNode = (AbstractNode) e.getComponent();
-					finishCurrentEdge(targetNode);
-				} else {
-					// TODO - nicer (should not call surrounding class):
-					// The edge is not yet part of the model and could go to a
-					// different layer!
-					removeEdge(edge);
-					// container.removeEdge(edge);
-				}
-				edge = null;
-			} else {
-				final AbstractNode sourceNode = (AbstractNode) e.getComponent();
-				final Point point = getGridRelativeLocation(e.getLocationOnScreen());
-				startNewEdge(sourceNode, point);
-			}
-		}
-
-		@Override
-		public void mouseMoved(final MouseEvent e) {
-			if (edge != null) {
-				edge.setTarget(getGridRelativeLocation(e.getLocationOnScreen()));
-				// TODO - This causes flickering, whereas the solution with
-				// drawing from the center is more pleasing but does not work
-				// with transparent elements. The cleanest solution would be to
-				// manage the edge points at the edge component, too. Then we
-				// can determine the drawing direction more precisely without
-				// the flickering.
-				// edge.connectToSource(edge.getSourceComponent());
-				repaint();
-			}
-		}
-
-		@Override
-		public void mouseEntered(final MouseEvent e) {
-			if (edge != null) {
-				final Component possibleTarget = e.getComponent();
-				if (edge.acceptsTarget(possibleTarget)) {
-					edge.connectToTarget((AbstractNode) possibleTarget);
-					edge.highlightValid();
-				} else {
-					edge.highlightInvalid();
-				}
-			}
-		}
-
-		@Override
-		public void mouseExited(final MouseEvent e) {
-			if (edge != null) {
-				edge.highlightStandard();
-			}
-		}
-
-	}
-
 	private class NodeCreationListener extends MouseAdapter {
 
 		NodeCreationListener() {
@@ -287,7 +188,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 
 		@Override
 		public void mouseClicked(final MouseEvent e) {
-			// TODO - this could go through the event bus!
+			// TODO - this could go through the event bus.
 			// Should the node creation listener itself have a state and listen
 			// to events? Or should components toggle listeners depending on
 			// state? That would result in a mapping of enum sets of states to
@@ -357,12 +258,13 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 
 	@Override
 	public void nodeCreated(final NodeCreationEvent e) {
-		if (e.getSource() == this) {
-			// IGNORE - Node was created and added to panel, already.
-			return;
-		}
-		// TODO
-		throw new RuntimeException("TODO");
+		if (e.getSource() != this) {
+			// TODO
+			throw new RuntimeException("TODO");
+		} // else { // Node was created and added to panel, already. }
+		final AbstractNode node = e.getNode();
+		final Point labelOrigin = node.getLocation();
+		labelOrigin.translate(0, -labelHeight);
+		createLabel(labelOrigin, node.getId());
 	}
-
 }

@@ -20,7 +20,7 @@ public class PromiseTest {
 	@Test
 	public void testGetFutureBeforeSetValue() {
 		final Promise<String> promise = new Promise<>();
-		final Future<String> future = promise.get();
+		final Future<String> future = promise.ask();
 		assertFalse(future.isDone());
 		assertFalse(future.isCancelled());
 	}
@@ -28,8 +28,8 @@ public class PromiseTest {
 	@Test
 	public void testGetFutureAfterSetValue() throws Exception {
 		final Promise<String> promise = new Promise<>();
-		promise.set("foobar");
-		final Future<String> future = promise.get();
+		promise.fulfill("foobar");
+		final Future<String> future = promise.ask();
 		assertFalse(future.isDone());
 		assertFalse(future.isCancelled());
 		assertEquals("foobar", future.get());
@@ -40,14 +40,14 @@ public class PromiseTest {
 	@Test
 	public void testSetValue() {
 		final Promise<String> promise = new Promise<>();
-		promise.set("foobar");
+		promise.fulfill("foobar");
 	}
 
 	@Test
 	public void testSetAndGetValue() throws Exception {
 		final Promise<String> promise = new Promise<>();
-		promise.set("foobar");
-		final Future<String> future = promise.get();
+		promise.fulfill("foobar");
+		final Future<String> future = promise.ask();
 		assertFalse(future.isDone());
 		assertFalse(future.isCancelled());
 		assertEquals("foobar", future.get());
@@ -58,7 +58,7 @@ public class PromiseTest {
 	@Test(expected = TimeoutException.class)
 	public void testGetUnrealizedValue() throws Exception {
 		final Promise<String> promise = new Promise<>();
-		final Future<String> future = promise.get();
+		final Future<String> future = promise.ask();
 		future.get(1L, TimeUnit.SECONDS);
 	}
 

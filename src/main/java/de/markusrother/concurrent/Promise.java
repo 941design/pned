@@ -11,7 +11,7 @@ public class Promise<T> {
 
 	private final ExecutorService executor = Executors.newCachedThreadPool();
 
-	public Future<T> get() {
+	public Future<T> ask() {
 
 		final Promise<T> that = this;
 
@@ -32,7 +32,7 @@ public class Promise<T> {
 		});
 	}
 
-	public synchronized void set(final T value) {
+	public synchronized void fulfill(final T value) {
 		this.value = value;
 		notifyAll();
 	}
