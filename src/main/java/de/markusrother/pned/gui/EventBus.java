@@ -9,9 +9,15 @@ import java.util.EventListener;
 import javax.swing.event.EventListenerList;
 
 /**
- * should be retrieved from frame/application (after the EDT is created).
+ * Should be retrieved from frame/application (after the EDT is created).
+ * 
+ * Rename to PnedAwtEventMulticaster as opposed to the
+ * PnedModelEventMulticaster. Maybe we can get rid of the swing objects here,
+ * already.
+ * 
+ * TODO - which idiom?
  */
-public class EventBus implements AWTEventListener {
+public class EventBus implements AWTEventListener, NodeCreationListener {
 
 	private final EventListenerList listeners = new EventListenerList();
 
@@ -34,7 +40,9 @@ public class EventBus implements AWTEventListener {
 		listeners.add(NodeMotionListener.class, l);
 	}
 
-	public void fireNodeCreationEvent(final NodeCreationEvent e) {
+	@Override
+	public void nodeCreated(final NodeCreationEvent e) {
+		// TODO - which idiom?
 		// TODO - should be defined in an interface
 		eventDispatched(e);
 	}

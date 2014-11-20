@@ -36,6 +36,7 @@ public class Place extends AbstractNode {
 		this.marking = new JLabel("23");
 		add(this.marking, PlaceLayout.CENTER);
 		setOpaque(false);
+		addMouseListener(PlaceEditListener.INSTANCE);
 	}
 
 	@Override

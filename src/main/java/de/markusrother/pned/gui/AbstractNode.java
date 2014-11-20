@@ -16,13 +16,25 @@ import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 
+/**
+ * TODO - We can get rid entirely of the single component drag listener, if we
+ * always use multi-selections. Then the click event could simply also activate
+ * a selection!
+ *
+ */
 public abstract class AbstractNode extends JPanel implements NodeSelectionListener {
 
 	// TODO - Should be used as EnumSet!
+	// Is it possible to define an arithmetic on states? It would be nice to
+	// have EnumPredicates to test against enum sets, such that or(DEFAULT,
+	// HOVER).and(SELECTED)
+	//
+	// .allOf(), .anyOf(), .oneOf(), .twoOf(),
+	// .atLeast(oneOf(x,y,z)).or(q).and(a,b,c)
 	public enum State {
 		DEFAULT, //
 		HOVER, // HOVERED
-		SELECTED, //
+		SELECTED, // SELECTED("UNSELECTED") for inverse operations?
 		// TODO - UNSELECTABLE/SELECTABLE, MULTISELECTED, DRAGGED
 	}
 
@@ -39,6 +51,7 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 		this.state = State.DEFAULT; // TODO - empty EnumSet
 		this.dragDropListener = new DefaultDragDropListener(this);
 		DragDropListener.addToComponent(this, dragDropListener);
+		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
 		eventBus.addNodeSelectionListener(this);
 	}
 
@@ -105,6 +118,8 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 		if (event.getNodes().contains(this)) {
 			suspendSingleDragListener();
 			suspendHoverListener();
+			// TODO - just replace DEFAULT/UNSELECTED by SELECTED in state
+			// EnumSet.
 			setState(State.SELECTED); // TODO - in multiselection
 		}
 	}

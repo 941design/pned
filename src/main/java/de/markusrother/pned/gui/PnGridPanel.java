@@ -22,7 +22,6 @@ import javax.swing.SwingUtilities;
 
 import de.markusrother.concurrent.Promise;
 import de.markusrother.swing.DragDropListener;
-import de.markusrother.swing.HoverListener;
 import de.markusrother.swing.snap.SnapGridComponent;
 
 /**
@@ -68,14 +67,17 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 		snapGrid = new SnapGridComponent(new Dimension(40, 40), Color.GRAY);
 		// TODO - get preferred size from parent
 		snapGrid.setPreferredSize(preferredSize);
+
+		// Listeners that are needed by children, are kept here:
 		edgeEditListener = new EdgeEditListener();
 		nodeCreationListener = new NodeCreationListener();
 		nodeSelectionListener = new NodeSelector();
+
 		add(snapGrid);
 		snapGrid.addMouseListener(nodeCreationListener);
 		snapGrid.addMouseMotionListener(edgeEditListener);
 		DragDropListener.addToComponent(snapGrid, nodeSelectionListener);
-		//
+
 		// Adding state type toggle
 		final PnGridPanel that = this;
 		final JButton toggleBtn = new JButton("place");
@@ -90,6 +92,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 		});
 		snapGrid.add(toggleBtn);
 		toggleBtn.setBounds(new Rectangle(new Point(100, 100), toggleBtn.getPreferredSize()));
+
 		// TODO - Make this a lazy initialized singleton! First try if a static
 		// singleton works, too
 		eventBus = new EventBus();
@@ -100,30 +103,6 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 	private void addEdgeCreationListenerTo(final JComponent component) {
 		component.addMouseListener(edgeEditListener);
 		// component.addMouseMotionListener(edgeEditListener);
-	}
-
-	private void addPlaceEditListenerTo(final Place place) {
-		// TODO - This belongs to place and could then be broadcasted on
-		// the general message bus.
-		place.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(final MouseEvent e) {
-				if (SwingUtilities.isRightMouseButton(e)) {
-					final Place place = (Place) e.getComponent();
-					// TODO - First talk to the model, then to the PnGrid!
-					place.setMarking("foo");
-				}
-			}
-		});
-		HoverListener.addToComponent(place, NodeHoverListener.INSTANCE);
-	}
-
-	private void addTransitionEditListenerTo(final Transition transition) {
-		//
-		transition.addMouseListener(new MouseAdapter() {
-
-		});
-		HoverListener.addToComponent(transition, NodeHoverListener.INSTANCE);
 	}
 
 	Point getGridRelativeLocation(final Point pointOnScreen) {
@@ -138,7 +117,6 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 		final Place place = new Place(placeDimensions);
 		addNodeComponent(place, point);
 		addEdgeCreationListenerTo(place);
-		addPlaceEditListenerTo(place);
 		return place;
 	}
 
@@ -146,7 +124,6 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 		final Transition transition = new Transition(transitionDimensions);
 		addNodeComponent(transition, point);
 		addEdgeCreationListenerTo(transition);
-		addTransitionEditListenerTo(transition);
 		return transition;
 	}
 
@@ -162,7 +139,7 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 		final Future<String> future = idPromise.get();
 		node.setId(future);
 		createLabel(node, "test", future);
-		eventBus.fireNodeCreationEvent(new NodeCreationEvent(this, node, idPromise));
+		eventBus.nodeCreated(new NodeCreationEvent(this, node, idPromise));
 	}
 
 	public JLabel createLabel(final AbstractNode node, final String name, final Future<String> futureNodeId) {
@@ -253,6 +230,8 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 					finishCurrentEdge(targetNode);
 				} else {
 					// TODO - nicer (should not call surrounding class):
+					// The edge is not yet part of the model and could go to a
+					// different layer!
 					removeEdge(edge);
 					// container.removeEdge(edge);
 				}
@@ -308,6 +287,17 @@ class PnGridPanel extends JPanel implements NodeSelectionListener, NodeCreationL
 
 		@Override
 		public void mouseClicked(final MouseEvent e) {
+			// TODO - this could go through the event bus!
+			// Should the node creation listener itself have a state and listen
+			// to events? Or should components toggle listeners depending on
+			// state? That would result in a mapping of enum sets of states to
+			// listener configurations. Those configurations can be verified by
+			// partitioning the power set and mapping the partitions to listener
+			// configurations. However, as power sets are too large we would
+			// have to compute the conditions manually as if-else. We could use
+			// the results to create documentation, though, and to test! Such
+			// that: For a given configuration of states we expect a list of
+			// activated listeners.
 			final Point point = e.getPoint();
 			if (getState()) {
 				createTransition(point);
