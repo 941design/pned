@@ -17,9 +17,12 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 import de.markusrother.concurrent.Promise;
 import de.markusrother.swing.DragDropListener;
+import de.markusrother.swing.PopupListener;
 import de.markusrother.swing.snap.SnapGridComponent;
 
 /**
@@ -56,6 +59,7 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 	private final MouseAdapter edgeCreationListener;
 	private final MouseAdapter nodeCreationListener;
 	private final DragDropListener nodeSelectionListener;
+	private final PopUpListener popupListener;
 	private final EnumSet<State> state;
 	private final JComponent edgeLayer;
 	// Stateful/Throwaway listeners:
@@ -101,10 +105,12 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 		edgeCreationListener = new EdgeCreationListener(this);
 		nodeCreationListener = new NodeCreationListener();
 		nodeSelectionListener = new NodeSelector();
+		popupListener = new PopUpListener();
 
 		add(snapGrid, new Integer(1));
 		snapGrid.addMouseListener(nodeCreationListener);
 		snapGrid.addMouseMotionListener(edgeCreationListener);
+		snapGrid.addMouseListener(popupListener);
 		DragDropListener.addToComponent(snapGrid, nodeSelectionListener);
 
 		// Adding state type toggle
@@ -113,7 +119,7 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 		toggleBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-                // TODO - toggleCreationMode(); nicer!
+				// TODO - toggleCreationMode(); nicer!
 				if (that.hasState(State.PLACE_CREATION)) {
 					that.removeState(State.PLACE_CREATION);
 					that.addState(State.TRANSITION_CREATION);
@@ -221,6 +227,22 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 	void removeEdge(final EdgeComponent edge) {
 		snapGrid.remove(edge);
 		repaint();
+	}
+
+	/**
+	 * TODO - extract class
+	 *
+	 */
+	private class PopUpListener extends PopupListener {
+
+		@Override
+		public void popup(final MouseEvent e) {
+			final JPopupMenu popup = new JPopupMenu();
+			final JMenuItem menuItem = new JMenuItem("A popup menu item");
+			popup.add(menuItem);
+			popup.show(e.getComponent(), e.getX(), e.getY());
+		}
+
 	}
 
 	private class NodeCreationListener extends MouseAdapter {

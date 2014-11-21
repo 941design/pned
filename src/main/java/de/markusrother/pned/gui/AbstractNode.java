@@ -70,6 +70,7 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 	abstract Shape getShape();
 
 	public Point getCenter() {
+		// TODO - refactor to inSelectionBounds(Rectangle r);
 		final Point point = getLocation();
 		point.translate( //
 				(int) Math.floor((getWidth() + 0.5) / 2.0), //
