@@ -1,7 +1,5 @@
 package de.markusrother.pned.gui;
 
-import static de.markusrother.pned.gui.NodeSelectionEvent.Type.UNSELECTED;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -11,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -38,10 +37,18 @@ import de.markusrother.swing.snap.SnapGridComponent;
  */
 class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCreationListener {
 
+	public enum State {
+		MULTISELECTION, //
+		PLACE_CREATION, //
+		TRANSITION_CREATION, //
+	}
+
 	private static final Dimension preferredSize = new Dimension(500, 500);
 	private static final Dimension transitionDimensions = new Dimension(50, 50);
 	private static final Dimension placeDimensions = new Dimension(50, 50);
 	private static final int labelHeight = 20;
+
+	private static final EnumSet<State> defaultState = EnumSet.of(State.PLACE_CREATION);
 
 	static EventBus eventBus;
 
@@ -49,8 +56,10 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 	private final MouseAdapter edgeCreationListener;
 	private final MouseAdapter nodeCreationListener;
 	private final DragDropListener nodeSelectionListener;
-	private boolean state;
+	private final EnumSet<State> state;
 	private final JComponent edgeLayer;
+	// Stateful/Throwaway listeners:
+	SelectionDragDropListener selectionDragListener;
 
 	public static Point delta(final Point a, final Point b) {
 		return new Point(a.x - b.x, a.y - b.y);
@@ -61,6 +70,9 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 	 * while this is not fully initialized!
 	 */
 	PnGridPanel() {
+
+		this.state = defaultState;
+
 		// TODO - add scroll panel
 		setPreferredSize(preferredSize);
 		// setBackground(Color.BLUE);
@@ -101,8 +113,18 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 		toggleBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-				that.state = !that.state;
-				toggleBtn.setText(that.state ? "transition" : "place");
+                // TODO - toggleCreationMode(); nicer!
+				if (that.hasState(State.PLACE_CREATION)) {
+					that.removeState(State.PLACE_CREATION);
+					that.addState(State.TRANSITION_CREATION);
+					toggleBtn.setText("transition");
+				} else if (that.hasState(State.TRANSITION_CREATION)) {
+					that.removeState(State.TRANSITION_CREATION);
+					that.addState(State.PLACE_CREATION);
+					toggleBtn.setText("place");
+				} else {
+					throw new IllegalStateException();
+				}
 				// Preferred size changes, but should our snapTargetComponent
 				// adapt dynamically to such changes?
 			}
@@ -126,8 +148,16 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 		return delta(pointOnScreen, snapGrid.getLocationOnScreen());
 	}
 
-	public boolean getState() {
-		return state;
+	public boolean hasState(final State state) {
+		return this.state.contains(state);
+	}
+
+	protected void addState(final State state) {
+		this.state.add(state);
+	}
+
+	protected void removeState(final State state) {
+		this.state.remove(state);
 	}
 
 	public Place createPlace(final Point point) {
@@ -200,6 +230,15 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 
 		@Override
 		public void mouseClicked(final MouseEvent e) {
+			if (hasState(State.MULTISELECTION)) {
+				// User must click twice (first, to deselect, secondly to create
+				// node)
+				// TODO - we could also introduce another state
+				// MULTISELECTION_CANCELLED
+				// It would be nice to have a tri-state enum.
+				selectionDragListener.cancel();
+				return;
+			}
 			// TODO - this could go through the event bus.
 			// Should the node creation listener itself have a state and listen
 			// to events? Or should components toggle listeners depending on
@@ -212,10 +251,12 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 			// that: For a given configuration of states we expect a list of
 			// activated listeners.
 			final Point point = e.getPoint();
-			if (getState()) {
+			if (hasState(State.TRANSITION_CREATION)) {
 				createTransition(point);
-			} else {
+			} else if (hasState(State.PLACE_CREATION)) {
 				createPlace(point);
+			} else {
+				throw new IllegalStateException();
 			}
 			// TODO - components may dispatch action events directly:
 			// dispatchEvent(new FooEvent(this, ActionEvent.ACTION_PERFORMED));
@@ -224,48 +265,21 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 
 	@Override
 	public void nodesSelected(final NodeSelectionEvent event) {
+		addState(State.MULTISELECTION);
 		final List<AbstractNode> nodes = event.getNodes();
 		// TODO - Extract MultiSelectionDragDropListener
-		final DragDropListener dragListener = new DragDropListener() {
-
-			Point absStart;
-
-			@Override
-			public void startDrag(final Component component, final Point point) {
-				absStart = component.getLocation();
-			}
-
-			@Override
-			public void onDrag(final Component component, final int deltaX, final int deltaY) {
-				for (final AbstractNode node : nodes) {
-					final Rectangle r = node.getBounds();
-					r.translate(deltaX, deltaY);
-					node.setBounds(r);
-					node.repaint();
-				}
-			}
-
-			@Override
-			public void endDrag(final Component component, final Point dragEnd) {
-				final Point absEnd = component.getLocation();
-				for (final AbstractNode node : nodes) {
-					DragDropListener.removeFromComponent(node, this);
-				}
-				final Point delta = delta(absEnd, absStart);
-				eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(UNSELECTED, this, nodes));
-				// TODO - after all, we may want to fire constantly...
-				eventBus.fireNodeMovedEvent(new NodeMovedEvent(this, nodes, delta.x, delta.y));
-			}
-
-		};
-		for (final AbstractNode node : nodes) {
-			DragDropListener.addToComponent(node, dragListener);
-		}
+		selectionDragListener = new SelectionDragDropListener(nodes);
+		SelectionDragDropListener.addToComponents(nodes, selectionDragListener);
 	}
 
+	/**
+	 * Event source may be gridPanel or another listener, model etc.
+	 */
 	@Override
 	public void nodesUnselected(final NodeSelectionEvent event) {
-		// TODO - ignore only if source is self
+		// NOTE - How nodes are displayed is handled by the nodes
+		// themselves.
+		removeState(State.MULTISELECTION);
 	}
 
 	@Override
