@@ -3,6 +3,7 @@ package de.markusrother.pned.gui;
 import static de.markusrother.pned.gui.PnGridPanel.eventBus;
 
 import java.awt.LayoutManager;
+import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 import java.util.concurrent.ExecutionException;
@@ -67,6 +68,14 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 	public abstract Point2D getIntersectionWithBounds(final double theta);
 
 	abstract Shape getShape();
+
+	public Point getCenter() {
+		final Point point = getLocation();
+		point.translate( //
+				(int) Math.floor((getWidth() + 0.5) / 2.0), //
+				(int) Math.floor((getHeight() + 0.5) / 2.0));
+		return point;
+	}
 
 	public String getId() {
 		try {

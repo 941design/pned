@@ -1,12 +1,16 @@
 package de.markusrother.pned.gui;
 
 import static de.markusrother.pned.gui.NodeSelectionEvent.Type.SELECTED;
+import static de.markusrother.pned.gui.NodeSelectionEvent.Type.UNSELECTED;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,9 +31,7 @@ public class NodeSelector extends DragDropListener {
 
 	private JPanel selectionPanel;
 	private Point dragOrigin;
-
-	public NodeSelector() {
-	}
+	private List<AbstractNode> currentSelection;
 
 	private JPanel createSelectionPanel(final Point origin) {
 		final JPanel panel = new JPanel();
@@ -39,11 +41,10 @@ public class NodeSelector extends DragDropListener {
 		return panel;
 	}
 
-	private List<AbstractNode> collectSelectedNodes(final SnapGridComponent sgc, final Rectangle r) {
-		// TODO - get rid of SnapTarget!
+	private List<AbstractNode> collectSelectedNodes(final Container container, final Rectangle r) {
 		final List<AbstractNode> selection = new LinkedList<>();
-		for (final Component c : sgc.getComponents()) {
-			if (c instanceof AbstractNode && r.contains(c.getLocation())) {
+		for (final Component c : container.getComponents()) {
+			if (c instanceof AbstractNode && r.contains(((AbstractNode) c).getCenter())) {
 				final AbstractNode node = (AbstractNode) c;
 				selection.add(node);
 			}
@@ -53,9 +54,10 @@ public class NodeSelector extends DragDropListener {
 
 	@Override
 	public void startDrag(final Component component, final Point origin) {
-		dragOrigin = origin;
+		this.dragOrigin = origin;
+		this.currentSelection = Collections.emptyList();
+		this.selectionPanel = createSelectionPanel(origin);
 		final SnapGridComponent sgc = (SnapGridComponent) component;
-		selectionPanel = createSelectionPanel(origin);
 		// TODO - make sure panel is on top of nodes! selection layer?
 		sgc.add(selectionPanel);
 		sgc.repaint();
@@ -122,7 +124,26 @@ public class NodeSelector extends DragDropListener {
 		} else {
 			throw new IllegalStateException();
 		}
-		selectionPanel.setBounds(new Rectangle(x, y, w, h));
+		final Rectangle selection = new Rectangle(x, y, w, h);
+		selectNodes(component, selection);
+		selectionPanel.setBounds(selection);
+	}
+
+	private void selectNodes(final Component component, final Rectangle selection) {
+		final SnapGridComponent sgc = (SnapGridComponent) component;
+		final List<AbstractNode> nodes = collectSelectedNodes(sgc, selection);
+
+		// Nodes that were not selected before but are now selected:
+		final List<AbstractNode> selectedNodes = new ArrayList<>(nodes);
+		selectedNodes.removeAll(currentSelection);
+		PnGridPanel.eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECTED, sgc, selectedNodes));
+
+		// Nodes that were but are no longer selected:
+		final List<AbstractNode> unselectedNodes = new ArrayList<>(currentSelection);
+		unselectedNodes.removeAll(nodes);
+		PnGridPanel.eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(UNSELECTED, sgc, unselectedNodes));
+
+		currentSelection = nodes;
 	}
 
 	static Rectangle resizeDragPanelBounds(final Rectangle r, final int deltaX, final int deltaY) {
@@ -135,11 +156,6 @@ public class NodeSelector extends DragDropListener {
 
 	@Override
 	public void endDrag(final Component component, final Point point) {
-		final SnapGridComponent sgc = (SnapGridComponent) component;
-		final Rectangle r = selectionPanel.getBounds();
-		final List<AbstractNode> nodes = collectSelectedNodes(sgc, r);
-		PnGridPanel.eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECTED, sgc, nodes));
-
 		// Now we have a selection, and need to do something with it. Obtaining
 		// the selection, altered global state. Many other actions have to
 		// respect that we are now in selection mode, e.g. starting another, new
@@ -168,10 +184,11 @@ public class NodeSelector extends DragDropListener {
 		// generally quite nice. Just add listeners like crazy and let the
 		// responsible instance take care of it. The event bus could be a
 		// singleton.
-
-		sgc.remove(selectionPanel);
-		// sgc.revalidate();
-		sgc.repaint();
-		selectionPanel = null;
+		final Container container = (Container) component;
+		container.remove(selectionPanel);
+		container.repaint();
+		this.selectionPanel = null;
+		this.dragOrigin = null;
+		this.currentSelection = null;
 	}
 }
