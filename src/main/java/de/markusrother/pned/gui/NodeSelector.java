@@ -26,6 +26,7 @@ import de.markusrother.swing.snap.SnapGridComponent;
 public class NodeSelector extends DragDropListener {
 
 	private JPanel selectionPanel;
+	private Point dragOrigin;
 
 	public NodeSelector() {
 	}
@@ -52,8 +53,9 @@ public class NodeSelector extends DragDropListener {
 
 	@Override
 	public void startDrag(final Component component, final Point origin) {
+		dragOrigin = origin;
 		final SnapGridComponent sgc = (SnapGridComponent) component;
-		this.selectionPanel = createSelectionPanel(origin);
+		selectionPanel = createSelectionPanel(origin);
 		// TODO - make sure panel is on top of nodes! selection layer?
 		sgc.add(selectionPanel);
 		sgc.repaint();
@@ -61,8 +63,74 @@ public class NodeSelector extends DragDropListener {
 
 	@Override
 	public void onDrag(final Component component, final int deltaX, final int deltaY) {
+		// TODO, TEST - make this testable, test transitivity and commutativity!
 		final Rectangle r = selectionPanel.getBounds();
-		selectionPanel.setBounds(new Rectangle(r.x, r.y, r.width + deltaX, r.height + deltaY));
+
+		final boolean isDragRight = deltaX >= 0;
+		final boolean isDragLeft = !isDragRight;
+		final boolean isDragDown = deltaY >= 0;
+		final boolean isDragUp = !isDragDown;
+		final boolean isOriginX = r.x == dragOrigin.x;
+		final boolean isOriginY = r.y == dragOrigin.y;
+		final boolean isCrossingOriginX = isDragRight && !isOriginX && r.width < deltaX //
+				|| isDragLeft && isOriginX && r.width < -deltaX;
+		final boolean isCrossingOriginY = isDragDown && !isOriginY && r.height < deltaY //
+				|| isDragUp && isOriginY && r.height < -deltaY;
+
+		final int x, w;
+		if (isDragRight && isOriginX) {
+			x = dragOrigin.x;
+			w = r.width + deltaX;
+		} else if (isDragRight && isCrossingOriginX) {
+			x = dragOrigin.x;
+			w = -(r.width - deltaX);
+		} else if (isDragRight && !isCrossingOriginX) {
+			x = r.x + deltaX;
+			w = r.width - deltaX;
+		} else if (isDragLeft && isOriginX && !isCrossingOriginX) {
+			x = dragOrigin.x;
+			w = r.width + deltaX;
+		} else if (isDragLeft && !isOriginX) {
+			x = r.x + deltaX;
+			w = r.width - deltaX;
+		} else if (isDragLeft && isCrossingOriginX) {
+			x = dragOrigin.x + r.width + deltaX;
+			w = -(r.width + deltaX);
+		} else {
+			throw new IllegalStateException();
+		}
+
+		final int y, h;
+		if (isDragDown && isOriginY) {
+			y = dragOrigin.y;
+			h = r.height + deltaY;
+		} else if (isDragDown && isCrossingOriginY) {
+			y = dragOrigin.y;
+			h = -(r.height - deltaY);
+		} else if (isDragDown && !isCrossingOriginY) {
+			y = r.y + deltaY;
+			h = r.height - deltaY;
+		} else if (isDragUp && isOriginY && !isCrossingOriginY) {
+			y = dragOrigin.y;
+			h = r.height + deltaY;
+		} else if (isDragUp && !isOriginY) {
+			y = r.y + deltaY;
+			h = r.height - deltaY;
+		} else if (isDragUp && isCrossingOriginY) {
+			y = dragOrigin.y + r.height + deltaY;
+			h = -(r.height + deltaY);
+		} else {
+			throw new IllegalStateException();
+		}
+		selectionPanel.setBounds(new Rectangle(x, y, w, h));
+	}
+
+	static Rectangle resizeDragPanelBounds(final Rectangle r, final int deltaX, final int deltaY) {
+		final int x = -deltaX > r.width ? r.x + r.width + deltaX : r.x;
+		final int y = -deltaY > r.height ? r.y + r.height + deltaY : r.y;
+		final int w = Math.abs(r.width + deltaX);
+		final int h = Math.abs(r.height + deltaY);
+		return new Rectangle(x, y, w, h);
 	}
 
 	@Override
