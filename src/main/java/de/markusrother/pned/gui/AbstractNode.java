@@ -6,7 +6,6 @@ import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.geom.Point2D;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +24,7 @@ import de.markusrother.swing.Selectable;
  *
  */
 public abstract class AbstractNode extends JPanel implements NodeListener, NodeSelectionListener, Selectable,
-		Disposable {
+		Disposable, DefinitelyBounded {
 
 	// TODO - Should be used as EnumSet!
 	// Is it possible to define an arithmetic on states? It would be nice to
@@ -62,13 +61,6 @@ public abstract class AbstractNode extends JPanel implements NodeListener, NodeS
 	public AbstractNode() {
 		this(NO_LAYOUT_MANAGER);
 	}
-
-	/**
-	 * @param theta
-	 *            growing clockwise
-	 * @return A Point on the boundary of this.getShape().
-	 */
-	protected abstract Point2D getIntersectionWithBounds(final double theta);
 
 	protected abstract Shape getShape();
 

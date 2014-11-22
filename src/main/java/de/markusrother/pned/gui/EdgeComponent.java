@@ -15,8 +15,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
-import javax.swing.JComponent;
-
 import de.markusrother.swing.DragDropAdapter;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
@@ -24,7 +22,7 @@ import de.markusrother.swing.HoverListener;
 /**
  * 
  */
-class EdgeComponent extends JComponent implements NodeListener, Disposable {
+class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractNode> implements NodeListener, Disposable {
 
 	private static final Color standardColor = Color.BLACK;
 	private static final Color hoverColor = Color.BLUE;
@@ -52,19 +50,12 @@ class EdgeComponent extends JComponent implements NodeListener, Disposable {
 		return polygon;
 	}
 
-	Point source;
-	Point target;
-	AbstractNode sourceComponent;
-	AbstractNode targetComponent;
-
 	private Polygon tip;
 	private Line2D line;
 	private Color fgColor;
 
 	public EdgeComponent(final AbstractNode sourceComponent, final Point source, final Point target) {
-		this.sourceComponent = sourceComponent;
-		this.source = source;
-		this.target = target;
+		super(sourceComponent, source, target);
 		this.fgColor = standardColor;
 		eventBus.addNodeListener(this);
 	}
@@ -89,48 +80,6 @@ class EdgeComponent extends JComponent implements NodeListener, Disposable {
 		return g2;
 	}
 
-	public Class<?> getSourceType() {
-		return sourceComponent.getClass();
-	}
-
-	public Class<?> getTargetType() {
-		return targetComponent.getClass();
-	}
-
-	public void setSource(final Point source) {
-		this.source = source;
-		repaint();
-	}
-
-	public void setTarget(final Point target) {
-		this.target = target;
-		repaint();
-	}
-
-	public AbstractNode getSourceComponent() {
-		return sourceComponent;
-	}
-
-	private void setSourceComponent(final AbstractNode sourceComponent) {
-		this.sourceComponent = sourceComponent;
-	}
-
-	public AbstractNode getTargetComponent() {
-		return targetComponent;
-	}
-
-	public void setTargetComponent(final AbstractNode targetComponent) {
-		this.targetComponent = targetComponent;
-	}
-
-	public boolean hasTargetComponent() {
-		return targetComponent != null;
-	}
-
-	public void removeTargetComponent() {
-		targetComponent = null;
-	}
-
 	public boolean acceptsTarget(final Component component) {
 		return component instanceof AbstractNode //
 				&& sourceComponent.getClass() != component.getClass();
@@ -143,8 +92,8 @@ class EdgeComponent extends JComponent implements NodeListener, Disposable {
 
 			@Override
 			public void onDrag(final Component component, final int deltaX, final int deltaY) {
-				connectToSource(getSourceComponent());
-				connectToTarget(getTargetComponent());
+				connectToSource();
+				connectToTarget();
 				repaint();
 			}
 
@@ -192,43 +141,6 @@ class EdgeComponent extends JComponent implements NodeListener, Disposable {
 
 	public void highlightStandard() {
 		setColor(standardColor);
-	}
-
-	public double getAngle() {
-		return getRadiansOfDelta(source, target);
-	}
-
-	private Point round(final Point2D point) {
-		return new Point( //
-				(int) Math.floor(point.getX() + 0.5), //
-				(int) Math.floor(point.getY() + 0.5));
-	}
-
-	/**
-	 * TODO - Currently requires component to be added to parent already, to
-	 * retrieve position!
-	 */
-	public void connectToTarget(final AbstractNode node) {
-		// TODO - make nicer
-		final double angle = getAngle();
-		final Point intersection = node.getLocation();
-		// TODO - must rotate because...
-		final Point boundary = round(node.getIntersectionWithBounds(angle + Math.PI));
-		intersection.translate(boundary.x, boundary.y);
-		setTarget(intersection);
-	}
-
-	/**
-	 * TODO - Currently requires component to be added to parent already, to
-	 * retrieve position!
-	 */
-	public void connectToSource(final AbstractNode node) {
-		// TODO - make nicer
-		final double angle = getAngle();
-		final Point intersection = node.getLocation();
-		final Point boundary = round(node.getIntersectionWithBounds(angle));
-		intersection.translate(boundary.x, boundary.y);
-		setSource(intersection);
 	}
 
 	@Override

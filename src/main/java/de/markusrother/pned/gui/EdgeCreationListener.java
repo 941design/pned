@@ -78,7 +78,12 @@ public class EdgeCreationListener extends DoubleClickListener {
 	public void mouseMoved(final MouseEvent e) {
 		super.mouseMoved(e);
 		if (edge != null) {
-			edge.setTarget(pnGridPanel.getGridRelativeLocation(e.getLocationOnScreen()));
+			if (!edge.hasTargetComponent()) {
+				edge.setUnboundTarget(pnGridPanel.getGridRelativeLocation(e.getLocationOnScreen()));
+			} else if (edge.getTargetComponent() != e.getComponent()) {
+				edge.removeTargetComponent();
+				edge.setUnboundTarget(pnGridPanel.getGridRelativeLocation(e.getLocationOnScreen()));
+			}
 			// TODO - This causes flickering, whereas the solution with
 			// drawing from the center is more pleasing but does not work
 			// with transparent elements. The cleanest solution would be to
@@ -96,7 +101,7 @@ public class EdgeCreationListener extends DoubleClickListener {
 		if (edge != null) {
 			final Component possibleTarget = e.getComponent();
 			if (edge.acceptsTarget(possibleTarget)) {
-				edge.connectToTarget((AbstractNode) possibleTarget);
+				edge.setTargetComponent((AbstractNode) possibleTarget);
 				edge.highlightValid();
 			} else {
 				edge.highlightInvalid();
