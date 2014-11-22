@@ -29,6 +29,14 @@ import de.markusrother.swing.snap.SnapGridComponent;
  */
 public class NodeSelector extends DragDropListener {
 
+	public List<AbstractNode> getCurrentSelection() {
+		return currentSelection;
+	}
+
+	public void setCurrentSelection(final List<AbstractNode> currentSelection) {
+		this.currentSelection = currentSelection;
+	}
+
 	private JPanel selectionPanel;
 	private Point dragOrigin;
 	private List<AbstractNode> currentSelection;
@@ -136,12 +144,16 @@ public class NodeSelector extends DragDropListener {
 		// Nodes that were not selected before but are now selected:
 		final List<AbstractNode> selectedNodes = new ArrayList<>(nodes);
 		selectedNodes.removeAll(currentSelection);
-		PnGridPanel.eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECTED, sgc, selectedNodes));
+		if (selectedNodes.size() > 0) {
+			PnGridPanel.eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECTED, sgc, selectedNodes));
+		}
 
 		// Nodes that were but are no longer selected:
 		final List<AbstractNode> unselectedNodes = new ArrayList<>(currentSelection);
 		unselectedNodes.removeAll(nodes);
-		PnGridPanel.eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(UNSELECTED, sgc, unselectedNodes));
+		if (unselectedNodes.size() > 0) {
+			PnGridPanel.eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(UNSELECTED, sgc, unselectedNodes));
+		}
 
 		currentSelection = nodes;
 	}

@@ -19,7 +19,7 @@ import javax.swing.event.EventListenerList;
  * 
  * TODO - which idiom?
  */
-public class EventBus implements AWTEventListener, NodeCreationListener {
+public class EventBus implements AWTEventListener, NodeListener {
 
 	private final EventListenerList listeners = new EventListenerList();
 
@@ -27,9 +27,13 @@ public class EventBus implements AWTEventListener, NodeCreationListener {
 		return listeners.getListeners(clazz);
 	}
 
-	public void addNodeCreationListener(final NodeCreationListener l) {
+	public void addNodeListener(final NodeListener l) {
 		// TODO - should be defined in an interface
-		listeners.add(NodeCreationListener.class, l);
+		listeners.add(NodeListener.class, l);
+	}
+
+	public void removeNodeListener(final NodeListener l) {
+		listeners.remove(NodeListener.class, l);
 	}
 
 	public void addNodeSelectionListener(final NodeSelectionListener l) {
@@ -42,10 +46,19 @@ public class EventBus implements AWTEventListener, NodeCreationListener {
 		listeners.add(NodeMotionListener.class, l);
 	}
 
+	public void removeNodeMotionListener(final NodeMotionListener l) {
+		listeners.remove(NodeMotionListener.class, l);
+	}
+
 	@Override
 	public void nodeCreated(final NodeCreationEvent e) {
 		// TODO - which idiom?
 		// TODO - should be defined in an interface
+		eventDispatched(e);
+	}
+
+	@Override
+	public void nodeRemoved(final NodeRemovalEvent e) {
 		eventDispatched(e);
 	}
 
@@ -69,11 +82,15 @@ public class EventBus implements AWTEventListener, NodeCreationListener {
 	public void eventDispatched(final AWTEvent event) {
 		if (event instanceof NodeCreationEvent) {
 			final NodeCreationEvent e = (NodeCreationEvent) event;
-			for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
+			for (final NodeListener l : getListeners(NodeListener.class)) {
 				l.nodeCreated(e);
 			}
-		}
-		if (event instanceof NodeSelectionEvent) {
+		} else if (event instanceof NodeRemovalEvent) {
+			final NodeRemovalEvent e = (NodeRemovalEvent) event;
+			for (final NodeListener l : getListeners(NodeListener.class)) {
+				l.nodeRemoved(e);
+			}
+		} else if (event instanceof NodeSelectionEvent) {
 			final NodeSelectionEvent e = (NodeSelectionEvent) event;
 			switch (e.getType()) {
 			case SELECTED:

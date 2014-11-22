@@ -1,28 +1,22 @@
 package de.markusrother.pned.gui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.EnumSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Future;
 
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 
 import de.markusrother.concurrent.Promise;
 import de.markusrother.swing.DragDropListener;
-import de.markusrother.swing.PopupListener;
 import de.markusrother.swing.snap.SnapGridComponent;
 
 /**
@@ -38,7 +32,7 @@ import de.markusrother.swing.snap.SnapGridComponent;
  * TODO - Dispatch all events to all layers: the grid (node layer), the edge
  * layer, and possibly the root layer, using layer.dispatchEvent(e).
  */
-class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCreationListener {
+class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeListener {
 
 	public enum State {
 		MULTISELECTION, //
@@ -58,12 +52,14 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 	private final JComponent snapGrid;
 	private final MouseAdapter edgeCreationListener;
 	private final MouseAdapter nodeCreationListener;
-	private final DragDropListener nodeSelectionListener;
-	private final PopUpListener popupListener;
+	private final NodeSelector nodeSelectionListener;
+	private final PnGridPopupListener popupListener;
 	private final EnumSet<State> state;
 	private final JComponent edgeLayer;
 	// Stateful/Throwaway listeners:
 	SelectionDragDropListener selectionDragListener;
+
+	private final List<AbstractNode> currentSelection;
 
 	public static Point delta(final Point a, final Point b) {
 		return new Point(a.x - b.x, a.y - b.y);
@@ -105,7 +101,9 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 		edgeCreationListener = new EdgeCreationListener(this);
 		nodeCreationListener = new NodeCreationListener();
 		nodeSelectionListener = new NodeSelector();
-		popupListener = new PopUpListener();
+		popupListener = new PnGridPopupListener(this);
+
+		currentSelection = new LinkedList<>();
 
 		add(snapGrid, new Integer(1));
 		snapGrid.addMouseListener(nodeCreationListener);
@@ -113,36 +111,11 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 		snapGrid.addMouseListener(popupListener);
 		DragDropListener.addToComponent(snapGrid, nodeSelectionListener);
 
-		// Adding state type toggle
-		final PnGridPanel that = this;
-		final JButton toggleBtn = new JButton("place");
-		toggleBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				// TODO - toggleCreationMode(); nicer!
-				if (that.hasState(State.PLACE_CREATION)) {
-					that.removeState(State.PLACE_CREATION);
-					that.addState(State.TRANSITION_CREATION);
-					toggleBtn.setText("transition");
-				} else if (that.hasState(State.TRANSITION_CREATION)) {
-					that.removeState(State.TRANSITION_CREATION);
-					that.addState(State.PLACE_CREATION);
-					toggleBtn.setText("place");
-				} else {
-					throw new IllegalStateException();
-				}
-				// Preferred size changes, but should our snapTargetComponent
-				// adapt dynamically to such changes?
-			}
-		});
-		snapGrid.add(toggleBtn);
-		toggleBtn.setBounds(new Rectangle(new Point(100, 100), toggleBtn.getPreferredSize()));
-
 		// TODO - Make this a lazy initialized singleton! First try if a static
 		// singleton works, too
 		eventBus = new EventBus();
 		eventBus.addNodeSelectionListener(this);
-		eventBus.addNodeCreationListener(this);
+		eventBus.addNodeListener(this);
 	}
 
 	private void addEdgeCreationListenerTo(final JComponent component) {
@@ -196,6 +169,12 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 		eventBus.nodeCreated(new NodeCreationEvent(this, node, idPromise));
 	}
 
+	public void removeSelectedNodes() {
+		for (final AbstractNode node : currentSelection) {
+			eventBus.nodeRemoved(new NodeRemovalEvent(this, node));
+		}
+	}
+
 	public JLabel createLabel(final Point origin, final String nodeId) {
 		// TODO - We could create an edge that connects label with node, synced
 		// similarly to the node.
@@ -210,16 +189,10 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 		snapGrid.add(label);
 	}
 
-	private Point getCenter(final Component component) {
-		final Point point = getGridRelativeLocation(component.getLocationOnScreen());
-		point.translate(component.getWidth() / 2, component.getHeight() / 2);
-		return point;
-	}
-
-	public EdgeComponent createEdge(final AbstractNode sourceComponent, final Point target) {
-		final Point source = getCenter(sourceComponent);
-		final EdgeComponent edge = new EdgeComponent(sourceComponent, source, target);
-		edge.setBounds(0, 0, getWidth(), getHeight());
+	public EdgeComponent createEdge(final AbstractNode sourceNode, final Point target) {
+		final Point source = sourceNode.getCenter();
+		final EdgeComponent edge = new EdgeComponent(sourceNode, source, target);
+		edge.setBounds(this.getBounds()); // OBSOLETE?
 		edgeLayer.add(edge);
 		return edge;
 	}
@@ -227,22 +200,6 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 	void removeEdge(final EdgeComponent edge) {
 		snapGrid.remove(edge);
 		repaint();
-	}
-
-	/**
-	 * TODO - extract class
-	 *
-	 */
-	private class PopUpListener extends PopupListener {
-
-		@Override
-		public void popup(final MouseEvent e) {
-			final JPopupMenu popup = new JPopupMenu();
-			final JMenuItem menuItem = new JMenuItem("A popup menu item");
-			popup.add(menuItem);
-			popup.show(e.getComponent(), e.getX(), e.getY());
-		}
-
 	}
 
 	private class NodeCreationListener extends MouseAdapter {
@@ -287,11 +244,12 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 
 	@Override
 	public void nodesSelected(final NodeSelectionEvent event) {
+		// TODO - changing selections are not yet repsected!
 		addState(State.MULTISELECTION);
-		final List<AbstractNode> nodes = event.getNodes();
+		currentSelection.addAll(event.getNodes());
 		// TODO - Extract MultiSelectionDragDropListener
-		selectionDragListener = new SelectionDragDropListener(nodes);
-		SelectionDragDropListener.addToComponents(nodes, selectionDragListener);
+		selectionDragListener = new SelectionDragDropListener(currentSelection);
+		SelectionDragDropListener.addToComponents(currentSelection, selectionDragListener);
 	}
 
 	/**
@@ -301,7 +259,8 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 	public void nodesUnselected(final NodeSelectionEvent event) {
 		// NOTE - How nodes are displayed is handled by the nodes
 		// themselves.
-		removeState(State.MULTISELECTION);
+		// removeState(State.MULTISELECTION); // TEMP
+		currentSelection.removeAll(event.getNodes());
 	}
 
 	@Override
@@ -314,5 +273,28 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeCre
 		final Point labelOrigin = node.getLocation();
 		labelOrigin.translate(0, -labelHeight);
 		createLabel(labelOrigin, node.getId());
+	}
+
+	void toggleNodeCreationMode() {
+		// TODO - toggleCreationMode(); nicer!
+		if (hasState(State.PLACE_CREATION)) {
+			removeState(State.PLACE_CREATION);
+			addState(State.TRANSITION_CREATION);
+		} else if (hasState(State.TRANSITION_CREATION)) {
+			removeState(State.TRANSITION_CREATION);
+			addState(State.PLACE_CREATION);
+		} else {
+			throw new IllegalStateException();
+		}
+		// Preferred size changes, but should our snapTargetComponent
+		// adapt dynamically to such changes?
+	}
+
+	@Override
+	public void nodeRemoved(final NodeRemovalEvent e) {
+		// TODO - also the node itself should be removed, as it may still be
+		// referenced somewhere, and may have listeners.
+		snapGrid.remove(e.getNode());
+		snapGrid.repaint();
 	}
 }

@@ -12,7 +12,7 @@ import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 
-public class NodeLabel extends JLabel {
+public class NodeLabel extends JLabel implements NodeListener, Disposable {
 
 	public enum State {
 		DEFAULT, //
@@ -21,9 +21,11 @@ public class NodeLabel extends JLabel {
 
 	private final NodeMotionListener nodeMotionListener;
 	private final DragDropListener dragDropListener;
+	private final String nodeId;
 
 	public NodeLabel(final String nodeId) {
 		super(nodeId);
+		this.nodeId = nodeId;
 		// TODO - this needs to go to label, and be removed from eventBus upon
 		// component removal!
 		this.dragDropListener = new DefaultDragDropListener(this);
@@ -44,11 +46,13 @@ public class NodeLabel extends JLabel {
 			}
 
 		};
+		eventBus.addNodeListener(this);
 		eventBus.addNodeMotionListener(nodeMotionListener);
 		setBorder(null);
 	}
 
 	public void setState(final State state) {
+		// TODO - create interface Stateful
 		switch (state) {
 		case DEFAULT:
 			setBorder(null);
@@ -64,4 +68,22 @@ public class NodeLabel extends JLabel {
 		repaint();
 	}
 
+	@Override
+	public void nodeCreated(final NodeCreationEvent e) {
+		// IGNORE
+	}
+
+	@Override
+	public void nodeRemoved(final NodeRemovalEvent e) {
+		if (e.getNode().getId() == nodeId) {
+			dispose();
+		}
+	}
+
+	@Override
+	public void dispose() {
+		eventBus.removeNodeListener(this);
+		eventBus.removeNodeMotionListener(nodeMotionListener);
+		getParent().remove(this);
+	}
 }

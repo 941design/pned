@@ -1,5 +1,6 @@
 package de.markusrother.pned.gui;
 
+import static de.markusrother.pned.gui.PnGridPanel.eventBus;
 import static de.markusrother.pned.gui.TrigUtils.getRadiansOfDelta;
 
 import java.awt.BasicStroke;
@@ -23,7 +24,7 @@ import de.markusrother.swing.HoverListener;
 /**
  * 
  */
-class EdgeComponent extends JComponent {
+class EdgeComponent extends JComponent implements NodeListener, Disposable {
 
 	private static final Color standardColor = Color.BLACK;
 	private static final Color hoverColor = Color.BLUE;
@@ -65,6 +66,7 @@ class EdgeComponent extends JComponent {
 		this.source = source;
 		this.target = target;
 		this.fgColor = standardColor;
+		eventBus.addNodeListener(this);
 	}
 
 	@Override
@@ -227,6 +229,26 @@ class EdgeComponent extends JComponent {
 		final Point boundary = round(node.getIntersectionWithBounds(angle));
 		intersection.translate(boundary.x, boundary.y);
 		setSource(intersection);
+	}
+
+	@Override
+	public void nodeCreated(final NodeCreationEvent e) {
+		// IGNORE
+	}
+
+	@Override
+	public void nodeRemoved(final NodeRemovalEvent e) {
+		if (e.getNode() == sourceComponent || e.getNode() == targetComponent) {
+			dispose();
+		}
+	}
+
+	@Override
+	public void dispose() {
+		eventBus.removeNodeListener(this);
+		// TODO - may require synchronization, if two removal events are fired
+		// before this is properly removed from eventBus.
+		getParent().remove(this);
 	}
 
 }
