@@ -11,6 +11,7 @@ public class NodeMovedEvent extends ActionEvent {
 	private final int deltaX;
 
 	public NodeMovedEvent(final Object source, final Collection<AbstractNode> nodes, final int deltaX, final int deltaY) {
+		// TODO - refactor to single node event!
 		super(source, ActionEvent.ACTION_PERFORMED, "no command string");
 		this.nodes = nodes;
 		this.deltaX = deltaX;

@@ -97,12 +97,12 @@ public class EventBus implements AWTEventListener, NodeListener {
 		} else if (event instanceof NodeSelectionEvent) {
 			final NodeSelectionEvent e = (NodeSelectionEvent) event;
 			switch (e.getType()) {
-			case SELECTED:
+			case SELECT:
 				for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
 					l.nodesSelected(e);
 				}
 				break;
-			case UNSELECTED:
+			case DESELECT:
 				for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
 					l.nodesUnselected(e);
 				}

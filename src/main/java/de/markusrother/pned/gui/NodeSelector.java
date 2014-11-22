@@ -1,7 +1,7 @@
 package de.markusrother.pned.gui;
 
-import static de.markusrother.pned.gui.NodeSelectionEvent.Type.SELECTED;
-import static de.markusrother.pned.gui.NodeSelectionEvent.Type.UNSELECTED;
+import static de.markusrother.pned.gui.NodeSelectionEvent.Type.DESELECT;
+import static de.markusrother.pned.gui.NodeSelectionEvent.Type.SELECT;
 
 import java.util.List;
 
@@ -43,12 +43,12 @@ public class NodeSelector extends Selector<AbstractNode> {
 
 	@Override
 	public void addedToSelection(final List<AbstractNode> items) {
-		PnGridPanel.eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECTED, this, items));
+		PnGridPanel.eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, items));
 	}
 
 	@Override
 	public void removedFromSelection(final List<AbstractNode> items) {
-		PnGridPanel.eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(UNSELECTED, this, items));
+		PnGridPanel.eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(DESELECT, this, items));
 	}
 
 }

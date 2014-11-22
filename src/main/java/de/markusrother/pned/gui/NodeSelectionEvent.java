@@ -6,8 +6,8 @@ import java.util.Collection;
 public class NodeSelectionEvent extends ActionEvent {
 
 	public enum Type {
-		SELECTED, //
-		UNSELECTED, //
+		SELECT, //
+		DESELECT, //
 	}
 
 	private final Collection<AbstractNode> nodes;

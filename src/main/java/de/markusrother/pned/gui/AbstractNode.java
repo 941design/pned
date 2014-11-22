@@ -6,7 +6,6 @@ import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -15,7 +14,6 @@ import java.util.concurrent.TimeoutException;
 
 import javax.swing.JPanel;
 
-import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 import de.markusrother.swing.Selectable;
@@ -45,7 +43,9 @@ public abstract class AbstractNode extends JPanel implements NodeListener, NodeS
 
 	private static final LayoutManager NO_LAYOUT_MANAGER = null;
 
-	private DragDropListener dragDropListener;
+	private DragDropListener dragListener; // selectionHandler
+	private EdgeCreationListener edgeCreationListener;
+	private SingleNodeSelector singleNodeSelector;
 
 	private State state;
 	// TODO - This could be substituted with a Model.
@@ -54,8 +54,6 @@ public abstract class AbstractNode extends JPanel implements NodeListener, NodeS
 	public AbstractNode(final LayoutManager layoutManager) {
 		super(layoutManager);
 		this.state = State.DEFAULT; // TODO - empty EnumSet
-		this.dragDropListener = new DefaultDragDropListener(this);
-		// DragDropListener.addToComponent(this, dragDropListener);
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
 		eventBus.addNodeListener(this);
 		eventBus.addNodeSelectionListener(this);
@@ -104,18 +102,32 @@ public abstract class AbstractNode extends JPanel implements NodeListener, NodeS
 	 */
 	protected abstract void setLayout(State state);
 
-	void setDragListener(final SelectionDragDropListener selectionListener) {
-		DragDropListener.removeFromComponent(this, dragDropListener);
-		dragDropListener = selectionListener;
-		DragDropListener.addToComponent(this, dragDropListener);
+	void setSingleNodeSelector(final SingleNodeSelector listener) {
+		if (singleNodeSelector != null) {
+			DragDropListener.removeFromComponent(this, singleNodeSelector);
+		}
+		singleNodeSelector = listener;
+		DragDropListener.addToComponent(this, singleNodeSelector);
 	}
 
-	private void suspendDragListener() {
-		DragDropListener.removeFromComponent(this, dragDropListener);
+	void setDragListener(final SelectionDragDropListener listener) {
+		if (dragListener != null) {
+			DragDropListener.removeFromComponent(this, dragListener);
+		}
+		dragListener = listener;
+		DragDropListener.addToComponent(this, dragListener);
 	}
 
-	private void resumeDragListener() {
-		DragDropListener.addToComponent(this, dragDropListener);
+	void setEdgeCreationListener(final EdgeCreationListener listener) {
+		if (edgeCreationListener != null) {
+			EdgeCreationListener.removeFromComponent(this, edgeCreationListener);
+		}
+		edgeCreationListener = listener;
+		EdgeCreationListener.addToComponent(this, edgeCreationListener);
+	}
+
+	void removeDragListener(final DragDropListener listener) {
+		DragDropListener.removeFromComponent(this, listener);
 	}
 
 	private void suspendHoverListener() {

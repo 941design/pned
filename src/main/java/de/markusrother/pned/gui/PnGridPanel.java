@@ -51,9 +51,10 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 	static EventBus eventBus;
 
 	private final JComponent snapGrid;
-	private final MouseAdapter edgeCreator;
+	private final EdgeCreationListener edgeCreator;
 	private final MouseAdapter nodeCreator;
-	private final NodeSelector nodeSelector;
+	private final NodeSelector multipleNodeSelector;
+	private final SingleNodeSelector singleNodeSelector;
 	private final PnGridPopupListener popupCreator;
 	private final EnumSet<State> state;
 	private final JComponent edgeLayer;
@@ -109,7 +110,8 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 		// Listeners that are needed by children, are kept here:
 		edgeCreator = new EdgeCreationListener(this);
 		nodeCreator = new NodeCreator();
-		nodeSelector = new NodeSelector();
+		multipleNodeSelector = new NodeSelector();
+		singleNodeSelector = new SingleNodeSelector();
 		popupCreator = new PnGridPopupListener(this);
 
 		currentSelection = new HashSet<>();
@@ -118,18 +120,13 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 		snapGrid.addMouseListener(nodeCreator);
 		snapGrid.addMouseMotionListener(edgeCreator);
 		snapGrid.addMouseListener(popupCreator);
-		DragDropListener.addToComponent(snapGrid, nodeSelector);
+		DragDropListener.addToComponent(snapGrid, multipleNodeSelector);
 
 		// TODO - Make this a lazy initialized singleton! First try if a static
 		// singleton works, too
 		eventBus = new EventBus();
 		eventBus.addNodeSelectionListener(this);
 		eventBus.addNodeListener(this);
-	}
-
-	private void addEdgeCreationListenerTo(final JComponent component) {
-		component.addMouseListener(edgeCreator);
-		// component.addMouseMotionListener(edgeEditListener);
 	}
 
 	Point getGridRelativeLocation(final Point pointOnScreen) {
@@ -151,14 +148,15 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 	public Place createPlace(final Point point) {
 		final Place place = new Place(placeDimensions);
 		addNodeComponent(place, point);
-		addEdgeCreationListenerTo(place);
+		place.setSingleNodeSelector(singleNodeSelector);
+		place.setEdgeCreationListener(edgeCreator);
 		return place;
 	}
 
 	public Transition createTransition(final Point point) {
 		final Transition transition = new Transition(transitionDimensions);
 		addNodeComponent(transition, point);
-		addEdgeCreationListenerTo(transition);
+		transition.setEdgeCreationListener(edgeCreator);
 		return transition;
 	}
 

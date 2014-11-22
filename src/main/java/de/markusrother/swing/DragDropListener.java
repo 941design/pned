@@ -17,11 +17,12 @@ public abstract class DragDropListener extends MouseAdapter {
 		component.removeMouseMotionListener(listener);
 	}
 
-	private Point point;
-	private boolean started;
+	private Point dragStart;
+	private boolean started; // OBSOLETE
 
 	@Override
 	public void mouseDragged(final MouseEvent e) {
+		dragStart = dragStart != null ? dragStart : e.getLocationOnScreen();
 		if (!started) {
 			startDrag(e.getComponent(), e.getPoint());
 			started = true;
@@ -31,23 +32,26 @@ public abstract class DragDropListener extends MouseAdapter {
 		// TODO - make this sticky! Should stop at the grid's snapPoints.
 		// TODO - components must not overlap!
 		final Point current = e.getLocationOnScreen();
-		final int deltaX = current.x - point.x;
-		final int deltaY = current.y - point.y;
-		point.translate(deltaX, deltaY);
+		final int deltaX = current.x - dragStart.x;
+		final int deltaY = current.y - dragStart.y;
+		dragStart.translate(deltaX, deltaY);
 		onDrag(e.getComponent(), deltaX, deltaY);
 	}
 
 	@Override
 	public void mousePressed(final MouseEvent e) {
-		point = e.getLocationOnScreen();
-		// Resetting flag here, because this event always preceedes
+		dragStart = e.getLocationOnScreen();
+		// Resetting flag here, because this event always precedes
 		// mouseDragged().
+		// TODO - it does NOT always precede! Assume the mousePressed event is
+		// caught by a component which is on top of this, and the event does not
+		// bubble.
 		started = false;
 	}
 
 	@Override
 	public void mouseReleased(final MouseEvent e) {
-		point = null;
+		dragStart = null;
 		if (started) {
 			endDrag(e.getComponent(), e.getPoint());
 		}
@@ -56,18 +60,18 @@ public abstract class DragDropListener extends MouseAdapter {
 	/**
 	 * 
 	 * @param component
-	 * @param point
+	 * @param dragStart
 	 *            in component
 	 */
-	public abstract void startDrag(Component component, Point point);
+	public abstract void startDrag(Component component, Point dragStart);
 
 	/**
 	 * 
 	 * @param component
-	 * @param point
+	 * @param dragEnd
 	 *            in component
 	 */
-	public abstract void endDrag(Component component, Point point);
+	public abstract void endDrag(Component component, Point dragEnd);
 
 	/**
 	 * No deltas are lost!

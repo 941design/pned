@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui;
 
-import static de.markusrother.pned.gui.NodeSelectionEvent.Type.UNSELECTED;
+import static de.markusrother.pned.gui.NodeSelectionEvent.Type.DESELECT;
 import static de.markusrother.pned.gui.PnGridPanel.eventBus;
 
 import java.awt.Component;
@@ -12,23 +12,15 @@ import de.markusrother.swing.DragDropListener;
 
 public class SelectionDragDropListener extends DragDropListener {
 
-	public static void addToComponents(final Collection<AbstractNode> nodes, final SelectionDragDropListener listener) {
-		for (final AbstractNode node : nodes) {
-			DragDropListener.addToComponent(node, listener);
-		}
-	}
-
 	private final Collection<AbstractNode> nodes;
-
-	private Point absStart;
 
 	public SelectionDragDropListener(final Collection<AbstractNode> nodes) {
 		this.nodes = nodes;
 	}
 
 	@Override
-	public void startDrag(final Component component, final Point point) {
-		absStart = component.getLocation();
+	public void startDrag(final Component component, final Point dragStart) {
+		// IGNORE
 	}
 
 	@Override
@@ -39,21 +31,18 @@ public class SelectionDragDropListener extends DragDropListener {
 			node.setBounds(r);
 			node.repaint();
 		}
+		eventBus.fireNodeMovedEvent(new NodeMovedEvent(this, nodes, deltaX, deltaY));
 	}
 
 	@Override
 	public void endDrag(final Component component, final Point dragEnd) {
-		final Point absEnd = component.getLocation();
-		final Point delta = PnGridPanel.delta(absEnd, absStart);
-		// TODO - after all, we may want to fire constantly...
-		eventBus.fireNodeMovedEvent(new NodeMovedEvent(this, nodes, delta.x, delta.y));
 		cancel();
 	}
 
 	public void cancel() {
 		for (final AbstractNode node : nodes) {
-			DragDropListener.removeFromComponent(node, this);
+			node.removeDragListener(this);
 		}
-		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(UNSELECTED, this, nodes));
+		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(DESELECT, this, nodes));
 	}
 }
