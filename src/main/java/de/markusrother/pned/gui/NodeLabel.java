@@ -8,11 +8,24 @@ import java.awt.Rectangle;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
+import de.markusrother.pned.gui.style.NodeLabelStyle;
 import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 
 public class NodeLabel extends JLabel implements NodeListener, Disposable {
+
+	private static NodeLabelStyle style = new NodeLabelStyle();
+	static {
+		style.setDefaultFg(Color.BLACK);
+		style.setDefaultBg(Color.WHITE);
+		style.setDefaultBorder(new LineBorder(Color.GRAY));
+		style.setDefaultOpacity(true);
+		style.setHoverFg(Color.BLACK);
+		style.setHoverBg(Color.LIGHT_GRAY);
+		style.setHoverBorder(new LineBorder(Color.GREEN));
+		style.setHoverOpacity(true);
+	}
 
 	public enum State {
 		DEFAULT, //
@@ -22,6 +35,7 @@ public class NodeLabel extends JLabel implements NodeListener, Disposable {
 	private final NodeMotionListener nodeMotionListener;
 	private final DragDropListener dragDropListener;
 	private final String nodeId;
+	private State state;
 
 	public NodeLabel(final String nodeId) {
 		super(nodeId);
@@ -48,22 +62,17 @@ public class NodeLabel extends JLabel implements NodeListener, Disposable {
 		};
 		eventBus.addNodeListener(this);
 		eventBus.addNodeMotionListener(nodeMotionListener);
-		setBorder(null);
+		setState(State.DEFAULT);
+	}
+
+	public State getState() {
+		return state;
 	}
 
 	public void setState(final State state) {
 		// TODO - create interface Stateful
-		switch (state) {
-		case DEFAULT:
-			setBorder(null);
-			break;
-		case HOVER:
-			setBorder(new LineBorder(Color.GREEN));
-			break;
-		default:
-			// TODO
-			throw new RuntimeException("TODO");
-		}
+		this.state = state;
+		style.apply(this);
 		revalidate();
 		repaint();
 	}
