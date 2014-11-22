@@ -1,6 +1,7 @@
 package de.markusrother.pned.gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -57,12 +58,20 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 	private final EnumSet<State> state;
 	private final JComponent edgeLayer;
 	// Stateful/Throwaway listeners:
-	SelectionDragDropListener selectionDragListener;
+	SelectionDragDropListener nodeSelectionDragListener;
 
 	private final List<AbstractNode> currentSelection;
 
 	public static Point delta(final Point a, final Point b) {
 		return new Point(a.x - b.x, a.y - b.y);
+	}
+
+	public static Point getCenter(final Component component) {
+		final Point point = component.getLocation();
+		point.translate( //
+				(int) Math.floor((component.getWidth() + 0.5) / 2.0), //
+				(int) Math.floor((component.getHeight() + 0.5) / 2.0));
+		return point;
 	}
 
 	/**
@@ -190,7 +199,7 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 	}
 
 	public EdgeComponent createEdge(final AbstractNode sourceNode, final Point target) {
-		final Point source = sourceNode.getCenter();
+		final Point source = getCenter(sourceNode);
 		final EdgeComponent edge = new EdgeComponent(sourceNode, source, target);
 		edge.setBounds(this.getBounds()); // OBSOLETE?
 		edgeLayer.add(edge);
@@ -215,7 +224,7 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 				// TODO - we could also introduce another state
 				// MULTISELECTION_CANCELLED
 				// It would be nice to have a tri-state enum.
-				selectionDragListener.cancel();
+				nodeSelectionDragListener.cancel();
 				return;
 			}
 			// TODO - this could go through the event bus.
@@ -248,8 +257,10 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 		addState(State.MULTISELECTION);
 		currentSelection.addAll(event.getNodes());
 		// TODO - Extract MultiSelectionDragDropListener
-		selectionDragListener = new SelectionDragDropListener(currentSelection);
-		SelectionDragDropListener.addToComponents(currentSelection, selectionDragListener);
+		nodeSelectionDragListener = new SelectionDragDropListener(currentSelection);
+		for (final AbstractNode node : currentSelection) {
+			node.setDragListener(nodeSelectionDragListener);
+		}
 	}
 
 	/**

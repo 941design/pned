@@ -56,12 +56,12 @@ public class Place extends AbstractNode {
 	}
 
 	@Override
-	Shape getShape() {
+	protected Shape getShape() {
 		return getEllipse();
 	}
 
 	@Override
-	void setLayout(final State state) {
+	protected void setLayout(final State state) {
 		switch (state) {
 		case DEFAULT:
 			setForeground(defaultColor);
@@ -85,7 +85,7 @@ public class Place extends AbstractNode {
 	}
 
 	@Override
-	public Point2D getIntersectionWithBounds(final double theta) {
+	protected Point2D getIntersectionWithBounds(final double theta) {
 		final Ellipse2D ellipse = getEllipse();
 		// TODO - assumes that ellipse is circle
 		final double r = ellipse.getWidth() / 2.0;
@@ -94,7 +94,7 @@ public class Place extends AbstractNode {
 				r * (1 + Math.sin(theta)));
 	}
 
-	public void setMarking(final String string) {
+	protected void setMarking(final String string) {
 		this.marking.setText(string);
 	}
 }

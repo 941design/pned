@@ -23,8 +23,6 @@ import de.markusrother.swing.snap.SnapGridComponent;
 /**
  * TODO - make generic of selected component type
  * 
- * FIXME - selection only works from top left to bottom right!
- * 
  * Class used to mark nodes a.k.a select them for future processing.
  */
 public class NodeSelector extends DragDropListener {
@@ -52,7 +50,7 @@ public class NodeSelector extends DragDropListener {
 	private List<AbstractNode> collectSelectedNodes(final Container container, final Rectangle r) {
 		final List<AbstractNode> selection = new LinkedList<>();
 		for (final Component c : container.getComponents()) {
-			if (c instanceof AbstractNode && r.contains(((AbstractNode) c).getCenter())) {
+			if (c instanceof AbstractNode && ((AbstractNode) c).isContained(r)) {
 				final AbstractNode node = (AbstractNode) c;
 				selection.add(node);
 			}

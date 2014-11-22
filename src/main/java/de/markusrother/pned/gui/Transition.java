@@ -45,7 +45,7 @@ class Transition extends AbstractNode {
 	}
 
 	@Override
-	Shape getShape() {
+	protected Shape getShape() {
 		return getRectangle();
 	}
 
@@ -54,7 +54,7 @@ class Transition extends AbstractNode {
 	}
 
 	@Override
-	void setLayout(final State state) {
+	protected void setLayout(final State state) {
 		switch (state) {
 		case DEFAULT:
 			setBorder(null);
@@ -69,7 +69,7 @@ class Transition extends AbstractNode {
 	}
 
 	@Override
-	public Point2D getIntersectionWithBounds(final double theta) {
+	protected Point2D getIntersectionWithBounds(final double theta) {
 		final double t = modPi(theta); // -PI <= t <= PI
 		// TODO - Assumes that rectangle origin is 0,0!
 		final Rectangle r = getRectangle();

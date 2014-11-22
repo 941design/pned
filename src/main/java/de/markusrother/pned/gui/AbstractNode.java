@@ -4,6 +4,7 @@ import static de.markusrother.pned.gui.PnGridPanel.eventBus;
 
 import java.awt.LayoutManager;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 import java.util.concurrent.ExecutionException;
@@ -23,7 +24,7 @@ import de.markusrother.swing.HoverListener;
  * a selection!
  *
  */
-public abstract class AbstractNode extends JPanel implements NodeSelectionListener {
+public abstract class AbstractNode extends JPanel implements NodeSelectionListener, Selectable {
 
 	// TODO - Should be used as EnumSet!
 	// Is it possible to define an arithmetic on states? It would be nice to
@@ -41,7 +42,7 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 
 	private static final LayoutManager NO_LAYOUT_MANAGER = null;
 
-	private final DragDropListener dragDropListener;
+	private DragDropListener dragDropListener;
 
 	private State state;
 	// TODO - This could be substituted with a Model.
@@ -65,20 +66,11 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 	 *            growing clockwise
 	 * @return A Point on the boundary of this.getShape().
 	 */
-	public abstract Point2D getIntersectionWithBounds(final double theta);
+	protected abstract Point2D getIntersectionWithBounds(final double theta);
 
-	abstract Shape getShape();
+	protected abstract Shape getShape();
 
-	public Point getCenter() {
-		// TODO - refactor to inSelectionBounds(Rectangle r);
-		final Point point = getLocation();
-		point.translate( //
-				(int) Math.floor((getWidth() + 0.5) / 2.0), //
-				(int) Math.floor((getHeight() + 0.5) / 2.0));
-		return point;
-	}
-
-	public String getId() {
+	String getId() {
 		try {
 			// TODO - to constant:
 			return id.get(500L, TimeUnit.MILLISECONDS);
@@ -94,31 +86,50 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 		}
 	}
 
-	public void setId(final Future<String> future) {
+	void setId(final Future<String> future) {
 		this.id = future;
 	}
 
-	public void setState(final State state) {
+	void setState(final State state) {
 		this.state = state;
 		setLayout(state);
 	}
 
-	abstract void setLayout(State state);
+	/**
+	 * TODO - not a nice pattern in respect to visibility!
+	 */
+	protected abstract void setLayout(State state);
 
-	protected void suspendSingleDragListener() {
+	void setDragListener(final SelectionDragDropListener selectionListener) {
 		DragDropListener.removeFromComponent(this, dragDropListener);
-	}
-
-	protected void resumeDragListener() {
+		dragDropListener = selectionListener;
 		DragDropListener.addToComponent(this, dragDropListener);
 	}
 
-	protected void suspendHoverListener() {
+	private void suspendDragListener() {
+		DragDropListener.removeFromComponent(this, dragDropListener);
+	}
+
+	private void resumeDragListener() {
+		DragDropListener.addToComponent(this, dragDropListener);
+	}
+
+	private void suspendHoverListener() {
 		HoverListener.removeFromComponent(this, NodeHoverListener.INSTANCE);
 	}
 
-	protected void resumeHoverListener() {
+	private void resumeHoverListener() {
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
+	}
+
+	@Override
+	public boolean isContained(final Rectangle r) {
+		// TODO - Code duplication with PnGrid (Create a static util class)
+		final Point point = getLocation();
+		point.translate( //
+				(int) Math.floor((getWidth() + 0.5) / 2.0), //
+				(int) Math.floor((getHeight() + 0.5) / 2.0));
+		return r.contains(point);
 	}
 
 	@Override
@@ -126,7 +137,7 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 		// TODO - to improve performance iteration, the grid/container could
 		// instead listen to this event!
 		if (event.getNodes().contains(this)) {
-			suspendSingleDragListener();
+			// suspendDragListener();
 			suspendHoverListener();
 			// TODO - just replace DEFAULT/UNSELECTED by SELECTED in state
 			// EnumSet.
@@ -137,7 +148,7 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 	@Override
 	public void nodesUnselected(final NodeSelectionEvent event) {
 		if (event.getNodes().contains(this)) {
-			resumeDragListener();
+			// resumeDragListener();
 			resumeHoverListener();
 			setState(State.DEFAULT); // TODO - in multiselection
 		}
