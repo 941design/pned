@@ -41,6 +41,10 @@ public class EventBus implements AWTEventListener, NodeListener {
 		listeners.add(NodeSelectionListener.class, l);
 	}
 
+	public void removeNodeSelectionListener(final NodeSelectionListener l) {
+		listeners.remove(NodeSelectionListener.class, l);
+	}
+
 	public void addNodeMotionListener(final NodeMotionListener l) {
 		// TODO - should be defined in an interface
 		listeners.add(NodeMotionListener.class, l);

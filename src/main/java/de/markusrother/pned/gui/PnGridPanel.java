@@ -8,8 +8,8 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.EnumSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.Future;
 
 import javax.swing.JComponent;
@@ -51,16 +51,16 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 	static EventBus eventBus;
 
 	private final JComponent snapGrid;
-	private final MouseAdapter edgeCreationListener;
-	private final MouseAdapter nodeCreationListener;
-	private final NodeSelector nodeSelectionListener;
-	private final PnGridPopupListener popupListener;
+	private final MouseAdapter edgeCreator;
+	private final MouseAdapter nodeCreator;
+	private final NodeSelector nodeSelector;
+	private final PnGridPopupListener popupCreator;
 	private final EnumSet<State> state;
 	private final JComponent edgeLayer;
 	// Stateful/Throwaway listeners:
 	SelectionDragDropListener nodeSelectionDragListener;
 
-	private final List<AbstractNode> currentSelection;
+	private final Set<AbstractNode> currentSelection;
 
 	public static Point delta(final Point a, final Point b) {
 		return new Point(a.x - b.x, a.y - b.y);
@@ -107,18 +107,18 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 		// }
 		// }
 		// Listeners that are needed by children, are kept here:
-		edgeCreationListener = new EdgeCreationListener(this);
-		nodeCreationListener = new NodeCreationListener();
-		nodeSelectionListener = new NodeSelector();
-		popupListener = new PnGridPopupListener(this);
+		edgeCreator = new EdgeCreationListener(this);
+		nodeCreator = new NodeCreator();
+		nodeSelector = new NodeSelector();
+		popupCreator = new PnGridPopupListener(this);
 
-		currentSelection = new LinkedList<>();
+		currentSelection = new HashSet<>();
 
 		add(snapGrid, new Integer(1));
-		snapGrid.addMouseListener(nodeCreationListener);
-		snapGrid.addMouseMotionListener(edgeCreationListener);
-		snapGrid.addMouseListener(popupListener);
-		DragDropListener.addToComponent(snapGrid, nodeSelectionListener);
+		snapGrid.addMouseListener(nodeCreator);
+		snapGrid.addMouseMotionListener(edgeCreator);
+		snapGrid.addMouseListener(popupCreator);
+		DragDropListener.addToComponent(snapGrid, nodeSelector);
 
 		// TODO - Make this a lazy initialized singleton! First try if a static
 		// singleton works, too
@@ -128,7 +128,7 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 	}
 
 	private void addEdgeCreationListenerTo(final JComponent component) {
-		component.addMouseListener(edgeCreationListener);
+		component.addMouseListener(edgeCreator);
 		// component.addMouseMotionListener(edgeEditListener);
 	}
 
@@ -211,9 +211,9 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 		repaint();
 	}
 
-	private class NodeCreationListener extends MouseAdapter {
+	private class NodeCreator extends MouseAdapter {
 
-		NodeCreationListener() {
+		NodeCreator() {
 		}
 
 		@Override
@@ -270,12 +270,19 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 	public void nodesUnselected(final NodeSelectionEvent event) {
 		// NOTE - How nodes are displayed is handled by the nodes
 		// themselves.
-		// removeState(State.MULTISELECTION); // TEMP
 		currentSelection.removeAll(event.getNodes());
+		if (currentSelection.isEmpty()) {
+			removeState(State.MULTISELECTION);
+		}
 	}
 
 	@Override
 	public void nodeCreated(final NodeCreationEvent e) {
+		// TODO - this is somewhat inconsistent as we create labels in response
+		// to node creation, Whereas from a data model point of view they are
+		// treated as one. This was a requirement for id retrieval (threads).
+		// The node creation request must be fired first in order to create an
+		// id (by model). Only afterward can we create a label.
 		if (e.getSource() != this) {
 			// TODO
 			throw new RuntimeException("TODO");
@@ -303,9 +310,7 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 
 	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
-		// TODO - also the node itself should be removed, as it may still be
-		// referenced somewhere, and may have listeners.
-		snapGrid.remove(e.getNode());
-		snapGrid.repaint();
+		// NOTE - Nodes, labels, and edges remove themselves.
+		repaint();
 	}
 }

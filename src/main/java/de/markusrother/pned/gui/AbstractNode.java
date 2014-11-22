@@ -6,6 +6,7 @@ import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -25,7 +26,8 @@ import de.markusrother.swing.Selectable;
  * a selection!
  *
  */
-public abstract class AbstractNode extends JPanel implements NodeSelectionListener, Selectable {
+public abstract class AbstractNode extends JPanel implements NodeListener, NodeSelectionListener, Selectable,
+		Disposable {
 
 	// TODO - Should be used as EnumSet!
 	// Is it possible to define an arithmetic on states? It would be nice to
@@ -53,8 +55,9 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 		super(layoutManager);
 		this.state = State.DEFAULT; // TODO - empty EnumSet
 		this.dragDropListener = new DefaultDragDropListener(this);
-		DragDropListener.addToComponent(this, dragDropListener);
+		// DragDropListener.addToComponent(this, dragDropListener);
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
+		eventBus.addNodeListener(this);
 		eventBus.addNodeSelectionListener(this);
 	}
 
@@ -153,6 +156,25 @@ public abstract class AbstractNode extends JPanel implements NodeSelectionListen
 			resumeHoverListener();
 			setState(State.DEFAULT); // TODO - in multiselection
 		}
+	}
+
+	@Override
+	public void nodeCreated(final NodeCreationEvent e) {
+		// IGNORE
+	}
+
+	@Override
+	public void nodeRemoved(final NodeRemovalEvent e) {
+		if (e.getNode() == this) {
+			dispose();
+		}
+	}
+
+	@Override
+	public void dispose() {
+		eventBus.removeNodeListener(this);
+		eventBus.removeNodeSelectionListener(this);
+		getParent().remove(this);
 	}
 
 }

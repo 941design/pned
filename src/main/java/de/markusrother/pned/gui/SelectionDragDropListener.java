@@ -6,23 +6,23 @@ import static de.markusrother.pned.gui.PnGridPanel.eventBus;
 import java.awt.Component;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.List;
+import java.util.Collection;
 
 import de.markusrother.swing.DragDropListener;
 
 public class SelectionDragDropListener extends DragDropListener {
 
-	public static void addToComponents(final List<AbstractNode> nodes, final SelectionDragDropListener listener) {
+	public static void addToComponents(final Collection<AbstractNode> nodes, final SelectionDragDropListener listener) {
 		for (final AbstractNode node : nodes) {
 			DragDropListener.addToComponent(node, listener);
 		}
 	}
 
-	private final List<AbstractNode> nodes;
+	private final Collection<AbstractNode> nodes;
 
 	private Point absStart;
 
-	public SelectionDragDropListener(final List<AbstractNode> nodes) {
+	public SelectionDragDropListener(final Collection<AbstractNode> nodes) {
 		this.nodes = nodes;
 	}
 
