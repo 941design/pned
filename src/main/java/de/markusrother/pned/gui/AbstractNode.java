@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
+import de.markusrother.swing.Selectable;
 
 /**
  * TODO - We can get rid entirely of the single component drag listener, if we

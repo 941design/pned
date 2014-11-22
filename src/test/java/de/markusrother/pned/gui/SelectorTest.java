@@ -6,7 +6,9 @@ import java.awt.Rectangle;
 
 import org.junit.Test;
 
-public class NodeSelectorTest {
+import de.markusrother.swing.Selector;
+
+public class SelectorTest {
 
 	private static Rectangle r(final int x, final int y, final int w, final int h) {
 		return new Rectangle(x, y, w, h);
@@ -17,7 +19,7 @@ public class NodeSelectorTest {
 	}
 
 	private static Rectangle resized(final Rectangle r, final int deltaX, final int deltaY) {
-		return NodeSelector.resizeDragPanelBounds(r, deltaX, deltaY);
+		return Selector.resizeDragPanelBounds(r, deltaX, deltaY);
 	}
 
 	@Test
