@@ -9,13 +9,21 @@ import static de.markusrother.pned.gui.EdgeEditEvent.Type.EDGE_STARTED;
 import static de.markusrother.pned.gui.PnGridPanel.eventBus;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
 import javax.swing.SwingUtilities;
 
+import de.markusrother.pned.gui.EdgeEditEvent.Type;
 import de.markusrother.swing.DoubleClickListener;
 
+/**
+ * TODO - This could be split into an initial listener for receiving the double
+ * click and an EdgeDrawListener or EdgeEditor. That would avoid all the
+ * duplicated edge != null checks.
+ *
+ */
 public class EdgeCreationListener extends DoubleClickListener {
 
 	// TODO - Drawing could also start upon exit!
@@ -38,26 +46,6 @@ public class EdgeCreationListener extends DoubleClickListener {
 		this.pnGridPanel = pnGridPanel;
 	}
 
-	private void startNewEdge(final AbstractNode source, final Point point) {
-		// TODO - Cannot be event, because edge is not complete, yet.
-		// Could be a gui-only event, though. Here, we must suspend listeners in
-		// all nodes.
-		edge = pnGridPanel.createEdge(source, point);
-		// The container should then implement createEdge, finishEdge,
-		// removeEdge, etc.
-	}
-
-	private void finishCurrentEdge(final AbstractNode targetNode) {
-		edge.setTargetComponent(targetNode);
-		edge.finishedDrawing();
-		// This is needed for future edges, because the edge
-		// component overlaps the grid!
-		// TODO - maybe the edge should in turn receive a listener for edge
-		// creation events.
-		edge.addMouseMotionListener(this);
-		edge.addMouseListener(this);
-	}
-
 	private AbstractNode expectNode(final Component component) {
 		try {
 			return (AbstractNode) component;
@@ -67,6 +55,36 @@ public class EdgeCreationListener extends DoubleClickListener {
 		}
 	}
 
+	private Point getParentRelativeLocation(final MouseEvent e) {
+		final Point point = e.getPoint();
+		final Component eventComponent = e.getComponent();
+		final Container sourceComponentsParent = edge.getSourceComponent().getParent();
+		if (eventComponent == sourceComponentsParent) {
+			// This is the point we are interested in. The edge layer should
+			// have the same bounds as the source components' parent. TODO -
+			// doc!
+			return point;
+		} else if (eventComponent.getParent() == sourceComponentsParent) {
+			// We can easily translate the point, knowing that the source
+			// component's parent has the same bounds as the edge layer.
+			point.translate(eventComponent.getX(), eventComponent.getY());
+			return point;
+		} else if (eventComponent.getParent() == edge.getParent()) {
+			// TODO - Should not happen! Why does edge need this listener!
+			throw new RuntimeException("TODO");
+		} else {
+			// A listener was registered at a component, whose parent relative
+			// location cannot be retrieved. TODO - Add this restriction to doc.
+			// TODO
+			throw new IllegalStateException("must have same parent / be on same layer");
+		}
+	}
+
+	private void fire(final Type type, final MouseEvent e, final Component component) {
+		final Point location = getParentRelativeLocation(e);
+		fire(new EdgeEditEvent(type, this, edge, location, component));
+	}
+
 	private void fire(final EdgeEditEvent e) {
 		eventBus.fireEdgeEditEvent(e);
 	}
@@ -74,7 +92,16 @@ public class EdgeCreationListener extends DoubleClickListener {
 	@Override
 	public void mouseClicked(final MouseEvent e) {
 		super.mouseClicked(e);
-
+		if (edge == null) {
+			// IGNORE - We haven't started yet.
+			return;
+		}
+		// TODO - This does not yet work, because both, mouseClicked and
+		// mouseDoubleClicked are invoked. If we do not want to create separate
+		// listeners (one for starting to draw and one for the actual drawing),
+		// we could as well tweak all of this into mouseClicked, and no longer
+		// extending DoubleClickListener.
+		// maybeFinishOrCancelEdge(e);
 	}
 
 	@Override
@@ -83,48 +110,46 @@ public class EdgeCreationListener extends DoubleClickListener {
 			return;
 		}
 		if (edge != null) {
-			// TODO - this idiom is somewhat redundant:
-			// Connecting existing edge:
-			if (edge.acceptsTarget(e.getComponent())) {
-				final AbstractNode targetNode = expectNode(e.getComponent());
-				finishCurrentEdge(targetNode);
-				fire(new EdgeEditEvent(EDGE_FINISHED, this, edge));
-			} else {
-				// TODO - nicer (should not call surrounding class):
-				// The edge is not yet part of the model and could go to a
-				// different layer!
-				pnGridPanel.removeEdge(edge);
-				// container.removeEdge(edge);
-				fire(new EdgeEditEvent(EDGE_CANCELLED, this, edge));
-			}
-			edge = null;
+			maybeFinishOrCancelEdge(e);
 		} else {
 			final AbstractNode sourceNode = expectNode(e.getComponent());
 			final Point point = pnGridPanel.getGridRelativeLocation(e.getLocationOnScreen());
-			startNewEdge(sourceNode, point);
-			fire(new EdgeEditEvent(EDGE_STARTED, this, edge));
+			// This must cause listener suspension in various components!
+			// TODO - use promise for edge!
+			edge = pnGridPanel.createEdge(sourceNode, point);
+			// The container should then implement createEdge, finishEdge,
+			// removeEdge, etc.
+			fire(EDGE_STARTED, e, sourceNode);
 		}
+	}
+
+	private void maybeFinishOrCancelEdge(final MouseEvent e) {
+		// TODO - this idiom is somewhat redundant:
+		// Connecting existing edge:
+		if (edge.acceptsTarget(e.getComponent())) {
+			final AbstractNode targetNode = expectNode(e.getComponent());
+			// // TODO - Edge should NOT require an edge creation listener!
+			// edge.addMouseMotionListener(this);
+			// edge.addMouseListener(this);
+			// event intended to be ignored by gui.
+			fire(EDGE_FINISHED, e, targetNode);
+		} else {
+			// TODO - nicer (should not call surrounding class):
+			// The edge is not yet part of the model and could go to a
+			// different layer!
+			pnGridPanel.removeEdge(edge);
+			// container.removeEdge(edge);
+			fire(EDGE_CANCELLED, e, e.getComponent());
+		}
+		edge = null;
 	}
 
 	@Override
 	public void mouseMoved(final MouseEvent e) {
 		super.mouseMoved(e);
 		if (edge != null) {
-			fire(new EdgeEditEvent(EDGE_CHANGED, this));
-			if (!edge.hasTargetComponent()) {
-				edge.setUnboundTarget(pnGridPanel.getGridRelativeLocation(e.getLocationOnScreen()));
-			} else if (edge.getTargetComponent() != e.getComponent()) {
-				edge.removeTargetComponent();
-				edge.setUnboundTarget(pnGridPanel.getGridRelativeLocation(e.getLocationOnScreen()));
-			}
-			// TODO - This causes flickering, whereas the solution with
-			// drawing from the center is more pleasing but does not work
-			// with transparent elements. The cleanest solution would be to
-			// manage the edge points at the edge component, too. Then we
-			// can determine the drawing direction more precisely without
-			// the flickering.
-			// edge.connectToSource(edge.getSourceComponent());
-			pnGridPanel.repaint();
+			fire(EDGE_CHANGED, e, e.getComponent());
+			pnGridPanel.repaint(); // TODO - Why?
 		}
 	}
 
@@ -132,14 +157,7 @@ public class EdgeCreationListener extends DoubleClickListener {
 	public void mouseEntered(final MouseEvent e) {
 		super.mouseEntered(e);
 		if (edge != null) {
-			fire(new EdgeEditEvent(COMPONENT_ENTERED, this, e.getComponent()));
-			final Component possibleTarget = e.getComponent();
-			if (edge.acceptsTarget(possibleTarget)) {
-				edge.setTargetComponent((AbstractNode) possibleTarget);
-				edge.highlightValid();
-			} else {
-				edge.highlightInvalid();
-			}
+			fire(COMPONENT_ENTERED, e, e.getComponent());
 		}
 	}
 
@@ -147,8 +165,7 @@ public class EdgeCreationListener extends DoubleClickListener {
 	public void mouseExited(final MouseEvent e) {
 		super.mouseExited(e);
 		if (edge != null) {
-			fire(new EdgeEditEvent(COMPONENT_EXITED, this, e.getComponent()));
-			edge.highlightStandard();
+			fire(COMPONENT_EXITED, e, e.getComponent());
 		}
 	}
 

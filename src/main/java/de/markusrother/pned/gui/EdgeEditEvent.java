@@ -1,6 +1,7 @@
 package de.markusrother.pned.gui;
 
 import java.awt.Component;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 
 public class EdgeEditEvent extends ActionEvent {
@@ -17,19 +18,35 @@ public class EdgeEditEvent extends ActionEvent {
 	private static final int NO_ID = 0;
 	private static final String NO_COMMAND_STRING = "no command string";
 
+	private final Type type;
+	private final EdgeComponent edge;
+	private final Point location;
+	private final Component component;
+
+	public EdgeEditEvent(final Type type, final Object source, final EdgeComponent edge, final Point location,
+			final Component component) {
+		// Must pass location and component instead of MouseEvent, because
+		// MouseEvent.getPoint() is component relative.
+		super(source, NO_ID, NO_COMMAND_STRING);
+		this.type = type;
+		this.edge = edge;
+		this.component = component;
+		this.location = location;
+	}
+
 	public Type getType() {
 		return type;
 	}
 
-	private final Type type;
-
-	public EdgeEditEvent(final Type type, final Object source) {
-		super(source, NO_ID, NO_COMMAND_STRING);
-		this.type = type;
+	public EdgeComponent getEdge() {
+		return edge;
 	}
 
-	public EdgeEditEvent(final Type type, final Object source, final Component component) {
-		super(source, NO_ID, NO_COMMAND_STRING);
-		this.type = type;
+	public Point getLocation() {
+		return location;
+	}
+
+	public Component getComponent() {
+		return component;
 	}
 }

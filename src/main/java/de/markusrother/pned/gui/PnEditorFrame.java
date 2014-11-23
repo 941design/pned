@@ -24,9 +24,7 @@ public class PnEditorFrame extends JFrame {
 		pack();
 		setVisible(true);
 		// TEST
-		final MockDataProvider mock = new MockDataProvider();
-		eventBus.addNodeListener(mock);
-		eventBus.addNodeSelectionListener(mock);
+		MockDataProvider.instantiate(eventBus);
 	}
 
 	public static void main(final String... args) {

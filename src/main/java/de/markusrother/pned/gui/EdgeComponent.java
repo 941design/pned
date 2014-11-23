@@ -20,9 +20,15 @@ import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 
 /**
- * 
+ * TODO - manage the contact-points of source component, too. Create a segment
+ * which is invisible, but connected, to the source components center, avoiding
+ * flickering.
  */
-class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractNode> implements NodeListener, Disposable {
+class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractNode>
+	implements
+		NodeListener,
+		EdgeEditListener,
+		Disposable {
 
 	private static final Color standardColor = Color.BLACK;
 	private static final Color hoverColor = Color.BLUE;
@@ -50,6 +56,44 @@ class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractNode> im
 		return polygon;
 	}
 
+	private static HoverListener createHoverListener(final EdgeComponent edge) {
+
+		// TODO - extract class!
+
+		return new HoverListener() {
+
+			@Override
+			protected boolean inHoverArea(final Point p) {
+				return edge.edgeContains(p);
+			}
+
+			@Override
+			protected void startHover(final Component component) {
+				edge.setColor(hoverColor);
+			}
+
+			@Override
+			protected void endHover(final Component component) {
+				edge.highlightStandard();
+			}
+		};
+	}
+
+	private static DragDropListener createDragDropListener(final EdgeComponent edge) {
+
+		// TODO - extract class!
+
+		return new DragDropAdapter() {
+
+			@Override
+			public void onDrag(final Component component, final int deltaX, final int deltaY) {
+				edge.connectToSource();
+				edge.connectToTarget();
+				edge.repaint();
+			}
+		};
+	}
+
 	private Polygon tip;
 	private Line2D line;
 	private Color fgColor;
@@ -58,6 +102,7 @@ class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractNode> im
 		super(sourceComponent, source, target);
 		this.fgColor = standardColor;
 		eventBus.addNodeListener(this);
+		eventBus.addEdgeEditListener(this);
 	}
 
 	@Override
@@ -69,11 +114,12 @@ class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractNode> im
 		tip.translate(target.x, target.y);
 		g2.draw(line);
 		g2.fillPolygon(tip);
-		// TODO - currently the component is as large as the entire grid!
-		// System.out.println(getBounds());
+		// TODO - Currently the edge component is as large as the entire grid!
+		// We could optimize a little, here.
 	}
 
 	private Graphics2D formatGraphics(final Graphics g) {
+		// TODO - apply state/styles.
 		final Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(stroke);
 		setForeground(fgColor);
@@ -83,41 +129,6 @@ class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractNode> im
 	public boolean acceptsTarget(final Component component) {
 		return component instanceof AbstractNode //
 				&& sourceComponent.getClass() != component.getClass();
-	}
-
-	public void finishedDrawing() {
-		// TODO - Must retrieve components dynamically, in case they change (not
-		// yet implemented).
-		// TODO - Move to super (can then be used for other edges, too)
-		final DragDropListener dragListener = new DragDropAdapter() {
-
-			@Override
-			public void onDrag(final Component component, final int deltaX, final int deltaY) {
-				connectToSource();
-				connectToTarget();
-				repaint();
-			}
-
-		};
-		DragDropListener.addToComponent(getSourceComponent(), dragListener);
-		DragDropListener.addToComponent(getTargetComponent(), dragListener);
-		HoverListener.addToComponent(this, new HoverListener() {
-
-			@Override
-			protected boolean inHoverArea(final Point p) {
-				return edgeContains(p);
-			}
-
-			@Override
-			protected void startHover(final Component component) {
-				setColor(hoverColor);
-			}
-
-			@Override
-			protected void endHover(final Component component) {
-				highlightStandard();
-			}
-		});
 	}
 
 	protected void setColor(final Color color) {
@@ -151,14 +162,105 @@ class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractNode> im
 
 	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
-		if (e.getNode() == sourceComponent || e.getNode() == targetComponent) {
+		final AbstractNode node = e.getNode();
+		if (node.equals(sourceComponent) || node.equals(targetComponent)) {
 			dispose();
 		}
 	}
 
 	@Override
+	public void targetComponentEntered(final EdgeEditEvent e) {
+		if (e.getEdge() != this) {
+			// IGNORE - Not interested in other edges events.
+			return;
+		}
+		if (acceptsTarget(e.getComponent())) {
+			setTargetComponent((AbstractNode) e.getComponent());
+			highlightValid();
+		} else {
+			highlightInvalid();
+		}
+	}
+
+	@Override
+	public void targetComponentExited(final EdgeEditEvent e) {
+		if (e.getEdge() != this) {
+			// IGNORE - Not interested in other edges events.
+			return;
+		}
+		removeTargetComponent();
+		highlightStandard();
+	}
+
+	@Override
+	public void edgeMoved(final EdgeEditEvent e) {
+		if (e.getEdge() != this) {
+			// IGNORE - Not interested in other edges events.
+			return;
+		}
+		if (sourceComponent.equals(e.getComponent())) {
+			// IGNORE - Just moving around on source component.
+			return;
+		}
+		if (hasTargetComponent() && targetComponent.equals(e.getComponent())) {
+			// IGNORE - Just moving around on target component.
+			return;
+		}
+		// e.component() may or may not be a valid target. We are not interested
+		// on that. This method is not responsible for connecting to targets!
+		// That is done when entering potential target components. Also, we rely
+		// on target removal on exiting components. Therefore, we can safely
+		// connect to the point, without being bound to any target component.
+		setUnboundTarget(e.getLocation());
+		repaint();
+	}
+
+	@Override
+	public void edgeCancelled(final EdgeEditEvent e) {
+		if (e.getEdge() != this) {
+			// IGNORE - Not interested in other edges events.
+			return;
+		}
+		dispose();
+	}
+
+	@Override
+	public void edgeFinished(final EdgeEditEvent e) {
+		if (e.getEdge() != this) {
+			// IGNORE - Not interested in other edges events.
+			return;
+		}
+		if (!acceptsTarget(e.getComponent())) {
+			throw new IllegalArgumentException();
+		}
+
+		setTargetComponent((AbstractNode) e.getComponent());
+
+		// TODO - Move to super (can then be used for other edges, too)
+		final DragDropListener dragListener = createDragDropListener(this);
+		// TODO - pass responsibility to node, in order to not leak listeners.
+		// Components would then have to implement an interface to add
+		// DragDropListener.
+		DragDropListener.addToComponent(sourceComponent, dragListener);
+		DragDropListener.addToComponent(targetComponent, dragListener);
+
+		final HoverListener hoverListener = createHoverListener(this);
+		// TODO - setHoverListener() -> to field.
+		HoverListener.addToComponent(this, hoverListener);
+
+		highlightStandard();
+	}
+
+	@Override
+	public void edgeStarted(final EdgeEditEvent e) {
+		// IGNORE - If we weren't started we would not exist...
+	}
+
+	@Override
 	public void dispose() {
+		// TODO - create generic removeAllListeners()
 		eventBus.removeNodeListener(this);
+		eventBus.removeEdgeEditListener(this);
 		// TODO - may require synchronization, if two removal events are fired
 		// before this is properly removed from eventBus.
 		getParent().remove(this);

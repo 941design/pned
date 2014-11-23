@@ -18,6 +18,10 @@ import javax.swing.event.EventListenerList;
  * TODO - create an PnedEvent superclass. (for what?)
  * 
  * TODO - which idiom?
+ * 
+ * TODO - We could distinguish Two sources GUI and MODEL. GUI could be anything
+ * static that can be compared against, to distinguish where a creation event
+ * came from.
  */
 public class EventBus
 	implements
