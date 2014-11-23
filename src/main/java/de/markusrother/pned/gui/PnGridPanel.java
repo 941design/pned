@@ -50,14 +50,17 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 
 	static EventBus eventBus;
 
-	private final JComponent snapGrid;
+	private final JComponent nodeLayer;
+	private final JComponent edgeLayer;
+	private final JComponent labelLayer;
+
 	private final EdgeCreationListener edgeCreator;
 	private final MouseAdapter nodeCreator;
 	private final NodeSelector multipleNodeSelector;
 	private final SingleNodeSelector singleNodeSelector;
 	private final PnGridPopupListener popupCreator;
+
 	private final EnumSet<State> state;
-	private final JComponent edgeLayer;
 	// Stateful/Throwaway listeners:
 	SelectionDragDropListener nodeSelectionDragListener;
 
@@ -87,20 +90,16 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 		setPreferredSize(preferredSize);
 		// setBackground(Color.BLUE);
 		// TODO - set the number of rectangles to be displayed:
-		snapGrid = new SnapGridComponent(new Dimension(40, 40), Color.GRAY);
+		nodeLayer = new SnapGridComponent(new Dimension(40, 40), Color.GRAY);
 		// TODO - get preferred size from parent
-		snapGrid.setPreferredSize(preferredSize);
+		nodeLayer.setPreferredSize(preferredSize);
 		// Must set bounds manually for JLayeredPane
-		snapGrid.setBounds(new Rectangle(new Point(0, 0), preferredSize));
+		nodeLayer.setBounds(new Rectangle(new Point(0, 0), preferredSize));
 
-		edgeLayer = new JComponent() {
-			// TODO - For some strange reason we cannot add JPanels to
-			// JLayeredPane
-		};
-		// Must set bounds manually for JLayeredPane
-		edgeLayer.setBounds(new Rectangle(new Point(0, 0), preferredSize));
+		edgeLayer = createLayer(0);
 		edgeLayer.setBackground(Color.LIGHT_GRAY);
-		add(edgeLayer, new Integer(0));
+
+		labelLayer = createLayer(10);
 
 		// new ListenerManager(State) {
 		// List<EventListener> getListeners(EnumSet<State> enumSet) {
@@ -116,11 +115,11 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 
 		currentSelection = new HashSet<>();
 
-		add(snapGrid, new Integer(1));
-		snapGrid.addMouseListener(nodeCreator);
-		snapGrid.addMouseMotionListener(edgeCreator);
-		snapGrid.addMouseListener(popupCreator);
-		DragDropListener.addToComponent(snapGrid, multipleNodeSelector);
+		add(nodeLayer, new Integer(1));
+		nodeLayer.addMouseListener(nodeCreator);
+		nodeLayer.addMouseMotionListener(edgeCreator);
+		nodeLayer.addMouseListener(popupCreator);
+		DragDropListener.addToComponent(nodeLayer, multipleNodeSelector);
 
 		// TODO - Make this a lazy initialized singleton! First try if a static
 		// singleton works, too
@@ -129,8 +128,19 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 		eventBus.addNodeListener(this);
 	}
 
+	private JComponent createLayer(final int i) {
+		final JComponent layer = new JComponent() {
+			// TODO - For some strange reason we cannot add JPanels to
+			// JLayeredPane
+		};
+		// Must set bounds manually for JLayeredPane
+		layer.setBounds(new Rectangle(new Point(0, 0), preferredSize));
+		add(layer, new Integer(i));
+		return layer;
+	}
+
 	Point getGridRelativeLocation(final Point pointOnScreen) {
-		return delta(pointOnScreen, snapGrid.getLocationOnScreen());
+		return delta(pointOnScreen, nodeLayer.getLocationOnScreen());
 	}
 
 	public boolean hasState(final State state) {
@@ -167,8 +177,8 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 		final Point nodeOrigin = origin.getLocation(); // TODO - Why?
 		nodeOrigin.translate(-d.width / 2, -d.height / 2); // TODO - Why?
 		node.setBounds(new Rectangle(nodeOrigin, node.getPreferredSize()));
-		snapGrid.add(node);
-		snapGrid.repaint(); // TODO - Why?
+		nodeLayer.add(node);
+		nodeLayer.repaint(); // TODO - Why?
 		// TODO - if Promise is for a model, we have both id and label name.
 		final Promise<String> idPromise = new Promise<>();
 		final Future<String> futureId = idPromise.ask();
@@ -194,7 +204,7 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 
 	private void addLabelComponent(final NodeLabel label, final Point origin) {
 		label.setBounds(new Rectangle(origin, label.getPreferredSize()));
-		snapGrid.add(label);
+		labelLayer.add(label);
 	}
 
 	public EdgeComponent createEdge(final AbstractNode sourceNode, final Point target) {
@@ -206,7 +216,7 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 	}
 
 	void removeEdge(final EdgeComponent edge) {
-		snapGrid.remove(edge);
+		nodeLayer.remove(edge);
 		repaint();
 	}
 
