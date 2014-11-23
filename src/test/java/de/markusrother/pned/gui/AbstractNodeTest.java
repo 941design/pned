@@ -8,7 +8,7 @@ import java.awt.geom.Point2D;
 public class AbstractNodeTest {
 
 	protected void assertAngleIntersectsAt(final AbstractNode node, final double theta, final Point2D expected) {
-		final Point2D actual = node.getIntersectionWithBounds(theta);
+		final Point2D actual = node.getBoundaryPoint(theta);
 		assertEquals(expected.getX(), actual.getX(), precision);
 		assertEquals(expected.getY(), actual.getY(), precision);
 	}

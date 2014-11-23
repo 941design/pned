@@ -69,7 +69,7 @@ class Transition extends AbstractNode {
 	}
 
 	@Override
-	public Point2D getIntersectionWithBounds(final double theta) {
+	public Point2D getBoundaryPoint(final double theta) {
 		final double t = modPi(theta); // -PI <= t <= PI
 		// TODO - Assumes that rectangle origin is 0,0!
 		final Rectangle r = getRectangle();

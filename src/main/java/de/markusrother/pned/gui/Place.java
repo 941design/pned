@@ -85,7 +85,7 @@ public class Place extends AbstractNode {
 	}
 
 	@Override
-	public Point2D getIntersectionWithBounds(final double theta) {
+	public Point2D getBoundaryPoint(final double theta) {
 		final Ellipse2D ellipse = getEllipse();
 		// TODO - assumes that ellipse is circle
 		final double r = ellipse.getWidth() / 2.0;

@@ -2,6 +2,9 @@ package de.markusrother.pned.gui;
 
 import java.awt.geom.Point2D;
 
+/**
+ * TODO - name: Including/Having/WithBoundaryBound
+ */
 public interface DefinitelyBounded {
 
 	/**
@@ -9,7 +12,8 @@ public interface DefinitelyBounded {
 	 * chosen precision. Think of a radar image, which detects the outside
 	 * shape.
 	 * 
-	 * TODO - Name: contour, profile, silhouette, outline, radial ..
+	 * TODO - Name: contour, profile, silhouette, outline, radial, touch-point,
+	 * edge docking, contact-point
 	 * 
 	 * NOTE - If the shape is a polygon it may have cavities.
 	 * 
@@ -17,5 +21,5 @@ public interface DefinitelyBounded {
 	 *            growing clockwise
 	 * @return A Point on the boundary of this.getShape().
 	 */
-	Point2D getIntersectionWithBounds(final double theta);
+	Point2D getBoundaryPoint(final double theta);
 }

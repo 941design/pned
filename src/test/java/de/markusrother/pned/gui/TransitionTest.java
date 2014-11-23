@@ -65,7 +65,7 @@ public class TransitionTest extends AbstractNodeTest {
 		assertAngleIntersectsAt(Math.PI * -0.75, new Point(0, 0));
 
 		// Other:
-		final Point2D actual = transition.getIntersectionWithBounds(Math.PI / 3);
+		final Point2D actual = transition.getBoundaryPoint(Math.PI / 3);
 		assertEquals(100, actual.getY(), precision);
 		assertTrue(actual.getX() < 100);
 		assertTrue(actual.getX() > 50);

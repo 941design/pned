@@ -96,7 +96,7 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	public void connectToSource() {
 		final double angle = getAngle();
 		final Point intersection = sourceComponent.getLocation();
-		final Point boundary = round(sourceComponent.getIntersectionWithBounds(angle));
+		final Point boundary = round(sourceComponent.getBoundaryPoint(angle));
 		// TODO - must move because...
 		intersection.translate(boundary.x, boundary.y);
 		source = intersection;
@@ -111,7 +111,7 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	public void connectToTarget() {
 		final double angle = getAngle();
 		final Point intersection = targetComponent.getLocation();
-		final Point boundary = round(targetComponent.getIntersectionWithBounds(angle + Math.PI));
+		final Point boundary = round(targetComponent.getBoundaryPoint(angle + Math.PI));
 		// TODO - must move because...
 		intersection.translate(boundary.x, boundary.y);
 		target = intersection;
