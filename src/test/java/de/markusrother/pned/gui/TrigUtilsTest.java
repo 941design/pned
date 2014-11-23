@@ -4,10 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import de.markusrother.util.TrigUtils;
+
 public class TrigUtilsTest {
 
 	// This was the greatest precision at which THESE tests still passed.
-	protected static final double precision = 0.0000000000001;
+	public static final double precision = 0.0000000000001;
 
 	@Test
 	public void testFloorModPi() {

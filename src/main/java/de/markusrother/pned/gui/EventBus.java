@@ -8,6 +8,16 @@ import java.util.EventListener;
 
 import javax.swing.event.EventListenerList;
 
+import de.markusrother.pned.gui.events.EdgeEditEvent;
+import de.markusrother.pned.gui.events.NodeCreationEvent;
+import de.markusrother.pned.gui.events.NodeMovedEvent;
+import de.markusrother.pned.gui.events.NodeRemovalEvent;
+import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.listeners.EdgeEditListener;
+import de.markusrother.pned.gui.listeners.NodeListener;
+import de.markusrother.pned.gui.listeners.NodeMotionListener;
+import de.markusrother.pned.gui.listeners.NodeSelectionListener;
+
 /**
  * Should be retrieved from frame/application (after the EDT is created).
  * 
