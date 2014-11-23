@@ -13,7 +13,7 @@ import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 
-public class NodeLabel extends JLabel implements NodeListener, Disposable {
+public class NodeLabel extends JLabel implements NodeListener, Disposable, NodeMotionListener {
 
 	private static NodeLabelStyle style = new NodeLabelStyle();
 	static {
@@ -32,7 +32,6 @@ public class NodeLabel extends JLabel implements NodeListener, Disposable {
 		HOVER, //
 	}
 
-	private final NodeMotionListener nodeMotionListener;
 	private final DragDropListener dragDropListener;
 	private final String nodeId;
 	private State state;
@@ -45,23 +44,8 @@ public class NodeLabel extends JLabel implements NodeListener, Disposable {
 		this.dragDropListener = new DefaultDragDropListener(this);
 		DragDropListener.addToComponent(this, dragDropListener);
 		HoverListener.addToComponent(this, new LabelHoverListener());
-		this.nodeMotionListener = new NodeMotionListener() {
-
-			@Override
-			public void nodeMoved(final NodeMovedEvent event) {
-				for (final AbstractNode node : event.getNodes()) {
-					if (node.getId() == nodeId) {
-						final Rectangle r = getBounds();
-						r.translate(event.getDeltaX(), event.getDeltaY());
-						setBounds(r);
-						repaint();
-					}
-				}
-			}
-
-		};
 		eventBus.addNodeListener(this);
-		eventBus.addNodeMotionListener(nodeMotionListener);
+		eventBus.addNodeMotionListener(this);
 		setState(State.DEFAULT);
 	}
 
@@ -75,6 +59,18 @@ public class NodeLabel extends JLabel implements NodeListener, Disposable {
 		style.apply(this);
 		revalidate();
 		repaint();
+	}
+
+	@Override
+	public void nodeMoved(final NodeMovedEvent e) {
+		for (final AbstractNode node : e.getNodes()) {
+			if (node.getId() == nodeId) {
+				final Rectangle r = getBounds();
+				r.translate(e.getDeltaX(), e.getDeltaY());
+				setBounds(r);
+				repaint();
+			}
+		}
 	}
 
 	@Override
@@ -92,7 +88,7 @@ public class NodeLabel extends JLabel implements NodeListener, Disposable {
 	@Override
 	public void dispose() {
 		eventBus.removeNodeListener(this);
-		eventBus.removeNodeMotionListener(nodeMotionListener);
+		eventBus.removeNodeMotionListener(this);
 		getParent().remove(this);
 	}
 }

@@ -84,6 +84,8 @@ public class NodeLabelStyle implements Style<NodeLabel> {
 
 	@Override
 	public void apply(final NodeLabel nodeLabel) {
+		// TODO - There must be a nicer mapping of styles to attributes!
+		// nodeLabel.setForeground(state);
 		switch (nodeLabel.getState()) {
 		case HOVER:
 			nodeLabel.setForeground(hoverFg);

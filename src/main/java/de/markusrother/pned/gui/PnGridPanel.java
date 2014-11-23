@@ -156,6 +156,7 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 	public Transition createTransition(final Point point) {
 		final Transition transition = new Transition(transitionDimensions);
 		addNodeComponent(transition, point);
+		transition.setSingleNodeSelector(singleNodeSelector);
 		transition.setEdgeCreationListener(edgeCreator);
 		return transition;
 	}

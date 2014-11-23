@@ -30,7 +30,7 @@ class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractNode> im
 	private static final Color invalidColor = Color.RED;
 	private static final Stroke stroke = new BasicStroke(2);
 
-	// TODO - allow different tip shapes
+	// TODO - Extract class and interface to allow different tip shapes.
 	private static Polygon createTip(final double angle) {
 		final Point2D[] points = new Point2D[] { //
 		new Point2D.Double(0, 1), //
@@ -88,6 +88,7 @@ class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractNode> im
 	public void finishedDrawing() {
 		// TODO - Must retrieve components dynamically, in case they change (not
 		// yet implemented).
+		// TODO - Move to super (can then be used for other edges, too)
 		final DragDropListener dragListener = new DragDropAdapter() {
 
 			@Override
