@@ -1,5 +1,13 @@
 package de.markusrother.pned.gui;
 
+import static de.markusrother.pned.gui.EdgeEditEvent.Type.COMPONENT_ENTERED;
+import static de.markusrother.pned.gui.EdgeEditEvent.Type.COMPONENT_EXITED;
+import static de.markusrother.pned.gui.EdgeEditEvent.Type.EDGE_CANCELLED;
+import static de.markusrother.pned.gui.EdgeEditEvent.Type.EDGE_CHANGED;
+import static de.markusrother.pned.gui.EdgeEditEvent.Type.EDGE_FINISHED;
+import static de.markusrother.pned.gui.EdgeEditEvent.Type.EDGE_STARTED;
+import static de.markusrother.pned.gui.PnGridPanel.eventBus;
+
 import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -31,7 +39,9 @@ public class EdgeCreationListener extends DoubleClickListener {
 	}
 
 	private void startNewEdge(final AbstractNode source, final Point point) {
-		// TODO - nicer (should not call surrounding class):
+		// TODO - Cannot be event, because edge is not complete, yet.
+		// Could be a gui-only event, though. Here, we must suspend listeners in
+		// all nodes.
 		edge = pnGridPanel.createEdge(source, point);
 		// The container should then implement createEdge, finishEdge,
 		// removeEdge, etc.
@@ -48,29 +58,51 @@ public class EdgeCreationListener extends DoubleClickListener {
 		edge.addMouseListener(this);
 	}
 
+	private AbstractNode expectNode(final Component component) {
+		try {
+			return (AbstractNode) component;
+		} catch (final ClassCastException e) {
+			// TODO
+			throw new RuntimeException("TODO");
+		}
+	}
+
+	private void fire(final EdgeEditEvent e) {
+		eventBus.fireEdgeEditEvent(e);
+	}
+
+	@Override
+	public void mouseClicked(final MouseEvent e) {
+		super.mouseClicked(e);
+
+	}
+
 	@Override
 	public void mouseDoubleClicked(final MouseEvent e) {
 		if (!SwingUtilities.isLeftMouseButton(e)) {
 			return;
 		}
 		if (edge != null) {
+			// TODO - this idiom is somewhat redundant:
 			// Connecting existing edge:
-			// TODO - edge should never have invalid targetComponent!
 			if (edge.acceptsTarget(e.getComponent())) {
-				final AbstractNode targetNode = (AbstractNode) e.getComponent();
+				final AbstractNode targetNode = expectNode(e.getComponent());
 				finishCurrentEdge(targetNode);
+				fire(new EdgeEditEvent(EDGE_FINISHED, this, edge));
 			} else {
 				// TODO - nicer (should not call surrounding class):
 				// The edge is not yet part of the model and could go to a
 				// different layer!
 				pnGridPanel.removeEdge(edge);
 				// container.removeEdge(edge);
+				fire(new EdgeEditEvent(EDGE_CANCELLED, this, edge));
 			}
 			edge = null;
 		} else {
-			final AbstractNode sourceNode = (AbstractNode) e.getComponent();
+			final AbstractNode sourceNode = expectNode(e.getComponent());
 			final Point point = pnGridPanel.getGridRelativeLocation(e.getLocationOnScreen());
 			startNewEdge(sourceNode, point);
+			fire(new EdgeEditEvent(EDGE_STARTED, this, edge));
 		}
 	}
 
@@ -78,6 +110,7 @@ public class EdgeCreationListener extends DoubleClickListener {
 	public void mouseMoved(final MouseEvent e) {
 		super.mouseMoved(e);
 		if (edge != null) {
+			fire(new EdgeEditEvent(EDGE_CHANGED, this));
 			if (!edge.hasTargetComponent()) {
 				edge.setUnboundTarget(pnGridPanel.getGridRelativeLocation(e.getLocationOnScreen()));
 			} else if (edge.getTargetComponent() != e.getComponent()) {
@@ -99,6 +132,7 @@ public class EdgeCreationListener extends DoubleClickListener {
 	public void mouseEntered(final MouseEvent e) {
 		super.mouseEntered(e);
 		if (edge != null) {
+			fire(new EdgeEditEvent(COMPONENT_ENTERED, this, e.getComponent()));
 			final Component possibleTarget = e.getComponent();
 			if (edge.acceptsTarget(possibleTarget)) {
 				edge.setTargetComponent((AbstractNode) possibleTarget);
@@ -113,6 +147,7 @@ public class EdgeCreationListener extends DoubleClickListener {
 	public void mouseExited(final MouseEvent e) {
 		super.mouseExited(e);
 		if (edge != null) {
+			fire(new EdgeEditEvent(COMPONENT_EXITED, this, e.getComponent()));
 			edge.highlightStandard();
 		}
 	}

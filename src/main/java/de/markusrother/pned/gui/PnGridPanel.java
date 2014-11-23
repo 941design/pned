@@ -268,7 +268,7 @@ class PnGridPanel extends JLayeredPane implements NodeSelectionListener, NodeLis
 		// TODO - Extract MultiSelectionDragDropListener
 		nodeSelectionDragListener = new SelectionDragDropListener(currentSelection);
 		for (final AbstractNode node : currentSelection) {
-			node.setDragListener(nodeSelectionDragListener);
+			node.setDragDropListener(nodeSelectionDragListener);
 		}
 	}
 

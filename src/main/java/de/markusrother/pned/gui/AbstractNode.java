@@ -23,8 +23,14 @@ import de.markusrother.swing.Selectable;
  * a selection!
  *
  */
-public abstract class AbstractNode extends JPanel implements NodeListener, NodeSelectionListener, Selectable,
-		Disposable, DefinitelyBounded {
+public abstract class AbstractNode extends JPanel
+	implements
+		NodeListener,
+		NodeSelectionListener,
+		EdgeEditListener,
+		Selectable,
+		Disposable,
+		DefinitelyBounded {
 
 	// TODO - Should be used as EnumSet!
 	// Is it possible to define an arithmetic on states? It would be nice to
@@ -42,7 +48,8 @@ public abstract class AbstractNode extends JPanel implements NodeListener, NodeS
 
 	private static final LayoutManager NO_LAYOUT_MANAGER = null;
 
-	private DragDropListener dragListener; // selectionHandler
+	// Listeners:
+	private DragDropListener dragDropListener; // selectionHandler
 	private EdgeCreationListener edgeCreationListener;
 	private SingleNodeSelector singleNodeSelector;
 
@@ -56,6 +63,7 @@ public abstract class AbstractNode extends JPanel implements NodeListener, NodeS
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
 		eventBus.addNodeListener(this);
 		eventBus.addNodeSelectionListener(this);
+		eventBus.addEdgeEditListener(this);
 	}
 
 	public AbstractNode() {
@@ -96,26 +104,26 @@ public abstract class AbstractNode extends JPanel implements NodeListener, NodeS
 
 	void setSingleNodeSelector(final SingleNodeSelector listener) {
 		if (singleNodeSelector != null) {
-			DragDropListener.removeFromComponent(this, singleNodeSelector);
+			suspendSelectionListener();
 		}
 		singleNodeSelector = listener;
-		DragDropListener.addToComponent(this, singleNodeSelector);
+		resumeSelectionListener();
 	}
 
-	void setDragListener(final SelectionDragDropListener listener) {
-		if (dragListener != null) {
-			DragDropListener.removeFromComponent(this, dragListener);
+	void setDragDropListener(final SelectionDragDropListener listener) {
+		if (dragDropListener != null) {
+			suspendDragDropListener();
 		}
-		dragListener = listener;
-		DragDropListener.addToComponent(this, dragListener);
+		dragDropListener = listener;
+		resumeDragDropListener();
 	}
 
 	void setEdgeCreationListener(final EdgeCreationListener listener) {
 		if (edgeCreationListener != null) {
-			EdgeCreationListener.removeFromComponent(this, edgeCreationListener);
+			suspendEdgeCreationListener();
 		}
 		edgeCreationListener = listener;
-		EdgeCreationListener.addToComponent(this, edgeCreationListener);
+		resumeEdgeCreationListener();
 	}
 
 	void removeDragListener(final DragDropListener listener) {
@@ -126,8 +134,32 @@ public abstract class AbstractNode extends JPanel implements NodeListener, NodeS
 		HoverListener.removeFromComponent(this, NodeHoverListener.INSTANCE);
 	}
 
+	private void suspendDragDropListener() {
+		DragDropListener.removeFromComponent(this, dragDropListener);
+	}
+
+	private void suspendSelectionListener() {
+		DragDropListener.removeFromComponent(this, singleNodeSelector);
+	}
+
+	private void suspendEdgeCreationListener() {
+		EdgeCreationListener.removeFromComponent(this, edgeCreationListener);
+	}
+
 	private void resumeHoverListener() {
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
+	}
+
+	private void resumeDragDropListener() {
+		DragDropListener.addToComponent(this, dragDropListener);
+	}
+
+	private void resumeSelectionListener() {
+		DragDropListener.addToComponent(this, singleNodeSelector);
+	}
+
+	private void resumeEdgeCreationListener() {
+		EdgeCreationListener.addToComponent(this, edgeCreationListener);
 	}
 
 	@Override
@@ -181,4 +213,42 @@ public abstract class AbstractNode extends JPanel implements NodeListener, NodeS
 		getParent().remove(this);
 	}
 
+	@Override
+	public void targetComponentEntered(final EdgeEditEvent e) {
+	}
+
+	@Override
+	public void targetComponentExited(final EdgeEditEvent e) {
+	}
+
+	@Override
+	public void edgeMoved(final EdgeEditEvent e) {
+	}
+
+	@Override
+	public void edgeCancelled(final EdgeEditEvent e) {
+		// TODO - Use state set instead!
+		resumeHoverListener();
+		// resumeEdgeCreationListener(); // TODO - remove?
+		resumeSelectionListener();
+		resumeDragDropListener();
+	}
+
+	@Override
+	public void edgeFinished(final EdgeEditEvent e) {
+		// TODO - Use state set instead!
+		resumeHoverListener();
+		// resumeEdgeCreationListener();
+		resumeSelectionListener();
+		resumeDragDropListener();
+	}
+
+	@Override
+	public void edgeStarted(final EdgeEditEvent e) {
+		// TODO - Use state set instead!
+		suspendHoverListener();
+		// suspendEdgeCreationListener();
+		suspendSelectionListener();
+		suspendDragDropListener();
+	}
 }

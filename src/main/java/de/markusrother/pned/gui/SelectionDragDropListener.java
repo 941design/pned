@@ -41,6 +41,7 @@ public class SelectionDragDropListener extends DragDropListener {
 
 	public void cancel() {
 		for (final AbstractNode node : nodes) {
+			// TODO - This should be done by the node, too.
 			node.removeDragListener(this);
 		}
 		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(DESELECT, this, nodes));

@@ -19,7 +19,10 @@ import javax.swing.event.EventListenerList;
  * 
  * TODO - which idiom?
  */
-public class EventBus implements AWTEventListener, NodeListener {
+public class EventBus
+	implements
+		AWTEventListener,
+		NodeListener {
 
 	private final EventListenerList listeners = new EventListenerList();
 
@@ -54,6 +57,14 @@ public class EventBus implements AWTEventListener, NodeListener {
 		listeners.remove(NodeMotionListener.class, l);
 	}
 
+	public void addEdgeEditListener(final EdgeEditListener l) {
+		listeners.add(EdgeEditListener.class, l);
+	}
+
+	public void removeEdgeEditListener(final EdgeEditListener l) {
+		listeners.remove(EdgeEditListener.class, l);
+	}
+
 	@Override
 	public void nodeCreated(final NodeCreationEvent e) {
 		// TODO - which idiom?
@@ -73,6 +84,10 @@ public class EventBus implements AWTEventListener, NodeListener {
 
 	public void fireNodeMovedEvent(final NodeMovedEvent e) {
 		// TODO - should be defined in an interface
+		eventDispatched(e);
+	}
+
+	public void fireEdgeEditEvent(final EdgeEditEvent e) {
 		eventDispatched(e);
 	}
 
@@ -96,24 +111,48 @@ public class EventBus implements AWTEventListener, NodeListener {
 			}
 		} else if (event instanceof NodeSelectionEvent) {
 			final NodeSelectionEvent e = (NodeSelectionEvent) event;
-			switch (e.getType()) {
-			case SELECT:
-				for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
+			for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
+				switch (e.getType()) {
+				case SELECT:
 					l.nodesSelected(e);
-				}
-				break;
-			case DESELECT:
-				for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
+					break;
+				case DESELECT:
 					l.nodesUnselected(e);
+					break;
+				default:
+					throw new IllegalStateException();
 				}
-				break;
-			default:
-				throw new IllegalStateException();
 			}
 		} else if (event instanceof NodeMovedEvent) {
 			final NodeMovedEvent e = (NodeMovedEvent) event;
 			for (final NodeMotionListener l : getListeners(NodeMotionListener.class)) {
 				l.nodeMoved(e);
+			}
+		} else if (event instanceof EdgeEditEvent) {
+			final EdgeEditEvent e = (EdgeEditEvent) event;
+			for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
+				switch (e.getType()) {
+				case COMPONENT_ENTERED:
+					l.targetComponentEntered(e);
+					break;
+				case COMPONENT_EXITED:
+					l.targetComponentExited(e);
+					break;
+				case EDGE_CHANGED:
+					l.edgeMoved(e);
+					break;
+				case EDGE_CANCELLED:
+					l.edgeCancelled(e);
+					break;
+				case EDGE_FINISHED:
+					l.edgeFinished(e);
+					break;
+				case EDGE_STARTED:
+					l.edgeStarted(e);
+					break;
+				default:
+					throw new IllegalStateException();
+				}
 			}
 		}
 	}

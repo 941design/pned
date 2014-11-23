@@ -6,7 +6,9 @@ import javax.swing.border.Border;
 
 import de.markusrother.pned.gui.NodeLabel;
 
-public class NodeLabelStyle implements Style<NodeLabel> {
+public class NodeLabelStyle
+	implements
+		Style<NodeLabel> {
 
 	private Color defaultFg;
 	private Color defaultBg;
@@ -93,6 +95,7 @@ public class NodeLabelStyle implements Style<NodeLabel> {
 			nodeLabel.setOpaque(hoverOpacity);
 			nodeLabel.setBorder(hoverBorder);
 			break;
+		case DEFAULT:
 		default:
 			nodeLabel.setForeground(defaultFg);
 			nodeLabel.setBackground(defaultBg);
