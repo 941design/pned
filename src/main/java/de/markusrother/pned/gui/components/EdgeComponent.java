@@ -15,6 +15,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
+import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
@@ -172,6 +173,11 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		if (node.equals(sourceComponent) || node.equals(targetComponent)) {
 			dispose();
 		}
+	}
+
+	@Override
+	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
+		// IGNORE
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
+import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
@@ -20,7 +21,11 @@ import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 
-public class NodeLabel extends JLabel implements NodeListener, Disposable, NodeMotionListener {
+public class NodeLabel extends JLabel
+	implements
+		NodeListener,
+		Disposable,
+		NodeMotionListener {
 
 	private static NodeLabelStyle style = new NodeLabelStyle();
 	static {
@@ -90,6 +95,11 @@ public class NodeLabel extends JLabel implements NodeListener, Disposable, NodeM
 		if (e.getNode().getId() == nodeId) {
 			dispose();
 		}
+	}
+
+	@Override
+	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
+		// IGNORE
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import java.util.EventListener;
 
 import javax.swing.event.EventListenerList;
 
+import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
@@ -91,6 +92,11 @@ public class EventBus
 		eventDispatched(e);
 	}
 
+	@Override
+	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
+		eventDispatched(e);
+	}
+
 	public void fireNodeSelectionEvent(final NodeSelectionEvent e) {
 		// TODO - should be defined in an interface
 		eventDispatched(e);
@@ -122,6 +128,11 @@ public class EventBus
 			final NodeRemovalEvent e = (NodeRemovalEvent) event;
 			for (final NodeListener l : getListeners(NodeListener.class)) {
 				l.nodeRemoved(e);
+			}
+		} else if (event instanceof RemoveSelectedNodesEvent) {
+			final RemoveSelectedNodesEvent e = (RemoveSelectedNodesEvent) event;
+			for (final NodeListener l : getListeners(NodeListener.class)) {
+				l.removeSelectedNodes(e);
 			}
 		} else if (event instanceof NodeSelectionEvent) {
 			final NodeSelectionEvent e = (NodeSelectionEvent) event;

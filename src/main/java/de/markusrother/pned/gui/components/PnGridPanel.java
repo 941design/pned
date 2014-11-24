@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
 import de.markusrother.concurrent.Promise;
+import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
@@ -49,6 +50,7 @@ public class PnGridPanel extends JLayeredPane
 		NodeSelectionListener,
 		NodeListener {
 
+	// TODO - This could be properties!
 	public enum State {
 		MULTISELECTION, //
 		PLACE_CREATION, //
@@ -202,9 +204,15 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	public void removeSelectedNodes() {
+		// TODO - instead we could trigger the event below!
 		for (final AbstractNode node : currentSelection) {
 			eventBus.nodeRemoved(new NodeRemovalEvent(this, node));
 		}
+	}
+
+	@Override
+	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
+		// IGNORE
 	}
 
 	public JLabel createLabel(final Point origin, final String nodeId) {
@@ -277,7 +285,13 @@ public class PnGridPanel extends JLayeredPane
 	@Override
 	public void nodesSelected(final NodeSelectionEvent event) {
 		// TODO - changing selections are not yet repsected!
+		// TODO - only add new state if it was not selected before.
 		addState(State.MULTISELECTION);
+		// TODO - This could be done by the EventBus or some object listening to
+		// the EventBus: PnedPropertyChangeMulticaster. However, We would still
+		// have to duplicate that information here (e.g. node creation type).
+		// Also, property changes are gui only.
+		firePropertyChange("multiselection", false, true);
 		currentSelection.addAll(event.getNodes());
 		// TODO - Extract MultiSelectionDragDropListener
 		nodeSelectionDragListener = new SelectionDragDropListener(currentSelection);
@@ -295,6 +309,8 @@ public class PnGridPanel extends JLayeredPane
 		// themselves.
 		currentSelection.removeAll(event.getNodes());
 		if (currentSelection.isEmpty()) {
+			// We dont want to use property change listeners because we need to
+			// connect references explicitly, adding listeners to all event sources.
 			removeState(State.MULTISELECTION);
 		}
 	}

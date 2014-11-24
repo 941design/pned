@@ -2,6 +2,7 @@ package de.markusrother.pned.gui;
 
 import java.awt.event.ActionEvent;
 
+import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
@@ -46,6 +47,11 @@ public class MockDataProvider
 
 	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
+		log(e);
+	}
+
+	@Override
+	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
 		log(e);
 	}
 

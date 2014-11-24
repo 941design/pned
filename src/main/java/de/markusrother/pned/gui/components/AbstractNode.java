@@ -13,6 +13,7 @@ import java.util.concurrent.TimeoutException;
 
 import javax.swing.JPanel;
 
+import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.DefinitelyBounded;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
@@ -108,6 +109,10 @@ public abstract class AbstractNode extends JPanel
 	public void setState(final State state) {
 		this.state = state;
 		setLayout(state);
+	}
+
+	public boolean hasState(final State state) {
+		return this.state == state;
 	}
 
 	/**
@@ -216,6 +221,13 @@ public abstract class AbstractNode extends JPanel
 	public void nodeRemoved(final NodeRemovalEvent e) {
 		if (e.getNode() == this) {
 			dispose();
+		}
+	}
+
+	@Override
+	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
+		if (hasState(State.SELECTED)) {
+			eventBus.nodeRemoved(new NodeRemovalEvent(this, this));
 		}
 	}
 
