@@ -1,11 +1,15 @@
 package de.markusrother.pned.gui.events;
 
-import java.awt.event.ActionEvent;
+import java.awt.Point;
 
-public class PlaceCreationRequest extends ActionEvent {
+public class PlaceCreationRequest extends AbstractNodeCreationRequest {
 
 	public PlaceCreationRequest(final Object source) {
-		super(source, ActionEvent.ACTION_PERFORMED, "no command string");
+		super(source);
+	}
+
+	public PlaceCreationRequest(final Object source, final Point point) {
+		super(source, point);
 	}
 
 }

@@ -65,7 +65,6 @@ public class PnGridPanel extends JLayeredPane
 	private static final int labelHeight = 20;
 
 	private static final EnumSet<State> defaultState = EnumSet.of(State.PLACE_CREATION);
-	private static final Point DEFAULT_NODE_ORIGIN = new Point(100, 100);
 
 	public static EventBus eventBus;
 
@@ -175,6 +174,9 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	public Place createPlace(final Point point) {
+		if (point == null) {
+			throw new IllegalArgumentException();
+		}
 		final Place place = new Place(placeDimensions);
 		addNodeComponent(place, point);
 		place.setSingleNodeSelector(singleNodeSelector);
@@ -183,6 +185,9 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	public Transition createTransition(final Point point) {
+		if (point == null) {
+			throw new IllegalArgumentException();
+		}
 		final Transition transition = new Transition(transitionDimensions);
 		addNodeComponent(transition, point);
 		transition.setSingleNodeSelector(singleNodeSelector);
@@ -338,12 +343,12 @@ public class PnGridPanel extends JLayeredPane
 
 	@Override
 	public void createPlace(final PlaceCreationRequest e) {
-		createPlace(DEFAULT_NODE_ORIGIN);
+		createPlace(e.getPoint());
 	}
 
 	@Override
 	public void createTransition(final TransitionCreationRequest e) {
-		createTransition(DEFAULT_NODE_ORIGIN);
+		createTransition(e.getPoint());
 	}
 
 	public void toggleNodeCreationMode() {

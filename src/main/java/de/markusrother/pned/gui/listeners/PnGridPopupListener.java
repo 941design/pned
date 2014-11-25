@@ -1,5 +1,7 @@
 package de.markusrother.pned.gui.listeners;
 
+import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
+
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +12,8 @@ import javax.swing.JPopupMenu;
 
 import de.markusrother.pned.gui.components.PnGridPanel;
 import de.markusrother.pned.gui.components.PnGridPanel.State;
+import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.swing.PopupListener;
 
 public class PnGridPopupListener extends PopupListener {
@@ -54,10 +58,7 @@ public class PnGridPopupListener extends PopupListener {
 
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-				pnGridPanel.createPlace(popupPoint);
-				// TODO - use event bus!
-				// eventBus.nodeCreated(new NodeCreationEvent(this, node,
-				// nodeIdPromise));
+				eventBus.createPlace(new PlaceCreationRequest(this, popupPoint));
 			}
 		});
 		popup.add(item);
@@ -69,8 +70,7 @@ public class PnGridPopupListener extends PopupListener {
 
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-				pnGridPanel.createTransition(popupPoint);
-				// TODO - use event bus!
+				eventBus.createTransition(new TransitionCreationRequest(this, popupPoint));
 			}
 		});
 		popup.add(item);
