@@ -14,6 +14,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.TransitionCreationRequest;
 
 public class PnedEditMenu extends JMenu
 	implements
@@ -37,10 +39,8 @@ public class PnedEditMenu extends JMenu
 
 		@Override
 		public void actionPerformed(final ActionEvent e) {
-			// fire event new PlaceCreationEvent();
-			// or: grid.createPlace();
-			// e.createPlace(); // Where e is Menu
-			System.out.println("TODO - " + PnedEditMenu.class.getName());
+			eventBus.createPlace(new PlaceCreationRequest(this));
+			// TODO - alternatively grid.createPlace();
 		}
 	}
 
@@ -53,10 +53,8 @@ public class PnedEditMenu extends JMenu
 
 		@Override
 		public void actionPerformed(final ActionEvent e) {
-			// fire event new PlaceCreationEvent();
-			// or: grid.createPlace();
-			// e.createPlace(); // Where e is Menu
-			System.out.println("TODO - " + PnedEditMenu.class.getName());
+			eventBus.createTransition(new TransitionCreationRequest(this));
+			// TODO - alternatively grid.createTransition();
 		}
 	}
 

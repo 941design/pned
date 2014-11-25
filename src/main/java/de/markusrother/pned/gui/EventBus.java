@@ -14,6 +14,8 @@ import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
@@ -88,6 +90,18 @@ public class EventBus
 	}
 
 	@Override
+	public void createPlace(final PlaceCreationRequest e) {
+		// TODO - This is a gui-only event
+		eventDispatched(e);
+	}
+
+	@Override
+	public void createTransition(final TransitionCreationRequest e) {
+		// TODO - This is a gui-only event
+		eventDispatched(e);
+	}
+
+	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
 		eventDispatched(e);
 	}
@@ -123,6 +137,16 @@ public class EventBus
 			final NodeCreationEvent e = (NodeCreationEvent) event;
 			for (final NodeListener l : getListeners(NodeListener.class)) {
 				l.nodeCreated(e);
+			}
+		} else if (event instanceof PlaceCreationRequest) {
+			final PlaceCreationRequest e = (PlaceCreationRequest) event;
+			for (final NodeListener l : getListeners(NodeListener.class)) {
+				l.createPlace(e);
+			}
+		} else if (event instanceof TransitionCreationRequest) {
+			final TransitionCreationRequest e = (TransitionCreationRequest) event;
+			for (final NodeListener l : getListeners(NodeListener.class)) {
+				l.createTransition(e);
 			}
 		} else if (event instanceof NodeRemovalEvent) {
 			final NodeRemovalEvent e = (NodeRemovalEvent) event;

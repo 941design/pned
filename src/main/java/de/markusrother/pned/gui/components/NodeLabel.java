@@ -13,6 +13,8 @@ import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
+import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.LabelHoverListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
@@ -87,7 +89,17 @@ public class NodeLabel extends JLabel
 
 	@Override
 	public void nodeCreated(final NodeCreationEvent e) {
-		// IGNORE
+		// IGNORE, OBSOLETE - will go to different listener!
+	}
+
+	@Override
+	public void createPlace(final PlaceCreationRequest e) {
+		// IGNORE, OBSOLETE - will go to different listener!
+	}
+
+	@Override
+	public void createTransition(final TransitionCreationRequest e) {
+		// IGNORE, OBSOLETE - will go to different listener!
 	}
 
 	@Override

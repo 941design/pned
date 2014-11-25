@@ -20,6 +20,8 @@ import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
+import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.swing.DragDropAdapter;
@@ -165,6 +167,18 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	@Override
 	public void nodeCreated(final NodeCreationEvent e) {
 		// IGNORE
+	}
+
+	@Override
+	public void createPlace(final PlaceCreationRequest e) {
+		// TODO
+		throw new RuntimeException("TODO");
+	}
+
+	@Override
+	public void createTransition(final TransitionCreationRequest e) {
+		// TODO
+		throw new RuntimeException("TODO");
 	}
 
 	@Override

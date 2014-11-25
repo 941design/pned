@@ -7,6 +7,8 @@ import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
@@ -43,6 +45,16 @@ public class MockDataProvider
 	public void nodeCreated(final NodeCreationEvent e) {
 		log(e);
 		e.fulfillNodeIdPromise(String.valueOf(nodeId++));
+	}
+
+	@Override
+	public void createPlace(final PlaceCreationRequest e) {
+		log(e);
+	}
+
+	@Override
+	public void createTransition(final TransitionCreationRequest e) {
+		log(e);
 	}
 
 	@Override

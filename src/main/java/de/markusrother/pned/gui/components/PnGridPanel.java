@@ -22,6 +22,8 @@ import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
@@ -63,6 +65,7 @@ public class PnGridPanel extends JLayeredPane
 	private static final int labelHeight = 20;
 
 	private static final EnumSet<State> defaultState = EnumSet.of(State.PLACE_CREATION);
+	private static final Point DEFAULT_NODE_ORIGIN = new Point(100, 100);
 
 	public static EventBus eventBus;
 
@@ -310,7 +313,8 @@ public class PnGridPanel extends JLayeredPane
 		currentSelection.removeAll(event.getNodes());
 		if (currentSelection.isEmpty()) {
 			// We dont want to use property change listeners because we need to
-			// connect references explicitly, adding listeners to all event sources.
+			// connect references explicitly, adding listeners to all event
+			// sources.
 			removeState(State.MULTISELECTION);
 		}
 	}
@@ -330,6 +334,16 @@ public class PnGridPanel extends JLayeredPane
 		final Point labelOrigin = node.getLocation();
 		labelOrigin.translate(0, -labelHeight);
 		createLabel(labelOrigin, node.getId());
+	}
+
+	@Override
+	public void createPlace(final PlaceCreationRequest e) {
+		createPlace(DEFAULT_NODE_ORIGIN);
+	}
+
+	@Override
+	public void createTransition(final TransitionCreationRequest e) {
+		createTransition(DEFAULT_NODE_ORIGIN);
 	}
 
 	public void toggleNodeCreationMode() {
