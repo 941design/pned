@@ -9,8 +9,10 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 import de.markusrother.pned.gui.MockDataProvider;
-import de.markusrother.pned.gui.menu.EditMenuFactory;
-import de.markusrother.pned.gui.menu.PnedMenuBar;
+import de.markusrother.pned.gui.NodeCreationMode;
+import de.markusrother.pned.gui.events.SetNodeTypeCommand;
+import de.markusrother.pned.gui.menus.EditMenuFactory;
+import de.markusrother.pned.gui.menus.PnedMenuBar;
 
 public class PnEditorFrame extends JFrame {
 
@@ -36,6 +38,8 @@ public class PnEditorFrame extends JFrame {
 
 		// TEST
 		MockDataProvider.instantiate(eventBus);
+
+		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, NodeCreationMode.PLACE));
 	}
 
 	public static void main(final String... args) {

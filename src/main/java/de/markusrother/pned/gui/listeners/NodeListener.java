@@ -6,11 +6,14 @@ import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationRequest;
 
 public interface NodeListener
 	extends
 		EventListener {
+
+	void setCurrentNodeType(SetNodeTypeCommand cmd);
 
 	/**
 	 * TODO - This should go to a different listener, because only the grid is

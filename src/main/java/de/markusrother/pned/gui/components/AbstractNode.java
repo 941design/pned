@@ -21,6 +21,7 @@ import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
@@ -215,18 +216,23 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	@Override
+	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
+		// IGNORE, OBSOLETE - will go to different listener!
+	}
+
+	@Override
 	public void nodeCreated(final NodeCreationEvent e) {
-		// IGNORE
+		// IGNORE, OBSOLETE - will go to different listener!
 	}
 
 	@Override
 	public void createPlace(final PlaceCreationRequest e) {
-		// IGNORE
+		// IGNORE, OBSOLETE - will go to different listener!
 	}
 
 	@Override
 	public void createTransition(final TransitionCreationRequest e) {
-		// IGNORE
+		// IGNORE, OBSOLETE - will go to different listener!
 	}
 
 	@Override

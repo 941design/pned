@@ -3,6 +3,7 @@ package de.markusrother.pned.gui.events;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 
+// TODO - rename to command
 public abstract class AbstractNodeCreationRequest extends ActionEvent {
 
 	protected static final Point defaultNodeOrigin = new Point(100, 100);

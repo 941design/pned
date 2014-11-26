@@ -15,6 +15,7 @@ import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
@@ -83,6 +84,11 @@ public class EventBus
 	}
 
 	@Override
+	public void setCurrentNodeType(final SetNodeTypeCommand e) {
+		eventDispatched(e);
+	}
+
+	@Override
 	public void nodeCreated(final NodeCreationEvent e) {
 		// TODO - which idiom?
 		// TODO - should be defined in an interface
@@ -133,7 +139,12 @@ public class EventBus
 
 	@Override
 	public void eventDispatched(final AWTEvent event) {
-		if (event instanceof NodeCreationEvent) {
+		if (event instanceof SetNodeTypeCommand) {
+			final SetNodeTypeCommand cmd = (SetNodeTypeCommand) event;
+			for (final NodeListener l : getListeners(NodeListener.class)) {
+				l.setCurrentNodeType(cmd);
+			}
+		} else if (event instanceof NodeCreationEvent) {
 			final NodeCreationEvent e = (NodeCreationEvent) event;
 			for (final NodeListener l : getListeners(NodeListener.class)) {
 				l.nodeCreated(e);
@@ -168,6 +179,9 @@ public class EventBus
 				case DESELECT:
 					l.nodesUnselected(e);
 					break;
+				case CANCEL:
+					// TODO
+					throw new RuntimeException("TODO");
 				default:
 					throw new IllegalStateException();
 				}

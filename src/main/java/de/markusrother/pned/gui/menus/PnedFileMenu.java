@@ -1,8 +1,12 @@
-package de.markusrother.pned.gui.menu;
+package de.markusrother.pned.gui.menus;
 
 import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
+
+import de.markusrother.pned.gui.menus.items.ExportFileMenuItem;
+import de.markusrother.pned.gui.menus.items.ImportFileMenuItem;
+import de.markusrother.pned.gui.menus.items.NewFileMenuItem;
 
 public class PnedFileMenu extends JMenu {
 

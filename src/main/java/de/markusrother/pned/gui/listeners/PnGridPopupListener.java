@@ -1,6 +1,7 @@
 package de.markusrother.pned.gui.listeners;
 
 import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
+import static de.markusrother.pned.gui.menus.items.NodeCreationToggleMenuItem.nodeCreationToggleAction;
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.components.PnGridPanel;
 import de.markusrother.pned.gui.components.PnGridPanel.State;
 import de.markusrother.pned.gui.events.PlaceCreationRequest;
@@ -28,6 +30,7 @@ public class PnGridPopupListener extends PopupListener {
 	@Override
 	public void popup(final MouseEvent e) {
 		popupPoint = e.getPoint();
+		// TODO - use the same menu as the edit menu!!!
 		final JPopupMenu popup = new JPopupMenu();
 		if (pnGridPanel.hasState(State.MULTISELECTION)) {
 			addNodeSelectionRemovalItem(popup);
@@ -42,13 +45,7 @@ public class PnGridPopupListener extends PopupListener {
 		// TODO - use config
 		final String nodeType = pnGridPanel.hasState(State.TRANSITION_CREATION) ? "place" : "transition";
 		final JMenuItem item = new JMenuItem("Set default node type to " + nodeType);
-		item.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				pnGridPanel.toggleNodeCreationMode();
-			}
-		});
+		item.addActionListener(nodeCreationToggleAction);
 		popup.add(item);
 	}
 
@@ -82,8 +79,7 @@ public class PnGridPopupListener extends PopupListener {
 
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-				pnGridPanel.removeSelectedNodes();
-				// TODO - use event bus!
+				eventBus.removeSelectedNodes(new RemoveSelectedNodesEvent(this));
 			}
 		});
 		popup.add(item);

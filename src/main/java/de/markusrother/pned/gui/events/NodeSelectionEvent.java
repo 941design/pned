@@ -10,6 +10,7 @@ public class NodeSelectionEvent extends ActionEvent {
 	public enum Type {
 		SELECT, //
 		DESELECT, //
+		CANCEL, //
 	}
 
 	private final Collection<AbstractNode> nodes;

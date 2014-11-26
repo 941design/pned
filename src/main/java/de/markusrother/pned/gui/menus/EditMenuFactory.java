@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui.menu;
+package de.markusrother.pned.gui.menus;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

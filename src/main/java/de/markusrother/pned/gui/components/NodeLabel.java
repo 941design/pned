@@ -14,6 +14,7 @@ import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.LabelHoverListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
@@ -85,6 +86,11 @@ public class NodeLabel extends JLabel
 				repaint();
 			}
 		}
+	}
+
+	@Override
+	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
+		// IGNORE, OBSOLETE - will go to different listener!
 	}
 
 	@Override

@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,8 +22,10 @@ import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
+import de.markusrother.pned.gui.listeners.NodeCreator;
 import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.NodeSelector;
@@ -102,6 +103,10 @@ public class PnGridPanel extends JLayeredPane
 	 */
 	PnGridPanel() {
 
+		// TODO - Make this a lazy initialized singleton! First try if a static
+		// singleton works, too
+		eventBus = new EventBus();
+
 		this.state = defaultState;
 
 		// TODO - add scroll panel
@@ -139,9 +144,6 @@ public class PnGridPanel extends JLayeredPane
 		nodeLayer.addMouseListener(popupCreator);
 		DragDropListener.addToComponent(nodeLayer, multipleNodeSelector);
 
-		// TODO - Make this a lazy initialized singleton! First try if a static
-		// singleton works, too
-		eventBus = new EventBus();
 		eventBus.addNodeSelectionListener(this);
 		eventBus.addNodeListener(this);
 	}
@@ -250,46 +252,6 @@ public class PnGridPanel extends JLayeredPane
 		repaint();
 	}
 
-	private class NodeCreator extends MouseAdapter {
-
-		NodeCreator() {
-		}
-
-		@Override
-		public void mouseClicked(final MouseEvent e) {
-			if (hasState(State.MULTISELECTION)) {
-				// User must click twice (first, to deselect, secondly to create
-				// node)
-				// TODO - we could also introduce another state
-				// MULTISELECTION_CANCELLED
-				// It would be nice to have a tri-state enum.
-				nodeSelectionDragListener.cancel();
-				return;
-			}
-			// TODO - this could go through the event bus.
-			// Should the node creation listener itself have a state and listen
-			// to events? Or should components toggle listeners depending on
-			// state? That would result in a mapping of enum sets of states to
-			// listener configurations. Those configurations can be verified by
-			// partitioning the power set and mapping the partitions to listener
-			// configurations. However, as power sets are too large we would
-			// have to compute the conditions manually as if-else. We could use
-			// the results to create documentation, though, and to test! Such
-			// that: For a given configuration of states we expect a list of
-			// activated listeners.
-			final Point point = e.getPoint();
-			if (hasState(State.TRANSITION_CREATION)) {
-				createTransition(point);
-			} else if (hasState(State.PLACE_CREATION)) {
-				createPlace(point);
-			} else {
-				throw new IllegalStateException();
-			}
-			// TODO - components may dispatch action events directly:
-			// dispatchEvent(new FooEvent(this, ActionEvent.ACTION_PERFORMED));
-		}
-	}
-
 	@Override
 	public void nodesSelected(final NodeSelectionEvent event) {
 		// TODO - changing selections are not yet repsected!
@@ -351,19 +313,20 @@ public class PnGridPanel extends JLayeredPane
 		createTransition(e.getPoint());
 	}
 
-	public void toggleNodeCreationMode() {
-		// TODO - toggleCreationMode(); nicer!
-		if (hasState(State.PLACE_CREATION)) {
-			removeState(State.PLACE_CREATION);
-			addState(State.TRANSITION_CREATION);
-		} else if (hasState(State.TRANSITION_CREATION)) {
+	@Override
+	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
+		switch (cmd.getMode()) {
+		case PLACE:
 			removeState(State.TRANSITION_CREATION);
 			addState(State.PLACE_CREATION);
-		} else {
+			break;
+		case TRANSITION:
+			removeState(State.PLACE_CREATION);
+			addState(State.TRANSITION_CREATION);
+			break;
+		default:
 			throw new IllegalStateException();
 		}
-		// Preferred size changes, but should our snapTargetComponent
-		// adapt dynamically to such changes?
 	}
 
 	@Override
