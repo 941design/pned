@@ -19,14 +19,14 @@ import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
+import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.PlaceCreationRequest;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
-import de.markusrother.swing.DragDropAdapter;
-import de.markusrother.swing.DragDropListener;
+import de.markusrother.pned.gui.listeners.NodeMotionListener;
 import de.markusrother.swing.HoverListener;
 
 /**
@@ -37,6 +37,7 @@ import de.markusrother.swing.HoverListener;
 public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractNode>
 	implements
 		NodeListener,
+		NodeMotionListener,
 		EdgeEditListener,
 		Disposable {
 
@@ -89,21 +90,6 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		};
 	}
 
-	private static DragDropListener<Component> createDragDropListener(final EdgeComponent edge) {
-
-		// TODO - extract class!
-
-		return new DragDropAdapter() {
-
-			@Override
-			public void onDrag(final Component component, final int deltaX, final int deltaY) {
-				edge.connectToSource();
-				edge.connectToTarget();
-				edge.repaint();
-			}
-		};
-	}
-
 	private Polygon tip;
 	private Line2D line;
 	private Color fgColor;
@@ -112,6 +98,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		super(sourceComponent, source, target);
 		this.fgColor = standardColor;
 		eventBus.addNodeListener(this);
+		eventBus.addNodeMotionListener(this);
 		eventBus.addEdgeEditListener(this);
 	}
 
@@ -266,14 +253,6 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 		setTargetComponent((AbstractNode) e.getComponent());
 
-		// TODO - Move to super (can then be used for other edges, too)
-		final DragDropListener<Component> dragListener = createDragDropListener(this);
-		// TODO - pass responsibility to node, in order to not leak listeners.
-		// Components would then have to implement an interface to add
-		// DragDropListener.
-		DragDropListener.addToComponent(sourceComponent, dragListener);
-		DragDropListener.addToComponent(targetComponent, dragListener);
-
 		final HoverListener hoverListener = createHoverListener(this);
 		// TODO - setHoverListener() -> to field.
 		HoverListener.addToComponent(this, hoverListener);
@@ -290,10 +269,21 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	public void dispose() {
 		// TODO - create generic removeAllListeners()
 		eventBus.removeNodeListener(this);
+		eventBus.removeNodeMotionListener(this);
 		eventBus.removeEdgeEditListener(this);
 		// TODO - may require synchronization, if two removal events are fired
 		// before this is properly removed from eventBus.
 		getParent().remove(this);
+	}
+
+	@Override
+	public void nodeMoved(final NodeMovedEvent event) {
+		if (event.getNodes().contains(sourceComponent) //
+				|| event.getNodes().contains(targetComponent)) {
+			connectToSource();
+			connectToTarget();
+			repaint();
+		}
 	}
 
 }

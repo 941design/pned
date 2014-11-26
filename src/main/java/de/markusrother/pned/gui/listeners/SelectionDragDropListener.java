@@ -12,6 +12,12 @@ import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.DragDropListener;
 
+/**
+ * TODO - rename (node specific)
+ * 
+ * TODO - extract abstract superclass
+ *
+ */
 public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 
 	private final Collection<AbstractNode> nodes;

@@ -43,13 +43,12 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 		// multiselection. Although we would not have to unselect the given
 		// node, we must invoke cancellation of all nodes to deselect the other
 		// selected nodes.
-		if (node.isPartOfMultiselection()) {
-			eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
-			// NOTE - Do NOT rely on event status change within this method!
-			eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, Arrays.asList(node)));
-		} else if (node.isSelected()) {
+		if (node.isSelected() && !node.isPartOfMultiselection()) {
 			// IGNORE - Nothing to do, node is already selected.
 		} else {
+			// NOTE - Do NOT rely on event status change within this method!
+			// We have to cancel other singly selected nodes, too:
+			eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
 			eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, Arrays.asList(node)));
 		}
 	}
