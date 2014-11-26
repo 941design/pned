@@ -19,6 +19,8 @@ import de.markusrother.swing.DragDropListener;
  */
 public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 
+	private AbstractNode selectedNode;
+
 	public SingleNodeSelector() {
 		super(AbstractNode.class);
 	}
@@ -33,8 +35,18 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 	}
 
 	private void makeCurrentSelection(final AbstractNode node) {
+		if (selectedNode != null && selectedNode == node) {
+			return;
+		}
+		selectedNode = node;
+		if (node.isSelected()) {
+			// Node may have been selected by another other mechanism, such as
+			// multiselection.
+			return;
+		}
+		// Deselection is triggered by cancellation.
 		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
-		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, Arrays.asList(node)));
+		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, Arrays.asList(selectedNode)));
 	}
 
 	@Override
@@ -45,6 +57,7 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 
 	@Override
 	public void startDrag(final AbstractNode node, final Point dragStart) {
+		// TODO - How can we start dragging without a preceding click?
 		makeCurrentSelection(node);
 	}
 

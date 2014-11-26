@@ -114,8 +114,8 @@ public abstract class AbstractNode extends JPanel
 		setLayout(state);
 	}
 
-	public boolean hasState(final State state) {
-		return this.state == state;
+	public boolean isSelected() {
+		return this.state == State.SELECTED;
 	}
 
 	/**
@@ -215,7 +215,7 @@ public abstract class AbstractNode extends JPanel
 
 	@Override
 	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
-		if (hasState(State.SELECTED)) {
+		if (isSelected()) {
 			deselect();
 		}
 	}
@@ -255,7 +255,7 @@ public abstract class AbstractNode extends JPanel
 
 	@Override
 	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
-		if (hasState(State.SELECTED)) {
+		if (isSelected()) {
 			eventBus.nodeRemoved(new NodeRemovalEvent(this, this));
 		}
 	}
@@ -305,4 +305,5 @@ public abstract class AbstractNode extends JPanel
 		suspendSelectionListener();
 		suspendDragDropListener();
 	}
+
 }
