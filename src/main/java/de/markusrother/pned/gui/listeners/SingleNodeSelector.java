@@ -15,11 +15,13 @@ import de.markusrother.swing.DragDropListener;
 
 /**
  * Creates selection by clicking on a single component.
- *
+ * 
+ * mousePressed is not sufficient, because we want to distinguish behavior of
+ * click vs. drag.
+ * 
+ * TODO - make nice!
  */
 public class SingleNodeSelector extends DragDropListener<AbstractNode> {
-
-	private AbstractNode selectedNode;
 
 	public SingleNodeSelector() {
 		super(AbstractNode.class);
@@ -35,18 +37,21 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 	}
 
 	private void makeCurrentSelection(final AbstractNode node) {
-		if (selectedNode != null && selectedNode == node) {
-			return;
+		// Must not return if node is part of multiselection!
+		// No events when reselecting the already selected node.
+		// Node may have been selected by another other mechanism, such as
+		// multiselection. Although we would not have to unselect the given
+		// node, we must invoke cancellation of all nodes to deselect the other
+		// selected nodes.
+		if (node.isPartOfMultiselection()) {
+			eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
+			// NOTE - Do NOT rely on event status change within this method!
+			eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, Arrays.asList(node)));
+		} else if (node.isSelected()) {
+			// IGNORE - Nothing to do, node is already selected.
+		} else {
+			eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, Arrays.asList(node)));
 		}
-		selectedNode = node;
-		if (node.isSelected()) {
-			// Node may have been selected by another other mechanism, such as
-			// multiselection.
-			return;
-		}
-		// Deselection is triggered by cancellation.
-		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
-		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, Arrays.asList(selectedNode)));
 	}
 
 	@Override
@@ -57,7 +62,14 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 
 	@Override
 	public void startDrag(final AbstractNode node, final Point dragStart) {
-		// TODO - How can we start dragging without a preceding click?
+		// If mouse is pressed down on unselected node, we receive a startDrag
+		// (based on mouseDragged) without the preceding mouseClicked!
+		// We need to activate the selection for the nodes actual DragDrop
+		// listener!
+		if (node.isPartOfMultiselection()) {
+			// dragging multiselection has precedence
+			return;
+		}
 		makeCurrentSelection(node);
 	}
 

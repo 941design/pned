@@ -3,9 +3,10 @@ package de.markusrother.pned.gui.listeners;
 import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.CANCEL;
 import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.DESELECT;
+import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.FINISH;
 import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.SELECT;
 
-import java.util.List;
+import java.util.Collection;
 
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
@@ -45,19 +46,50 @@ public class NodeSelector extends Selector<AbstractNode> {
 		super(AbstractNode.class);
 	}
 
+	/**
+	 * Called when starting a new selection by drag and drop movement, canceling
+	 * previous selection if any.
+	 */
 	@Override
 	public void startedSelection() {
 		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
 	}
 
+	/**
+	 * Called for every incremental addition of nodes during a drag and drop
+	 * operation.
+	 * 
+	 * @param nodes
+	 *            Collection of nodes that were just added to the current
+	 *            selection.
+	 */
 	@Override
-	public void addedToSelection(final List<AbstractNode> items) {
-		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, items));
+	public void addedToSelection(final Collection<AbstractNode> nodes) {
+		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, nodes));
 	}
 
+	/**
+	 * Called for every incremental removal of nodes during a drag and drop
+	 * operation.
+	 * 
+	 * @param nodes
+	 *            Collection of nodes that were just removed from the current
+	 *            selection.
+	 */
 	@Override
-	public void removedFromSelection(final List<AbstractNode> items) {
-		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(DESELECT, this, items));
+	public void removedFromSelection(final Collection<AbstractNode> nodes) {
+		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(DESELECT, this, nodes));
+	}
+
+	/**
+	 * Called upon finishing the drag and drop operation.
+	 * 
+	 * @param nodes
+	 *            Collection of all selected nodes.
+	 */
+	@Override
+	public void finishedSelection(final Collection<AbstractNode> items) {
+		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(FINISH, this));
 	}
 
 }

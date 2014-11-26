@@ -5,6 +5,11 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * TODO - base deltas on componentMoved instead of mouse coordinates!
+ * 
+ * @param <T>
+ */
 public abstract class DragDropListener<T extends Component> extends MouseAdapter {
 
 	public static void addToComponent(final Component component, final DragDropListener<?> listener) {

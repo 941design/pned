@@ -16,6 +16,8 @@ public interface NodeSelectionListener
 
 	public void nodesUnselected(NodeSelectionEvent event);
 
+	public void nodeSelectionFinished(NodeSelectionEvent event);
+
 	public void nodeSelectionCancelled(NodeSelectionEvent event);
 
 }

@@ -59,7 +59,8 @@ public abstract class AbstractNode extends JPanel
 	public enum State {
 		DEFAULT, //
 		HOVER, // HOVERED
-		SELECTED, // SELECTED("UNSELECTED") for inverse operations?
+		SINGLE_SELECTED, // SELECTED("UNSELECTED") for inverse operations?
+		MULTI_SELECTED;
 		// TODO - UNSELECTABLE/SELECTABLE, MULTISELECTED, DRAGGED
 	}
 
@@ -115,7 +116,12 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	public boolean isSelected() {
-		return this.state == State.SELECTED;
+		return state == State.SINGLE_SELECTED //
+				|| state == State.MULTI_SELECTED;
+	}
+
+	public boolean isPartOfMultiselection() {
+		return state == State.MULTI_SELECTED;
 	}
 
 	/**
@@ -202,7 +208,12 @@ public abstract class AbstractNode extends JPanel
 			suspendHoverListener();
 			// TODO - just replace DEFAULT/UNSELECTED by SELECTED in state
 			// EnumSet.
-			setState(State.SELECTED); // TODO - in multiselection
+			// TODO - nicer!
+			if (event.getSource() instanceof SingleNodeSelector) {
+				setState(State.SINGLE_SELECTED);
+			} else {
+				setState(State.MULTI_SELECTED);
+			}
 		}
 	}
 
@@ -210,6 +221,13 @@ public abstract class AbstractNode extends JPanel
 	public void nodesUnselected(final NodeSelectionEvent event) {
 		if (event.getNodes().contains(this)) {
 			deselect();
+		}
+	}
+
+	@Override
+	public void nodeSelectionFinished(final NodeSelectionEvent event) {
+		if (event.getNodes().contains(this)) {
+			// TODO - suspend selection listener?
 		}
 	}
 

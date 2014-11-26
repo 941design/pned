@@ -62,7 +62,8 @@ class Transition extends AbstractNode {
 		case HOVER:
 			setBorder(new LineBorder(Color.GREEN));
 			break;
-		case SELECTED:
+		case SINGLE_SELECTED:
+		case MULTI_SELECTED:
 		default:
 			break;
 		}

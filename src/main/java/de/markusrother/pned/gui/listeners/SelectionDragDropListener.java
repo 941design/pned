@@ -1,7 +1,7 @@
 package de.markusrother.pned.gui.listeners;
 
 import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
-import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.DESELECT;
+import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.CANCEL;
 
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -47,6 +47,6 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 			// TODO - This should be done by the node, too.
 			node.removeDragListener(this);
 		}
-		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(DESELECT, this, nodes));
+		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
 	}
 }

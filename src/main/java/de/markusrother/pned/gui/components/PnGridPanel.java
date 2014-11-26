@@ -344,4 +344,9 @@ public class PnGridPanel extends JLayeredPane
 		// NOTE - Nodes, labels, and edges remove themselves.
 		repaint();
 	}
+
+	@Override
+	public void nodeSelectionFinished(final NodeSelectionEvent event) {
+		// IGNORE
+	}
 }

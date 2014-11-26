@@ -44,6 +44,7 @@ public class PnedEditMenu extends JMenu
 		// TODO - we have to make sure that upon loading files or other actions
 		// that indirectly deselect nodes the removal action is also disabled.
 		// An idea would be to have implicit actions.
+		// TODO - Why not use the event bus?
 		if (ARE_NODES_SELECTED.equals(evt.getPropertyName())) {
 			// TODO - this is somewhat not nice. Do we really need stateful
 			// actions, or should state be managed elsewhere?

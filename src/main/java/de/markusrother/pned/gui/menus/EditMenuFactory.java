@@ -65,6 +65,11 @@ public class EditMenuFactory
 	}
 
 	@Override
+	public void nodeSelectionFinished(final NodeSelectionEvent event) {
+		// IGNORE
+	}
+
+	@Override
 	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
 		deselect(selection);
 	}

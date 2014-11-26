@@ -179,6 +179,9 @@ public class EventBus
 				case DESELECT:
 					l.nodesUnselected(e);
 					break;
+				case FINISH:
+					l.nodeSelectionFinished(e);
+					break;
 				case CANCEL:
 					l.nodeSelectionCancelled(e);
 					break;

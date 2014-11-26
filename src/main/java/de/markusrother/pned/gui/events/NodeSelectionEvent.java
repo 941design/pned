@@ -9,9 +9,11 @@ import de.markusrother.pned.gui.components.AbstractNode;
 public class NodeSelectionEvent extends ActionEvent {
 
 	public enum Type {
-		SELECT, //
-		DESELECT, //
-		CANCEL, //
+		// TODO - START,
+		SELECT,
+		DESELECT,
+		FINISH,
+		CANCEL;
 	}
 
 	private static final Collection<AbstractNode> NO_NODES = Collections.emptyList();

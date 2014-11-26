@@ -74,7 +74,8 @@ public class Place extends AbstractNode {
 			setForeground(Color.BLUE);
 			setBorder(new LineBorder(Color.GREEN));
 			break;
-		case SELECTED:
+		case SINGLE_SELECTED:
+		case MULTI_SELECTED:
 			setBorder(new LineBorder(Color.MAGENTA));
 			break;
 		default:
