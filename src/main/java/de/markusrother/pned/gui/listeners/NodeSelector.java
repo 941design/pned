@@ -1,6 +1,7 @@
 package de.markusrother.pned.gui.listeners;
 
 import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
+import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.CANCEL;
 import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.DESELECT;
 import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.SELECT;
 
@@ -42,6 +43,11 @@ public class NodeSelector extends Selector<AbstractNode> {
 
 	public NodeSelector() {
 		super(AbstractNode.class);
+	}
+
+	@Override
+	public void startedSelection() {
+		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
 	}
 
 	@Override

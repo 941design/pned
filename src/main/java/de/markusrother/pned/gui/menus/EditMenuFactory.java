@@ -18,12 +18,13 @@ import de.markusrother.pned.gui.listeners.NodeSelectionListener;
  *
  * Factory for edit menus that are sensitive to state changes.
  *
- * TODO - As the menus themselves are singleton, all this class does is translate
- * events to property changes.  This is not entirely necessary, because e.g. the
- * selection removal action needs a reference to the event bus anyways. the singleton 
- * might as well listen to the events itself. We could factor out an event translator,
- * whose only responsibility is to translate events. It would listen to the bus for
- * given events, and simply add the resulting events to the bus again.
+ * TODO - As the menus themselves are singleton, all this class does is
+ * translate events to property changes. This is not entirely necessary, because
+ * e.g. the selection removal action needs a reference to the event bus anyways.
+ * the singleton might as well listen to the events itself. We could factor out
+ * an event translator, whose only responsibility is to translate events. It
+ * would listen to the bus for given events, and simply add the resulting events
+ * to the bus again.
  */
 public class EditMenuFactory
 	implements
@@ -55,19 +56,28 @@ public class EditMenuFactory
 	public void nodesSelected(final NodeSelectionEvent event) {
 		final boolean wereNodesSelected = areNodesSelected();
 		selection.addAll(event.getNodes());
-		firePropertyChangeEvent(wereNodesSelected, event);
+		firePropertyChangeEvent(wereNodesSelected);
 	}
 
 	@Override
 	public void nodesUnselected(final NodeSelectionEvent event) {
-		final boolean wereNodesSelected = areNodesSelected();
-		selection.removeAll(event.getNodes());
-		firePropertyChangeEvent(wereNodesSelected, event);
+		deselect(event.getNodes());
 	}
 
-	private void firePropertyChangeEvent(final boolean wereNodesSelected, final NodeSelectionEvent event) {
+	@Override
+	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
+		deselect(selection);
+	}
+
+	private void deselect(final Collection<AbstractNode> nodes) {
+		final boolean wereNodesSelected = areNodesSelected();
+		selection.removeAll(nodes);
+		firePropertyChangeEvent(wereNodesSelected);
+	}
+
+	private void firePropertyChangeEvent(final boolean wereNodesSelected) {
 		firePropertyChangeEvent(new PropertyChangeEvent( //
-				event.getSource(), //
+				this, //
 				ARE_NODES_SELECTED, //
 				wereNodesSelected, //
 				areNodesSelected()));

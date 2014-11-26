@@ -209,10 +209,21 @@ public abstract class AbstractNode extends JPanel
 	@Override
 	public void nodesUnselected(final NodeSelectionEvent event) {
 		if (event.getNodes().contains(this)) {
-			// resumeDragListener();
-			resumeHoverListener();
-			setState(State.DEFAULT); // TODO - in multiselection
+			deselect();
 		}
+	}
+
+	@Override
+	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
+		if (hasState(State.SELECTED)) {
+			deselect();
+		}
+	}
+
+	private void deselect() {
+		// resumeDragListener();
+		resumeHoverListener();
+		setState(State.DEFAULT); // TODO - in multiselection
 	}
 
 	@Override

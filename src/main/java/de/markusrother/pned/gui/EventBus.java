@@ -180,8 +180,8 @@ public class EventBus
 					l.nodesUnselected(e);
 					break;
 				case CANCEL:
-					// TODO
-					throw new RuntimeException("TODO");
+					l.nodeSelectionCancelled(e);
+					break;
 				default:
 					throw new IllegalStateException();
 				}

@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+// TODO - make generic on component type!
 public abstract class DragDropListener extends MouseAdapter {
 
 	public static void addToComponent(final Component component, final DragDropListener listener) {

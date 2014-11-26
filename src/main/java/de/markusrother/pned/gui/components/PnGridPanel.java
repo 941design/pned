@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
@@ -275,15 +276,12 @@ public class PnGridPanel extends JLayeredPane
 	 */
 	@Override
 	public void nodesUnselected(final NodeSelectionEvent event) {
-		// NOTE - How nodes are displayed is handled by the nodes
-		// themselves.
-		currentSelection.removeAll(event.getNodes());
-		if (currentSelection.isEmpty()) {
-			// We dont want to use property change listeners because we need to
-			// connect references explicitly, adding listeners to all event
-			// sources.
-			removeState(State.MULTISELECTION);
-		}
+		deselect(event.getNodes());
+	}
+
+	@Override
+	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
+		deselect(currentSelection);
 	}
 
 	@Override
@@ -301,6 +299,18 @@ public class PnGridPanel extends JLayeredPane
 		final Point labelOrigin = node.getLocation();
 		labelOrigin.translate(0, -labelHeight);
 		createLabel(labelOrigin, node.getId());
+	}
+
+	private void deselect(final Collection<AbstractNode> nodes) {
+		// NOTE - How nodes are displayed is handled by the nodes
+		// themselves.
+		currentSelection.removeAll(nodes);
+		if (currentSelection.isEmpty()) {
+			// We dont want to use property change listeners because we need to
+			// connect references explicitly, adding listeners to all event
+			// sources.
+			removeState(State.MULTISELECTION);
+		}
 	}
 
 	@Override

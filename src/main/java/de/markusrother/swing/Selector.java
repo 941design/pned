@@ -23,21 +23,23 @@ public abstract class Selector<T extends Selectable> extends DragDropListener {
 
 	private final Class<T> type;
 
+	private JPanel selectionPanel;
+	private Point dragOrigin;
+	private List<T> currentSelection;
+
 	public Selector(final Class<T> type) {
 		this.type = type;
 	}
 
 	private List<T> getCurrentSelection() {
+		// OBSOLETE - Currently not needed, maybe nice to have.
 		return currentSelection;
 	}
 
 	private void setCurrentSelection(final List<T> currentSelection) {
+		// OBSOLETE - Currently not needed, maybe nice to have.
 		this.currentSelection = currentSelection;
 	}
-
-	private JPanel selectionPanel;
-	private Point dragOrigin;
-	private List<T> currentSelection;
 
 	private Container expectContainer(final Component component) {
 		try {
@@ -78,6 +80,7 @@ public abstract class Selector<T extends Selectable> extends DragDropListener {
 		this.selectionPanel = createSelectionPanel(origin);
 		container.add(selectionPanel);
 		container.repaint();
+		startedSelection();
 	}
 
 	@Override
@@ -171,6 +174,8 @@ public abstract class Selector<T extends Selectable> extends DragDropListener {
 
 		currentSelection = items;
 	}
+
+	public abstract void startedSelection();
 
 	public abstract void addedToSelection(List<T> items);
 

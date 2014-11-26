@@ -1,7 +1,7 @@
 package de.markusrother.pned.gui.listeners;
 
 import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
-import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.DESELECT;
+import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.CANCEL;
 import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.SELECT;
 
 import java.awt.Component;
@@ -13,9 +13,11 @@ import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.DragDropListener;
 
+/**
+ * Creates selection by clicking on a single component.
+ *
+ */
 public class SingleNodeSelector extends DragDropListener {
-
-	private AbstractNode currentNode;
 
 	private AbstractNode expectAbstractNode(final Component component) {
 		try {
@@ -27,11 +29,8 @@ public class SingleNodeSelector extends DragDropListener {
 	}
 
 	private void makeCurrentSelection(final AbstractNode node) {
-		if (currentNode != null) {
-			eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(DESELECT, this, Arrays.asList(currentNode)));
-		}
-		currentNode = node;
-		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, Arrays.asList(currentNode)));
+		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
+		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, Arrays.asList(node)));
 	}
 
 	@Override

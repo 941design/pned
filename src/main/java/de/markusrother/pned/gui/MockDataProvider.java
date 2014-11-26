@@ -84,6 +84,11 @@ public class MockDataProvider
 	}
 
 	@Override
+	public void nodeSelectionCancelled(final NodeSelectionEvent e) {
+		log(e);
+	}
+
+	@Override
 	public void targetComponentEntered(final EdgeEditEvent e) {
 		log(e);
 	}
