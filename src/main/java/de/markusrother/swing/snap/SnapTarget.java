@@ -45,7 +45,7 @@ public class SnapTarget extends JLayeredPane {
 		// Adding component layer:
 		targetComponent.setBounds(new Rectangle(componentOrigin, componentDimension));
 		// TODO - decouple listeners from this! And Create a draggable subclass!
-		final DragDropListener l = new DragDropAdapter() {
+		final DragDropListener<Component> l = new DragDropAdapter() {
 
 			@Override
 			public void onDrag(final Component component, final int deltaX, final int deltaY) {

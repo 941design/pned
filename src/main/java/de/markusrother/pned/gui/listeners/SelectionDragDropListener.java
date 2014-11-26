@@ -3,7 +3,6 @@ package de.markusrother.pned.gui.listeners;
 import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.DESELECT;
 
-import java.awt.Component;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.Collection;
@@ -13,21 +12,22 @@ import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.DragDropListener;
 
-public class SelectionDragDropListener extends DragDropListener {
+public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 
 	private final Collection<AbstractNode> nodes;
 
 	public SelectionDragDropListener(final Collection<AbstractNode> nodes) {
+		super(AbstractNode.class);
 		this.nodes = nodes;
 	}
 
 	@Override
-	public void startDrag(final Component component, final Point dragStart) {
+	public void startDrag(final AbstractNode draggedNode, final Point dragStart) {
 		// IGNORE
 	}
 
 	@Override
-	public void onDrag(final Component component, final int deltaX, final int deltaY) {
+	public void onDrag(final AbstractNode draggedNode, final int deltaX, final int deltaY) {
 		for (final AbstractNode node : nodes) {
 			final Rectangle r = node.getBounds();
 			r.translate(deltaX, deltaY);
@@ -38,7 +38,7 @@ public class SelectionDragDropListener extends DragDropListener {
 	}
 
 	@Override
-	public void endDrag(final Component component, final Point dragEnd) {
+	public void endDrag(final AbstractNode draggedNode, final Point dragEnd) {
 		cancel();
 	}
 

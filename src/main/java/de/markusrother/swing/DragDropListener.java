@@ -5,27 +5,32 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-// TODO - make generic on component type!
-public abstract class DragDropListener extends MouseAdapter {
+public abstract class DragDropListener<T extends Component> extends MouseAdapter {
 
-	public static void addToComponent(final Component component, final DragDropListener listener) {
+	public static void addToComponent(final Component component, final DragDropListener<?> listener) {
 		component.addMouseListener(listener);
 		component.addMouseMotionListener(listener);
 	}
 
-	public static void removeFromComponent(final Component component, final DragDropListener listener) {
+	public static void removeFromComponent(final Component component, final DragDropListener<?> listener) {
 		component.removeMouseListener(listener);
 		component.removeMouseMotionListener(listener);
 	}
 
+	private final Class<T> type;
+
 	private Point dragStart;
 	private boolean started; // OBSOLETE
+
+	protected DragDropListener(final Class<T> type) {
+		this.type = type;
+	}
 
 	@Override
 	public void mouseDragged(final MouseEvent e) {
 		dragStart = dragStart != null ? dragStart : e.getLocationOnScreen();
 		if (!started) {
-			startDrag(e.getComponent(), e.getPoint());
+			startDrag(tryCastComponent(e.getComponent()), e.getPoint());
 			started = true;
 		}
 		// NOTE - e.getPoint() is relative to this!
@@ -36,7 +41,7 @@ public abstract class DragDropListener extends MouseAdapter {
 		final int deltaX = current.x - dragStart.x;
 		final int deltaY = current.y - dragStart.y;
 		dragStart.translate(deltaX, deltaY);
-		onDrag(e.getComponent(), deltaX, deltaY);
+		onDrag(tryCastComponent(e.getComponent()), deltaX, deltaY);
 	}
 
 	@Override
@@ -54,7 +59,16 @@ public abstract class DragDropListener extends MouseAdapter {
 	public void mouseReleased(final MouseEvent e) {
 		dragStart = null;
 		if (started) {
-			endDrag(e.getComponent(), e.getPoint());
+			endDrag(tryCastComponent(e.getComponent()), e.getPoint());
+		}
+	}
+
+	private T tryCastComponent(final Component component) {
+		if (type.isInstance(component)) {
+			return type.cast(component);
+		} else {
+			// TODO - what exception type?
+			throw new IllegalArgumentException();
 		}
 	}
 
@@ -64,7 +78,7 @@ public abstract class DragDropListener extends MouseAdapter {
 	 * @param dragStart
 	 *            in component
 	 */
-	public abstract void startDrag(Component component, Point dragStart);
+	public abstract void startDrag(T component, Point dragStart);
 
 	/**
 	 * 
@@ -72,7 +86,7 @@ public abstract class DragDropListener extends MouseAdapter {
 	 * @param dragEnd
 	 *            in component
 	 */
-	public abstract void endDrag(Component component, Point dragEnd);
+	public abstract void endDrag(T component, Point dragEnd);
 
 	/**
 	 * No deltas are lost!
@@ -81,6 +95,6 @@ public abstract class DragDropListener extends MouseAdapter {
 	 * @param deltaX
 	 * @param deltaY
 	 */
-	public abstract void onDrag(Component component, int deltaX, int deltaY);
+	public abstract void onDrag(T component, int deltaX, int deltaY);
 
 }

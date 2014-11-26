@@ -66,7 +66,7 @@ public abstract class AbstractNode extends JPanel
 	private static final LayoutManager NO_LAYOUT_MANAGER = null;
 
 	// Listeners:
-	private DragDropListener dragDropListener; // selectionHandler
+	private DragDropListener<AbstractNode> dragDropListener; // selectionHandler
 	private EdgeCreationListener edgeCreationListener;
 	private SingleNodeSelector singleNodeSelector;
 
@@ -147,7 +147,7 @@ public abstract class AbstractNode extends JPanel
 		resumeEdgeCreationListener();
 	}
 
-	public void removeDragListener(final DragDropListener listener) {
+	public void removeDragListener(final DragDropListener<AbstractNode> listener) {
 		DragDropListener.removeFromComponent(this, listener);
 	}
 

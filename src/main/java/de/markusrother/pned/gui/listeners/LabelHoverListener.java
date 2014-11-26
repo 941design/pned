@@ -3,7 +3,6 @@ package de.markusrother.pned.gui.listeners;
 import java.awt.Component;
 
 import de.markusrother.pned.gui.components.NodeLabel;
-import de.markusrother.pned.gui.components.NodeLabel.State;
 import de.markusrother.swing.HoverAdapter;
 
 public class LabelHoverListener extends HoverAdapter {

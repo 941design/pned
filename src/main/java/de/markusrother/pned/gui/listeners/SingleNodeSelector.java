@@ -17,7 +17,11 @@ import de.markusrother.swing.DragDropListener;
  * Creates selection by clicking on a single component.
  *
  */
-public class SingleNodeSelector extends DragDropListener {
+public class SingleNodeSelector extends DragDropListener<AbstractNode> {
+
+	public SingleNodeSelector() {
+		super(AbstractNode.class);
+	}
 
 	private AbstractNode expectAbstractNode(final Component component) {
 		try {
@@ -40,17 +44,17 @@ public class SingleNodeSelector extends DragDropListener {
 	}
 
 	@Override
-	public void startDrag(final Component component, final Point dragStart) {
-		makeCurrentSelection(expectAbstractNode(component));
+	public void startDrag(final AbstractNode node, final Point dragStart) {
+		makeCurrentSelection(node);
 	}
 
 	@Override
-	public void onDrag(final Component component, final int deltaX, final int deltaY) {
+	public void onDrag(final AbstractNode node, final int deltaX, final int deltaY) {
 		// IGNORE
 	}
 
 	@Override
-	public void endDrag(final Component component, final Point dragEnd) {
+	public void endDrag(final AbstractNode node, final Point dragEnd) {
 		// IGNORE
 	}
 

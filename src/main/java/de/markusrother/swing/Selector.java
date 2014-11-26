@@ -19,7 +19,7 @@ import javax.swing.border.LineBorder;
  * 
  * Class used to mark nodes a.k.a select them for future processing.
  */
-public abstract class Selector<T extends Selectable> extends DragDropListener {
+public abstract class Selector<T extends Selectable> extends DragDropListener<Container> {
 
 	private final Class<T> type;
 
@@ -28,6 +28,7 @@ public abstract class Selector<T extends Selectable> extends DragDropListener {
 	private List<T> currentSelection;
 
 	public Selector(final Class<T> type) {
+		super(Container.class);
 		this.type = type;
 	}
 
@@ -39,15 +40,6 @@ public abstract class Selector<T extends Selectable> extends DragDropListener {
 	private void setCurrentSelection(final List<T> currentSelection) {
 		// OBSOLETE - Currently not needed, maybe nice to have.
 		this.currentSelection = currentSelection;
-	}
-
-	private Container expectContainer(final Component component) {
-		try {
-			return (Container) component;
-		} catch (final ClassCastException e) {
-			// TODO
-			throw new RuntimeException("TODO");
-		}
 	}
 
 	private JPanel createSelectionPanel(final Point origin) {
@@ -73,8 +65,7 @@ public abstract class Selector<T extends Selectable> extends DragDropListener {
 	}
 
 	@Override
-	public void startDrag(final Component component, final Point origin) {
-		final Container container = expectContainer(component);
+	public void startDrag(final Container container, final Point origin) {
 		this.dragOrigin = origin;
 		this.currentSelection = Collections.emptyList();
 		this.selectionPanel = createSelectionPanel(origin);
@@ -84,11 +75,11 @@ public abstract class Selector<T extends Selectable> extends DragDropListener {
 	}
 
 	@Override
-	public void onDrag(final Component component, final int deltaX, final int deltaY) {
+	public void onDrag(final Container container, final int deltaX, final int deltaY) {
 		final Rectangle oldBounds = selectionPanel.getBounds();
 		final Rectangle newBounds = getNewSelectionBounds(oldBounds, deltaX, deltaY);
 		selectionPanel.setBounds(newBounds);
-		adjustSelectedItems(component, newBounds);
+		adjustSelectedItems(container, newBounds);
 	}
 
 	Rectangle getNewSelectionBounds(final Rectangle r, final int deltaX, final int deltaY) {
@@ -153,8 +144,7 @@ public abstract class Selector<T extends Selectable> extends DragDropListener {
 		return new Rectangle(x, y, w, h);
 	}
 
-	private void adjustSelectedItems(final Component component, final Rectangle selection) {
-		final Container container = expectContainer(component);
+	private void adjustSelectedItems(final Container container, final Rectangle selection) {
 
 		final List<T> items = collectSelectedItems(container, selection);
 
@@ -191,8 +181,7 @@ public abstract class Selector<T extends Selectable> extends DragDropListener {
 	}
 
 	@Override
-	public void endDrag(final Component component, final Point point) {
-		final Container container = (Container) component;
+	public void endDrag(final Container container, final Point point) {
 		container.remove(selectionPanel);
 		container.repaint();
 		this.selectionPanel = null;

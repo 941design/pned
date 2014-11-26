@@ -47,7 +47,7 @@ public class NodeLabel extends JLabel
 		HOVER, //
 	}
 
-	private final DragDropListener dragDropListener;
+	private final DragDropListener<NodeLabel> dragDropListener;
 	private final String nodeId;
 	private State state;
 
@@ -56,7 +56,7 @@ public class NodeLabel extends JLabel
 		this.nodeId = nodeId;
 		// TODO - this needs to go to label, and be removed from eventBus upon
 		// component removal!
-		this.dragDropListener = new DefaultDragDropListener(this);
+		this.dragDropListener = new DefaultDragDropListener<>(NodeLabel.class, this);
 		DragDropListener.addToComponent(this, dragDropListener);
 		HoverListener.addToComponent(this, new LabelHoverListener());
 		eventBus.addNodeListener(this);

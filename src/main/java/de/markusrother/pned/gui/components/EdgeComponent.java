@@ -89,7 +89,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		};
 	}
 
-	private static DragDropListener createDragDropListener(final EdgeComponent edge) {
+	private static DragDropListener<Component> createDragDropListener(final EdgeComponent edge) {
 
 		// TODO - extract class!
 
@@ -267,7 +267,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		setTargetComponent((AbstractNode) e.getComponent());
 
 		// TODO - Move to super (can then be used for other edges, too)
-		final DragDropListener dragListener = createDragDropListener(this);
+		final DragDropListener<Component> dragListener = createDragDropListener(this);
 		// TODO - pass responsibility to node, in order to not leak listeners.
 		// Components would then have to implement an interface to add
 		// DragDropListener.

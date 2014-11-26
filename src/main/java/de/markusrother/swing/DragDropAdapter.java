@@ -3,7 +3,11 @@ package de.markusrother.swing;
 import java.awt.Component;
 import java.awt.Point;
 
-public class DragDropAdapter extends DragDropListener {
+public abstract class DragDropAdapter extends DragDropListener<Component> {
+
+	protected DragDropAdapter() {
+		super(Component.class);
+	}
 
 	@Override
 	public void startDrag(final Component component, final Point point) {
