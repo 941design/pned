@@ -88,8 +88,8 @@ public class NodeSelector extends Selector<AbstractNode> {
 	 *            Collection of all selected nodes.
 	 */
 	@Override
-	public void finishedSelection(final Collection<AbstractNode> items) {
-		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(FINISH, this));
+	public void finishedSelection(final Collection<AbstractNode> nodes) {
+		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(FINISH, this, nodes));
 	}
 
 }

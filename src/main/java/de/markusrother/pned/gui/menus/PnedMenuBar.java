@@ -1,26 +1,13 @@
 package de.markusrother.pned.gui.menus;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 import javax.swing.JMenuBar;
 
-public class PnedMenuBar extends JMenuBar
-	implements
-		PropertyChangeListener {
-
-	private final PnedEditMenu pnedEditMenu;
+public class PnedMenuBar extends JMenuBar {
 
 	public PnedMenuBar(final EditMenuFactory editMenuFactory) {
-		this.pnedEditMenu = editMenuFactory.newEditMenu();
-
 		add(PnedFileMenu.INSTANCE);
-		add(pnedEditMenu);
+		add(editMenuFactory.newEditMenu());
 		add(PnedPreferencesMenu.INSTANCE);
 	}
 
-	@Override
-	public void propertyChange(final PropertyChangeEvent evt) {
-		pnedEditMenu.propertyChange(evt);
-	}
 }

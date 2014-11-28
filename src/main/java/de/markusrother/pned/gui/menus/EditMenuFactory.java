@@ -1,14 +1,7 @@
 package de.markusrother.pned.gui.menus;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
-
 import de.markusrother.pned.gui.EventBus;
-import de.markusrother.pned.gui.components.AbstractNode;
+import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 
@@ -30,68 +23,38 @@ public class EditMenuFactory
 	implements
 		NodeSelectionListener {
 
-	public static final String ARE_NODES_SELECTED = "are nodes selected";
-
-	private final Collection<PropertyChangeListener> listeners;
-	private final Set<AbstractNode> selection;
+	private boolean areNodesSelected;
+	private final NodeCreationMode nodeCreationMode;
 
 	public EditMenuFactory(final EventBus eventBus) {
-		this.listeners = new LinkedList<>();
-		this.selection = new HashSet<>();
+		this.areNodesSelected = false;
+		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
 		eventBus.addNodeSelectionListener(this);
 		// TODO - remove upon close
 	}
 
 	public PnedEditMenu newEditMenu() {
-		final PnedEditMenu menu = new PnedEditMenu();
-		listeners.add(menu);
-		return menu;
-	}
-
-	private boolean areNodesSelected() {
-		return !selection.isEmpty();
+		return new PnedEditMenu(areNodesSelected, nodeCreationMode);
 	}
 
 	@Override
 	public void nodesSelected(final NodeSelectionEvent event) {
-		final boolean wereNodesSelected = areNodesSelected();
-		selection.addAll(event.getNodes());
-		firePropertyChangeEvent(wereNodesSelected);
-	}
-
-	@Override
-	public void nodesUnselected(final NodeSelectionEvent event) {
-		deselect(event.getNodes());
-	}
-
-	@Override
-	public void nodeSelectionFinished(final NodeSelectionEvent event) {
 		// IGNORE
 	}
 
 	@Override
+	public void nodesUnselected(final NodeSelectionEvent event) {
+		// IGNORE
+	}
+
+	@Override
+	public void nodeSelectionFinished(final NodeSelectionEvent event) {
+		areNodesSelected = !event.getNodes().isEmpty();
+	}
+
+	@Override
 	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
-		deselect(selection);
-	}
-
-	private void deselect(final Collection<AbstractNode> nodes) {
-		final boolean wereNodesSelected = areNodesSelected();
-		selection.removeAll(nodes);
-		firePropertyChangeEvent(wereNodesSelected);
-	}
-
-	private void firePropertyChangeEvent(final boolean wereNodesSelected) {
-		firePropertyChangeEvent(new PropertyChangeEvent( //
-				this, //
-				ARE_NODES_SELECTED, //
-				wereNodesSelected, //
-				areNodesSelected()));
-	}
-
-	private void firePropertyChangeEvent(final PropertyChangeEvent e) {
-		for (final PropertyChangeListener l : listeners) {
-			l.propertyChange(e);
-		}
+		areNodesSelected = false;
 	}
 
 }
