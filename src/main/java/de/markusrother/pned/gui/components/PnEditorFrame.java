@@ -16,11 +16,10 @@ import de.markusrother.pned.gui.menus.PnedMenuBar;
 
 public class PnEditorFrame extends JFrame {
 
-	private static final String TITLE = "Petri Net Easy";
 	private static final Dimension preferredSize = new Dimension(800, 600);
 
-	public PnEditorFrame() {
-		super(TITLE);
+	public PnEditorFrame(final String title) {
+		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		final Container contentPane = getContentPane();
@@ -47,7 +46,7 @@ public class PnEditorFrame extends JFrame {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				final PnEditorFrame editorFrame = new PnEditorFrame();
+				final PnEditorFrame editorFrame = new PnEditorFrame("foobar");
 			}
 		});
 	}
