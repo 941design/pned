@@ -3,7 +3,6 @@ package de.markusrother.pned.gui.components;
 import static de.markusrother.util.TrigUtils.modPi;
 import static java.lang.Math.PI;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,16 +10,13 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 
-import javax.swing.border.LineBorder;
-
 /**
  *
  */
 public class Transition extends AbstractNode {
 
-	private static final Color nodeColorBG = new Color(120, 120, 120, 120);
-
 	private final int extent;
+	private final NodeStyle style = NodeStyle.DEFAULT;
 
 	public Transition(final int extent) {
 		super();
@@ -40,20 +36,6 @@ public class Transition extends AbstractNode {
 		final Graphics2D g2 = (Graphics2D) g;
 		// TODO - how to manage node locations?
 		// setPreferredSize(dimension);
-		switch (state) {
-		case MULTI_SELECTED:
-		case SINGLE_SELECTED:
-			break;
-		case HOVER:
-			setBorder(new LineBorder(Color.GREEN));
-			break;
-		case DEFAULT:
-			setBorder(null);
-			break;
-		default:
-			break;
-		}
-		setForeground(nodeColorBG);
 		g2.fill(getShape());
 	}
 
@@ -87,6 +69,11 @@ public class Transition extends AbstractNode {
 		} else {
 			throw new IllegalStateException();
 		}
+	}
+
+	@Override
+	protected NodeStyle getStyle() {
+		return style;
 	}
 
 }

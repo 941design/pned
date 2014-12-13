@@ -2,6 +2,7 @@ package de.markusrother.pned.gui.components;
 
 import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 
+import java.awt.Graphics;
 import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -91,6 +92,31 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	protected abstract Shape getShape();
+
+	protected abstract NodeStyle getStyle();
+
+	@Override
+	protected void paintComponent(final Graphics g) {
+		super.paintComponent(g);
+		final NodeStyle style = getStyle();
+		switch (state) {
+		case MULTI_SELECTED:
+		case SINGLE_SELECTED:
+			setForeground(style.getSelectionColor());
+			setBorder(style.getSelectionBorder());
+			break;
+		case HOVER:
+			setForeground(style.getHoverColor());
+			setBorder(style.getHoverBorder());
+			break;
+		case DEFAULT:
+			setForeground(style.getDefaultColor());
+			setBorder(style.getDefaultBorder());
+			break;
+		default:
+			throw new IllegalStateException();
+		}
+	}
 
 	String getId() {
 		try {

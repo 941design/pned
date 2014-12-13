@@ -1,6 +1,5 @@
 package de.markusrother.pned.gui.components;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -9,7 +8,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 import javax.swing.JLabel;
-import javax.swing.border.LineBorder;
 
 import de.markusrother.pned.gui.PlaceLayout;
 import de.markusrother.pned.gui.listeners.PlaceEditListener;
@@ -28,9 +26,9 @@ import de.markusrother.pned.gui.listeners.PlaceEditListener;
 public class Place extends AbstractNode {
 
 	private final JLabel marking;
-	// TODO - encapsulate styling in NodeStyle object!
+
 	private final int diameter;
-	private final NodeStyle style = NodeStyle.getDefaultNodeStyle();
+	private final NodeStyle style = NodeStyle.DEFAULT;
 
 	public Place(final int diameter) {
 		super(new PlaceLayout());
@@ -53,24 +51,6 @@ public class Place extends AbstractNode {
 		super.paintComponent(g);
 		final Graphics2D g2 = (Graphics2D) g;
 		// TODO - how to manage node locations?
-		// setBackground(standardColorBG);
-		switch (state) {
-		case MULTI_SELECTED:
-		case SINGLE_SELECTED:
-			setForeground(style.getSelectionColor());
-			setBorder(new LineBorder(Color.MAGENTA));
-			break;
-		case HOVER:
-			setForeground(style.getHoverColor());
-			setBorder(new LineBorder(Color.GREEN));
-			break;
-		case DEFAULT:
-			setBorder(null);
-			setForeground(style.getDefaultColor());
-			break;
-		default:
-			throw new IllegalStateException();
-		}
 		g2.fill(getShape());
 	}
 
@@ -95,5 +75,10 @@ public class Place extends AbstractNode {
 
 	public void setMarking(final String string) {
 		this.marking.setText(string);
+	}
+
+	@Override
+	protected NodeStyle getStyle() {
+		return style;
 	}
 }
