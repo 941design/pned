@@ -7,8 +7,6 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
-import javax.swing.JLabel;
-
 import de.markusrother.pned.gui.PlaceLayout;
 import de.markusrother.pned.gui.listeners.MarkingEditListener;
 
@@ -25,7 +23,7 @@ import de.markusrother.pned.gui.listeners.MarkingEditListener;
  */
 public class Place extends AbstractNode {
 
-	private final JLabel marking;
+	private final Marking marking;
 
 	private final int diameter;
 	private final NodeStyle style = NodeStyle.DEFAULT;
@@ -34,7 +32,7 @@ public class Place extends AbstractNode {
 		super(new PlaceLayout());
 		// TODO - use model instead of label
 		this.diameter = diameter;
-		this.marking = new JLabel("23");
+		this.marking = new Marking();
 		add(this.marking, PlaceLayout.CENTER);
 		setOpaque(false);
 		addMouseListener(MarkingEditListener.INSTANCE);
@@ -73,12 +71,12 @@ public class Place extends AbstractNode {
 				r * (1 + Math.sin(theta)));
 	}
 
-	public String getMarking() {
-		return marking.getText();
+	public int getMarking() {
+		return marking.getValue();
 	}
 
-	public void setMarking(final String string) {
-		marking.setText(string);
+	public void setMarking(final int value) {
+		marking.setValue(value);
 	}
 
 	@Override

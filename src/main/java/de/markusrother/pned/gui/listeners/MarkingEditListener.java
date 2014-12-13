@@ -36,7 +36,8 @@ public class MarkingEditListener extends MultiClickListener
 		textField.addTextListener(new TextListener() {
 			@Override
 			public void textEntered(final ActionEvent e) {
-				place.setMarking(textField.getText());
+				final String text = textField.getText();
+				place.setMarking(Integer.valueOf(text));
 			}
 		});
 	}
@@ -59,7 +60,7 @@ public class MarkingEditListener extends MultiClickListener
 		final Container parent = place.getParent();
 		final Point origin = place.getLocation();
 		origin.translate(point.x, point.y);
-		final String marking = place.getMarking();
+		final String marking = String.valueOf(place.getMarking());
 		textField = new CheckedTextField(marking, intPattern, marking.length() + 10);
 		textField.setBounds(new Rectangle(origin, textField.getPreferredSize()));
 		parent.add(textField);
