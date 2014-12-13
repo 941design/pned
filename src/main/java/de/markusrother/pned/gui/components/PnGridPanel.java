@@ -188,7 +188,7 @@ public class PnGridPanel extends JLayeredPane
 		if (point == null) {
 			throw new IllegalArgumentException();
 		}
-		final Transition transition = new Transition(transitionDimensions);
+		final Transition transition = new Transition((int) transitionDimensions.getWidth());
 		addNodeComponent(transition, point);
 		transition.setSingleNodeSelector(singleNodeSelector);
 		transition.setEdgeCreationListener(edgeCreator);

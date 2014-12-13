@@ -11,14 +11,12 @@ import java.awt.geom.Point2D;
 
 import org.junit.Test;
 
-import de.markusrother.pned.gui.components.Transition;
-
 public class TransitionTest extends AbstractNodeTest {
 
 	private Transition transition;
 
 	private void createTransition(final Dimension dimension) {
-		transition = new Transition(dimension);
+		transition = new Transition((int) dimension.getWidth());
 	}
 
 	private void assertAngleIntersectsAt(final double theta, final Point2D expected) {

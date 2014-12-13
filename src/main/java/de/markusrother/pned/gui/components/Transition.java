@@ -20,18 +20,18 @@ public class Transition extends AbstractNode {
 
 	private static final Color nodeColorBG = new Color(120, 120, 120, 120);
 
-	private final Dimension dimension;
+	private final int extent;
 
-	public Transition(final Dimension dimension) {
+	public Transition(final int extent) {
 		super();
 		// TODO - use model!
-		this.dimension = dimension;
+		this.extent = extent;
 		setOpaque(false);
 	}
 
 	@Override
 	public Dimension getPreferredSize() {
-		return dimension;
+		return new Dimension(extent, extent);
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class Transition extends AbstractNode {
 	}
 
 	private Rectangle getRectangle() {
-		return new Rectangle(0, 0, dimension.width, dimension.height);
+		return new Rectangle(0, 0, extent, extent);
 	}
 
 	@Override
