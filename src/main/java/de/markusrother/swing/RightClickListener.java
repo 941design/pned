@@ -1,19 +1,17 @@
 package de.markusrother.swing;
 
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.SwingUtilities;
-
-public abstract class RightClickListener extends MouseAdapter {
+public abstract class RightClickListener extends MultiClickListener {
 
 	@Override
-	public void mouseClicked(final MouseEvent e) {
-		if (SwingUtilities.isRightMouseButton(e)) {
-			mouseClickedRight(e);
-		}
+	public void mouseClickedLeft(final MouseEvent e) {
+		// IGNORE
 	}
 
-	public abstract void mouseClickedRight(final MouseEvent e);
+	@Override
+	public void mouseClickedMiddle(final MouseEvent e) {
+		// IGNORE
+	}
 
 }

@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
 import javax.swing.JLabel;
 
 import de.markusrother.pned.gui.PlaceLayout;
-import de.markusrother.pned.gui.listeners.PlaceEditListener;
+import de.markusrother.pned.gui.listeners.MarkingEditListener;
 
 /**
  * TODO - on hover create pop up with + / - to add/remove weights
@@ -37,7 +37,7 @@ public class Place extends AbstractNode {
 		this.marking = new JLabel("23");
 		add(this.marking, PlaceLayout.CENTER);
 		setOpaque(false);
-		addMouseListener(PlaceEditListener.INSTANCE);
+		addMouseListener(MarkingEditListener.INSTANCE);
 	}
 
 	@Override
@@ -73,8 +73,12 @@ public class Place extends AbstractNode {
 				r * (1 + Math.sin(theta)));
 	}
 
+	public String getMarking() {
+		return marking.getText();
+	}
+
 	public void setMarking(final String string) {
-		this.marking.setText(string);
+		marking.setText(string);
 	}
 
 	@Override

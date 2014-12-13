@@ -7,47 +7,29 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.regex.Pattern;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class CheckedTextField extends JPanel
+public class CheckedTextField extends JTextField
 	implements
 		ActionListener {
 
-	private static final int defaultTextFieldSize = 6;
 	private static final Color validTextColor = Color.BLACK;
 	private static final Color invalidTextColor = Color.RED;
+
+	private static final String NO_TEXT = null;
 
 	private final Collection<TextListener> listeners;
 	private final Pattern pattern;
 
-	private final JLabel jLabel;
-	private final JTextField jTextField;
-
-	public CheckedTextField(final String label, final Pattern pattern) {
-		this(label, pattern, defaultTextFieldSize);
+	public CheckedTextField(final Pattern pattern, final int jTextFieldSize) {
+		this(NO_TEXT, pattern, jTextFieldSize);
 	}
 
-	public CheckedTextField(final String label, final Pattern pattern, final int jTextFieldSize) {
-		this.pattern = pattern;
+	public CheckedTextField(final String text, final Pattern pattern, final int jTextFieldSize) {
+		super(text, jTextFieldSize);
 		this.listeners = new LinkedList<>();
-		this.jLabel = new JLabel(label);
-		this.jTextField = new JTextField(jTextFieldSize);
-		jTextField.addActionListener(this);
-		add(jLabel);
-		add(jTextField);
-	}
-
-	@Override
-	public void actionPerformed(final ActionEvent e) {
-		final String text = jTextField.getText();
-		if (pattern.matcher(text).matches()) {
-			jTextField.setForeground(validTextColor);
-			fireTextEnteredEvent(e);
-		} else {
-			jTextField.setForeground(invalidTextColor);
-		}
+		this.pattern = pattern;
+		addActionListener(this);
 	}
 
 	private void fireTextEnteredEvent(final ActionEvent e) {
@@ -57,20 +39,23 @@ public class CheckedTextField extends JPanel
 		}
 	}
 
+	@Override
+	public void actionPerformed(final ActionEvent e) {
+		final String text = getText();
+		if (pattern.matcher(text).matches()) {
+			setForeground(validTextColor);
+			fireTextEnteredEvent(e);
+		} else {
+			setForeground(invalidTextColor);
+		}
+	}
+
 	public void addTextListener(final TextListener listener) {
 		listeners.add(listener);
 	}
 
 	public void removeTextListener(final TextListener listener) {
 		listeners.remove(listener);
-	}
-
-	public String getText() {
-		return jTextField.getText();
-	}
-
-	public void setText(final String text) {
-		jTextField.setText(text);
 	}
 
 }
