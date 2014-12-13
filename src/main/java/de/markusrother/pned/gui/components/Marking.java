@@ -21,6 +21,7 @@ public class Marking extends JPanel {
 
 	@Override
 	protected void paintComponent(final Graphics g) {
+		// TODO - final int value = model.getValue();
 		label.setVisible(value > 1);
 		g.setColor(style.getColor());
 		super.paintComponent(g);

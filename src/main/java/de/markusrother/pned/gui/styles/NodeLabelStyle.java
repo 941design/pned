@@ -96,6 +96,10 @@ public class NodeLabelStyle
 			nodeLabel.setBorder(hoverBorder);
 			break;
 		case DEFAULT:
+		case INVALID:
+		case MULTI_SELECTED:
+		case SINGLE_SELECTED:
+		case VALID:
 		default:
 			nodeLabel.setForeground(defaultFg);
 			nodeLabel.setBackground(defaultBg);

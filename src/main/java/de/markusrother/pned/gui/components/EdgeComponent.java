@@ -3,17 +3,12 @@ package de.markusrother.pned.gui.components;
 import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 import static de.markusrother.util.TrigUtils.getRadiansOfDelta;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.Stroke;
-import java.awt.geom.AffineTransform;
+import java.awt.Shape;
 import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.Disposable;
@@ -41,30 +36,8 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		EdgeEditListener,
 		Disposable {
 
-	private static final Color standardColor = Color.BLACK;
-	private static final Color hoverColor = Color.BLUE;
-	private static final Color validColor = Color.GREEN;
-	private static final Color invalidColor = Color.RED;
-	private static final Stroke stroke = new BasicStroke(2);
-
-	// TODO - Extract class and interface to allow different tip shapes.
-	private static Polygon createTip(final double angle) {
-		final Point2D[] points = new Point2D[] { //
-		new Point2D.Double(0, 1), //
-				new Point2D.Double(0, -1), //
-				new Point2D.Double(-15, -7), //
-				new Point2D.Double(-15, 7) };
-		// TODO - pass the transformer to a tip instance
-		AffineTransform.getRotateInstance(angle).transform(points, 0, points, 0, 4);
-		return createPolygon(points);
-	}
-
-	private static Polygon createPolygon(final Point2D[] points) {
-		final Polygon polygon = new Polygon();
-		for (final Point2D point : points) {
-			polygon.addPoint((int) point.getX(), (int) point.getY());
-		}
-		return polygon;
+	public EdgeStyle getStyle() {
+		return style;
 	}
 
 	private static HoverListener createHoverListener(final EdgeComponent edge) {
@@ -80,23 +53,34 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 			@Override
 			protected void startHover(final Component component) {
-				edge.setColor(hoverColor);
+				edge.setState(ComponentState.HOVER);
 			}
 
 			@Override
 			protected void endHover(final Component component) {
-				edge.highlightStandard();
+				edge.setState(ComponentState.DEFAULT);
 			}
 		};
 	}
 
-	private Polygon tip;
+	private Shape tip;
 	private Line2D line;
-	private Color fgColor;
+	private ComponentState state;
+
+	public ComponentState getState() {
+		return state;
+	}
+
+	public void setState(final ComponentState state) {
+		this.state = state;
+	}
+
+	private final EdgeStyle style;
 
 	public EdgeComponent(final AbstractNode sourceComponent, final Point source, final Point target) {
 		super(sourceComponent, source, target);
-		this.fgColor = standardColor;
+		this.style = EdgeStyle.DEFAULT;
+		setState(ComponentState.DEFAULT);
 		eventBus.addNodeListener(this);
 		eventBus.addNodeMotionListener(this);
 		eventBus.addEdgeEditListener(this);
@@ -105,22 +89,39 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	@Override
 	protected void paintComponent(final Graphics g) {
 		super.paintComponent(g);
-		final Graphics2D g2 = formatGraphics(g);
+		switch (state) {
+		case HOVER:
+			g.setColor(style.getHoverColor());
+			break;
+		case INVALID:
+			g.setColor(style.getInvalidColor());
+			break;
+		case VALID:
+			g.setColor(style.getValidColor());
+			break;
+		case MULTI_SELECTED:
+		case SINGLE_SELECTED:
+		case DEFAULT:
+			g.setColor(style.getDefaultColor());
+			break;
+		default:
+			throw new IllegalStateException();
+		}
+
+		final Graphics2D g2 = (Graphics2D) g;
+
+		// Draw line:
+		g2.setStroke(style.getLineStroke());
 		line = new Line2D.Double(source, target);
-		tip = createTip(getRadiansOfDelta(source, target));
-		tip.translate(target.x, target.y);
 		g2.draw(line);
-		g2.fillPolygon(tip);
+
+		// Draw tip:
+		g2.translate(target.x, target.y);
+		g2.rotate(getRadiansOfDelta(source, target));
+		g2.fill(style.getTip());
+
 		// TODO - Currently the edge component is as large as the entire grid!
 		// We could optimize a little, here.
-	}
-
-	private Graphics2D formatGraphics(final Graphics g) {
-		// TODO - apply state/styles.
-		final Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(stroke);
-		setForeground(fgColor);
-		return g2;
 	}
 
 	public boolean acceptsTarget(final Component component) {
@@ -128,28 +129,11 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 				&& sourceComponent.getClass() != component.getClass();
 	}
 
-	protected void setColor(final Color color) {
-		fgColor = color;
-		repaint();
-	}
-
 	boolean edgeContains(final Point point) {
 		// WTF !? line.contains(point) returns false, with the explanation:
 		// "lines never contain AREAS" WTF! A point is not an area...
 		// TODO - line thickness is variable!
 		return line != null && (line.ptSegDistSq(point) < 5 || tip.contains(point));
-	}
-
-	public void highlightValid() {
-		setColor(validColor);
-	}
-
-	public void highlightInvalid() {
-		setColor(invalidColor);
-	}
-
-	public void highlightStandard() {
-		setColor(standardColor);
 	}
 
 	@Override
@@ -193,9 +177,9 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		}
 		if (acceptsTarget(e.getComponent())) {
 			setTargetComponent((AbstractNode) e.getComponent());
-			highlightValid();
+			setState(ComponentState.VALID);
 		} else {
-			highlightInvalid();
+			setState(ComponentState.INVALID);
 		}
 	}
 
@@ -206,7 +190,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 			return;
 		}
 		removeTargetComponent();
-		highlightStandard();
+		setState(ComponentState.DEFAULT);
 	}
 
 	@Override
@@ -257,7 +241,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		// TODO - setHoverListener() -> to field.
 		HoverListener.addToComponent(this, hoverListener);
 
-		highlightStandard();
+		setState(ComponentState.DEFAULT);
 	}
 
 	@Override

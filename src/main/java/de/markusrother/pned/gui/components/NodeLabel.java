@@ -42,14 +42,9 @@ public class NodeLabel extends JLabel
 		style.setHoverOpacity(true);
 	}
 
-	public enum State {
-		DEFAULT, //
-		HOVER, //
-	}
-
 	private final DragDropListener<NodeLabel> dragDropListener;
 	private final String nodeId;
-	private State state;
+	private ComponentState state;
 
 	public NodeLabel(final String nodeId) {
 		super(nodeId);
@@ -61,14 +56,14 @@ public class NodeLabel extends JLabel
 		HoverListener.addToComponent(this, new LabelHoverListener());
 		eventBus.addNodeListener(this);
 		eventBus.addNodeMotionListener(this);
-		setState(State.DEFAULT);
+		setState(ComponentState.DEFAULT);
 	}
 
-	public State getState() {
+	public ComponentState getState() {
 		return state;
 	}
 
-	public void setState(final State state) {
+	public void setState(final ComponentState state) {
 		// TODO - create interface Stateful
 		this.state = state;
 		style.apply(this);

@@ -3,6 +3,7 @@ package de.markusrother.pned.gui.listeners;
 import java.awt.Component;
 
 import de.markusrother.pned.gui.components.AbstractNode;
+import de.markusrother.pned.gui.components.ComponentState;
 import de.markusrother.swing.HoverAdapter;
 
 /**
@@ -18,12 +19,12 @@ public class NodeHoverListener extends HoverAdapter {
 	@Override
 	protected void startHover(final Component component) {
 		final AbstractNode node = (AbstractNode) component;
-		node.setState(AbstractNode.State.HOVER);
+		node.setState(ComponentState.HOVER);
 	}
 
 	@Override
 	protected void endHover(final Component component) {
 		final AbstractNode node = (AbstractNode) component;
-		node.setState(AbstractNode.State.DEFAULT);
+		node.setState(ComponentState.DEFAULT);
 	}
 }

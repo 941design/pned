@@ -50,21 +50,6 @@ public abstract class AbstractNode extends JPanel
 		Disposable,
 		DefinitelyBounded {
 
-	// TODO - Should be used as EnumSet!
-	// Is it possible to define an arithmetic on states? It would be nice to
-	// have EnumPredicates to test against enum sets, such that or(DEFAULT,
-	// HOVER).and(SELECTED)
-	//
-	// .allOf(), .anyOf(), .oneOf(), .twoOf(),
-	// .atLeast(oneOf(x,y,z)).or(q).and(a,b,c)
-	public enum State {
-		DEFAULT, //
-		HOVER, // HOVERED
-		SINGLE_SELECTED, // SELECTED("UNSELECTED") for inverse operations?
-		MULTI_SELECTED;
-		// TODO - UNSELECTABLE/SELECTABLE, MULTISELECTED, DRAGGED
-	}
-
 	private static final LayoutManager NO_LAYOUT_MANAGER = null;
 
 	// Listeners:
@@ -72,13 +57,13 @@ public abstract class AbstractNode extends JPanel
 	private EdgeCreationListener edgeCreationListener;
 	private SingleNodeSelector singleNodeSelector;
 
-	protected State state;
+	protected ComponentState state;
 	// TODO - This could be substituted with a Model.
 	private Future<String> id;
 
 	public AbstractNode(final LayoutManager layoutManager) {
 		super(layoutManager);
-		this.state = State.DEFAULT; // TODO - empty EnumSet
+		this.state = ComponentState.DEFAULT; // TODO - empty EnumSet
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
 		// TODO - In prospect to JDK8, I do not use Adapters. Default
 		// implementations in adapters allow us to remove the ignored methods.
@@ -113,6 +98,8 @@ public abstract class AbstractNode extends JPanel
 			setForeground(style.getDefaultColor());
 			setBorder(style.getDefaultBorder());
 			break;
+		case VALID:
+		case INVALID:
 		default:
 			throw new IllegalStateException();
 		}
@@ -138,18 +125,18 @@ public abstract class AbstractNode extends JPanel
 		this.id = future;
 	}
 
-	public void setState(final State state) {
+	public void setState(final ComponentState state) {
 		this.state = state;
 		repaint();
 	}
 
 	public boolean isSelected() {
-		return state == State.SINGLE_SELECTED //
-				|| state == State.MULTI_SELECTED;
+		return state == ComponentState.SINGLE_SELECTED //
+				|| state == ComponentState.MULTI_SELECTED;
 	}
 
 	public boolean isPartOfMultiselection() {
-		return state == State.MULTI_SELECTED;
+		return state == ComponentState.MULTI_SELECTED;
 	}
 
 	void setSingleNodeSelector(final SingleNodeSelector listener) {
@@ -233,9 +220,9 @@ public abstract class AbstractNode extends JPanel
 			// EnumSet.
 			// TODO - nicer!
 			if (event.getSource() instanceof SingleNodeSelector) {
-				setState(State.SINGLE_SELECTED);
+				setState(ComponentState.SINGLE_SELECTED);
 			} else {
-				setState(State.MULTI_SELECTED);
+				setState(ComponentState.MULTI_SELECTED);
 			}
 		}
 	}
@@ -264,7 +251,7 @@ public abstract class AbstractNode extends JPanel
 	private void deselect() {
 		// resumeDragListener();
 		resumeHoverListener();
-		setState(State.DEFAULT); // TODO - in multiselection
+		setState(ComponentState.DEFAULT); // TODO - in multiselection
 	}
 
 	@Override
