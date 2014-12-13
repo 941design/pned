@@ -16,7 +16,7 @@ import javax.swing.border.LineBorder;
 /**
  *
  */
-class Transition extends AbstractNode {
+public class Transition extends AbstractNode {
 
 	private static final Color nodeColorBG = new Color(120, 120, 120, 120);
 
@@ -40,6 +40,19 @@ class Transition extends AbstractNode {
 		final Graphics2D g2 = (Graphics2D) g;
 		// TODO - how to manage node locations?
 		// setPreferredSize(dimension);
+		switch (state) {
+		case MULTI_SELECTED:
+		case SINGLE_SELECTED:
+			break;
+		case HOVER:
+			setBorder(new LineBorder(Color.GREEN));
+			break;
+		case DEFAULT:
+			setBorder(null);
+			break;
+		default:
+			break;
+		}
 		setForeground(nodeColorBG);
 		g2.fill(getShape());
 	}
@@ -51,23 +64,6 @@ class Transition extends AbstractNode {
 
 	private Rectangle getRectangle() {
 		return new Rectangle(0, 0, dimension.width, dimension.height);
-	}
-
-	@Override
-	protected void setLayout(final State state) {
-		switch (state) {
-		case DEFAULT:
-			setBorder(null);
-			break;
-		case HOVER:
-			setBorder(new LineBorder(Color.GREEN));
-			break;
-		case SINGLE_SELECTED:
-		case MULTI_SELECTED:
-		default:
-			break;
-		}
-		repaint();
 	}
 
 	@Override

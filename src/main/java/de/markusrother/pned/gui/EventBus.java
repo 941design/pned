@@ -147,7 +147,15 @@ public class EventBus
 		} else if (event instanceof NodeCreationEvent) {
 			final NodeCreationEvent e = (NodeCreationEvent) event;
 			for (final NodeListener l : getListeners(NodeListener.class)) {
-				l.nodeCreated(e);
+				// TODO - This should be solved in a more generic location!
+				final Runnable runnable = new Runnable() {
+					@Override
+					public void run() {
+						l.nodeCreated(e);
+					}
+				};
+				final Thread thread = new Thread(runnable);
+				thread.start();
 			}
 		} else if (event instanceof PlaceCreationRequest) {
 			final PlaceCreationRequest e = (PlaceCreationRequest) event;

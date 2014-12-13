@@ -16,8 +16,7 @@ import de.markusrother.pned.gui.DefinitelyBounded;
  * @param <T>
  * @param <U>
  */
-public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U extends Component & DefinitelyBounded>
-		extends JComponent {
+public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U extends Component & DefinitelyBounded> extends JComponent {
 
 	private static Point round(final Point2D point) {
 		// TODO - could go to util class
@@ -94,6 +93,8 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	/**
 	 * TODO - Currently requires component to be added to parent already, to
 	 * retrieve position!
+	 * 
+	 * TODO - could be done in revalidate()!
 	 */
 	public void connectToSource() {
 		final double angle = getAngle();
@@ -109,6 +110,8 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	 * retrieve position!
 	 * 
 	 * TODO - should this become the setter?
+	 * 
+	 * TODO - could be done in revalidate()!
 	 */
 	public void connectToTarget() {
 		final double angle = getAngle();

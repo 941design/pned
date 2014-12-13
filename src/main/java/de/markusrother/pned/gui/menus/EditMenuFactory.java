@@ -37,6 +37,11 @@ public class EditMenuFactory
 		return new PnedEditMenu(areNodesSelected, nodeCreationMode);
 	}
 
+	public PnedEditMenu newPopupMenu() {
+		// TODO
+		throw new RuntimeException("TODO");
+	}
+
 	@Override
 	public void nodesSelected(final NodeSelectionEvent event) {
 		// IGNORE

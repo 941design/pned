@@ -68,7 +68,8 @@ public class PnGridPanel extends JLayeredPane
 
 	private static final EnumSet<State> defaultState = EnumSet.of(State.PLACE_CREATION);
 
-	public static EventBus eventBus;
+	// TODO - Should neither be static nor singleton!
+	public static EventBus eventBus = new EventBus();
 
 	private final JComponent nodeLayer;
 	private final JComponent edgeLayer;
@@ -102,11 +103,7 @@ public class PnGridPanel extends JLayeredPane
 	 * I don't quite like passing this to other classes/methods/constructors,
 	 * while this is not fully initialized!
 	 */
-	PnGridPanel() {
-
-		// TODO - Make this a lazy initialized singleton! First try if a static
-		// singleton works, too
-		eventBus = new EventBus();
+	public PnGridPanel() {
 
 		this.state = defaultState;
 
@@ -180,7 +177,7 @@ public class PnGridPanel extends JLayeredPane
 		if (point == null) {
 			throw new IllegalArgumentException();
 		}
-		final Place place = new Place(placeDimensions);
+		final Place place = new Place((int) placeDimensions.getWidth());
 		addNodeComponent(place, point);
 		place.setSingleNodeSelector(singleNodeSelector);
 		place.setEdgeCreationListener(edgeCreator);

@@ -9,14 +9,12 @@ import java.awt.geom.Point2D;
 
 import org.junit.Test;
 
-import de.markusrother.pned.gui.components.Place;
-
 public class PlaceTest extends AbstractNodeTest {
 
 	private Place place;
 
 	private void createPlace(final Dimension dimension) {
-		place = new Place(dimension);
+		place = new Place((int) dimension.getWidth());
 	}
 
 	private void assertAngleIntersectsAt(final double theta, final Point2D expected) {

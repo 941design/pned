@@ -71,7 +71,7 @@ public abstract class AbstractNode extends JPanel
 	private EdgeCreationListener edgeCreationListener;
 	private SingleNodeSelector singleNodeSelector;
 
-	private State state;
+	protected State state;
 	// TODO - This could be substituted with a Model.
 	private Future<String> id;
 
@@ -79,6 +79,8 @@ public abstract class AbstractNode extends JPanel
 		super(layoutManager);
 		this.state = State.DEFAULT; // TODO - empty EnumSet
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
+		// TODO - In prospect to JDK8, I do not use Adapters. Default
+		// implementations in adapters allow us to remove the ignored methods.
 		eventBus.addNodeListener(this);
 		eventBus.addNodeSelectionListener(this);
 		eventBus.addEdgeEditListener(this);
@@ -112,7 +114,7 @@ public abstract class AbstractNode extends JPanel
 
 	public void setState(final State state) {
 		this.state = state;
-		setLayout(state);
+		repaint();
 	}
 
 	public boolean isSelected() {
@@ -123,11 +125,6 @@ public abstract class AbstractNode extends JPanel
 	public boolean isPartOfMultiselection() {
 		return state == State.MULTI_SELECTED;
 	}
-
-	/**
-	 * TODO - not a nice pattern in respect to visibility!
-	 */
-	protected abstract void setLayout(State state);
 
 	void setSingleNodeSelector(final SingleNodeSelector listener) {
 		if (singleNodeSelector != null) {

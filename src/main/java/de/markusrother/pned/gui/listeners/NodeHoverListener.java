@@ -3,7 +3,6 @@ package de.markusrother.pned.gui.listeners;
 import java.awt.Component;
 
 import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.components.AbstractNode.State;
 import de.markusrother.swing.HoverAdapter;
 
 /**

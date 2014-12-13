@@ -27,15 +27,15 @@ import de.markusrother.pned.gui.listeners.PlaceEditListener;
  */
 public class Place extends AbstractNode {
 
-	private static final Color defaultColor = new Color(120, 120, 120, 120);
-
-	private final Dimension dimension;
 	private final JLabel marking;
+	// TODO - encapsulate styling in NodeStyle object!
+	private final int diameter;
+	private final NodeStyle style = NodeStyle.getDefaultNodeStyle();
 
-	public Place(final Dimension dimension) {
+	public Place(final int diameter) {
 		super(new PlaceLayout());
 		// TODO - use model instead of label
-		this.dimension = dimension;
+		this.diameter = diameter;
 		this.marking = new JLabel("23");
 		add(this.marking, PlaceLayout.CENTER);
 		setOpaque(false);
@@ -45,7 +45,7 @@ public class Place extends AbstractNode {
 	@Override
 	public Dimension getPreferredSize() {
 		// TODO - when to use getPreferredSize() vs. setPreferredSize()?
-		return dimension;
+		return new Dimension(diameter, diameter);
 	}
 
 	@Override
@@ -54,7 +54,23 @@ public class Place extends AbstractNode {
 		final Graphics2D g2 = (Graphics2D) g;
 		// TODO - how to manage node locations?
 		// setBackground(standardColorBG);
-		setForeground(defaultColor);
+		switch (state) {
+		case MULTI_SELECTED:
+		case SINGLE_SELECTED:
+			setForeground(style.getSelectionColor());
+			setBorder(new LineBorder(Color.MAGENTA));
+			break;
+		case HOVER:
+			setForeground(style.getHoverColor());
+			setBorder(new LineBorder(Color.GREEN));
+			break;
+		case DEFAULT:
+			setBorder(null);
+			setForeground(style.getDefaultColor());
+			break;
+		default:
+			throw new IllegalStateException();
+		}
 		g2.fill(getShape());
 	}
 
@@ -63,29 +79,8 @@ public class Place extends AbstractNode {
 		return getEllipse();
 	}
 
-	@Override
-	protected void setLayout(final State state) {
-		switch (state) {
-		case DEFAULT:
-			setForeground(defaultColor);
-			setBorder(null);
-			break;
-		case HOVER:
-			setForeground(Color.BLUE);
-			setBorder(new LineBorder(Color.GREEN));
-			break;
-		case SINGLE_SELECTED:
-		case MULTI_SELECTED:
-			setBorder(new LineBorder(Color.MAGENTA));
-			break;
-		default:
-			throw new IllegalStateException();
-		}
-		repaint();
-	}
-
 	private Ellipse2D getEllipse() {
-		return new Ellipse2D.Double(0, 0, dimension.width, dimension.height);
+		return new Ellipse2D.Double(0, 0, diameter, diameter);
 	}
 
 	@Override
