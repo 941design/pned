@@ -13,8 +13,6 @@ import java.awt.Container;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
-import javax.swing.SwingUtilities;
-
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.components.EdgeComponent;
 import de.markusrother.pned.gui.components.PnGridPanel;
@@ -109,10 +107,7 @@ public class EdgeCreationListener extends DoubleClickListener {
 	}
 
 	@Override
-	public void mouseDoubleClicked(final MouseEvent e) {
-		if (!SwingUtilities.isLeftMouseButton(e)) {
-			return;
-		}
+	public void mouseDoubleClickedLeft(final MouseEvent e) {
 		if (edge != null) {
 			maybeFinishOrCancelEdge(e);
 		} else {

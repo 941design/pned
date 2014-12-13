@@ -53,6 +53,8 @@ public class NodeSelector extends Selector<AbstractNode> {
 	@Override
 	public void startedSelection() {
 		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
+		// FIXME - listen to event instead!
+		MarkingEditListener.INSTANCE.abortEditMarking();
 	}
 
 	/**

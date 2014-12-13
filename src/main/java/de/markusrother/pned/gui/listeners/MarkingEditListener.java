@@ -5,7 +5,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.regex.Pattern;
 
 import de.markusrother.pned.gui.components.Place;
@@ -19,7 +18,7 @@ public class MarkingEditListener extends MultiClickListener
 
 	private static final Pattern intPattern = Pattern.compile("0|[1-9][0-9]*");
 
-	public static final MouseListener INSTANCE = new MarkingEditListener();
+	public static final MarkingEditListener INSTANCE = new MarkingEditListener();
 
 	CheckedTextField textField;
 
@@ -50,7 +49,9 @@ public class MarkingEditListener extends MultiClickListener
 		textField = null;
 	}
 
-	private void abortEditMarking() {
+	public void abortEditMarking() {
+		// TODO - alternatively listen for node selection and edge creation
+		// events!
 		if (textField != null) {
 			finishEditMarking();
 		}
@@ -71,6 +72,11 @@ public class MarkingEditListener extends MultiClickListener
 
 	@Override
 	public void mouseClickedLeft(final MouseEvent e) {
+		abortEditMarking();
+	}
+
+	@Override
+	public void mouseDoubleClickedLeft(final MouseEvent e) {
 		abortEditMarking();
 	}
 

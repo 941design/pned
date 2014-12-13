@@ -1,16 +1,22 @@
 package de.markusrother.swing;
 
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public abstract class DoubleClickListener extends MouseAdapter {
+public abstract class DoubleClickListener extends MultiClickListener {
 
 	@Override
-	public void mouseClicked(final MouseEvent e) {
-		if (e.getClickCount() == 2) {
-			mouseDoubleClicked(e);
-		}
+	public void mouseClickedLeft(final MouseEvent e) {
+		// IGNORE
 	}
 
-	public abstract void mouseDoubleClicked(final MouseEvent e);
+	@Override
+	public void mouseClickedRight(final MouseEvent e) {
+		// IGNORE
+	}
+
+	@Override
+	public void mouseClickedMiddle(final MouseEvent e) {
+		// IGNORE
+	}
+
 }

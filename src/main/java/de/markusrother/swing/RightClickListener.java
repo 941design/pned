@@ -10,6 +10,11 @@ public abstract class RightClickListener extends MultiClickListener {
 	}
 
 	@Override
+	public void mouseDoubleClickedLeft(final MouseEvent e) {
+		// IGNORE
+	}
+
+	@Override
 	public void mouseClickedMiddle(final MouseEvent e) {
 		// IGNORE
 	}

@@ -10,7 +10,11 @@ public abstract class MultiClickListener extends MouseAdapter {
 	@Override
 	public void mouseClicked(final MouseEvent e) {
 		if (SwingUtilities.isLeftMouseButton(e)) {
-			mouseClickedLeft(e);
+			if (e.getClickCount() >= 2) {
+				mouseDoubleClickedLeft(e);
+			} else {
+				mouseClickedLeft(e);
+			}
 		} else if (SwingUtilities.isRightMouseButton(e)) {
 			mouseClickedRight(e);
 		} else if (SwingUtilities.isMiddleMouseButton(e)) {
@@ -19,6 +23,8 @@ public abstract class MultiClickListener extends MouseAdapter {
 	}
 
 	public abstract void mouseClickedLeft(final MouseEvent e);
+
+	public abstract void mouseDoubleClickedLeft(final MouseEvent e);
 
 	public abstract void mouseClickedRight(final MouseEvent e);
 

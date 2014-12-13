@@ -50,6 +50,8 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 			// We have to cancel other singly selected nodes, too:
 			eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
 			eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, Arrays.asList(node)));
+			// TODO - use event listener!
+			MarkingEditListener.INSTANCE.abortEditMarking();
 		}
 	}
 
