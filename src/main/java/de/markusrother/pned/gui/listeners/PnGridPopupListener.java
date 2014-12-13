@@ -6,7 +6,9 @@ import static de.markusrother.pned.gui.NodeCreationMode.TRANSITION;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JPopupMenu;
+import javax.swing.JRadioButtonMenuItem;
 
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.components.PnGridPanel;
@@ -14,7 +16,6 @@ import de.markusrother.pned.gui.components.PnGridPanel.State;
 import de.markusrother.pned.gui.menus.actions.CreatePlaceAction;
 import de.markusrother.pned.gui.menus.actions.CreateTransitionAction;
 import de.markusrother.pned.gui.menus.actions.LocationProvider;
-import de.markusrother.pned.gui.menus.actions.NodeCreationToggleAction;
 import de.markusrother.pned.gui.menus.actions.RemoveSelectedNodesAction;
 import de.markusrother.swing.PopupListener;
 
@@ -39,15 +40,27 @@ public class PnGridPopupListener extends PopupListener
 
 		final Object eventSource = popup;
 		final LocationProvider locationProvider = this;
-		// TODO - maintain state here!
-		final NodeCreationMode nodeCreationMode = pnGridPanel.hasState(State.TRANSITION_CREATION) ? TRANSITION : PLACE;
 
 		if (pnGridPanel.hasState(State.MULTISELECTION)) {
 			popup.add(RemoveSelectedNodesAction.newMenuItem(eventSource, NOT_ENABLED));
 		}
-		popup.add(CreatePlaceAction.newMenuItem(eventSource, locationProvider));
-		popup.add(CreateTransitionAction.newMenuItem(eventSource, locationProvider));
-		popup.add(NodeCreationToggleAction.newMenuItem(eventSource, nodeCreationMode));
+
+		final NodeCreationMode mode = pnGridPanel.hasState(State.TRANSITION_CREATION) ? TRANSITION : PLACE;
+		final ButtonGroup buttonGroup = new ButtonGroup();
+
+		final JRadioButtonMenuItem placeItem = CreatePlaceAction.newMenuItem( //
+				eventSource, //
+				locationProvider);
+		buttonGroup.add(placeItem);
+		popup.add(placeItem);
+		placeItem.setSelected(mode == PLACE);
+
+		final JRadioButtonMenuItem transitionItem = CreateTransitionAction.newMenuItem( //
+				eventSource, //
+				locationProvider);
+		buttonGroup.add(transitionItem);
+		popup.add(transitionItem);
+		transitionItem.setSelected(mode == TRANSITION);
 
 		popup.show(e.getComponent(), e.getX(), e.getY());
 	}
