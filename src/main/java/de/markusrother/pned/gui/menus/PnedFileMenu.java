@@ -4,21 +4,22 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
 
-import de.markusrother.pned.gui.menus.items.ExportFileMenuItem;
-import de.markusrother.pned.gui.menus.items.ImportFileMenuItem;
-import de.markusrother.pned.gui.menus.items.NewFileMenuItem;
+import de.markusrother.pned.gui.menus.actions.OpenExportDialogAction;
+import de.markusrother.pned.gui.menus.actions.OpenImportDialogAction;
+import de.markusrother.pned.gui.menus.items.NewNetMenuItem;
 
 public class PnedFileMenu extends JMenu {
 
 	public static final JMenu INSTANCE = new PnedFileMenu();
 
-	private static final String FILE = "File";
+	private static final String label = "File";
 
 	private PnedFileMenu() {
-		super(FILE);
+		super(label);
 		setMnemonic(KeyEvent.VK_F);
-		add(NewFileMenuItem.INSTANCE);
-		add(ImportFileMenuItem.INSTANCE);
-		add(ExportFileMenuItem.INSTANCE);
+		add(NewNetMenuItem.INSTANCE);
+		add(OpenImportDialogAction.newMenuItem());
+		add(OpenExportDialogAction.newMenuItem());
 	}
+
 }
