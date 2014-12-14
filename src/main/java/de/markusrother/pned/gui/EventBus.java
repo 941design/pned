@@ -8,9 +8,11 @@ import java.util.EventListener;
 
 import javax.swing.event.EventListenerList;
 
+import de.markusrother.pned.commands.EdgeLayoutCommand;
 import de.markusrother.pned.commands.MarkingLayoutCommand;
 import de.markusrother.pned.commands.PlaceLayoutCommand;
 import de.markusrother.pned.commands.TransitionLayoutCommand;
+import de.markusrother.pned.commands.listeners.EdgeLayoutListener;
 import de.markusrother.pned.commands.listeners.MarkingLayoutListener;
 import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
 import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
@@ -49,7 +51,8 @@ public class EventBus
 		NodeListener,
 		PlaceLayoutListener,
 		TransitionLayoutListener,
-		MarkingLayoutListener {
+		MarkingLayoutListener,
+		EdgeLayoutListener {
 
 	private final EventListenerList listeners = new EventListenerList();
 
@@ -106,6 +109,14 @@ public class EventBus
 
 	public void removeTransitionLayoutListener(final TransitionLayoutListener l) {
 		listeners.remove(TransitionLayoutListener.class, l);
+	}
+
+	public void addEdgeLayoutListener(final EdgeLayoutListener l) {
+		listeners.add(EdgeLayoutListener.class, l);
+	}
+
+	public void removeEdgeLayoutListener(final EdgeLayoutListener l) {
+		listeners.remove(EdgeLayoutListener.class, l);
 	}
 
 	public void addMarkingLayoutListener(final MarkingLayoutListener l) {
@@ -176,6 +187,11 @@ public class EventBus
 
 	@Override
 	public void setSize(final MarkingLayoutCommand cmd) {
+		eventDispatched(cmd);
+	}
+
+	@Override
+	public void setSize(final EdgeLayoutCommand cmd) {
 		eventDispatched(cmd);
 	}
 
@@ -313,6 +329,23 @@ public class EventBus
 		} else if (event instanceof MarkingLayoutCommand) {
 			final MarkingLayoutCommand cmd = (MarkingLayoutCommand) event;
 			for (final MarkingLayoutListener l : getListeners(MarkingLayoutListener.class)) {
+				switch (cmd.getType()) {
+				case SIZE:
+					l.setSize(cmd);
+					break;
+				case SELECTION_COLOR:
+				case DEFAULT_COLOR:
+				case DEFAULT_BORDER_COLOR:
+				case SELECTION_BORDER_COLOR:
+				case HOVER_COLOR:
+				case HOVER_BORDER_COLOR:
+				default:
+					throw new IllegalStateException();
+				}
+			}
+		} else if (event instanceof EdgeLayoutCommand) {
+			final EdgeLayoutCommand cmd = (EdgeLayoutCommand) event;
+			for (final EdgeLayoutListener l : getListeners(EdgeLayoutListener.class)) {
 				switch (cmd.getType()) {
 				case SIZE:
 					l.setSize(cmd);

@@ -10,8 +10,10 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 
+import de.markusrother.pned.commands.EdgeLayoutCommand;
 import de.markusrother.pned.commands.PlaceLayoutCommand;
 import de.markusrother.pned.commands.TransitionLayoutCommand;
+import de.markusrother.pned.commands.listeners.EdgeLayoutListener;
 import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
 import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
@@ -38,6 +40,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		NodeListener,
 		NodeMotionListener,
 		EdgeEditListener,
+		EdgeLayoutListener,
 		PlaceLayoutListener,
 		TransitionLayoutListener,
 		Disposable {
@@ -89,6 +92,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		setState(ComponentState.DEFAULT);
 		eventBus.addNodeListener(this);
 		eventBus.addNodeMotionListener(this);
+		eventBus.addEdgeLayoutListener(this);
 		eventBus.addPlaceLayoutListener(this);
 		eventBus.addTransitionLayoutListener(this);
 		eventBus.addEdgeEditListener(this);
@@ -299,6 +303,13 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	private void reconnect() {
 		connectToSource();
 		connectToTarget();
+		repaint();
+	}
+
+	@Override
+	public void setSize(final EdgeLayoutCommand cmd) {
+		final int extent = cmd.getSize();
+		style.setTipSize(extent);
 		repaint();
 	}
 

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Polygon;
 import java.awt.Shape;
 import java.awt.Stroke;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
 public class EdgeStyle {
@@ -26,6 +27,7 @@ public class EdgeStyle {
 	static {
 		DEFAULT = new EdgeStyle();
 		DEFAULT.setTip(DEFAULT_TIP);
+		DEFAULT.setTipSize(10);
 		DEFAULT.setLineStroke(new BasicStroke(2));
 		DEFAULT.setDefaultColor(Color.BLACK);
 		DEFAULT.setHoverColor(Color.BLUE);
@@ -39,6 +41,7 @@ public class EdgeStyle {
 	private Color hoverColor;
 	private Stroke lineStroke;
 	private Shape tip;
+	private int tipSize;
 
 	public Color getDefaultColor() {
 		return defaultColor;
@@ -80,11 +83,21 @@ public class EdgeStyle {
 		this.lineStroke = lineStroke;
 	}
 
-	public Shape getTip() {
-		return tip;
+	public int getTipSize() {
+		return tipSize;
 	}
 
-	public void setTip(final Shape tip) {
+	public void setTipSize(final int tipSize) {
+		this.tipSize = tipSize;
+	}
+
+	public Shape getTip() {
+		final double scaleFactor = tipSize / 10.0;
+		final AffineTransform transform = AffineTransform.getScaleInstance(scaleFactor, scaleFactor);
+		return transform.createTransformedShape(tip);
+	}
+
+	private void setTip(final Shape tip) {
 		this.tip = tip;
 	}
 }
