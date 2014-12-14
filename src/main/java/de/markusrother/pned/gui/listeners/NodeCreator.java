@@ -41,10 +41,12 @@ public class NodeCreator extends MouseAdapter
 		// activated listeners.
 		switch (mode) {
 		case PLACE:
-			eventBus.createPlace(new PlaceCreationRequest(this, e.getPoint()));
+			// FIXME - Must create ID!
+			eventBus.createPlace(new PlaceCreationRequest(this, "foobar", e.getPoint()));
 			break;
 		case TRANSITION:
-			eventBus.createTransition(new TransitionCreationRequest(this, e.getPoint()));
+			// FIXME - Must create ID!
+			eventBus.createTransition(new TransitionCreationRequest(this, "foobar", e.getPoint()));
 			break;
 		default:
 			throw new IllegalStateException();

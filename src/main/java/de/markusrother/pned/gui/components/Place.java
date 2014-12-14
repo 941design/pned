@@ -12,7 +12,9 @@ import java.awt.geom.Point2D;
 import de.markusrother.pned.commands.PlaceLayoutCommand;
 import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
 import de.markusrother.pned.gui.PlaceLayout;
+import de.markusrother.pned.gui.events.PlaceEditEvent;
 import de.markusrother.pned.gui.listeners.MarkingEditListener;
+import de.markusrother.pned.gui.listeners.PlaceEditListener;
 
 /**
  * TODO - on hover create pop up with + / - to add/remove weights
@@ -27,6 +29,7 @@ import de.markusrother.pned.gui.listeners.MarkingEditListener;
  */
 public class Place extends AbstractNode
 	implements
+		PlaceEditListener,
 		PlaceLayoutListener {
 
 	private final Marking marking;
@@ -44,6 +47,7 @@ public class Place extends AbstractNode
 		addMouseListener(MarkingEditListener.INSTANCE);
 		// FIXME - dispose!
 		eventBus.addListener(PlaceLayoutListener.class, this);
+		eventBus.addListener(PlaceEditListener.class, this);
 	}
 
 	@Override
@@ -83,8 +87,13 @@ public class Place extends AbstractNode
 		return marking.getValue();
 	}
 
-	public void setMarking(final int value) {
-		marking.setValue(value);
+	@Override
+	public void setMarking(final PlaceEditEvent cmd) {
+		final String myId = getId();
+		final String placeId = cmd.getPlaceId();
+		if (myId.equals(placeId)) {
+			marking.setValue(cmd.getMarking());
+		}
 	}
 
 	@Override

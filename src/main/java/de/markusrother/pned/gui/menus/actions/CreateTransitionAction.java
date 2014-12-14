@@ -31,7 +31,8 @@ public class CreateTransitionAction extends AbstractNodeAction {
 
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		eventBus.createTransition(new TransitionCreationRequest(source, locationProvider.getLocation()));
+		// FIXME - Must create ID!
+		eventBus.createTransition(new TransitionCreationRequest(source, "foboar", locationProvider.getLocation()));
 	}
 
 	@Override

@@ -4,8 +4,8 @@ import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.CANCEL;
 
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
@@ -14,9 +14,6 @@ import de.markusrother.swing.DragDropListener;
 
 /**
  * TODO - rename (node specific)
- * 
- * TODO - extract abstract superclass
- *
  */
 public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 
@@ -34,13 +31,11 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 
 	@Override
 	public void onDrag(final AbstractNode draggedNode, final int deltaX, final int deltaY) {
+		final Collection<String> nodeIds = new LinkedList<>();
 		for (final AbstractNode node : nodes) {
-			final Rectangle r = node.getBounds();
-			r.translate(deltaX, deltaY);
-			node.setBounds(r);
-			node.repaint();
+			nodeIds.add(node.getId());
 		}
-		eventBus.fireNodeMovedEvent(new NodeMovedEvent(this, nodes, deltaX, deltaY));
+		eventBus.nodeMoved(new NodeMovedEvent(this, nodeIds, deltaX, deltaY));
 	}
 
 	@Override

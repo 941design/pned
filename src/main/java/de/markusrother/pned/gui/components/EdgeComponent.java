@@ -253,9 +253,19 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 	@Override
 	public void nodeMoved(final NodeMovedEvent event) {
-		if (event.getNodes().contains(sourceComponent) //
-				|| event.getNodes().contains(targetComponent)) {
-			reconnect();
+		boolean repaint = false;
+		final String sourceId = sourceComponent.getId();
+		final String targetId = targetComponent.getId();
+		if (event.getNodeIds().contains(sourceId)) {
+			connectToSource();
+			repaint = true;
+		}
+		if (event.getNodeIds().contains(targetId)) {
+			connectToTarget();
+			repaint = true;
+		}
+		if (repaint) {
+			repaint();
 		}
 	}
 

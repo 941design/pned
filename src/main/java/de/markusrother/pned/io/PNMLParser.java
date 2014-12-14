@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import javax.xml.stream.XMLEventReader;
@@ -17,8 +18,10 @@ import javax.xml.stream.events.Characters;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
-import de.markusrother.pned.gui.CreationEventListener;
+import de.markusrother.pned.gui.EventTarget;
+import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.PlaceEditEvent;
 import de.markusrother.pned.gui.events.TransitionCreationRequest;
 
 /**
@@ -26,7 +29,7 @@ import de.markusrother.pned.gui.events.TransitionCreationRequest;
  */
 public class PNMLParser {
 
-	public static void parse(final URL resource, final CreationEventListener eventTarget) throws XMLStreamException, IOException {
+	public static void parse(final URL resource, final EventTarget eventTarget) throws XMLStreamException, IOException {
 		@SuppressWarnings("resource")
 		// Suppressed, because exception is propagated.
 		final InputStream inputStream = resource.openStream();
@@ -34,17 +37,17 @@ public class PNMLParser {
 		inputStream.close();
 	}
 
-	public static void parse(final File pnml, final CreationEventListener eventTarget) throws FileNotFoundException,
+	public static void parse(final File pnml, final EventTarget eventTarget) throws FileNotFoundException,
 			XMLStreamException {
 		parse(new FileInputStream(pnml), eventTarget);
 	}
 
-	public static void parse(final InputStream inputStream, final CreationEventListener eventTarget) throws XMLStreamException {
+	public static void parse(final InputStream inputStream, final EventTarget eventTarget) throws XMLStreamException {
 		final XMLInputFactory factory = XMLInputFactory.newInstance();
 		parse(factory.createXMLEventReader(inputStream), eventTarget);
 	}
 
-	public static void parse(final XMLEventReader xmlEventReader, final CreationEventListener eventTarget) {
+	public static void parse(final XMLEventReader xmlEventReader, final EventTarget eventTarget) {
 		final PNMLParser parser = new PNMLParser(xmlEventReader, eventTarget);
 		parser.parse();
 	}
@@ -79,9 +82,9 @@ public class PNMLParser {
 	 */
 	private boolean isValue = false;
 
-	private final CreationEventListener eventTarget;
+	private final EventTarget eventTarget;
 
-	private PNMLParser(final XMLEventReader xmlParser, final CreationEventListener eventTarget) {
+	private PNMLParser(final XMLEventReader xmlParser, final EventTarget eventTarget) {
 		this.xmlParser = xmlParser;
 		this.eventTarget = eventTarget;
 	}
@@ -285,8 +288,7 @@ public class PNMLParser {
 	 *            Identifikationstext der Transition
 	 */
 	public void newTransition(final String id) {
-		// FIXME - use id
-		final TransitionCreationRequest cmd = new TransitionCreationRequest(this);
+		final TransitionCreationRequest cmd = new TransitionCreationRequest(this, id);
 		eventTarget.createTransition(cmd);
 	}
 
@@ -298,8 +300,7 @@ public class PNMLParser {
 	 *            Identifikationstext der Stelle
 	 */
 	public void newPlace(final String id) {
-		// FIXME - use id
-		final PlaceCreationRequest cmd = new PlaceCreationRequest(this);
+		final PlaceCreationRequest cmd = new PlaceCreationRequest(this, id);
 		eventTarget.createPlace(cmd);
 	}
 
@@ -331,7 +332,10 @@ public class PNMLParser {
 	 *            y Position des Elements
 	 */
 	public void setPosition(final String id, final String x, final String y) {
-		System.out.println("Setze die Position des Elements " + id + " auf (" + x + ", " + y + ")");
+		final int deltaX = Integer.valueOf(x);
+		final int deltaY = Integer.valueOf(y);
+		final NodeMovedEvent e = new NodeMovedEvent(this, Arrays.asList(id), deltaX, deltaY);
+		eventTarget.nodeMoved(e);
 	}
 
 	/**
@@ -344,6 +348,7 @@ public class PNMLParser {
 	 *            Beschriftungstext des Elements
 	 */
 	public void setName(final String id, final String name) {
+		// TODO - id vs. label!
 		System.out.println("Setze den Namen des Elements " + id + " auf " + name);
 	}
 
@@ -357,6 +362,7 @@ public class PNMLParser {
 	 *            Markierung des Elements
 	 */
 	public void setMarking(final String id, final String marking) {
-		System.out.println("Setze die Markierung des Elements " + id + " auf " + marking);
+		final PlaceEditEvent e = new PlaceEditEvent(this, id, Integer.valueOf(marking));
+		eventTarget.setMarking(e);
 	}
 }

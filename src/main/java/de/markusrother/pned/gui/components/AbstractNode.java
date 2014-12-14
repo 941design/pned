@@ -18,11 +18,13 @@ import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.DefinitelyBounded;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
+import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeHoverListener;
+import de.markusrother.pned.gui.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.SelectionDragDropListener;
@@ -39,6 +41,7 @@ import de.markusrother.swing.Selectable;
  */
 public abstract class AbstractNode extends JPanel
 	implements
+		NodeMotionListener,
 		NodeRemovalListener,
 		NodeSelectionListener,
 		EdgeEditListener,
@@ -63,6 +66,7 @@ public abstract class AbstractNode extends JPanel
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
 		// TODO - In prospect to JDK8, I do not use Adapters. Default
 		// implementations in adapters allow us to remove the ignored methods.
+		eventBus.addListener(NodeMotionListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeSelectionListener.class, this);
 		eventBus.addListener(EdgeEditListener.class, this);
@@ -101,7 +105,7 @@ public abstract class AbstractNode extends JPanel
 		}
 	}
 
-	String getId() {
+	public String getId() {
 		try {
 			// TODO - to constant:
 			return id.get(500L, TimeUnit.MILLISECONDS);
@@ -117,7 +121,7 @@ public abstract class AbstractNode extends JPanel
 		}
 	}
 
-	void setId(final Future<String> future) {
+	public void setId(final Future<String> future) {
 		this.id = future;
 	}
 
@@ -203,6 +207,19 @@ public abstract class AbstractNode extends JPanel
 				(int) Math.floor((getWidth() + 0.5) / 2.0), //
 				(int) Math.floor((getHeight() + 0.5) / 2.0));
 		return r.contains(point);
+	}
+
+	@Override
+	public void nodeMoved(final NodeMovedEvent e) {
+		for (final String nodeId : e.getNodeIds()) {
+			if (getId().equals(nodeId)) {
+				final Rectangle r = getBounds();
+				r.translate(e.getDeltaX(), e.getDeltaY());
+				setBounds(r);
+				repaint();
+				break;
+			}
+		}
 	}
 
 	@Override

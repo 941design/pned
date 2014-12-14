@@ -24,6 +24,7 @@ import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.PlaceEditEvent;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
@@ -32,6 +33,7 @@ import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
+import de.markusrother.pned.gui.listeners.PlaceEditListener;
 
 /**
  * Should be retrieved from frame/application (after the EDT is created).
@@ -51,10 +53,12 @@ import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 public class EventBus
 	implements
 		AWTEventListener,
-		CreationEventListener,
+		EventTarget,
 		NodeListener,
+		NodeMotionListener,
 		NodeCreationListener,
 		NodeRemovalListener,
+		PlaceEditListener,
 		PlaceLayoutListener,
 		TransitionLayoutListener,
 		MarkingLayoutListener,
@@ -97,6 +101,11 @@ public class EventBus
 	}
 
 	@Override
+	public void setMarking(final PlaceEditEvent cmd) {
+		eventDispatched(cmd);
+	}
+
+	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
 		eventDispatched(e);
 	}
@@ -111,8 +120,8 @@ public class EventBus
 		eventDispatched(e);
 	}
 
-	public void fireNodeMovedEvent(final NodeMovedEvent e) {
-		// TODO - should be defined in an interface
+	@Override
+	public void nodeMoved(final NodeMovedEvent e) {
 		eventDispatched(e);
 	}
 
@@ -213,6 +222,11 @@ public class EventBus
 			final NodeMovedEvent e = (NodeMovedEvent) event;
 			for (final NodeMotionListener l : getListeners(NodeMotionListener.class)) {
 				l.nodeMoved(e);
+			}
+		} else if (event instanceof PlaceEditEvent) {
+			final PlaceEditEvent e = (PlaceEditEvent) event;
+			for (final PlaceEditListener l : getListeners(PlaceEditListener.class)) {
+				l.setMarking(e);
 			}
 		} else if (event instanceof EdgeEditEvent) {
 			final EdgeEditEvent e = (EdgeEditEvent) event;

@@ -31,7 +31,8 @@ public class CreatePlaceAction extends AbstractNodeAction {
 
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		eventBus.createPlace(new PlaceCreationRequest(source, locationProvider.getLocation()));
+		// FIXME - Must create ID!
+		eventBus.createPlace(new PlaceCreationRequest(source, "foobar", locationProvider.getLocation()));
 	}
 
 	@Override

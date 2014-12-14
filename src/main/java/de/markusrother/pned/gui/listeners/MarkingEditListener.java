@@ -1,5 +1,7 @@
 package de.markusrother.pned.gui.listeners;
 
+import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
+
 import java.awt.Container;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -8,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.util.regex.Pattern;
 
 import de.markusrother.pned.gui.components.Place;
+import de.markusrother.pned.gui.events.PlaceEditEvent;
 import de.markusrother.swing.CheckedTextField;
 import de.markusrother.swing.MultiClickListener;
 import de.markusrother.swing.TextListener;
@@ -36,7 +39,7 @@ public class MarkingEditListener extends MultiClickListener
 			@Override
 			public void textEntered(final ActionEvent e) {
 				final String text = textField.getText();
-				place.setMarking(Integer.valueOf(text));
+				eventBus.setMarking(new PlaceEditEvent(this, place.getId(), Integer.valueOf(text)));
 			}
 		});
 	}

@@ -7,6 +7,12 @@ import java.util.concurrent.Future;
 
 public class Promise<T> {
 
+	public static <U> Promise<U> fulfilled(final U value) {
+		final Promise<U> promise = new Promise<>();
+		promise.fulfill(value);
+		return promise;
+	}
+
 	protected T value;
 
 	private final ExecutorService executor = Executors.newCachedThreadPool();

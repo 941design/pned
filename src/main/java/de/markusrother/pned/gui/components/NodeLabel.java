@@ -69,19 +69,21 @@ public class NodeLabel extends JLabel
 
 	@Override
 	public void nodeMoved(final NodeMovedEvent e) {
-		for (final AbstractNode node : e.getNodes()) {
-			if (node.getId() == nodeId) {
+		for (final String nodeId : e.getNodeIds()) {
+			if (this.nodeId.equals(nodeId)) {
 				final Rectangle r = getBounds();
 				r.translate(e.getDeltaX(), e.getDeltaY());
 				setBounds(r);
 				repaint();
+				break;
 			}
 		}
 	}
 
 	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
-		if (e.getNode().getId() == nodeId) {
+		final String nodeId = e.getNode().getId();
+		if (this.nodeId.equals(nodeId)) {
 			dispose();
 		}
 	}
