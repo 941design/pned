@@ -10,7 +10,7 @@ import javax.swing.Action;
 import javax.swing.JRadioButtonMenuItem;
 
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
-import de.markusrother.pned.gui.events.TransitionCreationRequest;
+import de.markusrother.pned.gui.events.TransitionCreationCommand;
 import de.markusrother.swing.CustomRadioButtonMenuItem;
 
 public class CreateTransitionAction extends AbstractNodeAction {
@@ -31,8 +31,7 @@ public class CreateTransitionAction extends AbstractNodeAction {
 
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		// FIXME - Must create ID!
-		eventBus.createTransition(new TransitionCreationRequest(source, "foboar", locationProvider.getLocation()));
+		eventBus.createTransition(new TransitionCreationCommand(source, locationProvider.getLocation()));
 	}
 
 	@Override

@@ -2,15 +2,15 @@ package de.markusrother.pned.gui.listeners;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.gui.events.PlaceCreationRequest;
-import de.markusrother.pned.gui.events.TransitionCreationRequest;
+import de.markusrother.pned.gui.events.PlaceCreationCommand;
+import de.markusrother.pned.gui.events.TransitionCreationCommand;
 
 public interface NodeCreationListener
 	extends
 		EventListener {
 
-	void createPlace(PlaceCreationRequest e);
+	void createPlace(PlaceCreationCommand cmd);
 
-	void createTransition(TransitionCreationRequest e);
+	void createTransition(TransitionCreationCommand cmd);
 
 }

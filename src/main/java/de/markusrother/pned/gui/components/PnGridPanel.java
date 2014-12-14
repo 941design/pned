@@ -21,9 +21,9 @@ import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
-import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
-import de.markusrother.pned.gui.events.TransitionCreationRequest;
+import de.markusrother.pned.gui.events.TransitionCreationCommand;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeCreator;
@@ -186,6 +186,56 @@ public class PnGridPanel extends JLayeredPane
 		}
 	}
 
+	@Override
+	public void createPlace(final PlaceCreationCommand cmd) {
+		// TODO - use currentPlaceStyle!
+		final Place place = new Place((int) placeDimensions.getWidth());
+		addNodeComponent(place, cmd.getPoint());
+		final Promise<String> idPromise = setOrCreateNodeId(place, cmd.getNodeId());
+		addListeners(place);
+		fireNodeCreationEvent(place, idPromise);
+	}
+
+	@Override
+	public void createTransition(final TransitionCreationCommand cmd) {
+		final Transition transition = new Transition((int) transitionDimensions.getWidth());
+		addNodeComponent(transition, cmd.getPoint());
+		final Promise<String> idPromise = setOrCreateNodeId(transition, cmd.getNodeId());
+		addListeners(transition);
+		fireNodeCreationEvent(transition, idPromise);
+	}
+
+	private <T extends AbstractNode> void addNodeComponent(final T node, final Point origin) {
+		// TODO - this method is too big!
+		final Dimension d = node.getPreferredSize();
+		final Point nodeOrigin = origin.getLocation(); // TODO - Why?
+		nodeOrigin.translate(-d.width / 2, -d.height / 2); // TODO - Why?
+		node.setBounds(new Rectangle(nodeOrigin, node.getPreferredSize()));
+		nodeLayer.add(node);
+		nodeLayer.repaint(); // TODO - Why?
+	}
+
+	private Promise<String> setOrCreateNodeId(final AbstractNode node, final String nodeId) {
+		// TODO - if Promise is for a model, we have both id and label name.
+		final Promise<String> idPromise;
+		if (nodeId != null) {
+			idPromise = Promise.fulfilled(nodeId);
+		} else {
+			idPromise = new Promise<>();
+		}
+		node.setId(idPromise.ask());
+		return idPromise;
+	}
+
+	private void addListeners(final AbstractNode node) {
+		node.setSingleNodeSelector(singleNodeSelector);
+		node.setEdgeCreationListener(edgeCreator);
+	}
+
+	private void fireNodeCreationEvent(final AbstractNode node, final Promise<String> idPromise) {
+		eventBus.nodeCreated(new NodeCreationEvent(this, node, idPromise));
+	}
+
 	public JLabel createLabel(final Point origin, final String nodeId) {
 		// TODO - We could create an edge that connects label with node, synced
 		// similarly to the node.
@@ -271,56 +321,6 @@ public class PnGridPanel extends JLayeredPane
 			// sources.
 			removeState(State.MULTISELECTION);
 		}
-	}
-
-	@Override
-	public void createPlace(final PlaceCreationRequest e) {
-		// TODO - use currentPlaceStyle!
-		final Place place = new Place((int) placeDimensions.getWidth());
-		addNodeComponent(place, e.getPoint());
-		final Promise<String> idPromise = setOrCreateNodeId(place, e.getNodeId());
-		addListeners(place);
-		fireNodeCreationEvent(place, idPromise);
-	}
-
-	@Override
-	public void createTransition(final TransitionCreationRequest e) {
-		final Transition transition = new Transition((int) transitionDimensions.getWidth());
-		addNodeComponent(transition, e.getPoint());
-		final Promise<String> idPromise = setOrCreateNodeId(transition, e.getNodeId());
-		addListeners(transition);
-		fireNodeCreationEvent(transition, idPromise);
-	}
-
-	private <T extends AbstractNode> void addNodeComponent(final T node, final Point origin) {
-		// TODO - this method is too big!
-		final Dimension d = node.getPreferredSize();
-		final Point nodeOrigin = origin.getLocation(); // TODO - Why?
-		nodeOrigin.translate(-d.width / 2, -d.height / 2); // TODO - Why?
-		node.setBounds(new Rectangle(nodeOrigin, node.getPreferredSize()));
-		nodeLayer.add(node);
-		nodeLayer.repaint(); // TODO - Why?
-	}
-
-	private Promise<String> setOrCreateNodeId(final AbstractNode node, final String nodeId) {
-		// TODO - if Promise is for a model, we have both id and label name.
-		final Promise<String> idPromise;
-		if (nodeId != null) {
-			idPromise = Promise.fulfilled(nodeId);
-		} else {
-			idPromise = new Promise<>();
-		}
-		node.setId(idPromise.ask());
-		return idPromise;
-	}
-
-	private void addListeners(final AbstractNode node) {
-		node.setSingleNodeSelector(singleNodeSelector);
-		node.setEdgeCreationListener(edgeCreator);
-	}
-
-	private void fireNodeCreationEvent(final AbstractNode node, final Promise<String> idPromise) {
-		eventBus.nodeCreated(new NodeCreationEvent(this, node, idPromise));
 	}
 
 	@Override

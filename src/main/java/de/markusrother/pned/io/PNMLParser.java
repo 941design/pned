@@ -20,9 +20,9 @@ import javax.xml.stream.events.XMLEvent;
 
 import de.markusrother.pned.gui.EventTarget;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
-import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.PlaceEditEvent;
-import de.markusrother.pned.gui.events.TransitionCreationRequest;
+import de.markusrother.pned.gui.events.TransitionCreationCommand;
 
 /**
  * Diese Klasse implementiert die Grundlage für einen einfachen PNML Parser.
@@ -288,7 +288,7 @@ public class PNMLParser {
 	 *            Identifikationstext der Transition
 	 */
 	public void newTransition(final String id) {
-		final TransitionCreationRequest cmd = new TransitionCreationRequest(this, id);
+		final TransitionCreationCommand cmd = new TransitionCreationCommand(this, id);
 		eventTarget.createTransition(cmd);
 	}
 
@@ -300,7 +300,7 @@ public class PNMLParser {
 	 *            Identifikationstext der Stelle
 	 */
 	public void newPlace(final String id) {
-		final PlaceCreationRequest cmd = new PlaceCreationRequest(this, id);
+		final PlaceCreationCommand cmd = new PlaceCreationCommand(this, id);
 		eventTarget.createPlace(cmd);
 	}
 

@@ -23,10 +23,10 @@ import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
-import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.PlaceEditEvent;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
-import de.markusrother.pned.gui.events.TransitionCreationRequest;
+import de.markusrother.pned.gui.events.TransitionCreationCommand;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
@@ -91,13 +91,13 @@ public class EventBus
 	}
 
 	@Override
-	public void createPlace(final PlaceCreationRequest e) {
-		eventDispatched(e);
+	public void createPlace(final PlaceCreationCommand cmd) {
+		eventDispatched(cmd);
 	}
 
 	@Override
-	public void createTransition(final TransitionCreationRequest e) {
-		eventDispatched(e);
+	public void createTransition(final TransitionCreationCommand cmd) {
+		eventDispatched(cmd);
 	}
 
 	@Override
@@ -178,15 +178,15 @@ public class EventBus
 				final Thread thread = new Thread(runnable);
 				thread.start();
 			}
-		} else if (event instanceof PlaceCreationRequest) {
-			final PlaceCreationRequest e = (PlaceCreationRequest) event;
+		} else if (event instanceof PlaceCreationCommand) {
+			final PlaceCreationCommand cmd = (PlaceCreationCommand) event;
 			for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
-				l.createPlace(e);
+				l.createPlace(cmd);
 			}
-		} else if (event instanceof TransitionCreationRequest) {
-			final TransitionCreationRequest e = (TransitionCreationRequest) event;
+		} else if (event instanceof TransitionCreationCommand) {
+			final TransitionCreationCommand cmd = (TransitionCreationCommand) event;
 			for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
-				l.createTransition(e);
+				l.createTransition(cmd);
 			}
 		} else if (event instanceof NodeRemovalEvent) {
 			final NodeRemovalEvent e = (NodeRemovalEvent) event;

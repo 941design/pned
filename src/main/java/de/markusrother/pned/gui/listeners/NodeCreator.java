@@ -7,9 +7,9 @@ import java.awt.event.MouseEvent;
 
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
-import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
-import de.markusrother.pned.gui.events.TransitionCreationRequest;
+import de.markusrother.pned.gui.events.TransitionCreationCommand;
 
 /**
  * TODO - suspend/enable on selection event!
@@ -42,11 +42,11 @@ public class NodeCreator extends MouseAdapter
 		switch (mode) {
 		case PLACE:
 			// FIXME - Must create ID!
-			eventBus.createPlace(new PlaceCreationRequest(this, "foobar", e.getPoint()));
+			eventBus.createPlace(new PlaceCreationCommand(this, e.getPoint()));
 			break;
 		case TRANSITION:
 			// FIXME - Must create ID!
-			eventBus.createTransition(new TransitionCreationRequest(this, "foobar", e.getPoint()));
+			eventBus.createTransition(new TransitionCreationCommand(this, e.getPoint()));
 			break;
 		default:
 			throw new IllegalStateException();

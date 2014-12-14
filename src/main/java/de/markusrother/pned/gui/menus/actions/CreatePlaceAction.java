@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.JRadioButtonMenuItem;
 
-import de.markusrother.pned.gui.events.PlaceCreationRequest;
+import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.swing.CustomRadioButtonMenuItem;
 
@@ -31,8 +31,7 @@ public class CreatePlaceAction extends AbstractNodeAction {
 
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		// FIXME - Must create ID!
-		eventBus.createPlace(new PlaceCreationRequest(source, "foobar", locationProvider.getLocation()));
+		eventBus.createPlace(new PlaceCreationCommand(source, locationProvider.getLocation()));
 	}
 
 	@Override
