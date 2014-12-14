@@ -7,12 +7,13 @@ import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-// TODO - make inner class of Place
 // TODO - create LayoutManagerAdapter?
 /**
  * used to manage markings in places
  */
-public class PlaceLayout implements LayoutManager {
+public class PlaceLayout
+	implements
+		LayoutManager {
 
 	public static final String CENTER = "CENTER";
 

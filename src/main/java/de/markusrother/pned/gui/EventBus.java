@@ -8,8 +8,10 @@ import java.util.EventListener;
 
 import javax.swing.event.EventListenerList;
 
+import de.markusrother.pned.commands.MarkingLayoutCommand;
 import de.markusrother.pned.commands.PlaceLayoutCommand;
 import de.markusrother.pned.commands.TransitionLayoutCommand;
+import de.markusrother.pned.commands.listeners.MarkingLayoutListener;
 import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
 import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
@@ -46,7 +48,8 @@ public class EventBus
 		AWTEventListener,
 		NodeListener,
 		PlaceLayoutListener,
-		TransitionLayoutListener {
+		TransitionLayoutListener,
+		MarkingLayoutListener {
 
 	private final EventListenerList listeners = new EventListenerList();
 
@@ -105,6 +108,14 @@ public class EventBus
 		listeners.remove(TransitionLayoutListener.class, l);
 	}
 
+	public void addMarkingLayoutListener(final MarkingLayoutListener l) {
+		listeners.add(MarkingLayoutListener.class, l);
+	}
+
+	public void removeMarkingLayoutListener(final MarkingLayoutListener l) {
+		listeners.remove(MarkingLayoutListener.class, l);
+	}
+
 	@Override
 	public void setCurrentNodeType(final SetNodeTypeCommand e) {
 		eventDispatched(e);
@@ -160,6 +171,11 @@ public class EventBus
 
 	@Override
 	public void setSize(final TransitionLayoutCommand cmd) {
+		eventDispatched(cmd);
+	}
+
+	@Override
+	public void setSize(final MarkingLayoutCommand cmd) {
 		eventDispatched(cmd);
 	}
 
@@ -280,6 +296,23 @@ public class EventBus
 		} else if (event instanceof TransitionLayoutCommand) {
 			final TransitionLayoutCommand cmd = (TransitionLayoutCommand) event;
 			for (final TransitionLayoutListener l : getListeners(TransitionLayoutListener.class)) {
+				switch (cmd.getType()) {
+				case SIZE:
+					l.setSize(cmd);
+					break;
+				case SELECTION_COLOR:
+				case DEFAULT_COLOR:
+				case DEFAULT_BORDER_COLOR:
+				case SELECTION_BORDER_COLOR:
+				case HOVER_COLOR:
+				case HOVER_BORDER_COLOR:
+				default:
+					throw new IllegalStateException();
+				}
+			}
+		} else if (event instanceof MarkingLayoutCommand) {
+			final MarkingLayoutCommand cmd = (MarkingLayoutCommand) event;
+			for (final MarkingLayoutListener l : getListeners(MarkingLayoutListener.class)) {
 				switch (cmd.getType()) {
 				case SIZE:
 					l.setSize(cmd);

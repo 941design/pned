@@ -1,12 +1,20 @@
 package de.markusrother.pned.gui.components;
 
+import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
+
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Marking extends JPanel {
+import de.markusrother.pned.commands.MarkingLayoutCommand;
+import de.markusrother.pned.commands.listeners.MarkingLayoutListener;
+
+public class Marking extends JPanel
+	implements
+		MarkingLayoutListener {
 
 	private final MarkingStyle style;
 	private int value;
@@ -17,6 +25,7 @@ public class Marking extends JPanel {
 		this.label = new JLabel();
 		add(label);
 		setOpaque(false);
+		eventBus.addMarkingLayoutListener(this);
 	}
 
 	@Override
@@ -41,6 +50,19 @@ public class Marking extends JPanel {
 			label.setText(String.valueOf(value));
 			repaint();
 		}
+	}
+
+	@Override
+	public void setSize(final MarkingLayoutCommand cmd) {
+		final int extent = cmd.getSize();
+		style.setSize(extent);
+		label.setFont(style.getFont());
+		setPreferredSize(new Dimension(extent, extent));
+		// TODO - There may be a problem concering the order of queued events.
+		// During sliding change events are fired constantly. Maybe(?) that is
+		// why the parent is not redrawn.
+		invalidate();
+		repaint();
 	}
 
 }

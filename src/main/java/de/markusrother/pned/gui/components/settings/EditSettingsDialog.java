@@ -15,6 +15,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import de.markusrother.pned.commands.LayoutCommand.ChangeType;
+import de.markusrother.pned.commands.MarkingLayoutCommand;
 import de.markusrother.pned.commands.PlaceLayoutCommand;
 import de.markusrother.pned.commands.TransitionLayoutCommand;
 import de.markusrother.swing.ScaleGroup;
@@ -43,6 +44,7 @@ public class EditSettingsDialog extends JDialog {
 
 		sideBar.add(createPlaceScale());
 		sideBar.add(createTransitionScale());
+		sideBar.add(createMarkingScale());
 
 		contentPane.add(sideBar, WEST);
 	}
@@ -67,6 +69,19 @@ public class EditSettingsDialog extends JDialog {
 			public void stateChanged(final ChangeEvent e) {
 				final int size = scale.getValue();
 				final TransitionLayoutCommand cmd = new TransitionLayoutCommand(this, ChangeType.SIZE, size);
+				eventBus.setSize(cmd);
+			}
+		});
+		return scale;
+	}
+
+	private ScaleGroup createMarkingScale() {
+		final ScaleGroup scale = new ScaleGroup("Marking", ScaleGroup.Orientation.HORIZONTAL);
+		scale.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(final ChangeEvent e) {
+				final int size = scale.getValue();
+				final MarkingLayoutCommand cmd = new MarkingLayoutCommand(this, ChangeType.SIZE, size);
 				eventBus.setSize(cmd);
 			}
 		});
