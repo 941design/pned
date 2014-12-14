@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 
+import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
@@ -15,6 +16,7 @@ import javax.swing.event.ChangeListener;
 
 import de.markusrother.pned.commands.LayoutCommand.ChangeType;
 import de.markusrother.pned.commands.PlaceLayoutCommand;
+import de.markusrother.pned.commands.TransitionLayoutCommand;
 import de.markusrother.swing.ScaleGroup;
 
 public class EditSettingsDialog extends JDialog {
@@ -37,19 +39,37 @@ public class EditSettingsDialog extends JDialog {
 
 		final JPanel sideBar = new JPanel();
 		sideBar.setBorder(new TitledBorder("sizes"));
+		sideBar.setLayout(new BoxLayout(sideBar, BoxLayout.Y_AXIS));
 
-		final ScaleGroup placeScale = new ScaleGroup("Place", ScaleGroup.Orientation.HORIZONTAL);
-		placeScale.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(final ChangeEvent e) {
-				final int size = placeScale.getValue();
-				final PlaceLayoutCommand cmd = new PlaceLayoutCommand(this, ChangeType.SIZE, size);
-				eventBus.setSize(cmd);
-			}
-		});
-		sideBar.add(placeScale);
+		sideBar.add(createPlaceScale());
+		sideBar.add(createTransitionScale());
 
 		contentPane.add(sideBar, WEST);
 	}
 
+	private ScaleGroup createPlaceScale() {
+		final ScaleGroup scale = new ScaleGroup("Place", ScaleGroup.Orientation.HORIZONTAL);
+		scale.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(final ChangeEvent e) {
+				final int size = scale.getValue();
+				final PlaceLayoutCommand cmd = new PlaceLayoutCommand(this, ChangeType.SIZE, size);
+				eventBus.setSize(cmd);
+			}
+		});
+		return scale;
+	}
+
+	private ScaleGroup createTransitionScale() {
+		final ScaleGroup scale = new ScaleGroup("Transition", ScaleGroup.Orientation.HORIZONTAL);
+		scale.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(final ChangeEvent e) {
+				final int size = scale.getValue();
+				final TransitionLayoutCommand cmd = new TransitionLayoutCommand(this, ChangeType.SIZE, size);
+				eventBus.setSize(cmd);
+			}
+		});
+		return scale;
+	}
 }

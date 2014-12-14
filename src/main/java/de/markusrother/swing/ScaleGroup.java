@@ -2,6 +2,7 @@ package de.markusrother.swing;
 
 import static de.markusrother.util.Patterns.intPattern;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BoundedRangeModel;
@@ -56,6 +57,7 @@ public class ScaleGroup extends JPanel
 		jSlider.addChangeListener(this);
 		add(jSlider);
 
+		setMaximumSize(getPreferredSize()); // TODO - Create LayoutManager
 	}
 
 	private void fireValueChangedEvent() {
@@ -63,6 +65,16 @@ public class ScaleGroup extends JPanel
 		for (final ChangeListener listener : listenerList.getListeners(ChangeListener.class)) {
 			listener.stateChanged(e);
 		}
+	}
+
+	@Override
+	public Dimension getPreferredSize() {
+		final Dimension labelSize = jLabel.getPreferredSize();
+		final Dimension textSize = textField.getPreferredSize();
+		final Dimension sliderSize = jSlider.getPreferredSize();
+		final int w = labelSize.width + textSize.width + sliderSize.width;
+		final int h = labelSize.height + textSize.height + sliderSize.height;
+		return new Dimension(w, h);
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package de.markusrother.pned.gui.components;
 
+import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 import static de.markusrother.util.TrigUtils.modPi;
 import static java.lang.Math.PI;
 
@@ -10,12 +11,17 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 
+import de.markusrother.pned.commands.TransitionLayoutCommand;
+import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
+
 /**
  *
  */
-public class Transition extends AbstractNode {
+public class Transition extends AbstractNode
+	implements
+		TransitionLayoutListener {
 
-	private final int extent;
+	private int extent;
 	private final NodeStyle style = NodeStyle.DEFAULT;
 
 	public Transition(final int extent) {
@@ -23,6 +29,7 @@ public class Transition extends AbstractNode {
 		// TODO - use model!
 		this.extent = extent;
 		setOpaque(false);
+		eventBus.addTransitionLayoutListener(this);
 	}
 
 	@Override
@@ -74,6 +81,13 @@ public class Transition extends AbstractNode {
 	@Override
 	protected NodeStyle getStyle() {
 		return style;
+	}
+
+	@Override
+	public void setSize(final TransitionLayoutCommand cmd) {
+		this.extent = cmd.getSize();
+		setSize(new Dimension(extent, extent));
+		repaint(); // REDUNDANT
 	}
 
 }

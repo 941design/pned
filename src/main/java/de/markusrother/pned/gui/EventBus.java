@@ -9,7 +9,9 @@ import java.util.EventListener;
 import javax.swing.event.EventListenerList;
 
 import de.markusrother.pned.commands.PlaceLayoutCommand;
+import de.markusrother.pned.commands.TransitionLayoutCommand;
 import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
+import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
@@ -43,7 +45,8 @@ public class EventBus
 	implements
 		AWTEventListener,
 		NodeListener,
-		PlaceLayoutListener {
+		PlaceLayoutListener,
+		TransitionLayoutListener {
 
 	private final EventListenerList listeners = new EventListenerList();
 
@@ -92,6 +95,14 @@ public class EventBus
 
 	public void removePlaceLayoutListener(final PlaceLayoutListener l) {
 		listeners.remove(PlaceLayoutListener.class, l);
+	}
+
+	public void addTransitionLayoutListener(final TransitionLayoutListener l) {
+		listeners.add(TransitionLayoutListener.class, l);
+	}
+
+	public void removeTransitionLayoutListener(final TransitionLayoutListener l) {
+		listeners.remove(TransitionLayoutListener.class, l);
 	}
 
 	@Override
@@ -144,6 +155,11 @@ public class EventBus
 
 	@Override
 	public void setSize(final PlaceLayoutCommand cmd) {
+		eventDispatched(cmd);
+	}
+
+	@Override
+	public void setSize(final TransitionLayoutCommand cmd) {
 		eventDispatched(cmd);
 	}
 
@@ -247,6 +263,23 @@ public class EventBus
 		} else if (event instanceof PlaceLayoutCommand) {
 			final PlaceLayoutCommand cmd = (PlaceLayoutCommand) event;
 			for (final PlaceLayoutListener l : getListeners(PlaceLayoutListener.class)) {
+				switch (cmd.getType()) {
+				case SIZE:
+					l.setSize(cmd);
+					break;
+				case SELECTION_COLOR:
+				case DEFAULT_COLOR:
+				case DEFAULT_BORDER_COLOR:
+				case SELECTION_BORDER_COLOR:
+				case HOVER_COLOR:
+				case HOVER_BORDER_COLOR:
+				default:
+					throw new IllegalStateException();
+				}
+			}
+		} else if (event instanceof TransitionLayoutCommand) {
+			final TransitionLayoutCommand cmd = (TransitionLayoutCommand) event;
+			for (final TransitionLayoutListener l : getListeners(TransitionLayoutListener.class)) {
 				switch (cmd.getType()) {
 				case SIZE:
 					l.setSize(cmd);
