@@ -5,14 +5,18 @@ import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.io.IOException;
+import java.net.URL;
 
 import javax.swing.JFrame;
+import javax.xml.stream.XMLStreamException;
 
 import de.markusrother.pned.gui.MockDataProvider;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.menus.EditMenuFactory;
 import de.markusrother.pned.gui.menus.PnedMenuBar;
+import de.markusrother.pned.io.PNMLParser;
 
 public class PnEditorFrame extends JFrame {
 
@@ -39,6 +43,20 @@ public class PnEditorFrame extends JFrame {
 		MockDataProvider.instantiate(eventBus);
 
 		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, NodeCreationMode.PLACE));
+
+		// TODO - use file dialog!
+		final String path = "/examples/Beispiel1.pnml";
+		final URL resource = PNMLParser.class.getResource(path);
+		try {
+			PNMLParser.parse(resource, eventBus);
+		} catch (final XMLStreamException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (final IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void main(final String... args) {

@@ -25,7 +25,8 @@ public class Marking extends JPanel
 		this.label = new JLabel();
 		add(label);
 		setOpaque(false);
-		eventBus.addMarkingLayoutListener(this);
+		// FIXME - remove on dispose!
+		eventBus.addListener(MarkingLayoutListener.class, this);
 	}
 
 	@Override

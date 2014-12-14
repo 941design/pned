@@ -10,15 +10,11 @@ import javax.swing.border.LineBorder;
 
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.Disposable;
-import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
-import de.markusrother.pned.gui.events.PlaceCreationRequest;
-import de.markusrother.pned.gui.events.SetNodeTypeCommand;
-import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.LabelHoverListener;
-import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.styles.NodeLabelStyle;
 import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
@@ -26,7 +22,7 @@ import de.markusrother.swing.HoverListener;
 
 public class NodeLabel extends JLabel
 	implements
-		NodeListener,
+		NodeRemovalListener,
 		Disposable,
 		NodeMotionListener {
 
@@ -54,8 +50,8 @@ public class NodeLabel extends JLabel
 		this.dragDropListener = new DefaultDragDropListener<>(NodeLabel.class, this);
 		DragDropListener.addToComponent(this, dragDropListener);
 		HoverListener.addToComponent(this, new LabelHoverListener());
-		eventBus.addNodeListener(this);
-		eventBus.addNodeMotionListener(this);
+		eventBus.addListener(NodeRemovalListener.class, this);
+		eventBus.addListener(NodeMotionListener.class, this);
 		setState(ComponentState.DEFAULT);
 	}
 
@@ -84,26 +80,6 @@ public class NodeLabel extends JLabel
 	}
 
 	@Override
-	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
-		// IGNORE, OBSOLETE - will go to different listener!
-	}
-
-	@Override
-	public void nodeCreated(final NodeCreationEvent e) {
-		// IGNORE, OBSOLETE - will go to different listener!
-	}
-
-	@Override
-	public void createPlace(final PlaceCreationRequest e) {
-		// IGNORE, OBSOLETE - will go to different listener!
-	}
-
-	@Override
-	public void createTransition(final TransitionCreationRequest e) {
-		// IGNORE, OBSOLETE - will go to different listener!
-	}
-
-	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
 		if (e.getNode().getId() == nodeId) {
 			dispose();
@@ -117,8 +93,8 @@ public class NodeLabel extends JLabel
 
 	@Override
 	public void dispose() {
-		eventBus.removeNodeListener(this);
-		eventBus.removeNodeMotionListener(this);
+		eventBus.removeListener(NodeRemovalListener.class, this);
+		eventBus.removeListener(NodeMotionListener.class, this);
 		getParent().remove(this);
 	}
 }

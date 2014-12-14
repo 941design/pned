@@ -29,7 +29,8 @@ public class Transition extends AbstractNode
 		// TODO - use model!
 		this.extent = extent;
 		setOpaque(false);
-		eventBus.addTransitionLayoutListener(this);
+		// FIXME - dispose!
+		eventBus.addListener(TransitionLayoutListener.class, this);
 	}
 
 	@Override

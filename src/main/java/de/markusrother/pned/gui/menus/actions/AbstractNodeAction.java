@@ -8,11 +8,7 @@ import java.awt.event.ItemListener;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
-import de.markusrother.pned.gui.events.NodeRemovalEvent;
-import de.markusrother.pned.gui.events.PlaceCreationRequest;
-import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.NodeListener;
 
 /**
@@ -32,31 +28,12 @@ public abstract class AbstractNodeAction extends AbstractAction
 		this.source = source;
 		this.locationProvider = locationProvider;
 		putValue(Action.MNEMONIC_KEY, mnemonic);
-		eventBus.addNodeListener(this);
+		// FIXME - dispose!
+		eventBus.addListener(NodeListener.class, this);
 	}
 
 	@Override
 	public void nodeCreated(final NodeCreationEvent e) {
-		// IGNORE
-	}
-
-	@Override
-	public void createPlace(final PlaceCreationRequest e) {
-		// IGNORE
-	}
-
-	@Override
-	public void createTransition(final TransitionCreationRequest e) {
-		// IGNORE
-	}
-
-	@Override
-	public void nodeRemoved(final NodeRemovalEvent e) {
-		// IGNORE
-	}
-
-	@Override
-	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
 		// IGNORE
 	}
 

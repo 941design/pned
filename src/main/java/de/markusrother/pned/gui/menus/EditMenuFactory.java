@@ -29,7 +29,8 @@ public class EditMenuFactory
 	public EditMenuFactory(final EventBus eventBus) {
 		this.areNodesSelected = false;
 		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
-		eventBus.addNodeSelectionListener(this);
+		// FIXME - dispose!
+		eventBus.addListener(NodeSelectionListener.class, this);
 		// TODO - remove upon close
 	}
 

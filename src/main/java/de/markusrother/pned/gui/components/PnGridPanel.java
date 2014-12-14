@@ -26,8 +26,10 @@ import de.markusrother.pned.gui.events.PlaceCreationRequest;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
+import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeCreator;
 import de.markusrother.pned.gui.listeners.NodeListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.NodeSelector;
 import de.markusrother.pned.gui.listeners.PnGridPopupListener;
@@ -52,7 +54,9 @@ import de.markusrother.swing.snap.SnapGridComponent;
 public class PnGridPanel extends JLayeredPane
 	implements
 		NodeSelectionListener,
-		NodeListener {
+		NodeListener,
+		NodeCreationListener,
+		NodeRemovalListener {
 
 	// TODO - This could be properties!
 	public enum State {
@@ -142,8 +146,11 @@ public class PnGridPanel extends JLayeredPane
 		nodeLayer.addMouseListener(popupCreator);
 		DragDropListener.addToComponent(nodeLayer, multipleNodeSelector);
 
-		eventBus.addNodeSelectionListener(this);
-		eventBus.addNodeListener(this);
+		// FIXME - dispose!
+		eventBus.addListener(NodeSelectionListener.class, this);
+		eventBus.addListener(NodeListener.class, this);
+		eventBus.addListener(NodeCreationListener.class, this);
+		eventBus.addListener(NodeRemovalListener.class, this);
 	}
 
 	private JComponent createLayer(final int i) {
@@ -216,11 +223,6 @@ public class PnGridPanel extends JLayeredPane
 		for (final AbstractNode node : currentSelection) {
 			eventBus.nodeRemoved(new NodeRemovalEvent(this, node));
 		}
-	}
-
-	@Override
-	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
-		// IGNORE
 	}
 
 	public JLabel createLabel(final Point origin, final String nodeId) {
@@ -343,7 +345,13 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	@Override
+	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
+		// IGNORE, FIXME ??
+	}
+
+	@Override
 	public void nodeSelectionFinished(final NodeSelectionEvent event) {
 		// IGNORE
 	}
+
 }

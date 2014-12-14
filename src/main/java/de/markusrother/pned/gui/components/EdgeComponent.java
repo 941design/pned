@@ -19,15 +19,11 @@ import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
-import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
-import de.markusrother.pned.gui.events.PlaceCreationRequest;
-import de.markusrother.pned.gui.events.SetNodeTypeCommand;
-import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
-import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.swing.HoverListener;
 
 /**
@@ -37,7 +33,7 @@ import de.markusrother.swing.HoverListener;
  */
 public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractNode>
 	implements
-		NodeListener,
+		NodeRemovalListener,
 		NodeMotionListener,
 		EdgeEditListener,
 		EdgeLayoutListener,
@@ -90,12 +86,12 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		super(sourceComponent, source, target);
 		this.style = EdgeStyle.DEFAULT;
 		setState(ComponentState.DEFAULT);
-		eventBus.addNodeListener(this);
-		eventBus.addNodeMotionListener(this);
-		eventBus.addEdgeLayoutListener(this);
-		eventBus.addPlaceLayoutListener(this);
-		eventBus.addTransitionLayoutListener(this);
-		eventBus.addEdgeEditListener(this);
+		eventBus.addListener(NodeRemovalListener.class, this);
+		eventBus.addListener(NodeMotionListener.class, this);
+		eventBus.addListener(EdgeLayoutListener.class, this);
+		eventBus.addListener(PlaceLayoutListener.class, this);
+		eventBus.addListener(TransitionLayoutListener.class, this);
+		eventBus.addListener(EdgeEditListener.class, this);
 	}
 
 	@Override
@@ -146,26 +142,6 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		// "lines never contain AREAS" WTF! A point is not an area...
 		// TODO - line thickness is variable!
 		return line != null && (line.ptSegDistSq(point) < 5 || tip.contains(point));
-	}
-
-	@Override
-	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
-		// IGNORE
-	}
-
-	@Override
-	public void nodeCreated(final NodeCreationEvent e) {
-		// IGNORE
-	}
-
-	@Override
-	public void createPlace(final PlaceCreationRequest e) {
-		// IGNORE
-	}
-
-	@Override
-	public void createTransition(final TransitionCreationRequest e) {
-		// IGNORE
 	}
 
 	@Override
@@ -264,11 +240,12 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	@Override
 	public void dispose() {
 		// TODO - create generic removeAllListeners()
-		eventBus.removeNodeListener(this);
-		eventBus.removeNodeMotionListener(this);
-		eventBus.removeEdgeEditListener(this);
-		eventBus.removePlaceLayoutListener(this);
-		eventBus.removeTransitionLayoutListener(this);
+		eventBus.removeListener(NodeRemovalListener.class, this);
+		eventBus.removeListener(NodeMotionListener.class, this);
+		eventBus.removeListener(EdgeLayoutListener.class, this);
+		eventBus.removeListener(PlaceLayoutListener.class, this);
+		eventBus.removeListener(TransitionLayoutListener.class, this);
+		eventBus.removeListener(EdgeEditListener.class, this);
 		// TODO - may require synchronization, if two removal events are fired
 		// before this is properly removed from eventBus.
 		getParent().remove(this);

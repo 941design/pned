@@ -31,7 +31,8 @@ public class RemoveSelectedNodesAction extends AbstractAction
 		this.source = source;
 		putValue(Action.MNEMONIC_KEY, mnemonic);
 		setEnabled(enabled);
-		eventBus.addNodeSelectionListener(this);
+		// FIXME - dispose!
+		eventBus.addListener(NodeSelectionListener.class, this);
 	}
 
 	@Override

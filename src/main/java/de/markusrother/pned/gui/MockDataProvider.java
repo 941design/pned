@@ -11,12 +11,16 @@ import de.markusrother.pned.gui.events.PlaceCreationRequest;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
+import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 
 public class MockDataProvider
 	implements
 		NodeListener,
+		NodeCreationListener,
+		NodeRemovalListener,
 		NodeSelectionListener,
 		EdgeEditListener {
 
@@ -24,9 +28,11 @@ public class MockDataProvider
 
 	public static void instantiate(final EventBus eventBus) {
 		final MockDataProvider mock = new MockDataProvider();
-		eventBus.addNodeListener(mock);
-		eventBus.addNodeSelectionListener(mock);
-		eventBus.addEdgeEditListener(mock);
+		eventBus.addListener(NodeListener.class, mock);
+		eventBus.addListener(NodeRemovalListener.class, mock);
+		eventBus.addListener(NodeCreationListener.class, mock);
+		eventBus.addListener(NodeSelectionListener.class, mock);
+		eventBus.addListener(EdgeEditListener.class, mock);
 	}
 
 	private void log(final ActionEvent event) {

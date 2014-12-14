@@ -18,16 +18,12 @@ import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.DefinitelyBounded;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
-import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
-import de.markusrother.pned.gui.events.PlaceCreationRequest;
-import de.markusrother.pned.gui.events.SetNodeTypeCommand;
-import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeHoverListener;
-import de.markusrother.pned.gui.listeners.NodeListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.SelectionDragDropListener;
 import de.markusrother.pned.gui.listeners.SingleNodeSelector;
@@ -43,7 +39,7 @@ import de.markusrother.swing.Selectable;
  */
 public abstract class AbstractNode extends JPanel
 	implements
-		NodeListener,
+		NodeRemovalListener,
 		NodeSelectionListener,
 		EdgeEditListener,
 		Selectable,
@@ -67,9 +63,9 @@ public abstract class AbstractNode extends JPanel
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
 		// TODO - In prospect to JDK8, I do not use Adapters. Default
 		// implementations in adapters allow us to remove the ignored methods.
-		eventBus.addNodeListener(this);
-		eventBus.addNodeSelectionListener(this);
-		eventBus.addEdgeEditListener(this);
+		eventBus.addListener(NodeRemovalListener.class, this);
+		eventBus.addListener(NodeSelectionListener.class, this);
+		eventBus.addListener(EdgeEditListener.class, this);
 	}
 
 	public AbstractNode() {
@@ -255,26 +251,6 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	@Override
-	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
-		// IGNORE, OBSOLETE - will go to different listener!
-	}
-
-	@Override
-	public void nodeCreated(final NodeCreationEvent e) {
-		// IGNORE, OBSOLETE - will go to different listener!
-	}
-
-	@Override
-	public void createPlace(final PlaceCreationRequest e) {
-		// IGNORE, OBSOLETE - will go to different listener!
-	}
-
-	@Override
-	public void createTransition(final TransitionCreationRequest e) {
-		// IGNORE, OBSOLETE - will go to different listener!
-	}
-
-	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
 		if (e.getNode() == this) {
 			dispose();
@@ -290,8 +266,9 @@ public abstract class AbstractNode extends JPanel
 
 	@Override
 	public void dispose() {
-		eventBus.removeNodeListener(this);
-		eventBus.removeNodeSelectionListener(this);
+		eventBus.removeListener(NodeRemovalListener.class, this);
+		eventBus.removeListener(NodeSelectionListener.class, this);
+		eventBus.removeListener(EdgeEditListener.class, this);
 		getParent().remove(this);
 	}
 

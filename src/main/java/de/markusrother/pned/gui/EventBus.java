@@ -6,6 +6,7 @@ import java.awt.event.AWTEventListener;
 import java.awt.event.ActionEvent;
 import java.util.EventListener;
 
+import javax.swing.SwingUtilities;
 import javax.swing.event.EventListenerList;
 
 import de.markusrother.pned.commands.EdgeLayoutCommand;
@@ -26,8 +27,10 @@ import de.markusrother.pned.gui.events.PlaceCreationRequest;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationRequest;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
+import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 
 /**
@@ -48,7 +51,10 @@ import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 public class EventBus
 	implements
 		AWTEventListener,
+		CreationEventListener,
 		NodeListener,
+		NodeCreationListener,
+		NodeRemovalListener,
 		PlaceLayoutListener,
 		TransitionLayoutListener,
 		MarkingLayoutListener,
@@ -60,71 +66,12 @@ public class EventBus
 		return listeners.getListeners(clazz);
 	}
 
-	public void addNodeListener(final NodeListener l) {
-		// TODO - should be defined in an interface
-		listeners.add(NodeListener.class, l);
+	public <T extends EventListener> void addListener(final Class<T> clazz, final T l) {
+		listeners.add(clazz, l);
 	}
 
-	public void removeNodeListener(final NodeListener l) {
-		listeners.remove(NodeListener.class, l);
-	}
-
-	public void addNodeSelectionListener(final NodeSelectionListener l) {
-		// TODO - should be defined in an interface
-		listeners.add(NodeSelectionListener.class, l);
-	}
-
-	public void removeNodeSelectionListener(final NodeSelectionListener l) {
-		listeners.remove(NodeSelectionListener.class, l);
-	}
-
-	public void addNodeMotionListener(final NodeMotionListener l) {
-		// TODO - should be defined in an interface
-		listeners.add(NodeMotionListener.class, l);
-	}
-
-	public void removeNodeMotionListener(final NodeMotionListener l) {
-		listeners.remove(NodeMotionListener.class, l);
-	}
-
-	public void addEdgeEditListener(final EdgeEditListener l) {
-		listeners.add(EdgeEditListener.class, l);
-	}
-
-	public void removeEdgeEditListener(final EdgeEditListener l) {
-		listeners.remove(EdgeEditListener.class, l);
-	}
-
-	public void addPlaceLayoutListener(final PlaceLayoutListener l) {
-		listeners.add(PlaceLayoutListener.class, l);
-	}
-
-	public void removePlaceLayoutListener(final PlaceLayoutListener l) {
-		listeners.remove(PlaceLayoutListener.class, l);
-	}
-
-	public void addTransitionLayoutListener(final TransitionLayoutListener l) {
-		listeners.add(TransitionLayoutListener.class, l);
-	}
-
-	public void removeTransitionLayoutListener(final TransitionLayoutListener l) {
-		listeners.remove(TransitionLayoutListener.class, l);
-	}
-
-	public void addEdgeLayoutListener(final EdgeLayoutListener l) {
-		listeners.add(EdgeLayoutListener.class, l);
-	}
-
-	public void removeEdgeLayoutListener(final EdgeLayoutListener l) {
-		listeners.remove(EdgeLayoutListener.class, l);
-	}
-
-	public void addMarkingLayoutListener(final MarkingLayoutListener l) {
-		listeners.add(MarkingLayoutListener.class, l);
-	}
-
-	public void removeMarkingLayoutListener(final MarkingLayoutListener l) {
-		listeners.remove(MarkingLayoutListener.class, l);
+	public <T extends EventListener> void removeListener(final Class<T> clazz, final T l) {
+		listeners.remove(clazz, l);
 	}
 
 	@Override
@@ -141,13 +88,11 @@ public class EventBus
 
 	@Override
 	public void createPlace(final PlaceCreationRequest e) {
-		// TODO - This is a gui-only event
 		eventDispatched(e);
 	}
 
 	@Override
 	public void createTransition(final TransitionCreationRequest e) {
-		// TODO - This is a gui-only event
 		eventDispatched(e);
 	}
 
@@ -203,6 +148,9 @@ public class EventBus
 
 	@Override
 	public void eventDispatched(final AWTEvent event) {
+		if (!SwingUtilities.isEventDispatchThread()) {
+			System.out.println("Not on EDT:\n\t" + event);
+		}
 		if (event instanceof SetNodeTypeCommand) {
 			final SetNodeTypeCommand cmd = (SetNodeTypeCommand) event;
 			for (final NodeListener l : getListeners(NodeListener.class)) {
@@ -223,22 +171,22 @@ public class EventBus
 			}
 		} else if (event instanceof PlaceCreationRequest) {
 			final PlaceCreationRequest e = (PlaceCreationRequest) event;
-			for (final NodeListener l : getListeners(NodeListener.class)) {
+			for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
 				l.createPlace(e);
 			}
 		} else if (event instanceof TransitionCreationRequest) {
 			final TransitionCreationRequest e = (TransitionCreationRequest) event;
-			for (final NodeListener l : getListeners(NodeListener.class)) {
+			for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
 				l.createTransition(e);
 			}
 		} else if (event instanceof NodeRemovalEvent) {
 			final NodeRemovalEvent e = (NodeRemovalEvent) event;
-			for (final NodeListener l : getListeners(NodeListener.class)) {
+			for (final NodeRemovalListener l : getListeners(NodeRemovalListener.class)) {
 				l.nodeRemoved(e);
 			}
 		} else if (event instanceof RemoveSelectedNodesEvent) {
 			final RemoveSelectedNodesEvent e = (RemoveSelectedNodesEvent) event;
-			for (final NodeListener l : getListeners(NodeListener.class)) {
+			for (final NodeRemovalListener l : getListeners(NodeRemovalListener.class)) {
 				l.removeSelectedNodes(e);
 			}
 		} else if (event instanceof NodeSelectionEvent) {

@@ -42,7 +42,8 @@ public class Place extends AbstractNode
 		add(this.marking, PlaceLayout.CENTER);
 		setOpaque(false);
 		addMouseListener(MarkingEditListener.INSTANCE);
-		eventBus.addPlaceLayoutListener(this);
+		// FIXME - dispose!
+		eventBus.addListener(PlaceLayoutListener.class, this);
 	}
 
 	@Override
