@@ -19,6 +19,7 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
 import de.markusrother.pned.gui.EventTarget;
+import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.PlaceEditEvent;
@@ -307,17 +308,16 @@ public class PNMLParser {
 	/**
 	 * Diese Methode kann überschrieben werden, um geladene Kanten zu erstellen.
 	 * 
-	 * @param id
+	 * @param edgeId
 	 *            Identifikationstext der Kante
-	 * @param source
+	 * @param sourceId
 	 *            Identifikationstext des Startelements der Kante
-	 * @param target
+	 * @param targetId
 	 *            Identifikationstext des Endelements der Kante
 	 */
-	public void newArc(final String id, final String source, final String target) {
-		// TODO - Cannot create edge, yet, because order is not deterministic!
-		// Must queue events in an intermediary eventTarget!
-		System.out.println("Kante mit id " + id + " von " + source + " nach " + target + " wurde gefunden.");
+	public void newArc(final String edgeId, final String sourceId, final String targetId) {
+		final EdgeCreationCommand cmd = new EdgeCreationCommand(this, edgeId, sourceId, targetId);
+		eventTarget.createEdge(cmd);
 	}
 
 	/**

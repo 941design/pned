@@ -41,6 +41,10 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		TransitionLayoutListener,
 		Disposable {
 
+	private static final AbstractNode NO_TARGET_COMPONENT = null;
+	private static final Point NO_SOURCE = new Point();
+	private static final Point NO_TARGET = new Point();
+
 	public EdgeStyle getStyle() {
 		return style;
 	}
@@ -83,7 +87,17 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	private final EdgeStyle style;
 
 	public EdgeComponent(final AbstractNode sourceComponent, final Point source, final Point target) {
-		super(sourceComponent, source, target);
+		this(sourceComponent, NO_TARGET_COMPONENT, source, target);
+	}
+
+	public EdgeComponent(final AbstractNode sourceComponent, final AbstractNode targetComponent) {
+		this(sourceComponent, targetComponent, NO_SOURCE, NO_TARGET);
+		reconnect();
+	}
+
+	public EdgeComponent(final AbstractNode sourceComponent, final AbstractNode targetComponent, final Point source,
+			final Point target) {
+		super(sourceComponent, targetComponent, source, target);
 		this.style = EdgeStyle.DEFAULT;
 		setState(ComponentState.DEFAULT);
 		eventBus.addListener(NodeRemovalListener.class, this);

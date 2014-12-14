@@ -18,6 +18,7 @@ import javax.swing.JLayeredPane;
 import de.markusrother.concurrent.Promise;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
@@ -25,6 +26,7 @@ import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationCommand;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
+import de.markusrother.pned.gui.listeners.EdgeCreator;
 import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeCreator;
 import de.markusrother.pned.gui.listeners.NodeListener;
@@ -55,6 +57,7 @@ public class PnGridPanel extends JLayeredPane
 		NodeSelectionListener,
 		NodeListener,
 		NodeCreationListener,
+		EdgeCreationListener,
 		NodeRemovalListener {
 
 	// TODO - This could be properties!
@@ -78,7 +81,7 @@ public class PnGridPanel extends JLayeredPane
 	private final JComponent edgeLayer;
 	private final JComponent labelLayer;
 
-	private final EdgeCreationListener edgeCreator;
+	private final EdgeCreator edgeCreator;
 	private final MouseAdapter nodeCreator;
 	private final NodeSelector multipleNodeSelector;
 	private final SingleNodeSelector singleNodeSelector;
@@ -131,7 +134,7 @@ public class PnGridPanel extends JLayeredPane
 		// }
 		// }
 		// Listeners that are needed by children, are kept here:
-		edgeCreator = new EdgeCreationListener(this);
+		edgeCreator = new EdgeCreator(this);
 		nodeCreator = new NodeCreator();
 		multipleNodeSelector = new NodeSelector();
 		singleNodeSelector = new SingleNodeSelector();
@@ -149,6 +152,7 @@ public class PnGridPanel extends JLayeredPane
 		eventBus.addListener(NodeSelectionListener.class, this);
 		eventBus.addListener(NodeListener.class, this);
 		eventBus.addListener(NodeCreationListener.class, this);
+		eventBus.addListener(EdgeCreationListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
 	}
 
@@ -250,17 +254,31 @@ public class PnGridPanel extends JLayeredPane
 		labelLayer.add(label);
 	}
 
+	@Override
+	public void createEdge(final EdgeCreationCommand cmd) {
+		final AbstractNode sourceNode = cmd.getSourceNode();
+		final AbstractNode targetNode = cmd.getTargetNode();
+		final EdgeComponent edge = new EdgeComponent(sourceNode, targetNode);
+		addEdgeComponent(edge);
+	}
+
 	public EdgeComponent createEdge(final AbstractNode sourceNode, final Point target) {
 		final Point source = getCenter(sourceNode);
 		final EdgeComponent edge = new EdgeComponent(sourceNode, source, target);
 		edge.setBounds(this.getBounds()); // OBSOLETE?
-		edgeLayer.add(edge);
+		addEdgeComponent(edge);
 		return edge;
+	}
+
+	private void addEdgeComponent(final EdgeComponent edge) {
+		edge.setBounds(this.getBounds()); // OBSOLETE?
+		edgeLayer.add(edge);
+		edgeLayer.repaint();
 	}
 
 	public void removeEdge(final EdgeComponent edge) {
 		nodeLayer.remove(edge);
-		repaint();
+		nodeLayer.repaint();
 	}
 
 	@Override

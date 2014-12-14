@@ -18,6 +18,7 @@ import de.markusrother.pned.commands.listeners.MarkingLayoutListener;
 import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
 import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
@@ -27,6 +28,7 @@ import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.PlaceEditEvent;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationCommand;
+import de.markusrother.pned.gui.listeners.EdgeCreationListener;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
@@ -97,6 +99,11 @@ public class EventBus
 
 	@Override
 	public void createTransition(final TransitionCreationCommand cmd) {
+		eventDispatched(cmd);
+	}
+
+	@Override
+	public void createEdge(final EdgeCreationCommand cmd) {
 		eventDispatched(cmd);
 	}
 
@@ -187,6 +194,11 @@ public class EventBus
 			final TransitionCreationCommand cmd = (TransitionCreationCommand) event;
 			for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
 				l.createTransition(cmd);
+			}
+		} else if (event instanceof EdgeCreationCommand) {
+			final EdgeCreationCommand cmd = (EdgeCreationCommand) event;
+			for (final EdgeCreationListener l : getListeners(EdgeCreationListener.class)) {
+				l.createEdge(cmd);
 			}
 		} else if (event instanceof NodeRemovalEvent) {
 			final NodeRemovalEvent e = (NodeRemovalEvent) event;

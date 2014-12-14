@@ -30,8 +30,10 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	T sourceComponent;
 	U targetComponent;
 
-	public AbstractEdgeComponent(final T sourceComponent, final Point source, final Point target) {
+	public AbstractEdgeComponent(final T sourceComponent, final U targetComponent, final Point source,
+			final Point target) {
 		this.sourceComponent = sourceComponent;
+		this.targetComponent = targetComponent;
 		this.source = source;
 		this.target = target;
 	}
@@ -98,6 +100,10 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	 */
 	public void connectToSource() {
 		final double angle = getAngle();
+		connectToSource(angle);
+	}
+
+	private void connectToSource(final double angle) {
 		final Point intersection = sourceComponent.getLocation();
 		final Point boundary = round(sourceComponent.getBoundaryPoint(angle));
 		// TODO - must move because...
@@ -115,6 +121,10 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	 */
 	public void connectToTarget() {
 		final double angle = getAngle();
+		connectToTarget(angle);
+	}
+
+	private void connectToTarget(final double angle) {
 		final Point intersection = targetComponent.getLocation();
 		final Point boundary = round(targetComponent.getBoundaryPoint(angle + Math.PI));
 		// TODO - must move because...

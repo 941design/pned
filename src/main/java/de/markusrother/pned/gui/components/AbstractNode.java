@@ -17,11 +17,13 @@ import javax.swing.JPanel;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.DefinitelyBounded;
 import de.markusrother.pned.gui.Disposable;
+import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
+import de.markusrother.pned.gui.listeners.EdgeCreator;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeHoverListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
@@ -45,6 +47,7 @@ public abstract class AbstractNode extends JPanel
 		NodeRemovalListener,
 		NodeSelectionListener,
 		EdgeEditListener,
+		EdgeCreationListener,
 		Selectable,
 		Disposable,
 		DefinitelyBounded {
@@ -53,7 +56,7 @@ public abstract class AbstractNode extends JPanel
 
 	// Listeners:
 	private DragDropListener<AbstractNode> dragDropListener; // selectionHandler
-	private EdgeCreationListener edgeCreationListener;
+	private EdgeCreator edgeCreationListener;
 	private SingleNodeSelector singleNodeSelector;
 
 	protected ComponentState state;
@@ -70,6 +73,7 @@ public abstract class AbstractNode extends JPanel
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeSelectionListener.class, this);
 		eventBus.addListener(EdgeEditListener.class, this);
+		eventBus.addListener(EdgeCreationListener.class, this);
 	}
 
 	public AbstractNode() {
@@ -155,7 +159,7 @@ public abstract class AbstractNode extends JPanel
 		resumeDragDropListener();
 	}
 
-	void setEdgeCreationListener(final EdgeCreationListener listener) {
+	void setEdgeCreationListener(final EdgeCreator listener) {
 		if (edgeCreationListener != null) {
 			suspendEdgeCreationListener();
 		}
@@ -180,7 +184,7 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	private void suspendEdgeCreationListener() {
-		EdgeCreationListener.removeFromComponent(this, edgeCreationListener);
+		EdgeCreator.removeFromComponent(this, edgeCreationListener);
 	}
 
 	private void resumeHoverListener() {
@@ -196,7 +200,7 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	private void resumeEdgeCreationListener() {
-		EdgeCreationListener.addToComponent(this, edgeCreationListener);
+		EdgeCreator.addToComponent(this, edgeCreationListener);
 	}
 
 	@Override
@@ -291,18 +295,22 @@ public abstract class AbstractNode extends JPanel
 
 	@Override
 	public void targetComponentEntered(final EdgeEditEvent e) {
+		// IGNORE
 	}
 
 	@Override
 	public void targetComponentExited(final EdgeEditEvent e) {
+		// IGNORE
 	}
 
 	@Override
 	public void edgeMoved(final EdgeEditEvent e) {
+		// IGNORE
 	}
 
 	@Override
 	public void edgeCancelled(final EdgeEditEvent e) {
+		// TODO - This could be wrapped in a StateToggleCommand
 		// TODO - Use state set instead!
 		resumeHoverListener();
 		// resumeEdgeCreationListener(); // TODO - remove?
@@ -312,6 +320,7 @@ public abstract class AbstractNode extends JPanel
 
 	@Override
 	public void edgeFinished(final EdgeEditEvent e) {
+		// TODO - This could be wrapped in a StateToggleCommand
 		// TODO - Use state set instead!
 		resumeHoverListener();
 		// resumeEdgeCreationListener();
@@ -321,11 +330,21 @@ public abstract class AbstractNode extends JPanel
 
 	@Override
 	public void edgeStarted(final EdgeEditEvent e) {
+		// TODO - This could be wrapped in a StateToggleCommand
 		// TODO - Use state set instead!
 		suspendHoverListener();
 		// suspendEdgeCreationListener();
 		suspendSelectionListener();
 		suspendDragDropListener();
+	}
+
+	@Override
+	public void createEdge(final EdgeCreationCommand cmd) {
+		if (getId().equals(cmd.getSourceId())) {
+			cmd.fulfillSourceNodePromise(this);
+		} else if (getId().equals(cmd.getTargetId())) {
+			cmd.fulfillTargetNodePromise(this);
+		}
 	}
 
 }
