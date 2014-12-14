@@ -15,7 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 /**
- * Class used to mark multiple components a.k.a select them for future processing.
+ * Class used to mark multiple components a.k.a select them for future
+ * processing.
  * 
  * This listener must not be registered at the components themselves, but for
  * the container that contains the components to be selected. Therefore, this
@@ -34,14 +35,8 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 		this.type = type;
 	}
 
-	private Collection<T> getCurrentSelection() {
-		// OBSOLETE - Currently not needed, maybe nice to have.
+	public Collection<T> getCurrentSelection() {
 		return currentSelection;
-	}
-
-	private void setCurrentSelection(final Collection<T> currentSelection) {
-		// OBSOLETE - Currently not needed, maybe nice to have.
-		this.currentSelection = currentSelection;
 	}
 
 	private JPanel createSelectionPanel(final Point origin) {
