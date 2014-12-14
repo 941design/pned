@@ -1,5 +1,7 @@
 package de.markusrother.pned.gui.components;
 
+import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -7,6 +9,8 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
+import de.markusrother.pned.commands.PlaceLayoutCommand;
+import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
 import de.markusrother.pned.gui.PlaceLayout;
 import de.markusrother.pned.gui.listeners.MarkingEditListener;
 
@@ -21,11 +25,13 @@ import de.markusrother.pned.gui.listeners.MarkingEditListener;
  * TODO - create model {marking, label}
  *
  */
-public class Place extends AbstractNode {
+public class Place extends AbstractNode
+	implements
+		PlaceLayoutListener {
 
 	private final Marking marking;
 
-	private final int diameter;
+	private int diameter;
 	private final NodeStyle style = NodeStyle.DEFAULT;
 
 	public Place(final int diameter) {
@@ -36,6 +42,7 @@ public class Place extends AbstractNode {
 		add(this.marking, PlaceLayout.CENTER);
 		setOpaque(false);
 		addMouseListener(MarkingEditListener.INSTANCE);
+		eventBus.addPlaceLayoutListener(this);
 	}
 
 	@Override
@@ -83,4 +90,16 @@ public class Place extends AbstractNode {
 	protected NodeStyle getStyle() {
 		return style;
 	}
+
+	@Override
+	public void setSize(final PlaceLayoutCommand cmd) {
+		this.diameter = cmd.getSize();
+		setSize(new Dimension(diameter, diameter));
+		// TODO - Are there any children to be validated?
+		// for (final Component child : getComponents()) {
+		// child.revalidate();
+		// }
+		repaint(); // REDUNDANT
+	}
+
 }

@@ -10,6 +10,8 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 
+import de.markusrother.pned.commands.PlaceLayoutCommand;
+import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
@@ -83,6 +85,18 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		setState(ComponentState.DEFAULT);
 		eventBus.addNodeListener(this);
 		eventBus.addNodeMotionListener(this);
+		eventBus.addPlaceLayoutListener(new PlaceLayoutListener() {
+			@Override
+			public void setSize(final PlaceLayoutCommand cmd) {
+				// TODO - use revalidate();
+				// FIXME - The problem is the order of events! We must NOT
+				// respond to a command, but to an event after the fact! Hence,
+				// we must to create the event in addition to the command!
+				connectToSource();
+				connectToTarget();
+				repaint();
+			}
+		});
 		eventBus.addEdgeEditListener(this);
 	}
 
