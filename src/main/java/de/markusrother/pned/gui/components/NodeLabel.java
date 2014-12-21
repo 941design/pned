@@ -10,8 +10,10 @@ import javax.swing.border.LineBorder;
 
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.Disposable;
+import de.markusrother.pned.gui.events.LabelEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
+import de.markusrother.pned.gui.listeners.LabelEditListener;
 import de.markusrother.pned.gui.listeners.LabelHoverListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
@@ -22,6 +24,7 @@ import de.markusrother.swing.HoverListener;
 
 public class NodeLabel extends JLabel
 	implements
+		LabelEditListener,
 		NodeRemovalListener,
 		Disposable,
 		NodeMotionListener {
@@ -43,7 +46,11 @@ public class NodeLabel extends JLabel
 	private ComponentState state;
 
 	public NodeLabel(final String nodeId) {
-		super(nodeId);
+		this(nodeId, nodeId);
+	}
+
+	public NodeLabel(final String nodeId, final String nodeLabel) {
+		super(nodeLabel);
 		this.nodeId = nodeId;
 		// TODO - this needs to go to label, and be removed from eventBus upon
 		// component removal!
@@ -52,6 +59,7 @@ public class NodeLabel extends JLabel
 		HoverListener.addToComponent(this, new LabelHoverListener());
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeMotionListener.class, this);
+		eventBus.addListener(LabelEditListener.class, this); // FIXME - dispose!
 		setState(ComponentState.DEFAULT);
 	}
 
@@ -98,5 +106,12 @@ public class NodeLabel extends JLabel
 		eventBus.removeListener(NodeRemovalListener.class, this);
 		eventBus.removeListener(NodeMotionListener.class, this);
 		getParent().remove(this);
+	}
+
+	@Override
+	public void setLabel(final LabelEditEvent e) {
+		if (this.nodeId.equals(e.getElementId())) {
+			setText(e.getLabel());
+		}
 	}
 }

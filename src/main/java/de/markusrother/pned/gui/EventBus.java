@@ -21,6 +21,7 @@ import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
+import de.markusrother.pned.gui.events.LabelEditEvent;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
@@ -31,6 +32,7 @@ import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationCommand;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
+import de.markusrother.pned.gui.listeners.LabelEditListener;
 import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
@@ -65,6 +67,7 @@ public class EventBus
 		PlaceLayoutListener,
 		TransitionLayoutListener,
 		MarkingLayoutListener,
+		LabelEditListener,
 		EdgeLayoutListener {
 
 	private final EventListenerList listeners = new EventListenerList();
@@ -132,6 +135,11 @@ public class EventBus
 	}
 
 	public void fireEdgeEditEvent(final EdgeEditEvent e) {
+		eventDispatched(e);
+	}
+
+	@Override
+	public void setLabel(final LabelEditEvent e) {
 		eventDispatched(e);
 	}
 
@@ -259,6 +267,11 @@ public class EventBus
 			final PlaceEditEvent e = (PlaceEditEvent) event;
 			for (final PlaceEditListener l : getListeners(PlaceEditListener.class)) {
 				l.setMarking(e);
+			}
+		} else if (event instanceof LabelEditEvent) {
+			final LabelEditEvent e = (LabelEditEvent) event;
+			for (final LabelEditListener l : getListeners(LabelEditListener.class)) {
+				l.setLabel(e);
 			}
 		} else if (event instanceof EdgeEditEvent) {
 			final EdgeEditEvent e = (EdgeEditEvent) event;

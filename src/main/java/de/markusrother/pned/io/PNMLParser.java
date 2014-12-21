@@ -20,6 +20,7 @@ import javax.xml.stream.events.XMLEvent;
 
 import de.markusrother.pned.gui.EventTarget;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
+import de.markusrother.pned.gui.events.LabelEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.PlaceEditEvent;
@@ -342,14 +343,14 @@ public class PNMLParser {
 	 * Diese Methode kann überschrieben werden, um den Beschriftungstext der
 	 * geladenen Elemente zu aktualisieren.
 	 * 
-	 * @param id
+	 * @param elementId
 	 *            Identifikationstext des Elements
-	 * @param name
+	 * @param label
 	 *            Beschriftungstext des Elements
 	 */
-	public void setName(final String id, final String name) {
-		// TODO - id vs. label!
-		System.out.println("Setze den Namen des Elements " + id + " auf " + name);
+	public void setName(final String elementId, final String label) {
+		final LabelEditEvent e = new LabelEditEvent(this, elementId, label);
+		eventTarget.setLabel(e);
 	}
 
 	/**
