@@ -11,6 +11,7 @@ public class NodeMovedEvent extends ActionEvent {
 
 	public NodeMovedEvent(final Object source, final Collection<String> nodeIds, final int deltaX, final int deltaY) {
 		// TODO - refactor to single node event!
+		// FIXME - Should probably take nodePromise!
 		super(source, ActionEvent.ACTION_PERFORMED, "no command string");
 		this.nodeIds = nodeIds;
 		this.deltaX = deltaX;

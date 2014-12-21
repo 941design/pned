@@ -195,6 +195,7 @@ public class PnGridPanel extends JLayeredPane
 		// TODO - use currentPlaceStyle!
 		final Place place = new Place((int) placeDimensions.getWidth());
 		addNodeComponent(place, cmd.getPoint());
+		// FIXME - promise should already be part of cmd!
 		final Promise<String> idPromise = setOrCreateNodeId(place, cmd.getNodeId());
 		addListeners(place);
 		fireNodeCreationEvent(place, idPromise);
@@ -236,8 +237,10 @@ public class PnGridPanel extends JLayeredPane
 		node.setEdgeCreationListener(edgeCreator);
 	}
 
-	private void fireNodeCreationEvent(final AbstractNode node, final Promise<String> idPromise) {
-		eventBus.nodeCreated(new NodeCreationEvent(this, node, idPromise));
+	private void fireNodeCreationEvent(final AbstractNode node, final Promise<String> nodeIdPromise) {
+		// FIXME - The only listener is the MockDataProvider!
+		final NodeCreationEvent event = new NodeCreationEvent(this, node, nodeIdPromise);
+		eventBus.nodeCreated(event);
 	}
 
 	public JLabel createLabel(final Point origin, final String nodeId) {

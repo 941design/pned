@@ -4,6 +4,7 @@ import java.awt.AWTEvent;
 import java.awt.Toolkit;
 import java.awt.event.AWTEventListener;
 import java.awt.event.ActionEvent;
+import java.lang.reflect.InvocationTargetException;
 import java.util.EventListener;
 
 import javax.swing.SwingUtilities;
@@ -87,8 +88,6 @@ public class EventBus
 
 	@Override
 	public void nodeCreated(final NodeCreationEvent e) {
-		// TODO - which idiom?
-		// TODO - should be defined in an interface
 		eventDispatched(e);
 	}
 
@@ -165,7 +164,20 @@ public class EventBus
 	@Override
 	public void eventDispatched(final AWTEvent event) {
 		if (!SwingUtilities.isEventDispatchThread()) {
-			System.out.println("Not on EDT:\n\t" + event);
+			System.err.println("Not on EDT: " + event);
+			try {
+				// FIXME - Create an EventTarget that puts events on EDT!
+				SwingUtilities.invokeAndWait(new Runnable() {
+					@Override
+					public void run() {
+						eventDispatched(event);
+					}
+				});
+				return;
+			} catch (InvocationTargetException | InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		if (event instanceof SetNodeTypeCommand) {
 			final SetNodeTypeCommand cmd = (SetNodeTypeCommand) event;
@@ -175,6 +187,7 @@ public class EventBus
 		} else if (event instanceof NodeCreationEvent) {
 			final NodeCreationEvent e = (NodeCreationEvent) event;
 			for (final NodeListener l : getListeners(NodeListener.class)) {
+				// FIXME - The only listener is the MockDataProvider!
 				// TODO - This should be solved in a more generic location!
 				final Runnable runnable = new Runnable() {
 					@Override
@@ -184,6 +197,13 @@ public class EventBus
 				};
 				final Thread thread = new Thread(runnable);
 				thread.start();
+			}
+			// FIXME - use thread pool!
+			try {
+				Thread.sleep(100);
+			} catch (final InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		} else if (event instanceof PlaceCreationCommand) {
 			final PlaceCreationCommand cmd = (PlaceCreationCommand) event;

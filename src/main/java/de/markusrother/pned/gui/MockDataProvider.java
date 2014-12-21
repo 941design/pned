@@ -3,25 +3,34 @@ package de.markusrother.pned.gui;
 import java.awt.event.ActionEvent;
 
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeCreationEvent;
+import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.events.PlaceCreationCommand;
+import de.markusrother.pned.gui.events.PlaceEditEvent;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationCommand;
+import de.markusrother.pned.gui.listeners.EdgeCreationListener;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
+import de.markusrother.pned.gui.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
+import de.markusrother.pned.gui.listeners.PlaceEditListener;
 
 public class MockDataProvider
 	implements
 		NodeListener,
 		NodeCreationListener,
 		NodeRemovalListener,
+		NodeMotionListener,
 		NodeSelectionListener,
+		PlaceEditListener,
+		EdgeCreationListener,
 		EdgeEditListener {
 
 	private int nodeId = 1;
@@ -31,18 +40,15 @@ public class MockDataProvider
 		eventBus.addListener(NodeListener.class, mock);
 		eventBus.addListener(NodeRemovalListener.class, mock);
 		eventBus.addListener(NodeCreationListener.class, mock);
+		eventBus.addListener(NodeMotionListener.class, mock);
 		eventBus.addListener(NodeSelectionListener.class, mock);
+		eventBus.addListener(PlaceEditListener.class, mock);
+		eventBus.addListener(EdgeCreationListener.class, mock);
 		eventBus.addListener(EdgeEditListener.class, mock);
 	}
 
 	private void log(final ActionEvent event) {
-		System.out.println(//
-				event.getClass().getSimpleName() //
-						+ "\n\tfrom " //
-						+ event.getSource().getClass().getSimpleName() //
-						// + "\n" //
-						// + event //
-						+ "\n");
+		System.out.println(event.getClass().getSimpleName());
 	}
 
 	private MockDataProvider() {
@@ -127,6 +133,21 @@ public class MockDataProvider
 	@Override
 	public void edgeStarted(final EdgeEditEvent e) {
 		log(e);
+	}
+
+	@Override
+	public void nodeMoved(final NodeMovedEvent e) {
+		log(e);
+	}
+
+	@Override
+	public void createEdge(final EdgeCreationCommand cmd) {
+		log(cmd);
+	}
+
+	@Override
+	public void setMarking(final PlaceEditEvent cmd) {
+		log(cmd);
 	}
 
 }
