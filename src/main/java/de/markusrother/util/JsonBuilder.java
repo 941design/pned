@@ -1,10 +1,10 @@
-package de.markusrother.pned.core;
+package de.markusrother.util;
 
 public class JsonBuilder {
 
 	private final StringBuilder sb;
 
-	JsonBuilder() {
+	public JsonBuilder() {
 		this.sb = new StringBuilder();
 	}
 

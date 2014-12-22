@@ -2,6 +2,8 @@ package de.markusrother.pned.core;
 
 import java.awt.Point;
 
+import de.markusrother.util.JsonBuildable;
+
 public interface NodeModel
 	extends
 		JsonBuildable {
@@ -12,9 +14,9 @@ public interface NodeModel
 
 	String getLabel();
 
-	Point getOrigin();
+	Point getPosition();
 
-	void setOrigin(Point origin);
+	void setPosition(Point origin);
 
 	void move(int deltaX, int deltaY);
 

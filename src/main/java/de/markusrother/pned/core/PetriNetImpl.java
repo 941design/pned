@@ -11,6 +11,10 @@ import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.markusrother.pned.core.exceptions.NoSuchNodeException;
+import de.markusrother.util.JsonBuildable;
+import de.markusrother.util.JsonBuilder;
+
 @XmlRootElement(name = "net")
 @XmlType(propOrder = { "nodes", "edges" })
 public class PetriNetImpl

@@ -18,6 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.markusrother.pned.core.TransitionActivationEvent.Type;
+import de.markusrother.pned.core.exceptions.NoSuchNodeException;
 import de.markusrother.pned.gui.PetriNetCommandSource;
 import de.markusrother.pned.gui.events.AbstractNodeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
@@ -180,7 +181,7 @@ public class EventAwarePetriNetTest
 
 	private void assertNodeEquals(final String nodeId, final Point origin, final NodeModel node) {
 		Assert.assertEquals(nodeId, node.getId());
-		Assert.assertEquals(origin, node.getOrigin());
+		Assert.assertEquals(origin, node.getPosition());
 	}
 
 	private void assertActiveTransitionsContains(final String transitionId, final Point origin) {

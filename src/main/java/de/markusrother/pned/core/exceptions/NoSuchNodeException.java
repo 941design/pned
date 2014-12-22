@@ -1,4 +1,4 @@
-package de.markusrother.pned.core;
+package de.markusrother.pned.core.exceptions;
 
 public class NoSuchNodeException extends PetriNetInconsistencyException {
 

@@ -3,6 +3,8 @@ package de.markusrother.pned.core;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import de.markusrother.util.JsonBuilder;
+
 @XmlRootElement(name = "arc")
 public class EdgeImpl
 	implements

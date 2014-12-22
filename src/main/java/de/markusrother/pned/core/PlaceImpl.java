@@ -5,6 +5,8 @@ import java.awt.Point;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import de.markusrother.util.JsonBuilder;
+
 @XmlRootElement(name = "place")
 public class PlaceImpl extends NodeImpl
 	implements

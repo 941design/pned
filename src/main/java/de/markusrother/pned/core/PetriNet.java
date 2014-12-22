@@ -3,6 +3,8 @@ package de.markusrother.pned.core;
 import java.awt.Point;
 import java.util.Collection;
 
+import de.markusrother.util.JsonBuildable;
+
 public interface PetriNet
 	extends
 		JsonBuildable {

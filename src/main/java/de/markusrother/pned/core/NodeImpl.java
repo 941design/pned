@@ -7,13 +7,16 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.markusrother.pned.io.PositionMarshaller;
+import de.markusrother.util.JsonBuilder;
+
 public abstract class NodeImpl
 	implements
 		NodeModel {
 
 	private final String id;
 	private String label;
-	private Point point;
+	private Point position;
 
 	protected NodeImpl() {
 		// IGNORE - Only needed by XmlMarshaller!
@@ -22,7 +25,7 @@ public abstract class NodeImpl
 
 	protected NodeImpl(final String nodeId, final Point point) {
 		this.id = nodeId;
-		this.point = point;
+		this.position = point;
 	}
 
 	@Override
@@ -50,19 +53,19 @@ public abstract class NodeImpl
 
 	@Override
 	@XmlElement(name = "graphics")
-	@XmlJavaTypeAdapter(PointMarshaller.class)
-	public Point getOrigin() {
-		return point.getLocation();
+	@XmlJavaTypeAdapter(PositionMarshaller.class)
+	public Point getPosition() {
+		return position.getLocation();
 	}
 
 	@Override
-	public void setOrigin(final Point point) {
-		this.point = point;
+	public void setPosition(final Point point) {
+		this.position = point;
 	}
 
 	@Override
 	public void move(final int deltaX, final int deltaY) {
-		point.translate(deltaX, deltaY);
+		position.translate(deltaX, deltaY);
 	}
 
 	@Override
@@ -80,7 +83,7 @@ public abstract class NodeImpl
 	protected void writeAttributesAsString(final JsonBuilder jb) {
 		jb.append("id", id) //
 				.append("label", label) //
-				.append("x", point.x) //
-				.append("y", point.y);
+				.append("x", position.x) //
+				.append("y", position.y);
 	}
 }
