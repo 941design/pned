@@ -1,0 +1,42 @@
+package de.markusrother.pned.core;
+
+import java.awt.Point;
+import java.util.Collection;
+
+public interface PetriNet
+	extends
+		JsonBuildable {
+
+	Collection<PlaceModel> getPlaces();
+
+	Collection<TransitionModel> getTransitions();
+
+	Collection<EdgeModel> getEdges();
+
+	PlaceModel getPlace(String placeId);
+
+	TransitionModel getTransition(String transitionId);
+
+	Collection<TransitionModel> getActiveTransitions();
+
+	PlaceModel createPlace(Point point);
+
+	PlaceModel createPlace(String placeId, Point point);
+
+	TransitionModel createTransition(Point point);
+
+	TransitionModel createTransition(String transitionId, Point point);
+
+	EdgeModel createEdge(String sourceId, String targetId);
+
+	EdgeModel createEdge(String edgeId, String sourceId, String targetId);
+
+	void setMarking(String placeId, int marking);
+
+	void removePlace(PlaceModel place);
+
+	void removeTransition(TransitionModel transition);
+
+	void removeEdge(EdgeModel edge);
+
+}

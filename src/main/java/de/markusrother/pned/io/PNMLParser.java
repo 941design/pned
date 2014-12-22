@@ -144,20 +144,21 @@ public class PNMLParser {
 	 */
 	private void handleStartEvent(final XMLEvent event) {
 		final StartElement element = event.asStartElement();
+		final String lowercaseName = element.getName().toString().toLowerCase();
 		// TODO - use predicates!
-		if (element.getName().toString().toLowerCase().equals("transition")) {
+		if (lowercaseName.equals("transition")) {
 			handleTransition(element);
-		} else if (element.getName().toString().toLowerCase().equals("place")) {
+		} else if (lowercaseName.equals("place")) {
 			handlePlace(element);
-		} else if (element.getName().toString().toLowerCase().equals("arc")) {
+		} else if (lowercaseName.equals("arc")) {
 			handleArc(element);
-		} else if (element.getName().toString().toLowerCase().equals("name")) {
+		} else if (lowercaseName.equals("name")) {
 			isName = true;
-		} else if (element.getName().toString().toLowerCase().equals("position")) {
+		} else if (lowercaseName.equals("position")) {
 			handlePosition(element);
-		} else if (element.getName().toString().toLowerCase().equals("token")) {
+		} else if (lowercaseName.equals("token")) {
 			isToken = true;
-		} else if (element.getName().toString().toLowerCase().equals("value")) {
+		} else if (lowercaseName.equals("value")) {
 			isValue = true;
 		}
 	}
@@ -286,11 +287,11 @@ public class PNMLParser {
 	 * Diese Methode kann überschrieben werden, um geladene Transitionen zu
 	 * erstellen.
 	 * 
-	 * @param id
+	 * @param transitionId
 	 *            Identifikationstext der Transition
 	 */
-	public void newTransition(final String id) {
-		final TransitionCreationCommand cmd = new TransitionCreationCommand(this, id);
+	public void newTransition(final String transitionId) {
+		final TransitionCreationCommand cmd = new TransitionCreationCommand(this, transitionId);
 		eventTarget.createTransition(cmd);
 	}
 
@@ -298,11 +299,11 @@ public class PNMLParser {
 	 * Diese Methode kann überschrieben werden, um geladene Stellen zu
 	 * erstellen.
 	 * 
-	 * @param id
+	 * @param placeId
 	 *            Identifikationstext der Stelle
 	 */
-	public void newPlace(final String id) {
-		final PlaceCreationCommand cmd = new PlaceCreationCommand(this, id);
+	public void newPlace(final String placeId) {
+		final PlaceCreationCommand cmd = new PlaceCreationCommand(this, placeId);
 		eventTarget.createPlace(cmd);
 	}
 
@@ -325,17 +326,18 @@ public class PNMLParser {
 	 * Diese Methode kann überschrieben werden, um die Positionen der geladenen
 	 * Elemente zu aktualisieren.
 	 * 
-	 * @param id
+	 * @param elementId
 	 *            Identifikationstext des Elements
 	 * @param x
 	 *            x Position des Elements
 	 * @param y
 	 *            y Position des Elements
 	 */
-	public void setPosition(final String id, final String x, final String y) {
+	public void setPosition(final String elementId, final String x, final String y) {
+		// FIXME - catch NumberFormatException!
 		final int deltaX = Integer.valueOf(x);
 		final int deltaY = Integer.valueOf(y);
-		final NodeMovedEvent e = new NodeMovedEvent(this, Arrays.asList(id), deltaX, deltaY);
+		final NodeMovedEvent e = new NodeMovedEvent(this, Arrays.asList(elementId), deltaX, deltaY);
 		eventTarget.nodeMoved(e);
 	}
 
@@ -357,13 +359,13 @@ public class PNMLParser {
 	 * Diese Methode kann überschrieben werden, um die Markierung der geladenen
 	 * Elemente zu aktualisieren.
 	 * 
-	 * @param id
+	 * @param placeId
 	 *            Identifikationstext des Elements
 	 * @param marking
 	 *            Markierung des Elements
 	 */
-	public void setMarking(final String id, final String marking) {
-		final PlaceEditEvent e = new PlaceEditEvent(this, id, Integer.valueOf(marking));
+	public void setMarking(final String placeId, final String marking) {
+		final PlaceEditEvent e = new PlaceEditEvent(this, placeId, Integer.valueOf(marking));
 		eventTarget.setMarking(e);
 	}
 }

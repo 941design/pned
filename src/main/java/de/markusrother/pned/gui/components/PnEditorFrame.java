@@ -11,6 +11,8 @@ import java.net.URL;
 import javax.swing.JFrame;
 import javax.xml.stream.XMLStreamException;
 
+import de.markusrother.pned.core.EventAwarePetriNet;
+import de.markusrother.pned.core.PetriNet;
 import de.markusrother.pned.gui.MockDataProvider;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
@@ -43,6 +45,8 @@ public class PnEditorFrame extends JFrame {
 		MockDataProvider.instantiate(eventBus);
 
 		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, NodeCreationMode.PLACE));
+
+		final PetriNet petriNet = new EventAwarePetriNet(eventBus);
 
 		// TODO - use file dialog!
 		final String path = "/examples/Beispiel1.pnml";
