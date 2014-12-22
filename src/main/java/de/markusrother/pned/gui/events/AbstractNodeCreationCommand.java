@@ -5,7 +5,8 @@ import java.awt.event.ActionEvent;
 
 public abstract class AbstractNodeCreationCommand extends ActionEvent {
 
-	private static final Point defaultNodeOrigin = new Point(100, 100);
+	public static final Point defaultNodeOrigin = new Point(100, 100);
+
 	private static final String NO_NODE_ID = null;
 
 	private final String nodeId;
@@ -34,7 +35,7 @@ public abstract class AbstractNodeCreationCommand extends ActionEvent {
 	}
 
 	public Point getPoint() {
-		return point;
+		return point.getLocation();
 	}
 
 }

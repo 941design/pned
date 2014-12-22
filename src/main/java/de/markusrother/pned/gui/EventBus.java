@@ -18,6 +18,8 @@ import de.markusrother.pned.commands.listeners.EdgeLayoutListener;
 import de.markusrother.pned.commands.listeners.MarkingLayoutListener;
 import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
 import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
+import de.markusrother.pned.core.TransitionActivationEvent;
+import de.markusrother.pned.core.TransitionActivationListener;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
@@ -57,6 +59,8 @@ import de.markusrother.pned.gui.listeners.PlaceEditListener;
  */
 public class EventBus
 	implements
+		PetriNetCommandSource,
+		TransitionActivationListener,
 		AWTEventListener,
 		EventTarget,
 		NodeListener,
@@ -72,14 +76,19 @@ public class EventBus
 
 	private final EventListenerList listeners = new EventListenerList();
 
-	private <T extends EventListener> T[] getListeners(final Class<T> clazz) {
+	@Override
+	public <T extends EventListener> T[] getListeners(final Class<T> clazz) {
 		return listeners.getListeners(clazz);
 	}
 
+	@Override
 	public <T extends EventListener> void addListener(final Class<T> clazz, final T l) {
+		// TODO - maintain a map which only dispatches events to given listener?
+		// (Would be unconventional)
 		listeners.add(clazz, l);
 	}
 
+	@Override
 	public <T extends EventListener> void removeListener(final Class<T> clazz, final T l) {
 		listeners.remove(clazz, l);
 	}
@@ -161,6 +170,20 @@ public class EventBus
 	@Override
 	public void setSize(final EdgeLayoutCommand cmd) {
 		eventDispatched(cmd);
+	}
+
+	@Override
+	public void transitionActivated(final TransitionActivationEvent e) {
+		for (final TransitionActivationListener l : getListeners(TransitionActivationListener.class)) {
+			l.transitionActivated(e);
+		}
+	}
+
+	@Override
+	public void transitionDeactivated(final TransitionActivationEvent e) {
+		for (final TransitionActivationListener l : getListeners(TransitionActivationListener.class)) {
+			l.transitionDeactivated(e);
+		}
 	}
 
 	public EventBus() {

@@ -4,6 +4,7 @@ import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 import static de.markusrother.util.TrigUtils.modPi;
 import static java.lang.Math.PI;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,16 +14,20 @@ import java.awt.geom.Point2D;
 
 import de.markusrother.pned.commands.TransitionLayoutCommand;
 import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
+import de.markusrother.pned.core.TransitionActivationEvent;
+import de.markusrother.pned.core.TransitionActivationListener;
 
 /**
  *
  */
 public class Transition extends AbstractNode
 	implements
+		TransitionActivationListener,
 		TransitionLayoutListener {
 
 	private int extent;
 	private final NodeStyle style = NodeStyle.DEFAULT;
+	private boolean isActive = true;
 
 	public Transition(final int extent) {
 		super();
@@ -31,6 +36,7 @@ public class Transition extends AbstractNode
 		setOpaque(false);
 		// FIXME - dispose!
 		eventBus.addListener(TransitionLayoutListener.class, this);
+		eventBus.addListener(TransitionActivationListener.class, this);
 	}
 
 	@Override
@@ -44,6 +50,11 @@ public class Transition extends AbstractNode
 		final Graphics2D g2 = (Graphics2D) g;
 		// TODO - how to manage node locations?
 		// setPreferredSize(dimension);
+		if (isActive) {
+			setForeground(Color.BLUE);
+		} else {
+			setForeground(Color.YELLOW);
+		}
 		g2.fill(getShape());
 	}
 
@@ -89,6 +100,22 @@ public class Transition extends AbstractNode
 		this.extent = cmd.getSize();
 		setSize(new Dimension(extent, extent));
 		repaint(); // REDUNDANT
+	}
+
+	@Override
+	public void transitionActivated(final TransitionActivationEvent e) {
+		final String myId = getId();
+		if (myId.equals(e.getTransitionId())) {
+			isActive = true;
+		}
+	}
+
+	@Override
+	public void transitionDeactivated(final TransitionActivationEvent e) {
+		final String myId = getId();
+		if (myId.equals(e.getTransitionId())) {
+			isActive = false;
+		}
 	}
 
 }

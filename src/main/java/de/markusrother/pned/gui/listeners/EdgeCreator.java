@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.components.EdgeComponent;
 import de.markusrother.pned.gui.components.PnGridPanel;
+import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.EdgeEditEvent.Type;
 import de.markusrother.swing.DoubleClickListener;
@@ -132,7 +133,7 @@ public class EdgeCreator extends DoubleClickListener {
 			// edge.addMouseListener(this);
 			// event intended to be ignored by gui.
 			fire(EDGE_FINISHED, e, targetNode);
-			// eventBus.createEdge(new EdgeCreationCommand());
+			eventBus.createEdge(new EdgeCreationCommand(this, edge.getSourceId(), edge.getTargetId()));
 		} else {
 			// TODO - nicer (should not call surrounding class):
 			// The edge is not yet part of the model and could go to a

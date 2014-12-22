@@ -273,7 +273,8 @@ public abstract class AbstractNode extends JPanel
 
 	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
-		if (e.getNode() == this) {
+		final String myId = getId();
+		if (myId.equals(e.getNodeId())) {
 			dispose();
 		}
 	}
@@ -281,7 +282,7 @@ public abstract class AbstractNode extends JPanel
 	@Override
 	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
 		if (isSelected()) {
-			eventBus.nodeRemoved(new NodeRemovalEvent(this, this));
+			eventBus.nodeRemoved(new NodeRemovalEvent(this, getId()));
 		}
 	}
 

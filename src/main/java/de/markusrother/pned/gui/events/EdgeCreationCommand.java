@@ -7,13 +7,20 @@ import de.markusrother.concurrent.Promise;
 import de.markusrother.pned.gui.components.AbstractNode;
 
 // TODO - Future stuff could go to subclass...
+// FIXME - get rid of reference to AbstractNode!
 public class EdgeCreationCommand extends ActionEvent {
+
+	private static final String NO_EDGE_ID = null;
 
 	private final String edgeId;
 	private final String sourceId;
 	private final String targetId;
 	private final Promise<AbstractNode> sourceNodePromise;
 	private final Promise<AbstractNode> targetNodePromise;
+
+	public EdgeCreationCommand(final Object source, final String sourceId, final String targetId) {
+		this(source, NO_EDGE_ID, sourceId, targetId);
+	}
 
 	public EdgeCreationCommand(final Object source, final String edgeId, final String sourceId, final String targetId) {
 		super(source, ActionEvent.ACTION_PERFORMED, "no command string");

@@ -186,7 +186,7 @@ public class PnGridPanel extends JLayeredPane
 	public void removeSelectedNodes() {
 		// TODO - instead we could trigger the event below!
 		for (final AbstractNode node : currentSelection) {
-			eventBus.nodeRemoved(new NodeRemovalEvent(this, node));
+			eventBus.nodeRemoved(new NodeRemovalEvent(this, node.getId()));
 		}
 	}
 

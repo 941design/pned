@@ -49,6 +49,14 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		return style;
 	}
 
+	public String getSourceId() {
+		return sourceComponent.getId();
+	}
+
+	public String getTargetId() {
+		return targetComponent.getId();
+	}
+
 	private static HoverListener createHoverListener(final EdgeComponent edge) {
 
 		// TODO - extract class!
@@ -160,8 +168,10 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
-		final AbstractNode node = e.getNode();
-		if (node.equals(sourceComponent) || node.equals(targetComponent)) {
+		final String sourceId = getSourceId();
+		final String targetId = getTargetId();
+		final String nodeId = e.getNodeId();
+		if (nodeId.equals(sourceId) || nodeId.equals(targetId)) {
 			dispose();
 		}
 	}
@@ -229,6 +239,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 	@Override
 	public void edgeFinished(final EdgeEditEvent e) {
+		// FIXME - Why dose this receive its own creation event?
 		if (e.getEdge() != this) {
 			// IGNORE - Not interested in other edges events.
 			return;
@@ -268,8 +279,8 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	@Override
 	public void nodeMoved(final NodeMovedEvent event) {
 		boolean repaint = false;
-		final String sourceId = sourceComponent.getId();
-		final String targetId = targetComponent.getId();
+		final String sourceId = getSourceId();
+		final String targetId = getTargetId();
 		if (event.getNodeIds().contains(sourceId)) {
 			connectToSource();
 			repaint = true;

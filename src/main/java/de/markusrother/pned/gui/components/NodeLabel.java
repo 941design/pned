@@ -90,8 +90,8 @@ public class NodeLabel extends JLabel
 
 	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
-		final String nodeId = e.getNode().getId();
-		if (this.nodeId.equals(nodeId)) {
+		final String removedNodeId = e.getNodeId();
+		if (this.nodeId.equals(removedNodeId)) {
 			dispose();
 		}
 	}

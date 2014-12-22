@@ -2,19 +2,17 @@ package de.markusrother.pned.gui.events;
 
 import java.awt.event.ActionEvent;
 
-import de.markusrother.pned.gui.components.AbstractNode;
-
 public class NodeRemovalEvent extends ActionEvent {
 
-	private final AbstractNode node;
+	private final String nodeId;
 
-	public NodeRemovalEvent(final Object source, final AbstractNode node) {
+	public NodeRemovalEvent(final Object source, final String nodeId) {
 		super(source, ActionEvent.ACTION_PERFORMED, "no command string");
-		this.node = node;
+		this.nodeId = nodeId;
 	}
 
-	public AbstractNode getNode() {
-		return node;
+	public String getNodeId() {
+		return nodeId;
 	}
 
 }

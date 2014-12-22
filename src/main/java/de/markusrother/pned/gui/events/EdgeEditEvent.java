@@ -45,7 +45,7 @@ public class EdgeEditEvent extends ActionEvent {
 	}
 
 	public Point getLocation() {
-		return location;
+		return location.getLocation();
 	}
 
 	public Component getComponent() {
