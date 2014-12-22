@@ -141,6 +141,15 @@ public class PetriNetImpl
 		return nodes;
 	}
 
+	private NodeModel getNode(final String nodeId) {
+		for (final NodeModel node : getNodes()) {
+			if (node.hasId(nodeId)) {
+				return node;
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public PlaceModel getPlace(final String placeId) {
 		for (final PlaceModel place : places) {
@@ -174,6 +183,19 @@ public class PetriNetImpl
 			}
 		}
 		return active;
+	}
+
+	@Override
+	public void setLabel(final String nodeId, final String label) {
+		final NodeModel node = getNode(nodeId);
+		if (node == null) {
+			throw new IllegalArgumentException("Invalid node id: " + nodeId);
+		}
+		setLabel(node, label);
+	}
+
+	protected void setLabel(final NodeModel node, final String label) {
+		node.setLabel(label);
 	}
 
 	@Override

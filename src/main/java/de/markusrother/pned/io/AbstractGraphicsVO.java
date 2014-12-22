@@ -2,8 +2,6 @@ package de.markusrother.pned.io;
 
 import java.awt.Point;
 
-import de.markusrother.pned.core.LocationVO;
-
 public abstract class AbstractGraphicsVO {
 
 	protected final LocationVO location;

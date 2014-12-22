@@ -4,9 +4,9 @@ import java.awt.Point;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.markusrother.pned.io.LabelMarshaller;
 import de.markusrother.pned.io.PositionMarshaller;
 import de.markusrother.util.JsonBuilder;
 
@@ -40,13 +40,13 @@ public abstract class NodeImpl
 	}
 
 	@Override
-	@XmlTransient
-	// TODO - use LabelMarshaller
+	@XmlElement(name = "name")
+	@XmlJavaTypeAdapter(LabelMarshaller.class)
 	public String getLabel() {
-		// TODO
-		throw new RuntimeException("TODO");
+		return label;
 	}
 
+	@Override
 	public void setLabel(final String label) {
 		this.label = label;
 	}

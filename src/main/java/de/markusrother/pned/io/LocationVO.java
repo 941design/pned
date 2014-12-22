@@ -1,4 +1,4 @@
-package de.markusrother.pned.core;
+package de.markusrother.pned.io;
 
 import java.awt.Point;
 

@@ -9,12 +9,14 @@ import de.markusrother.pned.core.TransitionActivationEvent.Type;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.PetriNetCommandSource;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
+import de.markusrother.pned.gui.events.LabelEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.PlaceEditEvent;
 import de.markusrother.pned.gui.events.TransitionCreationCommand;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
+import de.markusrother.pned.gui.listeners.LabelEditListener;
 import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
@@ -27,6 +29,7 @@ public class EventAwarePetriNet extends PetriNetImpl
 		NodeRemovalListener,
 		NodeMotionListener,
 		PlaceEditListener,
+		LabelEditListener,
 		TransitionActivationEventSource {
 
 	final PetriNetCommandSource commandSource;
@@ -42,6 +45,7 @@ public class EventAwarePetriNet extends PetriNetImpl
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeMotionListener.class, this);
 		eventBus.addListener(PlaceEditListener.class, this);
+		// eventBus.addListener(LabelEditListener.class, this); // FIXME - test first!
 
 		this.addTransitionActivationListener(eventBus);
 	}
@@ -136,15 +140,28 @@ public class EventAwarePetriNet extends PetriNetImpl
 	}
 
 	@Override
-	public void setMarking(final PlaceEditEvent cmd) {
-		final String placeId = cmd.getPlaceId();
-		final int marking = cmd.getMarking();
+	public void setMarking(final PlaceEditEvent e) {
+		final String placeId = e.getPlaceId();
+		final int marking = e.getMarking();
 		maybeFireTransitionActivationEvent(new Runnable() {
 			@Override
 			public void run() {
 				setMarking(placeId, marking);
 			}
 		});
+	}
+
+	@Override
+	public void setLabel(final LabelEditEvent e) {
+		final String placeId = e.getElementId();
+		final String label = e.getLabel();
+		maybeFireTransitionActivationEvent(new Runnable() {
+			@Override
+			public void run() {
+				setLabel(placeId, label);
+			}
+		});
+
 	}
 
 	private void maybeFireTransitionActivationEvent(final Runnable runnable) {

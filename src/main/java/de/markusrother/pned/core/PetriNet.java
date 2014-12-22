@@ -33,6 +33,8 @@ public interface PetriNet
 
 	EdgeModel createEdge(String edgeId, String sourceId, String targetId);
 
+	void setLabel(String nodeId, String label);
+
 	void setMarking(String placeId, int marking);
 
 	void removePlace(PlaceModel place);

@@ -4,8 +4,6 @@ import java.awt.Point;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import de.markusrother.pned.core.LocationVO;
-
 public class AbsoluteGraphicsVO extends AbstractGraphicsVO {
 
 	private @SuppressWarnings("unused") AbsoluteGraphicsVO() {

@@ -14,6 +14,8 @@ public interface NodeModel
 
 	String getLabel();
 
+	void setLabel(String label);
+
 	Point getPosition();
 
 	void setPosition(Point origin);
