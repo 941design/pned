@@ -45,7 +45,7 @@ public class EventAwarePetriNet extends PetriNetImpl
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeMotionListener.class, this);
 		eventBus.addListener(PlaceEditListener.class, this);
-		// eventBus.addListener(LabelEditListener.class, this); // FIXME - test first!
+		eventBus.addListener(LabelEditListener.class, this);
 
 		this.addTransitionActivationListener(eventBus);
 	}

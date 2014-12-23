@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.awt.Point;
 import java.util.Collection;
+import java.util.EventListener;
 import java.util.EventObject;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +20,11 @@ import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.PlaceEditEvent;
 import de.markusrother.pned.gui.events.TransitionCreationCommand;
+import de.markusrother.pned.gui.listeners.EdgeCreationListener;
+import de.markusrother.pned.gui.listeners.LabelEditListener;
+import de.markusrother.pned.gui.listeners.NodeCreationListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.listeners.PlaceEditListener;
 
 public abstract class AbstractPetriNetTest
 	implements
@@ -40,7 +46,8 @@ public abstract class AbstractPetriNetTest
 
 	protected List<EventObject> events;
 	protected EventAwarePetriNet net;
-	private Object commandSource;
+	private Object source;
+	private CommandSourceMock commandSource;
 
 	@Override
 	public void transitionActivated(final TransitionActivationEvent e) {
@@ -65,52 +72,73 @@ public abstract class AbstractPetriNetTest
 
 	@Before
 	public void setUp() {
-		this.commandSource = this;
+		this.source = this;
 		this.events = new LinkedList<>();
-		this.net = new EventAwarePetriNet(new CommandSourceMock());
+		this.commandSource = new CommandSourceMock();
+		this.net = new EventAwarePetriNet(this.commandSource);
 		net.addTransitionActivationListener(this);
 	}
 
+	private <T extends EventListener> T[] getListeners(final Class<T> clazz) {
+		return commandSource.getListeners(clazz);
+	}
+
 	protected void createPlace(final String placeId) {
-		final PlaceCreationCommand cmd = new PlaceCreationCommand(commandSource, placeId);
-		net.createPlace(cmd);
+		final PlaceCreationCommand cmd = new PlaceCreationCommand(source, placeId);
+		createPlace(cmd);
 	}
 
 	protected void createPlace(final String placeId, final String label) {
-		final PlaceCreationCommand cmd = new PlaceCreationCommand(commandSource, placeId);
-		net.createPlace(cmd);
+		final PlaceCreationCommand cmd = new PlaceCreationCommand(source, placeId);
+		createPlace(cmd);
 		setLabel(placeId, label);
 	}
 
-	protected void setLabel(final String placeId, final String label) {
-		final LabelEditEvent cmd = new LabelEditEvent(commandSource, placeId, label);
-		net.setLabel(cmd);
-	}
-
 	protected void createPlace(final String placeId, final int marking) {
-		final PlaceCreationCommand cmd = new PlaceCreationCommand(commandSource, placeId);
-		net.createPlace(cmd);
+		final PlaceCreationCommand cmd = new PlaceCreationCommand(source, placeId);
+		createPlace(cmd);
 		setMarking(placeId, marking);
 	}
 
+	private void createPlace(final PlaceCreationCommand cmd) {
+		for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
+			l.createPlace(cmd);
+		}
+	}
+
+	protected void setLabel(final String placeId, final String label) {
+		final LabelEditEvent cmd = new LabelEditEvent(source, placeId, label);
+		for (final LabelEditListener l : getListeners(LabelEditListener.class)) {
+			l.setLabel(cmd);
+		}
+	}
+
 	protected void setMarking(final String placeId, final int marking) {
-		final PlaceEditEvent cmd = new PlaceEditEvent(commandSource, placeId, marking);
-		net.setMarking(cmd);
+		final PlaceEditEvent cmd = new PlaceEditEvent(source, placeId, marking);
+		for (final PlaceEditListener l : getListeners(PlaceEditListener.class)) {
+			l.setMarking(cmd);
+		}
 	}
 
 	protected void createTransition(final String transitionId) {
-		final TransitionCreationCommand cmd = new TransitionCreationCommand(commandSource, transitionId);
-		net.createTransition(cmd);
+		final TransitionCreationCommand cmd = new TransitionCreationCommand(source, transitionId);
+		for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
+			l.createTransition(cmd);
+		}
 	}
 
 	protected void createEdge(final String edgeId, final String sourceId, final String targetId) {
-		final EdgeCreationCommand cmd = new EdgeCreationCommand(commandSource, edgeId, sourceId, targetId);
-		net.createEdge(cmd);
+		final EdgeCreationCommand cmd = new EdgeCreationCommand(source, edgeId, sourceId, targetId);
+		for (final EdgeCreationListener l : getListeners(EdgeCreationListener.class)) {
+			l.createEdge(cmd);
+		}
 	}
 
 	protected void removeNode(final String nodeId) {
-		final NodeRemovalEvent cmd = new NodeRemovalEvent(commandSource, nodeId);
-		net.nodeRemoved(cmd);
+		final NodeRemovalEvent cmd = new NodeRemovalEvent(source, nodeId);
+		for (final NodeRemovalListener l : getListeners(NodeRemovalListener.class)) {
+			l.nodeRemoved(cmd);
+		}
 	}
 
 	protected void assertPlacesContains(final String placeId, final Point origin, final int marking) {
