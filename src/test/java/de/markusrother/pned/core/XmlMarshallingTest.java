@@ -15,6 +15,7 @@ public class XmlMarshallingTest extends AbstractPetriNetTest {
 
 	private static final String DOT = ".*?";
 	private static final String textRegex = "<text>" + DOT + "(\\w*)" + DOT + "</text>"; //
+	private static final String markingRegex = "<initialMarking>" + DOT + "(\\d+)" + DOT + "</initialMarking>"; //
 	private static final String positionRegex = "" //
 			+ "<graphics>" + DOT //
 			+ "<position x=\"(\\d+)\" y=\"(\\d+)\"/>" + DOT //
@@ -30,8 +31,9 @@ public class XmlMarshallingTest extends AbstractPetriNetTest {
 			+ "</name>";
 	private static final String placeRegex = "" //
 			+ "<place id=\"(\\w*)\">" + DOT //
-			+ "(" + labelRegex + DOT + ")?"//
+			+ "(" + labelRegex + DOT + ")?" //
 			+ positionRegex + DOT //
+			+ markingRegex + DOT //
 			+ "</place>";
 	private static final String transitionRegex = "" //
 			+ "<transition id=\"(\\w*)\">" + DOT //
@@ -111,18 +113,45 @@ public class XmlMarshallingTest extends AbstractPetriNetTest {
 	}
 
 	@Test
-	public void testLabelIsMarshalled() throws Exception {
+	public void testPlaceLabelIsMarshalled() throws Exception {
 		createPlace(p1, l1);
 		assertXmlContains("<name>");
 		assertXmlContains("<text>%s</text>", l1);
 		assertXmlMatches(textRegex);
-		assertXmlMatches(offsetRegex);
 		assertXmlMatches(labelRegex);
 		assertRegexCaptures(labelRegex, l1);
 	}
 
 	@Test
-	public void testMarshalling() throws Exception {
+	public void testLabelOffsetIsMarshalled() throws Exception {
+		createPlace(p1, l1);
+		assertXmlMatches(offsetRegex);
+		assertRegexCaptures(offsetRegex, "0", "0");
+	}
+
+	@Test
+	public void testPlaceMarkingIsMarshalled() throws Exception {
+		createPlace(p1, 23);
+		assertXmlMatches(markingRegex);
+		assertRegexCaptures(markingRegex, "23");
+	}
+
+	@Test
+	public void testPlacePositionIsMarshalled() throws Exception {
+		createPlace(p1);
+		assertXmlMatches(positionRegex);
+		assertRegexCaptures(positionRegex, "100", "100");
+	}
+
+	@Test
+	public void testTransitionPositionIsMarshalled() throws Exception {
+		createTransition(t1);
+		assertXmlMatches(positionRegex);
+		assertRegexCaptures(positionRegex, "100", "100");
+	}
+
+	@Test
+	public void testMarshallingStructure() throws Exception {
 		createPlace(p1, 0);
 		createPlace(p2, 23);
 		createPlace(p3, 42);
@@ -133,6 +162,5 @@ public class XmlMarshallingTest extends AbstractPetriNetTest {
 		createEdge(e3, p1, t2);
 		createEdge(e4, t1, p3);
 		buildXml();
-		System.out.println(xml);
 	}
 }
