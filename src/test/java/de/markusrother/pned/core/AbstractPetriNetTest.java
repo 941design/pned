@@ -110,6 +110,11 @@ public abstract class AbstractPetriNetTest
 		setMarking(placeId, marking);
 	}
 
+	protected void createPlace(final Point point) {
+		final PlaceCreationCommand cmd = new PlaceCreationCommand(source, point);
+		createPlace(cmd);
+	}
+
 	private void createPlace(final PlaceCreationCommand cmd) {
 		for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
 			l.createPlace(cmd);
@@ -132,6 +137,15 @@ public abstract class AbstractPetriNetTest
 
 	protected void createTransition(final String transitionId) {
 		final TransitionCreationCommand cmd = new TransitionCreationCommand(source, transitionId);
+		createTransition(cmd);
+	}
+
+	protected void createTransition(final Point point) {
+		final TransitionCreationCommand cmd = new TransitionCreationCommand(source, point);
+		createTransition(cmd);
+	}
+
+	private void createTransition(final TransitionCreationCommand cmd) {
 		for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
 			l.createTransition(cmd);
 		}

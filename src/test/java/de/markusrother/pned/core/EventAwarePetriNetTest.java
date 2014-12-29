@@ -2,6 +2,7 @@ package de.markusrother.pned.core;
 
 import static org.junit.Assert.assertEquals;
 
+import java.awt.Point;
 import java.util.Collection;
 
 import org.junit.Assert;
@@ -62,15 +63,15 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 
 	@Test
 	public void testCreatePlaceWithoutId() {
-		final String id = null;
-		createPlace(id);
+		final Point point = new Point(99, 99);
+		createPlace(point);
 		assertPlacesSizeEquals(1);
 		assertTransitionsSizeEquals(0);
 		assertEdgesSizeEquals(0);
 		final Collection<PlaceModel> places = getPlaces();
 		final PlaceModel place = places.iterator().next();
 		Assert.assertEquals("1", place.getId());
-		assertPlacesContains(place.getId(), DEFAULT_ORIGIN, NO_MARKING);
+		assertPlacesContains(place.getId(), point, NO_MARKING);
 	}
 
 	@Test
@@ -102,15 +103,15 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 
 	@Test
 	public void testCreateTransitionWithoutId() {
-		final String id = null;
-		createTransition(id);
+		final Point point = new Point(99, 99);
+		createTransition(point);
 		assertPlacesSizeEquals(0);
 		assertTransitionsSizeEquals(1);
 		assertEdgesSizeEquals(0);
 		final Collection<TransitionModel> transitions = getTransitions();
 		final TransitionModel transition = transitions.iterator().next();
 		Assert.assertEquals("1", transition.getId());
-		assertTransitionsContains(transition.getId(), DEFAULT_ORIGIN);
+		assertTransitionsContains(transition.getId(), point);
 	}
 
 	@Test(expected = NoSuchNodeException.class)
