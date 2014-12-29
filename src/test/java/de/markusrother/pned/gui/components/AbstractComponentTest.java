@@ -1,5 +1,9 @@
 package de.markusrother.pned.gui.components;
 
+import java.util.EventListener;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -32,6 +36,32 @@ public abstract class AbstractComponentTest<T> {
 	}
 
 	protected abstract T getComponent();
+
+	private List<Class<EventListener>> getEventListenerClasses(final T component) {
+		final List<Class<EventListener>> listenerClasses = new LinkedList<>();
+		Class<? extends Object> type = component.getClass();
+		while (type != Object.class) {
+			for (final Class<?> iface : type.getInterfaces()) {
+				if (EventListener.class.isAssignableFrom(iface)) {
+					final @SuppressWarnings("unchecked") Class<EventListener> listenerClass = (Class<EventListener>) iface;
+					listenerClasses.add(listenerClass);
+				}
+			}
+			type = type.getSuperclass();
+		}
+		return listenerClasses;
+	}
+
+	@Test
+	public void testComponentAddsItselfToListeners() {
+		final T component = getComponent();
+		final List<Class<EventListener>> listenerClasses = getEventListenerClasses(component);
+		for (final Class<EventListener> listenerClass : listenerClasses) {
+			System.out.println(listenerClass);
+			final EventListener listener = (EventListener) component;
+			Mockito.verify(eventMulticastMock).addListener(listenerClass, listener);
+		}
+	}
 
 	@Test
 	public void testComponentListensToPetriNet() {
