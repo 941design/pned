@@ -1,6 +1,5 @@
 package de.markusrother.pned.gui.components;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 import static de.markusrother.util.TrigUtils.getRadiansOfDelta;
 
 import java.awt.Component;
@@ -18,6 +17,7 @@ import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
 import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.Disposable;
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
@@ -92,20 +92,23 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		this.state = state;
 	}
 
+	private final EventBus eventBus;
 	private final EdgeStyle style;
 
-	public EdgeComponent(final AbstractNode sourceComponent, final Point source, final Point target) {
-		this(sourceComponent, NO_TARGET_COMPONENT, source, target);
+	public EdgeComponent(final EventBus eventBus, final AbstractNode sourceComponent, final Point source,
+			final Point target) {
+		this(eventBus, sourceComponent, NO_TARGET_COMPONENT, source, target);
 	}
 
-	public EdgeComponent(final AbstractNode sourceComponent, final AbstractNode targetComponent) {
-		this(sourceComponent, targetComponent, NO_SOURCE, NO_TARGET);
+	public EdgeComponent(final EventBus eventBus, final AbstractNode sourceComponent, final AbstractNode targetComponent) {
+		this(eventBus, sourceComponent, targetComponent, NO_SOURCE, NO_TARGET);
 		reconnect();
 	}
 
-	public EdgeComponent(final AbstractNode sourceComponent, final AbstractNode targetComponent, final Point source,
-			final Point target) {
+	public EdgeComponent(final EventBus eventBus, final AbstractNode sourceComponent,
+			final AbstractNode targetComponent, final Point source, final Point target) {
 		super(sourceComponent, targetComponent, source, target);
+		this.eventBus = eventBus;
 		this.style = EdgeStyle.DEFAULT;
 		setState(ComponentState.DEFAULT);
 		eventBus.addListener(NodeRemovalListener.class, this);

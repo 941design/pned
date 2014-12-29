@@ -25,17 +25,15 @@ public class EditMenuFactory
 
 	private boolean areNodesSelected;
 	private final NodeCreationMode nodeCreationMode;
+	private EventBus eventMulticaster;
 
-	public EditMenuFactory(final EventBus eventBus) {
+	public EditMenuFactory() {
 		this.areNodesSelected = false;
 		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
-		// FIXME - dispose!
-		eventBus.addListener(NodeSelectionListener.class, this);
-		// TODO - remove upon close
 	}
 
 	public PnedEditMenu newEditMenu() {
-		return new PnedEditMenu(areNodesSelected, nodeCreationMode);
+		return new PnedEditMenu(eventMulticaster, areNodesSelected, nodeCreationMode);
 	}
 
 	public PnedEditMenu newPopupMenu() {
@@ -61,6 +59,15 @@ public class EditMenuFactory
 	@Override
 	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
 		areNodesSelected = false;
+	}
+
+	public void setEventMulticaster(final EventBus eventMulticaster) {
+		if (this.eventMulticaster != null) {
+			this.eventMulticaster.removeListener(NodeSelectionListener.class, this);
+		}
+		this.eventMulticaster = eventMulticaster;
+		// FIXME - dispose, remove upon close!
+		this.eventMulticaster.addListener(NodeSelectionListener.class, this);
 	}
 
 }

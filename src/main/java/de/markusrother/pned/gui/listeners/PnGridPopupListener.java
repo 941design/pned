@@ -10,6 +10,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.components.PnGridPanel;
 import de.markusrother.pned.gui.components.PnGridPanel.State;
@@ -25,10 +26,13 @@ public class PnGridPopupListener extends PopupListener
 
 	private static final boolean NOT_ENABLED = false;
 
-	final PnGridPanel pnGridPanel;
-	Point popupPoint;
+	private final EventBus eventMulticaster;
+	private final PnGridPanel pnGridPanel;
 
-	public PnGridPopupListener(final PnGridPanel pnGridPanel) {
+	private Point popupPoint;
+
+	public PnGridPopupListener(final EventBus eventMulticaster, final PnGridPanel pnGridPanel) {
+		this.eventMulticaster = eventMulticaster;
 		this.pnGridPanel = pnGridPanel;
 	}
 
@@ -42,13 +46,14 @@ public class PnGridPopupListener extends PopupListener
 		final LocationProvider locationProvider = this;
 
 		if (pnGridPanel.hasState(State.MULTISELECTION)) {
-			popup.add(RemoveSelectedNodesAction.newMenuItem(eventSource, NOT_ENABLED));
+			popup.add(RemoveSelectedNodesAction.newMenuItem(eventMulticaster, eventSource, NOT_ENABLED));
 		}
 
 		final NodeCreationMode mode = pnGridPanel.hasState(State.TRANSITION_CREATION) ? TRANSITION : PLACE;
 		final ButtonGroup buttonGroup = new ButtonGroup();
 
 		final JRadioButtonMenuItem placeItem = CreatePlaceAction.newMenuItem( //
+				eventMulticaster, //
 				eventSource, //
 				locationProvider);
 		buttonGroup.add(placeItem);
@@ -56,6 +61,7 @@ public class PnGridPopupListener extends PopupListener
 		placeItem.setSelected(mode == PLACE);
 
 		final JRadioButtonMenuItem transitionItem = CreateTransitionAction.newMenuItem( //
+				eventMulticaster, //
 				eventSource, //
 				locationProvider);
 		buttonGroup.add(transitionItem);

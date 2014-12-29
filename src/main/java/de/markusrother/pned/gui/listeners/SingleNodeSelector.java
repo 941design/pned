@@ -1,6 +1,5 @@
 package de.markusrother.pned.gui.listeners;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.CANCEL;
 import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.SELECT;
 
@@ -9,6 +8,7 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.DragDropListener;
@@ -23,8 +23,11 @@ import de.markusrother.swing.DragDropListener;
  */
 public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 
-	public SingleNodeSelector() {
+	private final EventBus eventBus;
+
+	public SingleNodeSelector(final EventBus eventBus) {
 		super(AbstractNode.class);
+		this.eventBus = eventBus;
 	}
 
 	private AbstractNode expectAbstractNode(final Component component) {
@@ -50,8 +53,6 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 			// We have to cancel other singly selected nodes, too:
 			eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
 			eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, Arrays.asList(node)));
-			// TODO - use event listener!
-			MarkingEditListener.INSTANCE.abortEditMarking();
 		}
 	}
 

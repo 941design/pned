@@ -25,6 +25,7 @@ import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.PlaceEditListener;
 
+// TODO - Maybe rename to AbstractListenerTest
 public abstract class AbstractComponentTest<T> {
 
 	protected EventBus eventMulticastMock;
@@ -32,7 +33,6 @@ public abstract class AbstractComponentTest<T> {
 	@Before
 	public void setUp() {
 		this.eventMulticastMock = Mockito.mock(EventBus.class);
-		PnGridPanel.eventBus = this.eventMulticastMock;
 	}
 
 	protected abstract T getComponent();

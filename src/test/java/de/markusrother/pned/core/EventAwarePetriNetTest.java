@@ -2,10 +2,15 @@ package de.markusrother.pned.core;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Collection;
+
+import org.junit.Assert;
 import org.junit.Test;
 
+import de.markusrother.pned.commands.listeners.PetriNetIOListener;
 import de.markusrother.pned.core.exceptions.NoSuchNodeException;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
+import de.markusrother.pned.gui.listeners.LabelEditListener;
 import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
@@ -29,12 +34,14 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 	public void testAllListenersAdded() {
 		final CommandSourceMock eventSource = new CommandSourceMock();
 		final PetriNetImpl petriNet = new EventAwarePetriNet(eventSource);
+		assertEquals(petriNet, eventSource.getListeners(PetriNetIOListener.class)[0]);
 		assertEquals(petriNet, eventSource.getListeners(NodeCreationListener.class)[0]);
 		assertEquals(petriNet, eventSource.getListeners(EdgeCreationListener.class)[0]);
 		assertEquals(petriNet, eventSource.getListeners(NodeRemovalListener.class)[0]);
 		assertEquals(petriNet, eventSource.getListeners(NodeMotionListener.class)[0]);
 		assertEquals(petriNet, eventSource.getListeners(PlaceEditListener.class)[0]);
-		assertEquals(5, eventSource.getListenerCount());
+		assertEquals(petriNet, eventSource.getListeners(LabelEditListener.class)[0]);
+		assertEquals(7, eventSource.getListenerCount());
 	}
 
 	@Test
@@ -60,9 +67,10 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 		assertPlacesSizeEquals(1);
 		assertTransitionsSizeEquals(0);
 		assertEdgesSizeEquals(0);
-		// TODO - should this create an id lazily?
-		throw new RuntimeException("TODO");
-		// assertPlaceMatches("foobar", DEFAULT_ORIGIN, NO_MARKING);
+		final Collection<PlaceModel> places = getPlaces();
+		final PlaceModel place = places.iterator().next();
+		Assert.assertEquals("1", place.getId());
+		assertPlacesContains(place.getId(), DEFAULT_ORIGIN, NO_MARKING);
 	}
 
 	@Test
@@ -99,9 +107,10 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 		assertPlacesSizeEquals(0);
 		assertTransitionsSizeEquals(1);
 		assertEdgesSizeEquals(0);
-		// TODO - should this create an id lazily?
-		throw new RuntimeException("TODO");
-		// assertPlaceMatches("foobar", DEFAULT_ORIGIN, NO_MARKING);
+		final Collection<TransitionModel> transitions = getTransitions();
+		final TransitionModel transition = transitions.iterator().next();
+		Assert.assertEquals("1", transition.getId());
+		assertTransitionsContains(transition.getId(), DEFAULT_ORIGIN);
 	}
 
 	@Test(expected = NoSuchNodeException.class)

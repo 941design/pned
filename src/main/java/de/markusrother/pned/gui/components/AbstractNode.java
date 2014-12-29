@@ -1,22 +1,17 @@
 package de.markusrother.pned.gui.components;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
-
 import java.awt.Graphics;
 import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import javax.swing.JPanel;
 
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.DefinitelyBounded;
 import de.markusrother.pned.gui.Disposable;
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
@@ -61,10 +56,13 @@ public abstract class AbstractNode extends JPanel
 
 	protected ComponentState state;
 	// TODO - This could be substituted with a Model.
-	private Future<String> id;
+	private String id;
 
-	public AbstractNode(final LayoutManager layoutManager) {
+	protected final EventBus eventBus;
+
+	public AbstractNode(final EventBus eventBus, final LayoutManager layoutManager) {
 		super(layoutManager);
+		this.eventBus = eventBus;
 		this.state = ComponentState.DEFAULT; // TODO - empty EnumSet
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
 		// TODO - In prospect to JDK8, I do not use Adapters. Default
@@ -76,8 +74,8 @@ public abstract class AbstractNode extends JPanel
 		eventBus.addListener(EdgeCreationListener.class, this);
 	}
 
-	public AbstractNode() {
-		this(NO_LAYOUT_MANAGER);
+	public AbstractNode(final EventBus eventBus) {
+		this(eventBus, NO_LAYOUT_MANAGER);
 	}
 
 	protected abstract Shape getShape();
@@ -110,23 +108,11 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	public String getId() {
-		try {
-			// TODO - to constant:
-			return id.get(500L, TimeUnit.MILLISECONDS);
-		} catch (final InterruptedException e) {
-			// TODO
-			throw new RuntimeException("TODO");
-		} catch (final ExecutionException e) {
-			// TODO
-			throw new RuntimeException("TODO");
-		} catch (final TimeoutException e) {
-			// TODO
-			throw new RuntimeException("TODO");
-		}
+		return id;
 	}
 
-	public void setId(final Future<String> future) {
-		this.id = future;
+	public void setId(final String nodeId) {
+		this.id = nodeId;
 	}
 
 	public void setState(final ComponentState state) {

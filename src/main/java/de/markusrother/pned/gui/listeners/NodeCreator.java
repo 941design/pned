@@ -1,12 +1,10 @@
 package de.markusrother.pned.gui.listeners;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
-import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationCommand;
@@ -20,8 +18,10 @@ public class NodeCreator extends MouseAdapter
 		NodeListener {
 
 	private NodeCreationMode mode;
+	private final EventBus eventBus;
 
-	public NodeCreator() {
+	public NodeCreator(final EventBus eventBus) {
+		this.eventBus = eventBus;
 		this.mode = NodeCreationMode.defaultCreationMode;
 		eventBus.addListener(NodeListener.class, this);
 	}
@@ -56,11 +56,6 @@ public class NodeCreator extends MouseAdapter
 	@Override
 	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
 		this.mode = cmd.getMode();
-	}
-
-	@Override
-	public void nodeCreated(final NodeCreationEvent e) {
-		// IGNORE
 	}
 
 }

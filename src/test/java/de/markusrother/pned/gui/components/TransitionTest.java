@@ -16,7 +16,7 @@ public class TransitionTest extends AbstractNodeTest<Transition> {
 	private Transition transition;
 
 	private void createTransition(final Dimension dimension) {
-		transition = new Transition((int) dimension.getWidth());
+		transition = new Transition(eventMulticastMock, (int) dimension.getWidth());
 	}
 
 	private void assertAngleIntersectsAt(final double theta, final Point2D expected) {
@@ -73,6 +73,6 @@ public class TransitionTest extends AbstractNodeTest<Transition> {
 
 	@Override
 	protected Transition getComponent() {
-		return new Transition(0);
+		return new Transition(eventMulticastMock, 0);
 	}
 }

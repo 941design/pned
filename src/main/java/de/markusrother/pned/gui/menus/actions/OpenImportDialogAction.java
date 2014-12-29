@@ -1,7 +1,5 @@
 package de.markusrother.pned.gui.menus.actions;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
-
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -16,6 +14,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import de.markusrother.pned.commands.PetriNetIOCommand;
+import de.markusrother.pned.gui.EventBus;
 
 /**
  * 
@@ -40,14 +39,18 @@ public class OpenImportDialogAction extends AbstractAction {
 	private static final String approveButtonLabel = "Import";
 	private static final Component NO_PARENT = null;
 
-	public static JMenuItem newMenuItem() {
-		return new JMenuItem(new OpenImportDialogAction());
+	public static JMenuItem newMenuItem(final EventBus eventMulticaster) {
+		return new JMenuItem(new OpenImportDialogAction(eventMulticaster));
 	}
 
-	private OpenImportDialogAction() {
+	private final EventBus eventBus;
+
+	private OpenImportDialogAction(final EventBus eventMulticaster) {
 		super(menuLabel);
 		// this.source = source; // TODO
 		putValue(Action.MNEMONIC_KEY, actionMnemonic);
+
+		this.eventBus = eventMulticaster;
 	}
 
 	/**

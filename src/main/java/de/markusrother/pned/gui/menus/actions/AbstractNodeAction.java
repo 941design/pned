@@ -1,14 +1,12 @@
 package de.markusrother.pned.gui.menus.actions;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
-
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import de.markusrother.pned.gui.events.NodeCreationEvent;
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.listeners.NodeListener;
 
 /**
@@ -21,20 +19,17 @@ public abstract class AbstractNodeAction extends AbstractAction
 
 	protected Object source;
 	protected final LocationProvider locationProvider;
+	protected final EventBus eventBus;
 
-	public AbstractNodeAction(final Object source, final LocationProvider locationProvider, final int mnemonic,
-			final String name) {
+	public AbstractNodeAction(final EventBus eventBus, final Object source, final LocationProvider locationProvider,
+			final int mnemonic, final String name) {
 		super(name);
+		this.eventBus = eventBus;
 		this.source = source;
 		this.locationProvider = locationProvider;
 		putValue(Action.MNEMONIC_KEY, mnemonic);
 		// FIXME - dispose!
 		eventBus.addListener(NodeListener.class, this);
-	}
-
-	@Override
-	public void nodeCreated(final NodeCreationEvent e) {
-		// IGNORE
 	}
 
 	@Override

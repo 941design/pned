@@ -1,6 +1,5 @@
 package de.markusrother.pned.gui.listeners;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.CANCEL;
 import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.DESELECT;
 import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.FINISH;
@@ -8,6 +7,7 @@ import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.SELECT;
 
 import java.util.Collection;
 
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.Selector;
@@ -42,8 +42,11 @@ import de.markusrother.swing.Selector;
 // singleton.
 public class NodeSelector extends Selector<AbstractNode> {
 
-	public NodeSelector() {
+	private final EventBus eventBus;
+
+	public NodeSelector(final EventBus eventBus) {
 		super(AbstractNode.class);
+		this.eventBus = eventBus;
 	}
 
 	/**
@@ -53,8 +56,6 @@ public class NodeSelector extends Selector<AbstractNode> {
 	@Override
 	public void startedSelection() {
 		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
-		// FIXME - listen to event instead!
-		MarkingEditListener.INSTANCE.abortEditMarking();
 	}
 
 	/**

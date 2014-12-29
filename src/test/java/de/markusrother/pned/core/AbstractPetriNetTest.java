@@ -85,6 +85,14 @@ public abstract class AbstractPetriNetTest
 		return commandSource.getListeners(clazz);
 	}
 
+	protected Collection<PlaceModel> getPlaces() {
+		return net.getPlaces();
+	}
+
+	protected Collection<TransitionModel> getTransitions() {
+		return net.getTransitions();
+	}
+
 	protected void createPlace(final String placeId) {
 		final PlaceCreationCommand cmd = new PlaceCreationCommand(source, placeId);
 		createPlace(cmd);

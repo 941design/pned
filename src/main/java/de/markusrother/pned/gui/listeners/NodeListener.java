@@ -2,7 +2,6 @@ package de.markusrother.pned.gui.listeners;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 
 public interface NodeListener
@@ -10,7 +9,5 @@ public interface NodeListener
 		EventListener {
 
 	void setCurrentNodeType(SetNodeTypeCommand cmd);
-
-	void nodeCreated(NodeCreationEvent e);
 
 }

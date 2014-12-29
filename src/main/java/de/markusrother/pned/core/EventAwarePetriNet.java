@@ -16,6 +16,7 @@ import de.markusrother.pned.commands.listeners.TransitionActivationListener;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.events.TransitionActivationEvent;
 import de.markusrother.pned.events.TransitionActivationEvent.Type;
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.PetriNetCommandSource;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.LabelEditEvent;
@@ -47,7 +48,11 @@ public class EventAwarePetriNet extends PetriNetImpl
 
 	private final Collection<TransitionActivationListener> transitionActivationListeners;
 
-	public <T extends PetriNetCommandSource & TransitionActivationListener> EventAwarePetriNet(final T eventBus) {
+	public static EventAwarePetriNet create(final EventBus eventMulticaster) {
+		return new EventAwarePetriNet(eventMulticaster);
+	}
+
+	<T extends PetriNetCommandSource & TransitionActivationListener> EventAwarePetriNet(final T eventBus) {
 		this.commandSource = eventBus;
 		this.transitionActivationListeners = new LinkedList<>();
 
@@ -89,24 +94,27 @@ public class EventAwarePetriNet extends PetriNetImpl
 
 	@Override
 	public void createPlace(final PlaceCreationCommand cmd) {
-		final String placeId = cmd.getNodeId();
 		final Point point = cmd.getPoint();
-		if (placeId != null) {
-			createPlace(placeId, point);
+		if (cmd.hasNodeId()) {
+			// FIXME - This should throw an InvalidIdException (like any
+			// command that suggests an id)!
+			createPlace(cmd.getNodeId(), point);
 		} else {
 			final PlaceModel place = createPlace(point);
-			// FIXME - cmd.fulfillNodeIdPromise(place.getId());
+			cmd.fulfillNodeIdPromise(place.getId());
 		}
 	}
 
 	@Override
 	public void createTransition(final TransitionCreationCommand cmd) {
-		final String transitionId = cmd.getNodeId();
 		final Point point = cmd.getPoint();
-		if (transitionId != null) {
-			createTransition(transitionId, point);
+		if (cmd.hasNodeId()) {
+			// FIXME - This should throw an InvalidIdException (like any
+			// command that suggests an id)!
+			createTransition(cmd.getNodeId(), point);
 		} else {
-			createTransition(point);
+			final TransitionModel transition = createTransition(point);
+			cmd.fulfillNodeIdPromise(transition.getId());
 		}
 	}
 

@@ -1,7 +1,5 @@
 package de.markusrother.pned.gui.components;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,6 +9,7 @@ import java.awt.geom.Point2D;
 
 import de.markusrother.pned.commands.PlaceLayoutCommand;
 import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.PlaceLayout;
 import de.markusrother.pned.gui.events.PlaceEditEvent;
 import de.markusrother.pned.gui.listeners.MarkingEditListener;
@@ -37,14 +36,14 @@ public class Place extends AbstractNode
 	private int diameter;
 	private final NodeStyle style = NodeStyle.DEFAULT;
 
-	public Place(final int diameter) {
-		super(new PlaceLayout());
+	public Place(final EventBus eventBus, final int diameter) {
+		super(eventBus, new PlaceLayout());
 		// TODO - use model instead of label
 		this.diameter = diameter;
-		this.marking = new Marking();
+		this.marking = new Marking(eventBus);
 		add(this.marking, PlaceLayout.CENTER);
 		setOpaque(false);
-		addMouseListener(MarkingEditListener.INSTANCE);
+		addMouseListener(new MarkingEditListener(eventBus));
 		// FIXME - dispose!
 		eventBus.addListener(PlaceLayoutListener.class, this);
 		eventBus.addListener(PlaceEditListener.class, this);

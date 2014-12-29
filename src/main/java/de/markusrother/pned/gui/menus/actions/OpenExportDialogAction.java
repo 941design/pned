@@ -1,7 +1,5 @@
 package de.markusrother.pned.gui.menus.actions;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
-
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -14,6 +12,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
 import de.markusrother.pned.commands.PetriNetIOCommand;
+import de.markusrother.pned.gui.EventBus;
 
 public class OpenExportDialogAction extends AbstractAction {
 
@@ -23,13 +22,17 @@ public class OpenExportDialogAction extends AbstractAction {
 	private static final String approveButtonLabel = "Save";
 	private static final Component NO_PARENT = null;
 
-	public static JMenuItem newMenuItem() {
-		return new JMenuItem(new OpenExportDialogAction());
+	public static JMenuItem newMenuItem(final EventBus eventMulticaster) {
+		return new JMenuItem(new OpenExportDialogAction(eventMulticaster));
 	}
 
-	private OpenExportDialogAction() {
+	private final EventBus eventBus;
+
+	private OpenExportDialogAction(final EventBus eventMulticaster) {
 		super(menuLabel);
 		putValue(Action.MNEMONIC_KEY, actionMnemonic);
+
+		this.eventBus = eventMulticaster;
 	}
 
 	@Override

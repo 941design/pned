@@ -1,7 +1,5 @@
 package de.markusrother.pned.gui.components;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
-
 import java.awt.Color;
 import java.awt.Rectangle;
 
@@ -10,6 +8,7 @@ import javax.swing.border.LineBorder;
 
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.Disposable;
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.LabelEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
@@ -44,13 +43,15 @@ public class NodeLabel extends JLabel
 	private final DragDropListener<NodeLabel> dragDropListener;
 	private final String nodeId;
 	private ComponentState state;
+	private final EventBus eventBus;
 
-	public NodeLabel(final String nodeId) {
-		this(nodeId, nodeId);
+	public NodeLabel(final EventBus eventBus, final String nodeId) {
+		this(eventBus, nodeId, nodeId);
 	}
 
-	public NodeLabel(final String nodeId, final String nodeLabel) {
+	public NodeLabel(final EventBus eventBus, final String nodeId, final String nodeLabel) {
 		super(nodeLabel);
+		this.eventBus = eventBus;
 		this.nodeId = nodeId;
 		// TODO - this needs to go to label, and be removed from eventBus upon
 		// component removal!

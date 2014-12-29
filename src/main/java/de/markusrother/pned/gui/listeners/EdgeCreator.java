@@ -1,6 +1,5 @@
 package de.markusrother.pned.gui.listeners;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.COMPONENT_ENTERED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.COMPONENT_EXITED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_CANCELLED;
@@ -13,6 +12,7 @@ import java.awt.Container;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.components.EdgeComponent;
 import de.markusrother.pned.gui.components.PnGridPanel;
@@ -35,6 +35,8 @@ public class EdgeCreator extends DoubleClickListener {
 
 	private EdgeComponent edge;
 
+	private final EventBus eventBus;
+
 	public static void addToComponent(final Component component, final EdgeCreator listener) {
 		component.addMouseListener(listener);
 		component.addMouseMotionListener(listener);
@@ -45,7 +47,8 @@ public class EdgeCreator extends DoubleClickListener {
 		component.removeMouseMotionListener(listener);
 	}
 
-	public EdgeCreator(final PnGridPanel pnGridPanel) {
+	public EdgeCreator(final EventBus eventBus, final PnGridPanel pnGridPanel) {
+		this.eventBus = eventBus;
 		this.pnGridPanel = pnGridPanel;
 	}
 

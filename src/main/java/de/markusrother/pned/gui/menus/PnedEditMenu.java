@@ -9,6 +9,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JRadioButtonMenuItem;
 
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.menus.actions.CreatePlaceAction;
 import de.markusrother.pned.gui.menus.actions.CreateTransitionAction;
@@ -20,7 +21,7 @@ public class PnedEditMenu extends JMenu {
 	private static final String label = "Edit";
 	private static final int mnemonic = KeyEvent.VK_E;
 
-	public PnedEditMenu(final boolean areNodesSelected, final NodeCreationMode mode) {
+	public PnedEditMenu(final EventBus eventMulticaster, final boolean areNodesSelected, final NodeCreationMode mode) {
 		// TODO - Why not receive the grid, because Actions are grid dependent
 		// rather than headless model dependent. That is exactly the choice I
 		// have to make, here: Should menus be headless (via eventBus) or not.
@@ -39,6 +40,7 @@ public class PnedEditMenu extends JMenu {
 		final ButtonGroup buttonGroup = new ButtonGroup();
 
 		final JRadioButtonMenuItem placeItem = CreatePlaceAction.newMenuItem( //
+				eventMulticaster, //
 				eventSource, //
 				DefaultNodeLocationProvider.INSTANCE);
 		buttonGroup.add(placeItem);
@@ -46,13 +48,14 @@ public class PnedEditMenu extends JMenu {
 		placeItem.setSelected(mode == PLACE);
 
 		final JRadioButtonMenuItem transitionItem = CreateTransitionAction.newMenuItem( //
+				eventMulticaster, //
 				eventSource, //
 				DefaultNodeLocationProvider.INSTANCE);
 		buttonGroup.add(transitionItem);
 		add(transitionItem);
 		transitionItem.setSelected(mode == TRANSITION);
 
-		add(RemoveSelectedNodesAction.newMenuItem(eventSource, areNodesSelected));
+		add(RemoveSelectedNodesAction.newMenuItem(eventMulticaster, eventSource, areNodesSelected));
 	}
 
 }

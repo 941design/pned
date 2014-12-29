@@ -13,12 +13,14 @@ import javax.swing.event.EventListenerList;
 
 import de.markusrother.pned.commands.EdgeLayoutCommand;
 import de.markusrother.pned.commands.MarkingLayoutCommand;
+import de.markusrother.pned.commands.PetriNetEditCommand;
 import de.markusrother.pned.commands.PetriNetIOCommand;
 import de.markusrother.pned.commands.PlaceLayoutCommand;
 import de.markusrother.pned.commands.TransitionLayoutCommand;
 import de.markusrother.pned.commands.listeners.EdgeLayoutListener;
 import de.markusrother.pned.commands.listeners.MarkingLayoutListener;
 import de.markusrother.pned.commands.listeners.PetriNetIOListener;
+import de.markusrother.pned.commands.listeners.PetriNetListener;
 import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
 import de.markusrother.pned.commands.listeners.TransitionActivationListener;
 import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
@@ -27,7 +29,6 @@ import de.markusrother.pned.events.TransitionActivationEvent;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.LabelEditEvent;
-import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
@@ -62,6 +63,7 @@ import de.markusrother.pned.gui.listeners.PlaceEditListener;
  */
 public class EventBus
 	implements
+		PetriNetListener,
 		PetriNetCommandSource,
 		PetriNetIOListener,
 		TransitionActivationListener,
@@ -98,6 +100,13 @@ public class EventBus
 	}
 
 	@Override
+	public void disposePetriNet(final PetriNetEditCommand cmd) {
+		for (final PetriNetListener l : getListeners(PetriNetListener.class)) {
+			l.disposePetriNet(cmd);
+		}
+	}
+
+	@Override
 	public void importPnml(final PetriNetIOCommand cmd) throws IOException {
 		for (final PetriNetIOListener l : getListeners(PetriNetIOListener.class)) {
 			l.importPnml(cmd);
@@ -113,11 +122,6 @@ public class EventBus
 
 	@Override
 	public void setCurrentNodeType(final SetNodeTypeCommand e) {
-		eventDispatched(e);
-	}
-
-	@Override
-	public void nodeCreated(final NodeCreationEvent e) {
 		eventDispatched(e);
 	}
 
@@ -232,27 +236,6 @@ public class EventBus
 			final SetNodeTypeCommand cmd = (SetNodeTypeCommand) event;
 			for (final NodeListener l : getListeners(NodeListener.class)) {
 				l.setCurrentNodeType(cmd);
-			}
-		} else if (event instanceof NodeCreationEvent) {
-			final NodeCreationEvent e = (NodeCreationEvent) event;
-			for (final NodeListener l : getListeners(NodeListener.class)) {
-				// FIXME - The only listener is the MockDataProvider!
-				// TODO - This should be solved in a more generic location!
-				final Runnable runnable = new Runnable() {
-					@Override
-					public void run() {
-						l.nodeCreated(e);
-					}
-				};
-				final Thread thread = new Thread(runnable);
-				thread.start();
-			}
-			// FIXME - use thread pool!
-			try {
-				Thread.sleep(100);
-			} catch (final InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			}
 		} else if (event instanceof PlaceCreationCommand) {
 			final PlaceCreationCommand cmd = (PlaceCreationCommand) event;

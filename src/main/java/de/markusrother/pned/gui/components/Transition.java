@@ -1,6 +1,5 @@
 package de.markusrother.pned.gui.components;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 import static de.markusrother.util.TrigUtils.modPi;
 import static java.lang.Math.PI;
 
@@ -16,6 +15,7 @@ import de.markusrother.pned.commands.TransitionLayoutCommand;
 import de.markusrother.pned.commands.listeners.TransitionActivationListener;
 import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
 import de.markusrother.pned.events.TransitionActivationEvent;
+import de.markusrother.pned.gui.EventBus;
 
 /**
  *
@@ -29,8 +29,8 @@ public class Transition extends AbstractNode
 	private final NodeStyle style = NodeStyle.DEFAULT;
 	private boolean isActive = true;
 
-	public Transition(final int extent) {
-		super();
+	public Transition(final EventBus eventBus, final int extent) {
+		super(eventBus);
 		// TODO - use model!
 		this.extent = extent;
 		setOpaque(false);

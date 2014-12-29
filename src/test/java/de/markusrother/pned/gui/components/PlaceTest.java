@@ -14,7 +14,7 @@ public class PlaceTest extends AbstractNodeTest<Place> {
 	private Place place;
 
 	private void createPlace(final Dimension dimension) {
-		place = new Place((int) dimension.getWidth());
+		place = new Place(eventMulticastMock, (int) dimension.getWidth());
 	}
 
 	private void assertAngleIntersectsAt(final double theta, final Point2D expected) {
@@ -53,6 +53,7 @@ public class PlaceTest extends AbstractNodeTest<Place> {
 
 	@Override
 	protected Place getComponent() {
-		return new Place(0);
+		return new Place(eventMulticastMock, 0);
 	}
+
 }

@@ -1,7 +1,5 @@
 package de.markusrother.pned.gui.listeners;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
-
 import java.awt.Container;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -9,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.regex.Pattern;
 
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.components.Place;
+import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.events.PlaceEditEvent;
 import de.markusrother.swing.CheckedTextField;
 import de.markusrother.swing.MultiClickListener;
@@ -17,16 +17,20 @@ import de.markusrother.swing.TextListener;
 
 public class MarkingEditListener extends MultiClickListener
 	implements
+		NodeSelectionListener,
 		TextListener {
 
 	private static final Pattern intPattern = Pattern.compile("0|[1-9][0-9]*");
 
-	public static final MarkingEditListener INSTANCE = new MarkingEditListener();
-
 	CheckedTextField textField;
 
-	private MarkingEditListener() {
+	final EventBus eventBus;
+
+	public MarkingEditListener(final EventBus eventBus) {
 		super();
+		this.eventBus = eventBus;
+		// FIXME - dispose!!!
+		eventBus.addListener(NodeSelectionListener.class, this);
 	}
 
 	private void startEditMarking(final Place place, final Point point) {
@@ -104,5 +108,25 @@ public class MarkingEditListener extends MultiClickListener
 	@Override
 	public void textEntered(final ActionEvent e) {
 		finishEditMarking();
+	}
+
+	@Override
+	public void nodesSelected(final NodeSelectionEvent event) {
+		abortEditMarking();
+	}
+
+	@Override
+	public void nodesUnselected(final NodeSelectionEvent event) {
+		// IGNORE
+	}
+
+	@Override
+	public void nodeSelectionFinished(final NodeSelectionEvent event) {
+		// IGNORE
+	}
+
+	@Override
+	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
+		// IGNORE
 	}
 }

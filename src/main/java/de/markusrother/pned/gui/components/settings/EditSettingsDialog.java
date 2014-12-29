@@ -1,6 +1,5 @@
 package de.markusrother.pned.gui.components.settings;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 import static java.awt.BorderLayout.WEST;
 
 import java.awt.BorderLayout;
@@ -19,6 +18,7 @@ import de.markusrother.pned.commands.LayoutCommand.ChangeType;
 import de.markusrother.pned.commands.MarkingLayoutCommand;
 import de.markusrother.pned.commands.PlaceLayoutCommand;
 import de.markusrother.pned.commands.TransitionLayoutCommand;
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.swing.ScaleGroup;
 
 public class EditSettingsDialog extends JDialog {
@@ -26,14 +26,17 @@ public class EditSettingsDialog extends JDialog {
 	private static final String title = "Settings";
 	private static final Dimension preferredSize = new Dimension(700, 1000);
 
-	public static void open() {
+	public static void open(final EventBus eventMulticaster) {
 		// TODO - take parent component and model
-		final EditSettingsDialog editSettingsDialog = new EditSettingsDialog();
+		final EditSettingsDialog editSettingsDialog = new EditSettingsDialog(eventMulticaster);
 		editSettingsDialog.pack();
 		editSettingsDialog.setVisible(true);
 	}
 
-	private EditSettingsDialog() {
+	final EventBus eventBus;
+
+	private EditSettingsDialog(final EventBus eventMulticaster) {
+		this.eventBus = eventMulticaster;
 		setTitle(title);
 		setPreferredSize(preferredSize);
 		final Container contentPane = getContentPane();

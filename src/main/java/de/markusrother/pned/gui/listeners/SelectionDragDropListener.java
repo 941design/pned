@@ -1,12 +1,12 @@
 package de.markusrother.pned.gui.listeners;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
 import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.CANCEL;
 
 import java.awt.Point;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
@@ -18,9 +18,11 @@ import de.markusrother.swing.DragDropListener;
 public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 
 	private final Collection<AbstractNode> nodes;
+	private final EventBus eventBus;
 
-	public SelectionDragDropListener(final Collection<AbstractNode> nodes) {
+	public SelectionDragDropListener(final EventBus eventBus, final Collection<AbstractNode> nodes) {
 		super(AbstractNode.class);
+		this.eventBus = eventBus;
 		this.nodes = nodes;
 	}
 

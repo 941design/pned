@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
-import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
@@ -22,7 +21,7 @@ import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.PlaceEditListener;
 
-public class MockDataProvider
+public class PetriNetEventLogger
 	implements
 		NodeListener,
 		NodeCreationListener,
@@ -33,10 +32,8 @@ public class MockDataProvider
 		EdgeCreationListener,
 		EdgeEditListener {
 
-	private int nodeId = 1;
-
 	public static void instantiate(final EventBus eventBus) {
-		final MockDataProvider mock = new MockDataProvider();
+		final PetriNetEventLogger mock = new PetriNetEventLogger();
 		eventBus.addListener(NodeListener.class, mock);
 		eventBus.addListener(NodeRemovalListener.class, mock);
 		eventBus.addListener(NodeCreationListener.class, mock);
@@ -51,18 +48,12 @@ public class MockDataProvider
 		System.out.println(event.getClass().getSimpleName());
 	}
 
-	private MockDataProvider() {
+	private PetriNetEventLogger() {
 	}
 
 	@Override
 	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
 		log(cmd);
-	}
-
-	@Override
-	public void nodeCreated(final NodeCreationEvent e) {
-		log(e);
-		e.fulfillNodeIdPromise(String.valueOf(nodeId++));
 	}
 
 	@Override

@@ -1,7 +1,5 @@
 package de.markusrother.pned.gui.components;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,6 +9,7 @@ import javax.swing.JPanel;
 
 import de.markusrother.pned.commands.MarkingLayoutCommand;
 import de.markusrother.pned.commands.listeners.MarkingLayoutListener;
+import de.markusrother.pned.gui.EventBus;
 
 public class Marking extends JPanel
 	implements
@@ -20,7 +19,7 @@ public class Marking extends JPanel
 	private int value;
 	private final JLabel label;
 
-	Marking() {
+	Marking(final EventBus eventBus) {
 		this.style = MarkingStyle.DEFAULT;
 		this.label = new JLabel();
 		add(label);

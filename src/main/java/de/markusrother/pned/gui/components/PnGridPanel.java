@@ -15,13 +15,9 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
-import de.markusrother.concurrent.Promise;
-import de.markusrother.pned.commands.PetriNetEditCommand;
-import de.markusrother.pned.commands.listeners.PetriNetListener;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
-import de.markusrother.pned.gui.events.NodeCreationEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.events.PlaceCreationCommand;
@@ -56,7 +52,6 @@ import de.markusrother.swing.snap.SnapGridComponent;
  */
 public class PnGridPanel extends JLayeredPane
 	implements
-		PetriNetListener,
 		NodeSelectionListener,
 		NodeListener,
 		NodeCreationListener,
@@ -77,8 +72,7 @@ public class PnGridPanel extends JLayeredPane
 
 	private static final EnumSet<State> defaultState = EnumSet.of(State.PLACE_CREATION);
 
-	// TODO - Should neither be static nor singleton!
-	public static EventBus eventBus = new EventBus();
+	private final EventBus eventMulticaster;
 
 	private final JComponent nodeLayer;
 	private final JComponent edgeLayer;
@@ -112,7 +106,9 @@ public class PnGridPanel extends JLayeredPane
 	 * I don't quite like passing this to other classes/methods/constructors,
 	 * while this is not fully initialized!
 	 */
-	public PnGridPanel() {
+	public PnGridPanel(final EventBus eventMulticaster) {
+
+		this.eventMulticaster = eventMulticaster;
 
 		this.state = defaultState;
 
@@ -137,11 +133,11 @@ public class PnGridPanel extends JLayeredPane
 		// }
 		// }
 		// Listeners that are needed by children, are kept here:
-		edgeCreator = new EdgeCreator(this);
-		nodeCreator = new NodeCreator();
-		multipleNodeSelector = new NodeSelector();
-		singleNodeSelector = new SingleNodeSelector();
-		popupCreator = new PnGridPopupListener(this);
+		edgeCreator = new EdgeCreator(eventMulticaster, this);
+		nodeCreator = new NodeCreator(eventMulticaster);
+		multipleNodeSelector = new NodeSelector(eventMulticaster);
+		singleNodeSelector = new SingleNodeSelector(eventMulticaster);
+		popupCreator = new PnGridPopupListener(eventMulticaster, this);
 
 		currentSelection = new HashSet<>();
 
@@ -152,11 +148,11 @@ public class PnGridPanel extends JLayeredPane
 		DragDropListener.addToComponent(nodeLayer, multipleNodeSelector);
 
 		// FIXME - dispose!
-		eventBus.addListener(NodeSelectionListener.class, this);
-		eventBus.addListener(NodeListener.class, this);
-		eventBus.addListener(NodeCreationListener.class, this);
-		eventBus.addListener(EdgeCreationListener.class, this);
-		eventBus.addListener(NodeRemovalListener.class, this);
+		eventMulticaster.addListener(NodeSelectionListener.class, this);
+		eventMulticaster.addListener(NodeListener.class, this);
+		eventMulticaster.addListener(NodeCreationListener.class, this);
+		eventMulticaster.addListener(EdgeCreationListener.class, this);
+		eventMulticaster.addListener(NodeRemovalListener.class, this);
 	}
 
 	private JComponent createLayer(final int i) {
@@ -189,28 +185,27 @@ public class PnGridPanel extends JLayeredPane
 	public void removeSelectedNodes() {
 		// TODO - instead we could trigger the event below!
 		for (final AbstractNode node : currentSelection) {
-			eventBus.nodeRemoved(new NodeRemovalEvent(this, node.getId()));
+			eventMulticaster.nodeRemoved(new NodeRemovalEvent(this, node.getId()));
 		}
 	}
 
 	@Override
 	public void createPlace(final PlaceCreationCommand cmd) {
 		// TODO - use currentPlaceStyle!
-		final Place place = new Place((int) placeDimensions.getWidth());
+		final Place place = new Place(eventMulticaster, (int) placeDimensions.getWidth());
 		addNodeComponent(place, cmd.getPoint());
-		// FIXME - promise should already be part of cmd!
-		final Promise<String> idPromise = setOrCreateNodeId(place, cmd.getNodeId());
+		place.setId(cmd.getNodeId());
 		addListeners(place);
-		fireNodeCreationEvent(place, idPromise);
+		createLabel(place);
 	}
 
 	@Override
 	public void createTransition(final TransitionCreationCommand cmd) {
-		final Transition transition = new Transition((int) transitionDimensions.getWidth());
+		final Transition transition = new Transition(eventMulticaster, (int) transitionDimensions.getWidth());
 		addNodeComponent(transition, cmd.getPoint());
-		final Promise<String> idPromise = setOrCreateNodeId(transition, cmd.getNodeId());
+		transition.setId(cmd.getNodeId());
 		addListeners(transition);
-		fireNodeCreationEvent(transition, idPromise);
+		createLabel(transition);
 	}
 
 	private <T extends AbstractNode> void addNodeComponent(final T node, final Point origin) {
@@ -223,33 +218,21 @@ public class PnGridPanel extends JLayeredPane
 		nodeLayer.repaint(); // TODO - Why?
 	}
 
-	private Promise<String> setOrCreateNodeId(final AbstractNode node, final String nodeId) {
-		// TODO - if Promise is for a model, we have both id and label name.
-		final Promise<String> idPromise;
-		if (nodeId != null) {
-			idPromise = Promise.fulfilled(nodeId);
-		} else {
-			idPromise = new Promise<>();
-		}
-		node.setId(idPromise.ask());
-		return idPromise;
-	}
-
 	private void addListeners(final AbstractNode node) {
 		node.setSingleNodeSelector(singleNodeSelector);
 		node.setEdgeCreationListener(edgeCreator);
 	}
 
-	private void fireNodeCreationEvent(final AbstractNode node, final Promise<String> nodeIdPromise) {
-		// FIXME - The only listener is the MockDataProvider!
-		final NodeCreationEvent event = new NodeCreationEvent(this, node, nodeIdPromise);
-		eventBus.nodeCreated(event);
+	private JLabel createLabel(final AbstractNode node) {
+		final Point labelOrigin = node.getLocation();
+		labelOrigin.translate(0, -labelHeight);
+		return createLabel(labelOrigin, node.getId());
 	}
 
 	public JLabel createLabel(final Point origin, final String nodeId) {
 		// TODO - We could create an edge that connects label with node, synced
 		// similarly to the node.
-		final NodeLabel label = new NodeLabel(nodeId);
+		final NodeLabel label = new NodeLabel(eventMulticaster, nodeId);
 		addLabelComponent(label, origin);
 		// eventBus.fireLabelCreatedEvent(null);
 		return label;
@@ -264,13 +247,13 @@ public class PnGridPanel extends JLayeredPane
 	public void createEdge(final EdgeCreationCommand cmd) {
 		final AbstractNode sourceNode = cmd.getSourceNode();
 		final AbstractNode targetNode = cmd.getTargetNode();
-		final EdgeComponent edge = new EdgeComponent(sourceNode, targetNode);
+		final EdgeComponent edge = new EdgeComponent(eventMulticaster, sourceNode, targetNode);
 		addEdgeComponent(edge);
 	}
 
 	public EdgeComponent createEdge(final AbstractNode sourceNode, final Point target) {
 		final Point source = getCenter(sourceNode);
-		final EdgeComponent edge = new EdgeComponent(sourceNode, source, target);
+		final EdgeComponent edge = new EdgeComponent(eventMulticaster, sourceNode, source, target);
 		edge.setBounds(this.getBounds()); // OBSOLETE?
 		addEdgeComponent(edge);
 		return edge;
@@ -299,7 +282,7 @@ public class PnGridPanel extends JLayeredPane
 		firePropertyChange("multiselection", false, true);
 		currentSelection.addAll(event.getNodes());
 		// TODO - Extract MultiSelectionDragDropListener
-		nodeSelectionDragListener = new SelectionDragDropListener(currentSelection);
+		nodeSelectionDragListener = new SelectionDragDropListener(eventMulticaster, currentSelection);
 		for (final AbstractNode node : currentSelection) {
 			node.setDragDropListener(nodeSelectionDragListener);
 		}
@@ -316,23 +299,6 @@ public class PnGridPanel extends JLayeredPane
 	@Override
 	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
 		deselect(currentSelection);
-	}
-
-	@Override
-	public void nodeCreated(final NodeCreationEvent e) {
-		// TODO - this is somewhat inconsistent as we create labels in response
-		// to node creation, Whereas from a data model point of view they are
-		// treated as one. This was a requirement for id retrieval (threads).
-		// The node creation request must be fired first in order to create an
-		// id (by model). Only afterward can we create a label.
-		if (e.getSource() != this) {
-			// TODO
-			throw new RuntimeException("TODO");
-		} // else { // Node was created and added to panel, already. }
-		final AbstractNode node = e.getNode();
-		final Point labelOrigin = node.getLocation();
-		labelOrigin.translate(0, -labelHeight);
-		createLabel(labelOrigin, node.getId());
 	}
 
 	private void deselect(final Collection<AbstractNode> nodes) {
@@ -377,14 +343,6 @@ public class PnGridPanel extends JLayeredPane
 	@Override
 	public void nodeSelectionFinished(final NodeSelectionEvent event) {
 		// IGNORE
-	}
-
-	@Override
-	public void disposePetriNet(final PetriNetEditCommand cmd) {
-		// Simply remove from parent and let GC take care of rest?
-		// Can only be gc'ed if EventBus becomes garbage as well.
-		// TODO
-		throw new RuntimeException("TODO");
 	}
 
 }
