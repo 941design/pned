@@ -4,6 +4,7 @@ import java.awt.AWTEvent;
 import java.awt.Toolkit;
 import java.awt.event.AWTEventListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.EventListener;
 
@@ -12,15 +13,17 @@ import javax.swing.event.EventListenerList;
 
 import de.markusrother.pned.commands.EdgeLayoutCommand;
 import de.markusrother.pned.commands.MarkingLayoutCommand;
+import de.markusrother.pned.commands.PetriNetIOCommand;
 import de.markusrother.pned.commands.PlaceLayoutCommand;
 import de.markusrother.pned.commands.TransitionLayoutCommand;
 import de.markusrother.pned.commands.listeners.EdgeLayoutListener;
 import de.markusrother.pned.commands.listeners.MarkingLayoutListener;
+import de.markusrother.pned.commands.listeners.PetriNetIOListener;
 import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
+import de.markusrother.pned.commands.listeners.TransitionActivationListener;
 import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
-import de.markusrother.pned.core.TransitionActivationEvent;
-import de.markusrother.pned.core.TransitionActivationListener;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.events.TransitionActivationEvent;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.LabelEditEvent;
@@ -60,6 +63,7 @@ import de.markusrother.pned.gui.listeners.PlaceEditListener;
 public class EventBus
 	implements
 		PetriNetCommandSource,
+		PetriNetIOListener,
 		TransitionActivationListener,
 		AWTEventListener,
 		EventTarget,
@@ -91,6 +95,20 @@ public class EventBus
 	@Override
 	public <T extends EventListener> void removeListener(final Class<T> clazz, final T l) {
 		listeners.remove(clazz, l);
+	}
+
+	@Override
+	public void importPnml(final PetriNetIOCommand cmd) throws IOException {
+		for (final PetriNetIOListener l : getListeners(PetriNetIOListener.class)) {
+			l.importPnml(cmd);
+		}
+	}
+
+	@Override
+	public void exportPnml(final PetriNetIOCommand cmd) throws IOException {
+		for (final PetriNetIOListener l : getListeners(PetriNetIOListener.class)) {
+			l.exportPnml(cmd);
+		}
 	}
 
 	@Override

@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
 import de.markusrother.concurrent.Promise;
+import de.markusrother.pned.commands.PetriNetEditCommand;
+import de.markusrother.pned.commands.listeners.PetriNetListener;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
@@ -54,6 +56,7 @@ import de.markusrother.swing.snap.SnapGridComponent;
  */
 public class PnGridPanel extends JLayeredPane
 	implements
+		PetriNetListener,
 		NodeSelectionListener,
 		NodeListener,
 		NodeCreationListener,
@@ -374,6 +377,14 @@ public class PnGridPanel extends JLayeredPane
 	@Override
 	public void nodeSelectionFinished(final NodeSelectionEvent event) {
 		// IGNORE
+	}
+
+	@Override
+	public void disposePetriNet(final PetriNetEditCommand cmd) {
+		// Simply remove from parent and let GC take care of rest?
+		// Can only be gc'ed if EventBus becomes garbage as well.
+		// TODO
+		throw new RuntimeException("TODO");
 	}
 
 }

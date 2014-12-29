@@ -1,6 +1,8 @@
-package de.markusrother.pned.core;
+package de.markusrother.pned.commands.listeners;
 
 import java.util.EventListener;
+
+import de.markusrother.pned.events.TransitionActivationEvent;
 
 public interface TransitionActivationListener
 	extends

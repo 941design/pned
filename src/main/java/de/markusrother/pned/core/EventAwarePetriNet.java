@@ -1,12 +1,21 @@
 package de.markusrother.pned.core;
 
 import java.awt.Point;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import de.markusrother.pned.core.TransitionActivationEvent.Type;
+import javax.xml.bind.JAXBException;
+
+import de.markusrother.pned.commands.PetriNetIOCommand;
+import de.markusrother.pned.commands.listeners.PetriNetIOListener;
+import de.markusrother.pned.commands.listeners.TransitionActivationListener;
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.events.TransitionActivationEvent;
+import de.markusrother.pned.events.TransitionActivationEvent.Type;
 import de.markusrother.pned.gui.PetriNetCommandSource;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.LabelEditEvent;
@@ -21,9 +30,11 @@ import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.PlaceEditListener;
+import de.markusrother.pned.io.PetriNetMarshaller;
 
 public class EventAwarePetriNet extends PetriNetImpl
 	implements
+		PetriNetIOListener,
 		NodeCreationListener,
 		EdgeCreationListener,
 		NodeRemovalListener,
@@ -46,6 +57,7 @@ public class EventAwarePetriNet extends PetriNetImpl
 		eventBus.addListener(NodeMotionListener.class, this);
 		eventBus.addListener(PlaceEditListener.class, this);
 		eventBus.addListener(LabelEditListener.class, this);
+		eventBus.addListener(PetriNetIOListener.class, this);
 
 		this.addTransitionActivationListener(eventBus);
 	}
@@ -58,6 +70,21 @@ public class EventAwarePetriNet extends PetriNetImpl
 	@Override
 	public void removeTransitionActivationListener(final TransitionActivationListener l) {
 		transitionActivationListeners.remove(l);
+	}
+
+	@Override
+	public void importPnml(final PetriNetIOCommand cmd) {
+		// IGNORE
+	}
+
+	@Override
+	public void exportPnml(final PetriNetIOCommand cmd) throws IOException {
+		final File file = cmd.getFile();
+		try (final FileOutputStream out = new FileOutputStream(file)) {
+			PetriNetMarshaller.writeXml(this, out);
+		} catch (final JAXBException e) {
+			throw new IllegalStateException();
+		}
 	}
 
 	@Override

@@ -1,13 +1,19 @@
 package de.markusrother.pned.gui.menus.actions;
 
+import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
+
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
+
+import de.markusrother.pned.commands.PetriNetIOCommand;
 
 public class OpenExportDialogAction extends AbstractAction {
 
@@ -39,10 +45,14 @@ public class OpenExportDialogAction extends AbstractAction {
 		// setFileFilter()
 		final int result = chooser.showDialog(NO_PARENT, approveButtonLabel);
 		if (result == JFileChooser.APPROVE_OPTION) {
-			System.out.println(chooser.getSelectedFile());
+			final File selectedFile = chooser.getSelectedFile();
 			// TODO - prompt for overwrite!
-			// TODO
-			throw new RuntimeException("TODO");
+			try {
+				eventBus.exportPnml(new PetriNetIOCommand(this, selectedFile));
+			} catch (final IOException e1) {
+				// TODO
+				throw new RuntimeException("TODO");
+			}
 		} else if (result == JFileChooser.CANCEL_OPTION) {
 			// IGNORE
 		} else {

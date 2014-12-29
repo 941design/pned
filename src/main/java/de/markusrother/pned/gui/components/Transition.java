@@ -13,9 +13,9 @@ import java.awt.Shape;
 import java.awt.geom.Point2D;
 
 import de.markusrother.pned.commands.TransitionLayoutCommand;
+import de.markusrother.pned.commands.listeners.TransitionActivationListener;
 import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
-import de.markusrother.pned.core.TransitionActivationEvent;
-import de.markusrother.pned.core.TransitionActivationListener;
+import de.markusrother.pned.events.TransitionActivationEvent;
 
 /**
  *

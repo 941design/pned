@@ -1,13 +1,21 @@
 package de.markusrother.pned.gui.menus.actions;
 
+import static de.markusrother.pned.gui.components.PnGridPanel.eventBus;
+
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import de.markusrother.pned.commands.PetriNetIOCommand;
 
 /**
  * 
@@ -24,6 +32,8 @@ import javax.swing.JMenuItem;
  */
 public class OpenImportDialogAction extends AbstractAction {
 
+	public static FileFilter filter = new FileNameExtensionFilter(".pnml", "pnml");
+
 	private static final String menuLabel = "Import";
 	private static final int actionMnemonic = KeyEvent.VK_I;
 	private static final String dialogTitle = "Import file";
@@ -36,6 +46,7 @@ public class OpenImportDialogAction extends AbstractAction {
 
 	private OpenImportDialogAction() {
 		super(menuLabel);
+		// this.source = source; // TODO
 		putValue(Action.MNEMONIC_KEY, actionMnemonic);
 	}
 
@@ -56,18 +67,26 @@ public class OpenImportDialogAction extends AbstractAction {
 	public void actionPerformed(final ActionEvent e) {
 		// TODO - open with current path:
 		final JFileChooser chooser = new JFileChooser();
+		chooser.setDialogTitle(dialogTitle);
 		chooser.setDialogType(JFileChooser.OPEN_DIALOG);
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		chooser.setDialogTitle(dialogTitle);
+		chooser.setFileFilter(filter);
+		chooser.addChoosableFileFilter(filter);
 		chooser.setMultiSelectionEnabled(false);
 		// setCurrentDirectory()
-		// addChoosableFileFilter()
-		// setFileFilter()
+
 		final int result = chooser.showDialog(NO_PARENT, approveButtonLabel);
 		if (result == JFileChooser.APPROVE_OPTION) {
-			System.out.println(chooser.getSelectedFile());
-			// TODO
-			throw new RuntimeException("TODO");
+			final File selectedFile = chooser.getSelectedFile();
+			// TODO - confirm if unsaved.
+			// TODO - maintain dirty flag!
+			// If current net is to be purged send appropriate command
+			try {
+				eventBus.importPnml(new PetriNetIOCommand(null, selectedFile));
+			} catch (final IOException e1) {
+				// TODO
+				throw new RuntimeException("TODO");
+			}
 		} else if (result == JFileChooser.CANCEL_OPTION) {
 			// IGNORE
 		} else {

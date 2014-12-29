@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import de.markusrother.pned.gui.NodeCreationMode;
 
+// GUI-only command
 public class SetNodeTypeCommand extends ActionEvent {
 
 	private final NodeCreationMode mode;
