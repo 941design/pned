@@ -25,7 +25,7 @@ public class PetriNetImpl
 	protected final Collection<TransitionModel> transitions;
 	protected final Collection<EdgeModel> edges;
 
-	private int elementCount;
+	private int elementCount = 0;
 
 	public PetriNetImpl() {
 		this.places = new LinkedList<>();
@@ -33,10 +33,10 @@ public class PetriNetImpl
 		this.edges = new LinkedList<>();
 	}
 
-	private String createId() {
+	protected String createId() {
 		String elementId;
 		do {
-			elementId = String.valueOf(elementCount++);
+			elementId = String.valueOf(++elementCount);
 		} while (!isIdAvailable(elementId));
 		return elementId;
 	}
