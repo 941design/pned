@@ -18,6 +18,7 @@ public class Promise<T> {
 	private final ExecutorService executor = Executors.newCachedThreadPool();
 
 	public Future<T> ask() {
+		// TEST - asking twice!
 
 		final Promise<T> that = this;
 
@@ -39,8 +40,14 @@ public class Promise<T> {
 	}
 
 	public synchronized void fulfill(final T value) {
+		// FIXME, TEST - fulfilling already fulfilled promise!?
 		this.value = value;
 		notifyAll();
+	}
+
+	public synchronized boolean isFulfilled() {
+		// FIXME, TEST - We need a flag, because value may very well be null!
+		return value != null;
 	}
 
 }
