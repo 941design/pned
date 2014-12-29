@@ -1,5 +1,7 @@
 package de.markusrother.pned.gui.menus;
 
+import javax.swing.JMenu;
+
 import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
@@ -19,7 +21,7 @@ import de.markusrother.pned.gui.listeners.NodeSelectionListener;
  * would listen to the bus for given events, and simply add the resulting events
  * to the bus again.
  */
-public class EditMenuFactory
+public class PnEditorMenuFactory
 	implements
 		NodeSelectionListener {
 
@@ -27,13 +29,21 @@ public class EditMenuFactory
 	private final NodeCreationMode nodeCreationMode;
 	private EventBus eventMulticaster;
 
-	public EditMenuFactory() {
+	public PnEditorMenuFactory() {
 		this.areNodesSelected = false;
 		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
 	}
 
 	public PnedEditMenu newEditMenu() {
 		return new PnedEditMenu(eventMulticaster, areNodesSelected, nodeCreationMode);
+	}
+
+	public JMenu newFileMenu() {
+		return new PnedFileMenu(eventMulticaster);
+	}
+
+	public JMenu newPreferencesMenu() {
+		return new PnedPreferencesMenu(eventMulticaster);
 	}
 
 	public PnedEditMenu newPopupMenu() {

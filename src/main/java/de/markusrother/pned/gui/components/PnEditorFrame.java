@@ -14,7 +14,7 @@ import de.markusrother.pned.core.EventAwarePetriNet;
 import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
-import de.markusrother.pned.gui.menus.EditMenuFactory;
+import de.markusrother.pned.gui.menus.PnEditorMenuFactory;
 import de.markusrother.pned.gui.menus.PnedMenuBar;
 import de.markusrother.pned.io.PNMLParser;
 
@@ -24,22 +24,22 @@ public class PnEditorFrame extends JFrame
 
 	private static final Dimension preferredSize = new Dimension(800, 600);
 
-	private PnGridPanel grid;
 	private EventBus eventMulticaster;
-	private final EditMenuFactory editMenuFactory;
+	private final PnEditorMenuFactory menuFactory;
+	private PnGridPanel grid;
+	private PnedMenuBar pnedMenuBar;
 
 	public PnEditorFrame(final String title) {
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		this.editMenuFactory = new EditMenuFactory();
-
-		final PnGridPanel grid = createNewContext();
-		getContentPane().add(grid, BorderLayout.CENTER);
-
-		final PnedMenuBar pnedMenuBar = new PnedMenuBar(eventMulticaster, editMenuFactory);
+		this.menuFactory = new PnEditorMenuFactory();
+		this.eventMulticaster = createNewContext();
+		this.grid = new PnGridPanel(eventMulticaster);
+		this.pnedMenuBar = new PnedMenuBar(menuFactory);
 
 		setPreferredSize(preferredSize);
+		add(grid, BorderLayout.CENTER);
 		setJMenuBar(pnedMenuBar);
 		pack();
 		setVisible(true);
@@ -60,14 +60,17 @@ public class PnEditorFrame extends JFrame
 		// PetriNetEventLogger.instantiate(eventMulticaster);
 	}
 
-	private PnGridPanel createNewContext() {
-		eventMulticaster = new EventBus();
-		grid = new PnGridPanel(eventMulticaster);
-		EventAwarePetriNet.create(eventMulticaster);
+	private EventBus createNewContext() {
+		final EventBus eventMulticaster = new EventBus();
+		createPetriNetModel(eventMulticaster);
 		eventMulticaster.addListener(PetriNetListener.class, this);
 		eventMulticaster.setCurrentNodeType(new SetNodeTypeCommand(this, NodeCreationMode.PLACE));
-		editMenuFactory.setEventMulticaster(eventMulticaster);
-		return grid;
+		menuFactory.setEventMulticaster(eventMulticaster);
+		return eventMulticaster;
+	}
+
+	private void createPetriNetModel(final EventBus eventMulticaster) {
+		EventAwarePetriNet.create(eventMulticaster);
 	}
 
 	public static void main(final String... args) {
@@ -86,8 +89,13 @@ public class PnEditorFrame extends JFrame
 		// Can only be gc'ed if EventBus becomes garbage as well.
 		getContentPane().remove(grid);
 		eventMulticaster.removeListener(PetriNetListener.class, this);
-		final PnGridPanel grid = createNewContext();
-		getContentPane().add(grid, BorderLayout.CENTER);
+
+		this.eventMulticaster = createNewContext();
+		this.grid = new PnGridPanel(eventMulticaster);
+		this.pnedMenuBar = new PnedMenuBar(menuFactory);
+
+		add(grid, BorderLayout.CENTER);
+		setJMenuBar(pnedMenuBar);
 		pack();
 		// repaint(); // TODO ???
 	}
