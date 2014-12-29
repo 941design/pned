@@ -4,6 +4,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.RejectedExecutionException;
 
 public class Promise<T> {
 
@@ -14,19 +15,19 @@ public class Promise<T> {
 	}
 
 	protected T value;
+	protected boolean isFulfilled;
 
 	private final ExecutorService executor = Executors.newCachedThreadPool();
 
 	public Future<T> ask() {
-		// TEST - asking twice!
 
 		final Promise<T> that = this;
 
-		return executor.submit(new Callable<T>() {
+		return getExecutor().submit(new Callable<T>() {
 			@Override
 			public T call() {
 				synchronized (that) {
-					while (that.value == null) {
+					while (!that.isFulfilled) {
 						try {
 							that.wait();
 						} catch (final InterruptedException e) {
@@ -39,15 +40,21 @@ public class Promise<T> {
 		});
 	}
 
+	protected ExecutorService getExecutor() {
+		return executor;
+	}
+
 	public synchronized void fulfill(final T value) {
-		// FIXME, TEST - fulfilling already fulfilled promise!?
+		if (this.isFulfilled) {
+			throw new RejectedExecutionException("Promise already fulfilled");
+		}
+		this.isFulfilled = true;
 		this.value = value;
 		notifyAll();
 	}
 
 	public synchronized boolean isFulfilled() {
-		// FIXME, TEST - We need a flag, because value may very well be null!
-		return value != null;
+		return isFulfilled;
 	}
 
 }
