@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
 
 import org.junit.Test;
 
-public class TransitionTest extends AbstractNodeTest {
+public class TransitionTest extends AbstractNodeTest<Transition> {
 
 	private Transition transition;
 
@@ -69,5 +69,10 @@ public class TransitionTest extends AbstractNodeTest {
 		assertEquals(100, actual.getY(), precision);
 		assertTrue(actual.getX() < 100);
 		assertTrue(actual.getX() > 50);
+	}
+
+	@Override
+	protected Transition getComponent() {
+		return new Transition(0);
 	}
 }

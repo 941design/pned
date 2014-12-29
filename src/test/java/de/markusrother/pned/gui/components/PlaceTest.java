@@ -9,7 +9,7 @@ import java.awt.geom.Point2D;
 
 import org.junit.Test;
 
-public class PlaceTest extends AbstractNodeTest {
+public class PlaceTest extends AbstractNodeTest<Place> {
 
 	private Place place;
 
@@ -49,5 +49,10 @@ public class PlaceTest extends AbstractNodeTest {
 		assertAngleIntersectsAt(Math.PI / 2.0, new Point(50, 100));
 		// -90 degrees
 		assertAngleIntersectsAt(-Math.PI / 2.0, new Point(50, 0));
+	}
+
+	@Override
+	protected Place getComponent() {
+		return new Place(0);
 	}
 }
