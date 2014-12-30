@@ -19,6 +19,7 @@ import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
+import de.markusrother.pned.gui.events.NodeRequest;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
@@ -245,10 +246,17 @@ public class PnGridPanel extends JLayeredPane
 
 	@Override
 	public void createEdge(final EdgeCreationCommand cmd) {
-		final AbstractNode sourceNode = cmd.getSourceNode();
-		final AbstractNode targetNode = cmd.getTargetNode();
+		final AbstractNode sourceNode = requestNode(cmd.getSourceId());
+		final AbstractNode targetNode = requestNode(cmd.getTargetId());
 		final EdgeComponent edge = new EdgeComponent(eventMulticaster, sourceNode, targetNode);
 		addEdgeComponent(edge);
+	}
+
+	private AbstractNode requestNode(final String nodeId) {
+		final NodeRequest req = new NodeRequest(this, nodeId);
+		eventMulticaster.requestNode(req);
+		final AbstractNode node = req.get();
+		return node;
 	}
 
 	public EdgeComponent createEdge(final AbstractNode sourceNode, final Point target) {

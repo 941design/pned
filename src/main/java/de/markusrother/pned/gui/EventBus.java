@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.EventListener;
 
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.event.EventListenerList;
 
 import de.markusrother.pned.commands.EdgeLayoutCommand;
@@ -31,6 +32,7 @@ import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.LabelEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
+import de.markusrother.pned.gui.events.NodeRequest;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.PlaceEditEvent;
@@ -43,6 +45,7 @@ import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.listeners.NodeRequestListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.PlaceEditListener;
 
@@ -70,6 +73,7 @@ public class EventBus
 		AWTEventListener,
 		EventTarget,
 		NodeListener,
+		NodeRequestListener,
 		NodeMotionListener,
 		NodeCreationListener,
 		NodeRemovalListener,
@@ -205,6 +209,20 @@ public class EventBus
 	public void transitionDeactivated(final TransitionActivationEvent e) {
 		for (final TransitionActivationListener l : getListeners(TransitionActivationListener.class)) {
 			l.transitionDeactivated(e);
+		}
+	}
+
+	@Override
+	public void requestNode(final NodeRequest req) {
+		for (final NodeRequestListener l : getListeners(NodeRequestListener.class)) {
+			final SwingWorker<Object, Object> worker = new SwingWorker<Object, Object>() {
+				@Override
+				protected Object doInBackground() {
+					l.requestNode(req);
+					return null;
+				}
+			};
+			worker.execute();
 		}
 	}
 

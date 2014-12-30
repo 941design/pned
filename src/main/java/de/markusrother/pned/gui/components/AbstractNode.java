@@ -12,17 +12,17 @@ import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.DefinitelyBounded;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.EventBus;
-import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
+import de.markusrother.pned.gui.events.NodeRequest;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
-import de.markusrother.pned.gui.listeners.EdgeCreationListener;
 import de.markusrother.pned.gui.listeners.EdgeCreator;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeHoverListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.listeners.NodeRequestListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.SelectionDragDropListener;
 import de.markusrother.pned.gui.listeners.SingleNodeSelector;
@@ -38,11 +38,11 @@ import de.markusrother.swing.Selectable;
  */
 public abstract class AbstractNode extends JPanel
 	implements
+		NodeRequestListener,
 		NodeMotionListener,
 		NodeRemovalListener,
 		NodeSelectionListener,
 		EdgeEditListener,
-		EdgeCreationListener,
 		Selectable,
 		Disposable,
 		DefinitelyBounded {
@@ -71,7 +71,7 @@ public abstract class AbstractNode extends JPanel
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeSelectionListener.class, this);
 		eventBus.addListener(EdgeEditListener.class, this);
-		eventBus.addListener(EdgeCreationListener.class, this);
+		eventBus.addListener(NodeRequestListener.class, this);
 	}
 
 	public AbstractNode(final EventBus eventBus) {
@@ -326,11 +326,11 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	@Override
-	public void createEdge(final EdgeCreationCommand cmd) {
-		if (getId().equals(cmd.getSourceId())) {
-			cmd.fulfillSourceNodePromise(this);
-		} else if (getId().equals(cmd.getTargetId())) {
-			cmd.fulfillTargetNodePromise(this);
+	public void requestNode(final NodeRequest req) {
+		final String myId = getId();
+		final String requestedId = req.getNodeId();
+		if (myId.equals(requestedId)) {
+			req.set(this);
 		}
 	}
 
