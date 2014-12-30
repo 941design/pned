@@ -2,6 +2,8 @@ package de.markusrother.pned.gui.events;
 
 import java.awt.event.ActionEvent;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import de.markusrother.concurrent.Promise;
 import de.markusrother.pned.gui.components.AbstractNode;
@@ -54,8 +56,11 @@ public class EdgeCreationCommand extends ActionEvent {
 	public AbstractNode getSourceNode() {
 		// TODO - add timeout
 		try {
-			return sourceNodePromise.ask().get();
+			return sourceNodePromise.ask().get(500L, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException | ExecutionException e) {
+			// TODO
+			throw new RuntimeException("TODO");
+		} catch (final TimeoutException e) {
 			// TODO
 			throw new RuntimeException("TODO");
 		}
@@ -64,8 +69,11 @@ public class EdgeCreationCommand extends ActionEvent {
 	public AbstractNode getTargetNode() {
 		// TODO - add timeout
 		try {
-			return targetNodePromise.ask().get();
+			return targetNodePromise.ask().get(500L, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException | ExecutionException e) {
+			// TODO
+			throw new RuntimeException("TODO");
+		} catch (final TimeoutException e) {
 			// TODO
 			throw new RuntimeException("TODO");
 		}
