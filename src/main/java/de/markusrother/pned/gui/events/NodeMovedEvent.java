@@ -1,9 +1,9 @@
 package de.markusrother.pned.gui.events;
 
-import java.awt.event.ActionEvent;
 import java.util.Collection;
+import java.util.EventObject;
 
-public class NodeMovedEvent extends ActionEvent {
+public class NodeMovedEvent extends EventObject {
 
 	private final Collection<String> nodeIds;
 	private final int deltaY;
@@ -12,7 +12,7 @@ public class NodeMovedEvent extends ActionEvent {
 	public NodeMovedEvent(final Object source, final Collection<String> nodeIds, final int deltaX, final int deltaY) {
 		// TODO - refactor to single node event!
 		// FIXME - Should probably take nodePromise!
-		super(source, ActionEvent.ACTION_PERFORMED, "no command string");
+		super(source);
 		this.nodeIds = nodeIds;
 		this.deltaX = deltaX;
 		this.deltaY = deltaY;

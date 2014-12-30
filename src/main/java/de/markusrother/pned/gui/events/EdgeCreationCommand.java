@@ -1,8 +1,8 @@
 package de.markusrother.pned.gui.events;
 
-import java.awt.event.ActionEvent;
+import java.util.EventObject;
 
-public class EdgeCreationCommand extends ActionEvent {
+public class EdgeCreationCommand extends EventObject {
 
 	private static final String NO_EDGE_ID = null;
 
@@ -15,7 +15,7 @@ public class EdgeCreationCommand extends ActionEvent {
 	}
 
 	public EdgeCreationCommand(final Object source, final String edgeId, final String sourceId, final String targetId) {
-		super(source, ActionEvent.ACTION_PERFORMED, "no command string");
+		super(source);
 		this.edgeId = edgeId;
 		this.sourceId = sourceId;
 		this.targetId = targetId;

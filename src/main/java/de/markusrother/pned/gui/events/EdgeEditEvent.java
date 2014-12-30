@@ -2,11 +2,11 @@ package de.markusrother.pned.gui.events;
 
 import java.awt.Component;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
+import java.util.EventObject;
 
 import de.markusrother.pned.gui.components.EdgeComponent;
 
-public class EdgeEditEvent extends ActionEvent {
+public class EdgeEditEvent extends EventObject {
 
 	public enum Type {
 		EDGE_STARTED,
@@ -17,9 +17,6 @@ public class EdgeEditEvent extends ActionEvent {
 		COMPONENT_EXITED,
 	}
 
-	private static final int NO_ID = 0;
-	private static final String NO_COMMAND_STRING = "no command string";
-
 	private final Type type;
 	private final EdgeComponent edge;
 	private final Point location;
@@ -29,7 +26,7 @@ public class EdgeEditEvent extends ActionEvent {
 			final Component component) {
 		// Must pass location and component instead of MouseEvent, because
 		// MouseEvent.getPoint() is component relative.
-		super(source, NO_ID, NO_COMMAND_STRING);
+		super(source);
 		this.type = type;
 		this.edge = edge;
 		this.component = component;

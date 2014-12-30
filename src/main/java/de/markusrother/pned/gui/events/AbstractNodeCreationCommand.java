@@ -1,9 +1,9 @@
 package de.markusrother.pned.gui.events;
 
 import java.awt.Point;
-import java.awt.event.ActionEvent;
+import java.util.EventObject;
 
-public abstract class AbstractNodeCreationCommand extends ActionEvent {
+public abstract class AbstractNodeCreationCommand extends EventObject {
 
 	public static final Point defaultNodeOrigin = new Point(100, 100);
 
@@ -15,7 +15,7 @@ public abstract class AbstractNodeCreationCommand extends ActionEvent {
 	}
 
 	public AbstractNodeCreationCommand(final Object source, final String nodeId, final Point point) {
-		super(source, ActionEvent.ACTION_PERFORMED, "no command string");
+		super(source);
 		this.nodeId = nodeId;
 		this.point = point;
 	}

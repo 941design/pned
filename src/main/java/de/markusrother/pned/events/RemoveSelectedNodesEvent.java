@@ -1,11 +1,11 @@
 package de.markusrother.pned.events;
 
-import java.awt.event.ActionEvent;
+import java.util.EventObject;
 
-public class RemoveSelectedNodesEvent extends ActionEvent {
+public class RemoveSelectedNodesEvent extends EventObject {
 
 	public RemoveSelectedNodesEvent(final Object source) {
-		super(source, ActionEvent.ACTION_PERFORMED, "foo");
+		super(source);
 	}
 
 }

@@ -1,11 +1,11 @@
 package de.markusrother.pned.commands;
 
-import java.awt.event.ActionEvent;
+import java.util.EventObject;
 
-public class PetriNetEditCommand extends ActionEvent {
+public class PetriNetEditCommand extends EventObject {
 
 	public PetriNetEditCommand(final Object source) {
-		super(source, ActionEvent.ACTION_PERFORMED, null);
+		super(source);
 	}
 
 }

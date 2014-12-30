@@ -1,16 +1,15 @@
 package de.markusrother.pned.gui.events;
 
-import java.awt.event.ActionEvent;
+import java.util.EventObject;
 
 import de.markusrother.pned.gui.NodeCreationMode;
 
-// GUI-only command
-public class SetNodeTypeCommand extends ActionEvent {
+public class SetNodeTypeCommand extends EventObject {
 
 	private final NodeCreationMode mode;
 
 	public SetNodeTypeCommand(final Object source, final NodeCreationMode mode) {
-		super(source, ActionEvent.ACTION_PERFORMED, "no command string");
+		super(source);
 		this.mode = mode;
 	}
 

@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui;
 
-import java.awt.event.ActionEvent;
+import java.util.EventObject;
 
 import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
@@ -44,7 +44,7 @@ public class PetriNetEventLogger
 		eventBus.addListener(EdgeEditListener.class, mock);
 	}
 
-	private void log(final ActionEvent event) {
+	private void log(final EventObject event) {
 		System.out.println(event.getClass().getSimpleName());
 	}
 

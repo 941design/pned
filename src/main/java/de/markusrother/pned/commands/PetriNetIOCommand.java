@@ -1,14 +1,14 @@
 package de.markusrother.pned.commands;
 
-import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.EventObject;
 
-public class PetriNetIOCommand extends ActionEvent {
+public class PetriNetIOCommand extends EventObject {
 
 	private final File file;
 
 	public PetriNetIOCommand(final Object source, final File file) {
-		super(source, ActionEvent.ACTION_PERFORMED, "");
+		super(source);
 		this.file = file;
 	}
 

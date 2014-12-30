@@ -1,14 +1,14 @@
 package de.markusrother.pned.gui.events;
 
-import java.awt.event.ActionEvent;
+import java.util.EventObject;
 
-public class PlaceEditEvent extends ActionEvent {
+public class PlaceEditEvent extends EventObject {
 
 	private final String placeId;
 	private final int marking;
 
 	public PlaceEditEvent(final Object source, final String placeId, final int marking) {
-		super(source, ActionEvent.ACTION_PERFORMED, "no command string");
+		super(source);
 		this.placeId = placeId;
 		this.marking = marking;
 	}

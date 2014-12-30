@@ -1,14 +1,14 @@
 package de.markusrother.pned.gui.events;
 
-import java.awt.event.ActionEvent;
+import java.util.EventObject;
 
-public class LabelEditEvent extends ActionEvent {
+public class LabelEditEvent extends EventObject {
 
 	private final String elementId;
 	private final String label;
 
 	public LabelEditEvent(final Object source, final String elementId, final String label) {
-		super(source, ActionEvent.ACTION_PERFORMED, "no command string");
+		super(source);
 		this.elementId = elementId;
 		this.label = label;
 	}
