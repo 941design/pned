@@ -13,6 +13,8 @@ import de.markusrother.pned.gui.events.TransitionCreationCommand;
 /**
  * TODO - suspend/enable on selection event!
  *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class NodeCreator extends MouseAdapter
 	implements
@@ -21,12 +23,18 @@ public class NodeCreator extends MouseAdapter
 	private NodeCreationMode mode;
 	private final EventBus eventBus;
 
+	/**
+	 * <p>Constructor for NodeCreator.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 */
 	public NodeCreator(final EventBus eventBus) {
 		this.eventBus = eventBus;
 		this.mode = NodeCreationMode.defaultCreationMode;
 		eventBus.addListener(NodeListener.class, this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseClicked(final MouseEvent e) {
 		// TODO - this could go through the event bus.
@@ -53,12 +61,18 @@ public class NodeCreator extends MouseAdapter
 		}
 	}
 
+	/**
+	 * <p>requestId.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	private String requestId() {
 		final IdRequest req = new IdRequest(this);
 		eventBus.requestId(req);
 		return req.get();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
 		this.mode = cmd.getMode();

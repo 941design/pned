@@ -17,14 +17,16 @@ import de.markusrother.pned.gui.listeners.PlaceEditListener;
 
 /**
  * TODO - on hover create pop up with + / - to add/remove weights
- * 
+ *
  * TODO - create floating label next to place, which listens to component move
  * events.
- * 
+ *
  * TODO - create generic, pluggable component dragged listener.
- * 
+ *
  * TODO - create model {marking, label}
  *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class Place extends AbstractNode
 	implements
@@ -36,6 +38,12 @@ public class Place extends AbstractNode
 	private int diameter;
 	private final NodeStyle style = NodeStyle.DEFAULT;
 
+	/**
+	 * <p>Constructor for Place.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param diameter a int.
+	 */
 	public Place(final EventBus eventBus, final int diameter) {
 		super(eventBus, new PlaceLayout());
 		// TODO - use model instead of label
@@ -49,12 +57,14 @@ public class Place extends AbstractNode
 		eventBus.addListener(PlaceEditListener.class, this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Dimension getPreferredSize() {
 		// TODO - when to use getPreferredSize() vs. setPreferredSize()?
 		return new Dimension(diameter, diameter);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void paintComponent(final Graphics g) {
 		super.paintComponent(g);
@@ -63,15 +73,22 @@ public class Place extends AbstractNode
 		g2.fill(getShape());
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected Shape getShape() {
 		return getEllipse();
 	}
 
+	/**
+	 * <p>getEllipse.</p>
+	 *
+	 * @return a {@link java.awt.geom.Ellipse2D} object.
+	 */
 	private Ellipse2D getEllipse() {
 		return new Ellipse2D.Double(0, 0, diameter, diameter);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Point2D getBoundaryPoint(final double theta) {
 		final Ellipse2D ellipse = getEllipse();
@@ -82,10 +99,16 @@ public class Place extends AbstractNode
 				r * (1 + Math.sin(theta)));
 	}
 
+	/**
+	 * <p>Getter for the field <code>marking</code>.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getMarking() {
 		return marking.getValue();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setMarking(final PlaceEditEvent cmd) {
 		final String myId = getId();
@@ -95,11 +118,13 @@ public class Place extends AbstractNode
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected NodeStyle getStyle() {
 		return style;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSize(final PlaceLayoutCommand cmd) {
 		this.diameter = cmd.getSize();

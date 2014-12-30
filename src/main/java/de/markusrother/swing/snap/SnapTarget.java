@@ -11,8 +11,15 @@ import javax.swing.JLayeredPane;
 import de.markusrother.swing.DragDropAdapter;
 import de.markusrother.swing.DragDropListener;
 
+/**
+ * <p>SnapTarget class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class SnapTarget extends JLayeredPane {
 
+	/** Constant <code>NOT_VISIBLE=false</code> */
 	private static final boolean NOT_VISIBLE = false;
 
 	// Maybe OBSOLETE - Probably, all we have to do is to add the component
@@ -31,6 +38,11 @@ public class SnapTarget extends JLayeredPane {
 
 	private Point dragStart;
 
+	/**
+	 * <p>Constructor for SnapTarget.</p>
+	 *
+	 * @param targetComponent a {@link java.awt.Component} object.
+	 */
 	public SnapTarget(final Component targetComponent) {
 
 		this.targetComponent = targetComponent;
@@ -71,6 +83,12 @@ public class SnapTarget extends JLayeredPane {
 		setOpaque(false);
 	}
 
+	/**
+	 * <p>fireComponentMovedEvent.</p>
+	 *
+	 * @param deltaX a int.
+	 * @param deltaY a int.
+	 */
 	void fireComponentMovedEvent(final int deltaX, final int deltaY) {
 		for (final SnapPointComponent spc : getSnapPointComponents()) {
 			// TODO - we could as well look up the listeners, here!
@@ -78,37 +96,75 @@ public class SnapTarget extends JLayeredPane {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Dimension getPreferredSize() {
 		return snapPointLayer.getPreferredSize();
 	}
 
+	/**
+	 * <p>createSnapPoint.</p>
+	 *
+	 * @param constraint a {@link java.lang.String} object.
+	 * @return a {@link java.awt.Component} object.
+	 */
 	public Component createSnapPoint(final String constraint) {
 		return createSnapPoint(constraint, NOT_VISIBLE);
 	}
 
+	/**
+	 * <p>createSnapPoint.</p>
+	 *
+	 * @param constraint a {@link java.lang.String} object.
+	 * @param visible a boolean.
+	 * @return a {@link java.awt.Component} object.
+	 */
 	public Component createSnapPoint(final String constraint, final boolean visible) {
 		// FIXME - Create snapPointComponent here, query it for its
 		// preferredBounds, then resize layers, if necessary!
 		return snapPointLayer.createSnapPoint(constraint, visible);
 	}
 
+	/**
+	 * <p>showSnapPoints.</p>
+	 */
 	public void showSnapPoints() {
 		snapPointLayer.showSnapPoints();
 	}
 
+	/**
+	 * <p>getSnapPoints.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 */
 	public List<SnapPoint> getSnapPoints() {
 		return snapPointLayer.getSnapPoints();
 	}
 
+	/**
+	 * <p>getSnapPointComponents.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 */
 	private List<SnapPointComponent> getSnapPointComponents() {
 		return snapPointLayer.getSnapPointComponents();
 	}
 
+	/**
+	 * <p>Getter for the field <code>targetComponent</code>.</p>
+	 *
+	 * @return a {@link java.awt.Component} object.
+	 */
 	public Component getTargetComponent() {
 		return targetComponent;
 	}
 
+	/**
+	 * <p>createSnapPointComponent.</p>
+	 *
+	 * @param constraint a {@link java.lang.String} object.
+	 * @return a {@link de.markusrother.swing.snap.SnapPointComponent} object.
+	 */
 	public SnapPointComponent createSnapPointComponent(final String constraint) {
 		return new SnapPointComponent();
 		// snapPointComponent.addMouseListener(l);

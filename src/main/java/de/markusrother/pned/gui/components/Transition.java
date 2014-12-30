@@ -18,7 +18,10 @@ import de.markusrother.pned.events.TransitionActivationEvent;
 import de.markusrother.pned.gui.EventBus;
 
 /**
+ * <p>Transition class.</p>
  *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class Transition extends AbstractNode
 	implements
@@ -29,6 +32,12 @@ public class Transition extends AbstractNode
 	private final NodeStyle style = NodeStyle.DEFAULT;
 	private boolean isActive = true;
 
+	/**
+	 * <p>Constructor for Transition.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param extent a int.
+	 */
 	public Transition(final EventBus eventBus, final int extent) {
 		super(eventBus);
 		// TODO - use model!
@@ -39,11 +48,13 @@ public class Transition extends AbstractNode
 		eventBus.addListener(TransitionActivationListener.class, this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension(extent, extent);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void paintComponent(final Graphics g) {
 		super.paintComponent(g);
@@ -58,15 +69,22 @@ public class Transition extends AbstractNode
 		g2.fill(getShape());
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected Shape getShape() {
 		return getRectangle();
 	}
 
+	/**
+	 * <p>getRectangle.</p>
+	 *
+	 * @return a {@link java.awt.Rectangle} object.
+	 */
 	private Rectangle getRectangle() {
 		return new Rectangle(0, 0, extent, extent);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Point2D getBoundaryPoint(final double theta) {
 		final double t = modPi(theta); // -PI <= t <= PI
@@ -90,11 +108,13 @@ public class Transition extends AbstractNode
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected NodeStyle getStyle() {
 		return style;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSize(final TransitionLayoutCommand cmd) {
 		this.extent = cmd.getSize();
@@ -102,6 +122,7 @@ public class Transition extends AbstractNode
 		repaint(); // REDUNDANT
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void transitionActivated(final TransitionActivationEvent e) {
 		final String myId = getId();
@@ -110,6 +131,7 @@ public class Transition extends AbstractNode
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void transitionDeactivated(final TransitionActivationEvent e) {
 		final String myId = getId();

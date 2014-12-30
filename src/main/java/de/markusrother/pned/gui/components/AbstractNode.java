@@ -35,6 +35,8 @@ import de.markusrother.swing.Selectable;
  * always use multi-selections. Then the click event could simply also activate
  * a selection!
  *
+ * @author Markus Rother
+ * @version 1.0
  */
 public abstract class AbstractNode extends JPanel
 	implements
@@ -47,6 +49,7 @@ public abstract class AbstractNode extends JPanel
 		Disposable,
 		DefinitelyBounded {
 
+	/** Constant <code>NO_LAYOUT_MANAGER</code> */
 	private static final LayoutManager NO_LAYOUT_MANAGER = null;
 
 	// Listeners:
@@ -60,6 +63,12 @@ public abstract class AbstractNode extends JPanel
 
 	protected final EventBus eventBus;
 
+	/**
+	 * <p>Constructor for AbstractNode.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param layoutManager a {@link java.awt.LayoutManager} object.
+	 */
 	public AbstractNode(final EventBus eventBus, final LayoutManager layoutManager) {
 		super(layoutManager);
 		this.eventBus = eventBus;
@@ -74,14 +83,30 @@ public abstract class AbstractNode extends JPanel
 		eventBus.addListener(NodeRequestListener.class, this);
 	}
 
+	/**
+	 * <p>Constructor for AbstractNode.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 */
 	public AbstractNode(final EventBus eventBus) {
 		this(eventBus, NO_LAYOUT_MANAGER);
 	}
 
+	/**
+	 * <p>getShape.</p>
+	 *
+	 * @return a {@link java.awt.Shape} object.
+	 */
 	protected abstract Shape getShape();
 
+	/**
+	 * <p>getStyle.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.components.NodeStyle} object.
+	 */
 	protected abstract NodeStyle getStyle();
 
+	/** {@inheritDoc} */
 	@Override
 	protected void paintComponent(final Graphics g) {
 		super.paintComponent(g);
@@ -107,28 +132,58 @@ public abstract class AbstractNode extends JPanel
 		}
 	}
 
+	/**
+	 * <p>Getter for the field <code>id</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getId() {
 		return id;
 	}
 
+	/**
+	 * <p>Setter for the field <code>id</code>.</p>
+	 *
+	 * @param nodeId a {@link java.lang.String} object.
+	 */
 	public void setId(final String nodeId) {
 		this.id = nodeId;
 	}
 
+	/**
+	 * <p>Setter for the field <code>state</code>.</p>
+	 *
+	 * @param state a {@link de.markusrother.pned.gui.components.ComponentState} object.
+	 */
 	public void setState(final ComponentState state) {
 		this.state = state;
 		repaint();
 	}
 
+	/**
+	 * <p>isSelected.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isSelected() {
 		return state == ComponentState.SINGLE_SELECTED //
 				|| state == ComponentState.MULTI_SELECTED;
 	}
 
+	/**
+	 * <p>isPartOfMultiselection.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isPartOfMultiselection() {
 		return state == ComponentState.MULTI_SELECTED;
 	}
 
+	/**
+	 * <p>Setter for the field <code>singleNodeSelector</code>.</p>
+	 *
+	 * @param listener a {@link de.markusrother.pned.gui.listeners.SingleNodeSelector} object.
+	 */
 	void setSingleNodeSelector(final SingleNodeSelector listener) {
 		if (singleNodeSelector != null) {
 			suspendSelectionListener();
@@ -137,6 +192,11 @@ public abstract class AbstractNode extends JPanel
 		resumeSelectionListener();
 	}
 
+	/**
+	 * <p>Setter for the field <code>dragDropListener</code>.</p>
+	 *
+	 * @param listener a {@link de.markusrother.pned.gui.listeners.SelectionDragDropListener} object.
+	 */
 	void setDragDropListener(final SelectionDragDropListener listener) {
 		if (dragDropListener != null) {
 			suspendDragDropListener();
@@ -145,6 +205,11 @@ public abstract class AbstractNode extends JPanel
 		resumeDragDropListener();
 	}
 
+	/**
+	 * <p>Setter for the field <code>edgeCreationListener</code>.</p>
+	 *
+	 * @param listener a {@link de.markusrother.pned.gui.listeners.EdgeCreator} object.
+	 */
 	void setEdgeCreationListener(final EdgeCreator listener) {
 		if (edgeCreationListener != null) {
 			suspendEdgeCreationListener();
@@ -153,42 +218,72 @@ public abstract class AbstractNode extends JPanel
 		resumeEdgeCreationListener();
 	}
 
+	/**
+	 * <p>removeDragListener.</p>
+	 *
+	 * @param listener a {@link de.markusrother.swing.DragDropListener} object.
+	 */
 	public void removeDragListener(final DragDropListener<AbstractNode> listener) {
 		DragDropListener.removeFromComponent(this, listener);
 	}
 
+	/**
+	 * <p>suspendHoverListener.</p>
+	 */
 	private void suspendHoverListener() {
 		HoverListener.removeFromComponent(this, NodeHoverListener.INSTANCE);
 	}
 
+	/**
+	 * <p>suspendDragDropListener.</p>
+	 */
 	private void suspendDragDropListener() {
 		DragDropListener.removeFromComponent(this, dragDropListener);
 	}
 
+	/**
+	 * <p>suspendSelectionListener.</p>
+	 */
 	private void suspendSelectionListener() {
 		DragDropListener.removeFromComponent(this, singleNodeSelector);
 	}
 
+	/**
+	 * <p>suspendEdgeCreationListener.</p>
+	 */
 	private void suspendEdgeCreationListener() {
 		EdgeCreator.removeFromComponent(this, edgeCreationListener);
 	}
 
+	/**
+	 * <p>resumeHoverListener.</p>
+	 */
 	private void resumeHoverListener() {
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
 	}
 
+	/**
+	 * <p>resumeDragDropListener.</p>
+	 */
 	private void resumeDragDropListener() {
 		DragDropListener.addToComponent(this, dragDropListener);
 	}
 
+	/**
+	 * <p>resumeSelectionListener.</p>
+	 */
 	private void resumeSelectionListener() {
 		DragDropListener.addToComponent(this, singleNodeSelector);
 	}
 
+	/**
+	 * <p>resumeEdgeCreationListener.</p>
+	 */
 	private void resumeEdgeCreationListener() {
 		EdgeCreator.addToComponent(this, edgeCreationListener);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean isContained(final Rectangle r) {
 		// TODO - Code duplication with PnGrid (Create a static util class)
@@ -199,6 +294,7 @@ public abstract class AbstractNode extends JPanel
 		return r.contains(point);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeMoved(final NodeMovedEvent e) {
 		for (final String nodeId : e.getNodeIds()) {
@@ -212,6 +308,7 @@ public abstract class AbstractNode extends JPanel
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodesSelected(final NodeSelectionEvent event) {
 		// TODO - to improve performance iteration, the grid/container could
@@ -230,6 +327,7 @@ public abstract class AbstractNode extends JPanel
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodesUnselected(final NodeSelectionEvent event) {
 		if (event.getNodes().contains(this)) {
@@ -237,6 +335,7 @@ public abstract class AbstractNode extends JPanel
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeSelectionFinished(final NodeSelectionEvent event) {
 		if (event.getNodes().contains(this)) {
@@ -244,6 +343,7 @@ public abstract class AbstractNode extends JPanel
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
 		if (isSelected()) {
@@ -251,12 +351,16 @@ public abstract class AbstractNode extends JPanel
 		}
 	}
 
+	/**
+	 * <p>deselect.</p>
+	 */
 	private void deselect() {
 		// resumeDragListener();
 		resumeHoverListener();
 		setState(ComponentState.DEFAULT); // TODO - in multiselection
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
 		final String myId = getId();
@@ -265,6 +369,7 @@ public abstract class AbstractNode extends JPanel
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
 		if (isSelected()) {
@@ -272,6 +377,7 @@ public abstract class AbstractNode extends JPanel
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void dispose() {
 		eventBus.removeListener(NodeRemovalListener.class, this);
@@ -280,21 +386,25 @@ public abstract class AbstractNode extends JPanel
 		getParent().remove(this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void targetComponentEntered(final EdgeEditEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void targetComponentExited(final EdgeEditEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeMoved(final EdgeEditEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeCancelled(final EdgeEditEvent e) {
 		// TODO - This could be wrapped in a StateToggleCommand
@@ -305,6 +415,7 @@ public abstract class AbstractNode extends JPanel
 		resumeDragDropListener();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeFinished(final EdgeEditEvent e) {
 		// TODO - This could be wrapped in a StateToggleCommand
@@ -315,6 +426,7 @@ public abstract class AbstractNode extends JPanel
 		resumeDragDropListener();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeStarted(final EdgeEditEvent e) {
 		// TODO - This could be wrapped in a StateToggleCommand
@@ -325,6 +437,7 @@ public abstract class AbstractNode extends JPanel
 		suspendDragDropListener();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void requestNode(final NodeRequest req) {
 		final String myId = getId();

@@ -10,15 +10,20 @@ import java.awt.Rectangle;
 // TODO - create LayoutManagerAdapter?
 /**
  * used to manage markings in places
+ *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class PlaceLayout
 	implements
 		LayoutManager {
 
+	/** Constant <code>CENTER="CENTER"</code> */
 	public static final String CENTER = "CENTER";
 
 	private Component center;
 
+	/** {@inheritDoc} */
 	@Override
 	public void addLayoutComponent(final String name, final Component comp) {
 		switch (name) {
@@ -30,24 +35,28 @@ public class PlaceLayout
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeLayoutComponent(final Component comp) {
 		// TODO
 		throw new RuntimeException("TODO");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Dimension preferredLayoutSize(final Container parent) {
 		// TODO
 		throw new RuntimeException("TODO");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Dimension minimumLayoutSize(final Container parent) {
 		// TODO
 		throw new RuntimeException("TODO");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void layoutContainer(final Container parent) {
 		// TODO - insests vs. bounds?

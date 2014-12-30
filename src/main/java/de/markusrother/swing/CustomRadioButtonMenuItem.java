@@ -11,6 +11,12 @@ import javax.swing.plaf.basic.BasicRadioButtonMenuItemUI;
 
 import sun.swing.MenuItemLayoutHelper;
 
+/**
+ * <p>CustomRadioButtonMenuItem class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class CustomRadioButtonMenuItem extends JRadioButtonMenuItem {
 
 	class CustomRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
@@ -88,6 +94,11 @@ public class CustomRadioButtonMenuItem extends JRadioButtonMenuItem {
 		}
 	}
 
+	/**
+	 * <p>Constructor for CustomRadioButtonMenuItem.</p>
+	 *
+	 * @param action a {@link javax.swing.AbstractAction} object.
+	 */
 	public CustomRadioButtonMenuItem(final AbstractAction action) {
 		super(action);
 		setUI(new CustomRadioButtonMenuItemUI());

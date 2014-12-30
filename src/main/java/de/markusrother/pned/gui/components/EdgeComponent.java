@@ -30,6 +30,9 @@ import de.markusrother.swing.HoverListener;
  * TODO - manage the contact-points of source component, too. Create a segment
  * which is invisible, but connected, to the source components center, avoiding
  * flickering.
+ *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractNode>
 	implements
@@ -41,22 +44,46 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		TransitionLayoutListener,
 		Disposable {
 
+	/** Constant <code>NO_TARGET_COMPONENT</code> */
 	private static final AbstractNode NO_TARGET_COMPONENT = null;
+	/** Constant <code>NO_SOURCE</code> */
 	private static final Point NO_SOURCE = new Point();
+	/** Constant <code>NO_TARGET</code> */
 	private static final Point NO_TARGET = new Point();
 
+	/**
+	 * <p>Getter for the field <code>style</code>.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.components.EdgeStyle} object.
+	 */
 	public EdgeStyle getStyle() {
 		return style;
 	}
 
+	/**
+	 * <p>getSourceId.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getSourceId() {
 		return sourceComponent.getId();
 	}
 
+	/**
+	 * <p>getTargetId.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getTargetId() {
 		return targetComponent.getId();
 	}
 
+	/**
+	 * <p>createHoverListener.</p>
+	 *
+	 * @param edge a {@link de.markusrother.pned.gui.components.EdgeComponent} object.
+	 * @return a {@link de.markusrother.swing.HoverListener} object.
+	 */
 	private static HoverListener createHoverListener(final EdgeComponent edge) {
 
 		// TODO - extract class!
@@ -84,10 +111,20 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	private Line2D line;
 	private ComponentState state;
 
+	/**
+	 * <p>Getter for the field <code>state</code>.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.components.ComponentState} object.
+	 */
 	public ComponentState getState() {
 		return state;
 	}
 
+	/**
+	 * <p>Setter for the field <code>state</code>.</p>
+	 *
+	 * @param state a {@link de.markusrother.pned.gui.components.ComponentState} object.
+	 */
 	public void setState(final ComponentState state) {
 		this.state = state;
 	}
@@ -95,16 +132,40 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	private final EventBus eventBus;
 	private final EdgeStyle style;
 
+	/**
+	 * <p>Constructor for EdgeComponent.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param sourceComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
+	 * @param source a {@link java.awt.Point} object.
+	 * @param target a {@link java.awt.Point} object.
+	 */
 	public EdgeComponent(final EventBus eventBus, final AbstractNode sourceComponent, final Point source,
 			final Point target) {
 		this(eventBus, sourceComponent, NO_TARGET_COMPONENT, source, target);
 	}
 
+	/**
+	 * <p>Constructor for EdgeComponent.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param sourceComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
+	 * @param targetComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
+	 */
 	public EdgeComponent(final EventBus eventBus, final AbstractNode sourceComponent, final AbstractNode targetComponent) {
 		this(eventBus, sourceComponent, targetComponent, NO_SOURCE, NO_TARGET);
 		reconnect();
 	}
 
+	/**
+	 * <p>Constructor for EdgeComponent.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param sourceComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
+	 * @param targetComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
+	 * @param source a {@link java.awt.Point} object.
+	 * @param target a {@link java.awt.Point} object.
+	 */
 	public EdgeComponent(final EventBus eventBus, final AbstractNode sourceComponent,
 			final AbstractNode targetComponent, final Point source, final Point target) {
 		super(sourceComponent, targetComponent, source, target);
@@ -119,6 +180,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		eventBus.addListener(EdgeEditListener.class, this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void paintComponent(final Graphics g) {
 		super.paintComponent(g);
@@ -157,11 +219,23 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		// We could optimize a little, here.
 	}
 
+	/**
+	 * <p>acceptsTarget.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 * @return a boolean.
+	 */
 	public boolean acceptsTarget(final Component component) {
 		return component instanceof AbstractNode //
 				&& sourceComponent.getClass() != component.getClass();
 	}
 
+	/**
+	 * <p>edgeContains.</p>
+	 *
+	 * @param point a {@link java.awt.Point} object.
+	 * @return a boolean.
+	 */
 	boolean edgeContains(final Point point) {
 		// WTF !? line.contains(point) returns false, with the explanation:
 		// "lines never contain AREAS" WTF! A point is not an area...
@@ -169,6 +243,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		return line != null && (line.ptSegDistSq(point) < 5 || tip.contains(point));
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
 		final String sourceId = getSourceId();
@@ -179,11 +254,13 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void targetComponentEntered(final EdgeEditEvent e) {
 		if (e.getEdge() != this) {
@@ -198,6 +275,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void targetComponentExited(final EdgeEditEvent e) {
 		if (e.getEdge() != this) {
@@ -208,6 +286,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		setState(ComponentState.DEFAULT);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeMoved(final EdgeEditEvent e) {
 		if (e.getEdge() != this) {
@@ -231,6 +310,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		repaint();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeCancelled(final EdgeEditEvent e) {
 		if (e.getEdge() != this) {
@@ -240,6 +320,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		dispose();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeFinished(final EdgeEditEvent e) {
 		// FIXME - Why dose this receive its own creation event?
@@ -260,11 +341,13 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		setState(ComponentState.DEFAULT);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeStarted(final EdgeEditEvent e) {
 		// IGNORE - If we weren't started we would not exist...
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void dispose() {
 		// TODO - create generic removeAllListeners()
@@ -279,6 +362,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		getParent().remove(this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeMoved(final NodeMovedEvent event) {
 		boolean repaint = false;
@@ -297,6 +381,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSize(final TransitionLayoutCommand cmd) {
 		// TODO - use revalidate();
@@ -306,6 +391,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		reconnect();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSize(final PlaceLayoutCommand cmd) {
 		// TODO - use revalidate();
@@ -315,12 +401,16 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		reconnect();
 	}
 
+	/**
+	 * <p>reconnect.</p>
+	 */
 	private void reconnect() {
 		connectToSource();
 		connectToTarget();
 		repaint();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSize(final EdgeLayoutCommand cmd) {
 		final int extent = cmd.getSize();

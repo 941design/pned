@@ -16,11 +16,26 @@ import de.markusrother.pned.gui.menus.actions.CreateTransitionAction;
 import de.markusrother.pned.gui.menus.actions.DefaultNodeLocationProvider;
 import de.markusrother.pned.gui.menus.actions.RemoveSelectedNodesAction;
 
+/**
+ * <p>PnedEditMenu class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class PnedEditMenu extends JMenu {
 
+	/** Constant <code>label="Edit"</code> */
 	private static final String label = "Edit";
+	/** Constant <code>mnemonic=KeyEvent.VK_E</code> */
 	private static final int mnemonic = KeyEvent.VK_E;
 
+	/**
+	 * <p>Constructor for PnedEditMenu.</p>
+	 *
+	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param areNodesSelected a boolean.
+	 * @param mode a {@link de.markusrother.pned.gui.NodeCreationMode} object.
+	 */
 	public PnedEditMenu(final EventBus eventMulticaster, final boolean areNodesSelected, final NodeCreationMode mode) {
 		// TODO - Why not receive the grid, because Actions are grid dependent
 		// rather than headless model dependent. That is exactly the choice I

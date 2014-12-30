@@ -14,20 +14,42 @@ import javax.swing.JMenuItem;
 import de.markusrother.pned.commands.PetriNetIOCommand;
 import de.markusrother.pned.gui.EventBus;
 
+/**
+ * <p>OpenExportDialogAction class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class OpenExportDialogAction extends AbstractAction {
 
+	/** Constant <code>menuLabel="Export"</code> */
 	private static final String menuLabel = "Export";
+	/** Constant <code>actionMnemonic=KeyEvent.VK_E</code> */
 	private static final int actionMnemonic = KeyEvent.VK_E;
+	/** Constant <code>dialogTitle="Export file"</code> */
 	private static final String dialogTitle = "Export file";
+	/** Constant <code>approveButtonLabel="Save"</code> */
 	private static final String approveButtonLabel = "Save";
+	/** Constant <code>NO_PARENT</code> */
 	private static final Component NO_PARENT = null;
 
+	/**
+	 * <p>newMenuItem.</p>
+	 *
+	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @return a {@link javax.swing.JMenuItem} object.
+	 */
 	public static JMenuItem newMenuItem(final EventBus eventMulticaster) {
 		return new JMenuItem(new OpenExportDialogAction(eventMulticaster));
 	}
 
 	private final EventBus eventBus;
 
+	/**
+	 * <p>Constructor for OpenExportDialogAction.</p>
+	 *
+	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 */
 	private OpenExportDialogAction(final EventBus eventMulticaster) {
 		super(menuLabel);
 		putValue(Action.MNEMONIC_KEY, actionMnemonic);
@@ -35,6 +57,7 @@ public class OpenExportDialogAction extends AbstractAction {
 		this.eventBus = eventMulticaster;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 		// TODO - open with current path:

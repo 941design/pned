@@ -6,8 +6,21 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.RejectedExecutionException;
 
+/**
+ * <p>Promise class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class Promise<T> {
 
+	/**
+	 * <p>fulfilled.</p>
+	 *
+	 * @param value a U object.
+	 * @param <U> a U object.
+	 * @return a {@link de.markusrother.concurrent.Promise} object.
+	 */
 	public static <U> Promise<U> fulfilled(final U value) {
 		final Promise<U> promise = new Promise<>();
 		promise.fulfill(value);
@@ -19,6 +32,11 @@ public class Promise<T> {
 
 	private final ExecutorService executor = Executors.newCachedThreadPool();
 
+	/**
+	 * <p>ask.</p>
+	 *
+	 * @return a {@link java.util.concurrent.Future} object.
+	 */
 	public Future<T> ask() {
 
 		final Promise<T> that = this;
@@ -40,10 +58,20 @@ public class Promise<T> {
 		});
 	}
 
+	/**
+	 * <p>Getter for the field <code>executor</code>.</p>
+	 *
+	 * @return a {@link java.util.concurrent.ExecutorService} object.
+	 */
 	protected ExecutorService getExecutor() {
 		return executor;
 	}
 
+	/**
+	 * <p>fulfill.</p>
+	 *
+	 * @param value a T object.
+	 */
 	public synchronized void fulfill(final T value) {
 		if (this.isFulfilled) {
 			throw new RejectedExecutionException("Promise already fulfilled");
@@ -53,6 +81,11 @@ public class Promise<T> {
 		notifyAll();
 	}
 
+	/**
+	 * <p>isFulfilled.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public synchronized boolean isFulfilled() {
 		return isFulfilled;
 	}

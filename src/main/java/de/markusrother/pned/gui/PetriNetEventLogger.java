@@ -21,6 +21,12 @@ import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.PlaceEditListener;
 
+/**
+ * <p>PetriNetEventLogger class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class PetriNetEventLogger
 	implements
 		NodeListener,
@@ -32,6 +38,11 @@ public class PetriNetEventLogger
 		EdgeCreationListener,
 		EdgeEditListener {
 
+	/**
+	 * <p>instantiate.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 */
 	public static void instantiate(final EventBus eventBus) {
 		final PetriNetEventLogger mock = new PetriNetEventLogger();
 		eventBus.addListener(NodeListener.class, mock);
@@ -44,98 +55,124 @@ public class PetriNetEventLogger
 		eventBus.addListener(EdgeEditListener.class, mock);
 	}
 
+	/**
+	 * <p>log.</p>
+	 *
+	 * @param event a {@link java.util.EventObject} object.
+	 */
 	private void log(final EventObject event) {
 		System.out.println(event.getClass().getSimpleName());
 	}
 
+	/**
+	 * <p>Constructor for PetriNetEventLogger.</p>
+	 */
 	private PetriNetEventLogger() {
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
 		log(cmd);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createPlace(final PlaceCreationCommand e) {
 		log(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createTransition(final TransitionCreationCommand e) {
 		log(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
 		log(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
 		log(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodesSelected(final NodeSelectionEvent event) {
 		log(event);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodesUnselected(final NodeSelectionEvent event) {
 		log(event);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeSelectionFinished(final NodeSelectionEvent e) {
 		log(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeSelectionCancelled(final NodeSelectionEvent e) {
 		log(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void targetComponentEntered(final EdgeEditEvent e) {
 		log(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void targetComponentExited(final EdgeEditEvent e) {
 		log(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeMoved(final EdgeEditEvent e) {
 		// IGNORE - Too many events
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeCancelled(final EdgeEditEvent e) {
 		log(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeFinished(final EdgeEditEvent e) {
 		log(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeStarted(final EdgeEditEvent e) {
 		log(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeMoved(final NodeMovedEvent e) {
 		log(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createEdge(final EdgeCreationCommand cmd) {
 		log(cmd);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setMarking(final PlaceEditEvent cmd) {
 		log(cmd);

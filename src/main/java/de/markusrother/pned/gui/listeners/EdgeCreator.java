@@ -26,6 +26,8 @@ import de.markusrother.swing.DoubleClickListener;
  * click and an EdgeDrawListener or EdgeEditor. That would avoid all the
  * duplicated edge != null checks.
  *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class EdgeCreator extends DoubleClickListener {
 
@@ -37,21 +39,45 @@ public class EdgeCreator extends DoubleClickListener {
 
 	private final EventBus eventBus;
 
+	/**
+	 * <p>addToComponent.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 * @param listener a {@link de.markusrother.pned.gui.listeners.EdgeCreator} object.
+	 */
 	public static void addToComponent(final Component component, final EdgeCreator listener) {
 		component.addMouseListener(listener);
 		component.addMouseMotionListener(listener);
 	}
 
+	/**
+	 * <p>removeFromComponent.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 * @param listener a {@link de.markusrother.pned.gui.listeners.EdgeCreator} object.
+	 */
 	public static void removeFromComponent(final Component component, final EdgeCreator listener) {
 		component.removeMouseListener(listener);
 		component.removeMouseMotionListener(listener);
 	}
 
+	/**
+	 * <p>Constructor for EdgeCreator.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param pnGridPanel a {@link de.markusrother.pned.gui.components.PnGridPanel} object.
+	 */
 	public EdgeCreator(final EventBus eventBus, final PnGridPanel pnGridPanel) {
 		this.eventBus = eventBus;
 		this.pnGridPanel = pnGridPanel;
 	}
 
+	/**
+	 * <p>expectNode.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 * @return a {@link de.markusrother.pned.gui.components.AbstractNode} object.
+	 */
 	private AbstractNode expectNode(final Component component) {
 		try {
 			return (AbstractNode) component;
@@ -61,6 +87,12 @@ public class EdgeCreator extends DoubleClickListener {
 		}
 	}
 
+	/**
+	 * <p>getParentRelativeLocation.</p>
+	 *
+	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 * @return a {@link java.awt.Point} object.
+	 */
 	private Point getParentRelativeLocation(final MouseEvent e) {
 		final Point point = e.getPoint();
 		final Component eventComponent = e.getComponent();
@@ -86,15 +118,28 @@ public class EdgeCreator extends DoubleClickListener {
 		}
 	}
 
+	/**
+	 * <p>fire.</p>
+	 *
+	 * @param type a {@link de.markusrother.pned.gui.events.EdgeEditEvent.Type} object.
+	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 * @param component a {@link java.awt.Component} object.
+	 */
 	private void fire(final Type type, final MouseEvent e, final Component component) {
 		final Point location = getParentRelativeLocation(e);
 		fire(new EdgeEditEvent(type, this, edge, location, component));
 	}
 
+	/**
+	 * <p>fire.</p>
+	 *
+	 * @param e a {@link de.markusrother.pned.gui.events.EdgeEditEvent} object.
+	 */
 	private void fire(final EdgeEditEvent e) {
 		eventBus.fireEdgeEditEvent(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseClicked(final MouseEvent e) {
 		super.mouseClicked(e);
@@ -110,6 +155,7 @@ public class EdgeCreator extends DoubleClickListener {
 		// maybeFinishOrCancelEdge(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseDoubleClickedLeft(final MouseEvent e) {
 		if (edge != null) {
@@ -126,6 +172,11 @@ public class EdgeCreator extends DoubleClickListener {
 		}
 	}
 
+	/**
+	 * <p>maybeFinishOrCancelEdge.</p>
+	 *
+	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 */
 	private void maybeFinishOrCancelEdge(final MouseEvent e) {
 		// TODO - this idiom is somewhat redundant:
 		// Connecting existing edge:
@@ -148,6 +199,7 @@ public class EdgeCreator extends DoubleClickListener {
 		edge = null;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseMoved(final MouseEvent e) {
 		super.mouseMoved(e);
@@ -157,6 +209,7 @@ public class EdgeCreator extends DoubleClickListener {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseEntered(final MouseEvent e) {
 		super.mouseEntered(e);
@@ -165,6 +218,7 @@ public class EdgeCreator extends DoubleClickListener {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseExited(final MouseEvent e) {
 		super.mouseExited(e);

@@ -20,6 +20,9 @@ import de.markusrother.pned.gui.listeners.NodeSelectionListener;
  * an event translator, whose only responsibility is to translate events. It
  * would listen to the bus for given events, and simply add the resulting events
  * to the bus again.
+ *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class PnEditorMenuFactory
 	implements
@@ -29,48 +32,80 @@ public class PnEditorMenuFactory
 	private final NodeCreationMode nodeCreationMode;
 	private EventBus eventMulticaster;
 
+	/**
+	 * <p>Constructor for PnEditorMenuFactory.</p>
+	 */
 	public PnEditorMenuFactory() {
 		this.areNodesSelected = false;
 		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
 	}
 
+	/**
+	 * <p>newEditMenu.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.menus.PnedEditMenu} object.
+	 */
 	public PnedEditMenu newEditMenu() {
 		return new PnedEditMenu(eventMulticaster, areNodesSelected, nodeCreationMode);
 	}
 
+	/**
+	 * <p>newFileMenu.</p>
+	 *
+	 * @return a {@link javax.swing.JMenu} object.
+	 */
 	public JMenu newFileMenu() {
 		return new PnedFileMenu(eventMulticaster);
 	}
 
+	/**
+	 * <p>newPreferencesMenu.</p>
+	 *
+	 * @return a {@link javax.swing.JMenu} object.
+	 */
 	public JMenu newPreferencesMenu() {
 		return new PnedPreferencesMenu(eventMulticaster);
 	}
 
+	/**
+	 * <p>newPopupMenu.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.menus.PnedEditMenu} object.
+	 */
 	public PnedEditMenu newPopupMenu() {
 		// TODO
 		throw new RuntimeException("TODO");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodesSelected(final NodeSelectionEvent event) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodesUnselected(final NodeSelectionEvent event) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeSelectionFinished(final NodeSelectionEvent event) {
 		areNodesSelected = !event.getNodes().isEmpty();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
 		areNodesSelected = false;
 	}
 
+	/**
+	 * <p>Setter for the field <code>eventMulticaster</code>.</p>
+	 *
+	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 */
 	public void setEventMulticaster(final EventBus eventMulticaster) {
 		if (this.eventMulticaster != null) {
 			this.eventMulticaster.removeListener(NodeSelectionListener.class, this);

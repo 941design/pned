@@ -7,14 +7,29 @@ import java.awt.event.MouseEvent;
 
 /**
  * TODO - base deltas on componentMoved instead of mouse coordinates!
+ *
+ * @author Markus Rother
+ * @version 1.0
  */
 public abstract class DragDropListener<T extends Component> extends MouseAdapter {
 
+	/**
+	 * <p>addToComponent.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 * @param listener a {@link de.markusrother.swing.DragDropListener} object.
+	 */
 	public static void addToComponent(final Component component, final DragDropListener<?> listener) {
 		component.addMouseListener(listener);
 		component.addMouseMotionListener(listener);
 	}
 
+	/**
+	 * <p>removeFromComponent.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 * @param listener a {@link de.markusrother.swing.DragDropListener} object.
+	 */
 	public static void removeFromComponent(final Component component, final DragDropListener<?> listener) {
 		component.removeMouseListener(listener);
 		component.removeMouseMotionListener(listener);
@@ -25,10 +40,16 @@ public abstract class DragDropListener<T extends Component> extends MouseAdapter
 	private Point dragStart;
 	private boolean started; // OBSOLETE
 
+	/**
+	 * <p>Constructor for DragDropListener.</p>
+	 *
+	 * @param type a {@link java.lang.Class} object.
+	 */
 	protected DragDropListener(final Class<T> type) {
 		this.type = type;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseDragged(final MouseEvent e) {
 		dragStart = dragStart != null ? dragStart : e.getLocationOnScreen();
@@ -47,6 +68,7 @@ public abstract class DragDropListener<T extends Component> extends MouseAdapter
 		onDrag(tryCastComponent(e.getComponent()), deltaX, deltaY);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mousePressed(final MouseEvent e) {
 		dragStart = e.getLocationOnScreen();
@@ -58,6 +80,7 @@ public abstract class DragDropListener<T extends Component> extends MouseAdapter
 		started = false;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseReleased(final MouseEvent e) {
 		dragStart = null;
@@ -66,6 +89,12 @@ public abstract class DragDropListener<T extends Component> extends MouseAdapter
 		}
 	}
 
+	/**
+	 * <p>tryCastComponent.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 * @return a T object.
+	 */
 	private T tryCastComponent(final Component component) {
 		if (type.isInstance(component)) {
 			return type.cast(component);
@@ -76,16 +105,18 @@ public abstract class DragDropListener<T extends Component> extends MouseAdapter
 	}
 
 	/**
-	 * 
-	 * @param component
+	 * <p>startDrag.</p>
+	 *
+	 * @param component a T object.
 	 * @param dragStart
 	 *            in component
 	 */
 	public abstract void startDrag(T component, Point dragStart);
 
 	/**
-	 * 
-	 * @param component
+	 * <p>endDrag.</p>
+	 *
+	 * @param component a T object.
 	 * @param dragEnd
 	 *            in component
 	 */
@@ -93,10 +124,10 @@ public abstract class DragDropListener<T extends Component> extends MouseAdapter
 
 	/**
 	 * No deltas are lost!
-	 * 
-	 * @param component
-	 * @param deltaX
-	 * @param deltaY
+	 *
+	 * @param component a T object.
+	 * @param deltaX a int.
+	 * @param deltaY a int.
 	 */
 	public abstract void onDrag(T component, int deltaX, int deltaY);
 

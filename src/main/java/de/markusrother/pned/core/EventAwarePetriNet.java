@@ -35,6 +35,12 @@ import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.PlaceEditListener;
 import de.markusrother.pned.io.PetriNetMarshaller;
 
+/**
+ * <p>EventAwarePetriNet class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class EventAwarePetriNet extends PetriNetImpl
 	implements
 		PetriNetIOListener,
@@ -51,10 +57,22 @@ public class EventAwarePetriNet extends PetriNetImpl
 
 	private final Collection<TransitionActivationListener> transitionActivationListeners;
 
+	/**
+	 * <p>create.</p>
+	 *
+	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @return a {@link de.markusrother.pned.core.EventAwarePetriNet} object.
+	 */
 	public static EventAwarePetriNet create(final EventBus eventMulticaster) {
 		return new EventAwarePetriNet(eventMulticaster);
 	}
 
+	/**
+	 * <p>Constructor for EventAwarePetriNet.</p>
+	 *
+	 * @param eventBus a T object.
+	 * @param <T> a T object.
+	 */
 	<T extends PetriNetCommandSource & TransitionActivationListener> EventAwarePetriNet(final T eventBus) {
 		this.commandSource = eventBus;
 		this.transitionActivationListeners = new LinkedList<>();
@@ -71,27 +89,32 @@ public class EventAwarePetriNet extends PetriNetImpl
 		this.addTransitionActivationListener(eventBus);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void addTransitionActivationListener(final TransitionActivationListener l) {
 		transitionActivationListeners.add(l);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeTransitionActivationListener(final TransitionActivationListener l) {
 		transitionActivationListeners.remove(l);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void requestId(final IdRequest req) {
 		final String id = createId();
 		req.set(id);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void importPnml(final PetriNetIOCommand cmd) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void exportPnml(final PetriNetIOCommand cmd) throws IOException {
 		final File file = cmd.getFile();
@@ -102,6 +125,7 @@ public class EventAwarePetriNet extends PetriNetImpl
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createPlace(final PlaceCreationCommand cmd) {
 		final Point point = cmd.getPoint();
@@ -109,6 +133,7 @@ public class EventAwarePetriNet extends PetriNetImpl
 		createPlace(nodeId, point);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createTransition(final TransitionCreationCommand cmd) {
 		final Point point = cmd.getPoint();
@@ -116,6 +141,7 @@ public class EventAwarePetriNet extends PetriNetImpl
 		createTransition(nodeId, point);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createEdge(final EdgeCreationCommand cmd) {
 		final String edgeId = cmd.getEdgeId();
@@ -134,6 +160,7 @@ public class EventAwarePetriNet extends PetriNetImpl
 		});
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeMoved(final NodeMovedEvent e) {
 		for (final NodeModel node : getNodes()) {
@@ -147,6 +174,7 @@ public class EventAwarePetriNet extends PetriNetImpl
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
 		final String nodeId = e.getNodeId();
@@ -167,11 +195,13 @@ public class EventAwarePetriNet extends PetriNetImpl
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
 		// IGNORE, OBSOLETE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setMarking(final PlaceEditEvent e) {
 		final String placeId = e.getPlaceId();
@@ -184,6 +214,7 @@ public class EventAwarePetriNet extends PetriNetImpl
 		});
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setLabel(final LabelEditEvent e) {
 		final String placeId = e.getElementId();
@@ -197,6 +228,11 @@ public class EventAwarePetriNet extends PetriNetImpl
 
 	}
 
+	/**
+	 * <p>maybeFireTransitionActivationEvent.</p>
+	 *
+	 * @param runnable a {@link java.lang.Runnable} object.
+	 */
 	private void maybeFireTransitionActivationEvent(final Runnable runnable) {
 		final Collection<TransitionModel> activeBefore = getActiveTransitions();
 
@@ -213,6 +249,11 @@ public class EventAwarePetriNet extends PetriNetImpl
 		fireTransitionActivationEvent(activated);
 	}
 
+	/**
+	 * <p>fireTransitionDeactivationEvent.</p>
+	 *
+	 * @param deactivated a {@link java.util.Collection} object.
+	 */
 	private void fireTransitionDeactivationEvent(final Collection<TransitionModel> deactivated) {
 		for (final TransitionModel transition : deactivated) {
 			final TransitionActivationEvent e = new TransitionActivationEvent(Type.DEACTIVATION, this,
@@ -223,6 +264,11 @@ public class EventAwarePetriNet extends PetriNetImpl
 		}
 	}
 
+	/**
+	 * <p>fireTransitionActivationEvent.</p>
+	 *
+	 * @param activated a {@link java.util.Collection} object.
+	 */
 	private void fireTransitionActivationEvent(final Collection<TransitionModel> activated) {
 		for (final TransitionModel transition : activated) {
 			final TransitionActivationEvent e = new TransitionActivationEvent(Type.ACTIVATION, this, transition.getId());

@@ -9,10 +9,22 @@ import de.markusrother.pned.gui.menus.actions.NewNetAction;
 import de.markusrother.pned.gui.menus.actions.OpenExportDialogAction;
 import de.markusrother.pned.gui.menus.actions.OpenImportDialogAction;
 
+/**
+ * <p>PnedFileMenu class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class PnedFileMenu extends JMenu {
 
+	/** Constant <code>label="File"</code> */
 	private static final String label = "File";
 
+	/**
+	 * <p>Constructor for PnedFileMenu.</p>
+	 *
+	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 */
 	PnedFileMenu(final EventBus eventMulticaster) {
 		super(label);
 		setMnemonic(KeyEvent.VK_F);

@@ -6,11 +6,21 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 
+/**
+ * <p>SnapLayoutManager class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class SnapLayoutManager implements LayoutManager {
 
+	/** Constant <code>NORTH="NORTH"</code> */
 	public static final String NORTH = "NORTH";
+	/** Constant <code>SOUTH="SOUTH"</code> */
 	public static final String SOUTH = "SOUTH";
+	/** Constant <code>WEST="WEST"</code> */
 	public static final String WEST = "WEST";
+	/** Constant <code>EAST="EAST"</code> */
 	public static final String EAST = "EAST";
 
 	private Component north;
@@ -18,6 +28,7 @@ public class SnapLayoutManager implements LayoutManager {
 	private Component west;
 	private Component east;
 
+	/** {@inheritDoc} */
 	@Override
 	public void addLayoutComponent(final String name, final Component comp) {
 		synchronized (comp.getTreeLock()) {
@@ -43,24 +54,28 @@ public class SnapLayoutManager implements LayoutManager {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeLayoutComponent(final Component comp) {
 		// TODO
 		throw new RuntimeException("TODO");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Dimension preferredLayoutSize(final Container parent) {
 		// TODO
 		throw new RuntimeException("TODO");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Dimension minimumLayoutSize(final Container parent) {
 		// TODO
 		throw new RuntimeException("TODO");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void layoutContainer(final Container parent) {
 		// Borrowed from BorderLayout:

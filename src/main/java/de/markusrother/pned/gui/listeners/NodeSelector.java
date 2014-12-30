@@ -40,16 +40,29 @@ import de.markusrother.swing.Selector;
 // generally quite nice. Just add listeners like crazy and let the
 // responsible instance take care of it. The event bus could be a
 // singleton.
+/**
+ * <p>NodeSelector class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class NodeSelector extends Selector<AbstractNode> {
 
 	private final EventBus eventBus;
 
+	/**
+	 * <p>Constructor for NodeSelector.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 */
 	public NodeSelector(final EventBus eventBus) {
 		super(AbstractNode.class);
 		this.eventBus = eventBus;
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Called when starting a new selection by drag and drop movement, canceling
 	 * previous selection if any.
 	 */
@@ -59,12 +72,10 @@ public class NodeSelector extends Selector<AbstractNode> {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Called for every incremental addition of nodes during a drag and drop
 	 * operation.
-	 * 
-	 * @param nodes
-	 *            Collection of nodes that were just added to the current
-	 *            selection.
 	 */
 	@Override
 	public void addedToSelection(final Collection<AbstractNode> nodes) {
@@ -72,12 +83,10 @@ public class NodeSelector extends Selector<AbstractNode> {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Called for every incremental removal of nodes during a drag and drop
 	 * operation.
-	 * 
-	 * @param nodes
-	 *            Collection of nodes that were just removed from the current
-	 *            selection.
 	 */
 	@Override
 	public void removedFromSelection(final Collection<AbstractNode> nodes) {
@@ -85,10 +94,9 @@ public class NodeSelector extends Selector<AbstractNode> {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Called upon finishing the drag and drop operation.
-	 * 
-	 * @param nodes
-	 *            Collection of all selected nodes.
 	 */
 	@Override
 	public void finishedSelection(final Collection<AbstractNode> nodes) {

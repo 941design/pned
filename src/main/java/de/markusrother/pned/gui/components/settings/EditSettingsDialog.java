@@ -21,11 +21,24 @@ import de.markusrother.pned.commands.TransitionLayoutCommand;
 import de.markusrother.pned.gui.EventBus;
 import de.markusrother.swing.ScaleGroup;
 
+/**
+ * <p>EditSettingsDialog class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class EditSettingsDialog extends JDialog {
 
+	/** Constant <code>title="Settings"</code> */
 	private static final String title = "Settings";
+	/** Constant <code>preferredSize</code> */
 	private static final Dimension preferredSize = new Dimension(700, 1000);
 
+	/**
+	 * <p>open.</p>
+	 *
+	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 */
 	public static void open(final EventBus eventMulticaster) {
 		// TODO - take parent component and model
 		final EditSettingsDialog editSettingsDialog = new EditSettingsDialog(eventMulticaster);
@@ -35,6 +48,11 @@ public class EditSettingsDialog extends JDialog {
 
 	final EventBus eventBus;
 
+	/**
+	 * <p>Constructor for EditSettingsDialog.</p>
+	 *
+	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 */
 	private EditSettingsDialog(final EventBus eventMulticaster) {
 		this.eventBus = eventMulticaster;
 		setTitle(title);
@@ -54,6 +72,11 @@ public class EditSettingsDialog extends JDialog {
 		contentPane.add(sideBar, WEST);
 	}
 
+	/**
+	 * <p>createPlaceScale.</p>
+	 *
+	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
+	 */
 	private ScaleGroup createPlaceScale() {
 		final ScaleGroup scale = new ScaleGroup("Place", ScaleGroup.Orientation.HORIZONTAL);
 		scale.addChangeListener(new ChangeListener() {
@@ -67,6 +90,11 @@ public class EditSettingsDialog extends JDialog {
 		return scale;
 	}
 
+	/**
+	 * <p>createTransitionScale.</p>
+	 *
+	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
+	 */
 	private ScaleGroup createTransitionScale() {
 		final ScaleGroup scale = new ScaleGroup("Transition", ScaleGroup.Orientation.HORIZONTAL);
 		scale.addChangeListener(new ChangeListener() {
@@ -80,6 +108,11 @@ public class EditSettingsDialog extends JDialog {
 		return scale;
 	}
 
+	/**
+	 * <p>createMarkingScale.</p>
+	 *
+	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
+	 */
 	private ScaleGroup createMarkingScale() {
 		final ScaleGroup scale = new ScaleGroup("Marking", ScaleGroup.Orientation.HORIZONTAL);
 		scale.addChangeListener(new ChangeListener() {
@@ -93,6 +126,11 @@ public class EditSettingsDialog extends JDialog {
 		return scale;
 	}
 
+	/**
+	 * <p>createEdgeTipScale.</p>
+	 *
+	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
+	 */
 	private ScaleGroup createEdgeTipScale() {
 		final ScaleGroup scale = new ScaleGroup("Edge tip", ScaleGroup.Orientation.HORIZONTAL);
 		scale.addChangeListener(new ChangeListener() {

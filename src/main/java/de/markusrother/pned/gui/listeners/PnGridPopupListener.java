@@ -20,10 +20,17 @@ import de.markusrother.pned.gui.menus.actions.LocationProvider;
 import de.markusrother.pned.gui.menus.actions.RemoveSelectedNodesAction;
 import de.markusrother.swing.PopupListener;
 
+/**
+ * <p>PnGridPopupListener class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class PnGridPopupListener extends PopupListener
 	implements
 		LocationProvider {
 
+	/** Constant <code>NOT_ENABLED=false</code> */
 	private static final boolean NOT_ENABLED = false;
 
 	private final EventBus eventMulticaster;
@@ -31,11 +38,18 @@ public class PnGridPopupListener extends PopupListener
 
 	private Point popupPoint;
 
+	/**
+	 * <p>Constructor for PnGridPopupListener.</p>
+	 *
+	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param pnGridPanel a {@link de.markusrother.pned.gui.components.PnGridPanel} object.
+	 */
 	public PnGridPopupListener(final EventBus eventMulticaster, final PnGridPanel pnGridPanel) {
 		this.eventMulticaster = eventMulticaster;
 		this.pnGridPanel = pnGridPanel;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void popup(final MouseEvent e) {
 		popupPoint = e.getPoint();
@@ -71,6 +85,7 @@ public class PnGridPopupListener extends PopupListener
 		popup.show(e.getComponent(), e.getX(), e.getY());
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Point getLocation() {
 		return popupPoint;

@@ -21,6 +21,12 @@ import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 
+/**
+ * <p>NodeLabel class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class NodeLabel extends JLabel
 	implements
 		LabelEditListener,
@@ -28,6 +34,7 @@ public class NodeLabel extends JLabel
 		Disposable,
 		NodeMotionListener {
 
+	/** Constant <code>style</code> */
 	private static NodeLabelStyle style = new NodeLabelStyle();
 	static {
 		style.setDefaultFg(Color.BLACK);
@@ -45,10 +52,23 @@ public class NodeLabel extends JLabel
 	private ComponentState state;
 	private final EventBus eventBus;
 
+	/**
+	 * <p>Constructor for NodeLabel.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param nodeId a {@link java.lang.String} object.
+	 */
 	public NodeLabel(final EventBus eventBus, final String nodeId) {
 		this(eventBus, nodeId, nodeId);
 	}
 
+	/**
+	 * <p>Constructor for NodeLabel.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param nodeId a {@link java.lang.String} object.
+	 * @param nodeLabel a {@link java.lang.String} object.
+	 */
 	public NodeLabel(final EventBus eventBus, final String nodeId, final String nodeLabel) {
 		super(nodeLabel);
 		this.eventBus = eventBus;
@@ -64,10 +84,20 @@ public class NodeLabel extends JLabel
 		setState(ComponentState.DEFAULT);
 	}
 
+	/**
+	 * <p>Getter for the field <code>state</code>.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.components.ComponentState} object.
+	 */
 	public ComponentState getState() {
 		return state;
 	}
 
+	/**
+	 * <p>Setter for the field <code>state</code>.</p>
+	 *
+	 * @param state a {@link de.markusrother.pned.gui.components.ComponentState} object.
+	 */
 	public void setState(final ComponentState state) {
 		// TODO - create interface Stateful
 		this.state = state;
@@ -76,6 +106,7 @@ public class NodeLabel extends JLabel
 		repaint();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeMoved(final NodeMovedEvent e) {
 		for (final String nodeId : e.getNodeIds()) {
@@ -89,6 +120,7 @@ public class NodeLabel extends JLabel
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
 		final String removedNodeId = e.getNodeId();
@@ -97,11 +129,13 @@ public class NodeLabel extends JLabel
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void dispose() {
 		eventBus.removeListener(NodeRemovalListener.class, this);
@@ -109,6 +143,7 @@ public class NodeLabel extends JLabel
 		getParent().remove(this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setLabel(final LabelEditEvent e) {
 		if (this.nodeId.equals(e.getElementId())) {

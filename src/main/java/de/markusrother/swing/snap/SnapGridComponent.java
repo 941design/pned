@@ -13,21 +13,24 @@ import javax.swing.JComponent;
 
 /**
  * Component for painting the actual grid. To be toggled on/off.
- * 
+ *
  * TODO - drag and drop
- * 
+ *
  * TODO - toggle visibility
- * 
+ *
  * TODO - When to validate() ? What is revalidate() vs. validate() !?
- * 
+ *
  * TODO - Get snap targets for a given point. Snap targets are composed of the
  * nearestGridPoint and component that implement SnapTarget.
- * 
+ *
  * TODO - factor SnapGridComponent!!!
- * 
+ *
  * TODO - introduce layers!
- * 
+ *
  * TODO - use MouseAdapter!
+ *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class SnapGridComponent extends JComponent {
 
@@ -39,6 +42,12 @@ public class SnapGridComponent extends JComponent {
 	private SnapPoint currentSnapPoint;
 	private final SnapGridMouseListener snapGridMouseListener;
 
+	/**
+	 * <p>Constructor for SnapGridComponent.</p>
+	 *
+	 * @param gridDimension a {@link java.awt.Dimension} object.
+	 * @param gridColor a {@link java.awt.Color} object.
+	 */
 	public SnapGridComponent(final Dimension gridDimension, final Color gridColor) {
 		this.gridDimension = gridDimension;
 		this.gridColor = gridColor;
@@ -49,6 +58,8 @@ public class SnapGridComponent extends JComponent {
 	}
 
 	/**
+	 * <p>calculatePoint.</p>
+	 *
 	 * @param x
 	 *            The x coordinate.
 	 * @param y
@@ -60,6 +71,8 @@ public class SnapGridComponent extends JComponent {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Paints grid in entire (?) parent panel. TODO - What happens on resize.
 	 * TODO - Does this also 'paint' in invisible area?
 	 */
@@ -88,6 +101,12 @@ public class SnapGridComponent extends JComponent {
 		}
 	}
 
+	/**
+	 * <p>findNearestGridSnapPoint.</p>
+	 *
+	 * @param point a {@link java.awt.Point} object.
+	 * @return a {@link de.markusrother.swing.snap.SnapPoint} object.
+	 */
 	private SnapPoint findNearestGridSnapPoint(final Point point) {
 		// FIXME, WTF - What is the difference between this and
 		// findNearsestSnapTarget()?
@@ -110,18 +129,36 @@ public class SnapGridComponent extends JComponent {
 		return new SnapPoint(snapPointComponent, targetComponent, gridCoordinate);
 	}
 
+	/**
+	 * <p>hasCurrentSnapPoint.</p>
+	 *
+	 * @return a boolean.
+	 */
 	private boolean hasCurrentSnapPoint() {
 		return currentSnapPoint != null;
 	}
 
+	/**
+	 * <p>Getter for the field <code>currentSnapPoint</code>.</p>
+	 *
+	 * @return a {@link de.markusrother.swing.snap.SnapPoint} object.
+	 */
 	public SnapPoint getCurrentSnapPoint() {
 		return currentSnapPoint;
 	}
 
+	/**
+	 * <p>Setter for the field <code>currentSnapPoint</code>.</p>
+	 *
+	 * @param snapPoint a {@link de.markusrother.swing.snap.SnapPoint} object.
+	 */
 	private void setCurrentSnapPoint(final SnapPoint snapPoint) {
 		currentSnapPoint = snapPoint;
 	}
 
+	/**
+	 * <p>disableCurrentSnapPoint.</p>
+	 */
 	void disableCurrentSnapPoint() {
 		if (currentSnapPoint == null) {
 			return;
@@ -132,6 +169,12 @@ public class SnapGridComponent extends JComponent {
 		}
 	}
 
+	/**
+	 * <p>findNearestSnapTarget.</p>
+	 *
+	 * @param source a {@link java.awt.Point} object.
+	 * @return a {@link de.markusrother.swing.snap.SnapPoint} object.
+	 */
 	public SnapPoint findNearestSnapTarget(final Point source) {
 		// TODO - If two targets share the same point, what should happen?
 		SnapPoint point;
@@ -152,6 +195,13 @@ public class SnapGridComponent extends JComponent {
 		return point;
 	}
 
+	/**
+	 * <p>createSnapTarget.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 * @param origin a {@link java.awt.Point} object.
+	 * @return a {@link de.markusrother.swing.snap.SnapTarget} object.
+	 */
 	public SnapTarget createSnapTarget(final Component component, final Point origin) {
 		// TODO - Positioning should be done by a LayoutManager!
 		// component.addMouseListener(snapGridMouseListener);
@@ -167,6 +217,13 @@ public class SnapGridComponent extends JComponent {
 		return snapTarget;
 	}
 
+	/**
+	 * <p>createSnapPoint.</p>
+	 *
+	 * @param snapTarget a {@link de.markusrother.swing.snap.SnapTarget} object.
+	 * @param constraint a {@link java.lang.String} object.
+	 * @return a {@link java.awt.Component} object.
+	 */
 	public Component createSnapPoint(final SnapTarget snapTarget, final String constraint) {
 		final Component component = snapTarget.createSnapPoint(constraint);
 		component.addMouseListener(snapGridMouseListener);
@@ -174,6 +231,11 @@ public class SnapGridComponent extends JComponent {
 		return component;
 	}
 
+	/**
+	 * <p>toggleNearestSnapPoint.</p>
+	 *
+	 * @param point a {@link java.awt.Point} object.
+	 */
 	public void toggleNearestSnapPoint(final Point point) {
 		// TODO - center vs. origin
 		final SnapPoint nextSnapPoint = findNearestSnapTarget(point);

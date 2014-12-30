@@ -28,9 +28,20 @@ import de.markusrother.pned.gui.events.TransitionCreationCommand;
 
 /**
  * Diese Klasse implementiert die Grundlage für einen einfachen PNML Parser.
+ *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class PNMLParser {
 
+	/**
+	 * <p>parse.</p>
+	 *
+	 * @param resource a {@link java.net.URL} object.
+	 * @param eventTarget a {@link de.markusrother.pned.gui.EventTarget} object.
+	 * @throws javax.xml.stream.XMLStreamException if any.
+	 * @throws java.io.IOException if any.
+	 */
 	public static void parse(final URL resource, final EventTarget eventTarget) throws XMLStreamException, IOException {
 		@SuppressWarnings("resource")
 		// Suppressed, because exception is propagated.
@@ -39,16 +50,37 @@ public class PNMLParser {
 		inputStream.close();
 	}
 
+	/**
+	 * <p>parse.</p>
+	 *
+	 * @param pnml a {@link java.io.File} object.
+	 * @param eventTarget a {@link de.markusrother.pned.gui.EventTarget} object.
+	 * @throws java.io.FileNotFoundException if any.
+	 * @throws javax.xml.stream.XMLStreamException if any.
+	 */
 	public static void parse(final File pnml, final EventTarget eventTarget) throws FileNotFoundException,
 			XMLStreamException {
 		parse(new FileInputStream(pnml), eventTarget);
 	}
 
+	/**
+	 * <p>parse.</p>
+	 *
+	 * @param inputStream a {@link java.io.InputStream} object.
+	 * @param eventTarget a {@link de.markusrother.pned.gui.EventTarget} object.
+	 * @throws javax.xml.stream.XMLStreamException if any.
+	 */
 	public static void parse(final InputStream inputStream, final EventTarget eventTarget) throws XMLStreamException {
 		final XMLInputFactory factory = XMLInputFactory.newInstance();
 		parse(factory.createXMLEventReader(inputStream), eventTarget);
 	}
 
+	/**
+	 * <p>parse.</p>
+	 *
+	 * @param xmlEventReader a {@link javax.xml.stream.XMLEventReader} object.
+	 * @param eventTarget a {@link de.markusrother.pned.gui.EventTarget} object.
+	 */
 	public static void parse(final XMLEventReader xmlEventReader, final EventTarget eventTarget) {
 		final PNMLParser parser = new PNMLParser(xmlEventReader, eventTarget);
 		parser.parse();
@@ -86,6 +118,12 @@ public class PNMLParser {
 
 	private final EventTarget eventTarget;
 
+	/**
+	 * <p>Constructor for PNMLParser.</p>
+	 *
+	 * @param xmlParser a {@link javax.xml.stream.XMLEventReader} object.
+	 * @param eventTarget a {@link de.markusrother.pned.gui.EventTarget} object.
+	 */
 	private PNMLParser(final XMLEventReader xmlParser, final EventTarget eventTarget) {
 		this.xmlParser = xmlParser;
 		this.eventTarget = eventTarget;
@@ -138,9 +176,9 @@ public class PNMLParser {
 	 * Diese Methode behandelt den Start neuer XML Elemente, in dem der Name des
 	 * Elements überprüft wird und dann die Behandlung an spezielle Methoden
 	 * delegiert wird.
-	 * 
+	 *
 	 * @param event
-	 *            {@link XMLEvent}
+	 *            {@link javax.xml.stream.events.XMLEvent}
 	 */
 	private void handleStartEvent(final XMLEvent event) {
 		final StartElement element = event.asStartElement();
@@ -166,7 +204,7 @@ public class PNMLParser {
 	/**
 	 * Diese Methode wird aufgerufen, wenn Text innerhalb eines Value Elements
 	 * gelesen wird.
-	 * 
+	 *
 	 * @param value
 	 *            Der gelesene Text als String
 	 */
@@ -180,7 +218,7 @@ public class PNMLParser {
 
 	/**
 	 * Diese Methode wird aufgerufen, wenn ein Positionselement gelesen wird.
-	 * 
+	 *
 	 * @param element
 	 *            das Positionselement
 	 */
@@ -205,7 +243,7 @@ public class PNMLParser {
 
 	/**
 	 * Diese Methode wird aufgerufen, wenn ein Transitionselement gelesen wird.
-	 * 
+	 *
 	 * @param element
 	 *            das Transitionselement
 	 */
@@ -230,7 +268,7 @@ public class PNMLParser {
 
 	/**
 	 * Diese Methode wird aufgerufen, wenn ein Stellenelement gelesen wird.
-	 * 
+	 *
 	 * @param element
 	 *            das Stellenelement
 	 */
@@ -255,7 +293,7 @@ public class PNMLParser {
 
 	/**
 	 * Diese Methode wird aufgerufen, wenn ein Kantenelement gelesen wird.
-	 * 
+	 *
 	 * @param element
 	 *            das Kantenelement
 	 */
@@ -286,7 +324,7 @@ public class PNMLParser {
 	/**
 	 * Diese Methode kann überschrieben werden, um geladene Transitionen zu
 	 * erstellen.
-	 * 
+	 *
 	 * @param transitionId
 	 *            Identifikationstext der Transition
 	 */
@@ -298,7 +336,7 @@ public class PNMLParser {
 	/**
 	 * Diese Methode kann überschrieben werden, um geladene Stellen zu
 	 * erstellen.
-	 * 
+	 *
 	 * @param placeId
 	 *            Identifikationstext der Stelle
 	 */
@@ -309,7 +347,7 @@ public class PNMLParser {
 
 	/**
 	 * Diese Methode kann überschrieben werden, um geladene Kanten zu erstellen.
-	 * 
+	 *
 	 * @param edgeId
 	 *            Identifikationstext der Kante
 	 * @param sourceId
@@ -325,7 +363,7 @@ public class PNMLParser {
 	/**
 	 * Diese Methode kann überschrieben werden, um die Positionen der geladenen
 	 * Elemente zu aktualisieren.
-	 * 
+	 *
 	 * @param elementId
 	 *            Identifikationstext des Elements
 	 * @param x
@@ -344,7 +382,7 @@ public class PNMLParser {
 	/**
 	 * Diese Methode kann überschrieben werden, um den Beschriftungstext der
 	 * geladenen Elemente zu aktualisieren.
-	 * 
+	 *
 	 * @param elementId
 	 *            Identifikationstext des Elements
 	 * @param label
@@ -358,7 +396,7 @@ public class PNMLParser {
 	/**
 	 * Diese Methode kann überschrieben werden, um die Markierung der geladenen
 	 * Elemente zu aktualisieren.
-	 * 
+	 *
 	 * @param placeId
 	 *            Identifikationstext des Elements
 	 * @param marking

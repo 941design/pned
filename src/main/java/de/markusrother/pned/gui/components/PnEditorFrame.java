@@ -18,10 +18,17 @@ import de.markusrother.pned.gui.menus.PnEditorMenuFactory;
 import de.markusrother.pned.gui.menus.PnedMenuBar;
 import de.markusrother.pned.io.PNMLParser;
 
+/**
+ * <p>PnEditorFrame class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class PnEditorFrame extends JFrame
 	implements
 		PetriNetListener {
 
+	/** Constant <code>preferredSize</code> */
 	private static final Dimension preferredSize = new Dimension(800, 600);
 
 	private EventBus eventMulticaster;
@@ -29,6 +36,11 @@ public class PnEditorFrame extends JFrame
 	private PnGridPanel grid;
 	private PnedMenuBar pnedMenuBar;
 
+	/**
+	 * <p>Constructor for PnEditorFrame.</p>
+	 *
+	 * @param title a {@link java.lang.String} object.
+	 */
 	public PnEditorFrame(final String title) {
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,6 +72,11 @@ public class PnEditorFrame extends JFrame
 		// PetriNetEventLogger.instantiate(eventMulticaster);
 	}
 
+	/**
+	 * <p>createNewContext.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.EventBus} object.
+	 */
 	private EventBus createNewContext() {
 		final EventBus eventMulticaster = new EventBus();
 		createPetriNetModel(eventMulticaster);
@@ -69,10 +86,20 @@ public class PnEditorFrame extends JFrame
 		return eventMulticaster;
 	}
 
+	/**
+	 * <p>createPetriNetModel.</p>
+	 *
+	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 */
 	private void createPetriNetModel(final EventBus eventMulticaster) {
 		EventAwarePetriNet.create(eventMulticaster);
 	}
 
+	/**
+	 * <p>main.</p>
+	 *
+	 * @param args a {@link java.lang.String} object.
+	 */
 	public static void main(final String... args) {
 
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -83,6 +110,7 @@ public class PnEditorFrame extends JFrame
 		});
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void disposePetriNet(final PetriNetEditCommand cmd) {
 		// Assuming GC takes care of rest.

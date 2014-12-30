@@ -17,34 +17,53 @@ import de.markusrother.pned.commands.PetriNetIOCommand;
 import de.markusrother.pned.gui.EventBus;
 
 /**
- * 
+ *
  * TODO
- * 
+ *
  * By using the same file chooser instance to display its open and save dialogs,
  * the program reaps the following benefits:
- * 
+ *
  * The chooser remembers the current directory between uses, so the open and
  * save versions automatically share the same current directory. You have to
  * customize only one file chooser, and the customizations apply to both the
  * open and save versions.
  *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class OpenImportDialogAction extends AbstractAction {
 
+	/** Constant <code>filter</code> */
 	public static FileFilter filter = new FileNameExtensionFilter(".pnml", "pnml");
 
+	/** Constant <code>menuLabel="Import"</code> */
 	private static final String menuLabel = "Import";
+	/** Constant <code>actionMnemonic=KeyEvent.VK_I</code> */
 	private static final int actionMnemonic = KeyEvent.VK_I;
+	/** Constant <code>dialogTitle="Import file"</code> */
 	private static final String dialogTitle = "Import file";
+	/** Constant <code>approveButtonLabel="Import"</code> */
 	private static final String approveButtonLabel = "Import";
+	/** Constant <code>NO_PARENT</code> */
 	private static final Component NO_PARENT = null;
 
+	/**
+	 * <p>newMenuItem.</p>
+	 *
+	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @return a {@link javax.swing.JMenuItem} object.
+	 */
 	public static JMenuItem newMenuItem(final EventBus eventMulticaster) {
 		return new JMenuItem(new OpenImportDialogAction(eventMulticaster));
 	}
 
 	private final EventBus eventBus;
 
+	/**
+	 * <p>Constructor for OpenImportDialogAction.</p>
+	 *
+	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 */
 	private OpenImportDialogAction(final EventBus eventMulticaster) {
 		super(menuLabel);
 		// this.source = source; // TODO
@@ -54,6 +73,8 @@ public class OpenImportDialogAction extends AbstractAction {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * NOTE - The <code>parent</code> argument determines two things: the frame
 	 * on which the open dialog depends and the component whose position the
 	 * look and feel should consider when placing the dialog. If the parent is a

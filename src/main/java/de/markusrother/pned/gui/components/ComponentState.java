@@ -7,6 +7,12 @@ package de.markusrother.pned.gui.components;
 //
 // .allOf(), .anyOf(), .oneOf(), .twoOf(),
 // .atLeast(oneOf(x,y,z)).or(q).and(a,b,c)
+/**
+ * <p>ComponentState class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public enum ComponentState {
 	DEFAULT,
 	HOVER, // HOVERED

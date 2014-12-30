@@ -11,6 +11,12 @@ import de.markusrother.pned.commands.MarkingLayoutCommand;
 import de.markusrother.pned.commands.listeners.MarkingLayoutListener;
 import de.markusrother.pned.gui.EventBus;
 
+/**
+ * <p>Marking class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class Marking extends JPanel
 	implements
 		MarkingLayoutListener {
@@ -19,6 +25,11 @@ public class Marking extends JPanel
 	private int value;
 	private final JLabel label;
 
+	/**
+	 * <p>Constructor for Marking.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 */
 	Marking(final EventBus eventBus) {
 		this.style = MarkingStyle.DEFAULT;
 		this.label = new JLabel();
@@ -28,6 +39,7 @@ public class Marking extends JPanel
 		eventBus.addListener(MarkingLayoutListener.class, this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void paintComponent(final Graphics g) {
 		// TODO - final int value = model.getValue();
@@ -40,10 +52,20 @@ public class Marking extends JPanel
 		}
 	}
 
+	/**
+	 * <p>Getter for the field <code>value</code>.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getValue() {
 		return value;
 	}
 
+	/**
+	 * <p>Setter for the field <code>value</code>.</p>
+	 *
+	 * @param value a int.
+	 */
 	public void setValue(final int value) {
 		if (this.value != value) {
 			this.value = value;
@@ -52,6 +74,7 @@ public class Marking extends JPanel
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSize(final MarkingLayoutCommand cmd) {
 		final int extent = cmd.getSize();

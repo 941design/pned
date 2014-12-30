@@ -14,6 +14,12 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * <p>ScaleGroup class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class ScaleGroup extends JPanel
 	implements
 		ChangeListener,
@@ -34,10 +40,23 @@ public class ScaleGroup extends JPanel
 	private final JSlider jSlider;
 	private final CheckedTextField textField;
 
+	/**
+	 * <p>Constructor for ScaleGroup.</p>
+	 *
+	 * @param label a {@link java.lang.String} object.
+	 * @param orientation a {@link de.markusrother.swing.ScaleGroup.Orientation} object.
+	 */
 	public ScaleGroup(final String label, final Orientation orientation) {
 		this(label, orientation, new DefaultBoundedRangeModel());
 	}
 
+	/**
+	 * <p>Constructor for ScaleGroup.</p>
+	 *
+	 * @param label a {@link java.lang.String} object.
+	 * @param orientation a {@link de.markusrother.swing.ScaleGroup.Orientation} object.
+	 * @param model a {@link javax.swing.BoundedRangeModel} object.
+	 */
 	public ScaleGroup(final String label, final Orientation orientation, final BoundedRangeModel model) {
 
 		// TODO - Create LogarithmicRangeModel
@@ -60,6 +79,9 @@ public class ScaleGroup extends JPanel
 		setMaximumSize(getPreferredSize()); // TODO - Create LayoutManager
 	}
 
+	/**
+	 * <p>fireValueChangedEvent.</p>
+	 */
 	private void fireValueChangedEvent() {
 		final ChangeEvent e = new ChangeEvent(this);
 		for (final ChangeListener listener : listenerList.getListeners(ChangeListener.class)) {
@@ -67,6 +89,7 @@ public class ScaleGroup extends JPanel
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Dimension getPreferredSize() {
 		final Dimension labelSize = jLabel.getPreferredSize();
@@ -97,6 +120,7 @@ public class ScaleGroup extends JPanel
 		listenerList.remove(ChangeListener.class, l);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void stateChanged(final ChangeEvent e) {
 		final int value = jSlider.getValue();
@@ -104,6 +128,7 @@ public class ScaleGroup extends JPanel
 		fireValueChangedEvent();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void textEntered(final ActionEvent e) {
 		final int value = Integer.valueOf(textField.getText());
@@ -111,26 +136,56 @@ public class ScaleGroup extends JPanel
 		fireValueChangedEvent();
 	}
 
+	/**
+	 * <p>getLabel.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getLabel() {
 		return jLabel.getText();
 	}
 
+	/**
+	 * <p>setLabel.</p>
+	 *
+	 * @param label a {@link java.lang.String} object.
+	 */
 	public void setLabel(final String label) {
 		jLabel.setText(label);
 	}
 
+	/**
+	 * <p>getValue.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getValue() {
 		return jSlider.getValue();
 	}
 
+	/**
+	 * <p>setValue.</p>
+	 *
+	 * @param value a int.
+	 */
 	public void setValue(final int value) {
 		jSlider.setValue(value);
 	}
 
+	/**
+	 * <p>getModel.</p>
+	 *
+	 * @return a {@link javax.swing.BoundedRangeModel} object.
+	 */
 	public BoundedRangeModel getModel() {
 		return jSlider.getModel();
 	}
 
+	/**
+	 * <p>setModel.</p>
+	 *
+	 * @param model a {@link javax.swing.BoundedRangeModel} object.
+	 */
 	public void setModel(final BoundedRangeModel model) {
 		jSlider.setModel(model);
 	}

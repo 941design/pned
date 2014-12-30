@@ -12,6 +12,9 @@ import de.markusrother.pned.gui.listeners.NodeListener;
 
 /**
  * TODO - resize menu on toggle or create with enough space to the right!
+ *
+ * @author Markus Rother
+ * @version 1.0
  */
 public abstract class AbstractNodeAction extends AbstractAction
 	implements
@@ -22,6 +25,15 @@ public abstract class AbstractNodeAction extends AbstractAction
 	protected final LocationProvider locationProvider;
 	protected final EventBus eventBus;
 
+	/**
+	 * <p>Constructor for AbstractNodeAction.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param source a {@link java.lang.Object} object.
+	 * @param locationProvider a {@link de.markusrother.pned.gui.menus.actions.LocationProvider} object.
+	 * @param mnemonic a int.
+	 * @param name a {@link java.lang.String} object.
+	 */
 	public AbstractNodeAction(final EventBus eventBus, final Object source, final LocationProvider locationProvider,
 			final int mnemonic, final String name) {
 		super(name);
@@ -33,6 +45,7 @@ public abstract class AbstractNodeAction extends AbstractAction
 		eventBus.addListener(NodeListener.class, this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void itemStateChanged(final ItemEvent e) {
 		final boolean isSelected = e.getStateChange() == ItemEvent.SELECTED;
@@ -42,10 +55,23 @@ public abstract class AbstractNodeAction extends AbstractAction
 		}
 	}
 
+	/**
+	 * <p>selected.</p>
+	 */
 	protected abstract void selected();
 
+	/**
+	 * <p>setSelected.</p>
+	 *
+	 * @param enabled a boolean.
+	 */
 	public abstract void setSelected(final boolean enabled);
 
+	/**
+	 * <p>requestNodeId.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	protected String requestNodeId() {
 		final IdRequest req = new IdRequest(this);
 		eventBus.requestId(req);

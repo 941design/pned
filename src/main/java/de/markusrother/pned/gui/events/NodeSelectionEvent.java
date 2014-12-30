@@ -6,6 +6,12 @@ import java.util.EventObject;
 
 import de.markusrother.pned.gui.components.AbstractNode;
 
+/**
+ * <p>NodeSelectionEvent class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class NodeSelectionEvent extends EventObject {
 
 	public enum Type {
@@ -16,25 +22,49 @@ public class NodeSelectionEvent extends EventObject {
 		CANCEL;
 	}
 
+	/** Constant <code>NO_NODES</code> */
 	private static final Collection<AbstractNode> NO_NODES = Collections.emptyList();
 
 	private final Collection<AbstractNode> nodes;
 	private final Type type;
 
+	/**
+	 * <p>Constructor for NodeSelectionEvent.</p>
+	 *
+	 * @param type a {@link de.markusrother.pned.gui.events.NodeSelectionEvent.Type} object.
+	 * @param source a {@link java.lang.Object} object.
+	 */
 	public NodeSelectionEvent(final Type type, final Object source) {
 		this(type, source, NO_NODES);
 	}
 
+	/**
+	 * <p>Constructor for NodeSelectionEvent.</p>
+	 *
+	 * @param type a {@link de.markusrother.pned.gui.events.NodeSelectionEvent.Type} object.
+	 * @param source a {@link java.lang.Object} object.
+	 * @param nodes a {@link java.util.Collection} object.
+	 */
 	public NodeSelectionEvent(final Type type, final Object source, final Collection<AbstractNode> nodes) {
 		super(source);
 		this.type = type;
 		this.nodes = nodes;
 	}
 
+	/**
+	 * <p>Getter for the field <code>type</code>.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.events.NodeSelectionEvent.Type} object.
+	 */
 	public Type getType() {
 		return type;
 	}
 
+	/**
+	 * <p>Getter for the field <code>nodes</code>.</p>
+	 *
+	 * @return a {@link java.util.Collection} object.
+	 */
 	public Collection<AbstractNode> getNodes() {
 		return nodes;
 	}

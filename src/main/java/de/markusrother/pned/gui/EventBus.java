@@ -49,6 +49,9 @@ import de.markusrother.pned.gui.listeners.PlaceEditListener;
  * TODO - We could distinguish Two sources GUI and MODEL. GUI could be anything
  * static that can be compared against, to distinguish where a creation event
  * came from.
+ *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class EventBus
 	implements
@@ -72,11 +75,13 @@ public class EventBus
 
 	private final EventListenerList listeners = new EventListenerList();
 
+	/** {@inheritDoc} */
 	@Override
 	public <T extends EventListener> T[] getListeners(final Class<T> clazz) {
 		return listeners.getListeners(clazz);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public <T extends EventListener> void addListener(final Class<T> clazz, final T l) {
 		// TODO - maintain a map which only dispatches events to given listener?
@@ -84,11 +89,13 @@ public class EventBus
 		listeners.add(clazz, l);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public <T extends EventListener> void removeListener(final Class<T> clazz, final T l) {
 		listeners.remove(clazz, l);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void disposePetriNet(final PetriNetEditCommand cmd) {
 		for (final PetriNetListener l : getListeners(PetriNetListener.class)) {
@@ -96,6 +103,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void importPnml(final PetriNetIOCommand cmd) throws IOException {
 		for (final PetriNetIOListener l : getListeners(PetriNetIOListener.class)) {
@@ -103,6 +111,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void exportPnml(final PetriNetIOCommand cmd) throws IOException {
 		for (final PetriNetIOListener l : getListeners(PetriNetIOListener.class)) {
@@ -110,6 +119,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
 		for (final NodeListener l : getListeners(NodeListener.class)) {
@@ -117,6 +127,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createPlace(final PlaceCreationCommand cmd) {
 		for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
@@ -124,6 +135,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createTransition(final TransitionCreationCommand cmd) {
 		for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
@@ -131,6 +143,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createEdge(final EdgeCreationCommand cmd) {
 		for (final EdgeCreationListener l : getListeners(EdgeCreationListener.class)) {
@@ -138,6 +151,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setMarking(final PlaceEditEvent e) {
 		for (final PlaceEditListener l : getListeners(PlaceEditListener.class)) {
@@ -145,6 +159,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
 		for (final NodeRemovalListener l : getListeners(NodeRemovalListener.class)) {
@@ -152,6 +167,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
 		for (final NodeRemovalListener l : getListeners(NodeRemovalListener.class)) {
@@ -159,6 +175,11 @@ public class EventBus
 		}
 	}
 
+	/**
+	 * <p>fireNodeSelectionEvent.</p>
+	 *
+	 * @param e a {@link de.markusrother.pned.gui.events.NodeSelectionEvent} object.
+	 */
 	public void fireNodeSelectionEvent(final NodeSelectionEvent e) {
 		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
 			switch (e.getType()) {
@@ -180,6 +201,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeMoved(final NodeMovedEvent e) {
 		for (final NodeMotionListener l : getListeners(NodeMotionListener.class)) {
@@ -187,6 +209,11 @@ public class EventBus
 		}
 	}
 
+	/**
+	 * <p>fireEdgeEditEvent.</p>
+	 *
+	 * @param e a {@link de.markusrother.pned.gui.events.EdgeEditEvent} object.
+	 */
 	public void fireEdgeEditEvent(final EdgeEditEvent e) {
 		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
 			switch (e.getType()) {
@@ -214,6 +241,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setLabel(final LabelEditEvent e) {
 		for (final LabelEditListener l : getListeners(LabelEditListener.class)) {
@@ -221,6 +249,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSize(final PlaceLayoutCommand cmd) {
 		for (final PlaceLayoutListener l : getListeners(PlaceLayoutListener.class)) {
@@ -240,6 +269,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSize(final TransitionLayoutCommand cmd) {
 		for (final TransitionLayoutListener l : getListeners(TransitionLayoutListener.class)) {
@@ -259,6 +289,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSize(final MarkingLayoutCommand cmd) {
 		for (final MarkingLayoutListener l : getListeners(MarkingLayoutListener.class)) {
@@ -278,6 +309,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSize(final EdgeLayoutCommand cmd) {
 		for (final EdgeLayoutListener l : getListeners(EdgeLayoutListener.class)) {
@@ -297,6 +329,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void transitionActivated(final TransitionActivationEvent e) {
 		for (final TransitionActivationListener l : getListeners(TransitionActivationListener.class)) {
@@ -304,6 +337,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void transitionDeactivated(final TransitionActivationEvent e) {
 		for (final TransitionActivationListener l : getListeners(TransitionActivationListener.class)) {
@@ -311,6 +345,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void requestNode(final NodeRequest req) {
 		for (final NodeRequestListener l : getListeners(NodeRequestListener.class)) {
@@ -325,6 +360,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void requestId(final IdRequest req) {
 		for (final IdRequestListener l : getListeners(IdRequestListener.class)) {
