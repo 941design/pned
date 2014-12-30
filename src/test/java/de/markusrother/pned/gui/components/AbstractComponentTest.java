@@ -57,7 +57,6 @@ public abstract class AbstractComponentTest<T> {
 		final T component = getComponent();
 		final List<Class<EventListener>> listenerClasses = getEventListenerClasses(component);
 		for (final Class<EventListener> listenerClass : listenerClasses) {
-			System.out.println(listenerClass);
 			final EventListener listener = (EventListener) component;
 			Mockito.verify(eventMulticastMock).addListener(listenerClass, listener);
 		}

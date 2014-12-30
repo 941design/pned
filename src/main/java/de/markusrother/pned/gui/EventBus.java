@@ -1,14 +1,8 @@
 package de.markusrother.pned.gui;
 
-import java.awt.AWTEvent;
-import java.awt.Toolkit;
-import java.awt.event.AWTEventListener;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.EventListener;
 
-import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.event.EventListenerList;
 
@@ -52,16 +46,6 @@ import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.PlaceEditListener;
 
 /**
- * Should be retrieved from frame/application (after the EDT is created).
- * 
- * Rename to PnedAwtEventMulticaster as opposed to the
- * PnedModelEventMulticaster. Maybe we can get rid of the swing objects here,
- * already.
- * 
- * TODO - create an PnedEvent superclass. (for what?)
- * 
- * TODO - which idiom?
- * 
  * TODO - We could distinguish Two sources GUI and MODEL. GUI could be anything
  * static that can be compared against, to distinguish where a creation event
  * came from.
@@ -73,7 +57,6 @@ public class EventBus
 		PetriNetIOListener,
 		IdRequestListener,
 		TransitionActivationListener,
-		AWTEventListener,
 		EventTarget,
 		NodeListener,
 		NodeRequestListener,
@@ -128,77 +111,190 @@ public class EventBus
 	}
 
 	@Override
-	public void setCurrentNodeType(final SetNodeTypeCommand e) {
-		eventDispatched(e);
+	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
+		for (final NodeListener l : getListeners(NodeListener.class)) {
+			l.setCurrentNodeType(cmd);
+		}
 	}
 
 	@Override
 	public void createPlace(final PlaceCreationCommand cmd) {
-		eventDispatched(cmd);
+		for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
+			l.createPlace(cmd);
+		}
 	}
 
 	@Override
 	public void createTransition(final TransitionCreationCommand cmd) {
-		eventDispatched(cmd);
+		for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
+			l.createTransition(cmd);
+		}
 	}
 
 	@Override
 	public void createEdge(final EdgeCreationCommand cmd) {
-		eventDispatched(cmd);
+		for (final EdgeCreationListener l : getListeners(EdgeCreationListener.class)) {
+			l.createEdge(cmd);
+		}
 	}
 
 	@Override
-	public void setMarking(final PlaceEditEvent cmd) {
-		eventDispatched(cmd);
+	public void setMarking(final PlaceEditEvent e) {
+		for (final PlaceEditListener l : getListeners(PlaceEditListener.class)) {
+			l.setMarking(e);
+		}
 	}
 
 	@Override
 	public void nodeRemoved(final NodeRemovalEvent e) {
-		eventDispatched(e);
+		for (final NodeRemovalListener l : getListeners(NodeRemovalListener.class)) {
+			l.nodeRemoved(e);
+		}
 	}
 
 	@Override
 	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
-		eventDispatched(e);
+		for (final NodeRemovalListener l : getListeners(NodeRemovalListener.class)) {
+			l.removeSelectedNodes(e);
+		}
 	}
 
 	public void fireNodeSelectionEvent(final NodeSelectionEvent e) {
-		// TODO - should be defined in an interface
-		eventDispatched(e);
+		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
+			switch (e.getType()) {
+			case SELECT:
+				l.nodesSelected(e);
+				break;
+			case DESELECT:
+				l.nodesUnselected(e);
+				break;
+			case FINISH:
+				l.nodeSelectionFinished(e);
+				break;
+			case CANCEL:
+				l.nodeSelectionCancelled(e);
+				break;
+			default:
+				throw new IllegalStateException();
+			}
+		}
 	}
 
 	@Override
 	public void nodeMoved(final NodeMovedEvent e) {
-		eventDispatched(e);
+		for (final NodeMotionListener l : getListeners(NodeMotionListener.class)) {
+			l.nodeMoved(e);
+		}
 	}
 
 	public void fireEdgeEditEvent(final EdgeEditEvent e) {
-		eventDispatched(e);
+		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
+			switch (e.getType()) {
+			case COMPONENT_ENTERED:
+				l.targetComponentEntered(e);
+				break;
+			case COMPONENT_EXITED:
+				l.targetComponentExited(e);
+				break;
+			case EDGE_CHANGED:
+				l.edgeMoved(e);
+				break;
+			case EDGE_CANCELLED:
+				l.edgeCancelled(e);
+				break;
+			case EDGE_FINISHED:
+				l.edgeFinished(e);
+				break;
+			case EDGE_STARTED:
+				l.edgeStarted(e);
+				break;
+			default:
+				throw new IllegalStateException();
+			}
+		}
 	}
 
 	@Override
 	public void setLabel(final LabelEditEvent e) {
-		eventDispatched(e);
+		for (final LabelEditListener l : getListeners(LabelEditListener.class)) {
+			l.setLabel(e);
+		}
 	}
 
 	@Override
 	public void setSize(final PlaceLayoutCommand cmd) {
-		eventDispatched(cmd);
+		for (final PlaceLayoutListener l : getListeners(PlaceLayoutListener.class)) {
+			switch (cmd.getType()) {
+			case SIZE:
+				l.setSize(cmd);
+				break;
+			case SELECTION_COLOR:
+			case DEFAULT_COLOR:
+			case DEFAULT_BORDER_COLOR:
+			case SELECTION_BORDER_COLOR:
+			case HOVER_COLOR:
+			case HOVER_BORDER_COLOR:
+			default:
+				throw new IllegalStateException();
+			}
+		}
 	}
 
 	@Override
 	public void setSize(final TransitionLayoutCommand cmd) {
-		eventDispatched(cmd);
+		for (final TransitionLayoutListener l : getListeners(TransitionLayoutListener.class)) {
+			switch (cmd.getType()) {
+			case SIZE:
+				l.setSize(cmd);
+				break;
+			case SELECTION_COLOR:
+			case DEFAULT_COLOR:
+			case DEFAULT_BORDER_COLOR:
+			case SELECTION_BORDER_COLOR:
+			case HOVER_COLOR:
+			case HOVER_BORDER_COLOR:
+			default:
+				throw new IllegalStateException();
+			}
+		}
 	}
 
 	@Override
 	public void setSize(final MarkingLayoutCommand cmd) {
-		eventDispatched(cmd);
+		for (final MarkingLayoutListener l : getListeners(MarkingLayoutListener.class)) {
+			switch (cmd.getType()) {
+			case SIZE:
+				l.setSize(cmd);
+				break;
+			case SELECTION_COLOR:
+			case DEFAULT_COLOR:
+			case DEFAULT_BORDER_COLOR:
+			case SELECTION_BORDER_COLOR:
+			case HOVER_COLOR:
+			case HOVER_BORDER_COLOR:
+			default:
+				throw new IllegalStateException();
+			}
+		}
 	}
 
 	@Override
 	public void setSize(final EdgeLayoutCommand cmd) {
-		eventDispatched(cmd);
+		for (final EdgeLayoutListener l : getListeners(EdgeLayoutListener.class)) {
+			switch (cmd.getType()) {
+			case SIZE:
+				l.setSize(cmd);
+				break;
+			case SELECTION_COLOR:
+			case DEFAULT_COLOR:
+			case DEFAULT_BORDER_COLOR:
+			case SELECTION_BORDER_COLOR:
+			case HOVER_COLOR:
+			case HOVER_BORDER_COLOR:
+			default:
+				throw new IllegalStateException();
+			}
+		}
 	}
 
 	@Override
@@ -240,192 +336,6 @@ public class EventBus
 				}
 			};
 			worker.execute();
-		}
-	}
-
-	public EventBus() {
-		// TODO - We could reduce overhead if we could inject a custom mask
-		// instead of using ACTION_PERFORMED for all our custom events:
-		Toolkit.getDefaultToolkit().addAWTEventListener(this, ActionEvent.ACTION_PERFORMED);
-	}
-
-	@Override
-	public void eventDispatched(final AWTEvent event) {
-		if (!SwingUtilities.isEventDispatchThread()) {
-			System.err.println("Not on EDT: " + event);
-			try {
-				// FIXME - Create an EventTarget that puts events on EDT!
-				SwingUtilities.invokeAndWait(new Runnable() {
-					@Override
-					public void run() {
-						eventDispatched(event);
-					}
-				});
-				return;
-			} catch (InvocationTargetException | InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if (event instanceof SetNodeTypeCommand) {
-			final SetNodeTypeCommand cmd = (SetNodeTypeCommand) event;
-			for (final NodeListener l : getListeners(NodeListener.class)) {
-				l.setCurrentNodeType(cmd);
-			}
-		} else if (event instanceof PlaceCreationCommand) {
-			final PlaceCreationCommand cmd = (PlaceCreationCommand) event;
-			for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
-				l.createPlace(cmd);
-			}
-		} else if (event instanceof TransitionCreationCommand) {
-			final TransitionCreationCommand cmd = (TransitionCreationCommand) event;
-			for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
-				l.createTransition(cmd);
-			}
-		} else if (event instanceof EdgeCreationCommand) {
-			final EdgeCreationCommand cmd = (EdgeCreationCommand) event;
-			for (final EdgeCreationListener l : getListeners(EdgeCreationListener.class)) {
-				l.createEdge(cmd);
-			}
-		} else if (event instanceof NodeRemovalEvent) {
-			final NodeRemovalEvent e = (NodeRemovalEvent) event;
-			for (final NodeRemovalListener l : getListeners(NodeRemovalListener.class)) {
-				l.nodeRemoved(e);
-			}
-		} else if (event instanceof RemoveSelectedNodesEvent) {
-			final RemoveSelectedNodesEvent e = (RemoveSelectedNodesEvent) event;
-			for (final NodeRemovalListener l : getListeners(NodeRemovalListener.class)) {
-				l.removeSelectedNodes(e);
-			}
-		} else if (event instanceof NodeSelectionEvent) {
-			final NodeSelectionEvent e = (NodeSelectionEvent) event;
-			for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
-				switch (e.getType()) {
-				case SELECT:
-					l.nodesSelected(e);
-					break;
-				case DESELECT:
-					l.nodesUnselected(e);
-					break;
-				case FINISH:
-					l.nodeSelectionFinished(e);
-					break;
-				case CANCEL:
-					l.nodeSelectionCancelled(e);
-					break;
-				default:
-					throw new IllegalStateException();
-				}
-			}
-		} else if (event instanceof NodeMovedEvent) {
-			final NodeMovedEvent e = (NodeMovedEvent) event;
-			for (final NodeMotionListener l : getListeners(NodeMotionListener.class)) {
-				l.nodeMoved(e);
-			}
-		} else if (event instanceof PlaceEditEvent) {
-			final PlaceEditEvent e = (PlaceEditEvent) event;
-			for (final PlaceEditListener l : getListeners(PlaceEditListener.class)) {
-				l.setMarking(e);
-			}
-		} else if (event instanceof LabelEditEvent) {
-			final LabelEditEvent e = (LabelEditEvent) event;
-			for (final LabelEditListener l : getListeners(LabelEditListener.class)) {
-				l.setLabel(e);
-			}
-		} else if (event instanceof EdgeEditEvent) {
-			final EdgeEditEvent e = (EdgeEditEvent) event;
-			for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
-				switch (e.getType()) {
-				case COMPONENT_ENTERED:
-					l.targetComponentEntered(e);
-					break;
-				case COMPONENT_EXITED:
-					l.targetComponentExited(e);
-					break;
-				case EDGE_CHANGED:
-					l.edgeMoved(e);
-					break;
-				case EDGE_CANCELLED:
-					l.edgeCancelled(e);
-					break;
-				case EDGE_FINISHED:
-					l.edgeFinished(e);
-					break;
-				case EDGE_STARTED:
-					l.edgeStarted(e);
-					break;
-				default:
-					throw new IllegalStateException();
-				}
-			}
-		} else if (event instanceof PlaceLayoutCommand) {
-			final PlaceLayoutCommand cmd = (PlaceLayoutCommand) event;
-			for (final PlaceLayoutListener l : getListeners(PlaceLayoutListener.class)) {
-				switch (cmd.getType()) {
-				case SIZE:
-					l.setSize(cmd);
-					break;
-				case SELECTION_COLOR:
-				case DEFAULT_COLOR:
-				case DEFAULT_BORDER_COLOR:
-				case SELECTION_BORDER_COLOR:
-				case HOVER_COLOR:
-				case HOVER_BORDER_COLOR:
-				default:
-					throw new IllegalStateException();
-				}
-			}
-		} else if (event instanceof TransitionLayoutCommand) {
-			final TransitionLayoutCommand cmd = (TransitionLayoutCommand) event;
-			for (final TransitionLayoutListener l : getListeners(TransitionLayoutListener.class)) {
-				switch (cmd.getType()) {
-				case SIZE:
-					l.setSize(cmd);
-					break;
-				case SELECTION_COLOR:
-				case DEFAULT_COLOR:
-				case DEFAULT_BORDER_COLOR:
-				case SELECTION_BORDER_COLOR:
-				case HOVER_COLOR:
-				case HOVER_BORDER_COLOR:
-				default:
-					throw new IllegalStateException();
-				}
-			}
-		} else if (event instanceof MarkingLayoutCommand) {
-			final MarkingLayoutCommand cmd = (MarkingLayoutCommand) event;
-			for (final MarkingLayoutListener l : getListeners(MarkingLayoutListener.class)) {
-				switch (cmd.getType()) {
-				case SIZE:
-					l.setSize(cmd);
-					break;
-				case SELECTION_COLOR:
-				case DEFAULT_COLOR:
-				case DEFAULT_BORDER_COLOR:
-				case SELECTION_BORDER_COLOR:
-				case HOVER_COLOR:
-				case HOVER_BORDER_COLOR:
-				default:
-					throw new IllegalStateException();
-				}
-			}
-		} else if (event instanceof EdgeLayoutCommand) {
-			final EdgeLayoutCommand cmd = (EdgeLayoutCommand) event;
-			for (final EdgeLayoutListener l : getListeners(EdgeLayoutListener.class)) {
-				switch (cmd.getType()) {
-				case SIZE:
-					l.setSize(cmd);
-					break;
-				case SELECTION_COLOR:
-				case DEFAULT_COLOR:
-				case DEFAULT_BORDER_COLOR:
-				case SELECTION_BORDER_COLOR:
-				case HOVER_COLOR:
-				case HOVER_BORDER_COLOR:
-				default:
-					throw new IllegalStateException();
-				}
-			}
 		}
 	}
 
