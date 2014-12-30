@@ -2,15 +2,12 @@ package de.markusrother.pned.core;
 
 import static org.junit.Assert.assertEquals;
 
-import java.awt.Point;
-import java.util.Collection;
-
-import org.junit.Assert;
 import org.junit.Test;
 
 import de.markusrother.pned.commands.listeners.PetriNetIOListener;
 import de.markusrother.pned.core.exceptions.NoSuchNodeException;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
+import de.markusrother.pned.gui.listeners.IdRequestListener;
 import de.markusrother.pned.gui.listeners.LabelEditListener;
 import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
@@ -35,6 +32,7 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 	public void testAllListenersAdded() {
 		final CommandSourceMock eventSource = new CommandSourceMock();
 		final PetriNetImpl petriNet = new EventAwarePetriNet(eventSource);
+		assertEquals(petriNet, eventSource.getListeners(IdRequestListener.class)[0]);
 		assertEquals(petriNet, eventSource.getListeners(PetriNetIOListener.class)[0]);
 		assertEquals(petriNet, eventSource.getListeners(NodeCreationListener.class)[0]);
 		assertEquals(petriNet, eventSource.getListeners(EdgeCreationListener.class)[0]);
@@ -42,7 +40,7 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 		assertEquals(petriNet, eventSource.getListeners(NodeMotionListener.class)[0]);
 		assertEquals(petriNet, eventSource.getListeners(PlaceEditListener.class)[0]);
 		assertEquals(petriNet, eventSource.getListeners(LabelEditListener.class)[0]);
-		assertEquals(7, eventSource.getListenerCount());
+		assertEquals(8, eventSource.getListenerCount());
 	}
 
 	@Test
@@ -59,19 +57,6 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 		assertTransitionsSizeEquals(0);
 		assertEdgesSizeEquals(0);
 		assertPlacesContains(p1, DEFAULT_ORIGIN, NO_MARKING);
-	}
-
-	@Test
-	public void testCreatePlaceWithoutId() {
-		final Point point = new Point(99, 99);
-		createPlace(point);
-		assertPlacesSizeEquals(1);
-		assertTransitionsSizeEquals(0);
-		assertEdgesSizeEquals(0);
-		final Collection<PlaceModel> places = getPlaces();
-		final PlaceModel place = places.iterator().next();
-		Assert.assertEquals("1", place.getId());
-		assertPlacesContains(place.getId(), point, NO_MARKING);
 	}
 
 	@Test
@@ -99,19 +84,6 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 		assertTransitionsSizeEquals(1);
 		assertEdgesSizeEquals(0);
 		assertTransitionsContains(t1, DEFAULT_ORIGIN);
-	}
-
-	@Test
-	public void testCreateTransitionWithoutId() {
-		final Point point = new Point(99, 99);
-		createTransition(point);
-		assertPlacesSizeEquals(0);
-		assertTransitionsSizeEquals(1);
-		assertEdgesSizeEquals(0);
-		final Collection<TransitionModel> transitions = getTransitions();
-		final TransitionModel transition = transitions.iterator().next();
-		Assert.assertEquals("1", transition.getId());
-		assertTransitionsContains(transition.getId(), point);
 	}
 
 	@Test(expected = NoSuchNodeException.class)

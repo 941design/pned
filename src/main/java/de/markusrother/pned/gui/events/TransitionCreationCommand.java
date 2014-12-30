@@ -8,8 +8,8 @@ public class TransitionCreationCommand extends AbstractNodeCreationCommand {
 		super(source, nodeId);
 	}
 
-	public TransitionCreationCommand(final Object source, final Point point) {
-		super(source, point);
+	public TransitionCreationCommand(final Object source, final String nodeId, final Point point) {
+		super(source, nodeId, point);
 	}
 
 }

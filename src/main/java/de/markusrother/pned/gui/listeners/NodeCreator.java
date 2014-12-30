@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 
 import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
+import de.markusrother.pned.gui.events.IdRequest;
 import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationCommand;
@@ -39,18 +40,23 @@ public class NodeCreator extends MouseAdapter
 		// the results to create documentation, though, and to test! Such
 		// that: For a given configuration of states we expect a list of
 		// activated listeners.
+		final String nodeId = requestId();
 		switch (mode) {
 		case PLACE:
-			// FIXME - Must create ID!
-			eventBus.createPlace(new PlaceCreationCommand(this, e.getPoint()));
+			eventBus.createPlace(new PlaceCreationCommand(this, nodeId, e.getPoint()));
 			break;
 		case TRANSITION:
-			// FIXME - Must create ID!
-			eventBus.createTransition(new TransitionCreationCommand(this, e.getPoint()));
+			eventBus.createTransition(new TransitionCreationCommand(this, nodeId, e.getPoint()));
 			break;
 		default:
 			throw new IllegalStateException();
 		}
+	}
+
+	private String requestId() {
+		final IdRequest req = new IdRequest(this);
+		eventBus.requestId(req);
+		return req.get();
 	}
 
 	@Override

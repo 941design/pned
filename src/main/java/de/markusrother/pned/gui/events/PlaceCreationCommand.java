@@ -8,8 +8,8 @@ public class PlaceCreationCommand extends AbstractNodeCreationCommand {
 		super(source, nodeId);
 	}
 
-	public PlaceCreationCommand(final Object source, final Point point) {
-		super(source, point);
+	public PlaceCreationCommand(final Object source, final String nodeId, final Point point) {
+		super(source, nodeId, point);
 	}
 
 }

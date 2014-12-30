@@ -19,6 +19,7 @@ import de.markusrother.pned.events.TransitionActivationEvent.Type;
 import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.PetriNetCommandSource;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
+import de.markusrother.pned.gui.events.IdRequest;
 import de.markusrother.pned.gui.events.LabelEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
@@ -26,6 +27,7 @@ import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.PlaceEditEvent;
 import de.markusrother.pned.gui.events.TransitionCreationCommand;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
+import de.markusrother.pned.gui.listeners.IdRequestListener;
 import de.markusrother.pned.gui.listeners.LabelEditListener;
 import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeMotionListener;
@@ -36,6 +38,7 @@ import de.markusrother.pned.io.PetriNetMarshaller;
 public class EventAwarePetriNet extends PetriNetImpl
 	implements
 		PetriNetIOListener,
+		IdRequestListener,
 		NodeCreationListener,
 		EdgeCreationListener,
 		NodeRemovalListener,
@@ -56,6 +59,7 @@ public class EventAwarePetriNet extends PetriNetImpl
 		this.commandSource = eventBus;
 		this.transitionActivationListeners = new LinkedList<>();
 
+		eventBus.addListener(IdRequestListener.class, this);
 		eventBus.addListener(NodeCreationListener.class, this);
 		eventBus.addListener(EdgeCreationListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
@@ -78,6 +82,12 @@ public class EventAwarePetriNet extends PetriNetImpl
 	}
 
 	@Override
+	public void requestId(final IdRequest req) {
+		final String id = createId();
+		req.set(id);
+	}
+
+	@Override
 	public void importPnml(final PetriNetIOCommand cmd) {
 		// IGNORE
 	}
@@ -95,27 +105,15 @@ public class EventAwarePetriNet extends PetriNetImpl
 	@Override
 	public void createPlace(final PlaceCreationCommand cmd) {
 		final Point point = cmd.getPoint();
-		if (cmd.hasNodeId()) {
-			// FIXME - This should throw an InvalidIdException (like any
-			// command that suggests an id)!
-			createPlace(cmd.getNodeId(), point);
-		} else {
-			final PlaceModel place = createPlace(point);
-			cmd.fulfillNodeIdPromise(place.getId());
-		}
+		final String nodeId = cmd.getNodeId();
+		createPlace(nodeId, point);
 	}
 
 	@Override
 	public void createTransition(final TransitionCreationCommand cmd) {
 		final Point point = cmd.getPoint();
-		if (cmd.hasNodeId()) {
-			// FIXME - This should throw an InvalidIdException (like any
-			// command that suggests an id)!
-			createTransition(cmd.getNodeId(), point);
-		} else {
-			final TransitionModel transition = createTransition(point);
-			cmd.fulfillNodeIdPromise(transition.getId());
-		}
+		final String nodeId = cmd.getNodeId();
+		createTransition(nodeId, point);
 	}
 
 	@Override

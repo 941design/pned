@@ -7,6 +7,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.gui.events.IdRequest;
 import de.markusrother.pned.gui.listeners.NodeListener;
 
 /**
@@ -44,5 +45,11 @@ public abstract class AbstractNodeAction extends AbstractAction
 	protected abstract void selected();
 
 	public abstract void setSelected(final boolean enabled);
+
+	protected String requestNodeId() {
+		final IdRequest req = new IdRequest(this);
+		eventBus.requestId(req);
+		return req.get();
+	}
 
 }

@@ -32,7 +32,8 @@ public class CreatePlaceAction extends AbstractNodeAction {
 
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		eventBus.createPlace(new PlaceCreationCommand(source, locationProvider.getLocation()));
+		final String nodeId = requestNodeId();
+		eventBus.createPlace(new PlaceCreationCommand(source, nodeId, locationProvider.getLocation()));
 	}
 
 	@Override

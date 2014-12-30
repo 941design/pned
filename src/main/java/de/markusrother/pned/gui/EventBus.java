@@ -29,6 +29,7 @@ import de.markusrother.pned.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.events.TransitionActivationEvent;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
+import de.markusrother.pned.gui.events.IdRequest;
 import de.markusrother.pned.gui.events.LabelEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
@@ -40,6 +41,7 @@ import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationCommand;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
+import de.markusrother.pned.gui.listeners.IdRequestListener;
 import de.markusrother.pned.gui.listeners.LabelEditListener;
 import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
@@ -69,6 +71,7 @@ public class EventBus
 		PetriNetListener,
 		PetriNetCommandSource,
 		PetriNetIOListener,
+		IdRequestListener,
 		TransitionActivationListener,
 		AWTEventListener,
 		EventTarget,
@@ -219,6 +222,20 @@ public class EventBus
 				@Override
 				protected Object doInBackground() {
 					l.requestNode(req);
+					return null;
+				}
+			};
+			worker.execute();
+		}
+	}
+
+	@Override
+	public void requestId(final IdRequest req) {
+		for (final IdRequestListener l : getListeners(IdRequestListener.class)) {
+			final SwingWorker<Object, Object> worker = new SwingWorker<Object, Object>() {
+				@Override
+				protected Object doInBackground() {
+					l.requestId(req);
 					return null;
 				}
 			};

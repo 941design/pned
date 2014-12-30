@@ -33,7 +33,8 @@ public class CreateTransitionAction extends AbstractNodeAction {
 
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		eventBus.createTransition(new TransitionCreationCommand(source, locationProvider.getLocation()));
+		final String nodeId = requestNodeId();
+		eventBus.createTransition(new TransitionCreationCommand(source, nodeId, locationProvider.getLocation()));
 	}
 
 	@Override
