@@ -12,9 +12,6 @@ import de.markusrother.pned.gui.DefinitelyBounded;
 
 /**
  * TODO - does this require source and target to have the same parent?
- *
- * @param <T>
- * @param <U>
  */
 public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U extends Component & DefinitelyBounded> extends JComponent {
 

@@ -14,7 +14,7 @@ import javax.swing.JComponent;
 /**
  * Component for painting the actual grid. To be toggled on/off.
  * 
- * TODO - drag & drop
+ * TODO - drag and drop
  * 
  * TODO - toggle visibility
  * 
