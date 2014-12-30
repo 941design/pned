@@ -5,12 +5,17 @@ import java.awt.Point;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * <p>PositionMarshaller class.</p>
+ * <p>
+ * A class transforming the
+ * {@link de.markusrother.pned.core.NodeImpl#getPosition} to an
+ * {@link AbsoluteGraphicsVO} during conversion to pnml (xml).
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
+ * @see PetriNetMarshaller
  */
-public class PositionMarshaller extends XmlAdapter<AbsoluteGraphicsVO, Point> {
+public class AbsolutePositionMarshaller extends XmlAdapter<AbsoluteGraphicsVO, Point> {
 
 	/** {@inheritDoc} */
 	@Override

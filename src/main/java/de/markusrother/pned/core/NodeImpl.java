@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.markusrother.pned.io.LabelMarshaller;
-import de.markusrother.pned.io.PositionMarshaller;
+import de.markusrother.pned.io.AbsolutePositionMarshaller;
 import de.markusrother.util.JsonBuilder;
 
 /**
@@ -73,7 +73,7 @@ public abstract class NodeImpl
 	/** {@inheritDoc} */
 	@Override
 	@XmlElement(name = "graphics")
-	@XmlJavaTypeAdapter(PositionMarshaller.class)
+	@XmlJavaTypeAdapter(AbsolutePositionMarshaller.class)
 	public Point getPosition() {
 		return position.getLocation();
 	}

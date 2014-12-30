@@ -9,13 +9,19 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import de.markusrother.pned.core.EdgeImpl;
-import de.markusrother.pned.core.PetriNet;
 import de.markusrother.pned.core.PetriNetImpl;
 import de.markusrother.pned.core.PlaceImpl;
 import de.markusrother.pned.core.TransitionImpl;
 
 /**
- * <p>PetriNetMarshaller class.</p>
+ * <p>
+ * A converter of {@link PetriNetImpl} to pnml (xml).
+ * </p>
+ * 
+ * <p>
+ * TODO - The marshaller should be able to convert the {@code PetriNet}
+ * interface instead of the implementation, only.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -23,14 +29,20 @@ import de.markusrother.pned.core.TransitionImpl;
 public class PetriNetMarshaller {
 
 	/**
-	 * <p>createXml.</p>
+	 * <p>
+	 * Creates and returns pnml (xml) for a given Petri Net.
+	 * </p>
 	 *
-	 * @param net a {@link de.markusrother.pned.core.PetriNet} object.
-	 * @return a {@link java.lang.String} object.
-	 * @throws javax.xml.bind.JAXBException if any.
-	 * @throws java.io.IOException if any.
+	 * @param net
+	 *            the {@link de.markusrother.pned.core.PetriNetImpl} to be
+	 *            converted.
+	 * @return a {@link java.lang.String} - the generated pnml (xml).
+	 * @throws javax.xml.bind.JAXBException
+	 *             if any.
+	 * @throws java.io.IOException
+	 *             if any.
 	 */
-	public static String createXml(final PetriNet net) throws JAXBException, IOException {
+	public static String createXml(final PetriNetImpl net) throws JAXBException, IOException {
 		try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 			writeXml(net, out);
 			final String xml = new String(out.toByteArray());
@@ -39,13 +51,20 @@ public class PetriNetMarshaller {
 	}
 
 	/**
-	 * <p>writeXml.</p>
+	 * <p>
+	 * Creates pnml (xml) from a given Petri Net and writes it to the given
+	 * stream.
+	 * </p>
 	 *
-	 * @param net a {@link de.markusrother.pned.core.PetriNet} object.
-	 * @param out a {@link java.io.OutputStream} object.
-	 * @throws javax.xml.bind.JAXBException if any.
+	 * @param net
+	 *            the {@link de.markusrother.pned.core.PetriNetImpl} to be
+	 *            converted.
+	 * @param out
+	 *            the {@link java.io.OutputStream} to be written to.
+	 * @throws javax.xml.bind.JAXBException
+	 *             if any.
 	 */
-	public static void writeXml(final PetriNet net, final OutputStream out) throws JAXBException {
+	public static void writeXml(final PetriNetImpl net, final OutputStream out) throws JAXBException {
 		final Class<?>[] context = { PetriNetImpl.class, PlaceImpl.class, TransitionImpl.class, EdgeImpl.class };
 		final JAXBContext jaxbContext = JAXBContext.newInstance(context);
 		final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();

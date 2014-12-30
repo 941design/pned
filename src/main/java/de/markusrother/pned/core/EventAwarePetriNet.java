@@ -36,7 +36,11 @@ import de.markusrother.pned.gui.listeners.PlaceEditListener;
 import de.markusrother.pned.io.PetriNetMarshaller;
 
 /**
- * <p>EventAwarePetriNet class.</p>
+ * <p>
+ * EventAwarePetriNet class.
+ * </p>
+ * 
+ * FIXME - should not reside in core unless events are not in gui package.
  *
  * @author Markus Rother
  * @version 1.0
@@ -58,9 +62,12 @@ public class EventAwarePetriNet extends PetriNetImpl
 	private final Collection<TransitionActivationListener> transitionActivationListeners;
 
 	/**
-	 * <p>create.</p>
+	 * <p>
+	 * create.
+	 * </p>
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventMulticaster
+	 *            a {@link de.markusrother.pned.gui.EventBus} object.
 	 * @return a {@link de.markusrother.pned.core.EventAwarePetriNet} object.
 	 */
 	public static EventAwarePetriNet create(final EventBus eventMulticaster) {
@@ -68,10 +75,14 @@ public class EventAwarePetriNet extends PetriNetImpl
 	}
 
 	/**
-	 * <p>Constructor for EventAwarePetriNet.</p>
+	 * <p>
+	 * Constructor for EventAwarePetriNet.
+	 * </p>
 	 *
-	 * @param eventBus a T object.
-	 * @param <T> a T object.
+	 * @param eventBus
+	 *            a T object.
+	 * @param <T>
+	 *            a T object.
 	 */
 	<T extends PetriNetCommandSource & TransitionActivationListener> EventAwarePetriNet(final T eventBus) {
 		this.commandSource = eventBus;
@@ -229,9 +240,12 @@ public class EventAwarePetriNet extends PetriNetImpl
 	}
 
 	/**
-	 * <p>maybeFireTransitionActivationEvent.</p>
+	 * <p>
+	 * maybeFireTransitionActivationEvent.
+	 * </p>
 	 *
-	 * @param runnable a {@link java.lang.Runnable} object.
+	 * @param runnable
+	 *            a {@link java.lang.Runnable} object.
 	 */
 	private void maybeFireTransitionActivationEvent(final Runnable runnable) {
 		final Collection<TransitionModel> activeBefore = getActiveTransitions();
@@ -250,9 +264,12 @@ public class EventAwarePetriNet extends PetriNetImpl
 	}
 
 	/**
-	 * <p>fireTransitionDeactivationEvent.</p>
+	 * <p>
+	 * fireTransitionDeactivationEvent.
+	 * </p>
 	 *
-	 * @param deactivated a {@link java.util.Collection} object.
+	 * @param deactivated
+	 *            a {@link java.util.Collection} object.
 	 */
 	private void fireTransitionDeactivationEvent(final Collection<TransitionModel> deactivated) {
 		for (final TransitionModel transition : deactivated) {
@@ -265,9 +282,12 @@ public class EventAwarePetriNet extends PetriNetImpl
 	}
 
 	/**
-	 * <p>fireTransitionActivationEvent.</p>
+	 * <p>
+	 * fireTransitionActivationEvent.
+	 * </p>
 	 *
-	 * @param activated a {@link java.util.Collection} object.
+	 * @param activated
+	 *            a {@link java.util.Collection} object.
 	 */
 	private void fireTransitionActivationEvent(final Collection<TransitionModel> activated) {
 		for (final TransitionModel transition : activated) {

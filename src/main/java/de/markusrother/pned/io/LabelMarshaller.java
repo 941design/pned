@@ -3,10 +3,14 @@ package de.markusrother.pned.io;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * <p>LabelMarshaller class.</p>
+ * <p>
+ * A class transforming the {@link de.markusrother.pned.core.NodeImpl#getLabel}
+ * to a {@link LabelVO} during conversion to pnml (xml).
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
+ * @see PetriNetMarshaller
  */
 public class LabelMarshaller extends XmlAdapter<LabelVO, String> {
 
@@ -18,7 +22,7 @@ public class LabelMarshaller extends XmlAdapter<LabelVO, String> {
 
 	/** {@inheritDoc} */
 	@Override
-	public LabelVO marshal(final String label) throws Exception {
+	public LabelVO marshal(final String label) {
 		return new LabelVO(label);
 	}
 

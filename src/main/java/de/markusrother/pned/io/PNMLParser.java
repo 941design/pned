@@ -27,48 +27,116 @@ import de.markusrother.pned.gui.events.PlaceEditEvent;
 import de.markusrother.pned.gui.events.TransitionCreationCommand;
 
 /**
- * Diese Klasse implementiert die Grundlage für einen einfachen PNML Parser.
- *
+ * <p>
+ * A simple pnml (xml) parser. Given some sort of readable input the
+ * {@code PNMLParser} interprets it as pnml, generating {@code EventObject}s
+ * which are posted on the provided {@link EventTarget}.
+ * </p>
+ * <p>
+ * This class does <b>not</b> actually create a Petri Net. It only provides the
+ * events necessary to do so by posting them to the provided {@link EventTarget}
+ * . To create a Petri Net the provided {@code EventObject}s have to be
+ * interpreted, e.g. by:
+ * </p>
+ * 
+ * <pre>
+ * ...
+ * EventBus eventBus = new EventBus();
+ * PetriNet petriNet = new EventAwarePetriNet(eventBus);
+ * PNMLParser.parse(pnmlResource, eventBus);
+ * ...
+ * </pre>
+ * <p>
+ * ... where {@code EventBus} implements {@link EventTarget},
+ * {@code de.markusrother.pned.core.EventAwarePetriNet} implements all necessary
+ * {@link java.util.EventListener}s, and {@code pnmlResource} is any first
+ * parameter of one of the following business methods.
+ * </p>
+ * Available business methods:
+ * <ul>
+ * <li>{@link #parse(File, EventTarget)}</li>
+ * <li>{@link #parse(InputStream, EventTarget)}</li>
+ * <li>{@link #parse(URL, EventTarget)}</li>
+ * <li>{@link #parse(XMLEventReader, EventTarget)}</li>
+ * </ul>
+ * <p>
+ * TODO - There should be a single interface similar to {@link EventTarget}
+ * extending all listeners necessary to create a Petri Net.
+ * </p>
+ * <p>
+ * FIXME - Test against malformed xml/pnml.
+ * </p>
+ * <p>
+ * FIXME - Rename all events needed here, to commands.
+ * </p>
+ * <p>
+ * FIXME - Move {@code EventTarget} and all events needed here, to a different
+ * package.
+ * </p>
+ * 
+ * @author unknown
  * @author Markus Rother
  * @version 1.0
+ * @see EventTarget
  */
 public class PNMLParser {
 
 	/**
-	 * <p>parse.</p>
+	 * <p>
+	 * Parses given {@link java.net.URL}, and broadcasts resulting events on
+	 * given {@link EventTarget}.
+	 * </p>
 	 *
-	 * @param resource a {@link java.net.URL} object.
-	 * @param eventTarget a {@link de.markusrother.pned.gui.EventTarget} object.
-	 * @throws javax.xml.stream.XMLStreamException if any.
-	 * @throws java.io.IOException if any.
+	 * @param resource
+	 *            a {@link java.net.URL} to be read.
+	 * @param eventTarget
+	 *            an {@link de.markusrother.pned.gui.EventTarget} to which
+	 *            parsed results are broadcasted as events.
+	 * @throws javax.xml.stream.XMLStreamException
+	 *             if any.
+	 * @throws java.io.IOException
+	 *             if any.
 	 */
 	public static void parse(final URL resource, final EventTarget eventTarget) throws XMLStreamException, IOException {
-		@SuppressWarnings("resource")
-		// Suppressed, because exception is propagated.
-		final InputStream inputStream = resource.openStream();
-		parse(inputStream, eventTarget);
-		inputStream.close();
+		try (InputStream inputStream = resource.openStream()) {
+			parse(inputStream, eventTarget);
+		}
 	}
 
 	/**
-	 * <p>parse.</p>
+	 * <p>
+	 * Parses given {@link java.io.File}, and broadcasts resulting events on
+	 * given {@link EventTarget}.
+	 * </p>
 	 *
-	 * @param pnml a {@link java.io.File} object.
-	 * @param eventTarget a {@link de.markusrother.pned.gui.EventTarget} object.
-	 * @throws java.io.FileNotFoundException if any.
-	 * @throws javax.xml.stream.XMLStreamException if any.
+	 * @param file
+	 *            a {@link java.io.File} to be read.
+	 * @param eventTarget
+	 *            an {@link de.markusrother.pned.gui.EventTarget} to which
+	 *            parsed results are broadcasted as events.
+	 * @throws java.io.FileNotFoundException
+	 *             if any.
+	 * @throws javax.xml.stream.XMLStreamException
+	 *             if any.
 	 */
-	public static void parse(final File pnml, final EventTarget eventTarget) throws FileNotFoundException,
+	public static void parse(final File file, final EventTarget eventTarget) throws FileNotFoundException,
 			XMLStreamException {
-		parse(new FileInputStream(pnml), eventTarget);
+		parse(new FileInputStream(file), eventTarget);
 	}
 
 	/**
-	 * <p>parse.</p>
+	 * <p>
+	 * Parses given {@link java.io.InputStream}, and broadcasts resulting events
+	 * on given {@link EventTarget}.
+	 * </p>
 	 *
-	 * @param inputStream a {@link java.io.InputStream} object.
-	 * @param eventTarget a {@link de.markusrother.pned.gui.EventTarget} object.
-	 * @throws javax.xml.stream.XMLStreamException if any.
+	 * @param inputStream
+	 *            a {@link java.io.InputStream} to be read.
+	 * @param eventTarget
+	 *            an {@link de.markusrother.pned.gui.EventTarget} to which
+	 *            parsed results are broadcasted as events.
+	 * @throws javax.xml.stream.XMLStreamException
+	 *             if any.
 	 */
 	public static void parse(final InputStream inputStream, final EventTarget eventTarget) throws XMLStreamException {
 		final XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -76,10 +144,16 @@ public class PNMLParser {
 	}
 
 	/**
-	 * <p>parse.</p>
+	 * <p>
+	 * Parses given {@link javax.xml.stream.XMLEventReader}, and broadcasts
+	 * resulting events on given {@link EventTarget}.
+	 * </p>
 	 *
-	 * @param xmlEventReader a {@link javax.xml.stream.XMLEventReader} object.
-	 * @param eventTarget a {@link de.markusrother.pned.gui.EventTarget} object.
+	 * @param xmlEventReader
+	 *            a {@link javax.xml.stream.XMLEventReader} to be read.
+	 * @param eventTarget
+	 *            an {@link de.markusrother.pned.gui.EventTarget} to which
+	 *            parsed results are broadcasted as events.
 	 */
 	public static void parse(final XMLEventReader xmlEventReader, final EventTarget eventTarget) {
 		final PNMLParser parser = new PNMLParser(xmlEventReader, eventTarget);
@@ -116,13 +190,21 @@ public class PNMLParser {
 	 */
 	private boolean isValue = false;
 
+	/**
+	 * The receiver of all generated events.
+	 */
 	private final EventTarget eventTarget;
 
 	/**
-	 * <p>Constructor for PNMLParser.</p>
+	 * <p>
+	 * Constructor for PNMLParser.
+	 * </p>
 	 *
-	 * @param xmlParser a {@link javax.xml.stream.XMLEventReader} object.
-	 * @param eventTarget a {@link de.markusrother.pned.gui.EventTarget} object.
+	 * @param xmlParser
+	 *            a {@link javax.xml.stream.XMLEventReader} to be read from.
+	 * @param eventTarget
+	 *            a {@link de.markusrother.pned.gui.EventTarget} to be
+	 *            broadcasted to.
 	 */
 	private PNMLParser(final XMLEventReader xmlParser, final EventTarget eventTarget) {
 		this.xmlParser = xmlParser;
@@ -133,7 +215,7 @@ public class PNMLParser {
 	 * Diese Methode liest die XML Datei und delegiert die gefundenen XML
 	 * Elemente an die entsprechenden Methoden.
 	 */
-	public final void parse() {
+	private final void parse() {
 		while (xmlParser.hasNext()) {
 			try {
 				final XMLEvent event = xmlParser.nextEvent();
@@ -322,31 +404,30 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Diese Methode kann überschrieben werden, um geladene Transitionen zu
-	 * erstellen.
+	 * Posts {@link TransitionCreationCommand} on the provided
+	 * {@link EventTarget}.
 	 *
 	 * @param transitionId
 	 *            Identifikationstext der Transition
 	 */
-	public void newTransition(final String transitionId) {
+	private void newTransition(final String transitionId) {
 		final TransitionCreationCommand cmd = new TransitionCreationCommand(this, transitionId);
 		eventTarget.createTransition(cmd);
 	}
 
 	/**
-	 * Diese Methode kann überschrieben werden, um geladene Stellen zu
-	 * erstellen.
+	 * Posts {@link PlaceCreationCommand} on the provided {@link EventTarget}.
 	 *
 	 * @param placeId
 	 *            Identifikationstext der Stelle
 	 */
-	public void newPlace(final String placeId) {
+	private void newPlace(final String placeId) {
 		final PlaceCreationCommand cmd = new PlaceCreationCommand(this, placeId);
 		eventTarget.createPlace(cmd);
 	}
 
 	/**
-	 * Diese Methode kann überschrieben werden, um geladene Kanten zu erstellen.
+	 * Posts {@link EdgeCreationCommand} on the provided {@link EventTarget}.
 	 *
 	 * @param edgeId
 	 *            Identifikationstext der Kante
@@ -355,14 +436,13 @@ public class PNMLParser {
 	 * @param targetId
 	 *            Identifikationstext des Endelements der Kante
 	 */
-	public void newArc(final String edgeId, final String sourceId, final String targetId) {
+	private void newArc(final String edgeId, final String sourceId, final String targetId) {
 		final EdgeCreationCommand cmd = new EdgeCreationCommand(this, edgeId, sourceId, targetId);
 		eventTarget.createEdge(cmd);
 	}
 
 	/**
-	 * Diese Methode kann überschrieben werden, um die Positionen der geladenen
-	 * Elemente zu aktualisieren.
+	 * Posts {@link NodeMovedEvent} on the provided {@link EventTarget}.
 	 *
 	 * @param elementId
 	 *            Identifikationstext des Elements
@@ -371,7 +451,7 @@ public class PNMLParser {
 	 * @param y
 	 *            y Position des Elements
 	 */
-	public void setPosition(final String elementId, final String x, final String y) {
+	private void setPosition(final String elementId, final String x, final String y) {
 		// FIXME - catch NumberFormatException!
 		final int deltaX = Integer.valueOf(x);
 		final int deltaY = Integer.valueOf(y);
@@ -380,29 +460,27 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Diese Methode kann überschrieben werden, um den Beschriftungstext der
-	 * geladenen Elemente zu aktualisieren.
+	 * Posts {@link LabelEditEvent} on the provided {@link EventTarget}.
 	 *
 	 * @param elementId
 	 *            Identifikationstext des Elements
 	 * @param label
 	 *            Beschriftungstext des Elements
 	 */
-	public void setName(final String elementId, final String label) {
+	private void setName(final String elementId, final String label) {
 		final LabelEditEvent e = new LabelEditEvent(this, elementId, label);
 		eventTarget.setLabel(e);
 	}
 
 	/**
-	 * Diese Methode kann überschrieben werden, um die Markierung der geladenen
-	 * Elemente zu aktualisieren.
+	 * Posts {@link PlaceEditEvent} on the provided {@link EventTarget}.
 	 *
 	 * @param placeId
 	 *            Identifikationstext des Elements
 	 * @param marking
 	 *            Markierung des Elements
 	 */
-	public void setMarking(final String placeId, final String marking) {
+	private void setMarking(final String placeId, final String marking) {
 		final PlaceEditEvent e = new PlaceEditEvent(this, placeId, Integer.valueOf(marking));
 		eventTarget.setMarking(e);
 	}
