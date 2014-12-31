@@ -14,12 +14,21 @@ import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.swing.CustomRadioButtonMenuItem;
 
 /**
- * <p>CreatePlaceAction class.</p>
+ * <p>
+ * Class for compound actions: Setting the default node type to place,
+ * <b>and</b> creating a place. This action combines an
+ * {@link java.awt.event.ActionListener} with an
+ * {@link java.awt.event.ItemListener} for selectable items. It can be used for
+ * e.g. {@link javax.swing.JRadioButtonMenuItem}s where toggle and selection
+ * (click) trigger separate {@link ActionEvent}s, such as in
+ * {@link #newMenuItem(EventBus, Object, LocationProvider)}.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
+ * @see CustomRadioButtonMenuItem
  */
-public class CreatePlaceAction extends AbstractNodeAction {
+public class CreatePlaceAction extends AbstractCreateNodeAction {
 
 	/** Constant <code>label="Create place"</code> */
 	private static final String label = "Create place";
@@ -27,12 +36,24 @@ public class CreatePlaceAction extends AbstractNodeAction {
 	private static final int mnemonic = KeyEvent.VK_P;
 
 	/**
-	 * <p>newMenuItem.</p>
+	 * <p>
+	 * Creates and returns a {@link JRadioButtonMenuItem} where toggle and click
+	 * on label trigger separate actions as described here
+	 * {@link CreatePlaceAction}.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
-	 * @param source a {@link java.lang.Object} object.
-	 * @param locationProvider a {@link de.markusrother.pned.gui.menus.actions.LocationProvider} object.
-	 * @return a {@link javax.swing.JRadioButtonMenuItem} object.
+	 * @param eventBus
+	 *            an {@link de.markusrother.pned.gui.EventBus} to be posted to.
+	 * @param source
+	 *            an {@link java.lang.Object} - the posted
+	 *            {@link java.util.EventObject}s' source.
+	 * @param locationProvider
+	 *            a
+	 *            {@link de.markusrother.pned.gui.menus.actions.LocationProvider}
+	 *            to provide coordinates for newly created nodes.
+	 * @return a {@link javax.swing.JRadioButtonMenuItem} with this action
+	 *         bound.
+	 * @see CustomRadioButtonMenuItem
 	 */
 	public static JRadioButtonMenuItem newMenuItem(final EventBus eventBus, final Object source,
 			final LocationProvider locationProvider) {
@@ -43,13 +64,21 @@ public class CreatePlaceAction extends AbstractNodeAction {
 	}
 
 	/**
-	 * <p>Constructor for CreatePlaceAction.</p>
+	 * <p>
+	 * Constructor for CreatePlaceAction.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
-	 * @param source a {@link java.lang.Object} object.
-	 * @param locationProvider a {@link de.markusrother.pned.gui.menus.actions.LocationProvider} object.
+	 * @param eventBus
+	 *            an {@link de.markusrother.pned.gui.EventBus} to be posted to.
+	 * @param source
+	 *            an {@link java.lang.Object} - the posted
+	 *            {@link java.util.EventObject}s' source.
+	 * @param locationProvider
+	 *            a
+	 *            {@link de.markusrother.pned.gui.menus.actions.LocationProvider}
+	 *            to provide coordinates for newly created nodes.
 	 */
-	public CreatePlaceAction(final EventBus eventBus, final Object source, final LocationProvider locationProvider) {
+	private CreatePlaceAction(final EventBus eventBus, final Object source, final LocationProvider locationProvider) {
 		super(eventBus, source, locationProvider, mnemonic, label);
 	}
 
@@ -68,13 +97,13 @@ public class CreatePlaceAction extends AbstractNodeAction {
 
 	/** {@inheritDoc} */
 	@Override
-	public void setSelected(final boolean enabled) {
-		putValue(Action.NAME, label + (enabled ? " (default)" : ""));
+	public void setSelected(final boolean selected) {
+		putValue(Action.NAME, label + (selected ? " (default)" : ""));
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	protected void selected() {
+	protected void fireSetNodeTypeCommand() {
 		eventBus.setCurrentNodeType(new SetNodeTypeCommand(source, PLACE));
 	}
 

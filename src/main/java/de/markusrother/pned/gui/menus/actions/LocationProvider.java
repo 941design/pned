@@ -3,7 +3,9 @@ package de.markusrother.pned.gui.menus.actions;
 import java.awt.Point;
 
 /**
- * <p>LocationProvider interface.</p>
+ * <p>
+ * A simple provider of coordinates.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -11,9 +13,11 @@ import java.awt.Point;
 public interface LocationProvider {
 
 	/**
-	 * <p>getLocation.</p>
+	 * <p>
+	 * Returns a coordinate.
+	 * </p>
 	 *
-	 * @return a {@link java.awt.Point} object.
+	 * @return a {@link java.awt.Point} - the requested coordinate.
 	 */
 	Point getLocation();
 

@@ -14,12 +14,21 @@ import de.markusrother.pned.gui.events.TransitionCreationCommand;
 import de.markusrother.swing.CustomRadioButtonMenuItem;
 
 /**
- * <p>CreateTransitionAction class.</p>
+ * <p>
+ * Class for compound actions: Setting the default node type to transition,
+ * <b>and</b> creating a transition. This action combines an
+ * {@link java.awt.event.ActionListener} with an
+ * {@link java.awt.event.ItemListener} for selectable items. It can be used for
+ * e.g. {@link javax.swing.JRadioButtonMenuItem}s where toggle and selection
+ * (click) trigger separate {@link ActionEvent}s, such as in
+ * {@link #newMenuItem(EventBus, Object, LocationProvider)}.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
+ * @see CustomRadioButtonMenuItem
  */
-public class CreateTransitionAction extends AbstractNodeAction {
+public class CreateTransitionAction extends AbstractCreateNodeAction {
 
 	/** Constant <code>label="Create transition"</code> */
 	private static final String label = "Create transition";
@@ -27,31 +36,50 @@ public class CreateTransitionAction extends AbstractNodeAction {
 	private static final int mnemonic = KeyEvent.VK_T;
 
 	/**
-	 * <p>newMenuItem.</p>
+	 * <p>
+	 * Creates and returns a {@link JRadioButtonMenuItem} where toggle and click
+	 * on label trigger separate actions as described here
+	 * {@link CreateTransitionAction}.
+	 * </p>
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
-	 * @param source a {@link java.lang.Object} object.
-	 * @param locationProvider a {@link de.markusrother.pned.gui.menus.actions.LocationProvider} object.
-	 * @return a {@link javax.swing.JRadioButtonMenuItem} object.
+	 * @param eventBus
+	 *            an {@link de.markusrother.pned.gui.EventBus} to be posted to.
+	 * @param source
+	 *            an {@link java.lang.Object} - the posted
+	 *            {@link java.util.EventObject}s' source.
+	 * @param locationProvider
+	 *            a
+	 *            {@link de.markusrother.pned.gui.menus.actions.LocationProvider}
+	 *            to provide coordinates for newly created nodes.
+	 * @return a {@link javax.swing.JRadioButtonMenuItem} with this action
+	 *         bound.
+	 * @see CustomRadioButtonMenuItem
 	 */
-	public static JRadioButtonMenuItem newMenuItem(final EventBus eventMulticaster, final Object source,
+	public static JRadioButtonMenuItem newMenuItem(final EventBus eventBus, final Object source,
 			final LocationProvider locationProvider) {
-		final CreateTransitionAction action = new CreateTransitionAction(eventMulticaster, source, locationProvider);
+		final CreateTransitionAction action = new CreateTransitionAction(eventBus, source, locationProvider);
 		final CustomRadioButtonMenuItem menuItem = new CustomRadioButtonMenuItem(action);
 		menuItem.addItemListener(action);
 		return menuItem;
 	}
 
 	/**
-	 * <p>Constructor for CreateTransitionAction.</p>
+	 * <p>
+	 * Constructor for CreateTransitionAction.
+	 * </p>
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
-	 * @param source a {@link java.lang.Object} object.
-	 * @param locationProvider a {@link de.markusrother.pned.gui.menus.actions.LocationProvider} object.
+	 * @param eventBus
+	 *            an {@link de.markusrother.pned.gui.EventBus} to be posted to.
+	 * @param source
+	 *            an {@link java.lang.Object} - the posted
+	 *            {@link java.util.EventObject}s' source.
+	 * @param locationProvider
+	 *            a
+	 *            {@link de.markusrother.pned.gui.menus.actions.LocationProvider}
+	 *            to provide coordinates for newly created nodes.
 	 */
-	public CreateTransitionAction(final EventBus eventMulticaster, final Object source,
-			final LocationProvider locationProvider) {
-		super(eventMulticaster, source, locationProvider, mnemonic, label);
+	private CreateTransitionAction(final EventBus eventBus, final Object source, final LocationProvider locationProvider) {
+		super(eventBus, source, locationProvider, mnemonic, label);
 	}
 
 	/** {@inheritDoc} */
@@ -69,13 +97,13 @@ public class CreateTransitionAction extends AbstractNodeAction {
 
 	/** {@inheritDoc} */
 	@Override
-	public void setSelected(final boolean enabled) {
-		putValue(Action.NAME, label + (enabled ? " (default)" : ""));
+	public void setSelected(final boolean selected) {
+		putValue(Action.NAME, label + (selected ? " (default)" : ""));
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	protected void selected() {
+	protected void fireSetNodeTypeCommand() {
 		eventBus.setCurrentNodeType(new SetNodeTypeCommand(source, TRANSITION));
 	}
 
