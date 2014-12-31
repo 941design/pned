@@ -112,7 +112,7 @@ public class PnEditorFrame extends JFrame
 
 	/** {@inheritDoc} */
 	@Override
-	public void disposePetriNet(final PetriNetEditCommand cmd) {
+	public void createPetriNet(final PetriNetEditCommand cmd) {
 		// Assuming GC takes care of rest.
 		// Can only be gc'ed if EventBus becomes garbage as well.
 		getContentPane().remove(grid);

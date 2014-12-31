@@ -19,6 +19,6 @@ public interface PetriNetListener
 	 *
 	 * @param cmd a {@link de.markusrother.pned.commands.PetriNetEditCommand} object.
 	 */
-	void disposePetriNet(PetriNetEditCommand cmd);
+	void createPetriNet(PetriNetEditCommand cmd);
 
 }

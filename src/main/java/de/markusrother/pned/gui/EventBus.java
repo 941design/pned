@@ -61,6 +61,7 @@ public class EventBus
 		IdRequestListener,
 		TransitionActivationListener,
 		EventTarget,
+		GuiEventTarget,
 		NodeListener,
 		NodeRequestListener,
 		NodeMotionListener,
@@ -97,9 +98,9 @@ public class EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void disposePetriNet(final PetriNetEditCommand cmd) {
+	public void createPetriNet(final PetriNetEditCommand cmd) {
 		for (final PetriNetListener l : getListeners(PetriNetListener.class)) {
-			l.disposePetriNet(cmd);
+			l.createPetriNet(cmd);
 		}
 	}
 
@@ -176,9 +177,13 @@ public class EventBus
 	}
 
 	/**
-	 * <p>fireNodeSelectionEvent.</p>
+	 * <p>
+	 * fireNodeSelectionEvent.
+	 * </p>
 	 *
-	 * @param e a {@link de.markusrother.pned.gui.events.NodeSelectionEvent} object.
+	 * @param e
+	 *            a {@link de.markusrother.pned.gui.events.NodeSelectionEvent}
+	 *            object.
 	 */
 	public void fireNodeSelectionEvent(final NodeSelectionEvent e) {
 		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
@@ -210,9 +215,13 @@ public class EventBus
 	}
 
 	/**
-	 * <p>fireEdgeEditEvent.</p>
+	 * <p>
+	 * fireEdgeEditEvent.
+	 * </p>
 	 *
-	 * @param e a {@link de.markusrother.pned.gui.events.EdgeEditEvent} object.
+	 * @param e
+	 *            a {@link de.markusrother.pned.gui.events.EdgeEditEvent}
+	 *            object.
 	 */
 	public void fireEdgeEditEvent(final EdgeEditEvent e) {
 		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
