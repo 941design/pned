@@ -29,14 +29,15 @@ import de.markusrother.pned.gui.events.TransitionCreationCommand;
 /**
  * <p>
  * A simple pnml (xml) parser. Given some sort of readable input the
- * {@code PNMLParser} interprets it as pnml, generating {@code EventObject}s
- * which are posted on the provided {@link EventTarget}.
+ * {@link de.markusrother.pned.io.PNMLParser} interprets it as pnml, generating
+ * {@link java.util.EventObject}s which are posted on the provided
+ * {@link EventTarget}.
  * </p>
  * <p>
  * This class does <b>not</b> actually create a Petri Net. It only provides the
  * events necessary to do so by posting them to the provided {@link EventTarget}
- * . To create a Petri Net the provided {@code EventObject}s have to be
- * interpreted, e.g. by:
+ * . To create a Petri Net the provided {@link java.util.EventObject}s have to
+ * be interpreted, e.g. by:
  * </p>
  * 
  * <pre>
@@ -47,8 +48,9 @@ import de.markusrother.pned.gui.events.TransitionCreationCommand;
  * ...
  * </pre>
  * <p>
- * ... where {@code EventBus} implements {@link EventTarget},
- * {@code de.markusrother.pned.core.EventAwarePetriNet} implements all necessary
+ * ... where {@link de.markusrother.pned.gui.EventBus} implements
+ * {@link de.markusrother.pned.gui.EventTarget},
+ * {@link de.markusrother.pned.core.EventAwarePetriNet} implements all necessary
  * {@link java.util.EventListener}s, and {@code pnmlResource} is any first
  * parameter of one of the following business methods.
  * </p>
@@ -60,8 +62,9 @@ import de.markusrother.pned.gui.events.TransitionCreationCommand;
  * <li>{@link #parse(XMLEventReader, EventTarget)}</li>
  * </ul>
  * <p>
- * TODO - There should be a single interface similar to {@link EventTarget}
- * extending all listeners necessary to create a Petri Net.
+ * TODO - There should be a single interface similar to
+ * {@link de.markusrother.pned.gui.EventTarget} extending all listeners
+ * necessary to create a Petri Net.
  * </p>
  * <p>
  * FIXME - Test against malformed xml/pnml.
@@ -70,8 +73,8 @@ import de.markusrother.pned.gui.events.TransitionCreationCommand;
  * FIXME - Rename all events needed here, to commands.
  * </p>
  * <p>
- * FIXME - Move {@code EventTarget} and all events needed here, to a different
- * package.
+ * FIXME - Move {@link de.markusrother.pned.gui.EventTarget} and all events
+ * needed here, to a different package.
  * </p>
  * 
  * @author unknown
@@ -84,7 +87,7 @@ public class PNMLParser {
 	/**
 	 * <p>
 	 * Parses given {@link java.net.URL}, and broadcasts resulting events on
-	 * given {@link EventTarget}.
+	 * given {@link de.markusrother.pned.gui.EventTarget}.
 	 * </p>
 	 *
 	 * @param resource

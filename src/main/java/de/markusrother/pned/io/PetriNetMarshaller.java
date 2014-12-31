@@ -19,8 +19,9 @@ import de.markusrother.pned.core.TransitionImpl;
  * </p>
  * 
  * <p>
- * TODO - The marshaller should be able to convert the {@code PetriNet}
- * interface instead of the implementation, only.
+ * TODO - The marshaller should be able to convert the
+ * {@link de.markusrother.pned.core.PetriNet} interface instead of the
+ * implementation, only.
  * </p>
  *
  * @author Markus Rother
