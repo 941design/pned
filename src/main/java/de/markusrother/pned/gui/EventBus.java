@@ -106,9 +106,9 @@ public class EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void setCurrentPath(final PetriNetIOCommand cmd) {
+	public void setCurrentDirectory(final PetriNetIOCommand cmd) {
 		for (final PetriNetIOListener l : getListeners(PetriNetIOListener.class)) {
-			l.setCurrentPath(cmd);
+			l.setCurrentDirectory(cmd);
 		}
 	}
 

@@ -19,15 +19,22 @@ public class FileDialogFactory
 	implements
 		PetriNetIOListener {
 
-	/** The event target to which resulting events are posted to. */
+	/**
+	 * The event target to which resulting events are posted to, and which is
+	 * listened to for current directory changes.
+	 */
 	private EventBus eventBus;
-	/** */
-	private File currentPath;
+	/** The current directory in which to do file operations. */
+	private File currentDirectory;
 
 	/**
-	 * <p>Constructor for FileDialogFactory.</p>
+	 * <p>
+	 * Constructor for FileDialogFactory.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.gui.EventBus} to which dialogs
+	 *            are to post their events.
 	 */
 	public FileDialogFactory(final EventBus eventBus) {
 		this.eventBus = eventBus;
@@ -36,11 +43,11 @@ public class FileDialogFactory
 
 	/**
 	 * <p>
-	 * Getter for the field <code>eventTarget</code>.
+	 * Getter for this factories current {#link GuiEventTarget}.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.GuiEventTarget} to which
-	 *         resulting events are posted to.
+	 * @return a {@link de.markusrother.pned.gui.GuiEventTarget} to which events
+	 *         are posted to.
 	 */
 	public GuiEventTarget getEventTarget() {
 		return eventBus;
@@ -48,12 +55,13 @@ public class FileDialogFactory
 
 	/**
 	 * <p>
-	 * Setter for the field <code>eventTarget</code>.
+	 * Setter for the field <code>eventBus</code>.
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} to which
-	 *            resulting events are posted to.
+	 *            a {@link de.markusrother.pned.gui.EventBus} to which resulting
+	 *            events are posted to and to which is listened to for directory
+	 *            changes.
 	 */
 	public void setEventBus(final EventBus eventBus) {
 		assert (this.eventBus != null);
@@ -64,17 +72,20 @@ public class FileDialogFactory
 
 	/** {@inheritDoc} */
 	@Override
-	public void setCurrentPath(final PetriNetIOCommand cmd) {
-		setCurrentPath(cmd.getFile());
+	public void setCurrentDirectory(final PetriNetIOCommand cmd) {
+		setCurrentDirectory(cmd.getFile());
 	}
 
 	/**
-	 * <p>Setter for the field <code>currentPath</code>.</p>
+	 * <p>
+	 * Setter for the field <code>currentPath</code>.
+	 * </p>
 	 *
-	 * @param dir a {@link java.io.File} object.
+	 * @param dir
+	 *            a {@link java.io.File} - the current directory.
 	 */
-	public void setCurrentPath(final File dir) {
-		this.currentPath = dir;
+	public void setCurrentDirectory(final File dir) {
+		this.currentDirectory = dir;
 	}
 
 	/**
@@ -84,7 +95,7 @@ public class FileDialogFactory
 	 */
 	public void openImportDialog() {
 		assert (eventBus != null);
-		OpenFileDialog.open(eventBus, currentPath);
+		OpenFileDialog.open(eventBus, currentDirectory);
 	}
 
 	/**
@@ -94,7 +105,7 @@ public class FileDialogFactory
 	 */
 	public void openExportDialog() {
 		assert (eventBus != null);
-		SaveFileDialog.open(eventBus, currentPath);
+		SaveFileDialog.open(eventBus, currentDirectory);
 	}
 
 	/** {@inheritDoc} */

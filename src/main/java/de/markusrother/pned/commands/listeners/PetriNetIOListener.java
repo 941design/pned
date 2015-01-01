@@ -18,11 +18,15 @@ public interface PetriNetIOListener
 		EventListener {
 
 	/**
-	 * <p>setCurrentPath.</p>
+	 * <p>
+	 * setCurrentDirectory.
+	 * </p>
 	 *
-	 * @param cmd a {@link de.markusrother.pned.commands.PetriNetIOCommand} object.
+	 * @param cmd
+	 *            a {@link de.markusrother.pned.commands.PetriNetIOCommand}
+	 *            object.
 	 */
-	void setCurrentPath(PetriNetIOCommand cmd);
+	void setCurrentDirectory(PetriNetIOCommand cmd);
 
 	/**
 	 * <p>

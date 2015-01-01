@@ -26,7 +26,7 @@ public class AbstractDialog extends JDialog {
 	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
 	 *            posted to.
 	 * @param title
-	 *            a {@link java.lang.String} - this dialogs tile.
+	 *            a {@link java.lang.String} - this dialogs title.
 	 */
 	protected AbstractDialog(final GuiEventTarget eventTarget, final String title) {
 		this.eventTarget = eventTarget;

@@ -33,7 +33,8 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * @param eventTarget
 	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
 	 *            posted to.
-	 * @param dir a {@link java.io.File} object.
+	 * @param dir
+	 *            a {@link java.io.File} - the current directory.
 	 */
 	public static void open(final GuiEventTarget eventTarget, final File dir) {
 		final SaveFileDialog dialog = new SaveFileDialog(eventTarget, dir);
@@ -41,10 +42,15 @@ public class SaveFileDialog extends AbstractFileDialog {
 	}
 
 	/**
+	 * <p>
+	 * Constructor for SaveFileDialog.
+	 * </p>
+	 *
 	 * @param eventTarget
 	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
 	 *            posted to.
 	 * @param dir
+	 *            a {@link java.io.File} - the current directory.
 	 */
 	private SaveFileDialog(final GuiEventTarget eventTarget, final File dir) {
 		super(eventTarget, title, dir, approveButtonLabel);
@@ -57,7 +63,7 @@ public class SaveFileDialog extends AbstractFileDialog {
 		// TODO - prompt for overwrite!
 		try {
 			final String path = file.getAbsolutePath();
-			eventTarget.setCurrentPath(new PetriNetIOCommand(this, new File(path)));
+			eventTarget.setCurrentDirectory(new PetriNetIOCommand(this, new File(path)));
 			eventTarget.exportPnml(new PetriNetIOCommand(this, file));
 		} catch (final IOException e) {
 			// TODO

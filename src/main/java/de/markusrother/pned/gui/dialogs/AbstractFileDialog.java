@@ -19,15 +19,18 @@ import de.markusrother.pned.gui.GuiEventTarget;
  */
 public abstract class AbstractFileDialog extends JFileChooser {
 
-	/** Constant <code>NO_PARENT</code> */
-	private static final Component NO_PARENT = null;
-	/** Constant <code>filter</code> */
-	private static FileFilter filter = new FileNameExtensionFilter(".pnml", "pnml");
+	/**
+	 * Constant <code>NO_PARENT_COMPONENT</code> - for opening dialog without
+	 * parent.
+	 */
+	private static final Component NO_PARENT_COMPONENT = null;
+	/** Constant <code>pnmlFileFilter</code> - for displaying only *.pnml files. */
+	private static FileFilter pnmlFileFilter = new FileNameExtensionFilter(".pnml", "pnml");
 
 	/** The {@link de.markusrother.pned.gui.GuiEventTarget} to be posted to. */
 	protected final GuiEventTarget eventTarget;
 
-	/** A {@link java.lang.String} - the approve button's label. */
+	/** A {@link java.lang.String} - the approve button label. */
 	private final String approveButtonLabel;
 
 	/**
@@ -41,8 +44,9 @@ public abstract class AbstractFileDialog extends JFileChooser {
 	 * @param title
 	 *            a {@link java.lang.String} - the dialog's title.
 	 * @param approveButtonLabel
-	 *            a {@link java.lang.String} - the approve button's label.
-	 * @param dir a {@link java.io.File} object.
+	 *            a {@link java.lang.String} - the approve button label.
+	 * @param dir
+	 *            a {@link java.io.File} - the current directory.
 	 */
 	protected AbstractFileDialog(final GuiEventTarget eventTarget, final String title, final File dir,
 			final String approveButtonLabel) {
@@ -50,8 +54,8 @@ public abstract class AbstractFileDialog extends JFileChooser {
 		this.approveButtonLabel = approveButtonLabel;
 		setCurrentDirectory(dir);
 		setDialogTitle(title);
-		setFileFilter(filter);
-		addChoosableFileFilter(filter);
+		setFileFilter(pnmlFileFilter);
+		addChoosableFileFilter(pnmlFileFilter);
 		setFileSelectionMode(JFileChooser.FILES_ONLY);
 		setMultiSelectionEnabled(false);
 	}
@@ -76,7 +80,7 @@ public abstract class AbstractFileDialog extends JFileChooser {
 		 * depends on no visible window, and it's placed in a
 		 * look-and-feel-dependent position such as the center of the screen.
 		 */
-		final int result = showDialog(NO_PARENT, approveButtonLabel);
+		final int result = showDialog(NO_PARENT_COMPONENT, approveButtonLabel);
 		if (result == APPROVE_OPTION) {
 			final File file = getSelectedFile();
 			processSelectedFile(file);

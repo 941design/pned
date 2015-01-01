@@ -32,7 +32,8 @@ public class OpenFileDialog extends AbstractFileDialog {
 	 *
 	 * @param eventTarget
 	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} object.
-	 * @param dir a {@link java.io.File} object.
+	 * @param dir
+	 *            a {@link java.io.File} - the current directory.
 	 */
 	public static void open(final GuiEventTarget eventTarget, final File dir) {
 		final OpenFileDialog dialog = new OpenFileDialog(eventTarget, dir);
@@ -40,10 +41,15 @@ public class OpenFileDialog extends AbstractFileDialog {
 	}
 
 	/**
+	 * <p>
+	 * Constructor for OpenFileDialog.
+	 * </p>
+	 *
 	 * @param eventTarget
 	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
 	 *            posted to.
 	 * @param dir
+	 *            a {@link java.io.File} - the current directory.
 	 */
 	private OpenFileDialog(final GuiEventTarget eventTarget, final File dir) {
 		super(eventTarget, title, dir, approveButtonLabel);
@@ -58,7 +64,7 @@ public class OpenFileDialog extends AbstractFileDialog {
 		// If current net is to be purged send appropriate command
 		try {
 			final String path = file.getAbsolutePath();
-			eventTarget.setCurrentPath(new PetriNetIOCommand(this, new File(path)));
+			eventTarget.setCurrentDirectory(new PetriNetIOCommand(this, new File(path)));
 			eventTarget.importPnml(new PetriNetIOCommand(this, file));
 		} catch (final IOException e1) {
 			// TODO

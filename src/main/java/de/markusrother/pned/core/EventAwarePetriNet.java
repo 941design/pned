@@ -121,7 +121,7 @@ public class EventAwarePetriNet extends PetriNetImpl
 
 	/** {@inheritDoc} */
 	@Override
-	public void setCurrentPath(final PetriNetIOCommand cmd) {
+	public void setCurrentDirectory(final PetriNetIOCommand cmd) {
 		// IGNORE
 	}
 

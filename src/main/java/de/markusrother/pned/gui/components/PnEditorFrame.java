@@ -99,7 +99,7 @@ public class PnEditorFrame extends JFrame
 		if (menuFactory != null) {
 			menuFactory.setEventBus(eventBus);
 		}
-		eventBus.setCurrentPath(new PetriNetIOCommand(this, currentPath));
+		eventBus.setCurrentDirectory(new PetriNetIOCommand(this, currentPath));
 		return eventBus;
 	}
 
@@ -154,7 +154,7 @@ public class PnEditorFrame extends JFrame
 
 	/** {@inheritDoc} */
 	@Override
-	public void setCurrentPath(final PetriNetIOCommand cmd) {
+	public void setCurrentDirectory(final PetriNetIOCommand cmd) {
 		this.currentPath = cmd.getFile();
 	}
 
