@@ -7,12 +7,10 @@ import de.markusrother.pned.core.listeners.TransitionActivationListener;
  * TransitionActivationEventSource interface.
  * </p>
  *
- * FIXME - rename to EventSource
- *
  * @author Markus Rother
  * @version 1.0
  */
-public interface TransitionActivationEventSource {
+public interface EventSource {
 
 	/**
 	 * <p>

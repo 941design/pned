@@ -12,7 +12,7 @@ import java.util.EventListener;
  * @author Markus Rother
  * @version 1.0
  */
-public interface PetriNetCommandSource {
+public interface CommandSource {
 
 	/**
 	 * <p>

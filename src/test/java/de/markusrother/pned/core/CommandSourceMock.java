@@ -4,13 +4,13 @@ import java.util.EventListener;
 
 import javax.swing.event.EventListenerList;
 
-import de.markusrother.pned.core.control.PetriNetCommandSource;
+import de.markusrother.pned.core.control.CommandSource;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
 
 public class CommandSourceMock
 	implements
-		PetriNetCommandSource,
+		CommandSource,
 		TransitionActivationListener {
 
 	private final EventListenerList listeners = new EventListenerList();

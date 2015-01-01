@@ -6,8 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 
+import javax.swing.event.EventListenerList;
 import javax.xml.bind.JAXBException;
 
 import de.markusrother.pned.core.DefaultPetriNet;
@@ -55,9 +55,9 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	implements
 		CommandTarget,
 		RequestTarget,
-		TransitionActivationEventSource {
+		EventSource {
 
-	private final Collection<TransitionActivationListener> transitionActivationListeners;
+	private final EventListenerList listeners;
 
 	/**
 	 * <p>
@@ -83,8 +83,8 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	 * @param <T>
 	 *            a T object.
 	 */
-	public <T extends PetriNetCommandSource & TransitionActivationListener> EventAwarePetriNet(final T eventBus) {
-		this.transitionActivationListeners = new LinkedList<>();
+	public <T extends CommandSource & TransitionActivationListener> EventAwarePetriNet(final T eventBus) {
+		this.listeners = new EventListenerList();
 
 		eventBus.addListener(IdRequestListener.class, this);
 		eventBus.addListener(NodeCreationListener.class, this);
@@ -101,13 +101,13 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	/** {@inheritDoc} */
 	@Override
 	public void addTransitionActivationListener(final TransitionActivationListener l) {
-		transitionActivationListeners.add(l);
+		listeners.add(TransitionActivationListener.class, l);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void removeTransitionActivationListener(final TransitionActivationListener l) {
-		transitionActivationListeners.remove(l);
+		listeners.remove(TransitionActivationListener.class, l);
 	}
 
 	/** {@inheritDoc} */
@@ -304,7 +304,8 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		for (final TransitionModel transition : deactivated) {
 			final TransitionActivationEvent e = new TransitionActivationEvent(Type.DEACTIVATION, this,
 					transition.getId());
-			for (final TransitionActivationListener listener : transitionActivationListeners) {
+			for (final TransitionActivationListener listener : listeners
+					.getListeners(TransitionActivationListener.class)) {
 				listener.transitionDeactivated(e);
 			}
 		}
@@ -321,7 +322,8 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	private void fireTransitionActivationEvent(final Collection<TransitionModel> activated) {
 		for (final TransitionModel transition : activated) {
 			final TransitionActivationEvent e = new TransitionActivationEvent(Type.ACTIVATION, this, transition.getId());
-			for (final TransitionActivationListener listener : transitionActivationListeners) {
+			for (final TransitionActivationListener listener : listeners
+					.getListeners(TransitionActivationListener.class)) {
 				listener.transitionActivated(e);
 			}
 		}

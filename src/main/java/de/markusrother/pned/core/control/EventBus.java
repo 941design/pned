@@ -16,8 +16,8 @@ import de.markusrother.pned.core.commands.PlaceEditEvent;
 import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
-import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.CommandTarget;
+import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.EventTarget;
 import de.markusrother.pned.core.listeners.IdRequestListener;
 import de.markusrother.pned.core.listeners.LabelEditListener;
@@ -40,11 +40,13 @@ import de.markusrother.pned.core.requests.IdRequest;
  */
 public class EventBus
 	implements
-		PetriNetCommandSource,
+		CommandSource,
 		CommandTarget,
 		EventTarget,
 		RequestTarget {
 
+	// FIXME - create three collections commandListeners, requestListeners,
+	// eventListeners!
 	private final EventListenerList listeners = new EventListenerList();
 
 	/** {@inheritDoc} */

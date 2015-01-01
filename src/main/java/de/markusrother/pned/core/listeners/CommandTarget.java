@@ -5,8 +5,6 @@ package de.markusrother.pned.core.listeners;
  * Super/Compound interface for command listeners.
  * </p>
  * 
- * FIXME - rename to CommandTarget
- *
  * @author Markus Rother
  * @version 1.0
  */
