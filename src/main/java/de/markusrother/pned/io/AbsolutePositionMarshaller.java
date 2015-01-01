@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * <p>
  * A class transforming the
  * {@link de.markusrother.pned.core.NodeImpl#getPosition} to an
- * {@link AbsoluteGraphicsVO} during conversion to pnml (xml).
+ * {@link de.markusrother.pned.io.AbsoluteGraphicsVO} during conversion to pnml (xml).
  * </p>
  *
  * @author Markus Rother

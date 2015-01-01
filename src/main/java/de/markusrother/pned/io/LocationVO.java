@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * Value object representing a location's coordinates, e.g. of offsets. Used for
  * marshalling to pnml (xml).
  * </p>
- * 
+ *
  * <pre>
  * ...
  * &lt;offset x="23" y="42"/&gt;

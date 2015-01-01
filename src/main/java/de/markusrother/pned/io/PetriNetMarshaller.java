@@ -15,9 +15,9 @@ import de.markusrother.pned.core.TransitionImpl;
 
 /**
  * <p>
- * A converter of {@link PetriNetImpl} to pnml (xml).
+ * A converter of {@link de.markusrother.pned.core.PetriNetImpl} to pnml (xml).
  * </p>
- * 
+ *
  * <p>
  * TODO - The marshaller should be able to convert the
  * {@link de.markusrother.pned.core.PetriNet} interface instead of the

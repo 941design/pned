@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
  * Value object representing the graphics pnml tag of relatively positionable
  * elements, e.g. labels. Used for marshalling to pnml (xml).
  * </p>
- * 
+ *
  * <pre>
  * ...
  * &lt;graphics&gt;

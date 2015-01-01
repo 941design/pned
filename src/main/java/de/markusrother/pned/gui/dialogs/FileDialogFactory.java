@@ -38,7 +38,7 @@ public class FileDialogFactory {
 	 * <p>
 	 * Opens {@link ImportDialog}.
 	 * </p>
-	 * 
+	 *
 	 * NOTE - The <code>parent</code> argument determines two things: the frame
 	 * on which the open dialog depends and the component whose position the
 	 * look and feel should consider when placing the dialog. If the parent is a
@@ -119,16 +119,18 @@ public class FileDialogFactory {
 	private GuiEventTarget eventTarget;
 
 	/**
-	 * 
-	 * @return
+	 * <p>Getter for the field <code>eventTarget</code>.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.GuiEventTarget} object.
 	 */
 	public GuiEventTarget getEventTarget() {
 		return eventTarget;
 	}
 
 	/**
-	 * 
-	 * @param eventTarget
+	 * <p>Setter for the field <code>eventTarget</code>.</p>
+	 *
+	 * @param eventTarget a {@link de.markusrother.pned.gui.GuiEventTarget} object.
 	 */
 	public void setEventTarget(final GuiEventTarget eventTarget) {
 		this.eventTarget = eventTarget;

@@ -11,7 +11,7 @@ import de.markusrother.pned.gui.dialogs.EditSettingsDialog;
 
 /**
  * <p>
- * Action that opens an {@link EditSettingsDialog} upon performing.
+ * Action that opens an {@link de.markusrother.pned.gui.dialogs.EditSettingsDialog} upon performing.
  * </p>
  *
  * @author Markus Rother
@@ -26,8 +26,8 @@ public class OpenEditSettingsDialogAction extends AbstractOpenDialogAction {
 
 	/**
 	 * <p>
-	 * Creates and returns a {@link JMenuItem} where selection opens an
-	 * {@link EditSettingsDialog}.
+	 * Creates and returns a {@link javax.swing.JMenuItem} where selection opens an
+	 * {@link de.markusrother.pned.gui.dialogs.EditSettingsDialog}.
 	 * </p>
 	 *
 	 * @param eventTarget

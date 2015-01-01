@@ -39,7 +39,7 @@ import de.markusrother.pned.io.PetriNetMarshaller;
  * <p>
  * EventAwarePetriNet class.
  * </p>
- * 
+ *
  * FIXME - should not reside in core unless events are not in gui package.
  *
  * @author Markus Rother

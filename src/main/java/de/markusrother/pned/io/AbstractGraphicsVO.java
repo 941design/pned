@@ -7,7 +7,7 @@ import java.awt.Point;
  * Abstract superclass for value objects representing the graphics pnml tag.
  * Used for marshalling to pnml (xml).
  * </p>
- * 
+ *
  * <pre>
  * ...
  * &lt;graphics&gt;

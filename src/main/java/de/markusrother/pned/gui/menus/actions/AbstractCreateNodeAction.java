@@ -111,7 +111,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	/**
 	 * <p>
 	 * Posts {@link de.markusrother.pned.gui.events.SetNodeTypeCommand} on
-	 * {@link EventBus}.
+	 * {@link de.markusrother.pned.gui.EventBus}.
 	 * </p>
 	 */
 	protected abstract void fireSetNodeTypeCommand();
@@ -128,7 +128,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 
 	/**
 	 * <p>
-	 * Posts {@link IdRequest} on {@link EventBus} and returns requested id.
+	 * Posts {@link de.markusrother.pned.gui.events.IdRequest} on {@link de.markusrother.pned.gui.EventBus} and returns requested id.
 	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.

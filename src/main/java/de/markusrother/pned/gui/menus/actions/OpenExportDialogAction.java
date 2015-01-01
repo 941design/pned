@@ -25,7 +25,7 @@ public class OpenExportDialogAction extends AbstractOpenFileDialogAction {
 
 	/**
 	 * <p>
-	 * Creates and returns a {@link JMenuItem} where selection opens a
+	 * Creates and returns a {@link javax.swing.JMenuItem} where selection opens a
 	 * ExportDialog. (FIXME)
 	 * </p>
 	 *

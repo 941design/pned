@@ -26,7 +26,7 @@ public class AbstractDialog extends JDialog {
 	 *
 	 * @param eventTarget
 	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} object.
-	 * @param title
+	 * @param title a {@link java.lang.String} object.
 	 */
 	protected AbstractDialog(final GuiEventTarget eventTarget, final String title) {
 		this.eventTarget = eventTarget;

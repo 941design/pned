@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
  * Value object representing the graphics pnml tag of absolutely positioned
  * elements, e.g. nodes. Used for marshalling to pnml (xml).
  * </p>
- * 
+ *
  * <pre>
  * ...
  * &lt;graphics&gt;
@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlElement;
  * &lt;/graphics&gt;
  * ...
  * </pre>
- * 
+ *
  * @author Markus Rother
  * @version 1.0
  * @see PetriNetMarshaller

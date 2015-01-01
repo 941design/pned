@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlType;
  * Value object representing the element's labels, e.g. of nodes. Used for
  * marshalling to pnml (xml).
  * </p>
- * 
+ *
  * <pre>
  * ...
  * &lt;name&gt;
@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  * 	&lt;graphics&gt;
  * 		&lt;offset x="23" y="42"/&gt;
  * 	&lt;/graphics&gt;
- * &lt;/name&gt; 
+ * &lt;/name&gt;
  * ...
  * </pre>
  *

@@ -27,7 +27,7 @@ public class CreatePetriNetAction extends AbstractAction {
 
 	/**
 	 * <p>
-	 * Creates and returns a {@link JMenuItem} where selection triggers creation
+	 * Creates and returns a {@link javax.swing.JMenuItem} where selection triggers creation
 	 * of a new Petri net.
 	 * </p>
 	 *

@@ -22,7 +22,8 @@ public abstract class AbstractOpenDialogAction extends AbstractAction {
 	protected final GuiEventTarget eventTarget;
 
 	/**
-	 * 
+	 * <p>Constructor for AbstractOpenDialogAction.</p>
+	 *
 	 * @param eventTarget
 	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
 	 *            posted to.

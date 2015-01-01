@@ -12,7 +12,7 @@ import de.markusrother.pned.gui.dialogs.FileDialogFactory;
  * <p>
  * Action that opens an ImportDialog (FIXME) upon performing.
  * </p>
- * 
+ *
  * TODO
  *
  * By using the same file chooser instance to display its open and save dialogs,
@@ -35,14 +35,12 @@ public class OpenImportDialogAction extends AbstractOpenFileDialogAction {
 
 	/**
 	 * <p>
-	 * Creates and returns a {@link JMenuItem} where selection opens a
+	 * Creates and returns a {@link javax.swing.JMenuItem} where selection opens a
 	 * ImportDialog. (FIXME)
 	 * </p>
 	 *
-	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
-	 *            posted to.
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
+	 * @param fileDialogFactory a {@link de.markusrother.pned.gui.dialogs.FileDialogFactory} object.
 	 */
 	public static JMenuItem newMenuItem(final FileDialogFactory fileDialogFactory) {
 		final Action action = new OpenImportDialogAction(fileDialogFactory);

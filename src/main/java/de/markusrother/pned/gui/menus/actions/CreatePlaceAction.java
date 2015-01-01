@@ -20,7 +20,7 @@ import de.markusrother.swing.CustomRadioButtonMenuItem;
  * {@link java.awt.event.ActionListener} with an
  * {@link java.awt.event.ItemListener} for selectable items. It can be used for
  * e.g. {@link javax.swing.JRadioButtonMenuItem}s where toggle and selection
- * (click) trigger separate {@link ActionEvent}s, such as in
+ * (click) trigger separate {@link java.awt.event.ActionEvent}s, such as in
  * {@link #newMenuItem(EventBus, Object, LocationProvider)}.
  * </p>
  *
@@ -37,9 +37,9 @@ public class CreatePlaceAction extends AbstractCreateNodeAction {
 
 	/**
 	 * <p>
-	 * Creates and returns a {@link JRadioButtonMenuItem} where toggle and click
+	 * Creates and returns a {@link javax.swing.JRadioButtonMenuItem} where toggle and click
 	 * on label trigger separate actions as described here
-	 * {@link CreatePlaceAction}.
+	 * {@link de.markusrother.pned.gui.menus.actions.CreatePlaceAction}.
 	 * </p>
 	 *
 	 * @param eventBus

@@ -6,7 +6,7 @@ import de.markusrother.pned.gui.menus.actions.LocationProvider;
 
 /**
  * <p>
- * Default, singleton implementation of {@link LocationProvider}.
+ * Default, singleton implementation of {@link de.markusrother.pned.gui.menus.actions.LocationProvider}.
  * </p>
  *
  * @author Markus Rother

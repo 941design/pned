@@ -31,15 +31,15 @@ import de.markusrother.pned.gui.events.TransitionCreationCommand;
  * A simple pnml (xml) parser. Given some sort of readable input the
  * {@link de.markusrother.pned.io.PNMLParser} interprets it as pnml, generating
  * {@link java.util.EventObject}s which are posted on the provided
- * {@link EventTarget}.
+ * {@link de.markusrother.pned.gui.EventTarget}.
  * </p>
  * <p>
  * This class does <b>not</b> actually create a Petri Net. It only provides the
- * events necessary to do so by posting them to the provided {@link EventTarget}
+ * events necessary to do so by posting them to the provided {@link de.markusrother.pned.gui.EventTarget}
  * . To create a Petri Net the provided {@link java.util.EventObject}s have to
  * be interpreted, e.g. by:
  * </p>
- * 
+ *
  * <pre>
  * ...
  * EventBus eventBus = new EventBus();
@@ -76,7 +76,7 @@ import de.markusrother.pned.gui.events.TransitionCreationCommand;
  * FIXME - Move {@link de.markusrother.pned.gui.EventTarget} and all events
  * needed here, to a different package.
  * </p>
- * 
+ *
  * @author unknown
  * @author Markus Rother
  * @version 1.0
@@ -109,7 +109,7 @@ public class PNMLParser {
 	/**
 	 * <p>
 	 * Parses given {@link java.io.File}, and broadcasts resulting events on
-	 * given {@link EventTarget}.
+	 * given {@link de.markusrother.pned.gui.EventTarget}.
 	 * </p>
 	 *
 	 * @param file
@@ -130,7 +130,7 @@ public class PNMLParser {
 	/**
 	 * <p>
 	 * Parses given {@link java.io.InputStream}, and broadcasts resulting events
-	 * on given {@link EventTarget}.
+	 * on given {@link de.markusrother.pned.gui.EventTarget}.
 	 * </p>
 	 *
 	 * @param inputStream
@@ -149,7 +149,7 @@ public class PNMLParser {
 	/**
 	 * <p>
 	 * Parses given {@link javax.xml.stream.XMLEventReader}, and broadcasts
-	 * resulting events on given {@link EventTarget}.
+	 * resulting events on given {@link de.markusrother.pned.gui.EventTarget}.
 	 * </p>
 	 *
 	 * @param xmlEventReader
