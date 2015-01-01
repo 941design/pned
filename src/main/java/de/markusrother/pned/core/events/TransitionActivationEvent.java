@@ -1,4 +1,4 @@
-package de.markusrother.pned.events;
+package de.markusrother.pned.core.events;
 
 import java.util.EventObject;
 
@@ -21,7 +21,7 @@ public class TransitionActivationEvent extends EventObject {
 	/**
 	 * <p>Constructor for TransitionActivationEvent.</p>
 	 *
-	 * @param type a {@link de.markusrother.pned.events.TransitionActivationEvent.Type} object.
+	 * @param type a {@link de.markusrother.pned.core.events.TransitionActivationEvent.Type} object.
 	 * @param source a {@link java.lang.Object} object.
 	 * @param transitionId a {@link java.lang.String} object.
 	 */
@@ -34,7 +34,7 @@ public class TransitionActivationEvent extends EventObject {
 	/**
 	 * <p>Getter for the field <code>type</code>.</p>
 	 *
-	 * @return a {@link de.markusrother.pned.events.TransitionActivationEvent.Type} object.
+	 * @return a {@link de.markusrother.pned.core.events.TransitionActivationEvent.Type} object.
 	 */
 	public Type getType() {
 		return type;

@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
-import de.markusrother.pned.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.LabelEditEvent;

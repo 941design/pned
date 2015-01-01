@@ -2,7 +2,7 @@ package de.markusrother.pned.commands.listeners;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.events.TransitionActivationEvent;
+import de.markusrother.pned.core.events.TransitionActivationEvent;
 
 /**
  * <p>TransitionActivationListener interface.</p>
@@ -17,14 +17,14 @@ public interface TransitionActivationListener
 	/**
 	 * <p>transitionActivated.</p>
 	 *
-	 * @param e a {@link de.markusrother.pned.events.TransitionActivationEvent} object.
+	 * @param e a {@link de.markusrother.pned.core.events.TransitionActivationEvent} object.
 	 */
 	void transitionActivated(TransitionActivationEvent e);
 
 	/**
 	 * <p>transitionDeactivated.</p>
 	 *
-	 * @param e a {@link de.markusrother.pned.events.TransitionActivationEvent} object.
+	 * @param e a {@link de.markusrother.pned.core.events.TransitionActivationEvent} object.
 	 */
 	void transitionDeactivated(TransitionActivationEvent e);
 

@@ -15,7 +15,7 @@ import de.markusrother.pned.commands.TransitionLayoutCommand;
 import de.markusrother.pned.commands.listeners.EdgeLayoutListener;
 import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
 import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
-import de.markusrother.pned.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;

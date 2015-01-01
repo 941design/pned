@@ -15,7 +15,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
-import de.markusrother.pned.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
