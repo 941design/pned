@@ -22,26 +22,32 @@ import de.markusrother.swing.ScaleGroup;
 
 /**
  * <p>
- * Dialog for adjusting Petri net element sizes.
+ * Dialog for adjusting Petri net element sizes. Size changes are posted as
+ * {@link java.util.EventObject}s to the provided {@link de.markusrother.pned.gui.GuiEventTarget}.
  * </p>
  *
  * @author Markus Rother
  * @version 1.0
+ * @see ScaleGroup
  */
 public class EditSettingsDialog extends AbstractDialog {
 
-	/** Constant <code>title="Settings"</code> */
+	/** Constant <code>title="Settings"</code> - this dialog's title. */
 	private static final String title = "Settings";
-	/** Constant <code>preferredSize</code> */
+	/**
+	 * Constant <code>preferredSize=new Dimension(700, 1000)</code> - this
+	 * dialog's preferred size.
+	 */
 	private static final Dimension preferredSize = new Dimension(700, 1000);
 
 	/**
 	 * <p>
-	 * Opens dialog.
+	 * Opens this dialog.
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} object.
+	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
+	 *            posted to.
 	 */
 	public static void open(final GuiEventTarget eventTarget) {
 		// TODO - take parent component and model
@@ -56,7 +62,8 @@ public class EditSettingsDialog extends AbstractDialog {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} object.
+	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
+	 *            posted to.
 	 */
 	private EditSettingsDialog(final GuiEventTarget eventTarget) {
 		super(eventTarget, title);
@@ -80,7 +87,8 @@ public class EditSettingsDialog extends AbstractDialog {
 
 	/**
 	 * <p>
-	 * createPlaceScale.
+	 * Creates and returns {@link ScaleGroup} for adjusting place size for all
+	 * nodes.
 	 * </p>
 	 *
 	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
@@ -100,7 +108,8 @@ public class EditSettingsDialog extends AbstractDialog {
 
 	/**
 	 * <p>
-	 * createTransitionScale.
+	 * Creates and returns {@link ScaleGroup} for adjusting transition size for
+	 * all nodes.
 	 * </p>
 	 *
 	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
@@ -120,7 +129,8 @@ public class EditSettingsDialog extends AbstractDialog {
 
 	/**
 	 * <p>
-	 * createMarkingScale.
+	 * Creates and returns {@link ScaleGroup} for adjusting marking size for all
+	 * markings.
 	 * </p>
 	 *
 	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
@@ -140,7 +150,8 @@ public class EditSettingsDialog extends AbstractDialog {
 
 	/**
 	 * <p>
-	 * createEdgeTipScale.
+	 * Creates and returns {@link ScaleGroup} for adjusting edge tip size for
+	 * all edges.
 	 * </p>
 	 *
 	 * @return a {@link de.markusrother.swing.ScaleGroup} object.

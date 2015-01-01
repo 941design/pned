@@ -4,7 +4,7 @@ import de.markusrother.pned.gui.GuiEventTarget;
 
 /**
  * <p>
- * Dialog for importing a Petri net.
+ * Factory for opening file dialogs.
  * </p>
  *
  * @author Markus Rother
@@ -14,7 +14,7 @@ public class FileDialogFactory {
 
 	/**
 	 * <p>
-	 * Opens {@link de.markusrother.pned.gui.dialogs.OpenFileDialog}.
+	 * Opens an {@link de.markusrother.pned.gui.dialogs.OpenFileDialog}.
 	 * </p>
 	 */
 	public void openImportDialog() {
@@ -24,7 +24,7 @@ public class FileDialogFactory {
 
 	/**
 	 * <p>
-	 * Opens {@link de.markusrother.pned.gui.dialogs.SaveFileDialog}.
+	 * Opens a {@link de.markusrother.pned.gui.dialogs.SaveFileDialog}.
 	 * </p>
 	 */
 	public void openExportDialog() {
@@ -32,9 +32,7 @@ public class FileDialogFactory {
 		SaveFileDialog.open(eventTarget);
 	}
 
-	/**
-	 * The event target to be posted to.
-	 */
+	/** The event target to which resulting events are posted to. */
 	private GuiEventTarget eventTarget;
 
 	/**
@@ -42,7 +40,8 @@ public class FileDialogFactory {
 	 * Getter for the field <code>eventTarget</code>.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.GuiEventTarget} object.
+	 * @return a {@link de.markusrother.pned.gui.GuiEventTarget} to which
+	 *         resulting events are posted to.
 	 */
 	public GuiEventTarget getEventTarget() {
 		return eventTarget;
@@ -54,7 +53,8 @@ public class FileDialogFactory {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} object.
+	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} to which
+	 *            resulting events are posted to.
 	 */
 	public void setEventTarget(final GuiEventTarget eventTarget) {
 		this.eventTarget = eventTarget;

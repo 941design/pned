@@ -14,9 +14,7 @@ import de.markusrother.pned.gui.GuiEventTarget;
  */
 public class AbstractDialog extends JDialog {
 
-	/**
-	 * The event target to be posted to.
-	 */
+	/** The event target to be posted to. */
 	protected final GuiEventTarget eventTarget;
 
 	/**
@@ -25,8 +23,10 @@ public class AbstractDialog extends JDialog {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} object.
-	 * @param title a {@link java.lang.String} object.
+	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
+	 *            posted to.
+	 * @param title
+	 *            a {@link java.lang.String} - this dialogs tile.
 	 */
 	protected AbstractDialog(final GuiEventTarget eventTarget, final String title) {
 		this.eventTarget = eventTarget;

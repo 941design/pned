@@ -6,10 +6,13 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 
 import de.markusrother.pned.commands.PetriNetIOCommand;
-import de.markusrother.pned.gui.EventTarget;
+import de.markusrother.pned.gui.GuiEventTarget;
 
 /**
- * <p>OpenFileDialog class.</p>
+ * <p>
+ * File dialog for opening Petri nets from pnml (xml). Successful file selection
+ * posts a {@link de.markusrother.pned.commands.PetriNetIOCommand} to the provided {@link de.markusrother.pned.gui.GuiEventTarget}.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -22,23 +25,31 @@ public class OpenFileDialog extends AbstractFileDialog {
 	private static final String approveButtonLabel = "Open";
 
 	/**
-	 * <p>open.</p>
+	 * <p>
+	 * Opens this dialog.
+	 * </p>
 	 *
-	 * @param eventTarget a {@link de.markusrother.pned.gui.EventTarget} object.
+	 * @param eventTarget
+	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} object.
 	 */
-	public static void open(final EventTarget eventTarget) {
+	public static void open(final GuiEventTarget eventTarget) {
 		final OpenFileDialog dialog = new OpenFileDialog(eventTarget);
-		dialog.showDialog();
+		dialog.showDialogAndProcessResult();
 	}
 
-	private OpenFileDialog(final EventTarget eventTarget) {
+	/**
+	 * @param eventTarget
+	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
+	 *            posted to.
+	 */
+	private OpenFileDialog(final GuiEventTarget eventTarget) {
 		super(eventTarget, title, approveButtonLabel);
 		setDialogType(JFileChooser.OPEN_DIALOG);
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	protected void selectedFile(final File file) {
+	protected void processSelectedFile(final File file) {
 		// TODO - confirm if unsaved.
 		// TODO - maintain dirty flag!
 		// If current net is to be purged send appropriate command

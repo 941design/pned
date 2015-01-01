@@ -7,10 +7,12 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import de.markusrother.pned.gui.EventTarget;
+import de.markusrother.pned.gui.GuiEventTarget;
 
 /**
- * <p>Abstract AbstractFileDialog class.</p>
+ * <p>
+ * Abstract superclass for file dialogs.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -22,20 +24,26 @@ public abstract class AbstractFileDialog extends JFileChooser {
 	/** Constant <code>filter</code> */
 	private static FileFilter filter = new FileNameExtensionFilter(".pnml", "pnml");
 
-	/**	 */
-	protected final EventTarget eventTarget;
+	/** The {@link de.markusrother.pned.gui.GuiEventTarget} to be posted to. */
+	protected final GuiEventTarget eventTarget;
 
-	/**	 */
+	/** A {@link java.lang.String} - the approve button's label. */
 	private final String approveButtonLabel;
 
 	/**
-	 * <p>Constructor for AbstractFileDialog.</p>
+	 * <p>
+	 * Constructor for AbstractFileDialog.
+	 * </p>
 	 *
-	 * @param eventTarget a {@link de.markusrother.pned.gui.EventTarget} object.
-	 * @param title a {@link java.lang.String} object.
-	 * @param approveButtonLabel a {@link java.lang.String} object.
+	 * @param eventTarget
+	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
+	 *            posted to.
+	 * @param title
+	 *            a {@link java.lang.String} - the dialog's title.
+	 * @param approveButtonLabel
+	 *            a {@link java.lang.String} - the approve button's label.
 	 */
-	protected AbstractFileDialog(final EventTarget eventTarget, final String title, final String approveButtonLabel) {
+	protected AbstractFileDialog(final GuiEventTarget eventTarget, final String title, final String approveButtonLabel) {
 		this.eventTarget = eventTarget;
 		this.approveButtonLabel = approveButtonLabel;
 		// setCurrentDirectory();
@@ -47,9 +55,11 @@ public abstract class AbstractFileDialog extends JFileChooser {
 	}
 
 	/**
-	 * <p>showDialog.</p>
+	 * <p>
+	 * Opens (shows) this dialog and processes the result.
+	 * </p>
 	 */
-	protected void showDialog() {
+	protected void showDialogAndProcessResult() {
 		/*
 		 * NOTE - The <code>parent</code> argument determines two things: the
 		 * frame on which the open dialog depends and the component whose
@@ -67,7 +77,7 @@ public abstract class AbstractFileDialog extends JFileChooser {
 		final int result = showDialog(NO_PARENT, approveButtonLabel);
 		if (result == APPROVE_OPTION) {
 			final File file = getSelectedFile();
-			selectedFile(file);
+			processSelectedFile(file);
 		} else if (result == CANCEL_OPTION) {
 			// IGNORE
 		} else {
@@ -77,10 +87,13 @@ public abstract class AbstractFileDialog extends JFileChooser {
 	}
 
 	/**
-	 * <p>selectedFile.</p>
+	 * <p>
+	 * Processes the selected file.
+	 * </p>
 	 *
-	 * @param file a {@link java.io.File} object.
+	 * @param file
+	 *            a {@link java.io.File} - the selected file.
 	 */
-	protected abstract void selectedFile(File file);
+	protected abstract void processSelectedFile(File file);
 
 }
