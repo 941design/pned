@@ -18,13 +18,13 @@ import javax.xml.stream.events.Characters;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
+import de.markusrother.pned.core.commands.EdgeCreationCommand;
+import de.markusrother.pned.core.commands.LabelEditEvent;
+import de.markusrother.pned.core.commands.NodeMovedEvent;
+import de.markusrother.pned.core.commands.PlaceCreationCommand;
+import de.markusrother.pned.core.commands.PlaceEditEvent;
+import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.events.EventTarget;
-import de.markusrother.pned.gui.events.EdgeCreationCommand;
-import de.markusrother.pned.gui.events.LabelEditEvent;
-import de.markusrother.pned.gui.events.NodeMovedEvent;
-import de.markusrother.pned.gui.events.PlaceCreationCommand;
-import de.markusrother.pned.gui.events.PlaceEditEvent;
-import de.markusrother.pned.gui.events.TransitionCreationCommand;
 
 /**
  * <p>
@@ -35,9 +35,9 @@ import de.markusrother.pned.gui.events.TransitionCreationCommand;
  * </p>
  * <p>
  * This class does <b>not</b> actually create a Petri Net. It only provides the
- * events necessary to do so by posting them to the provided {@link de.markusrother.pned.core.events.EventTarget}
- * . To create a Petri Net the provided {@link java.util.EventObject}s have to
- * be interpreted, e.g. by:
+ * events necessary to do so by posting them to the provided
+ * {@link de.markusrother.pned.core.events.EventTarget} . To create a Petri Net
+ * the provided {@link java.util.EventObject}s have to be interpreted, e.g. by:
  * </p>
  *
  * <pre>
@@ -50,7 +50,7 @@ import de.markusrother.pned.gui.events.TransitionCreationCommand;
  * <p>
  * ... where {@link de.markusrother.pned.core.events.EventBus} implements
  * {@link de.markusrother.pned.core.events.EventTarget},
- * {@link de.markusrother.pned.core.events.EventAwarePetriNet} implements all necessary
+ * {@link de.markusrother.pned.core.EventAwarePetriNet} implements all necessary
  * {@link java.util.EventListener}s, and {@code pnmlResource} is any first
  * parameter of one of the following business methods.
  * </p>
@@ -73,8 +73,8 @@ import de.markusrother.pned.gui.events.TransitionCreationCommand;
  * FIXME - Rename all events needed here, to commands.
  * </p>
  * <p>
- * FIXME - Move {@link de.markusrother.pned.core.events.EventTarget} and all events
- * needed here, to a different package.
+ * FIXME - Move {@link de.markusrother.pned.core.events.EventTarget} and all
+ * events needed here, to a different package.
  * </p>
  *
  * @author unknown
@@ -93,8 +93,8 @@ public class PNMLParser {
 	 * @param resource
 	 *            a {@link java.net.URL} to be read.
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.core.events.EventTarget} to which
-	 *            parsed results are broadcasted as events.
+	 *            an {@link de.markusrother.pned.core.events.EventTarget} to
+	 *            which parsed results are broadcasted as events.
 	 * @throws javax.xml.stream.XMLStreamException
 	 *             if any.
 	 * @throws java.io.IOException
@@ -115,8 +115,8 @@ public class PNMLParser {
 	 * @param file
 	 *            a {@link java.io.File} to be read.
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.core.events.EventTarget} to which
-	 *            parsed results are broadcasted as events.
+	 *            an {@link de.markusrother.pned.core.events.EventTarget} to
+	 *            which parsed results are broadcasted as events.
 	 * @throws java.io.FileNotFoundException
 	 *             if any.
 	 * @throws javax.xml.stream.XMLStreamException
@@ -136,8 +136,8 @@ public class PNMLParser {
 	 * @param inputStream
 	 *            a {@link java.io.InputStream} to be read.
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.core.events.EventTarget} to which
-	 *            parsed results are broadcasted as events.
+	 *            an {@link de.markusrother.pned.core.events.EventTarget} to
+	 *            which parsed results are broadcasted as events.
 	 * @throws javax.xml.stream.XMLStreamException
 	 *             if any.
 	 */
@@ -149,14 +149,15 @@ public class PNMLParser {
 	/**
 	 * <p>
 	 * Parses given {@link javax.xml.stream.XMLEventReader}, and broadcasts
-	 * resulting events on given {@link de.markusrother.pned.core.events.EventTarget}.
+	 * resulting events on given
+	 * {@link de.markusrother.pned.core.events.EventTarget}.
 	 * </p>
 	 *
 	 * @param xmlEventReader
 	 *            a {@link javax.xml.stream.XMLEventReader} to be read.
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.core.events.EventTarget} to which
-	 *            parsed results are broadcasted as events.
+	 *            an {@link de.markusrother.pned.core.events.EventTarget} to
+	 *            which parsed results are broadcasted as events.
 	 */
 	public static void parse(final XMLEventReader xmlEventReader, final EventTarget eventTarget) {
 		final PNMLParser parser = new PNMLParser(xmlEventReader, eventTarget);

@@ -4,9 +4,9 @@ import java.util.EventListener;
 
 import javax.swing.event.EventListenerList;
 
-import de.markusrother.pned.commands.listeners.TransitionActivationListener;
 import de.markusrother.pned.core.events.PetriNetCommandSource;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
+import de.markusrother.pned.core.listeners.TransitionActivationListener;
 
 public class CommandSourceMock
 	implements

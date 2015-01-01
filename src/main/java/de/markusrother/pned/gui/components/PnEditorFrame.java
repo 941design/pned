@@ -10,14 +10,15 @@ import java.net.URL;
 import javax.swing.JFrame;
 import javax.xml.stream.XMLStreamException;
 
-import de.markusrother.pned.commands.PetriNetEditCommand;
-import de.markusrother.pned.commands.PetriNetIOCommand;
-import de.markusrother.pned.commands.listeners.PetriNetIOListener;
-import de.markusrother.pned.commands.listeners.PetriNetListener;
-import de.markusrother.pned.core.events.EventAwarePetriNet;
+import de.markusrother.pned.core.EventAwarePetriNet;
 import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.core.events.PetriNetIOCommand;
+import de.markusrother.pned.core.listeners.PetriNetIOListener;
 import de.markusrother.pned.gui.NodeCreationMode;
+import de.markusrother.pned.gui.events.GuiEventBus;
+import de.markusrother.pned.gui.events.PetriNetEditCommand;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
+import de.markusrother.pned.gui.listeners.PetriNetListener;
 import de.markusrother.pned.gui.menus.PnEditorMenuFactory;
 import de.markusrother.pned.gui.menus.PnedMenuBar;
 import de.markusrother.pned.io.PNMLParser;
@@ -38,7 +39,7 @@ public class PnEditorFrame extends JFrame
 	/** Constant <code>preferredSize</code> */
 	private static final Dimension preferredSize = new Dimension(800, 600);
 
-	private EventBus eventBus;
+	private GuiEventBus eventBus;
 	private final PnEditorMenuFactory menuFactory;
 	private PnGridPanel grid;
 	private PnedMenuBar pnedMenuBar;
@@ -91,8 +92,8 @@ public class PnEditorFrame extends JFrame
 	 *
 	 * @return a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
-	private EventBus createNewContext() {
-		final EventBus eventBus = new EventBus();
+	private GuiEventBus createNewContext() {
+		final GuiEventBus eventBus = new GuiEventBus();
 		createPetriNetModel(eventBus);
 		eventBus.addListener(PetriNetListener.class, this);
 		eventBus.addListener(PetriNetIOListener.class, this);

@@ -12,13 +12,13 @@ import java.awt.Container;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
-import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.core.commands.EdgeCreationCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.components.EdgeComponent;
 import de.markusrother.pned.gui.components.PnGridPanel;
-import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.EdgeEditEvent.Type;
+import de.markusrother.pned.gui.events.GuiEventBus;
 import de.markusrother.swing.DoubleClickListener;
 
 /**
@@ -37,13 +37,18 @@ public class EdgeCreator extends DoubleClickListener {
 
 	private EdgeComponent edge;
 
-	private final EventBus eventBus;
+	private final GuiEventBus eventBus;
 
 	/**
-	 * <p>addToComponent.</p>
+	 * <p>
+	 * addToComponent.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
-	 * @param listener a {@link de.markusrother.pned.gui.listeners.EdgeCreator} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
+	 * @param listener
+	 *            a {@link de.markusrother.pned.gui.listeners.EdgeCreator}
+	 *            object.
 	 */
 	public static void addToComponent(final Component component, final EdgeCreator listener) {
 		component.addMouseListener(listener);
@@ -51,10 +56,15 @@ public class EdgeCreator extends DoubleClickListener {
 	}
 
 	/**
-	 * <p>removeFromComponent.</p>
+	 * <p>
+	 * removeFromComponent.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
-	 * @param listener a {@link de.markusrother.pned.gui.listeners.EdgeCreator} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
+	 * @param listener
+	 *            a {@link de.markusrother.pned.gui.listeners.EdgeCreator}
+	 *            object.
 	 */
 	public static void removeFromComponent(final Component component, final EdgeCreator listener) {
 		component.removeMouseListener(listener);
@@ -62,21 +72,30 @@ public class EdgeCreator extends DoubleClickListener {
 	}
 
 	/**
-	 * <p>Constructor for EdgeCreator.</p>
+	 * <p>
+	 * Constructor for EdgeCreator.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
-	 * @param pnGridPanel a {@link de.markusrother.pned.gui.components.PnGridPanel} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param pnGridPanel
+	 *            a {@link de.markusrother.pned.gui.components.PnGridPanel}
+	 *            object.
 	 */
-	public EdgeCreator(final EventBus eventBus, final PnGridPanel pnGridPanel) {
+	public EdgeCreator(final GuiEventBus eventBus, final PnGridPanel pnGridPanel) {
 		this.eventBus = eventBus;
 		this.pnGridPanel = pnGridPanel;
 	}
 
 	/**
-	 * <p>expectNode.</p>
+	 * <p>
+	 * expectNode.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
-	 * @return a {@link de.markusrother.pned.gui.components.AbstractNode} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
+	 * @return a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *         object.
 	 */
 	private AbstractNode expectNode(final Component component) {
 		try {
@@ -88,9 +107,12 @@ public class EdgeCreator extends DoubleClickListener {
 	}
 
 	/**
-	 * <p>getParentRelativeLocation.</p>
+	 * <p>
+	 * getParentRelativeLocation.
+	 * </p>
 	 *
-	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 * @param e
+	 *            a {@link java.awt.event.MouseEvent} object.
 	 * @return a {@link java.awt.Point} object.
 	 */
 	private Point getParentRelativeLocation(final MouseEvent e) {
@@ -119,11 +141,17 @@ public class EdgeCreator extends DoubleClickListener {
 	}
 
 	/**
-	 * <p>fire.</p>
+	 * <p>
+	 * fire.
+	 * </p>
 	 *
-	 * @param type a {@link de.markusrother.pned.gui.events.EdgeEditEvent.Type} object.
-	 * @param e a {@link java.awt.event.MouseEvent} object.
-	 * @param component a {@link java.awt.Component} object.
+	 * @param type
+	 *            a {@link de.markusrother.pned.gui.events.EdgeEditEvent.Type}
+	 *            object.
+	 * @param e
+	 *            a {@link java.awt.event.MouseEvent} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
 	 */
 	private void fire(final Type type, final MouseEvent e, final Component component) {
 		final Point location = getParentRelativeLocation(e);
@@ -131,9 +159,13 @@ public class EdgeCreator extends DoubleClickListener {
 	}
 
 	/**
-	 * <p>fire.</p>
+	 * <p>
+	 * fire.
+	 * </p>
 	 *
-	 * @param e a {@link de.markusrother.pned.gui.events.EdgeEditEvent} object.
+	 * @param e
+	 *            a {@link de.markusrother.pned.gui.events.EdgeEditEvent}
+	 *            object.
 	 */
 	private void fire(final EdgeEditEvent e) {
 		eventBus.fireEdgeEditEvent(e);
@@ -173,9 +205,12 @@ public class EdgeCreator extends DoubleClickListener {
 	}
 
 	/**
-	 * <p>maybeFinishOrCancelEdge.</p>
+	 * <p>
+	 * maybeFinishOrCancelEdge.
+	 * </p>
 	 *
-	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 * @param e
+	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	private void maybeFinishOrCancelEdge(final MouseEvent e) {
 		// TODO - this idiom is somewhat redundant:

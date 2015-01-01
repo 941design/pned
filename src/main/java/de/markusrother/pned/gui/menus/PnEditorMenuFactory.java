@@ -2,9 +2,9 @@ package de.markusrother.pned.gui.menus;
 
 import javax.swing.JMenu;
 
-import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.dialogs.FileDialogFactory;
+import de.markusrother.pned.gui.events.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 
@@ -31,7 +31,7 @@ public class PnEditorMenuFactory
 
 	private boolean areNodesSelected;
 	private final NodeCreationMode nodeCreationMode;
-	private EventBus eventBus;
+	private GuiEventBus eventBus;
 	private final FileDialogFactory fileDialogFactory;
 
 	/**
@@ -39,9 +39,10 @@ public class PnEditorMenuFactory
 	 * Constructor for PnEditorMenuFactory.
 	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
-	public PnEditorMenuFactory(final EventBus eventBus) {
+	public PnEditorMenuFactory(final GuiEventBus eventBus) {
 		this.eventBus = eventBus;
 		this.areNodesSelected = false;
 		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
@@ -125,7 +126,7 @@ public class PnEditorMenuFactory
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
-	public void setEventBus(final EventBus eventBus) {
+	public void setEventBus(final GuiEventBus eventBus) {
 		if (this.eventBus != null) {
 			this.eventBus.removeListener(NodeSelectionListener.class, this);
 		}

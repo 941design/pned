@@ -8,24 +8,24 @@ import java.awt.Shape;
 
 import javax.swing.JPanel;
 
+import de.markusrother.pned.core.commands.NodeMovedEvent;
+import de.markusrother.pned.core.commands.NodeRemovalEvent;
 import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.listeners.NodeMotionListener;
+import de.markusrother.pned.core.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.DefinitelyBounded;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
-import de.markusrother.pned.gui.events.NodeMovedEvent;
-import de.markusrother.pned.gui.events.NodeRemovalEvent;
-import de.markusrother.pned.gui.events.NodeRequest;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.listeners.EdgeCreator;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeHoverListener;
-import de.markusrother.pned.gui.listeners.NodeMotionListener;
-import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeRequestListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.SelectionDragDropListener;
 import de.markusrother.pned.gui.listeners.SingleNodeSelector;
+import de.markusrother.pned.gui.requests.NodeRequest;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 import de.markusrother.swing.Selectable;
@@ -64,10 +64,14 @@ public abstract class AbstractNode extends JPanel
 	protected final EventBus eventBus;
 
 	/**
-	 * <p>Constructor for AbstractNode.</p>
+	 * <p>
+	 * Constructor for AbstractNode.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
-	 * @param layoutManager a {@link java.awt.LayoutManager} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param layoutManager
+	 *            a {@link java.awt.LayoutManager} object.
 	 */
 	public AbstractNode(final EventBus eventBus, final LayoutManager layoutManager) {
 		super(layoutManager);
@@ -84,23 +88,30 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	/**
-	 * <p>Constructor for AbstractNode.</p>
+	 * <p>
+	 * Constructor for AbstractNode.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	public AbstractNode(final EventBus eventBus) {
 		this(eventBus, NO_LAYOUT_MANAGER);
 	}
 
 	/**
-	 * <p>getShape.</p>
+	 * <p>
+	 * getShape.
+	 * </p>
 	 *
 	 * @return a {@link java.awt.Shape} object.
 	 */
 	protected abstract Shape getShape();
 
 	/**
-	 * <p>getStyle.</p>
+	 * <p>
+	 * getStyle.
+	 * </p>
 	 *
 	 * @return a {@link de.markusrother.pned.gui.components.NodeStyle} object.
 	 */
@@ -133,7 +144,9 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	/**
-	 * <p>Getter for the field <code>id</code>.</p>
+	 * <p>
+	 * Getter for the field <code>id</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.
 	 */
@@ -142,18 +155,25 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	/**
-	 * <p>Setter for the field <code>id</code>.</p>
+	 * <p>
+	 * Setter for the field <code>id</code>.
+	 * </p>
 	 *
-	 * @param nodeId a {@link java.lang.String} object.
+	 * @param nodeId
+	 *            a {@link java.lang.String} object.
 	 */
 	public void setId(final String nodeId) {
 		this.id = nodeId;
 	}
 
 	/**
-	 * <p>Setter for the field <code>state</code>.</p>
+	 * <p>
+	 * Setter for the field <code>state</code>.
+	 * </p>
 	 *
-	 * @param state a {@link de.markusrother.pned.gui.components.ComponentState} object.
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.components.ComponentState}
+	 *            object.
 	 */
 	public void setState(final ComponentState state) {
 		this.state = state;
@@ -161,7 +181,9 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	/**
-	 * <p>isSelected.</p>
+	 * <p>
+	 * isSelected.
+	 * </p>
 	 *
 	 * @return a boolean.
 	 */
@@ -171,7 +193,9 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	/**
-	 * <p>isPartOfMultiselection.</p>
+	 * <p>
+	 * isPartOfMultiselection.
+	 * </p>
 	 *
 	 * @return a boolean.
 	 */
@@ -180,9 +204,14 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	/**
-	 * <p>Setter for the field <code>singleNodeSelector</code>.</p>
+	 * <p>
+	 * Setter for the field <code>singleNodeSelector</code>.
+	 * </p>
 	 *
-	 * @param listener a {@link de.markusrother.pned.gui.listeners.SingleNodeSelector} object.
+	 * @param listener
+	 *            a
+	 *            {@link de.markusrother.pned.gui.listeners.SingleNodeSelector}
+	 *            object.
 	 */
 	void setSingleNodeSelector(final SingleNodeSelector listener) {
 		if (singleNodeSelector != null) {
@@ -193,9 +222,14 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	/**
-	 * <p>Setter for the field <code>dragDropListener</code>.</p>
+	 * <p>
+	 * Setter for the field <code>dragDropListener</code>.
+	 * </p>
 	 *
-	 * @param listener a {@link de.markusrother.pned.gui.listeners.SelectionDragDropListener} object.
+	 * @param listener
+	 *            a
+	 *            {@link de.markusrother.pned.gui.listeners.SelectionDragDropListener}
+	 *            object.
 	 */
 	void setDragDropListener(final SelectionDragDropListener listener) {
 		if (dragDropListener != null) {
@@ -206,9 +240,13 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	/**
-	 * <p>Setter for the field <code>edgeCreationListener</code>.</p>
+	 * <p>
+	 * Setter for the field <code>edgeCreationListener</code>.
+	 * </p>
 	 *
-	 * @param listener a {@link de.markusrother.pned.gui.listeners.EdgeCreator} object.
+	 * @param listener
+	 *            a {@link de.markusrother.pned.gui.listeners.EdgeCreator}
+	 *            object.
 	 */
 	void setEdgeCreationListener(final EdgeCreator listener) {
 		if (edgeCreationListener != null) {
@@ -219,65 +257,84 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	/**
-	 * <p>removeDragListener.</p>
+	 * <p>
+	 * removeDragListener.
+	 * </p>
 	 *
-	 * @param listener a {@link de.markusrother.swing.DragDropListener} object.
+	 * @param listener
+	 *            a {@link de.markusrother.swing.DragDropListener} object.
 	 */
 	public void removeDragListener(final DragDropListener<AbstractNode> listener) {
 		DragDropListener.removeFromComponent(this, listener);
 	}
 
 	/**
-	 * <p>suspendHoverListener.</p>
+	 * <p>
+	 * suspendHoverListener.
+	 * </p>
 	 */
 	private void suspendHoverListener() {
 		HoverListener.removeFromComponent(this, NodeHoverListener.INSTANCE);
 	}
 
 	/**
-	 * <p>suspendDragDropListener.</p>
+	 * <p>
+	 * suspendDragDropListener.
+	 * </p>
 	 */
 	private void suspendDragDropListener() {
 		DragDropListener.removeFromComponent(this, dragDropListener);
 	}
 
 	/**
-	 * <p>suspendSelectionListener.</p>
+	 * <p>
+	 * suspendSelectionListener.
+	 * </p>
 	 */
 	private void suspendSelectionListener() {
 		DragDropListener.removeFromComponent(this, singleNodeSelector);
 	}
 
 	/**
-	 * <p>suspendEdgeCreationListener.</p>
+	 * <p>
+	 * suspendEdgeCreationListener.
+	 * </p>
 	 */
 	private void suspendEdgeCreationListener() {
 		EdgeCreator.removeFromComponent(this, edgeCreationListener);
 	}
 
 	/**
-	 * <p>resumeHoverListener.</p>
+	 * <p>
+	 * resumeHoverListener.
+	 * </p>
 	 */
 	private void resumeHoverListener() {
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
 	}
 
 	/**
-	 * <p>resumeDragDropListener.</p>
+	 * <p>
+	 * resumeDragDropListener.
+	 * </p>
 	 */
 	private void resumeDragDropListener() {
 		DragDropListener.addToComponent(this, dragDropListener);
 	}
 
 	/**
-	 * <p>resumeSelectionListener.</p>
+	 * <p>
+	 * resumeSelectionListener.
+	 * </p>
 	 */
 	private void resumeSelectionListener() {
 		DragDropListener.addToComponent(this, singleNodeSelector);
 	}
 
 	/**
-	 * <p>resumeEdgeCreationListener.</p>
+	 * <p>
+	 * resumeEdgeCreationListener.
+	 * </p>
 	 */
 	private void resumeEdgeCreationListener() {
 		EdgeCreator.addToComponent(this, edgeCreationListener);
@@ -352,7 +409,9 @@ public abstract class AbstractNode extends JPanel
 	}
 
 	/**
-	 * <p>deselect.</p>
+	 * <p>
+	 * deselect.
+	 * </p>
 	 */
 	private void deselect() {
 		// resumeDragListener();

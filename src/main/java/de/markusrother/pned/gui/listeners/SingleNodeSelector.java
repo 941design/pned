@@ -8,8 +8,8 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
-import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.components.AbstractNode;
+import de.markusrother.pned.gui.events.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.DragDropListener;
 
@@ -26,23 +26,30 @@ import de.markusrother.swing.DragDropListener;
  */
 public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 
-	private final EventBus eventBus;
+	private final GuiEventBus eventBus;
 
 	/**
-	 * <p>Constructor for SingleNodeSelector.</p>
+	 * <p>
+	 * Constructor for SingleNodeSelector.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
-	public SingleNodeSelector(final EventBus eventBus) {
+	public SingleNodeSelector(final GuiEventBus eventBus) {
 		super(AbstractNode.class);
 		this.eventBus = eventBus;
 	}
 
 	/**
-	 * <p>expectAbstractNode.</p>
+	 * <p>
+	 * expectAbstractNode.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
-	 * @return a {@link de.markusrother.pned.gui.components.AbstractNode} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
+	 * @return a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *         object.
 	 */
 	private AbstractNode expectAbstractNode(final Component component) {
 		try {
@@ -54,9 +61,13 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 	}
 
 	/**
-	 * <p>makeCurrentSelection.</p>
+	 * <p>
+	 * makeCurrentSelection.
+	 * </p>
 	 *
-	 * @param node a {@link de.markusrother.pned.gui.components.AbstractNode} object.
+	 * @param node
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            object.
 	 */
 	private void makeCurrentSelection(final AbstractNode node) {
 		// Must not return if node is part of multiselection!

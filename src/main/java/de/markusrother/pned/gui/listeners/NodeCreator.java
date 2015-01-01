@@ -4,12 +4,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.concurrent.TimeoutException;
 
+import de.markusrother.pned.core.commands.PlaceCreationCommand;
+import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.core.requests.IdRequest;
 import de.markusrother.pned.gui.NodeCreationMode;
-import de.markusrother.pned.gui.events.IdRequest;
-import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
-import de.markusrother.pned.gui.events.TransitionCreationCommand;
 
 /**
  * TODO - suspend/enable on selection event!

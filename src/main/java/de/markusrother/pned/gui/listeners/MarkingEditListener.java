@@ -7,10 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.regex.Pattern;
 
+import de.markusrother.pned.core.commands.PlaceEditEvent;
 import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.components.Place;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
-import de.markusrother.pned.gui.events.PlaceEditEvent;
 import de.markusrother.swing.CheckedTextField;
 import de.markusrother.swing.MultiClickListener;
 import de.markusrother.swing.TextListener;

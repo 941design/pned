@@ -16,26 +16,26 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
-import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.core.commands.EdgeCreationCommand;
+import de.markusrother.pned.core.commands.NodeRemovalEvent;
+import de.markusrother.pned.core.commands.PlaceCreationCommand;
+import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.events.EdgeCreationCommand;
-import de.markusrother.pned.gui.events.NodeRemovalEvent;
-import de.markusrother.pned.gui.events.NodeRequest;
+import de.markusrother.pned.core.listeners.EdgeCreationListener;
+import de.markusrother.pned.core.listeners.NodeCreationListener;
+import de.markusrother.pned.core.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.events.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
-import de.markusrother.pned.gui.events.PlaceCreationCommand;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
-import de.markusrother.pned.gui.events.TransitionCreationCommand;
-import de.markusrother.pned.gui.listeners.EdgeCreationListener;
 import de.markusrother.pned.gui.listeners.EdgeCreator;
-import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeCreator;
 import de.markusrother.pned.gui.listeners.NodeListener;
-import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.NodeSelector;
 import de.markusrother.pned.gui.listeners.PnGridPopupListener;
 import de.markusrother.pned.gui.listeners.SelectionDragDropListener;
 import de.markusrother.pned.gui.listeners.SingleNodeSelector;
+import de.markusrother.pned.gui.requests.NodeRequest;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.snap.SnapGridComponent;
 
@@ -82,7 +82,7 @@ public class PnGridPanel extends JLayeredPane
 	/** Constant <code>defaultState</code> */
 	private static final EnumSet<State> defaultState = EnumSet.of(State.PLACE_CREATION);
 
-	private final EventBus eventMulticaster;
+	private final GuiEventBus eventBus;
 
 	private final JComponent nodeLayer;
 	private final JComponent edgeLayer;
@@ -136,12 +136,12 @@ public class PnGridPanel extends JLayeredPane
 	 * I don't quite like passing this to other classes/methods/constructors,
 	 * while this is not fully initialized!
 	 *
-	 * @param eventMulticaster
+	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
-	public PnGridPanel(final EventBus eventMulticaster) {
+	public PnGridPanel(final GuiEventBus eventBus) {
 
-		this.eventMulticaster = eventMulticaster;
+		this.eventBus = eventBus;
 
 		this.state = defaultState;
 
@@ -166,11 +166,11 @@ public class PnGridPanel extends JLayeredPane
 		// }
 		// }
 		// Listeners that are needed by children, are kept here:
-		edgeCreator = new EdgeCreator(eventMulticaster, this);
-		nodeCreator = new NodeCreator(eventMulticaster);
-		multipleNodeSelector = new NodeSelector(eventMulticaster);
-		singleNodeSelector = new SingleNodeSelector(eventMulticaster);
-		popupCreator = new PnGridPopupListener(eventMulticaster, this);
+		edgeCreator = new EdgeCreator(eventBus, this);
+		nodeCreator = new NodeCreator(eventBus);
+		multipleNodeSelector = new NodeSelector(eventBus);
+		singleNodeSelector = new SingleNodeSelector(eventBus);
+		popupCreator = new PnGridPopupListener(eventBus, this);
 
 		currentSelection = new HashSet<>();
 
@@ -181,11 +181,11 @@ public class PnGridPanel extends JLayeredPane
 		DragDropListener.addToComponent(nodeLayer, multipleNodeSelector);
 
 		// FIXME - dispose!
-		eventMulticaster.addListener(NodeSelectionListener.class, this);
-		eventMulticaster.addListener(NodeListener.class, this);
-		eventMulticaster.addListener(NodeCreationListener.class, this);
-		eventMulticaster.addListener(EdgeCreationListener.class, this);
-		eventMulticaster.addListener(NodeRemovalListener.class, this);
+		eventBus.addListener(NodeSelectionListener.class, this);
+		eventBus.addListener(NodeListener.class, this);
+		eventBus.addListener(NodeCreationListener.class, this);
+		eventBus.addListener(EdgeCreationListener.class, this);
+		eventBus.addListener(NodeRemovalListener.class, this);
 	}
 
 	/**
@@ -272,7 +272,7 @@ public class PnGridPanel extends JLayeredPane
 	public void removeSelectedNodes() {
 		// TODO - instead we could trigger the event below!
 		for (final AbstractNode node : currentSelection) {
-			eventMulticaster.nodeRemoved(new NodeRemovalEvent(this, node.getId()));
+			eventBus.nodeRemoved(new NodeRemovalEvent(this, node.getId()));
 		}
 	}
 
@@ -280,7 +280,7 @@ public class PnGridPanel extends JLayeredPane
 	@Override
 	public void createPlace(final PlaceCreationCommand cmd) {
 		// TODO - use currentPlaceStyle!
-		final Place place = new Place(eventMulticaster, (int) placeDimensions.getWidth());
+		final Place place = new Place(eventBus, (int) placeDimensions.getWidth());
 		addNodeComponent(place, cmd.getPoint());
 		place.setId(cmd.getNodeId());
 		addListeners(place);
@@ -290,7 +290,7 @@ public class PnGridPanel extends JLayeredPane
 	/** {@inheritDoc} */
 	@Override
 	public void createTransition(final TransitionCreationCommand cmd) {
-		final Transition transition = new Transition(eventMulticaster, (int) transitionDimensions.getWidth());
+		final Transition transition = new Transition(eventBus, (int) transitionDimensions.getWidth());
 		addNodeComponent(transition, cmd.getPoint());
 		transition.setId(cmd.getNodeId());
 		addListeners(transition);
@@ -363,7 +363,7 @@ public class PnGridPanel extends JLayeredPane
 	public JLabel createLabel(final Point origin, final String nodeId) {
 		// TODO - We could create an edge that connects label with node, synced
 		// similarly to the node.
-		final NodeLabel label = new NodeLabel(eventMulticaster, nodeId);
+		final NodeLabel label = new NodeLabel(eventBus, nodeId);
 		addLabelComponent(label, origin);
 		// eventBus.fireLabelCreatedEvent(null);
 		return label;
@@ -390,7 +390,7 @@ public class PnGridPanel extends JLayeredPane
 	public void createEdge(final EdgeCreationCommand cmd) {
 		final AbstractNode sourceNode = requestNode(cmd.getSourceId());
 		final AbstractNode targetNode = requestNode(cmd.getTargetId());
-		final EdgeComponent edge = new EdgeComponent(eventMulticaster, sourceNode, targetNode);
+		final EdgeComponent edge = new EdgeComponent(eventBus, sourceNode, targetNode);
 		addEdgeComponent(edge);
 	}
 
@@ -407,7 +407,7 @@ public class PnGridPanel extends JLayeredPane
 	private AbstractNode requestNode(final String nodeId) {
 		try {
 			final NodeRequest req = new NodeRequest(this, nodeId);
-			eventMulticaster.requestNode(req);
+			eventBus.requestNode(req);
 			final AbstractNode node = req.get();
 			return node;
 		} catch (final TimeoutException e) {
@@ -431,7 +431,7 @@ public class PnGridPanel extends JLayeredPane
 	 */
 	public EdgeComponent createEdge(final AbstractNode sourceNode, final Point target) {
 		final Point source = getCenter(sourceNode);
-		final EdgeComponent edge = new EdgeComponent(eventMulticaster, sourceNode, source, target);
+		final EdgeComponent edge = new EdgeComponent(eventBus, sourceNode, source, target);
 		edge.setBounds(this.getBounds()); // OBSOLETE?
 		addEdgeComponent(edge);
 		return edge;
@@ -479,7 +479,7 @@ public class PnGridPanel extends JLayeredPane
 		firePropertyChange("multiselection", false, true);
 		currentSelection.addAll(event.getNodes());
 		// TODO - Extract MultiSelectionDragDropListener
-		nodeSelectionDragListener = new SelectionDragDropListener(eventMulticaster, currentSelection);
+		nodeSelectionDragListener = new SelectionDragDropListener(eventBus, currentSelection);
 		for (final AbstractNode node : currentSelection) {
 			node.setDragDropListener(nodeSelectionDragListener);
 		}

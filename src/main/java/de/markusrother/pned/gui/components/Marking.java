@@ -7,9 +7,9 @@ import java.awt.Graphics2D;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import de.markusrother.pned.commands.MarkingLayoutCommand;
-import de.markusrother.pned.commands.listeners.MarkingLayoutListener;
 import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand;
+import de.markusrother.pned.gui.layout.listeners.MarkingLayoutListener;
 
 /**
  * <p>Marking class.</p>

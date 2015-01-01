@@ -5,13 +5,13 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
-import de.markusrother.pned.commands.PetriNetIOCommand;
+import de.markusrother.pned.core.events.PetriNetIOCommand;
 import de.markusrother.pned.gui.events.GuiEventTarget;
 
 /**
  * <p>
  * File dialog for opening Petri nets from pnml (xml). Successful file selection
- * posts a {@link de.markusrother.pned.commands.PetriNetIOCommand} to the
+ * posts a {@link de.markusrother.pned.core.events.PetriNetIOCommand} to the
  * provided {@link de.markusrother.pned.gui.events.GuiEventTarget}.
  * </p>
  *

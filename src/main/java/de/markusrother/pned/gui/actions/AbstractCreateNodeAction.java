@@ -8,7 +8,8 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import de.markusrother.pned.core.events.EventBus;
-import de.markusrother.pned.gui.events.IdRequest;
+import de.markusrother.pned.core.requests.IdRequest;
+import de.markusrother.pned.gui.events.GuiEventBus;
 import de.markusrother.pned.gui.listeners.NodeListener;
 
 /**
@@ -62,7 +63,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 * The event target to which events are posted to, and from which new node
 	 * ids are requested from.
 	 */
-	protected final EventBus eventBus;
+	protected final GuiEventBus eventBus;
 
 	/**
 	 * <p>
@@ -84,7 +85,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 *            a {@link java.lang.String} - this action's textual
 	 *            representation.
 	 */
-	protected AbstractCreateNodeAction(final EventBus eventBus, final Object source,
+	protected AbstractCreateNodeAction(final GuiEventBus eventBus, final Object source,
 			final LocationProvider locationProvider, final int mnemonic, final String label) {
 		super(label);
 		this.eventBus = eventBus;
@@ -129,7 +130,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 
 	/**
 	 * <p>
-	 * Posts {@link de.markusrother.pned.gui.events.IdRequest} on
+	 * Posts {@link de.markusrother.pned.core.requests.IdRequest} on
 	 * {@link de.markusrother.pned.core.events.EventBus} and returns requested
 	 * id.
 	 * </p>

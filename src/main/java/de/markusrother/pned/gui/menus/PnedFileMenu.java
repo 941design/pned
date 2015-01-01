@@ -4,11 +4,11 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
 
-import de.markusrother.pned.core.events.EventTarget;
 import de.markusrother.pned.gui.actions.CreatePetriNetAction;
 import de.markusrother.pned.gui.actions.OpenExportDialogAction;
 import de.markusrother.pned.gui.actions.OpenImportDialogAction;
 import de.markusrother.pned.gui.dialogs.FileDialogFactory;
+import de.markusrother.pned.gui.events.GuiEventTarget;
 
 /**
  * <p>
@@ -33,7 +33,7 @@ public class PnedFileMenu extends JMenu {
 	 * @param fileDialogFactory
 	 *            a {@link FileDialogFactory}.
 	 */
-	PnedFileMenu(final EventTarget eventTarget, final FileDialogFactory fileDialogFactory) {
+	PnedFileMenu(final GuiEventTarget eventTarget, final FileDialogFactory fileDialogFactory) {
 		super(label);
 		setMnemonic(KeyEvent.VK_F);
 		add(CreatePetriNetAction.newMenuItem(eventTarget));

@@ -9,9 +9,9 @@ import java.util.concurrent.TimeoutException;
 import javax.swing.Action;
 import javax.swing.JRadioButtonMenuItem;
 
-import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.core.commands.TransitionCreationCommand;
+import de.markusrother.pned.gui.events.GuiEventBus;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
-import de.markusrother.pned.gui.events.TransitionCreationCommand;
 import de.markusrother.swing.CustomRadioButtonMenuItem;
 
 /**
@@ -22,7 +22,7 @@ import de.markusrother.swing.CustomRadioButtonMenuItem;
  * {@link java.awt.event.ItemListener} for selectable items. It can be used for
  * e.g. {@link javax.swing.JRadioButtonMenuItem}s where toggle and selection
  * (click) trigger separate {@link java.awt.event.ActionEvent}s, such as in
- * {@link #newMenuItem(EventBus, Object, LocationProvider)}.
+ * {@link #newMenuItem(GuiEventBus, Object, LocationProvider)}.
  * </p>
  *
  * @author Markus Rother
@@ -56,7 +56,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	 *         bound.
 	 * @see CustomRadioButtonMenuItem
 	 */
-	public static JRadioButtonMenuItem newMenuItem(final EventBus eventBus, final Object source,
+	public static JRadioButtonMenuItem newMenuItem(final GuiEventBus eventBus, final Object source,
 			final LocationProvider locationProvider) {
 		final CreateTransitionAction action = new CreateTransitionAction(eventBus, source, locationProvider);
 		final CustomRadioButtonMenuItem menuItem = new CustomRadioButtonMenuItem(action);
@@ -79,7 +79,8 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	 *            a {@link de.markusrother.pned.gui.actions.LocationProvider} to
 	 *            provide coordinates for newly created nodes.
 	 */
-	private CreateTransitionAction(final EventBus eventBus, final Object source, final LocationProvider locationProvider) {
+	private CreateTransitionAction(final GuiEventBus eventBus, final Object source,
+			final LocationProvider locationProvider) {
 		super(eventBus, source, locationProvider, mnemonic, label);
 	}
 

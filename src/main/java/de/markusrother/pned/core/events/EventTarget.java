@@ -1,12 +1,12 @@
 package de.markusrother.pned.core.events;
 
-import de.markusrother.pned.commands.listeners.PetriNetIOListener;
-import de.markusrother.pned.commands.listeners.PetriNetListener;
-import de.markusrother.pned.gui.listeners.EdgeCreationListener;
-import de.markusrother.pned.gui.listeners.LabelEditListener;
-import de.markusrother.pned.gui.listeners.NodeCreationListener;
-import de.markusrother.pned.gui.listeners.NodeMotionListener;
-import de.markusrother.pned.gui.listeners.PlaceEditListener;
+import de.markusrother.pned.core.listeners.EdgeCreationListener;
+import de.markusrother.pned.core.listeners.LabelEditListener;
+import de.markusrother.pned.core.listeners.NodeCreationListener;
+import de.markusrother.pned.core.listeners.NodeMotionListener;
+import de.markusrother.pned.core.listeners.PetriNetIOListener;
+import de.markusrother.pned.core.listeners.PlaceEditListener;
+import de.markusrother.pned.core.listeners.TransitionActivationListener;
 
 /**
  * <p>
@@ -18,12 +18,12 @@ import de.markusrother.pned.gui.listeners.PlaceEditListener;
  */
 public interface EventTarget
 	extends
-		PetriNetListener,
 		PetriNetIOListener,
 		NodeCreationListener,
 		EdgeCreationListener,
 		NodeMotionListener,
 		PlaceEditListener,
-		LabelEditListener {
+		LabelEditListener,
+		TransitionActivationListener {
 
 }

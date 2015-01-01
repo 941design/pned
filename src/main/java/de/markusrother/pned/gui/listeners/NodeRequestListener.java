@@ -2,10 +2,12 @@ package de.markusrother.pned.gui.listeners;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.gui.events.NodeRequest;
+import de.markusrother.pned.gui.requests.NodeRequest;
 
 /**
- * <p>NodeRequestListener interface.</p>
+ * <p>
+ * NodeRequestListener interface.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -15,9 +17,13 @@ public interface NodeRequestListener
 		EventListener {
 
 	/**
-	 * <p>requestNode.</p>
+	 * <p>
+	 * requestNode.
+	 * </p>
 	 *
-	 * @param req a {@link de.markusrother.pned.gui.events.NodeRequest} object.
+	 * @param req
+	 *            a {@link de.markusrother.pned.gui.requests.NodeRequest}
+	 *            object.
 	 */
 	void requestNode(NodeRequest req);
 

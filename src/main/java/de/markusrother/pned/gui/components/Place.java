@@ -7,13 +7,13 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
-import de.markusrother.pned.commands.PlaceLayoutCommand;
-import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
+import de.markusrother.pned.core.commands.PlaceEditEvent;
 import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.core.listeners.PlaceEditListener;
 import de.markusrother.pned.gui.PlaceLayout;
-import de.markusrother.pned.gui.events.PlaceEditEvent;
+import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
+import de.markusrother.pned.gui.layout.listeners.PlaceLayoutListener;
 import de.markusrother.pned.gui.listeners.MarkingEditListener;
-import de.markusrother.pned.gui.listeners.PlaceEditListener;
 
 /**
  * TODO - on hover create pop up with + / - to add/remove weights

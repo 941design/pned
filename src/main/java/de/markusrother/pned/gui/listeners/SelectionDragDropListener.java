@@ -6,9 +6,9 @@ import java.awt.Point;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.core.commands.NodeMovedEvent;
 import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.events.NodeMovedEvent;
+import de.markusrother.pned.gui.events.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.DragDropListener;
 
@@ -21,15 +21,19 @@ import de.markusrother.swing.DragDropListener;
 public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 
 	private final Collection<AbstractNode> nodes;
-	private final EventBus eventBus;
+	private final GuiEventBus eventBus;
 
 	/**
-	 * <p>Constructor for SelectionDragDropListener.</p>
+	 * <p>
+	 * Constructor for SelectionDragDropListener.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
-	 * @param nodes a {@link java.util.Collection} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param nodes
+	 *            a {@link java.util.Collection} object.
 	 */
-	public SelectionDragDropListener(final EventBus eventBus, final Collection<AbstractNode> nodes) {
+	public SelectionDragDropListener(final GuiEventBus eventBus, final Collection<AbstractNode> nodes) {
 		super(AbstractNode.class);
 		this.eventBus = eventBus;
 		this.nodes = nodes;
@@ -58,7 +62,9 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 	}
 
 	/**
-	 * <p>cancel.</p>
+	 * <p>
+	 * cancel.
+	 * </p>
 	 */
 	public void cancel() {
 		for (final AbstractNode node : nodes) {

@@ -6,43 +6,23 @@ import java.util.EventListener;
 import javax.swing.SwingWorker;
 import javax.swing.event.EventListenerList;
 
-import de.markusrother.pned.commands.EdgeLayoutCommand;
-import de.markusrother.pned.commands.MarkingLayoutCommand;
-import de.markusrother.pned.commands.PetriNetEditCommand;
-import de.markusrother.pned.commands.PetriNetIOCommand;
-import de.markusrother.pned.commands.PlaceLayoutCommand;
-import de.markusrother.pned.commands.TransitionLayoutCommand;
-import de.markusrother.pned.commands.listeners.EdgeLayoutListener;
-import de.markusrother.pned.commands.listeners.MarkingLayoutListener;
-import de.markusrother.pned.commands.listeners.PetriNetIOListener;
-import de.markusrother.pned.commands.listeners.PetriNetListener;
-import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
-import de.markusrother.pned.commands.listeners.TransitionActivationListener;
-import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
-import de.markusrother.pned.gui.events.EdgeCreationCommand;
-import de.markusrother.pned.gui.events.EdgeEditEvent;
-import de.markusrother.pned.gui.events.GuiEventTarget;
-import de.markusrother.pned.gui.events.IdRequest;
-import de.markusrother.pned.gui.events.LabelEditEvent;
-import de.markusrother.pned.gui.events.NodeMovedEvent;
-import de.markusrother.pned.gui.events.NodeRemovalEvent;
-import de.markusrother.pned.gui.events.NodeRequest;
-import de.markusrother.pned.gui.events.NodeSelectionEvent;
-import de.markusrother.pned.gui.events.PlaceCreationCommand;
-import de.markusrother.pned.gui.events.PlaceEditEvent;
-import de.markusrother.pned.gui.events.SetNodeTypeCommand;
-import de.markusrother.pned.gui.events.TransitionCreationCommand;
-import de.markusrother.pned.gui.listeners.EdgeCreationListener;
-import de.markusrother.pned.gui.listeners.EdgeEditListener;
-import de.markusrother.pned.gui.listeners.IdRequestListener;
-import de.markusrother.pned.gui.listeners.LabelEditListener;
-import de.markusrother.pned.gui.listeners.NodeCreationListener;
-import de.markusrother.pned.gui.listeners.NodeListener;
-import de.markusrother.pned.gui.listeners.NodeMotionListener;
-import de.markusrother.pned.gui.listeners.NodeRemovalListener;
-import de.markusrother.pned.gui.listeners.NodeRequestListener;
-import de.markusrother.pned.gui.listeners.NodeSelectionListener;
-import de.markusrother.pned.gui.listeners.PlaceEditListener;
+import de.markusrother.pned.core.commands.EdgeCreationCommand;
+import de.markusrother.pned.core.commands.LabelEditEvent;
+import de.markusrother.pned.core.commands.NodeMovedEvent;
+import de.markusrother.pned.core.commands.NodeRemovalEvent;
+import de.markusrother.pned.core.commands.PlaceCreationCommand;
+import de.markusrother.pned.core.commands.PlaceEditEvent;
+import de.markusrother.pned.core.commands.TransitionCreationCommand;
+import de.markusrother.pned.core.listeners.EdgeCreationListener;
+import de.markusrother.pned.core.listeners.IdRequestListener;
+import de.markusrother.pned.core.listeners.LabelEditListener;
+import de.markusrother.pned.core.listeners.NodeCreationListener;
+import de.markusrother.pned.core.listeners.NodeMotionListener;
+import de.markusrother.pned.core.listeners.NodeRemovalListener;
+import de.markusrother.pned.core.listeners.PetriNetIOListener;
+import de.markusrother.pned.core.listeners.PlaceEditListener;
+import de.markusrother.pned.core.listeners.TransitionActivationListener;
+import de.markusrother.pned.core.requests.IdRequest;
 
 /**
  * TODO - We could distinguish Two sources GUI and MODEL. GUI could be anything
@@ -54,24 +34,10 @@ import de.markusrother.pned.gui.listeners.PlaceEditListener;
  */
 public class EventBus
 	implements
-		PetriNetListener,
 		PetriNetCommandSource,
-		PetriNetIOListener,
-		IdRequestListener,
-		TransitionActivationListener,
 		EventTarget,
-		GuiEventTarget,
-		NodeListener,
-		NodeRequestListener,
-		NodeMotionListener,
-		NodeCreationListener,
-		NodeRemovalListener,
-		PlaceEditListener,
-		PlaceLayoutListener,
-		TransitionLayoutListener,
-		MarkingLayoutListener,
-		LabelEditListener,
-		EdgeLayoutListener {
+		RequestTarget,
+		NodeRemovalListener {
 
 	private final EventListenerList listeners = new EventListenerList();
 
@@ -97,14 +63,6 @@ public class EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void createPetriNet(final PetriNetEditCommand cmd) {
-		for (final PetriNetListener l : getListeners(PetriNetListener.class)) {
-			l.createPetriNet(cmd);
-		}
-	}
-
-	/** {@inheritDoc} */
-	@Override
 	public void setCurrentDirectory(final PetriNetIOCommand cmd) {
 		for (final PetriNetIOListener l : getListeners(PetriNetIOListener.class)) {
 			l.setCurrentDirectory(cmd);
@@ -124,14 +82,6 @@ public class EventBus
 	public void exportPnml(final PetriNetIOCommand cmd) throws IOException {
 		for (final PetriNetIOListener l : getListeners(PetriNetIOListener.class)) {
 			l.exportPnml(cmd);
-		}
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
-		for (final NodeListener l : getListeners(NodeListener.class)) {
-			l.setCurrentNodeType(cmd);
 		}
 	}
 
@@ -183,36 +133,6 @@ public class EventBus
 		}
 	}
 
-	/**
-	 * <p>
-	 * fireNodeSelectionEvent.
-	 * </p>
-	 *
-	 * @param e
-	 *            a {@link de.markusrother.pned.gui.events.NodeSelectionEvent}
-	 *            object.
-	 */
-	public void fireNodeSelectionEvent(final NodeSelectionEvent e) {
-		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
-			switch (e.getType()) {
-			case SELECT:
-				l.nodesSelected(e);
-				break;
-			case DESELECT:
-				l.nodesUnselected(e);
-				break;
-			case FINISH:
-				l.nodeSelectionFinished(e);
-				break;
-			case CANCEL:
-				l.nodeSelectionCancelled(e);
-				break;
-			default:
-				throw new IllegalStateException();
-			}
-		}
-	}
-
 	/** {@inheritDoc} */
 	@Override
 	public void nodeMoved(final NodeMovedEvent e) {
@@ -221,127 +141,11 @@ public class EventBus
 		}
 	}
 
-	/**
-	 * <p>
-	 * fireEdgeEditEvent.
-	 * </p>
-	 *
-	 * @param e
-	 *            a {@link de.markusrother.pned.gui.events.EdgeEditEvent}
-	 *            object.
-	 */
-	public void fireEdgeEditEvent(final EdgeEditEvent e) {
-		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
-			switch (e.getType()) {
-			case COMPONENT_ENTERED:
-				l.targetComponentEntered(e);
-				break;
-			case COMPONENT_EXITED:
-				l.targetComponentExited(e);
-				break;
-			case EDGE_CHANGED:
-				l.edgeMoved(e);
-				break;
-			case EDGE_CANCELLED:
-				l.edgeCancelled(e);
-				break;
-			case EDGE_FINISHED:
-				l.edgeFinished(e);
-				break;
-			case EDGE_STARTED:
-				l.edgeStarted(e);
-				break;
-			default:
-				throw new IllegalStateException();
-			}
-		}
-	}
-
 	/** {@inheritDoc} */
 	@Override
 	public void setLabel(final LabelEditEvent e) {
 		for (final LabelEditListener l : getListeners(LabelEditListener.class)) {
 			l.setLabel(e);
-		}
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void setSize(final PlaceLayoutCommand cmd) {
-		for (final PlaceLayoutListener l : getListeners(PlaceLayoutListener.class)) {
-			switch (cmd.getType()) {
-			case SIZE:
-				l.setSize(cmd);
-				break;
-			case SELECTION_COLOR:
-			case DEFAULT_COLOR:
-			case DEFAULT_BORDER_COLOR:
-			case SELECTION_BORDER_COLOR:
-			case HOVER_COLOR:
-			case HOVER_BORDER_COLOR:
-			default:
-				throw new IllegalStateException();
-			}
-		}
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void setSize(final TransitionLayoutCommand cmd) {
-		for (final TransitionLayoutListener l : getListeners(TransitionLayoutListener.class)) {
-			switch (cmd.getType()) {
-			case SIZE:
-				l.setSize(cmd);
-				break;
-			case SELECTION_COLOR:
-			case DEFAULT_COLOR:
-			case DEFAULT_BORDER_COLOR:
-			case SELECTION_BORDER_COLOR:
-			case HOVER_COLOR:
-			case HOVER_BORDER_COLOR:
-			default:
-				throw new IllegalStateException();
-			}
-		}
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void setSize(final MarkingLayoutCommand cmd) {
-		for (final MarkingLayoutListener l : getListeners(MarkingLayoutListener.class)) {
-			switch (cmd.getType()) {
-			case SIZE:
-				l.setSize(cmd);
-				break;
-			case SELECTION_COLOR:
-			case DEFAULT_COLOR:
-			case DEFAULT_BORDER_COLOR:
-			case SELECTION_BORDER_COLOR:
-			case HOVER_COLOR:
-			case HOVER_BORDER_COLOR:
-			default:
-				throw new IllegalStateException();
-			}
-		}
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void setSize(final EdgeLayoutCommand cmd) {
-		for (final EdgeLayoutListener l : getListeners(EdgeLayoutListener.class)) {
-			switch (cmd.getType()) {
-			case SIZE:
-				l.setSize(cmd);
-				break;
-			case SELECTION_COLOR:
-			case DEFAULT_COLOR:
-			case DEFAULT_BORDER_COLOR:
-			case SELECTION_BORDER_COLOR:
-			case HOVER_COLOR:
-			case HOVER_BORDER_COLOR:
-			default:
-				throw new IllegalStateException();
-			}
 		}
 	}
 
@@ -358,21 +162,6 @@ public class EventBus
 	public void transitionDeactivated(final TransitionActivationEvent e) {
 		for (final TransitionActivationListener l : getListeners(TransitionActivationListener.class)) {
 			l.transitionDeactivated(e);
-		}
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void requestNode(final NodeRequest req) {
-		for (final NodeRequestListener l : getListeners(NodeRequestListener.class)) {
-			final SwingWorker<Object, Object> worker = new SwingWorker<Object, Object>() {
-				@Override
-				protected Object doInBackground() {
-					l.requestNode(req);
-					return null;
-				}
-			};
-			worker.execute();
 		}
 	}
 

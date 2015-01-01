@@ -12,22 +12,21 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 
-import de.markusrother.pned.commands.listeners.TransitionActivationListener;
-import de.markusrother.pned.core.events.EventAwarePetriNet;
+import de.markusrother.pned.core.commands.AbstractNodeCreationCommand;
+import de.markusrother.pned.core.commands.EdgeCreationCommand;
+import de.markusrother.pned.core.commands.LabelEditEvent;
+import de.markusrother.pned.core.commands.NodeRemovalEvent;
+import de.markusrother.pned.core.commands.PlaceCreationCommand;
+import de.markusrother.pned.core.commands.PlaceEditEvent;
+import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.events.TransitionActivationEvent.Type;
-import de.markusrother.pned.gui.events.AbstractNodeCreationCommand;
-import de.markusrother.pned.gui.events.EdgeCreationCommand;
-import de.markusrother.pned.gui.events.LabelEditEvent;
-import de.markusrother.pned.gui.events.NodeRemovalEvent;
-import de.markusrother.pned.gui.events.PlaceCreationCommand;
-import de.markusrother.pned.gui.events.PlaceEditEvent;
-import de.markusrother.pned.gui.events.TransitionCreationCommand;
-import de.markusrother.pned.gui.listeners.EdgeCreationListener;
-import de.markusrother.pned.gui.listeners.LabelEditListener;
-import de.markusrother.pned.gui.listeners.NodeCreationListener;
-import de.markusrother.pned.gui.listeners.NodeRemovalListener;
-import de.markusrother.pned.gui.listeners.PlaceEditListener;
+import de.markusrother.pned.core.listeners.EdgeCreationListener;
+import de.markusrother.pned.core.listeners.LabelEditListener;
+import de.markusrother.pned.core.listeners.NodeCreationListener;
+import de.markusrother.pned.core.listeners.NodeRemovalListener;
+import de.markusrother.pned.core.listeners.PlaceEditListener;
+import de.markusrother.pned.core.listeners.TransitionActivationListener;
 
 public abstract class AbstractPetriNetTest
 	implements

@@ -10,7 +10,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 
-import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.actions.CreatePlaceAction;
 import de.markusrother.pned.gui.actions.CreateTransitionAction;
@@ -18,10 +17,13 @@ import de.markusrother.pned.gui.actions.LocationProvider;
 import de.markusrother.pned.gui.actions.RemoveSelectedNodesAction;
 import de.markusrother.pned.gui.components.PnGridPanel;
 import de.markusrother.pned.gui.components.PnGridPanel.State;
+import de.markusrother.pned.gui.events.GuiEventBus;
 import de.markusrother.swing.PopupListener;
 
 /**
- * <p>PnGridPopupListener class.</p>
+ * <p>
+ * PnGridPopupListener class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -33,19 +35,24 @@ public class PnGridPopupListener extends PopupListener
 	/** Constant <code>NOT_ENABLED=false</code> */
 	private static final boolean NOT_ENABLED = false;
 
-	private final EventBus eventMulticaster;
+	private final GuiEventBus eventBus;
 	private final PnGridPanel pnGridPanel;
 
 	private Point popupPoint;
 
 	/**
-	 * <p>Constructor for PnGridPopupListener.</p>
+	 * <p>
+	 * Constructor for PnGridPopupListener.
+	 * </p>
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.core.events.EventBus} object.
-	 * @param pnGridPanel a {@link de.markusrother.pned.gui.components.PnGridPanel} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param pnGridPanel
+	 *            a {@link de.markusrother.pned.gui.components.PnGridPanel}
+	 *            object.
 	 */
-	public PnGridPopupListener(final EventBus eventMulticaster, final PnGridPanel pnGridPanel) {
-		this.eventMulticaster = eventMulticaster;
+	public PnGridPopupListener(final GuiEventBus eventBus, final PnGridPanel pnGridPanel) {
+		this.eventBus = eventBus;
 		this.pnGridPanel = pnGridPanel;
 	}
 
@@ -60,14 +67,14 @@ public class PnGridPopupListener extends PopupListener
 		final LocationProvider locationProvider = this;
 
 		if (pnGridPanel.hasState(State.MULTISELECTION)) {
-			popup.add(RemoveSelectedNodesAction.newMenuItem(eventMulticaster, eventSource, NOT_ENABLED));
+			popup.add(RemoveSelectedNodesAction.newMenuItem(eventBus, eventSource, NOT_ENABLED));
 		}
 
 		final NodeCreationMode mode = pnGridPanel.hasState(State.TRANSITION_CREATION) ? TRANSITION : PLACE;
 		final ButtonGroup buttonGroup = new ButtonGroup();
 
 		final JRadioButtonMenuItem placeItem = CreatePlaceAction.newMenuItem( //
-				eventMulticaster, //
+				eventBus, //
 				eventSource, //
 				locationProvider);
 		buttonGroup.add(placeItem);
@@ -75,7 +82,7 @@ public class PnGridPopupListener extends PopupListener
 		placeItem.setSelected(mode == PLACE);
 
 		final JRadioButtonMenuItem transitionItem = CreateTransitionAction.newMenuItem( //
-				eventMulticaster, //
+				eventBus, //
 				eventSource, //
 				locationProvider);
 		buttonGroup.add(transitionItem);

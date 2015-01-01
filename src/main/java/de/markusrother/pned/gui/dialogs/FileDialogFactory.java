@@ -2,9 +2,9 @@ package de.markusrother.pned.gui.dialogs;
 
 import java.io.File;
 
-import de.markusrother.pned.commands.PetriNetIOCommand;
-import de.markusrother.pned.commands.listeners.PetriNetIOListener;
-import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.core.events.PetriNetIOCommand;
+import de.markusrother.pned.core.listeners.PetriNetIOListener;
+import de.markusrother.pned.gui.events.GuiEventBus;
 import de.markusrother.pned.gui.events.GuiEventTarget;
 
 /**
@@ -23,7 +23,7 @@ public class FileDialogFactory
 	 * The event target to which resulting events are posted to, and which is
 	 * listened to for current directory changes.
 	 */
-	private EventBus eventBus;
+	private GuiEventBus eventBus;
 	/** The current directory in which to do file operations. */
 	private File currentDirectory;
 
@@ -33,10 +33,10 @@ public class FileDialogFactory
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.events.EventBus} to which dialogs
-	 *            are to post their events.
+	 *            a {@link de.markusrother.pned.core.events.EventBus} to which
+	 *            dialogs are to post their events.
 	 */
-	public FileDialogFactory(final EventBus eventBus) {
+	public FileDialogFactory(final GuiEventBus eventBus) {
 		this.eventBus = eventBus;
 		eventBus.addListener(PetriNetIOListener.class, this);
 	}
@@ -46,8 +46,8 @@ public class FileDialogFactory
 	 * Getter for this factories current {#link GuiEventTarget}.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.events.GuiEventTarget} to which events
-	 *         are posted to.
+	 * @return a {@link de.markusrother.pned.gui.events.GuiEventTarget} to which
+	 *         events are posted to.
 	 */
 	public GuiEventTarget getEventTarget() {
 		return eventBus;
@@ -59,11 +59,11 @@ public class FileDialogFactory
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.events.EventBus} to which resulting
-	 *            events are posted to and to which is listened to for directory
-	 *            changes.
+	 *            a {@link de.markusrother.pned.core.events.EventBus} to which
+	 *            resulting events are posted to and to which is listened to for
+	 *            directory changes.
 	 */
-	public void setEventBus(final EventBus eventBus) {
+	public void setEventBus(final GuiEventBus eventBus) {
 		assert (this.eventBus != null);
 		this.eventBus.removeListener(PetriNetIOListener.class, this);
 		this.eventBus = eventBus;

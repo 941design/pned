@@ -7,8 +7,8 @@ import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.SELECT;
 
 import java.util.Collection;
 
-import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.components.AbstractNode;
+import de.markusrother.pned.gui.events.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.Selector;
 
@@ -41,21 +41,26 @@ import de.markusrother.swing.Selector;
 // responsible instance take care of it. The event bus could be a
 // singleton.
 /**
- * <p>NodeSelector class.</p>
+ * <p>
+ * NodeSelector class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
 public class NodeSelector extends Selector<AbstractNode> {
 
-	private final EventBus eventBus;
+	private final GuiEventBus eventBus;
 
 	/**
-	 * <p>Constructor for NodeSelector.</p>
+	 * <p>
+	 * Constructor for NodeSelector.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
-	public NodeSelector(final EventBus eventBus) {
+	public NodeSelector(final GuiEventBus eventBus) {
 		super(AbstractNode.class);
 		this.eventBus = eventBus;
 	}

@@ -9,8 +9,8 @@ import java.util.concurrent.TimeoutException;
 import javax.swing.Action;
 import javax.swing.JRadioButtonMenuItem;
 
-import de.markusrother.pned.core.events.EventBus;
-import de.markusrother.pned.gui.events.PlaceCreationCommand;
+import de.markusrother.pned.core.commands.PlaceCreationCommand;
+import de.markusrother.pned.gui.events.GuiEventBus;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.swing.CustomRadioButtonMenuItem;
 
@@ -22,7 +22,7 @@ import de.markusrother.swing.CustomRadioButtonMenuItem;
  * {@link java.awt.event.ItemListener} for selectable items. It can be used for
  * e.g. {@link javax.swing.JRadioButtonMenuItem}s where toggle and selection
  * (click) trigger separate {@link java.awt.event.ActionEvent}s, such as in
- * {@link #newMenuItem(EventBus, Object, LocationProvider)}.
+ * {@link #newMenuItem(GuiEventBus, Object, LocationProvider)}.
  * </p>
  *
  * @author Markus Rother
@@ -56,7 +56,7 @@ public class CreatePlaceAction extends AbstractCreateNodeAction {
 	 *         bound.
 	 * @see CustomRadioButtonMenuItem
 	 */
-	public static JRadioButtonMenuItem newMenuItem(final EventBus eventBus, final Object source,
+	public static JRadioButtonMenuItem newMenuItem(final GuiEventBus eventBus, final Object source,
 			final LocationProvider locationProvider) {
 		final CreatePlaceAction action = new CreatePlaceAction(eventBus, source, locationProvider);
 		final CustomRadioButtonMenuItem menuItem = new CustomRadioButtonMenuItem(action);
@@ -79,7 +79,7 @@ public class CreatePlaceAction extends AbstractCreateNodeAction {
 	 *            a {@link de.markusrother.pned.gui.actions.LocationProvider} to
 	 *            provide coordinates for newly created nodes.
 	 */
-	private CreatePlaceAction(final EventBus eventBus, final Object source, final LocationProvider locationProvider) {
+	private CreatePlaceAction(final GuiEventBus eventBus, final Object source, final LocationProvider locationProvider) {
 		super(eventBus, source, locationProvider, mnemonic, label);
 	}
 

@@ -8,31 +8,31 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import de.markusrother.pned.commands.listeners.EdgeLayoutListener;
-import de.markusrother.pned.commands.listeners.MarkingLayoutListener;
-import de.markusrother.pned.commands.listeners.PetriNetListener;
-import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
-import de.markusrother.pned.commands.listeners.TransitionActivationListener;
-import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
-import de.markusrother.pned.core.events.EventBus;
-import de.markusrother.pned.gui.listeners.EdgeCreationListener;
+import de.markusrother.pned.core.listeners.EdgeCreationListener;
+import de.markusrother.pned.core.listeners.LabelEditListener;
+import de.markusrother.pned.core.listeners.NodeCreationListener;
+import de.markusrother.pned.core.listeners.NodeMotionListener;
+import de.markusrother.pned.core.listeners.NodeRemovalListener;
+import de.markusrother.pned.core.listeners.PlaceEditListener;
+import de.markusrother.pned.core.listeners.TransitionActivationListener;
+import de.markusrother.pned.gui.events.GuiEventBus;
+import de.markusrother.pned.gui.layout.listeners.EdgeLayoutListener;
+import de.markusrother.pned.gui.layout.listeners.MarkingLayoutListener;
+import de.markusrother.pned.gui.layout.listeners.PlaceLayoutListener;
+import de.markusrother.pned.gui.layout.listeners.TransitionLayoutListener;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
-import de.markusrother.pned.gui.listeners.LabelEditListener;
-import de.markusrother.pned.gui.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
-import de.markusrother.pned.gui.listeners.NodeMotionListener;
-import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
-import de.markusrother.pned.gui.listeners.PlaceEditListener;
+import de.markusrother.pned.gui.listeners.PetriNetListener;
 
 // TODO - Maybe rename to AbstractListenerTest
 public abstract class AbstractComponentTest<T> {
 
-	protected EventBus eventMulticastMock;
+	protected GuiEventBus eventMulticastMock;
 
 	@Before
 	public void setUp() {
-		this.eventMulticastMock = Mockito.mock(EventBus.class);
+		this.eventMulticastMock = Mockito.mock(GuiEventBus.class);
 	}
 
 	protected abstract T getComponent();

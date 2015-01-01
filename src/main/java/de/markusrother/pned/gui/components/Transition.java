@@ -11,11 +11,11 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 
-import de.markusrother.pned.commands.TransitionLayoutCommand;
-import de.markusrother.pned.commands.listeners.TransitionActivationListener;
-import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
 import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
+import de.markusrother.pned.core.listeners.TransitionActivationListener;
+import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
+import de.markusrother.pned.gui.layout.listeners.TransitionLayoutListener;
 
 /**
  * <p>Transition class.</p>
