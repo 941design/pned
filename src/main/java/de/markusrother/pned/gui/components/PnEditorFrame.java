@@ -152,16 +152,19 @@ public class PnEditorFrame extends JFrame
 		// repaint(); // TODO ???
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setCurrentPath(final PetriNetIOCommand cmd) {
 		this.currentPath = cmd.getFile();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void importPnml(final PetriNetIOCommand cmd) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void exportPnml(final PetriNetIOCommand cmd) {
 		// IGNORE

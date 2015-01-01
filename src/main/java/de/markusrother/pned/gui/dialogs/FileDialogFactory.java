@@ -24,6 +24,11 @@ public class FileDialogFactory
 	/** */
 	private File currentPath;
 
+	/**
+	 * <p>Constructor for FileDialogFactory.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 */
 	public FileDialogFactory(final EventBus eventBus) {
 		this.eventBus = eventBus;
 		eventBus.addListener(PetriNetIOListener.class, this);
@@ -57,11 +62,17 @@ public class FileDialogFactory
 		eventBus.addListener(PetriNetIOListener.class, this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setCurrentPath(final PetriNetIOCommand cmd) {
 		setCurrentPath(cmd.getFile());
 	}
 
+	/**
+	 * <p>Setter for the field <code>currentPath</code>.</p>
+	 *
+	 * @param dir a {@link java.io.File} object.
+	 */
 	public void setCurrentPath(final File dir) {
 		this.currentPath = dir;
 	}
@@ -86,11 +97,13 @@ public class FileDialogFactory
 		SaveFileDialog.open(eventBus, currentPath);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void importPnml(final PetriNetIOCommand cmd) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void exportPnml(final PetriNetIOCommand cmd) {
 		// IGNORE

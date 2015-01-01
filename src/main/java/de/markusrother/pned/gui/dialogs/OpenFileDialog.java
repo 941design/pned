@@ -32,7 +32,7 @@ public class OpenFileDialog extends AbstractFileDialog {
 	 *
 	 * @param eventTarget
 	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} object.
-	 * @param dir
+	 * @param dir a {@link java.io.File} object.
 	 */
 	public static void open(final GuiEventTarget eventTarget, final File dir) {
 		final OpenFileDialog dialog = new OpenFileDialog(eventTarget, dir);

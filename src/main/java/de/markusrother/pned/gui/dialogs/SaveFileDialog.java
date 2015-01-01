@@ -33,7 +33,7 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * @param eventTarget
 	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
 	 *            posted to.
-	 * @param path
+	 * @param dir a {@link java.io.File} object.
 	 */
 	public static void open(final GuiEventTarget eventTarget, final File dir) {
 		final SaveFileDialog dialog = new SaveFileDialog(eventTarget, dir);

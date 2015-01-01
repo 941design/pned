@@ -38,8 +38,8 @@ public class PnEditorMenuFactory
 	 * <p>
 	 * Constructor for PnEditorMenuFactory.
 	 * </p>
-	 * 
-	 * @param eventBus
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
 	 */
 	public PnEditorMenuFactory(final EventBus eventBus) {
 		this.eventBus = eventBus;
