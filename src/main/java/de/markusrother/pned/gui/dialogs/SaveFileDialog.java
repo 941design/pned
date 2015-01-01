@@ -11,7 +11,8 @@ import de.markusrother.pned.gui.GuiEventTarget;
 /**
  * <p>
  * File dialog for saving Petri nets to pnml (xml). Successful file selection
- * posts a {@link de.markusrother.pned.commands.PetriNetIOCommand} to the provided {@link de.markusrother.pned.gui.GuiEventTarget}.
+ * posts a {@link de.markusrother.pned.commands.PetriNetIOCommand} to the
+ * provided {@link de.markusrother.pned.gui.GuiEventTarget}.
  * </p>
  *
  * @author Markus Rother
@@ -32,9 +33,10 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * @param eventTarget
 	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
 	 *            posted to.
+	 * @param path
 	 */
-	public static void open(final GuiEventTarget eventTarget) {
-		final SaveFileDialog dialog = new SaveFileDialog(eventTarget);
+	public static void open(final GuiEventTarget eventTarget, final File dir) {
+		final SaveFileDialog dialog = new SaveFileDialog(eventTarget, dir);
 		dialog.showDialogAndProcessResult();
 	}
 
@@ -42,9 +44,10 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * @param eventTarget
 	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
 	 *            posted to.
+	 * @param dir
 	 */
-	private SaveFileDialog(final GuiEventTarget eventTarget) {
-		super(eventTarget, title, approveButtonLabel);
+	private SaveFileDialog(final GuiEventTarget eventTarget, final File dir) {
+		super(eventTarget, title, dir, approveButtonLabel);
 		setDialogType(JFileChooser.SAVE_DIALOG);
 	}
 
@@ -53,6 +56,8 @@ public class SaveFileDialog extends AbstractFileDialog {
 	protected void processSelectedFile(final File file) {
 		// TODO - prompt for overwrite!
 		try {
+			final String path = file.getAbsolutePath();
+			eventTarget.setCurrentPath(new PetriNetIOCommand(this, new File(path)));
 			eventTarget.exportPnml(new PetriNetIOCommand(this, file));
 		} catch (final IOException e) {
 			// TODO

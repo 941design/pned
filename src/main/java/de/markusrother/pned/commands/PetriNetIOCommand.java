@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.EventObject;
 
 /**
- * <p>PetriNetIOCommand class.</p>
+ * <p>
+ * PetriNetIOCommand class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -14,10 +16,14 @@ public class PetriNetIOCommand extends EventObject {
 	private final File file;
 
 	/**
-	 * <p>Constructor for PetriNetIOCommand.</p>
+	 * <p>
+	 * Constructor for PetriNetIOCommand.
+	 * </p>
 	 *
-	 * @param source a {@link java.lang.Object} object.
-	 * @param file a {@link java.io.File} object.
+	 * @param source
+	 *            a {@link java.lang.Object} object.
+	 * @param file
+	 *            a {@link java.io.File} object.
 	 */
 	public PetriNetIOCommand(final Object source, final File file) {
 		super(source);
@@ -25,7 +31,9 @@ public class PetriNetIOCommand extends EventObject {
 	}
 
 	/**
-	 * <p>Getter for the field <code>file</code>.</p>
+	 * <p>
+	 * Getter for the field <code>file</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.io.File} object.
 	 */

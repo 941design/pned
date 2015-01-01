@@ -19,7 +19,9 @@ import de.markusrother.pned.gui.menus.PnedMenuBar;
 import de.markusrother.pned.io.PNMLParser;
 
 /**
- * <p>PnEditorFrame class.</p>
+ * <p>
+ * PnEditorFrame class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -31,23 +33,26 @@ public class PnEditorFrame extends JFrame
 	/** Constant <code>preferredSize</code> */
 	private static final Dimension preferredSize = new Dimension(800, 600);
 
-	private EventBus eventMulticaster;
+	private EventBus eventBus;
 	private final PnEditorMenuFactory menuFactory;
 	private PnGridPanel grid;
 	private PnedMenuBar pnedMenuBar;
 
 	/**
-	 * <p>Constructor for PnEditorFrame.</p>
+	 * <p>
+	 * Constructor for PnEditorFrame.
+	 * </p>
 	 *
-	 * @param title a {@link java.lang.String} object.
+	 * @param title
+	 *            a {@link java.lang.String} object.
 	 */
 	public PnEditorFrame(final String title) {
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		this.menuFactory = new PnEditorMenuFactory();
-		this.eventMulticaster = createNewContext();
-		this.grid = new PnGridPanel(eventMulticaster);
+		this.eventBus = createNewContext();
+		this.menuFactory = new PnEditorMenuFactory(eventBus);
+		this.grid = new PnGridPanel(eventBus);
 		this.pnedMenuBar = new PnedMenuBar(menuFactory);
 
 		setPreferredSize(preferredSize);
@@ -60,7 +65,7 @@ public class PnEditorFrame extends JFrame
 		final String path = "/examples/Beispiel1.pnml";
 		final URL resource = PNMLParser.class.getResource(path);
 		try {
-			PNMLParser.parse(resource, eventMulticaster);
+			PNMLParser.parse(resource, eventBus);
 		} catch (final XMLStreamException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,7 +78,9 @@ public class PnEditorFrame extends JFrame
 	}
 
 	/**
-	 * <p>createNewContext.</p>
+	 * <p>
+	 * createNewContext.
+	 * </p>
 	 *
 	 * @return a {@link de.markusrother.pned.gui.EventBus} object.
 	 */
@@ -82,23 +89,31 @@ public class PnEditorFrame extends JFrame
 		createPetriNetModel(eventMulticaster);
 		eventMulticaster.addListener(PetriNetListener.class, this);
 		eventMulticaster.setCurrentNodeType(new SetNodeTypeCommand(this, NodeCreationMode.PLACE));
-		menuFactory.setEventBus(eventMulticaster);
+		if (menuFactory != null) {
+			menuFactory.setEventBus(eventMulticaster);
+		}
 		return eventMulticaster;
 	}
 
 	/**
-	 * <p>createPetriNetModel.</p>
+	 * <p>
+	 * createPetriNetModel.
+	 * </p>
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventMulticaster
+	 *            a {@link de.markusrother.pned.gui.EventBus} object.
 	 */
 	private void createPetriNetModel(final EventBus eventMulticaster) {
 		EventAwarePetriNet.create(eventMulticaster);
 	}
 
 	/**
-	 * <p>main.</p>
+	 * <p>
+	 * main.
+	 * </p>
 	 *
-	 * @param args a {@link java.lang.String} object.
+	 * @param args
+	 *            a {@link java.lang.String} object.
 	 */
 	public static void main(final String... args) {
 
@@ -116,10 +131,10 @@ public class PnEditorFrame extends JFrame
 		// Assuming GC takes care of rest.
 		// Can only be gc'ed if EventBus becomes garbage as well.
 		getContentPane().remove(grid);
-		eventMulticaster.removeListener(PetriNetListener.class, this);
+		eventBus.removeListener(PetriNetListener.class, this);
 
-		this.eventMulticaster = createNewContext();
-		this.grid = new PnGridPanel(eventMulticaster);
+		this.eventBus = createNewContext();
+		this.grid = new PnGridPanel(eventBus);
 		this.pnedMenuBar = new PnedMenuBar(menuFactory);
 
 		add(grid, BorderLayout.CENTER);

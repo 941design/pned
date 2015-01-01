@@ -104,6 +104,13 @@ public class EventBus
 		}
 	}
 
+	@Override
+	public void setCurrentPath(final PetriNetIOCommand cmd) {
+		for (final PetriNetIOListener l : getListeners(PetriNetIOListener.class)) {
+			l.setCurrentPath(cmd);
+		}
+	}
+
 	/** {@inheritDoc} */
 	@Override
 	public void importPnml(final PetriNetIOCommand cmd) throws IOException {

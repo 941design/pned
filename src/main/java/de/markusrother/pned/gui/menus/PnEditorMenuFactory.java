@@ -38,11 +38,14 @@ public class PnEditorMenuFactory
 	 * <p>
 	 * Constructor for PnEditorMenuFactory.
 	 * </p>
+	 * 
+	 * @param eventBus
 	 */
-	public PnEditorMenuFactory() {
+	public PnEditorMenuFactory(final EventBus eventBus) {
+		this.eventBus = eventBus;
 		this.areNodesSelected = false;
 		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
-		this.fileDialogFactory = new FileDialogFactory();
+		this.fileDialogFactory = new FileDialogFactory(eventBus);
 	}
 
 	/**
@@ -129,7 +132,7 @@ public class PnEditorMenuFactory
 		this.eventBus = eventBus;
 		// FIXME - dispose, remove upon close!
 		this.eventBus.addListener(NodeSelectionListener.class, this);
-		this.fileDialogFactory.setEventTarget(eventBus);
+		this.fileDialogFactory.setEventBus(eventBus);
 	}
 
 }

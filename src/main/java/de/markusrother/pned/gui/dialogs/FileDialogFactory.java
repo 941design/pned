@@ -1,5 +1,10 @@
 package de.markusrother.pned.gui.dialogs;
 
+import java.io.File;
+
+import de.markusrother.pned.commands.PetriNetIOCommand;
+import de.markusrother.pned.commands.listeners.PetriNetIOListener;
+import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.GuiEventTarget;
 
 /**
@@ -10,30 +15,19 @@ import de.markusrother.pned.gui.GuiEventTarget;
  * @author Markus Rother
  * @version 1.0
  */
-public class FileDialogFactory {
-
-	/**
-	 * <p>
-	 * Opens an {@link de.markusrother.pned.gui.dialogs.OpenFileDialog}.
-	 * </p>
-	 */
-	public void openImportDialog() {
-		// TODO - open with current path:
-		OpenFileDialog.open(eventTarget);
-	}
-
-	/**
-	 * <p>
-	 * Opens a {@link de.markusrother.pned.gui.dialogs.SaveFileDialog}.
-	 * </p>
-	 */
-	public void openExportDialog() {
-		// TODO - open with current path:
-		SaveFileDialog.open(eventTarget);
-	}
+public class FileDialogFactory
+	implements
+		PetriNetIOListener {
 
 	/** The event target to which resulting events are posted to. */
-	private GuiEventTarget eventTarget;
+	private EventBus eventBus;
+	/** */
+	private File currentPath;
+
+	public FileDialogFactory(final EventBus eventBus) {
+		this.eventBus = eventBus;
+		eventBus.addListener(PetriNetIOListener.class, this);
+	}
 
 	/**
 	 * <p>
@@ -44,7 +38,7 @@ public class FileDialogFactory {
 	 *         resulting events are posted to.
 	 */
 	public GuiEventTarget getEventTarget() {
-		return eventTarget;
+		return eventBus;
 	}
 
 	/**
@@ -52,12 +46,54 @@ public class FileDialogFactory {
 	 * Setter for the field <code>eventTarget</code>.
 	 * </p>
 	 *
-	 * @param eventTarget
+	 * @param eventBus
 	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} to which
 	 *            resulting events are posted to.
 	 */
-	public void setEventTarget(final GuiEventTarget eventTarget) {
-		this.eventTarget = eventTarget;
+	public void setEventBus(final EventBus eventBus) {
+		assert (this.eventBus != null);
+		this.eventBus.removeListener(PetriNetIOListener.class, this);
+		this.eventBus = eventBus;
+		eventBus.addListener(PetriNetIOListener.class, this);
+	}
+
+	@Override
+	public void setCurrentPath(final PetriNetIOCommand cmd) {
+		setCurrentPath(cmd.getFile());
+	}
+
+	public void setCurrentPath(final File dir) {
+		this.currentPath = dir;
+	}
+
+	/**
+	 * <p>
+	 * Opens an {@link de.markusrother.pned.gui.dialogs.OpenFileDialog}.
+	 * </p>
+	 */
+	public void openImportDialog() {
+		assert (eventBus != null);
+		OpenFileDialog.open(eventBus, currentPath);
+	}
+
+	/**
+	 * <p>
+	 * Opens a {@link de.markusrother.pned.gui.dialogs.SaveFileDialog}.
+	 * </p>
+	 */
+	public void openExportDialog() {
+		assert (eventBus != null);
+		SaveFileDialog.open(eventBus, currentPath);
+	}
+
+	@Override
+	public void importPnml(final PetriNetIOCommand cmd) {
+		// IGNORE
+	}
+
+	@Override
+	public void exportPnml(final PetriNetIOCommand cmd) {
+		// IGNORE
 	}
 
 }

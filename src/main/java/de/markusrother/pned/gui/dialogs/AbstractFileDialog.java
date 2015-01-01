@@ -43,10 +43,11 @@ public abstract class AbstractFileDialog extends JFileChooser {
 	 * @param approveButtonLabel
 	 *            a {@link java.lang.String} - the approve button's label.
 	 */
-	protected AbstractFileDialog(final GuiEventTarget eventTarget, final String title, final String approveButtonLabel) {
+	protected AbstractFileDialog(final GuiEventTarget eventTarget, final String title, final File dir,
+			final String approveButtonLabel) {
 		this.eventTarget = eventTarget;
 		this.approveButtonLabel = approveButtonLabel;
-		// setCurrentDirectory();
+		setCurrentDirectory(dir);
 		setDialogTitle(title);
 		setFileFilter(filter);
 		addChoosableFileFilter(filter);

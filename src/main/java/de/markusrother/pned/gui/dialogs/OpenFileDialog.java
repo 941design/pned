@@ -11,7 +11,8 @@ import de.markusrother.pned.gui.GuiEventTarget;
 /**
  * <p>
  * File dialog for opening Petri nets from pnml (xml). Successful file selection
- * posts a {@link de.markusrother.pned.commands.PetriNetIOCommand} to the provided {@link de.markusrother.pned.gui.GuiEventTarget}.
+ * posts a {@link de.markusrother.pned.commands.PetriNetIOCommand} to the
+ * provided {@link de.markusrother.pned.gui.GuiEventTarget}.
  * </p>
  *
  * @author Markus Rother
@@ -31,9 +32,10 @@ public class OpenFileDialog extends AbstractFileDialog {
 	 *
 	 * @param eventTarget
 	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} object.
+	 * @param dir
 	 */
-	public static void open(final GuiEventTarget eventTarget) {
-		final OpenFileDialog dialog = new OpenFileDialog(eventTarget);
+	public static void open(final GuiEventTarget eventTarget, final File dir) {
+		final OpenFileDialog dialog = new OpenFileDialog(eventTarget, dir);
 		dialog.showDialogAndProcessResult();
 	}
 
@@ -41,9 +43,10 @@ public class OpenFileDialog extends AbstractFileDialog {
 	 * @param eventTarget
 	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
 	 *            posted to.
+	 * @param dir
 	 */
-	private OpenFileDialog(final GuiEventTarget eventTarget) {
-		super(eventTarget, title, approveButtonLabel);
+	private OpenFileDialog(final GuiEventTarget eventTarget, final File dir) {
+		super(eventTarget, title, dir, approveButtonLabel);
 		setDialogType(JFileChooser.OPEN_DIALOG);
 	}
 
@@ -54,7 +57,9 @@ public class OpenFileDialog extends AbstractFileDialog {
 		// TODO - maintain dirty flag!
 		// If current net is to be purged send appropriate command
 		try {
-			eventTarget.importPnml(new PetriNetIOCommand(null, file));
+			final String path = file.getAbsolutePath();
+			eventTarget.setCurrentPath(new PetriNetIOCommand(this, new File(path)));
+			eventTarget.importPnml(new PetriNetIOCommand(this, file));
 		} catch (final IOException e1) {
 			// TODO
 			throw new RuntimeException("TODO");

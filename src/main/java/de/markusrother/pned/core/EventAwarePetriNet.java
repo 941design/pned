@@ -119,6 +119,11 @@ public class EventAwarePetriNet extends PetriNetImpl
 		req.set(id);
 	}
 
+	@Override
+	public void setCurrentPath(final PetriNetIOCommand cmd) {
+		// IGNORE
+	}
+
 	/** {@inheritDoc} */
 	@Override
 	public void importPnml(final PetriNetIOCommand cmd) {
