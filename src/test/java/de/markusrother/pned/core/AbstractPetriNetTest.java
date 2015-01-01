@@ -19,6 +19,7 @@ import de.markusrother.pned.core.commands.NodeRemovalEvent;
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
 import de.markusrother.pned.core.commands.PlaceEditEvent;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
+import de.markusrother.pned.core.control.EventAwarePetriNet;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.events.TransitionActivationEvent.Type;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;

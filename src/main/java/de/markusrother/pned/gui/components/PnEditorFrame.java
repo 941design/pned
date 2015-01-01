@@ -10,9 +10,9 @@ import java.net.URL;
 import javax.swing.JFrame;
 import javax.xml.stream.XMLStreamException;
 
-import de.markusrother.pned.core.EventAwarePetriNet;
-import de.markusrother.pned.core.events.EventBus;
-import de.markusrother.pned.core.events.PetriNetIOCommand;
+import de.markusrother.pned.core.commands.PetriNetIOCommand;
+import de.markusrother.pned.core.control.EventAwarePetriNet;
+import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.listeners.PetriNetIOListener;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.events.GuiEventBus;
@@ -90,7 +90,7 @@ public class PnEditorFrame extends JFrame
 	 * createNewContext.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @return a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
 	private GuiEventBus createNewContext() {
 		final GuiEventBus eventBus = new GuiEventBus();
@@ -111,7 +111,7 @@ public class PnEditorFrame extends JFrame
 	 * </p>
 	 *
 	 * @param eventMulticaster
-	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
 	private void createPetriNetModel(final EventBus eventMulticaster) {
 		EventAwarePetriNet.create(eventMulticaster);

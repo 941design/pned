@@ -1,4 +1,4 @@
-package de.markusrother.pned.core.events;
+package de.markusrother.pned.core.control;
 
 import java.io.IOException;
 import java.util.EventListener;
@@ -10,10 +10,15 @@ import de.markusrother.pned.core.commands.EdgeCreationCommand;
 import de.markusrother.pned.core.commands.LabelEditEvent;
 import de.markusrother.pned.core.commands.NodeMovedEvent;
 import de.markusrother.pned.core.commands.NodeRemovalEvent;
+import de.markusrother.pned.core.commands.PetriNetIOCommand;
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
 import de.markusrother.pned.core.commands.PlaceEditEvent;
+import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
+import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
+import de.markusrother.pned.core.listeners.CommandTarget;
+import de.markusrother.pned.core.listeners.EventTarget;
 import de.markusrother.pned.core.listeners.IdRequestListener;
 import de.markusrother.pned.core.listeners.LabelEditListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
@@ -21,6 +26,7 @@ import de.markusrother.pned.core.listeners.NodeMotionListener;
 import de.markusrother.pned.core.listeners.NodeRemovalListener;
 import de.markusrother.pned.core.listeners.PetriNetIOListener;
 import de.markusrother.pned.core.listeners.PlaceEditListener;
+import de.markusrother.pned.core.listeners.RequestTarget;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
 import de.markusrother.pned.core.requests.IdRequest;
 
@@ -35,9 +41,9 @@ import de.markusrother.pned.core.requests.IdRequest;
 public class EventBus
 	implements
 		PetriNetCommandSource,
+		CommandTarget,
 		EventTarget,
-		RequestTarget,
-		NodeRemovalListener {
+		RequestTarget {
 
 	private final EventListenerList listeners = new EventListenerList();
 

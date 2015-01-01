@@ -77,7 +77,7 @@ public class EdgeCreator extends DoubleClickListener {
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param pnGridPanel
 	 *            a {@link de.markusrother.pned.gui.components.PnGridPanel}
 	 *            object.

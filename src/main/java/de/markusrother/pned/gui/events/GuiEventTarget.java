@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui.events;
 
-import de.markusrother.pned.core.events.EventTarget;
+import de.markusrother.pned.core.listeners.CommandTarget;
 import de.markusrother.pned.gui.layout.listeners.EdgeLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.MarkingLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.PlaceLayoutListener;
@@ -20,7 +20,7 @@ import de.markusrother.pned.gui.listeners.PetriNetListener;
 public interface GuiEventTarget
 	extends
 		// Inherited event listeners:
-		EventTarget,
+		CommandTarget,
 		//
 		PetriNetListener,
 		NodeListener,

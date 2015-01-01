@@ -7,7 +7,7 @@ import java.util.concurrent.TimeoutException;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.requests.IdRequest;
 import de.markusrother.pned.gui.events.GuiEventBus;
 import de.markusrother.pned.gui.listeners.NodeListener;
@@ -71,7 +71,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            an {@link de.markusrother.pned.core.events.EventBus} to be
+	 *            an {@link de.markusrother.pned.core.control.EventBus} to be
 	 *            posted to.
 	 * @param source
 	 *            an {@link java.lang.Object} - the posted
@@ -113,7 +113,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	/**
 	 * <p>
 	 * Posts {@link de.markusrother.pned.gui.events.SetNodeTypeCommand} on
-	 * {@link de.markusrother.pned.core.events.EventBus}.
+	 * {@link de.markusrother.pned.core.control.EventBus}.
 	 * </p>
 	 */
 	protected abstract void fireSetNodeTypeCommand();
@@ -131,7 +131,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	/**
 	 * <p>
 	 * Posts {@link de.markusrother.pned.core.requests.IdRequest} on
-	 * {@link de.markusrother.pned.core.events.EventBus} and returns requested
+	 * {@link de.markusrother.pned.core.control.EventBus} and returns requested
 	 * id.
 	 * </p>
 	 *

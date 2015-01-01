@@ -32,7 +32,7 @@ public class CreatePetriNetAction extends AbstractAction {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.core.events.EventTarget} to be
+	 *            an {@link de.markusrother.pned.core.listeners.CommandTarget} to be
 	 *            posted to.
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
 	 */
@@ -48,7 +48,7 @@ public class CreatePetriNetAction extends AbstractAction {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.core.events.EventTarget} to be
+	 *            an {@link de.markusrother.pned.core.listeners.CommandTarget} to be
 	 *            posted to.
 	 */
 	private CreatePetriNetAction(final GuiEventTarget eventTarget) {

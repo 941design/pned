@@ -1,4 +1,4 @@
-package de.markusrother.pned.core;
+package de.markusrother.pned.core.control;
 
 import java.awt.Point;
 import java.io.File;
@@ -10,22 +10,24 @@ import java.util.LinkedList;
 
 import javax.xml.bind.JAXBException;
 
+import de.markusrother.pned.core.DefaultPetriNet;
+import de.markusrother.pned.core.NodeModel;
+import de.markusrother.pned.core.PlaceModel;
+import de.markusrother.pned.core.TransitionModel;
 import de.markusrother.pned.core.commands.EdgeCreationCommand;
 import de.markusrother.pned.core.commands.LabelEditEvent;
 import de.markusrother.pned.core.commands.NodeMovedEvent;
 import de.markusrother.pned.core.commands.NodeRemovalEvent;
+import de.markusrother.pned.core.commands.PetriNetIOCommand;
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
 import de.markusrother.pned.core.commands.PlaceEditEvent;
+import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
-import de.markusrother.pned.core.events.EventBus;
-import de.markusrother.pned.core.events.PetriNetCommandSource;
-import de.markusrother.pned.core.events.PetriNetIOCommand;
-import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.events.TransitionActivationEvent.Type;
-import de.markusrother.pned.core.events.TransitionActivationEventSource;
 import de.markusrother.pned.core.exceptions.NoSuchNodeException;
 import de.markusrother.pned.core.exceptions.UnavailableIdException;
+import de.markusrother.pned.core.listeners.CommandTarget;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.IdRequestListener;
 import de.markusrother.pned.core.listeners.LabelEditListener;
@@ -34,6 +36,7 @@ import de.markusrother.pned.core.listeners.NodeMotionListener;
 import de.markusrother.pned.core.listeners.NodeRemovalListener;
 import de.markusrother.pned.core.listeners.PetriNetIOListener;
 import de.markusrother.pned.core.listeners.PlaceEditListener;
+import de.markusrother.pned.core.listeners.RequestTarget;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
 import de.markusrother.pned.core.requests.IdRequest;
 import de.markusrother.pned.io.PetriNetMarshaller;
@@ -50,17 +53,9 @@ import de.markusrother.pned.io.PetriNetMarshaller;
  */
 public class EventAwarePetriNet extends DefaultPetriNet
 	implements
-		PetriNetIOListener,
-		IdRequestListener,
-		NodeCreationListener,
-		EdgeCreationListener,
-		NodeRemovalListener,
-		NodeMotionListener,
-		PlaceEditListener,
-		LabelEditListener,
+		CommandTarget,
+		RequestTarget,
 		TransitionActivationEventSource {
-
-	final PetriNetCommandSource commandSource;
 
 	private final Collection<TransitionActivationListener> transitionActivationListeners;
 
@@ -69,12 +64,13 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	 * create.
 	 * </p>
 	 *
-	 * @param eventMulticaster
-	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
-	 * @return a {@link de.markusrother.pned.core.EventAwarePetriNet} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @return a {@link de.markusrother.pned.core.control.EventAwarePetriNet}
+	 *         object.
 	 */
-	public static EventAwarePetriNet create(final EventBus eventMulticaster) {
-		return new EventAwarePetriNet(eventMulticaster);
+	public static EventAwarePetriNet create(final EventBus eventBus) {
+		return new EventAwarePetriNet(eventBus);
 	}
 
 	/**
@@ -88,7 +84,6 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	 *            a T object.
 	 */
 	public <T extends PetriNetCommandSource & TransitionActivationListener> EventAwarePetriNet(final T eventBus) {
-		this.commandSource = eventBus;
 		this.transitionActivationListeners = new LinkedList<>();
 
 		eventBus.addListener(IdRequestListener.class, this);

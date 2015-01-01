@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import de.markusrother.pned.core.control.EventAwarePetriNet;
 import de.markusrother.pned.core.exceptions.NoSuchNodeException;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.IdRequestListener;

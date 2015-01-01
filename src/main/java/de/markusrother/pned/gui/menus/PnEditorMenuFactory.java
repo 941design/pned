@@ -40,7 +40,7 @@ public class PnEditorMenuFactory
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
 	public PnEditorMenuFactory(final GuiEventBus eventBus) {
 		this.eventBus = eventBus;
@@ -124,7 +124,7 @@ public class PnEditorMenuFactory
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
 	public void setEventBus(final GuiEventBus eventBus) {
 		if (this.eventBus != null) {

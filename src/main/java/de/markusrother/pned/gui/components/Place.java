@@ -8,7 +8,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 import de.markusrother.pned.core.commands.PlaceEditEvent;
-import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.listeners.PlaceEditListener;
 import de.markusrother.pned.gui.PlaceLayout;
 import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
@@ -41,7 +41,7 @@ public class Place extends AbstractNode
 	/**
 	 * <p>Constructor for Place.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param diameter a int.
 	 */
 	public Place(final EventBus eventBus, final int diameter) {

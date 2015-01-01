@@ -34,7 +34,7 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
 	public SingleNodeSelector(final GuiEventBus eventBus) {
 		super(AbstractNode.class);

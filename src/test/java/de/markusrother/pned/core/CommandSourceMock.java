@@ -4,7 +4,7 @@ import java.util.EventListener;
 
 import javax.swing.event.EventListenerList;
 
-import de.markusrother.pned.core.events.PetriNetCommandSource;
+import de.markusrother.pned.core.control.PetriNetCommandSource;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
 

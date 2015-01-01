@@ -3,7 +3,7 @@ package de.markusrother.pned.core.listeners;
 import java.util.EventListener;
 
 import de.markusrother.pned.core.commands.NodeRemovalEvent;
-import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
 
 /**
  * <p>
@@ -39,7 +39,7 @@ public interface NodeRemovalListener
 	 *
 	 * @param e
 	 *            a
-	 *            {@link de.markusrother.pned.core.events.RemoveSelectedNodesEvent}
+	 *            {@link de.markusrother.pned.core.commands.RemoveSelectedNodesEvent}
 	 *            object.
 	 */
 	void removeSelectedNodes(RemoveSelectedNodesEvent e);

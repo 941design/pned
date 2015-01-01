@@ -19,8 +19,8 @@ import javax.swing.JLayeredPane;
 import de.markusrother.pned.core.commands.EdgeCreationCommand;
 import de.markusrother.pned.core.commands.NodeRemovalEvent;
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
+import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
-import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.core.listeners.NodeRemovalListener;
@@ -137,7 +137,7 @@ public class PnGridPanel extends JLayeredPane
 	 * while this is not fully initialized!
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
 	public PnGridPanel(final GuiEventBus eventBus) {
 

@@ -6,7 +6,7 @@ import java.util.concurrent.TimeoutException;
 
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
-import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.requests.IdRequest;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
@@ -30,7 +30,7 @@ public class NodeCreator extends MouseAdapter
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
 	public NodeCreator(final EventBus eventBus) {
 		this.eventBus = eventBus;

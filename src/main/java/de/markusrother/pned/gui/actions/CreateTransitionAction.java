@@ -44,7 +44,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            an {@link de.markusrother.pned.core.events.EventBus} to be
+	 *            an {@link de.markusrother.pned.core.control.EventBus} to be
 	 *            posted to.
 	 * @param source
 	 *            an {@link java.lang.Object} - the posted
@@ -70,7 +70,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            an {@link de.markusrother.pned.core.events.EventBus} to be
+	 *            an {@link de.markusrother.pned.core.control.EventBus} to be
 	 *            posted to.
 	 * @param source
 	 *            an {@link java.lang.Object} - the posted

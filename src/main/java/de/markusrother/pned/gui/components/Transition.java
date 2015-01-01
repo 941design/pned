@@ -11,7 +11,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 
-import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
 import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
@@ -35,7 +35,7 @@ public class Transition extends AbstractNode
 	/**
 	 * <p>Constructor for Transition.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param extent a int.
 	 */
 	public Transition(final EventBus eventBus, final int extent) {

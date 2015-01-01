@@ -3,7 +3,7 @@ package de.markusrother.pned.core.listeners;
 import java.io.IOException;
 import java.util.EventListener;
 
-import de.markusrother.pned.core.events.PetriNetIOCommand;
+import de.markusrother.pned.core.commands.PetriNetIOCommand;
 
 /**
  * <p>
@@ -23,7 +23,7 @@ public interface PetriNetIOListener
 	 * </p>
 	 *
 	 * @param cmd
-	 *            a {@link de.markusrother.pned.core.events.PetriNetIOCommand}
+	 *            a {@link de.markusrother.pned.core.commands.PetriNetIOCommand}
 	 *            object.
 	 */
 	void setCurrentDirectory(PetriNetIOCommand cmd);
@@ -34,7 +34,7 @@ public interface PetriNetIOListener
 	 * </p>
 	 *
 	 * @param cmd
-	 *            a {@link de.markusrother.pned.core.events.PetriNetIOCommand}
+	 *            a {@link de.markusrother.pned.core.commands.PetriNetIOCommand}
 	 *            object.
 	 * @throws java.io.IOException
 	 *             if any.
@@ -47,7 +47,7 @@ public interface PetriNetIOListener
 	 * </p>
 	 *
 	 * @param cmd
-	 *            a {@link de.markusrother.pned.core.events.PetriNetIOCommand}
+	 *            a {@link de.markusrother.pned.core.commands.PetriNetIOCommand}
 	 *            object.
 	 * @throws java.io.IOException
 	 *             if any.

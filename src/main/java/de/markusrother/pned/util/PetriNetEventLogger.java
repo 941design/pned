@@ -7,9 +7,9 @@ import de.markusrother.pned.core.commands.NodeMovedEvent;
 import de.markusrother.pned.core.commands.NodeRemovalEvent;
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
 import de.markusrother.pned.core.commands.PlaceEditEvent;
+import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
-import de.markusrother.pned.core.events.EventBus;
-import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
@@ -23,8 +23,12 @@ import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 
 /**
- * <p>PetriNetEventLogger class.</p>
+ * <p>
+ * PetriNetEventLogger class.
+ * </p>
  *
+ * FIXME - use compound interfaces
+ * 
  * @author Markus Rother
  * @version 1.0
  */
@@ -40,9 +44,12 @@ public class PetriNetEventLogger
 		EdgeEditListener {
 
 	/**
-	 * <p>instantiate.</p>
+	 * <p>
+	 * instantiate.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
 	public static void instantiate(final EventBus eventBus) {
 		final PetriNetEventLogger mock = new PetriNetEventLogger();
@@ -57,16 +64,21 @@ public class PetriNetEventLogger
 	}
 
 	/**
-	 * <p>log.</p>
+	 * <p>
+	 * log.
+	 * </p>
 	 *
-	 * @param event a {@link java.util.EventObject} object.
+	 * @param event
+	 *            a {@link java.util.EventObject} object.
 	 */
 	private void log(final EventObject event) {
 		System.out.println(event.getClass().getSimpleName());
 	}
 
 	/**
-	 * <p>Constructor for PetriNetEventLogger.</p>
+	 * <p>
+	 * Constructor for PetriNetEventLogger.
+	 * </p>
 	 */
 	private PetriNetEventLogger() {
 	}

@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.events;
 
 import javax.swing.SwingWorker;
 
-import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.gui.layout.commands.EdgeLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;

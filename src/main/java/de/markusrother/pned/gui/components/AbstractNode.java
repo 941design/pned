@@ -10,8 +10,8 @@ import javax.swing.JPanel;
 
 import de.markusrother.pned.core.commands.NodeMovedEvent;
 import de.markusrother.pned.core.commands.NodeRemovalEvent;
-import de.markusrother.pned.core.events.EventBus;
-import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
 import de.markusrother.pned.core.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.DefinitelyBounded;
@@ -69,7 +69,7 @@ public abstract class AbstractNode extends JPanel
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param layoutManager
 	 *            a {@link java.awt.LayoutManager} object.
 	 */
@@ -93,7 +93,7 @@ public abstract class AbstractNode extends JPanel
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
 	public AbstractNode(final EventBus eventBus) {
 		this(eventBus, NO_LAYOUT_MANAGER);

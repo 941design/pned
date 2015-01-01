@@ -9,8 +9,8 @@ import javax.swing.border.LineBorder;
 import de.markusrother.pned.core.commands.LabelEditEvent;
 import de.markusrother.pned.core.commands.NodeMovedEvent;
 import de.markusrother.pned.core.commands.NodeRemovalEvent;
-import de.markusrother.pned.core.events.EventBus;
-import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.listeners.LabelEditListener;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
 import de.markusrother.pned.core.listeners.NodeRemovalListener;
@@ -55,7 +55,7 @@ public class NodeLabel extends JLabel
 	/**
 	 * <p>Constructor for NodeLabel.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param nodeId a {@link java.lang.String} object.
 	 */
 	public NodeLabel(final EventBus eventBus, final String nodeId) {
@@ -65,7 +65,7 @@ public class NodeLabel extends JLabel
 	/**
 	 * <p>Constructor for NodeLabel.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param nodeId a {@link java.lang.String} object.
 	 * @param nodeLabel a {@link java.lang.String} object.
 	 */

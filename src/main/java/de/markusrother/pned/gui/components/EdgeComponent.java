@@ -11,8 +11,8 @@ import java.awt.geom.Line2D;
 
 import de.markusrother.pned.core.commands.NodeMovedEvent;
 import de.markusrother.pned.core.commands.NodeRemovalEvent;
-import de.markusrother.pned.core.events.EventBus;
-import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
 import de.markusrother.pned.core.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.Disposable;
@@ -135,7 +135,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	/**
 	 * <p>Constructor for EdgeComponent.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param sourceComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
 	 * @param source a {@link java.awt.Point} object.
 	 * @param target a {@link java.awt.Point} object.
@@ -148,7 +148,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	/**
 	 * <p>Constructor for EdgeComponent.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param sourceComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
 	 * @param targetComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
 	 */
@@ -160,7 +160,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	/**
 	 * <p>Constructor for EdgeComponent.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param sourceComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
 	 * @param targetComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
 	 * @param source a {@link java.awt.Point} object.
