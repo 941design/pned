@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui.components.settings;
+package de.markusrother.pned.gui.dialogs;
 
 import static java.awt.BorderLayout.WEST;
 
@@ -7,7 +7,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
@@ -18,16 +17,18 @@ import de.markusrother.pned.commands.LayoutCommand.ChangeType;
 import de.markusrother.pned.commands.MarkingLayoutCommand;
 import de.markusrother.pned.commands.PlaceLayoutCommand;
 import de.markusrother.pned.commands.TransitionLayoutCommand;
-import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.gui.GuiEventTarget;
 import de.markusrother.swing.ScaleGroup;
 
 /**
- * <p>EditSettingsDialog class.</p>
+ * <p>
+ * Dialog for adjusting Petri net element sizes.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
-public class EditSettingsDialog extends JDialog {
+public class EditSettingsDialog extends AbstractDialog {
 
 	/** Constant <code>title="Settings"</code> */
 	private static final String title = "Settings";
@@ -35,28 +36,33 @@ public class EditSettingsDialog extends JDialog {
 	private static final Dimension preferredSize = new Dimension(700, 1000);
 
 	/**
-	 * <p>open.</p>
+	 * <p>
+	 * Opens dialog.
+	 * </p>
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventTarget
+	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} object.
 	 */
-	public static void open(final EventBus eventMulticaster) {
+	public static void open(final GuiEventTarget eventTarget) {
 		// TODO - take parent component and model
-		final EditSettingsDialog editSettingsDialog = new EditSettingsDialog(eventMulticaster);
+		final EditSettingsDialog editSettingsDialog = new EditSettingsDialog(eventTarget);
 		editSettingsDialog.pack();
 		editSettingsDialog.setVisible(true);
 	}
 
-	final EventBus eventBus;
-
 	/**
-	 * <p>Constructor for EditSettingsDialog.</p>
+	 * <p>
+	 * Constructor for EditSettingsDialog.
+	 * </p>
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventTarget
+	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} object.
 	 */
-	private EditSettingsDialog(final EventBus eventMulticaster) {
-		this.eventBus = eventMulticaster;
-		setTitle(title);
+	private EditSettingsDialog(final GuiEventTarget eventTarget) {
+		super(eventTarget, title);
+
 		setPreferredSize(preferredSize);
+
 		final Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 
@@ -73,7 +79,9 @@ public class EditSettingsDialog extends JDialog {
 	}
 
 	/**
-	 * <p>createPlaceScale.</p>
+	 * <p>
+	 * createPlaceScale.
+	 * </p>
 	 *
 	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
 	 */
@@ -84,14 +92,16 @@ public class EditSettingsDialog extends JDialog {
 			public void stateChanged(final ChangeEvent e) {
 				final int size = scale.getValue();
 				final PlaceLayoutCommand cmd = new PlaceLayoutCommand(this, ChangeType.SIZE, size);
-				eventBus.setSize(cmd);
+				eventTarget.setSize(cmd);
 			}
 		});
 		return scale;
 	}
 
 	/**
-	 * <p>createTransitionScale.</p>
+	 * <p>
+	 * createTransitionScale.
+	 * </p>
 	 *
 	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
 	 */
@@ -102,14 +112,16 @@ public class EditSettingsDialog extends JDialog {
 			public void stateChanged(final ChangeEvent e) {
 				final int size = scale.getValue();
 				final TransitionLayoutCommand cmd = new TransitionLayoutCommand(this, ChangeType.SIZE, size);
-				eventBus.setSize(cmd);
+				eventTarget.setSize(cmd);
 			}
 		});
 		return scale;
 	}
 
 	/**
-	 * <p>createMarkingScale.</p>
+	 * <p>
+	 * createMarkingScale.
+	 * </p>
 	 *
 	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
 	 */
@@ -120,14 +132,16 @@ public class EditSettingsDialog extends JDialog {
 			public void stateChanged(final ChangeEvent e) {
 				final int size = scale.getValue();
 				final MarkingLayoutCommand cmd = new MarkingLayoutCommand(this, ChangeType.SIZE, size);
-				eventBus.setSize(cmd);
+				eventTarget.setSize(cmd);
 			}
 		});
 		return scale;
 	}
 
 	/**
-	 * <p>createEdgeTipScale.</p>
+	 * <p>
+	 * createEdgeTipScale.
+	 * </p>
 	 *
 	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
 	 */
@@ -138,7 +152,7 @@ public class EditSettingsDialog extends JDialog {
 			public void stateChanged(final ChangeEvent e) {
 				final int size = scale.getValue();
 				final EdgeLayoutCommand cmd = new EdgeLayoutCommand(this, ChangeType.SIZE, size);
-				eventBus.setSize(cmd);
+				eventTarget.setSize(cmd);
 			}
 		});
 		return scale;

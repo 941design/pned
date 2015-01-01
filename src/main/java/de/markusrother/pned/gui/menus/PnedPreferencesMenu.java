@@ -4,11 +4,13 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
 
-import de.markusrother.pned.gui.EventBus;
-import de.markusrother.pned.gui.menus.actions.EditSettingsAction;
+import de.markusrother.pned.gui.GuiEventTarget;
+import de.markusrother.pned.gui.menus.actions.OpenEditSettingsDialogAction;
 
 /**
- * <p>PnedPreferencesMenu class.</p>
+ * <p>
+ * PnedPreferencesMenu class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -19,15 +21,17 @@ public class PnedPreferencesMenu extends JMenu {
 	private static final String label = "Preferences";
 
 	/**
-	 * <p>Constructor for PnedPreferencesMenu.</p>
+	 * <p>
+	 * Constructor for PnedPreferencesMenu.
+	 * </p>
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventTarget
+	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} object.
 	 */
-	PnedPreferencesMenu(final EventBus eventMulticaster) {
+	PnedPreferencesMenu(final GuiEventTarget eventTarget) {
 		super(label);
 		setMnemonic(KeyEvent.VK_P);
-		final Object eventSource = this;
-		add(EditSettingsAction.newMenuItem(eventMulticaster, eventSource));
+		add(OpenEditSettingsDialogAction.newMenuItem(eventTarget));
 	}
 
 }

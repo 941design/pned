@@ -82,7 +82,7 @@ public class PnEditorFrame extends JFrame
 		createPetriNetModel(eventMulticaster);
 		eventMulticaster.addListener(PetriNetListener.class, this);
 		eventMulticaster.setCurrentNodeType(new SetNodeTypeCommand(this, NodeCreationMode.PLACE));
-		menuFactory.setEventMulticaster(eventMulticaster);
+		menuFactory.setEventBus(eventMulticaster);
 		return eventMulticaster;
 	}
 

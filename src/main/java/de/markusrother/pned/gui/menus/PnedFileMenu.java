@@ -4,10 +4,11 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
 
-import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.gui.EventTarget;
+import de.markusrother.pned.gui.dialogs.FileDialogFactory;
+import de.markusrother.pned.gui.menus.actions.CreatePetriNetAction;
 import de.markusrother.pned.gui.menus.actions.OpenExportDialogAction;
 import de.markusrother.pned.gui.menus.actions.OpenImportDialogAction;
-import de.markusrother.pned.gui.menus.actions.CreatePetriNetAction;
 
 /**
  * <p>
@@ -27,15 +28,15 @@ public class PnedFileMenu extends JMenu {
 	 * Constructor for PnedFileMenu.
 	 * </p>
 	 *
-	 * @param eventMulticaster
+	 * @param eventTarget
 	 *            a {@link de.markusrother.pned.gui.EventBus} object.
 	 */
-	PnedFileMenu(final EventBus eventMulticaster) {
+	PnedFileMenu(final EventTarget eventTarget, final FileDialogFactory fileDialogFactory) {
 		super(label);
 		setMnemonic(KeyEvent.VK_F);
-		add(CreatePetriNetAction.newMenuItem(eventMulticaster));
-		add(OpenImportDialogAction.newMenuItem(eventMulticaster));
-		add(OpenExportDialogAction.newMenuItem(eventMulticaster));
+		add(CreatePetriNetAction.newMenuItem(eventTarget));
+		add(OpenImportDialogAction.newMenuItem(fileDialogFactory));
+		add(OpenExportDialogAction.newMenuItem(fileDialogFactory));
 	}
 
 }

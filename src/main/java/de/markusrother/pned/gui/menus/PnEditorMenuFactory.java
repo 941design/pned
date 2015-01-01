@@ -4,6 +4,7 @@ import javax.swing.JMenu;
 
 import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
+import de.markusrother.pned.gui.dialogs.FileDialogFactory;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 
@@ -30,45 +31,57 @@ public class PnEditorMenuFactory
 
 	private boolean areNodesSelected;
 	private final NodeCreationMode nodeCreationMode;
-	private EventBus eventMulticaster;
+	private EventBus eventBus;
+	private final FileDialogFactory fileDialogFactory;
 
 	/**
-	 * <p>Constructor for PnEditorMenuFactory.</p>
+	 * <p>
+	 * Constructor for PnEditorMenuFactory.
+	 * </p>
 	 */
 	public PnEditorMenuFactory() {
 		this.areNodesSelected = false;
 		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
+		this.fileDialogFactory = new FileDialogFactory();
 	}
 
 	/**
-	 * <p>newEditMenu.</p>
+	 * <p>
+	 * newEditMenu.
+	 * </p>
 	 *
 	 * @return a {@link de.markusrother.pned.gui.menus.PnedEditMenu} object.
 	 */
 	public PnedEditMenu newEditMenu() {
-		return new PnedEditMenu(eventMulticaster, areNodesSelected, nodeCreationMode);
+		return new PnedEditMenu(eventBus, areNodesSelected, nodeCreationMode);
 	}
 
 	/**
-	 * <p>newFileMenu.</p>
+	 * <p>
+	 * newFileMenu.
+	 * </p>
 	 *
 	 * @return a {@link javax.swing.JMenu} object.
 	 */
 	public JMenu newFileMenu() {
-		return new PnedFileMenu(eventMulticaster);
+		return new PnedFileMenu(eventBus, fileDialogFactory);
 	}
 
 	/**
-	 * <p>newPreferencesMenu.</p>
+	 * <p>
+	 * newPreferencesMenu.
+	 * </p>
 	 *
 	 * @return a {@link javax.swing.JMenu} object.
 	 */
 	public JMenu newPreferencesMenu() {
-		return new PnedPreferencesMenu(eventMulticaster);
+		return new PnedPreferencesMenu(eventBus);
 	}
 
 	/**
-	 * <p>newPopupMenu.</p>
+	 * <p>
+	 * newPopupMenu.
+	 * </p>
 	 *
 	 * @return a {@link de.markusrother.pned.gui.menus.PnedEditMenu} object.
 	 */
@@ -102,17 +115,21 @@ public class PnEditorMenuFactory
 	}
 
 	/**
-	 * <p>Setter for the field <code>eventMulticaster</code>.</p>
+	 * <p>
+	 * Setter for the field <code>eventMulticaster</code>.
+	 * </p>
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.gui.EventBus} object.
 	 */
-	public void setEventMulticaster(final EventBus eventMulticaster) {
-		if (this.eventMulticaster != null) {
-			this.eventMulticaster.removeListener(NodeSelectionListener.class, this);
+	public void setEventBus(final EventBus eventBus) {
+		if (this.eventBus != null) {
+			this.eventBus.removeListener(NodeSelectionListener.class, this);
 		}
-		this.eventMulticaster = eventMulticaster;
+		this.eventBus = eventBus;
 		// FIXME - dispose, remove upon close!
-		this.eventMulticaster.addListener(NodeSelectionListener.class, this);
+		this.eventBus.addListener(NodeSelectionListener.class, this);
+		this.fileDialogFactory.setEventTarget(eventBus);
 	}
 
 }
