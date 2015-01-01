@@ -20,6 +20,9 @@ import de.markusrother.pned.gui.requests.NodeRequest;
 
 /**
  * FIXME - Create copy constructor from EventBus
+ *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class GuiEventBus extends EventBus
 	implements

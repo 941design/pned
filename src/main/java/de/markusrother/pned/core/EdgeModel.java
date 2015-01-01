@@ -25,7 +25,7 @@ public interface EdgeModel {
 	 * Returns true if given identifier equals this edge's identifier.
 	 * </p>
 	 * <p>
-	 * Implementors should use the {@link String#equals} comparison.
+	 * Implementors should use the {@link java.lang.String#equals} comparison.
 	 * </p>
 	 *
 	 * @param edgeId

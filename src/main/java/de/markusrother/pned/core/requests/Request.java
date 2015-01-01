@@ -14,13 +14,13 @@ import de.markusrother.concurrent.Promise;
  * {@link #set(Object)} method. {@code Request} is intended for asynchronous use
  * only, because its {@link #get()} method is blocking.
  * </p>
- * 
+ *
  * <pre>
  * request = new Request&lt;String&gt;();
  * eventTarget.post(request);
  * String result = rq.get(); // blocking
  * </pre>
- * 
+ *
  * where it is assumed that {@code request.set(someString)} is called after the
  * request has been posted.
  *
@@ -54,7 +54,7 @@ public class Request<T> extends EventObject {
 	 * </p>
 	 *
 	 * @return a T - the actual value.
-	 * @throws TimeoutException
+	 * @throws java.util.concurrent.TimeoutException
 	 *             if no value was set until exceeding the
 	 *             {@link #defaultTimeoutMillis}.
 	 */

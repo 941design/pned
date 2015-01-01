@@ -6,9 +6,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * <p>
- * Default implementation of {@link TransitionModel}.
+ * Default implementation of {@link de.markusrother.pned.core.TransitionModel}.
  * </p>
- * 
+ *
  * @author Markus Rother
  * @version 1.0
  */

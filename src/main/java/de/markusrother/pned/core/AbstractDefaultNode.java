@@ -13,9 +13,9 @@ import de.markusrother.util.JsonBuilder;
 
 /**
  * <p>
- * Abstract default implementation of {@link NodeModel}.
+ * Abstract default implementation of {@link de.markusrother.pned.core.NodeModel}.
  * </p>
- * 
+ *
  * @author Markus Rother
  * @version 1.0
  */

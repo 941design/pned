@@ -10,7 +10,7 @@ import de.markusrother.pned.gui.NodeCreationMode;
  * </p>
  *
  * FIXME - merge into PetriNetCommand
- * 
+ *
  * @author Markus Rother
  * @version 1.0
  */

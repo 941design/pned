@@ -8,9 +8,9 @@ import de.markusrother.util.JsonBuilder;
 
 /**
  * <p>
- * Default implementation of {@link EdgeModel}.
+ * Default implementation of {@link de.markusrother.pned.core.EdgeModel}.
  * </p>
- * 
+ *
  * @author Markus Rother
  * @version 1.0
  */

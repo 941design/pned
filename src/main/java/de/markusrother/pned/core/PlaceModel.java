@@ -2,7 +2,7 @@ package de.markusrother.pned.core;
 
 /**
  * <p>
- * Mutable model for Petri net places. In addition to {@link NodeModel}s places
+ * Mutable model for Petri net places. In addition to {@link de.markusrother.pned.core.NodeModel}s places
  * consist of a mutable marking. The marking is <b>not</b> typed, but is rather
  * a simple weight count.
  * </p>

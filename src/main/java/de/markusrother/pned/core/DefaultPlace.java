@@ -9,7 +9,7 @@ import de.markusrother.util.JsonBuilder;
 
 /**
  * <p>
- * Default implementation of {@link PlaceModel}.
+ * Default implementation of {@link de.markusrother.pned.core.PlaceModel}.
  * </p>
  *
  * @author Markus Rother

@@ -136,7 +136,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.
-	 * @throws TimeoutException
+	 * @throws java.util.concurrent.TimeoutException
 	 *             if no id was set.
 	 */
 	protected String requestNodeId() throws TimeoutException {

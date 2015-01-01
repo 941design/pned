@@ -34,7 +34,7 @@ public interface NodeRemovalListener
 	 * <p>
 	 * removeSelectedNodes.
 	 * </p>
-	 * 
+	 *
 	 * FIXME - separate
 	 *
 	 * @param e

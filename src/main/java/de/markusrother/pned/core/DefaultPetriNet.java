@@ -18,7 +18,7 @@ import de.markusrother.util.JsonBuilder;
 
 /**
  * <p>
- * Default implementation of {@link PetriNetModel}.
+ * Default implementation of {@link de.markusrother.pned.core.PetriNetModel}.
  * </p>
  *
  * @author Markus Rother
@@ -210,7 +210,7 @@ public class DefaultPetriNet
 	 * Returns this Petri net's places and transitions.
 	 * </p>
 	 *
-	 * @return a {@link java.util.Collection} of {@link NodeModel} - all current
+	 * @return a {@link java.util.Collection} of {@link de.markusrother.pned.core.NodeModel} - all current
 	 *         nodes.
 	 */
 	@XmlAnyElement
