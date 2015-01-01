@@ -2,6 +2,7 @@ package de.markusrother.pned.gui.components;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -9,6 +10,8 @@ import javax.swing.JFrame;
 import javax.xml.stream.XMLStreamException;
 
 import de.markusrother.pned.commands.PetriNetEditCommand;
+import de.markusrother.pned.commands.PetriNetIOCommand;
+import de.markusrother.pned.commands.listeners.PetriNetIOListener;
 import de.markusrother.pned.commands.listeners.PetriNetListener;
 import de.markusrother.pned.core.EventAwarePetriNet;
 import de.markusrother.pned.gui.EventBus;
@@ -28,7 +31,8 @@ import de.markusrother.pned.io.PNMLParser;
  */
 public class PnEditorFrame extends JFrame
 	implements
-		PetriNetListener {
+		PetriNetListener,
+		PetriNetIOListener {
 
 	/** Constant <code>preferredSize</code> */
 	private static final Dimension preferredSize = new Dimension(800, 600);
@@ -37,6 +41,8 @@ public class PnEditorFrame extends JFrame
 	private final PnEditorMenuFactory menuFactory;
 	private PnGridPanel grid;
 	private PnedMenuBar pnedMenuBar;
+
+	private File currentPath;
 
 	/**
 	 * <p>
@@ -85,14 +91,16 @@ public class PnEditorFrame extends JFrame
 	 * @return a {@link de.markusrother.pned.gui.EventBus} object.
 	 */
 	private EventBus createNewContext() {
-		final EventBus eventMulticaster = new EventBus();
-		createPetriNetModel(eventMulticaster);
-		eventMulticaster.addListener(PetriNetListener.class, this);
-		eventMulticaster.setCurrentNodeType(new SetNodeTypeCommand(this, NodeCreationMode.PLACE));
+		final EventBus eventBus = new EventBus();
+		createPetriNetModel(eventBus);
+		eventBus.addListener(PetriNetListener.class, this);
+		eventBus.addListener(PetriNetIOListener.class, this);
+		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, NodeCreationMode.PLACE));
 		if (menuFactory != null) {
-			menuFactory.setEventBus(eventMulticaster);
+			menuFactory.setEventBus(eventBus);
 		}
-		return eventMulticaster;
+		eventBus.setCurrentPath(new PetriNetIOCommand(this, currentPath));
+		return eventBus;
 	}
 
 	/**
@@ -132,6 +140,7 @@ public class PnEditorFrame extends JFrame
 		// Can only be gc'ed if EventBus becomes garbage as well.
 		getContentPane().remove(grid);
 		eventBus.removeListener(PetriNetListener.class, this);
+		eventBus.removeListener(PetriNetIOListener.class, this);
 
 		this.eventBus = createNewContext();
 		this.grid = new PnGridPanel(eventBus);
@@ -141,5 +150,20 @@ public class PnEditorFrame extends JFrame
 		setJMenuBar(pnedMenuBar);
 		pack();
 		// repaint(); // TODO ???
+	}
+
+	@Override
+	public void setCurrentPath(final PetriNetIOCommand cmd) {
+		this.currentPath = cmd.getFile();
+	}
+
+	@Override
+	public void importPnml(final PetriNetIOCommand cmd) {
+		// IGNORE
+	}
+
+	@Override
+	public void exportPnml(final PetriNetIOCommand cmd) {
+		// IGNORE
 	}
 }
