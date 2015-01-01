@@ -3,6 +3,7 @@ package de.markusrother.pned.gui.components;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 
@@ -161,7 +162,14 @@ public class PnEditorFrame extends JFrame
 	/** {@inheritDoc} */
 	@Override
 	public void importPnml(final PetriNetIOCommand cmd) {
-		// IGNORE
+		createPetriNet(null);
+		final File file = cmd.getFile();
+		try {
+			PNMLParser.parse(file, eventBus);
+		} catch (FileNotFoundException | XMLStreamException e) {
+			// FIXME
+			throw new RuntimeException("TODO");
+		}
 	}
 
 	/** {@inheritDoc} */
