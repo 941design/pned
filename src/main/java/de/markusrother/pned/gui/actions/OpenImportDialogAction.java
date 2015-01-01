@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui.menus.actions;
+package de.markusrother.pned.gui.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

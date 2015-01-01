@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui.menus.actions;
+package de.markusrother.pned.gui.actions;
 
 import de.markusrother.pned.gui.dialogs.FileDialogFactory;
 

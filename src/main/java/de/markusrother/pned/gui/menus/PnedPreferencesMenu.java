@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 
 import de.markusrother.pned.gui.GuiEventTarget;
-import de.markusrother.pned.gui.menus.actions.OpenEditSettingsDialogAction;
+import de.markusrother.pned.gui.actions.OpenEditSettingsDialogAction;
 
 /**
  * <p>

@@ -11,9 +11,9 @@ import javax.swing.JRadioButtonMenuItem;
 
 import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
-import de.markusrother.pned.gui.menus.actions.CreatePlaceAction;
-import de.markusrother.pned.gui.menus.actions.CreateTransitionAction;
-import de.markusrother.pned.gui.menus.actions.RemoveSelectedNodesAction;
+import de.markusrother.pned.gui.actions.CreatePlaceAction;
+import de.markusrother.pned.gui.actions.CreateTransitionAction;
+import de.markusrother.pned.gui.actions.RemoveSelectedNodesAction;
 
 /**
  * <p>PnedEditMenu class.</p>

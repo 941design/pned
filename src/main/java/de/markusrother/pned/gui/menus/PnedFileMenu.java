@@ -5,10 +5,10 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 
 import de.markusrother.pned.gui.EventTarget;
+import de.markusrother.pned.gui.actions.CreatePetriNetAction;
+import de.markusrother.pned.gui.actions.OpenExportDialogAction;
+import de.markusrother.pned.gui.actions.OpenImportDialogAction;
 import de.markusrother.pned.gui.dialogs.FileDialogFactory;
-import de.markusrother.pned.gui.menus.actions.CreatePetriNetAction;
-import de.markusrother.pned.gui.menus.actions.OpenExportDialogAction;
-import de.markusrother.pned.gui.menus.actions.OpenImportDialogAction;
 
 /**
  * <p>

@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui.menus.actions;
+package de.markusrother.pned.gui.actions;
 
 import static de.markusrother.pned.gui.NodeCreationMode.TRANSITION;
 
@@ -39,7 +39,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	 * <p>
 	 * Creates and returns a {@link javax.swing.JRadioButtonMenuItem} where toggle and click
 	 * on label trigger separate actions as described here
-	 * {@link de.markusrother.pned.gui.menus.actions.CreateTransitionAction}.
+	 * {@link de.markusrother.pned.gui.actions.CreateTransitionAction}.
 	 * </p>
 	 *
 	 * @param eventBus
@@ -49,7 +49,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	 *            {@link java.util.EventObject}s' source.
 	 * @param locationProvider
 	 *            a
-	 *            {@link de.markusrother.pned.gui.menus.actions.LocationProvider}
+	 *            {@link de.markusrother.pned.gui.actions.LocationProvider}
 	 *            to provide coordinates for newly created nodes.
 	 * @return a {@link javax.swing.JRadioButtonMenuItem} with this action
 	 *         bound.
@@ -75,7 +75,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	 *            {@link java.util.EventObject}s' source.
 	 * @param locationProvider
 	 *            a
-	 *            {@link de.markusrother.pned.gui.menus.actions.LocationProvider}
+	 *            {@link de.markusrother.pned.gui.actions.LocationProvider}
 	 *            to provide coordinates for newly created nodes.
 	 */
 	private CreateTransitionAction(final EventBus eventBus, final Object source, final LocationProvider locationProvider) {

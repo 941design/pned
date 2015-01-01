@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui.menus.actions;
+package de.markusrother.pned.gui.actions;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -75,7 +75,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 *            {@link java.util.EventObject}s' source.
 	 * @param locationProvider
 	 *            a
-	 *            {@link de.markusrother.pned.gui.menus.actions.LocationProvider}
+	 *            {@link de.markusrother.pned.gui.actions.LocationProvider}
 	 *            to provide coordinates for newly created nodes.
 	 * @param mnemonic
 	 *            an int.

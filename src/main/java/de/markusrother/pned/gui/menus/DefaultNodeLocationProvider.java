@@ -2,11 +2,11 @@ package de.markusrother.pned.gui.menus;
 
 import java.awt.Point;
 
-import de.markusrother.pned.gui.menus.actions.LocationProvider;
+import de.markusrother.pned.gui.actions.LocationProvider;
 
 /**
  * <p>
- * Default, singleton implementation of {@link de.markusrother.pned.gui.menus.actions.LocationProvider}.
+ * Default, singleton implementation of {@link de.markusrother.pned.gui.actions.LocationProvider}.
  * </p>
  *
  * @author Markus Rother
