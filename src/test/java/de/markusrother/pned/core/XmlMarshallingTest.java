@@ -44,7 +44,7 @@ public class XmlMarshallingTest extends AbstractPetriNetTest {
 	private String xml;
 
 	private void buildXml() throws JAXBException {
-		final Class<?>[] context = { PetriNetImpl.class, PlaceImpl.class, TransitionImpl.class, EdgeImpl.class };
+		final Class<?>[] context = { DefaultPetriNet.class, DefaultPlace.class, DefaultTransition.class, DefaultEdge.class };
 		final JAXBContext jaxbContext = JAXBContext.newInstance(context);
 		final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();

@@ -7,7 +7,7 @@ import org.junit.Test;
 import de.markusrother.pned.commands.listeners.PetriNetIOListener;
 import de.markusrother.pned.core.AbstractPetriNetTest;
 import de.markusrother.pned.core.CommandSourceMock;
-import de.markusrother.pned.core.PetriNetImpl;
+import de.markusrother.pned.core.DefaultPetriNet;
 import de.markusrother.pned.core.exceptions.NoSuchNodeException;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
 import de.markusrother.pned.gui.listeners.IdRequestListener;
@@ -34,7 +34,7 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 	@Test
 	public void testAllListenersAdded() {
 		final CommandSourceMock eventSource = new CommandSourceMock();
-		final PetriNetImpl petriNet = new EventAwarePetriNet(eventSource);
+		final DefaultPetriNet petriNet = new EventAwarePetriNet(eventSource);
 		assertEquals(petriNet, eventSource.getListeners(IdRequestListener.class)[0]);
 		assertEquals(petriNet, eventSource.getListeners(PetriNetIOListener.class)[0]);
 		assertEquals(petriNet, eventSource.getListeners(NodeCreationListener.class)[0]);

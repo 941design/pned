@@ -11,13 +11,11 @@ import de.markusrother.util.JsonBuilder;
  * Default implementation of {@link EdgeModel}.
  * </p>
  * 
- * FIXME - rename to DefaultEdge
- *
  * @author Markus Rother
  * @version 1.0
  */
 @XmlRootElement(name = "arc")
-public class EdgeImpl
+public class DefaultEdge
 	implements
 		EdgeModel,
 		JsonBuildable {
@@ -35,7 +33,7 @@ public class EdgeImpl
 	 * Default constructor needed by XmlMarshaller!
 	 * </p>
 	 */
-	private @SuppressWarnings("unused") EdgeImpl() {
+	private @SuppressWarnings("unused") DefaultEdge() {
 		// IGNORE
 		this.id = null;
 	}
@@ -52,7 +50,7 @@ public class EdgeImpl
 	 * @param targetId
 	 *            a {@link java.lang.String} - the target node's unique id.
 	 */
-	public EdgeImpl(final String edgeId, final String sourceId, final String targetId) {
+	public DefaultEdge(final String edgeId, final String sourceId, final String targetId) {
 		this.id = edgeId;
 		this.sourceId = sourceId;
 		this.targetId = targetId;

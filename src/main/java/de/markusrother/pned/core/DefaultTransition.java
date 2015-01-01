@@ -9,13 +9,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Default implementation of {@link TransitionModel}.
  * </p>
  * 
- * FIXME - rename to DefaultTransition
- *
  * @author Markus Rother
  * @version 1.0
  */
 @XmlRootElement(name = "transition")
-public class TransitionImpl extends NodeImpl
+public class DefaultTransition extends AbstractDefaultNode
 	implements
 		TransitionModel {
 
@@ -24,7 +22,7 @@ public class TransitionImpl extends NodeImpl
 	 * Default constructor needed by XmlMarshaller!
 	 * </p>
 	 */
-	private @SuppressWarnings("unused") TransitionImpl() {
+	private @SuppressWarnings("unused") DefaultTransition() {
 		// IGNORE
 	}
 
@@ -38,7 +36,7 @@ public class TransitionImpl extends NodeImpl
 	 * @param point
 	 *            a {@link java.awt.Point} - this transition's coordinates.
 	 */
-	public TransitionImpl(final String nodeId, final Point point) {
+	public DefaultTransition(final String nodeId, final Point point) {
 		super(nodeId, point);
 	}
 

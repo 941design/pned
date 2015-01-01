@@ -12,12 +12,10 @@ import de.markusrother.pned.core.exceptions.UnavailableIdException;
  * {@link PlaceModel}s, {@link TransitionModel}s, and {@link EdgeModel}s.
  * </p>
  * 
- * FIXME - rename to PetriNetModel
- *
  * @author Markus Rother
  * @version 1.0
  */
-public interface PetriNet {
+public interface PetriNetModel {
 
 	/**
 	 * <p>

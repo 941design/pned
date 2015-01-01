@@ -12,13 +12,11 @@ import de.markusrother.util.JsonBuilder;
  * Default implementation of {@link PlaceModel}.
  * </p>
  *
- * FIXME - rename to DefaultPlace
- *
  * @author Markus Rother
  * @version 1.0
  */
 @XmlRootElement(name = "place")
-public class PlaceImpl extends NodeImpl
+public class DefaultPlace extends AbstractDefaultNode
 	implements
 		PlaceModel {
 
@@ -30,7 +28,7 @@ public class PlaceImpl extends NodeImpl
 	 * Default constructor needed by XmlMarshaller!
 	 * </p>
 	 */
-	private @SuppressWarnings("unused") PlaceImpl() {
+	private @SuppressWarnings("unused") DefaultPlace() {
 		// IGNORE
 	}
 
@@ -44,7 +42,7 @@ public class PlaceImpl extends NodeImpl
 	 * @param point
 	 *            a {@link java.awt.Point} - this place's coordinates.
 	 */
-	public PlaceImpl(final String nodeId, final Point point) {
+	public DefaultPlace(final String nodeId, final Point point) {
 		super(nodeId, point);
 	}
 

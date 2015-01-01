@@ -14,7 +14,7 @@ import de.markusrother.pned.commands.PetriNetIOCommand;
 import de.markusrother.pned.commands.listeners.PetriNetIOListener;
 import de.markusrother.pned.commands.listeners.TransitionActivationListener;
 import de.markusrother.pned.core.NodeModel;
-import de.markusrother.pned.core.PetriNetImpl;
+import de.markusrother.pned.core.DefaultPetriNet;
 import de.markusrother.pned.core.PlaceModel;
 import de.markusrother.pned.core.TransitionModel;
 import de.markusrother.pned.core.events.TransitionActivationEvent.Type;
@@ -47,7 +47,7 @@ import de.markusrother.pned.io.PetriNetMarshaller;
  * @author Markus Rother
  * @version 1.0
  */
-public class EventAwarePetriNet extends PetriNetImpl
+public class EventAwarePetriNet extends DefaultPetriNet
 	implements
 		PetriNetIOListener,
 		IdRequestListener,

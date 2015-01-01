@@ -18,19 +18,17 @@ import de.markusrother.util.JsonBuilder;
 
 /**
  * <p>
- * Default implementation of {@link PetriNet}.
+ * Default implementation of {@link PetriNetModel}.
  * </p>
  *
- * FIXME - rename to DefaultPetriNet
- * 
  * @author Markus Rother
  * @version 1.0
  */
 @XmlRootElement(name = "net")
 @XmlType(propOrder = { "nodes", "edges" })
-public class PetriNetImpl
+public class DefaultPetriNet
 	implements
-		PetriNet,
+		PetriNetModel,
 		JsonBuildable {
 
 	/** All of this Petri net's current places. */
@@ -48,7 +46,7 @@ public class PetriNetImpl
 	 * Constructor for PetriNetImpl.
 	 * </p>
 	 */
-	public PetriNetImpl() {
+	public DefaultPetriNet() {
 		this.places = new LinkedList<>();
 		this.transitions = new LinkedList<>();
 		this.edges = new LinkedList<>();
@@ -131,7 +129,7 @@ public class PetriNetImpl
 		if (!isIdAvailable(placeId)) {
 			throw new UnavailableIdException(placeId);
 		}
-		final PlaceModel place = new PlaceImpl(placeId, point);
+		final PlaceModel place = new DefaultPlace(placeId, point);
 		places.add(place);
 		return place;
 	}
@@ -155,7 +153,7 @@ public class PetriNetImpl
 		} else if (!isIdAvailable(transitionId)) {
 			throw new UnavailableIdException(transitionId);
 		}
-		final TransitionModel transition = new TransitionImpl(transitionId, point);
+		final TransitionModel transition = new DefaultTransition(transitionId, point);
 		transitions.add(transition);
 		return transition;
 	}
@@ -184,7 +182,7 @@ public class PetriNetImpl
 		} else if (!nodeExists(targetId)) {
 			throw new NoSuchNodeException(targetId);
 		}
-		final EdgeModel edge = new EdgeImpl(edgeId, sourceId, targetId);
+		final EdgeModel edge = new DefaultEdge(edgeId, sourceId, targetId);
 		edges.add(edge);
 		return edge;
 	}

@@ -16,12 +16,10 @@ import de.markusrother.util.JsonBuilder;
  * Abstract default implementation of {@link NodeModel}.
  * </p>
  * 
- * FIXME - rename to AbstractDefaultNode
- *
  * @author Markus Rother
  * @version 1.0
  */
-public abstract class NodeImpl
+public abstract class AbstractDefaultNode
 	implements
 		NodeModel,
 		JsonBuildable {
@@ -35,7 +33,7 @@ public abstract class NodeImpl
 	 * Default constructor needed by XmlMarshaller!
 	 * </p>
 	 */
-	protected NodeImpl() {
+	protected AbstractDefaultNode() {
 		// IGNORE
 		this.id = null;
 	}
@@ -50,7 +48,7 @@ public abstract class NodeImpl
 	 * @param point
 	 *            a {@link java.awt.Point} - this node's coordinates.
 	 */
-	protected NodeImpl(final String nodeId, final Point point) {
+	protected AbstractDefaultNode(final String nodeId, final Point point) {
 		this.id = nodeId;
 		this.position = point;
 	}

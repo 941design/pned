@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * <p>
- * A class transforming the {@link de.markusrother.pned.core.NodeImpl#getLabel}
+ * A class transforming the {@link de.markusrother.pned.core.AbstractDefaultNode#getLabel}
  * to a {@link de.markusrother.pned.io.LabelVO} during conversion to pnml (xml).
  * </p>
  *
