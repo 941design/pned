@@ -30,6 +30,8 @@ public class PnedFileMenu extends JMenu {
 	 *
 	 * @param eventTarget
 	 *            a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param fileDialogFactory
+	 *            a {@link FileDialogFactory}.
 	 */
 	PnedFileMenu(final EventTarget eventTarget, final FileDialogFactory fileDialogFactory) {
 		super(label);

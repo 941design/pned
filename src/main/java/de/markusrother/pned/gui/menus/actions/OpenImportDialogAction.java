@@ -60,9 +60,7 @@ public class OpenImportDialogAction extends AbstractOpenFileDialogAction {
 		super(fileDialogFactory, menuLabel, actionMnemonic);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 		fileDialogFactory.openImportDialog();
