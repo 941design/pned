@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui.events;
+package de.markusrother.pned.core.events;
 
 import java.util.EventObject;
 import java.util.concurrent.ExecutionException;

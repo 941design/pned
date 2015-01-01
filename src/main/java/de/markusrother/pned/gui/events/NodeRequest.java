@@ -1,5 +1,6 @@
 package de.markusrother.pned.gui.events;
 
+import de.markusrother.pned.core.events.Request;
 import de.markusrother.pned.gui.components.AbstractNode;
 
 /**

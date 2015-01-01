@@ -1,5 +1,7 @@
 package de.markusrother.pned.gui.events;
 
+import de.markusrother.pned.core.events.Request;
+
 /**
  * <p>IdRequest class.</p>
  *
