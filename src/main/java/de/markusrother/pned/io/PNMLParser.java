@@ -50,7 +50,7 @@ import de.markusrother.pned.gui.events.TransitionCreationCommand;
  * <p>
  * ... where {@link de.markusrother.pned.core.events.EventBus} implements
  * {@link de.markusrother.pned.core.events.EventTarget},
- * {@link de.markusrother.pned.core.EventAwarePetriNet} implements all necessary
+ * {@link de.markusrother.pned.core.events.EventAwarePetriNet} implements all necessary
  * {@link java.util.EventListener}s, and {@code pnmlResource} is any first
  * parameter of one of the following business methods.
  * </p>

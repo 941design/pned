@@ -14,7 +14,7 @@ import de.markusrother.pned.commands.PetriNetEditCommand;
 import de.markusrother.pned.commands.PetriNetIOCommand;
 import de.markusrother.pned.commands.listeners.PetriNetIOListener;
 import de.markusrother.pned.commands.listeners.PetriNetListener;
-import de.markusrother.pned.core.EventAwarePetriNet;
+import de.markusrother.pned.core.events.EventAwarePetriNet;
 import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;

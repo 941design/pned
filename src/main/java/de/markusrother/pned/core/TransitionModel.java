@@ -1,7 +1,9 @@
 package de.markusrother.pned.core;
 
 /**
- * <p>TransitionModel interface.</p>
+ * <p>
+ * Mutable model for Petri net transitions.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0

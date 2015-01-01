@@ -13,6 +13,7 @@ import org.junit.Assert;
 import org.junit.Before;
 
 import de.markusrother.pned.commands.listeners.TransitionActivationListener;
+import de.markusrother.pned.core.events.EventAwarePetriNet;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.events.TransitionActivationEvent.Type;
 import de.markusrother.pned.gui.events.AbstractNodeCreationCommand;

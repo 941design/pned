@@ -5,7 +5,11 @@ import java.awt.Point;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * <p>TransitionImpl class.</p>
+ * <p>
+ * Default implementation of {@link TransitionModel}.
+ * </p>
+ * 
+ * FIXME - rename to DefaultTransition
  *
  * @author Markus Rother
  * @version 1.0
@@ -16,17 +20,23 @@ public class TransitionImpl extends NodeImpl
 		TransitionModel {
 
 	/**
-	 * <p>Constructor for TransitionImpl.</p>
+	 * <p>
+	 * Default constructor needed by XmlMarshaller!
+	 * </p>
 	 */
 	private @SuppressWarnings("unused") TransitionImpl() {
-		// IGNORE - Only needed by XmlMarshaller!
+		// IGNORE
 	}
 
 	/**
-	 * <p>Constructor for TransitionImpl.</p>
+	 * <p>
+	 * Constructor for TransitionImpl.
+	 * </p>
 	 *
-	 * @param nodeId a {@link java.lang.String} object.
-	 * @param point a {@link java.awt.Point} object.
+	 * @param nodeId
+	 *            a {@link java.lang.String} - this transition's unique id.
+	 * @param point
+	 *            a {@link java.awt.Point} - this transition's coordinates.
 	 */
 	public TransitionImpl(final String nodeId, final Point point) {
 		super(nodeId, point);

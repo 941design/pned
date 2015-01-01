@@ -1,8 +1,11 @@
 package de.markusrother.pned.core;
 
-
 /**
- * <p>PlaceModel interface.</p>
+ * <p>
+ * Mutable model for Petri net places. In addition to {@link NodeModel}s places
+ * consist of a mutable marking. The marking is <b>not</b> typed, but is rather
+ * a simple weight count.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -12,16 +15,21 @@ public interface PlaceModel
 		NodeModel {
 
 	/**
-	 * <p>getMarking.</p>
+	 * <p>
+	 * Returns this place's current marking.
+	 * </p>
 	 *
-	 * @return a int.
+	 * @return a int - the marking.
 	 */
 	int getMarking();
 
 	/**
-	 * <p>setMarking.</p>
+	 * <p>
+	 * Sets this place's marking.
+	 * </p>
 	 *
-	 * @param marking a int.
+	 * @param marking
+	 *            a int - the new marking.
 	 */
 	void setMarking(int marking);
 

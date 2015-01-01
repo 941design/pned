@@ -8,7 +8,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import de.markusrother.util.JsonBuilder;
 
 /**
- * <p>PlaceImpl class.</p>
+ * <p>
+ * Default implementation of {@link PlaceModel}.
+ * </p>
+ *
+ * FIXME - rename to DefaultPlace
  *
  * @author Markus Rother
  * @version 1.0
@@ -18,20 +22,27 @@ public class PlaceImpl extends NodeImpl
 	implements
 		PlaceModel {
 
+	/** The current marking. */
 	private int marking;
 
 	/**
-	 * <p>Constructor for PlaceImpl.</p>
+	 * <p>
+	 * Default constructor needed by XmlMarshaller!
+	 * </p>
 	 */
 	private @SuppressWarnings("unused") PlaceImpl() {
-		// IGNORE - Only needed by XmlMarshaller!
+		// IGNORE
 	}
 
 	/**
-	 * <p>Constructor for PlaceImpl.</p>
+	 * <p>
+	 * Constructor for PlaceImpl.
+	 * </p>
 	 *
-	 * @param nodeId a {@link java.lang.String} object.
-	 * @param point a {@link java.awt.Point} object.
+	 * @param nodeId
+	 *            a {@link java.lang.String} - this place's unique id.
+	 * @param point
+	 *            a {@link java.awt.Point} - this place's coordinates.
 	 */
 	public PlaceImpl(final String nodeId, final Point point) {
 		super(nodeId, point);

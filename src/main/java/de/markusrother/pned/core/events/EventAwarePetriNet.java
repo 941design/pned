@@ -1,4 +1,4 @@
-package de.markusrother.pned.core;
+package de.markusrother.pned.core.events;
 
 import java.awt.Point;
 import java.io.File;
@@ -13,12 +13,13 @@ import javax.xml.bind.JAXBException;
 import de.markusrother.pned.commands.PetriNetIOCommand;
 import de.markusrother.pned.commands.listeners.PetriNetIOListener;
 import de.markusrother.pned.commands.listeners.TransitionActivationListener;
-import de.markusrother.pned.core.events.EventBus;
-import de.markusrother.pned.core.events.PetriNetCommandSource;
-import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.core.events.TransitionActivationEvent;
-import de.markusrother.pned.core.events.TransitionActivationEventSource;
+import de.markusrother.pned.core.NodeModel;
+import de.markusrother.pned.core.PetriNetImpl;
+import de.markusrother.pned.core.PlaceModel;
+import de.markusrother.pned.core.TransitionModel;
 import de.markusrother.pned.core.events.TransitionActivationEvent.Type;
+import de.markusrother.pned.core.exceptions.NoSuchNodeException;
+import de.markusrother.pned.core.exceptions.UnavailableIdException;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.IdRequest;
 import de.markusrother.pned.gui.events.LabelEditEvent;
@@ -69,7 +70,8 @@ public class EventAwarePetriNet extends PetriNetImpl
 	 *
 	 * @param eventMulticaster
 	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
-	 * @return a {@link de.markusrother.pned.core.EventAwarePetriNet} object.
+	 * @return a {@link de.markusrother.pned.core.events.EventAwarePetriNet}
+	 *         object.
 	 */
 	public static EventAwarePetriNet create(final EventBus eventMulticaster) {
 		return new EventAwarePetriNet(eventMulticaster);
@@ -85,7 +87,7 @@ public class EventAwarePetriNet extends PetriNetImpl
 	 * @param <T>
 	 *            a T object.
 	 */
-	<T extends PetriNetCommandSource & TransitionActivationListener> EventAwarePetriNet(final T eventBus) {
+	public <T extends PetriNetCommandSource & TransitionActivationListener> EventAwarePetriNet(final T eventBus) {
 		this.commandSource = eventBus;
 		this.transitionActivationListeners = new LinkedList<>();
 
@@ -148,7 +150,12 @@ public class EventAwarePetriNet extends PetriNetImpl
 	public void createPlace(final PlaceCreationCommand cmd) {
 		final Point point = cmd.getPoint();
 		final String nodeId = cmd.getNodeId();
-		createPlace(nodeId, point);
+		try {
+			createPlace(nodeId, point);
+		} catch (final UnavailableIdException e) {
+			// FIXME - create RequestException
+			throw new RuntimeException("TODO");
+		}
 	}
 
 	/** {@inheritDoc} */
@@ -156,7 +163,12 @@ public class EventAwarePetriNet extends PetriNetImpl
 	public void createTransition(final TransitionCreationCommand cmd) {
 		final Point point = cmd.getPoint();
 		final String nodeId = cmd.getNodeId();
-		createTransition(nodeId, point);
+		try {
+			createTransition(nodeId, point);
+		} catch (final UnavailableIdException e) {
+			// FIXME - create RequestException
+			throw new RuntimeException("TODO");
+		}
 	}
 
 	/** {@inheritDoc} */
@@ -169,10 +181,15 @@ public class EventAwarePetriNet extends PetriNetImpl
 		maybeFireTransitionActivationEvent(new Runnable() {
 			@Override
 			public void run() {
-				if (edgeId != null) {
-					createEdge(edgeId, sourceId, targetId);
-				} else {
-					createEdge(sourceId, targetId);
+				try {
+					if (edgeId != null) {
+						createEdge(edgeId, sourceId, targetId);
+					} else {
+						createEdge(sourceId, targetId);
+					}
+				} catch (final NoSuchNodeException | UnavailableIdException e) {
+					// FIXME - throw some generic exception
+					throw new RuntimeException("TODO");
 				}
 			}
 		});
@@ -227,7 +244,12 @@ public class EventAwarePetriNet extends PetriNetImpl
 		maybeFireTransitionActivationEvent(new Runnable() {
 			@Override
 			public void run() {
-				setMarking(placeId, marking);
+				try {
+					setMarking(placeId, marking);
+				} catch (final NoSuchNodeException e) {
+					// FIXME - throw some generic exception
+					throw new RuntimeException("TODO");
+				}
 			}
 		});
 	}
@@ -240,7 +262,12 @@ public class EventAwarePetriNet extends PetriNetImpl
 		maybeFireTransitionActivationEvent(new Runnable() {
 			@Override
 			public void run() {
-				setLabel(placeId, label);
+				try {
+					setLabel(placeId, label);
+				} catch (final NoSuchNodeException e) {
+					// FIXME - throw some generic exception
+					throw new RuntimeException("TODO");
+				}
 			}
 		});
 

@@ -8,7 +8,7 @@ import de.markusrother.pned.commands.listeners.TransitionActivationListener;
 import de.markusrother.pned.core.events.PetriNetCommandSource;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 
-class CommandSourceMock
+public class CommandSourceMock
 	implements
 		PetriNetCommandSource,
 		TransitionActivationListener {

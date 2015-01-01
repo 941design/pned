@@ -3,10 +3,15 @@ package de.markusrother.pned.core;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import de.markusrother.util.JsonBuildable;
 import de.markusrother.util.JsonBuilder;
 
 /**
- * <p>EdgeImpl class.</p>
+ * <p>
+ * Default implementation of {@link EdgeModel}.
+ * </p>
+ * 
+ * FIXME - rename to DefaultEdge
  *
  * @author Markus Rother
  * @version 1.0
@@ -14,28 +19,38 @@ import de.markusrother.util.JsonBuilder;
 @XmlRootElement(name = "arc")
 public class EdgeImpl
 	implements
-		EdgeModel {
+		EdgeModel,
+		JsonBuildable {
 
+	/** This edge's immutable unique identifier */
 	private final String id;
 
+	/** The source node's unique identifier */
 	private String sourceId;
-
+	/** The target node's unique identifier */
 	private String targetId;
 
 	/**
-	 * <p>Constructor for EdgeImpl.</p>
+	 * <p>
+	 * Default constructor needed by XmlMarshaller!
+	 * </p>
 	 */
 	private @SuppressWarnings("unused") EdgeImpl() {
-		// IGNORE - Only needed by XmlMarshaller!
+		// IGNORE
 		this.id = null;
 	}
 
 	/**
-	 * <p>Constructor for EdgeImpl.</p>
+	 * <p>
+	 * Constructor for EdgeImpl.
+	 * </p>
 	 *
-	 * @param edgeId a {@link java.lang.String} object.
-	 * @param sourceId a {@link java.lang.String} object.
-	 * @param targetId a {@link java.lang.String} object.
+	 * @param edgeId
+	 *            a {@link java.lang.String} - this edge's unique id.
+	 * @param sourceId
+	 *            a {@link java.lang.String} - the source node's unique id.
+	 * @param targetId
+	 *            a {@link java.lang.String} - the target node's unique id.
 	 */
 	public EdgeImpl(final String edgeId, final String sourceId, final String targetId) {
 		this.id = edgeId;

@@ -6,37 +6,49 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import de.markusrother.pned.io.LabelMarshaller;
 import de.markusrother.pned.io.AbsolutePositionMarshaller;
+import de.markusrother.pned.io.LabelMarshaller;
+import de.markusrother.util.JsonBuildable;
 import de.markusrother.util.JsonBuilder;
 
 /**
- * <p>Abstract NodeImpl class.</p>
+ * <p>
+ * Abstract default implementation of {@link NodeModel}.
+ * </p>
+ * 
+ * FIXME - rename to AbstractDefaultNode
  *
  * @author Markus Rother
  * @version 1.0
  */
 public abstract class NodeImpl
 	implements
-		NodeModel {
+		NodeModel,
+		JsonBuildable {
 
 	private final String id;
 	private String label;
 	private Point position;
 
 	/**
-	 * <p>Constructor for NodeImpl.</p>
+	 * <p>
+	 * Default constructor needed by XmlMarshaller!
+	 * </p>
 	 */
 	protected NodeImpl() {
-		// IGNORE - Only needed by XmlMarshaller!
+		// IGNORE
 		this.id = null;
 	}
 
 	/**
-	 * <p>Constructor for NodeImpl.</p>
+	 * <p>
+	 * Constructor for NodeImpl.
+	 * </p>
 	 *
-	 * @param nodeId a {@link java.lang.String} object.
-	 * @param point a {@link java.awt.Point} object.
+	 * @param nodeId
+	 *            a {@link java.lang.String} - this node's unique id.
+	 * @param point
+	 *            a {@link java.awt.Point} - this node's coordinates.
 	 */
 	protected NodeImpl(final String nodeId, final Point point) {
 		this.id = nodeId;
@@ -105,9 +117,12 @@ public abstract class NodeImpl
 	}
 
 	/**
-	 * <p>writeAttributesAsString.</p>
+	 * <p>
+	 * Writes attributes to given json builder.
+	 * </p>
 	 *
-	 * @param jb a {@link de.markusrother.util.JsonBuilder} object.
+	 * @param jb
+	 *            a {@link de.markusrother.util.JsonBuilder} to be written to.
 	 */
 	protected void writeAttributesAsString(final JsonBuilder jb) {
 		jb.append("id", id) //
@@ -115,4 +130,5 @@ public abstract class NodeImpl
 				.append("x", position.x) //
 				.append("y", position.y);
 	}
+
 }

@@ -12,12 +12,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import de.markusrother.pned.core.exceptions.NoSuchNodeException;
+import de.markusrother.pned.core.exceptions.UnavailableIdException;
 import de.markusrother.util.JsonBuildable;
 import de.markusrother.util.JsonBuilder;
 
 /**
- * <p>PetriNetImpl class.</p>
+ * <p>
+ * Default implementation of {@link PetriNet}.
+ * </p>
  *
+ * FIXME - rename to DefaultPetriNet
+ * 
  * @author Markus Rother
  * @version 1.0
  */
@@ -25,16 +30,23 @@ import de.markusrother.util.JsonBuilder;
 @XmlType(propOrder = { "nodes", "edges" })
 public class PetriNetImpl
 	implements
-		PetriNet {
+		PetriNet,
+		JsonBuildable {
 
+	/** All of this Petri net's current places. */
 	protected final Collection<PlaceModel> places;
+	/** All of this Petri net's current transitions. */
 	protected final Collection<TransitionModel> transitions;
+	/** All of this Petri net's current edges. */
 	protected final Collection<EdgeModel> edges;
 
+	/** Running count of created elements, used for unique id generation. */
 	private int elementCount = 0;
 
 	/**
-	 * <p>Constructor for PetriNetImpl.</p>
+	 * <p>
+	 * Constructor for PetriNetImpl.
+	 * </p>
 	 */
 	public PetriNetImpl() {
 		this.places = new LinkedList<>();
@@ -43,9 +55,11 @@ public class PetriNetImpl
 	}
 
 	/**
-	 * <p>createId.</p>
+	 * <p>
+	 * Creates and returns a new unique identifier.
+	 * </p>
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} - a newly created id.
 	 */
 	protected String createId() {
 		String elementId;
@@ -56,10 +70,13 @@ public class PetriNetImpl
 	}
 
 	/**
-	 * <p>isIdAvailable.</p>
+	 * <p>
+	 * Tests whether the given identifier can be used for new elements.
+	 * </p>
 	 *
-	 * @param elementId a {@link java.lang.String} object.
-	 * @return a boolean.
+	 * @param elementId
+	 *            a {@link java.lang.String} - the requested id.
+	 * @return a boolean - true if provided id is still unused, false otherwise.
 	 */
 	private boolean isIdAvailable(final String elementId) {
 		for (final NodeModel node : getNodes()) {
@@ -97,14 +114,22 @@ public class PetriNetImpl
 	/** {@inheritDoc} */
 	@Override
 	public PlaceModel createPlace(final Point point) {
-		return createPlace(createId(), point);
+		try {
+			return createPlace(createId(), point);
+		} catch (final UnavailableIdException e) {
+			// Should never happen.
+			throw new IllegalStateException();
+		}
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public PlaceModel createPlace(final String placeId, final Point point) {
-		if (placeId == null || point == null || !isIdAvailable(placeId)) {
+	public PlaceModel createPlace(final String placeId, final Point point) throws UnavailableIdException {
+		if (placeId == null || point == null) {
 			throw new IllegalArgumentException();
+		}
+		if (!isIdAvailable(placeId)) {
+			throw new UnavailableIdException(placeId);
 		}
 		final PlaceModel place = new PlaceImpl(placeId, point);
 		places.add(place);
@@ -114,16 +139,21 @@ public class PetriNetImpl
 	/** {@inheritDoc} */
 	@Override
 	public TransitionModel createTransition(final Point point) {
-		return createTransition(createId(), point);
+		try {
+			return createTransition(createId(), point);
+		} catch (final UnavailableIdException e) {
+			// Should never happen.
+			throw new IllegalStateException();
+		}
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public TransitionModel createTransition(final String transitionId, final Point point) {
+	public TransitionModel createTransition(final String transitionId, final Point point) throws UnavailableIdException {
 		if (transitionId == null || point == null) {
 			throw new IllegalArgumentException();
 		} else if (!isIdAvailable(transitionId)) {
-			throw new IllegalArgumentException("Invalid transition id: " + transitionId);
+			throw new UnavailableIdException(transitionId);
 		}
 		final TransitionModel transition = new TransitionImpl(transitionId, point);
 		transitions.add(transition);
@@ -132,17 +162,23 @@ public class PetriNetImpl
 
 	/** {@inheritDoc} */
 	@Override
-	public EdgeModel createEdge(final String sourceId, final String targetId) {
-		return createEdge(createId(), sourceId, targetId);
+	public EdgeModel createEdge(final String sourceId, final String targetId) throws NoSuchNodeException {
+		try {
+			return createEdge(createId(), sourceId, targetId);
+		} catch (final UnavailableIdException e) {
+			// Should never happen.
+			throw new IllegalStateException();
+		}
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public EdgeModel createEdge(final String edgeId, final String sourceId, final String targetId) {
+	public EdgeModel createEdge(final String edgeId, final String sourceId, final String targetId)
+			throws UnavailableIdException, NoSuchNodeException {
 		if (edgeId == null || sourceId == null || targetId == null) {
 			throw new IllegalArgumentException();
 		} else if (!isIdAvailable(edgeId)) {
-			throw new IllegalArgumentException("Invalid edge id: " + edgeId);
+			throw new UnavailableIdException(edgeId);
 		} else if (!nodeExists(sourceId)) {
 			throw new NoSuchNodeException(sourceId);
 		} else if (!nodeExists(targetId)) {
@@ -154,10 +190,13 @@ public class PetriNetImpl
 	}
 
 	/**
-	 * <p>nodeExists.</p>
+	 * <p>
+	 * Tests whether a node with the given identifier exists.
+	 * </p>
 	 *
-	 * @param nodeId a {@link java.lang.String} object.
-	 * @return a boolean.
+	 * @param nodeId
+	 *            a {@link java.lang.String} - the requested id.
+	 * @return a boolean - true if node exists, false otherwise.
 	 */
 	private boolean nodeExists(final String nodeId) {
 		for (final NodeModel node : getNodes()) {
@@ -169,9 +208,12 @@ public class PetriNetImpl
 	}
 
 	/**
-	 * <p>getNodes.</p>
+	 * <p>
+	 * Returns this Petri net's places and transitions.
+	 * </p>
 	 *
-	 * @return a {@link java.util.Collection} object.
+	 * @return a {@link java.util.Collection} of {@link NodeModel} - all current
+	 *         nodes.
 	 */
 	@XmlAnyElement
 	protected Collection<NodeModel> getNodes() {
@@ -182,10 +224,14 @@ public class PetriNetImpl
 	}
 
 	/**
-	 * <p>getNode.</p>
+	 * <p>
+	 * Returns a single node if one exists for the given identifier.
+	 * </p>
 	 *
-	 * @param nodeId a {@link java.lang.String} object.
-	 * @return a {@link de.markusrother.pned.core.NodeModel} object.
+	 * @param nodeId
+	 *            a {@link java.lang.String} - the requested unique id.
+	 * @return a {@link de.markusrother.pned.core.NodeModel} - the requested
+	 *         node or {@code null} if none exists with the given id.
 	 */
 	private NodeModel getNode(final String nodeId) {
 		for (final NodeModel node : getNodes()) {
@@ -236,10 +282,10 @@ public class PetriNetImpl
 
 	/** {@inheritDoc} */
 	@Override
-	public void setLabel(final String nodeId, final String label) {
+	public void setLabel(final String nodeId, final String label) throws NoSuchNodeException {
 		final NodeModel node = getNode(nodeId);
 		if (node == null) {
-			throw new IllegalArgumentException("Invalid node id: " + nodeId);
+			throw new NoSuchNodeException(nodeId);
 		}
 		setLabel(node, label);
 	}
@@ -251,10 +297,10 @@ public class PetriNetImpl
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final String placeId, final int marking) {
+	public void setMarking(final String placeId, final int marking) throws NoSuchNodeException {
 		final PlaceModel place = getPlace(placeId);
 		if (place == null) {
-			throw new IllegalArgumentException("Invalid place id: " + placeId);
+			throw new NoSuchNodeException(placeId);
 		}
 		setMarking(place, marking);
 	}
@@ -279,9 +325,13 @@ public class PetriNetImpl
 	}
 
 	/**
-	 * <p>removeAjdacentEdges.</p>
+	 * <p>
+	 * Removes all adjacent (incoming and outgoing) edges of the given node.
+	 * </p>
 	 *
-	 * @param node a {@link de.markusrother.pned.core.NodeModel} object.
+	 * @param node
+	 *            a {@link de.markusrother.pned.core.NodeModel} - from which to
+	 *            remove its edges.
 	 */
 	private void removeAjdacentEdges(final NodeModel node) {
 		final String nodeId = node.getId();

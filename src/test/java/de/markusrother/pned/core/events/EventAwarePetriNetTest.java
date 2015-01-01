@@ -1,10 +1,13 @@
-package de.markusrother.pned.core;
+package de.markusrother.pned.core.events;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import de.markusrother.pned.commands.listeners.PetriNetIOListener;
+import de.markusrother.pned.core.AbstractPetriNetTest;
+import de.markusrother.pned.core.CommandSourceMock;
+import de.markusrother.pned.core.PetriNetImpl;
 import de.markusrother.pned.core.exceptions.NoSuchNodeException;
 import de.markusrother.pned.gui.listeners.EdgeCreationListener;
 import de.markusrother.pned.gui.listeners.IdRequestListener;

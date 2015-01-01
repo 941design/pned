@@ -2,66 +2,87 @@ package de.markusrother.pned.core;
 
 import java.awt.Point;
 
-import de.markusrother.util.JsonBuildable;
-
 /**
- * <p>NodeModel interface.</p>
+ * <p>
+ * Mutable model for Petri net nodes. Nodes consist of a unique, immutable
+ * identifier, and mutable label and coordinates.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
-public interface NodeModel
-	extends
-		JsonBuildable {
+public interface NodeModel {
 
 	/**
-	 * <p>getId.</p>
+	 * <p>
+	 * Returns this nodes's unique identifier.
+	 * </p>
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} - the id.
 	 */
 	String getId();
 
 	/**
-	 * <p>hasId.</p>
+	 * <p>
+	 * Returns true if given identifier equals this node's identifier.
+	 * </p>
+	 * <p>
+	 * Implementors should use the {@link String#equals} comparison.
+	 * </p>
 	 *
-	 * @param id a {@link java.lang.String} object.
-	 * @return a boolean.
+	 * @param id
+	 *            a {@link java.lang.String} - the id to compare against.
+	 * @return a boolean - the comparison's result.
 	 */
 	boolean hasId(String id);
 
 	/**
-	 * <p>getLabel.</p>
+	 * <p>
+	 * Returns this node's current label.
+	 * </p>
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} - the label.
 	 */
 	String getLabel();
 
 	/**
-	 * <p>setLabel.</p>
+	 * <p>
+	 * Sets this node's label.
+	 * </p>
 	 *
-	 * @param label a {@link java.lang.String} object.
+	 * @param label
+	 *            a {@link java.lang.String} - the new label.
 	 */
 	void setLabel(String label);
 
 	/**
-	 * <p>getPosition.</p>
+	 * <p>
+	 * Returns this node's current coordinates.
+	 * </p>
 	 *
-	 * @return a {@link java.awt.Point} object.
+	 * @return a {@link java.awt.Point} object - the coordinates.
 	 */
 	Point getPosition();
 
 	/**
-	 * <p>setPosition.</p>
+	 * <p>
+	 * Sets this node's coordinates
+	 * </p>
 	 *
-	 * @param origin a {@link java.awt.Point} object.
+	 * @param origin
+	 *            a {@link java.awt.Point} object - the new coordinates.
 	 */
 	void setPosition(Point origin);
 
 	/**
-	 * <p>move.</p>
+	 * <p>
+	 * Adjusts this node's coordinates by the given deltas.
+	 * </p>
 	 *
-	 * @param deltaX a int.
-	 * @param deltaY a int.
+	 * @param deltaX
+	 *            a int - the relative horizontal change.
+	 * @param deltaY
+	 *            a int - the relative vertical change.
 	 */
 	void move(int deltaX, int deltaY);
 
