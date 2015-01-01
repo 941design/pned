@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
 
-import de.markusrother.pned.gui.EventTarget;
+import de.markusrother.pned.core.events.EventTarget;
 import de.markusrother.pned.gui.actions.CreatePetriNetAction;
 import de.markusrother.pned.gui.actions.OpenExportDialogAction;
 import de.markusrother.pned.gui.actions.OpenImportDialogAction;
@@ -29,7 +29,7 @@ public class PnedFileMenu extends JMenu {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.gui.EventBus} object.
+	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
 	 * @param fileDialogFactory
 	 *            a {@link FileDialogFactory}.
 	 */

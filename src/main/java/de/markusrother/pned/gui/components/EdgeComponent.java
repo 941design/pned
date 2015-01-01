@@ -15,9 +15,9 @@ import de.markusrother.pned.commands.TransitionLayoutCommand;
 import de.markusrother.pned.commands.listeners.EdgeLayoutListener;
 import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
 import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.Disposable;
-import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
@@ -135,7 +135,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	/**
 	 * <p>Constructor for EdgeComponent.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 * @param sourceComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
 	 * @param source a {@link java.awt.Point} object.
 	 * @param target a {@link java.awt.Point} object.
@@ -148,7 +148,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	/**
 	 * <p>Constructor for EdgeComponent.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 * @param sourceComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
 	 * @param targetComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
 	 */
@@ -160,7 +160,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	/**
 	 * <p>Constructor for EdgeComponent.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 * @param sourceComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
 	 * @param targetComponent a {@link de.markusrother.pned.gui.components.AbstractNode} object.
 	 * @param source a {@link java.awt.Point} object.

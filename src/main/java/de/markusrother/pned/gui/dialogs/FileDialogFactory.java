@@ -4,8 +4,8 @@ import java.io.File;
 
 import de.markusrother.pned.commands.PetriNetIOCommand;
 import de.markusrother.pned.commands.listeners.PetriNetIOListener;
-import de.markusrother.pned.gui.EventBus;
-import de.markusrother.pned.gui.GuiEventTarget;
+import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.gui.events.GuiEventTarget;
 
 /**
  * <p>
@@ -33,7 +33,7 @@ public class FileDialogFactory
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.EventBus} to which dialogs
+	 *            a {@link de.markusrother.pned.core.events.EventBus} to which dialogs
 	 *            are to post their events.
 	 */
 	public FileDialogFactory(final EventBus eventBus) {
@@ -46,7 +46,7 @@ public class FileDialogFactory
 	 * Getter for this factories current {#link GuiEventTarget}.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.GuiEventTarget} to which events
+	 * @return a {@link de.markusrother.pned.gui.events.GuiEventTarget} to which events
 	 *         are posted to.
 	 */
 	public GuiEventTarget getEventTarget() {
@@ -59,7 +59,7 @@ public class FileDialogFactory
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.EventBus} to which resulting
+	 *            a {@link de.markusrother.pned.core.events.EventBus} to which resulting
 	 *            events are posted to and to which is listened to for directory
 	 *            changes.
 	 */

@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.menus;
 
 import javax.swing.JMenu;
 
-import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.dialogs.FileDialogFactory;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
@@ -39,7 +39,7 @@ public class PnEditorMenuFactory
 	 * Constructor for PnEditorMenuFactory.
 	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	public PnEditorMenuFactory(final EventBus eventBus) {
 		this.eventBus = eventBus;
@@ -123,7 +123,7 @@ public class PnEditorMenuFactory
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.EventBus} object.
+	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	public void setEventBus(final EventBus eventBus) {
 		if (this.eventBus != null) {

@@ -1,7 +1,8 @@
-package de.markusrother.pned.gui;
+package de.markusrother.pned.util;
 
 import java.util.EventObject;
 
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
@@ -41,7 +42,7 @@ public class PetriNetEventLogger
 	/**
 	 * <p>instantiate.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	public static void instantiate(final EventBus eventBus) {
 		final PetriNetEventLogger mock = new PetriNetEventLogger();

@@ -9,7 +9,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JRadioButtonMenuItem;
 
-import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.actions.CreatePlaceAction;
 import de.markusrother.pned.gui.actions.CreateTransitionAction;
@@ -31,7 +31,7 @@ public class PnedEditMenu extends JMenu {
 	/**
 	 * <p>Constructor for PnedEditMenu.</p>
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventMulticaster a {@link de.markusrother.pned.core.events.EventBus} object.
 	 * @param areNodesSelected a boolean.
 	 * @param mode a {@link de.markusrother.pned.gui.NodeCreationMode} object.
 	 */

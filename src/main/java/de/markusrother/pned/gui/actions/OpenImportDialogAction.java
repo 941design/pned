@@ -53,7 +53,7 @@ public class OpenImportDialogAction extends AbstractOpenFileDialogAction {
 	 * </p>
 	 *
 	 * @param fileDialogFactory
-	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
+	 *            an {@link de.markusrother.pned.gui.events.GuiEventTarget} to be
 	 *            posted to.
 	 */
 	private OpenImportDialogAction(final FileDialogFactory fileDialogFactory) {

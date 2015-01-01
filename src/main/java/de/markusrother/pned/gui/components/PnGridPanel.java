@@ -15,8 +15,8 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
 import de.markusrother.pned.gui.events.NodeRequest;
@@ -128,7 +128,7 @@ public class PnGridPanel extends JLayeredPane
 	 * I don't quite like passing this to other classes/methods/constructors,
 	 * while this is not fully initialized!
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventMulticaster a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	public PnGridPanel(final EventBus eventMulticaster) {
 

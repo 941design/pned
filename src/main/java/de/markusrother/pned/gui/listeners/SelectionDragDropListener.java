@@ -6,7 +6,7 @@ import java.awt.Point;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
@@ -26,7 +26,7 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 	/**
 	 * <p>Constructor for SelectionDragDropListener.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 * @param nodes a {@link java.util.Collection} object.
 	 */
 	public SelectionDragDropListener(final EventBus eventBus, final Collection<AbstractNode> nodes) {

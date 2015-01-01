@@ -8,10 +8,10 @@ import java.awt.Shape;
 
 import javax.swing.JPanel;
 
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.DefinitelyBounded;
 import de.markusrother.pned.gui.Disposable;
-import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
@@ -66,7 +66,7 @@ public abstract class AbstractNode extends JPanel
 	/**
 	 * <p>Constructor for AbstractNode.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 * @param layoutManager a {@link java.awt.LayoutManager} object.
 	 */
 	public AbstractNode(final EventBus eventBus, final LayoutManager layoutManager) {
@@ -86,7 +86,7 @@ public abstract class AbstractNode extends JPanel
 	/**
 	 * <p>Constructor for AbstractNode.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	public AbstractNode(final EventBus eventBus) {
 		this(eventBus, NO_LAYOUT_MANAGER);

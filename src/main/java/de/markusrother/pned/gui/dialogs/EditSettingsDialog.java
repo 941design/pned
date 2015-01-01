@@ -17,13 +17,13 @@ import de.markusrother.pned.commands.LayoutCommand.ChangeType;
 import de.markusrother.pned.commands.MarkingLayoutCommand;
 import de.markusrother.pned.commands.PlaceLayoutCommand;
 import de.markusrother.pned.commands.TransitionLayoutCommand;
-import de.markusrother.pned.gui.GuiEventTarget;
+import de.markusrother.pned.gui.events.GuiEventTarget;
 import de.markusrother.swing.ScaleGroup;
 
 /**
  * <p>
  * Dialog for adjusting Petri net element sizes. Size changes are posted as
- * {@link java.util.EventObject}s to the provided {@link de.markusrother.pned.gui.GuiEventTarget}.
+ * {@link java.util.EventObject}s to the provided {@link de.markusrother.pned.gui.events.GuiEventTarget}.
  * </p>
  *
  * @author Markus Rother
@@ -46,7 +46,7 @@ public class EditSettingsDialog extends AbstractDialog {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
+	 *            an {@link de.markusrother.pned.gui.events.GuiEventTarget} to be
 	 *            posted to.
 	 */
 	public static void open(final GuiEventTarget eventTarget) {
@@ -62,7 +62,7 @@ public class EditSettingsDialog extends AbstractDialog {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
+	 *            an {@link de.markusrother.pned.gui.events.GuiEventTarget} to be
 	 *            posted to.
 	 */
 	private EditSettingsDialog(final GuiEventTarget eventTarget) {

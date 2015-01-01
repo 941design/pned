@@ -7,8 +7,8 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 
@@ -30,7 +30,7 @@ public class RemoveSelectedNodesAction extends AbstractAction
 	/**
 	 * <p>newMenuItem.</p>
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventMulticaster a {@link de.markusrother.pned.core.events.EventBus} object.
 	 * @param source a {@link java.lang.Object} object.
 	 * @param enabled a boolean.
 	 * @return a {@link javax.swing.JMenuItem} object.
@@ -45,7 +45,7 @@ public class RemoveSelectedNodesAction extends AbstractAction
 	/**
 	 * <p>Constructor for RemoveSelectedNodesAction.</p>
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventMulticaster a {@link de.markusrother.pned.core.events.EventBus} object.
 	 * @param source a {@link java.lang.Object} object.
 	 * @param enabled a boolean.
 	 */

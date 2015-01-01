@@ -4,8 +4,8 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
 
-import de.markusrother.pned.gui.GuiEventTarget;
 import de.markusrother.pned.gui.actions.OpenEditSettingsDialogAction;
+import de.markusrother.pned.gui.events.GuiEventTarget;
 
 /**
  * <p>
@@ -26,7 +26,7 @@ public class PnedPreferencesMenu extends JMenu {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} object.
+	 *            a {@link de.markusrother.pned.gui.events.GuiEventTarget} object.
 	 */
 	PnedPreferencesMenu(final GuiEventTarget eventTarget) {
 		super(label);

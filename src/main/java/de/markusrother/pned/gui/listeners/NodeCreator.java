@@ -3,7 +3,7 @@ package de.markusrother.pned.gui.listeners;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.events.IdRequest;
 import de.markusrother.pned.gui.events.PlaceCreationCommand;
@@ -26,7 +26,7 @@ public class NodeCreator extends MouseAdapter
 	/**
 	 * <p>Constructor for NodeCreator.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	public NodeCreator(final EventBus eventBus) {
 		this.eventBus = eventBus;

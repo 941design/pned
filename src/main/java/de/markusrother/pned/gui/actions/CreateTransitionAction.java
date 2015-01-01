@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.JRadioButtonMenuItem;
 
-import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.TransitionCreationCommand;
 import de.markusrother.swing.CustomRadioButtonMenuItem;
@@ -43,7 +43,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            an {@link de.markusrother.pned.gui.EventBus} to be posted to.
+	 *            an {@link de.markusrother.pned.core.events.EventBus} to be posted to.
 	 * @param source
 	 *            an {@link java.lang.Object} - the posted
 	 *            {@link java.util.EventObject}s' source.
@@ -69,7 +69,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            an {@link de.markusrother.pned.gui.EventBus} to be posted to.
+	 *            an {@link de.markusrother.pned.core.events.EventBus} to be posted to.
 	 * @param source
 	 *            an {@link java.lang.Object} - the posted
 	 *            {@link java.util.EventObject}s' source.

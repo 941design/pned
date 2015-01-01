@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui;
+package de.markusrother.pned.core.events;
 
 import java.io.IOException;
 import java.util.EventListener;
@@ -19,10 +19,9 @@ import de.markusrother.pned.commands.listeners.PetriNetListener;
 import de.markusrother.pned.commands.listeners.PlaceLayoutListener;
 import de.markusrother.pned.commands.listeners.TransitionActivationListener;
 import de.markusrother.pned.commands.listeners.TransitionLayoutListener;
-import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
+import de.markusrother.pned.gui.events.GuiEventTarget;
 import de.markusrother.pned.gui.events.IdRequest;
 import de.markusrother.pned.gui.events.LabelEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;

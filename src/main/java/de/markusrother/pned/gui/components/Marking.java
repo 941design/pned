@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 import de.markusrother.pned.commands.MarkingLayoutCommand;
 import de.markusrother.pned.commands.listeners.MarkingLayoutListener;
-import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.core.events.EventBus;
 
 /**
  * <p>Marking class.</p>
@@ -28,7 +28,7 @@ public class Marking extends JPanel
 	/**
 	 * <p>Constructor for Marking.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	Marking(final EventBus eventBus) {
 		this.style = MarkingStyle.DEFAULT;

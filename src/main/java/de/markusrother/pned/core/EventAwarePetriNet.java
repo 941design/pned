@@ -13,11 +13,12 @@ import javax.xml.bind.JAXBException;
 import de.markusrother.pned.commands.PetriNetIOCommand;
 import de.markusrother.pned.commands.listeners.PetriNetIOListener;
 import de.markusrother.pned.commands.listeners.TransitionActivationListener;
+import de.markusrother.pned.core.events.EventBus;
+import de.markusrother.pned.core.events.PetriNetCommandSource;
 import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
+import de.markusrother.pned.core.events.TransitionActivationEventSource;
 import de.markusrother.pned.core.events.TransitionActivationEvent.Type;
-import de.markusrother.pned.gui.EventBus;
-import de.markusrother.pned.gui.PetriNetCommandSource;
 import de.markusrother.pned.gui.events.EdgeCreationCommand;
 import de.markusrother.pned.gui.events.IdRequest;
 import de.markusrother.pned.gui.events.LabelEditEvent;
@@ -67,7 +68,7 @@ public class EventAwarePetriNet extends PetriNetImpl
 	 * </p>
 	 *
 	 * @param eventMulticaster
-	 *            a {@link de.markusrother.pned.gui.EventBus} object.
+	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
 	 * @return a {@link de.markusrother.pned.core.EventAwarePetriNet} object.
 	 */
 	public static EventAwarePetriNet create(final EventBus eventMulticaster) {

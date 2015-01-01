@@ -12,7 +12,7 @@ import java.awt.Container;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
-import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.components.EdgeComponent;
 import de.markusrother.pned.gui.components.PnGridPanel;
@@ -64,7 +64,7 @@ public class EdgeCreator extends DoubleClickListener {
 	/**
 	 * <p>Constructor for EdgeCreator.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 * @param pnGridPanel a {@link de.markusrother.pned.gui.components.PnGridPanel} object.
 	 */
 	public EdgeCreator(final EventBus eventBus, final PnGridPanel pnGridPanel) {

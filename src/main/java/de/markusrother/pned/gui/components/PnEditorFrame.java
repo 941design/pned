@@ -15,7 +15,7 @@ import de.markusrother.pned.commands.PetriNetIOCommand;
 import de.markusrother.pned.commands.listeners.PetriNetIOListener;
 import de.markusrother.pned.commands.listeners.PetriNetListener;
 import de.markusrother.pned.core.EventAwarePetriNet;
-import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.events.SetNodeTypeCommand;
 import de.markusrother.pned.gui.menus.PnEditorMenuFactory;
@@ -89,7 +89,7 @@ public class PnEditorFrame extends JFrame
 	 * createNewContext.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @return a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	private EventBus createNewContext() {
 		final EventBus eventBus = new EventBus();
@@ -110,7 +110,7 @@ public class PnEditorFrame extends JFrame
 	 * </p>
 	 *
 	 * @param eventMulticaster
-	 *            a {@link de.markusrother.pned.gui.EventBus} object.
+	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	private void createPetriNetModel(final EventBus eventMulticaster) {
 		EventAwarePetriNet.create(eventMulticaster);

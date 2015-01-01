@@ -6,7 +6,7 @@ import java.awt.event.ItemListener;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.events.IdRequest;
 import de.markusrother.pned.gui.listeners.NodeListener;
 
@@ -69,7 +69,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            an {@link de.markusrother.pned.gui.EventBus} to be posted to.
+	 *            an {@link de.markusrother.pned.core.events.EventBus} to be posted to.
 	 * @param source
 	 *            an {@link java.lang.Object} - the posted
 	 *            {@link java.util.EventObject}s' source.
@@ -111,7 +111,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	/**
 	 * <p>
 	 * Posts {@link de.markusrother.pned.gui.events.SetNodeTypeCommand} on
-	 * {@link de.markusrother.pned.gui.EventBus}.
+	 * {@link de.markusrother.pned.core.events.EventBus}.
 	 * </p>
 	 */
 	protected abstract void fireSetNodeTypeCommand();
@@ -128,7 +128,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 
 	/**
 	 * <p>
-	 * Posts {@link de.markusrother.pned.gui.events.IdRequest} on {@link de.markusrother.pned.gui.EventBus} and returns requested id.
+	 * Posts {@link de.markusrother.pned.gui.events.IdRequest} on {@link de.markusrother.pned.core.events.EventBus} and returns requested id.
 	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.

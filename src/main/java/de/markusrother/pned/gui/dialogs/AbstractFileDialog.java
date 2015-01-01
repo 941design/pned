@@ -7,7 +7,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import de.markusrother.pned.gui.GuiEventTarget;
+import de.markusrother.pned.gui.events.GuiEventTarget;
 
 /**
  * <p>
@@ -27,7 +27,7 @@ public abstract class AbstractFileDialog extends JFileChooser {
 	/** Constant <code>pnmlFileFilter</code> - for displaying only *.pnml files. */
 	private static FileFilter pnmlFileFilter = new FileNameExtensionFilter(".pnml", "pnml");
 
-	/** The {@link de.markusrother.pned.gui.GuiEventTarget} to be posted to. */
+	/** The {@link de.markusrother.pned.gui.events.GuiEventTarget} to be posted to. */
 	protected final GuiEventTarget eventTarget;
 
 	/** A {@link java.lang.String} - the approve button label. */
@@ -39,7 +39,7 @@ public abstract class AbstractFileDialog extends JFileChooser {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
+	 *            an {@link de.markusrother.pned.gui.events.GuiEventTarget} to be
 	 *            posted to.
 	 * @param title
 	 *            a {@link java.lang.String} - the dialog's title.

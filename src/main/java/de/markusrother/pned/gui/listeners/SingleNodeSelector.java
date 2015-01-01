@@ -8,7 +8,7 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
-import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.DragDropListener;
@@ -31,7 +31,7 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 	/**
 	 * <p>Constructor for SingleNodeSelector.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	public SingleNodeSelector(final EventBus eventBus) {
 		super(AbstractNode.class);

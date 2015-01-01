@@ -6,8 +6,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
-import de.markusrother.pned.gui.GuiEventTarget;
 import de.markusrother.pned.gui.dialogs.EditSettingsDialog;
+import de.markusrother.pned.gui.events.GuiEventTarget;
 
 /**
  * <p>
@@ -31,7 +31,7 @@ public class OpenEditSettingsDialogAction extends AbstractOpenDialogAction {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} to be posted
+	 *            a {@link de.markusrother.pned.gui.events.GuiEventTarget} to be posted
 	 *            to.
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
 	 */
@@ -46,7 +46,7 @@ public class OpenEditSettingsDialogAction extends AbstractOpenDialogAction {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.gui.GuiEventTarget} to be posted
+	 *            a {@link de.markusrother.pned.gui.events.GuiEventTarget} to be posted
 	 *            to.
 	 */
 	public OpenEditSettingsDialogAction(final GuiEventTarget eventTarget) {

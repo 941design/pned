@@ -7,7 +7,7 @@ import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.SELECT;
 
 import java.util.Collection;
 
-import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.Selector;
@@ -53,7 +53,7 @@ public class NodeSelector extends Selector<AbstractNode> {
 	/**
 	 * <p>Constructor for NodeSelector.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	public NodeSelector(final EventBus eventBus) {
 		super(AbstractNode.class);

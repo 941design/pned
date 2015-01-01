@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.regex.Pattern;
 
-import de.markusrother.pned.gui.EventBus;
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.components.Place;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.events.PlaceEditEvent;
@@ -36,7 +36,7 @@ public class MarkingEditListener extends MultiClickListener
 	/**
 	 * <p>Constructor for MarkingEditListener.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	public MarkingEditListener(final EventBus eventBus) {
 		super();

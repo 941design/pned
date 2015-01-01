@@ -6,9 +6,9 @@ import java.awt.Rectangle;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
+import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.core.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.Disposable;
-import de.markusrother.pned.gui.EventBus;
 import de.markusrother.pned.gui.events.LabelEditEvent;
 import de.markusrother.pned.gui.events.NodeMovedEvent;
 import de.markusrother.pned.gui.events.NodeRemovalEvent;
@@ -55,7 +55,7 @@ public class NodeLabel extends JLabel
 	/**
 	 * <p>Constructor for NodeLabel.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 * @param nodeId a {@link java.lang.String} object.
 	 */
 	public NodeLabel(final EventBus eventBus, final String nodeId) {
@@ -65,7 +65,7 @@ public class NodeLabel extends JLabel
 	/**
 	 * <p>Constructor for NodeLabel.</p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.EventBus} object.
+	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
 	 * @param nodeId a {@link java.lang.String} object.
 	 * @param nodeLabel a {@link java.lang.String} object.
 	 */

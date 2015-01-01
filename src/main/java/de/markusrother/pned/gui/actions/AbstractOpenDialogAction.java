@@ -3,7 +3,7 @@ package de.markusrother.pned.gui.actions;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import de.markusrother.pned.gui.GuiEventTarget;
+import de.markusrother.pned.gui.events.GuiEventTarget;
 
 /**
  * <p>
@@ -25,7 +25,7 @@ public abstract class AbstractOpenDialogAction extends AbstractAction {
 	 * <p>Constructor for AbstractOpenDialogAction.</p>
 	 *
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.gui.GuiEventTarget} to be
+	 *            an {@link de.markusrother.pned.gui.events.GuiEventTarget} to be
 	 *            posted to.
 	 * @param label
 	 *            a {@link java.lang.String} - this action's textual

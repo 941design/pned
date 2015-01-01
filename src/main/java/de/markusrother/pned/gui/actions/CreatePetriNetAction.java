@@ -8,7 +8,7 @@ import javax.swing.Action;
 import javax.swing.JMenuItem;
 
 import de.markusrother.pned.commands.PetriNetEditCommand;
-import de.markusrother.pned.gui.EventTarget;
+import de.markusrother.pned.core.events.EventTarget;
 
 /**
  * <p>
@@ -32,7 +32,7 @@ public class CreatePetriNetAction extends AbstractAction {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.gui.EventTarget} to be posted
+	 *            an {@link de.markusrother.pned.core.events.EventTarget} to be posted
 	 *            to.
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
 	 */
@@ -48,7 +48,7 @@ public class CreatePetriNetAction extends AbstractAction {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.gui.EventTarget} to be posted
+	 *            an {@link de.markusrother.pned.core.events.EventTarget} to be posted
 	 *            to.
 	 */
 	private CreatePetriNetAction(final EventTarget eventTarget) {
