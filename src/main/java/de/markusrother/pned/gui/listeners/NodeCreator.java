@@ -2,6 +2,7 @@ package de.markusrother.pned.gui.listeners;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.concurrent.TimeoutException;
 
 import de.markusrother.pned.core.events.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
@@ -24,9 +25,12 @@ public class NodeCreator extends MouseAdapter
 	private final EventBus eventBus;
 
 	/**
-	 * <p>Constructor for NodeCreator.</p>
+	 * <p>
+	 * Constructor for NodeCreator.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	public NodeCreator(final EventBus eventBus) {
 		this.eventBus = eventBus;
@@ -62,14 +66,21 @@ public class NodeCreator extends MouseAdapter
 	}
 
 	/**
-	 * <p>requestId.</p>
+	 * <p>
+	 * requestId.
+	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.
 	 */
 	private String requestId() {
-		final IdRequest req = new IdRequest(this);
-		eventBus.requestId(req);
-		return req.get();
+		try {
+			final IdRequest req = new IdRequest(this);
+			eventBus.requestId(req);
+			return req.get();
+		} catch (final TimeoutException e) {
+			// FIXME - throw custom exception
+			throw new RuntimeException("TODO");
+		}
 	}
 
 	/** {@inheritDoc} */

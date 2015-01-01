@@ -2,6 +2,7 @@ package de.markusrother.pned.gui.actions;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.concurrent.TimeoutException;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -69,14 +70,14 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            an {@link de.markusrother.pned.core.events.EventBus} to be posted to.
+	 *            an {@link de.markusrother.pned.core.events.EventBus} to be
+	 *            posted to.
 	 * @param source
 	 *            an {@link java.lang.Object} - the posted
 	 *            {@link java.util.EventObject}s' source.
 	 * @param locationProvider
-	 *            a
-	 *            {@link de.markusrother.pned.gui.actions.LocationProvider}
-	 *            to provide coordinates for newly created nodes.
+	 *            a {@link de.markusrother.pned.gui.actions.LocationProvider} to
+	 *            provide coordinates for newly created nodes.
 	 * @param mnemonic
 	 *            an int.
 	 * @param label
@@ -128,12 +129,16 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 
 	/**
 	 * <p>
-	 * Posts {@link de.markusrother.pned.gui.events.IdRequest} on {@link de.markusrother.pned.core.events.EventBus} and returns requested id.
+	 * Posts {@link de.markusrother.pned.gui.events.IdRequest} on
+	 * {@link de.markusrother.pned.core.events.EventBus} and returns requested
+	 * id.
 	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.
+	 * @throws TimeoutException
+	 *             if no id was set.
 	 */
-	protected String requestNodeId() {
+	protected String requestNodeId() throws TimeoutException {
 		final IdRequest req = new IdRequest(this);
 		eventBus.requestId(req);
 		return req.get();

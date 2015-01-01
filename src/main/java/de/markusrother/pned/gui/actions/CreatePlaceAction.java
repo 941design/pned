@@ -4,6 +4,7 @@ import static de.markusrother.pned.gui.NodeCreationMode.PLACE;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.concurrent.TimeoutException;
 
 import javax.swing.Action;
 import javax.swing.JRadioButtonMenuItem;
@@ -37,20 +38,20 @@ public class CreatePlaceAction extends AbstractCreateNodeAction {
 
 	/**
 	 * <p>
-	 * Creates and returns a {@link javax.swing.JRadioButtonMenuItem} where toggle and click
-	 * on label trigger separate actions as described here
+	 * Creates and returns a {@link javax.swing.JRadioButtonMenuItem} where
+	 * toggle and click on label trigger separate actions as described here
 	 * {@link de.markusrother.pned.gui.actions.CreatePlaceAction}.
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            an {@link de.markusrother.pned.core.events.EventBus} to be posted to.
+	 *            an {@link de.markusrother.pned.core.events.EventBus} to be
+	 *            posted to.
 	 * @param source
 	 *            an {@link java.lang.Object} - the posted
 	 *            {@link java.util.EventObject}s' source.
 	 * @param locationProvider
-	 *            a
-	 *            {@link de.markusrother.pned.gui.actions.LocationProvider}
-	 *            to provide coordinates for newly created nodes.
+	 *            a {@link de.markusrother.pned.gui.actions.LocationProvider} to
+	 *            provide coordinates for newly created nodes.
 	 * @return a {@link javax.swing.JRadioButtonMenuItem} with this action
 	 *         bound.
 	 * @see CustomRadioButtonMenuItem
@@ -69,14 +70,14 @@ public class CreatePlaceAction extends AbstractCreateNodeAction {
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            an {@link de.markusrother.pned.core.events.EventBus} to be posted to.
+	 *            an {@link de.markusrother.pned.core.events.EventBus} to be
+	 *            posted to.
 	 * @param source
 	 *            an {@link java.lang.Object} - the posted
 	 *            {@link java.util.EventObject}s' source.
 	 * @param locationProvider
-	 *            a
-	 *            {@link de.markusrother.pned.gui.actions.LocationProvider}
-	 *            to provide coordinates for newly created nodes.
+	 *            a {@link de.markusrother.pned.gui.actions.LocationProvider} to
+	 *            provide coordinates for newly created nodes.
 	 */
 	private CreatePlaceAction(final EventBus eventBus, final Object source, final LocationProvider locationProvider) {
 		super(eventBus, source, locationProvider, mnemonic, label);
@@ -85,8 +86,14 @@ public class CreatePlaceAction extends AbstractCreateNodeAction {
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		final String nodeId = requestNodeId();
-		eventBus.createPlace(new PlaceCreationCommand(source, nodeId, locationProvider.getLocation()));
+
+		try {
+			final String nodeId = requestNodeId();
+			eventBus.createPlace(new PlaceCreationCommand(source, nodeId, locationProvider.getLocation()));
+		} catch (final TimeoutException e1) {
+			// FIXME - create custom Exception
+			throw new RuntimeException("TODO");
+		}
 	}
 
 	/** {@inheritDoc} */

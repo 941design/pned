@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeoutException;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -100,10 +101,14 @@ public class PnGridPanel extends JLayeredPane
 	private final Set<AbstractNode> currentSelection;
 
 	/**
-	 * <p>delta.</p>
+	 * <p>
+	 * delta.
+	 * </p>
 	 *
-	 * @param a a {@link java.awt.Point} object.
-	 * @param b a {@link java.awt.Point} object.
+	 * @param a
+	 *            a {@link java.awt.Point} object.
+	 * @param b
+	 *            a {@link java.awt.Point} object.
 	 * @return a {@link java.awt.Point} object.
 	 */
 	public static Point delta(final Point a, final Point b) {
@@ -111,9 +116,12 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>getCenter.</p>
+	 * <p>
+	 * getCenter.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
 	 * @return a {@link java.awt.Point} object.
 	 */
 	public static Point getCenter(final Component component) {
@@ -128,7 +136,8 @@ public class PnGridPanel extends JLayeredPane
 	 * I don't quite like passing this to other classes/methods/constructors,
 	 * while this is not fully initialized!
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.core.events.EventBus} object.
+	 * @param eventMulticaster
+	 *            a {@link de.markusrother.pned.core.events.EventBus} object.
 	 */
 	public PnGridPanel(final EventBus eventMulticaster) {
 
@@ -180,9 +189,12 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>createLayer.</p>
+	 * <p>
+	 * createLayer.
+	 * </p>
 	 *
-	 * @param i a int.
+	 * @param i
+	 *            a int.
 	 * @return a {@link javax.swing.JComponent} object.
 	 */
 	private JComponent createLayer(final int i) {
@@ -197,9 +209,12 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>getGridRelativeLocation.</p>
+	 * <p>
+	 * getGridRelativeLocation.
+	 * </p>
 	 *
-	 * @param pointOnScreen a {@link java.awt.Point} object.
+	 * @param pointOnScreen
+	 *            a {@link java.awt.Point} object.
 	 * @return a {@link java.awt.Point} object.
 	 */
 	public Point getGridRelativeLocation(final Point pointOnScreen) {
@@ -207,9 +222,14 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>hasState.</p>
+	 * <p>
+	 * hasState.
+	 * </p>
 	 *
-	 * @param state a {@link de.markusrother.pned.gui.components.PnGridPanel.State} object.
+	 * @param state
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.PnGridPanel.State}
+	 *            object.
 	 * @return a boolean.
 	 */
 	public boolean hasState(final State state) {
@@ -217,25 +237,37 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>addState.</p>
+	 * <p>
+	 * addState.
+	 * </p>
 	 *
-	 * @param state a {@link de.markusrother.pned.gui.components.PnGridPanel.State} object.
+	 * @param state
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.PnGridPanel.State}
+	 *            object.
 	 */
 	protected void addState(final State state) {
 		this.state.add(state);
 	}
 
 	/**
-	 * <p>removeState.</p>
+	 * <p>
+	 * removeState.
+	 * </p>
 	 *
-	 * @param state a {@link de.markusrother.pned.gui.components.PnGridPanel.State} object.
+	 * @param state
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.PnGridPanel.State}
+	 *            object.
 	 */
 	protected void removeState(final State state) {
 		this.state.remove(state);
 	}
 
 	/**
-	 * <p>removeSelectedNodes.</p>
+	 * <p>
+	 * removeSelectedNodes.
+	 * </p>
 	 */
 	public void removeSelectedNodes() {
 		// TODO - instead we could trigger the event below!
@@ -266,11 +298,16 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>addNodeComponent.</p>
+	 * <p>
+	 * addNodeComponent.
+	 * </p>
 	 *
-	 * @param node a T object.
-	 * @param origin a {@link java.awt.Point} object.
-	 * @param <T> a T object.
+	 * @param node
+	 *            a T object.
+	 * @param origin
+	 *            a {@link java.awt.Point} object.
+	 * @param <T>
+	 *            a T object.
 	 */
 	private <T extends AbstractNode> void addNodeComponent(final T node, final Point origin) {
 		// TODO - this method is too big!
@@ -283,9 +320,13 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>addListeners.</p>
+	 * <p>
+	 * addListeners.
+	 * </p>
 	 *
-	 * @param node a {@link de.markusrother.pned.gui.components.AbstractNode} object.
+	 * @param node
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            object.
 	 */
 	private void addListeners(final AbstractNode node) {
 		node.setSingleNodeSelector(singleNodeSelector);
@@ -293,9 +334,13 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>createLabel.</p>
+	 * <p>
+	 * createLabel.
+	 * </p>
 	 *
-	 * @param node a {@link de.markusrother.pned.gui.components.AbstractNode} object.
+	 * @param node
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            object.
 	 * @return a {@link javax.swing.JLabel} object.
 	 */
 	private JLabel createLabel(final AbstractNode node) {
@@ -305,10 +350,14 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>createLabel.</p>
+	 * <p>
+	 * createLabel.
+	 * </p>
 	 *
-	 * @param origin a {@link java.awt.Point} object.
-	 * @param nodeId a {@link java.lang.String} object.
+	 * @param origin
+	 *            a {@link java.awt.Point} object.
+	 * @param nodeId
+	 *            a {@link java.lang.String} object.
 	 * @return a {@link javax.swing.JLabel} object.
 	 */
 	public JLabel createLabel(final Point origin, final String nodeId) {
@@ -321,10 +370,15 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>addLabelComponent.</p>
+	 * <p>
+	 * addLabelComponent.
+	 * </p>
 	 *
-	 * @param label a {@link de.markusrother.pned.gui.components.NodeLabel} object.
-	 * @param origin a {@link java.awt.Point} object.
+	 * @param label
+	 *            a {@link de.markusrother.pned.gui.components.NodeLabel}
+	 *            object.
+	 * @param origin
+	 *            a {@link java.awt.Point} object.
 	 */
 	private void addLabelComponent(final NodeLabel label, final Point origin) {
 		label.setBounds(new Rectangle(origin, label.getPreferredSize()));
@@ -341,24 +395,39 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>requestNode.</p>
+	 * <p>
+	 * requestNode.
+	 * </p>
 	 *
-	 * @param nodeId a {@link java.lang.String} object.
-	 * @return a {@link de.markusrother.pned.gui.components.AbstractNode} object.
+	 * @param nodeId
+	 *            a {@link java.lang.String} object.
+	 * @return a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *         object.
 	 */
 	private AbstractNode requestNode(final String nodeId) {
-		final NodeRequest req = new NodeRequest(this, nodeId);
-		eventMulticaster.requestNode(req);
-		final AbstractNode node = req.get();
-		return node;
+		try {
+			final NodeRequest req = new NodeRequest(this, nodeId);
+			eventMulticaster.requestNode(req);
+			final AbstractNode node = req.get();
+			return node;
+		} catch (final TimeoutException e) {
+			// FIXME - create custom Exception
+			throw new RuntimeException("TODO");
+		}
 	}
 
 	/**
-	 * <p>createEdge.</p>
+	 * <p>
+	 * createEdge.
+	 * </p>
 	 *
-	 * @param sourceNode a {@link de.markusrother.pned.gui.components.AbstractNode} object.
-	 * @param target a {@link java.awt.Point} object.
-	 * @return a {@link de.markusrother.pned.gui.components.EdgeComponent} object.
+	 * @param sourceNode
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            object.
+	 * @param target
+	 *            a {@link java.awt.Point} object.
+	 * @return a {@link de.markusrother.pned.gui.components.EdgeComponent}
+	 *         object.
 	 */
 	public EdgeComponent createEdge(final AbstractNode sourceNode, final Point target) {
 		final Point source = getCenter(sourceNode);
@@ -369,9 +438,13 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>addEdgeComponent.</p>
+	 * <p>
+	 * addEdgeComponent.
+	 * </p>
 	 *
-	 * @param edge a {@link de.markusrother.pned.gui.components.EdgeComponent} object.
+	 * @param edge
+	 *            a {@link de.markusrother.pned.gui.components.EdgeComponent}
+	 *            object.
 	 */
 	private void addEdgeComponent(final EdgeComponent edge) {
 		edge.setBounds(this.getBounds()); // OBSOLETE?
@@ -380,9 +453,13 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>removeEdge.</p>
+	 * <p>
+	 * removeEdge.
+	 * </p>
 	 *
-	 * @param edge a {@link de.markusrother.pned.gui.components.EdgeComponent} object.
+	 * @param edge
+	 *            a {@link de.markusrother.pned.gui.components.EdgeComponent}
+	 *            object.
 	 */
 	public void removeEdge(final EdgeComponent edge) {
 		nodeLayer.remove(edge);
@@ -425,9 +502,12 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>deselect.</p>
+	 * <p>
+	 * deselect.
+	 * </p>
 	 *
-	 * @param nodes a {@link java.util.Collection} object.
+	 * @param nodes
+	 *            a {@link java.util.Collection} object.
 	 */
 	private void deselect(final Collection<AbstractNode> nodes) {
 		// NOTE - How nodes are displayed is handled by the nodes
