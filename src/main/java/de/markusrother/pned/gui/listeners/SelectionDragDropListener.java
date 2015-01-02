@@ -4,7 +4,6 @@ import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.CANCEL;
 
 import java.awt.Point;
 import java.util.Collection;
-import java.util.LinkedList;
 
 import de.markusrother.pned.core.commands.NodeMotionCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
@@ -49,11 +48,9 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 	/** {@inheritDoc} */
 	@Override
 	public void onDrag(final AbstractNode draggedNode, final int deltaX, final int deltaY) {
-		final Collection<String> nodeIds = new LinkedList<>();
 		for (final AbstractNode node : nodes) {
-			nodeIds.add(node.getId());
+			eventBus.nodeMoved(new NodeMotionCommand(this, node.getId(), deltaX, deltaY));
 		}
-		eventBus.nodeMoved(new NodeMotionCommand(this, nodeIds, deltaX, deltaY));
 	}
 
 	/** {@inheritDoc} */

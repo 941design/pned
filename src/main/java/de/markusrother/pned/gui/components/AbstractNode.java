@@ -355,14 +355,11 @@ public abstract class AbstractNode extends JPanel
 	/** {@inheritDoc} */
 	@Override
 	public void nodeMoved(final NodeMotionCommand e) {
-		for (final String nodeId : e.getNodeIds()) {
-			if (getId().equals(nodeId)) {
-				final Rectangle r = getBounds();
-				r.translate(e.getDeltaX(), e.getDeltaY());
-				setBounds(r);
-				repaint();
-				break;
-			}
+		if (getId().equals(e.getNodeId())) {
+			final Rectangle r = getBounds();
+			r.translate(e.getDeltaX(), e.getDeltaY());
+			setBounds(r);
+			repaint();
 		}
 	}
 

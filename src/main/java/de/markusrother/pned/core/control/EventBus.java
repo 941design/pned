@@ -179,8 +179,6 @@ public class EventBus
 	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.
-	 * @throws java.util.concurrent.TimeoutException
-	 *             if no id was set.
 	 */
 	public String requestId() {
 		try {

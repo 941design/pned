@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Iterator;
 
 import javax.xml.stream.XMLEventReader;
@@ -470,7 +469,7 @@ public class PNMLParser {
 		// FIXME - catch NumberFormatException!
 		final int deltaX = Integer.valueOf(x);
 		final int deltaY = Integer.valueOf(y);
-		final NodeMotionCommand e = new NodeMotionCommand(this, Arrays.asList(elementId), deltaX, deltaY);
+		final NodeMotionCommand e = new NodeMotionCommand(this, elementId, deltaX, deltaY);
 		eventTarget.nodeMoved(e);
 	}
 

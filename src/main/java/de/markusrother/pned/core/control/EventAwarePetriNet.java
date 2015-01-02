@@ -193,7 +193,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	public void nodeMoved(final NodeMotionCommand e) {
 		for (final NodeModel node : getNodes()) {
 			final String nodeId = node.getId();
-			if (e.getNodeIds().contains(nodeId)) {
+			if (e.getNodeId().contains(nodeId)) {
 				final int deltaX = e.getDeltaX();
 				final int deltaY = e.getDeltaY();
 				node.move(deltaX, deltaY);

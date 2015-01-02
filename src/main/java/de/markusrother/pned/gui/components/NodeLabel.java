@@ -22,7 +22,9 @@ import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 
 /**
- * <p>NodeLabel class.</p>
+ * <p>
+ * NodeLabel class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -53,21 +55,30 @@ public class NodeLabel extends JLabel
 	private final EventBus eventBus;
 
 	/**
-	 * <p>Constructor for NodeLabel.</p>
+	 * <p>
+	 * Constructor for NodeLabel.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
-	 * @param nodeId a {@link java.lang.String} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param nodeId
+	 *            a {@link java.lang.String} object.
 	 */
 	public NodeLabel(final EventBus eventBus, final String nodeId) {
 		this(eventBus, nodeId, nodeId);
 	}
 
 	/**
-	 * <p>Constructor for NodeLabel.</p>
+	 * <p>
+	 * Constructor for NodeLabel.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
-	 * @param nodeId a {@link java.lang.String} object.
-	 * @param nodeLabel a {@link java.lang.String} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param nodeId
+	 *            a {@link java.lang.String} object.
+	 * @param nodeLabel
+	 *            a {@link java.lang.String} object.
 	 */
 	public NodeLabel(final EventBus eventBus, final String nodeId, final String nodeLabel) {
 		super(nodeLabel);
@@ -85,18 +96,25 @@ public class NodeLabel extends JLabel
 	}
 
 	/**
-	 * <p>Getter for the field <code>state</code>.</p>
+	 * <p>
+	 * Getter for the field <code>state</code>.
+	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.components.ComponentState} object.
+	 * @return a {@link de.markusrother.pned.gui.components.ComponentState}
+	 *         object.
 	 */
 	public ComponentState getState() {
 		return state;
 	}
 
 	/**
-	 * <p>Setter for the field <code>state</code>.</p>
+	 * <p>
+	 * Setter for the field <code>state</code>.
+	 * </p>
 	 *
-	 * @param state a {@link de.markusrother.pned.gui.components.ComponentState} object.
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.components.ComponentState}
+	 *            object.
 	 */
 	public void setState(final ComponentState state) {
 		// TODO - create interface Stateful
@@ -109,14 +127,11 @@ public class NodeLabel extends JLabel
 	/** {@inheritDoc} */
 	@Override
 	public void nodeMoved(final NodeMotionCommand e) {
-		for (final String nodeId : e.getNodeIds()) {
-			if (this.nodeId.equals(nodeId)) {
-				final Rectangle r = getBounds();
-				r.translate(e.getDeltaX(), e.getDeltaY());
-				setBounds(r);
-				repaint();
-				break;
-			}
+		if (this.nodeId.equals(e.getNodeId())) {
+			final Rectangle r = getBounds();
+			r.translate(e.getDeltaX(), e.getDeltaY());
+			setBounds(r);
+			repaint();
 		}
 	}
 

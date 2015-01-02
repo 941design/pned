@@ -369,11 +369,11 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		boolean repaint = false;
 		final String sourceId = getSourceId();
 		final String targetId = getTargetId();
-		if (event.getNodeIds().contains(sourceId)) {
+		if (event.getNodeId().contains(sourceId)) {
 			connectToSource();
 			repaint = true;
 		}
-		if (event.getNodeIds().contains(targetId)) {
+		if (event.getNodeId().contains(targetId)) {
 			connectToTarget();
 			repaint = true;
 		}
