@@ -8,6 +8,7 @@ import javax.swing.Action;
 import javax.swing.JMenuItem;
 
 import de.markusrother.pned.gui.commands.PetriNetEditCommand;
+import de.markusrother.pned.gui.commands.PetriNetEditCommand.Type;
 import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 
 /**
@@ -60,7 +61,7 @@ public class CreatePetriNetAction extends AbstractAction {
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		final PetriNetEditCommand cmd = new PetriNetEditCommand(this);
+		final PetriNetEditCommand cmd = new PetriNetEditCommand(this, Type.NEW);
 		eventTarget.createPetriNet(cmd);
 	}
 

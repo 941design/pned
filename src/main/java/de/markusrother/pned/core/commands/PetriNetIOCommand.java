@@ -13,6 +13,13 @@ import java.util.EventObject;
  */
 public class PetriNetIOCommand extends EventObject {
 
+	public enum Type {
+		OPEN,
+		SAVE,
+		STAT
+	}
+
+	private final Type type;
 	private final File file;
 
 	/**
@@ -25,8 +32,9 @@ public class PetriNetIOCommand extends EventObject {
 	 * @param file
 	 *            a {@link java.io.File} object.
 	 */
-	public PetriNetIOCommand(final Object source, final File file) {
+	public PetriNetIOCommand(final Object source, final Type type, final File file) {
 		super(source);
+		this.type = type;
 		this.file = file;
 	}
 

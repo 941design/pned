@@ -423,7 +423,9 @@ public class PNMLParser {
 	 *            a {@link java.lang.String} Identifikationstext der Transition
 	 */
 	private void newTransition(final String transitionId) {
-		final TransitionCreationCommand cmd = new TransitionCreationCommand(this, transitionId, initialNodeOrigin);
+		final TransitionCreationCommand cmd = new TransitionCreationCommand(this, //
+				transitionId, //
+				initialNodeOrigin);
 		eventTarget.createTransition(cmd);
 	}
 
@@ -434,7 +436,9 @@ public class PNMLParser {
 	 *            a {@link java.lang.String} Identifikationstext der Stelle
 	 */
 	private void newPlace(final String placeId) {
-		final PlaceCreationCommand cmd = new PlaceCreationCommand(this, placeId, initialNodeOrigin);
+		final PlaceCreationCommand cmd = new PlaceCreationCommand(this, //
+				placeId, //
+				initialNodeOrigin);
 		eventTarget.createPlace(cmd);
 	}
 
@@ -451,7 +455,10 @@ public class PNMLParser {
 	 *            der Kante
 	 */
 	private void newArc(final String edgeId, final String sourceId, final String targetId) {
-		final EdgeCreationCommand cmd = new EdgeCreationCommand(this, edgeId, sourceId, targetId);
+		final EdgeCreationCommand cmd = new EdgeCreationCommand(this, //
+				edgeId, //
+				sourceId, //
+				targetId);
 		eventTarget.createEdge(cmd);
 	}
 
@@ -469,7 +476,10 @@ public class PNMLParser {
 		// FIXME - catch NumberFormatException!
 		final int deltaX = Integer.valueOf(x);
 		final int deltaY = Integer.valueOf(y);
-		final NodeMotionCommand e = new NodeMotionCommand(this, elementId, deltaX, deltaY);
+		final NodeMotionCommand e = new NodeMotionCommand(this, //
+				elementId, //
+				deltaX, //
+				deltaY);
 		eventTarget.nodeMoved(e);
 	}
 
@@ -482,7 +492,10 @@ public class PNMLParser {
 	 *            a {@link java.lang.String} Beschriftungstext des Elements
 	 */
 	private void setName(final String elementId, final String label) {
-		final LabelEditCommand e = new LabelEditCommand(this, elementId, label);
+		final LabelEditCommand e = new LabelEditCommand(this, //
+				LabelEditCommand.Type.SET_LABEL, //
+				elementId, //
+				label);
 		eventTarget.setLabel(e);
 	}
 
@@ -495,7 +508,10 @@ public class PNMLParser {
 	 *            a {@link java.lang.String} Markierung des Elements
 	 */
 	private void setMarking(final String placeId, final String marking) {
-		final PlaceEditCommand e = new PlaceEditCommand(this, placeId, Integer.valueOf(marking));
+		final PlaceEditCommand e = new PlaceEditCommand(this, //
+				PlaceEditCommand.Type.SET_MARKING, //
+				placeId, //
+				Integer.valueOf(marking));
 		eventTarget.setMarking(e);
 	}
 

@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 
 import de.markusrother.pned.core.commands.PetriNetIOCommand;
+import de.markusrother.pned.core.commands.PetriNetIOCommand.Type;
 import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 
 /**
@@ -31,8 +32,7 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * </p>
 	 *
 	 * @param commandTarget
-	 *            an
-	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            an {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
 	 *            to be posted to.
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
@@ -48,8 +48,7 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * </p>
 	 *
 	 * @param commandTarget
-	 *            an
-	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            an {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
 	 *            to be posted to.
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
@@ -65,8 +64,8 @@ public class SaveFileDialog extends AbstractFileDialog {
 		// TODO - prompt for overwrite!
 		try {
 			final String path = file.getAbsolutePath();
-			commandTarget.setCurrentDirectory(new PetriNetIOCommand(this, new File(path)));
-			commandTarget.exportPnml(new PetriNetIOCommand(this, file));
+			commandTarget.setCurrentDirectory(new PetriNetIOCommand(this, Type.STAT, new File(path)));
+			commandTarget.exportPnml(new PetriNetIOCommand(this, Type.SAVE, file));
 		} catch (final IOException e) {
 			// TODO
 			throw new RuntimeException("TODO");

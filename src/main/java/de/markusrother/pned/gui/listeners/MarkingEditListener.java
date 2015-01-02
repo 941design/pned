@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.util.regex.Pattern;
 
 import de.markusrother.pned.core.commands.PlaceEditCommand;
+import de.markusrother.pned.core.commands.PlaceEditCommand.Type;
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.gui.components.Place;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
@@ -16,7 +17,9 @@ import de.markusrother.swing.MultiClickListener;
 import de.markusrother.swing.TextListener;
 
 /**
- * <p>MarkingEditListener class.</p>
+ * <p>
+ * MarkingEditListener class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -34,9 +37,12 @@ public class MarkingEditListener extends MultiClickListener
 	final EventBus eventBus;
 
 	/**
-	 * <p>Constructor for MarkingEditListener.</p>
+	 * <p>
+	 * Constructor for MarkingEditListener.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
 	public MarkingEditListener(final EventBus eventBus) {
 		super();
@@ -46,10 +52,14 @@ public class MarkingEditListener extends MultiClickListener
 	}
 
 	/**
-	 * <p>startEditMarking.</p>
+	 * <p>
+	 * startEditMarking.
+	 * </p>
 	 *
-	 * @param place a {@link de.markusrother.pned.gui.components.Place} object.
-	 * @param point a {@link java.awt.Point} object.
+	 * @param place
+	 *            a {@link de.markusrother.pned.gui.components.Place} object.
+	 * @param point
+	 *            a {@link java.awt.Point} object.
 	 */
 	private void startEditMarking(final Place place, final Point point) {
 		final CheckedTextField textField = createAndAddTextField(place, point);
@@ -61,13 +71,15 @@ public class MarkingEditListener extends MultiClickListener
 			@Override
 			public void textEntered(final ActionEvent e) {
 				final String text = textField.getText();
-				eventBus.setMarking(new PlaceEditCommand(this, place.getId(), Integer.valueOf(text)));
+				eventBus.setMarking(new PlaceEditCommand(this, Type.SET_MARKING, place.getId(), Integer.valueOf(text)));
 			}
 		});
 	}
 
 	/**
-	 * <p>finishEditMarking.</p>
+	 * <p>
+	 * finishEditMarking.
+	 * </p>
 	 */
 	private void finishEditMarking() {
 		final Container parent = textField.getParent();
@@ -78,7 +90,9 @@ public class MarkingEditListener extends MultiClickListener
 	}
 
 	/**
-	 * <p>abortEditMarking.</p>
+	 * <p>
+	 * abortEditMarking.
+	 * </p>
 	 */
 	public void abortEditMarking() {
 		// TODO - alternatively listen for node selection and edge creation
@@ -89,10 +103,14 @@ public class MarkingEditListener extends MultiClickListener
 	}
 
 	/**
-	 * <p>createAndAddTextField.</p>
+	 * <p>
+	 * createAndAddTextField.
+	 * </p>
 	 *
-	 * @param place a {@link de.markusrother.pned.gui.components.Place} object.
-	 * @param point a {@link java.awt.Point} object.
+	 * @param place
+	 *            a {@link de.markusrother.pned.gui.components.Place} object.
+	 * @param point
+	 *            a {@link java.awt.Point} object.
 	 * @return a {@link de.markusrother.swing.CheckedTextField} object.
 	 */
 	private CheckedTextField createAndAddTextField(final Place place, final Point point) {

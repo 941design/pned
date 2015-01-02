@@ -184,7 +184,7 @@ public class EventBus
 		try {
 			final IdRequest req = new IdRequest(this);
 			requestId(req);
-			return req.get();
+			return req.get(); // FIXME - insert timeout here!
 		} catch (final TimeoutException e) {
 			// FIXME - create custom Exception
 			throw new RuntimeException("TODO");

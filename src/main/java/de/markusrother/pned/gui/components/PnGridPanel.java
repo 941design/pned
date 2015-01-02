@@ -408,7 +408,7 @@ public class PnGridPanel extends JLayeredPane
 		try {
 			final NodeRequest req = new NodeRequest(this, nodeId);
 			eventBus.requestNode(req);
-			final AbstractNode node = req.get();
+			final AbstractNode node = req.get(); // FIXME - insert timeout here!
 			return node;
 		} catch (final TimeoutException e) {
 			// FIXME - create custom Exception

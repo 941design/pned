@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 
 import de.markusrother.pned.core.commands.PetriNetIOCommand;
+import de.markusrother.pned.core.commands.PetriNetIOCommand.Type;
 import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 
 /**
@@ -31,8 +32,7 @@ public class OpenFileDialog extends AbstractFileDialog {
 	 * </p>
 	 *
 	 * @param commandTarget
-	 *            a
-	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            a {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
 	 *            object.
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
@@ -48,8 +48,7 @@ public class OpenFileDialog extends AbstractFileDialog {
 	 * </p>
 	 *
 	 * @param commandTarget
-	 *            an
-	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            an {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
 	 *            to be posted to.
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
@@ -67,8 +66,8 @@ public class OpenFileDialog extends AbstractFileDialog {
 		// If current net is to be purged send appropriate command
 		try {
 			final String path = file.getAbsolutePath();
-			commandTarget.setCurrentDirectory(new PetriNetIOCommand(this, new File(path)));
-			commandTarget.importPnml(new PetriNetIOCommand(this, file));
+			commandTarget.setCurrentDirectory(new PetriNetIOCommand(this, Type.STAT, new File(path)));
+			commandTarget.importPnml(new PetriNetIOCommand(this, Type.OPEN, file));
 		} catch (final IOException e1) {
 			// TODO
 			throw new RuntimeException("TODO");

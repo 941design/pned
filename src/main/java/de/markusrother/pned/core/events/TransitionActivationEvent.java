@@ -3,7 +3,9 @@ package de.markusrother.pned.core.events;
 import java.util.EventObject;
 
 /**
- * <p>TransitionActivationEvent class.</p>
+ * <p>
+ * TransitionActivationEvent class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -19,11 +21,18 @@ public class TransitionActivationEvent extends EventObject {
 	private final String transitionId;
 
 	/**
-	 * <p>Constructor for TransitionActivationEvent.</p>
+	 * <p>
+	 * Constructor for TransitionActivationEvent.
+	 * </p>
 	 *
-	 * @param type a {@link de.markusrother.pned.core.events.TransitionActivationEvent.Type} object.
-	 * @param source a {@link java.lang.Object} object.
-	 * @param transitionId a {@link java.lang.String} object.
+	 * @param type
+	 *            a
+	 *            {@link de.markusrother.pned.core.events.TransitionActivationEvent.Type}
+	 *            object.
+	 * @param source
+	 *            a {@link java.lang.Object} object.
+	 * @param transitionId
+	 *            a {@link java.lang.String} object.
 	 */
 	public TransitionActivationEvent(final Type type, final Object source, final String transitionId) {
 		super(source);
@@ -32,16 +41,22 @@ public class TransitionActivationEvent extends EventObject {
 	}
 
 	/**
-	 * <p>Getter for the field <code>type</code>.</p>
+	 * <p>
+	 * Getter for the field <code>type</code>.
+	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.core.events.TransitionActivationEvent.Type} object.
+	 * @return a
+	 *         {@link de.markusrother.pned.core.events.TransitionActivationEvent.Type}
+	 *         object.
 	 */
 	public Type getType() {
 		return type;
 	}
 
 	/**
-	 * <p>Getter for the field <code>transitionId</code>.</p>
+	 * <p>
+	 * Getter for the field <code>transitionId</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.
 	 */

@@ -117,14 +117,14 @@ public abstract class AbstractPetriNetTest
 	}
 
 	protected void setLabel(final String placeId, final String label) {
-		final LabelEditCommand cmd = new LabelEditCommand(source, placeId, label);
+		final LabelEditCommand cmd = new LabelEditCommand(source, LabelEditCommand.Type.SET_LABEL, placeId, label);
 		for (final LabelEditListener l : getListeners(LabelEditListener.class)) {
 			l.setLabel(cmd);
 		}
 	}
 
 	protected void setMarking(final String placeId, final int marking) {
-		final PlaceEditCommand cmd = new PlaceEditCommand(source, placeId, marking);
+		final PlaceEditCommand cmd = new PlaceEditCommand(source, PlaceEditCommand.Type.SET_MARKING, placeId, marking);
 		for (final PlaceEditListener l : getListeners(PlaceEditListener.class)) {
 			l.setMarking(cmd);
 		}

@@ -59,8 +59,22 @@ public class Request<T> extends EventObject {
 	 *             {@link #defaultTimeoutMillis}.
 	 */
 	public T get() throws TimeoutException {
+		return get(defaultTimeoutMillis, TimeUnit.MILLISECONDS);
+	}
+
+	/**
+	 * <p>
+	 * Returns this requests 'return' value.
+	 * </p>
+	 *
+	 * @return a T - the actual value.
+	 * @throws java.util.concurrent.TimeoutException
+	 *             if no value was set until exceeding the
+	 *             {@link #defaultTimeoutMillis}.
+	 */
+	public T get(final long timeout, final TimeUnit unit) throws TimeoutException {
 		try {
-			return promise.ask().get(defaultTimeoutMillis, TimeUnit.MILLISECONDS);
+			return promise.ask().get(timeout, unit);
 		} catch (InterruptedException | ExecutionException e) {
 			// TODO
 			throw new RuntimeException("TODO");
