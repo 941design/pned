@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
 
 import javax.swing.JFrame;
 import javax.xml.stream.XMLStreamException;
@@ -68,19 +66,6 @@ public class PnEditorFrame extends JFrame
 		setJMenuBar(pnedMenuBar);
 		pack();
 		setVisible(true);
-
-		// TODO - use file dialog!
-		final String path = "/examples/Beispiel1.pnml";
-		final URL resource = PNMLParser.class.getResource(path);
-		try {
-			PNMLParser.parse(resource, eventBus);
-		} catch (final XMLStreamException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (final IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 		// PetriNetEventLogger.instantiate(eventMulticaster);
 	}
@@ -163,6 +148,9 @@ public class PnEditorFrame extends JFrame
 	/** {@inheritDoc} */
 	@Override
 	public void importPnml(final PetriNetIOCommand cmd) {
+		// FIXME - Creation and import should be handled by separate commands!
+		// Or export should also be handled here, instead of EventAwarePetriNet
+		// itself!
 		createPetriNet(null);
 		final File file = cmd.getFile();
 		try {
@@ -176,7 +164,7 @@ public class PnEditorFrame extends JFrame
 	/** {@inheritDoc} */
 	@Override
 	public void exportPnml(final PetriNetIOCommand cmd) {
-		// IGNORE
+		// IGNORE - exported by EventAwarePetriNet
 	}
 
 }

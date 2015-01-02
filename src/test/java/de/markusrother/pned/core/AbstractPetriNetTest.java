@@ -19,6 +19,7 @@ import de.markusrother.pned.core.commands.PlaceCreationCommand;
 import de.markusrother.pned.core.commands.PlaceEditCommand;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.control.EventAwarePetriNet;
+import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.events.TransitionActivationEvent.Type;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
@@ -49,7 +50,7 @@ public abstract class AbstractPetriNetTest
 	protected List<EventObject> events;
 	protected EventAwarePetriNet net;
 	private Object source;
-	private CommandSourceMock commandSource;
+	private EventBus eventBus;
 
 	@Override
 	public void transitionActivated(final TransitionActivationEvent e) {
@@ -76,13 +77,13 @@ public abstract class AbstractPetriNetTest
 	public void setUp() {
 		this.source = this;
 		this.events = new LinkedList<>();
-		this.commandSource = new CommandSourceMock();
-		this.net = new EventAwarePetriNet(this.commandSource);
+		this.eventBus = new EventBus();
+		this.net = new EventAwarePetriNet(this.eventBus);
 		net.addTransitionActivationListener(this);
 	}
 
 	private <T extends EventListener> T[] getListeners(final Class<T> clazz) {
-		return commandSource.getListeners(clazz);
+		return eventBus.getListeners(clazz);
 	}
 
 	protected Collection<PlaceModel> getPlaces() {

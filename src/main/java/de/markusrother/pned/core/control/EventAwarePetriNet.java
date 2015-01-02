@@ -81,7 +81,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	 * @param <T>
 	 *            FIXME
 	 */
-	public <T extends CommandSource & TransitionActivationListener> EventAwarePetriNet(final T eventBus) {
+	public EventAwarePetriNet(final EventBus eventBus) {
 		this.listeners = new EventListenerList();
 
 		eventBus.addListener(IdRequestListener.class, this);
@@ -124,7 +124,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	/** {@inheritDoc} */
 	@Override
 	public void importPnml(final PetriNetIOCommand cmd) {
-		// IGNORE
+		// IGNORE - We could import on top of this net...
 	}
 
 	/** {@inheritDoc} */

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import de.markusrother.pned.core.control.EventAwarePetriNet;
-import de.markusrother.pned.core.exceptions.NoSuchNodeException;
+import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.IdRequestListener;
 import de.markusrother.pned.core.listeners.LabelEditListener;
@@ -31,17 +31,16 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 
 	@Test
 	public void testAllListenersAdded() {
-		final CommandSourceMock eventSource = new CommandSourceMock();
-		final DefaultPetriNet petriNet = new EventAwarePetriNet(eventSource);
-		assertEquals(petriNet, eventSource.getListeners(IdRequestListener.class)[0]);
-		assertEquals(petriNet, eventSource.getListeners(PetriNetIOListener.class)[0]);
-		assertEquals(petriNet, eventSource.getListeners(NodeCreationListener.class)[0]);
-		assertEquals(petriNet, eventSource.getListeners(EdgeCreationListener.class)[0]);
-		assertEquals(petriNet, eventSource.getListeners(NodeRemovalListener.class)[0]);
-		assertEquals(petriNet, eventSource.getListeners(NodeMotionListener.class)[0]);
-		assertEquals(petriNet, eventSource.getListeners(PlaceEditListener.class)[0]);
-		assertEquals(petriNet, eventSource.getListeners(LabelEditListener.class)[0]);
-		assertEquals(8, eventSource.getListenerCount());
+		final EventBus eventBus = new EventBus();
+		final EventAwarePetriNet net = new EventAwarePetriNet(eventBus);
+		assertEquals(net, eventBus.getListeners(IdRequestListener.class)[0]);
+		assertEquals(net, eventBus.getListeners(PetriNetIOListener.class)[0]);
+		assertEquals(net, eventBus.getListeners(NodeCreationListener.class)[0]);
+		assertEquals(net, eventBus.getListeners(EdgeCreationListener.class)[0]);
+		assertEquals(net, eventBus.getListeners(NodeRemovalListener.class)[0]);
+		assertEquals(net, eventBus.getListeners(NodeMotionListener.class)[0]);
+		assertEquals(net, eventBus.getListeners(PlaceEditListener.class)[0]);
+		assertEquals(net, eventBus.getListeners(LabelEditListener.class)[0]);
 	}
 
 	@Test
@@ -87,7 +86,31 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 		assertTransitionsContains(t1, DEFAULT_ORIGIN);
 	}
 
-	@Test(expected = NoSuchNodeException.class)
+	// FIXME - should expect custom top level exception!
+	@Test(expected = Exception.class)
+	public void testFailCreatingPlaceWithInvalidId() {
+		createPlace(p1);
+		createPlace(p1);
+	}
+
+	// FIXME - should expect custom top level exception!
+	@Test(expected = Exception.class)
+	public void testFailCreatingTransitionWithInvalidId() {
+		createTransition(t1);
+		createTransition(t1);
+	}
+
+	// FIXME - should expect custom top level exception!
+	@Test(expected = Exception.class)
+	public void testFailCreatingEdgeWithInvalidId() {
+		createPlace(p1);
+		createTransition(t1);
+		createEdge(e1, p1, t1);
+		createEdge(e1, p1, t1);
+	}
+
+	// FIXME - should expect custom top level exception!
+	@Test(expected = Exception.class)
 	public void testFailCreatingUnrootedEdge() {
 		createEdge(e1, p1, t1);
 	}
