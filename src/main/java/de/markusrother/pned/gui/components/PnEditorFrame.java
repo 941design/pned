@@ -1,11 +1,17 @@
 package de.markusrother.pned.gui.components;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import javax.swing.BoundedRangeModel;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.xml.stream.XMLStreamException;
 
 import de.markusrother.pned.core.commands.PetriNetIOCommand;
@@ -21,6 +27,8 @@ import de.markusrother.pned.gui.menus.PnEditorMenuFactory;
 import de.markusrother.pned.gui.menus.PnedMenuBar;
 import de.markusrother.pned.io.PNMLParser;
 import de.markusrother.pned.util.PetriNetGuiEventLogger;
+import de.markusrother.swing.CustomScrollPaneUI;
+import de.markusrother.swing.snap.SnapGridComponent;
 
 /**
  * <p>
@@ -64,11 +72,40 @@ public class PnEditorFrame extends JFrame
 
 		setPreferredSize(preferredSize);
 
-		// final JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-		// grid, new PnGridPanel(eventBus));
-		// add(split, BorderLayout.CENTER);
+		final SnapGridComponent sg = new SnapGridComponent(new Dimension(40, 40), Color.GRAY);
+		sg.setPreferredSize(new Dimension(2000, 2000));
+		final JScrollPane panel = new JScrollPane(sg, //
+				// final JScrollPane panel = new JScrollPane(grid, //
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, //
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		final CustomScrollPaneUI ui = new CustomScrollPaneUI();
+		ui.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(final ChangeEvent e) {
+				final BoundedRangeModel model = (BoundedRangeModel) e.getSource();
+				final double extent = model.getExtent();
+				final double maximum = model.getMaximum();
+				final int minimum = model.getMinimum();
+				final double value = model.getValue();
+				final Dimension preferredSize = sg.getPreferredSize();
+				final double height = preferredSize.getHeight();
+				final double width = preferredSize.getWidth();
+				final double ratio = (value + extent) / maximum;
+				System.out.println(height);
+				System.out.println(value);
+				System.out.println(maximum);
+				System.out.println(ratio);
+				// model.setValue((int) value);
+				model.setValueIsAdjusting(true);
+				if (ratio > 0.9) {
+					sg.setPreferredSize(new Dimension((int) width, (int) (height * 1.001)));
+				}
+			}
+		});
+		panel.setUI(ui);
 
-		add(grid, BorderLayout.CENTER);
+		add(panel, BorderLayout.CENTER);
+		// add(grid, BorderLayout.CENTER);
 		setJMenuBar(pnedMenuBar);
 		pack();
 		setVisible(true);

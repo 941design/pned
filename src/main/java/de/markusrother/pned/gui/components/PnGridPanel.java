@@ -71,7 +71,7 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/** Constant <code>preferredSize</code> */
-	private static final Dimension preferredSize = new Dimension(500, 500);
+	private static final Dimension preferredSize = new Dimension(3000, 3000);
 	/** Constant <code>transitionDimensions</code> */
 	private static final Dimension transitionDimensions = new Dimension(50, 50);
 	/** Constant <code>placeDimensions</code> */
@@ -145,7 +145,6 @@ public class PnGridPanel extends JLayeredPane
 
 		this.state = defaultState;
 
-		// TODO - add scroll panel
 		setPreferredSize(preferredSize);
 		// setBackground(Color.BLUE);
 		// TODO - set the number of rectangles to be displayed:
