@@ -75,11 +75,13 @@ public class EdgeCreationCommand extends EventObject
 		return targetId;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return toJson();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toJson() {
 		final JsonBuilder builder = new JsonBuilder();

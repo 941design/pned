@@ -25,6 +25,7 @@ public class PetriNetEditCommand extends EventObject {
 	 *
 	 * @param source
 	 *            a {@link java.lang.Object} object.
+	 * @param type a {@link de.markusrother.pned.gui.commands.PetriNetEditCommand.Type} object.
 	 */
 	public PetriNetEditCommand(final Object source, final Type type) {
 		super(source);

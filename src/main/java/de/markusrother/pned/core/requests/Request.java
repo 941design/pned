@@ -71,6 +71,8 @@ public class Request<T> extends EventObject {
 	 * @throws java.util.concurrent.TimeoutException
 	 *             if no value was set until exceeding the
 	 *             {@link #defaultTimeoutMillis}.
+	 * @param timeout a long.
+	 * @param unit a {@link java.util.concurrent.TimeUnit} object.
 	 */
 	public T get(final long timeout, final TimeUnit unit) throws TimeoutException {
 		try {

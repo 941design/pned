@@ -39,6 +39,13 @@ public class JsonBuilder {
 		return this;
 	}
 
+	/**
+	 * <p>append.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @param value a boolean.
+	 * @return a {@link de.markusrother.util.JsonBuilder} object.
+	 */
 	public JsonBuilder append(final String name, final boolean value) {
 		startAttribute(name) //
 				.append(String.valueOf(value)) //

@@ -27,12 +27,23 @@ import de.markusrother.pned.core.requests.IdRequest;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 
+/**
+ * <p>Abstract PetriNetEventAdapter class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public abstract class PetriNetEventAdapter
 	implements
 		CommandTarget,
 		EventTarget,
 		RequestTarget {
 
+	/**
+	 * <p>setEventBus.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
+	 */
 	public void setEventBus(final EventBus eventBus) {
 		eventBus.addListener(PetriNetIOListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
@@ -51,71 +62,89 @@ public abstract class PetriNetEventAdapter
 		process(cmd);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createPlace(final PlaceCreationCommand cmd) {
 		process(cmd);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createTransition(final TransitionCreationCommand cmd) {
 		process(cmd);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createEdge(final EdgeCreationCommand cmd) {
 		process(cmd);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeMoved(final NodeMotionCommand e) {
 		process(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeRemoved(final NodeRemovalCommand e) {
 		process(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
 		process(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setMarking(final PlaceEditCommand cmd) {
 		process(cmd);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setLabel(final LabelEditCommand e) {
 		process(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void transitionActivated(final TransitionActivationEvent e) {
 		process(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void transitionDeactivated(final TransitionActivationEvent e) {
 		process(e);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void importPnml(final PetriNetIOCommand cmd) {
 		process(cmd);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void exportPnml(final PetriNetIOCommand cmd) {
 		process(cmd);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void requestId(final IdRequest req) {
 		process(req);
 	}
 
+	/**
+	 * <p>process.</p>
+	 *
+	 * @param e a {@link java.util.EventObject} object.
+	 */
 	protected abstract void process(final EventObject e);
 
 }

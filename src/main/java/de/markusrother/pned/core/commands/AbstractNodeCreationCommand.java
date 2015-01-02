@@ -61,11 +61,13 @@ public abstract class AbstractNodeCreationCommand extends EventObject
 		return point.getLocation();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return toJson();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toJson() {
 		final JsonBuilder builder = new JsonBuilder();

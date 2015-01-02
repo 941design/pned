@@ -36,6 +36,7 @@ public class PlaceEditCommand extends EventObject
 	 *            a {@link java.lang.String} object.
 	 * @param marking
 	 *            a int.
+	 * @param type a {@link de.markusrother.pned.core.commands.PlaceEditCommand.Type} object.
 	 */
 	public PlaceEditCommand(final Object source, final Type type, final String placeId, final int marking) {
 		super(source);
@@ -66,11 +67,13 @@ public class PlaceEditCommand extends EventObject
 		return marking;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return toJson();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toJson() {
 		final JsonBuilder builder = new JsonBuilder();

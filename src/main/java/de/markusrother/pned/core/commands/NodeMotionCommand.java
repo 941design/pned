@@ -77,11 +77,13 @@ public class NodeMotionCommand extends EventObject
 		return deltaY;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return toJson();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toJson() {
 		final JsonBuilder builder = new JsonBuilder();

@@ -63,6 +63,7 @@ public class GuiEventBus extends EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodesSelected(final NodeSelectionEvent e) {
 		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
@@ -70,6 +71,7 @@ public class GuiEventBus extends EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodesUnselected(final NodeSelectionEvent e) {
 		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
@@ -77,6 +79,7 @@ public class GuiEventBus extends EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeSelectionFinished(final NodeSelectionEvent e) {
 		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
@@ -84,6 +87,7 @@ public class GuiEventBus extends EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeSelectionCancelled(final NodeSelectionEvent e) {
 		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
@@ -91,6 +95,7 @@ public class GuiEventBus extends EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void targetComponentEntered(final EdgeEditEvent e) {
 		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
@@ -98,6 +103,7 @@ public class GuiEventBus extends EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void targetComponentExited(final EdgeEditEvent e) {
 		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
@@ -105,6 +111,7 @@ public class GuiEventBus extends EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeMoved(final EdgeEditEvent e) {
 		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
@@ -112,6 +119,7 @@ public class GuiEventBus extends EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeCancelled(final EdgeEditEvent e) {
 		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
@@ -119,6 +127,7 @@ public class GuiEventBus extends EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeFinished(final EdgeEditEvent e) {
 		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
@@ -126,6 +135,7 @@ public class GuiEventBus extends EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void edgeStarted(final EdgeEditEvent e) {
 		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {

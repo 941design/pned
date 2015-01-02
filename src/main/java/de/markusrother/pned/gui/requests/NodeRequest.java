@@ -79,15 +79,23 @@ public class NodeRequest extends Request<AbstractNode>
 		return nodeId;
 	}
 
+	/**
+	 * <p>createWorker.</p>
+	 *
+	 * @param l a {@link de.markusrother.pned.gui.listeners.NodeRequestListener} object.
+	 * @return a {@link javax.swing.SwingWorker} object.
+	 */
 	public SwingWorker<AbstractNode, Object> createWorker(final NodeRequestListener l) {
 		return new NodeRequestWorker(this, l);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return toJson();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toJson() {
 		try {

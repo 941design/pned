@@ -36,6 +36,7 @@ public class PetriNetIOCommand extends EventObject
 	 *            a {@link java.lang.Object} object.
 	 * @param file
 	 *            a {@link java.io.File} object.
+	 * @param type a {@link de.markusrother.pned.core.commands.PetriNetIOCommand.Type} object.
 	 */
 	public PetriNetIOCommand(final Object source, final Type type, final File file) {
 		super(source);
@@ -54,11 +55,13 @@ public class PetriNetIOCommand extends EventObject
 		return file;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return toJson();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toJson() {
 		final JsonBuilder builder = new JsonBuilder();

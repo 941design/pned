@@ -16,11 +16,17 @@ import de.markusrother.pned.core.control.EventBus;
  */
 public class PetriNetEventLogger extends PetriNetEventAdapter {
 
+	/**
+	 * <p>log.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
+	 */
 	public static void log(final EventBus eventBus) {
 		final PetriNetEventLogger logger = new PetriNetEventLogger();
 		logger.setEventBus(eventBus);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void process(final EventObject e) {
 		log(e);

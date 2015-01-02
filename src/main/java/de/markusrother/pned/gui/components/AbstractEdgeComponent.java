@@ -41,7 +41,9 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	 *
 	 * @param sourceComponent a T object.
 	 * @param targetComponent a U object.
+	 * @param sourceComponent a T object.
 	 * @param source a {@link java.awt.Point} object.
+	 * @param targetComponent a U object.
 	 * @param target a {@link java.awt.Point} object.
 	 */
 	public AbstractEdgeComponent(final T sourceComponent, final U targetComponent, final Point source,

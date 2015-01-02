@@ -12,9 +12,9 @@ import de.markusrother.util.JsonSerializable;
  * <p>
  * EdgeEditEvent class.
  * </p>
- * 
+ *
  * FIXME - coordinate handling is somewhat inconsistent
- * 
+ *
  * FIXME - We could request an id upon initial creation
  *
  * @author Markus Rother
@@ -113,11 +113,13 @@ public class EdgeEditEvent extends EventObject
 		return component;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return toJson();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toJson() {
 		final JsonBuilder builder = new JsonBuilder();

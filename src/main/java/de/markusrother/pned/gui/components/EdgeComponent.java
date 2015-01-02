@@ -160,6 +160,9 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * @param sourceComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
 	 *            object.
+	 * @param sourceComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            object.
 	 * @param source
 	 *            a {@link java.awt.Point} object.
 	 * @param target
@@ -202,8 +205,14 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * @param targetComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
 	 *            object.
+	 * @param sourceComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            object.
 	 * @param source
 	 *            a {@link java.awt.Point} object.
+	 * @param targetComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            object.
 	 * @param target
 	 *            a {@link java.awt.Point} object.
 	 */

@@ -6,7 +6,7 @@ import java.util.EventObject;
  * <p>
  * RemoveSelectedNodesEvent class.
  * </p>
- * 
+ *
  * FIXME - Should become single RemoveNodeEvent!
  *
  * @author Markus Rother

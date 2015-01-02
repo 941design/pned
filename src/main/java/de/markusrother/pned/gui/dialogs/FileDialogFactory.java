@@ -43,7 +43,7 @@ public class FileDialogFactory
 
 	/**
 	 * <p>
-	 * Getter for this factories current {@link GuiCommandTarget}.
+	 * Getter for this factories current {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}.
 	 * </p>
 	 *
 	 * @return a {@link de.markusrother.pned.gui.listeners.GuiCommandTarget} to

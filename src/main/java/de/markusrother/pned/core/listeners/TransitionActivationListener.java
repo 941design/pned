@@ -8,7 +8,7 @@ import de.markusrother.pned.core.events.TransitionActivationEvent;
  * <p>
  * TransitionActivationListener interface.
  * </p>
- * 
+ *
  * FIXME - Create TransitionActivationCommand
  *
  * @author Markus Rother

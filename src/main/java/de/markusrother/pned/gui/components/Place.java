@@ -146,11 +146,13 @@ public class Place extends AbstractNode
 		repaint(); // REDUNDANT
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return toJson();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toJson() {
 		final JsonBuilder builder = new JsonBuilder();

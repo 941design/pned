@@ -62,15 +62,23 @@ public class IdRequest extends Request<String>
 		super(source);
 	}
 
+	/**
+	 * <p>createWorker.</p>
+	 *
+	 * @param l a {@link de.markusrother.pned.core.listeners.IdRequestListener} object.
+	 * @return a {@link javax.swing.SwingWorker} object.
+	 */
 	public SwingWorker<String, Object> createWorker(final IdRequestListener l) {
 		return new IdRequestWorker(this, l);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return toJson();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toJson() {
 		try {
