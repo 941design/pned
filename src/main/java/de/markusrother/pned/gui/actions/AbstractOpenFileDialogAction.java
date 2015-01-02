@@ -21,7 +21,7 @@ public abstract class AbstractOpenFileDialogAction extends AbstractOpenDialogAct
 	 */
 	protected AbstractOpenFileDialogAction(final FileDialogFactory fileDialogFactory, final String label,
 			final int mnemonic) {
-		super(fileDialogFactory.getEventTarget(), label, mnemonic);
+		super(fileDialogFactory.getCommandTarget(), label, mnemonic);
 		this.fileDialogFactory = fileDialogFactory;
 	}
 

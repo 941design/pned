@@ -8,7 +8,7 @@ import java.util.EventObject;
  * @author Markus Rother
  * @version 1.0
  */
-public class NodeRemovalEvent extends EventObject {
+public class NodeRemovalCommand extends EventObject {
 
 	private final String nodeId;
 
@@ -18,7 +18,7 @@ public class NodeRemovalEvent extends EventObject {
 	 * @param source a {@link java.lang.Object} object.
 	 * @param nodeId a {@link java.lang.String} object.
 	 */
-	public NodeRemovalEvent(final Object source, final String nodeId) {
+	public NodeRemovalCommand(final Object source, final String nodeId) {
 		super(source);
 		this.nodeId = nodeId;
 	}

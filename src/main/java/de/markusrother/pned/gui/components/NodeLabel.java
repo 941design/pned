@@ -6,16 +6,16 @@ import java.awt.Rectangle;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
-import de.markusrother.pned.core.commands.LabelEditEvent;
-import de.markusrother.pned.core.commands.NodeMovedEvent;
-import de.markusrother.pned.core.commands.NodeRemovalEvent;
-import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.commands.LabelEditCommand;
+import de.markusrother.pned.core.commands.NodeMotionCommand;
+import de.markusrother.pned.core.commands.NodeRemovalCommand;
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.listeners.LabelEditListener;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
-import de.markusrother.pned.core.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.Disposable;
+import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.LabelHoverListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.styles.NodeLabelStyle;
 import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
@@ -108,7 +108,7 @@ public class NodeLabel extends JLabel
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeMoved(final NodeMovedEvent e) {
+	public void nodeMoved(final NodeMotionCommand e) {
 		for (final String nodeId : e.getNodeIds()) {
 			if (this.nodeId.equals(nodeId)) {
 				final Rectangle r = getBounds();
@@ -122,7 +122,7 @@ public class NodeLabel extends JLabel
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeRemoved(final NodeRemovalEvent e) {
+	public void nodeRemoved(final NodeRemovalCommand e) {
 		final String removedNodeId = e.getNodeId();
 		if (this.nodeId.equals(removedNodeId)) {
 			dispose();
@@ -145,7 +145,7 @@ public class NodeLabel extends JLabel
 
 	/** {@inheritDoc} */
 	@Override
-	public void setLabel(final LabelEditEvent e) {
+	public void setLabel(final LabelEditCommand e) {
 		if (this.nodeId.equals(e.getElementId())) {
 			setText(e.getLabel());
 		}

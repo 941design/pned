@@ -8,19 +8,20 @@ import java.awt.Shape;
 
 import javax.swing.JPanel;
 
-import de.markusrother.pned.core.commands.NodeMovedEvent;
-import de.markusrother.pned.core.commands.NodeRemovalEvent;
-import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.commands.NodeMotionCommand;
+import de.markusrother.pned.core.commands.NodeRemovalCommand;
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
-import de.markusrother.pned.core.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.DefinitelyBounded;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.layout.style.NodeStyle;
 import de.markusrother.pned.gui.listeners.EdgeCreator;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeHoverListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeRequestListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.SelectionDragDropListener;
@@ -113,7 +114,7 @@ public abstract class AbstractNode extends JPanel
 	 * getStyle.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.components.NodeStyle} object.
+	 * @return a {@link de.markusrother.pned.gui.layout.style.NodeStyle} object.
 	 */
 	protected abstract NodeStyle getStyle();
 
@@ -353,7 +354,7 @@ public abstract class AbstractNode extends JPanel
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeMoved(final NodeMovedEvent e) {
+	public void nodeMoved(final NodeMotionCommand e) {
 		for (final String nodeId : e.getNodeIds()) {
 			if (getId().equals(nodeId)) {
 				final Rectangle r = getBounds();
@@ -421,7 +422,7 @@ public abstract class AbstractNode extends JPanel
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeRemoved(final NodeRemovalEvent e) {
+	public void nodeRemoved(final NodeRemovalCommand e) {
 		final String myId = getId();
 		if (myId.equals(e.getNodeId())) {
 			dispose();
@@ -432,7 +433,7 @@ public abstract class AbstractNode extends JPanel
 	@Override
 	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
 		if (isSelected()) {
-			eventBus.nodeRemoved(new NodeRemovalEvent(this, getId()));
+			eventBus.nodeRemoved(new NodeRemovalCommand(this, getId()));
 		}
 	}
 

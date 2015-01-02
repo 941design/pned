@@ -7,7 +7,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import de.markusrother.pned.gui.events.GuiEventTarget;
+import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 
 /**
  * <p>
@@ -27,8 +27,11 @@ public abstract class AbstractFileDialog extends JFileChooser {
 	/** Constant <code>pnmlFileFilter</code> - for displaying only *.pnml files. */
 	private static FileFilter pnmlFileFilter = new FileNameExtensionFilter(".pnml", "pnml");
 
-	/** The {@link de.markusrother.pned.gui.events.GuiEventTarget} to be posted to. */
-	protected final GuiEventTarget eventTarget;
+	/**
+	 * The {@link de.markusrother.pned.gui.listeners.GuiCommandTarget} to
+	 * be posted to.
+	 */
+	protected final GuiCommandTarget commandTarget;
 
 	/** A {@link java.lang.String} - the approve button label. */
 	private final String approveButtonLabel;
@@ -38,9 +41,10 @@ public abstract class AbstractFileDialog extends JFileChooser {
 	 * Constructor for AbstractFileDialog.
 	 * </p>
 	 *
-	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.gui.events.GuiEventTarget} to be
-	 *            posted to.
+	 * @param commandTarget
+	 *            a
+	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            to be posted to.
 	 * @param title
 	 *            a {@link java.lang.String} - the dialog's title.
 	 * @param approveButtonLabel
@@ -48,9 +52,9 @@ public abstract class AbstractFileDialog extends JFileChooser {
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
 	 */
-	protected AbstractFileDialog(final GuiEventTarget eventTarget, final String title, final File dir,
+	protected AbstractFileDialog(final GuiCommandTarget commandTarget, final String title, final File dir,
 			final String approveButtonLabel) {
-		this.eventTarget = eventTarget;
+		this.commandTarget = commandTarget;
 		this.approveButtonLabel = approveButtonLabel;
 		setCurrentDirectory(dir);
 		setDialogTitle(title);

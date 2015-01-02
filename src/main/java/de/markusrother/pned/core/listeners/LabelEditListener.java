@@ -2,7 +2,7 @@ package de.markusrother.pned.core.listeners;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.core.commands.LabelEditEvent;
+import de.markusrother.pned.core.commands.LabelEditCommand;
 
 /**
  * <p>LabelEditListener interface.</p>
@@ -17,8 +17,8 @@ public interface LabelEditListener
 	/**
 	 * <p>setLabel.</p>
 	 *
-	 * @param e a {@link de.markusrother.pned.core.commands.LabelEditEvent} object.
+	 * @param e a {@link de.markusrother.pned.core.commands.LabelEditCommand} object.
 	 */
-	void setLabel(LabelEditEvent e);
+	void setLabel(LabelEditCommand e);
 
 }

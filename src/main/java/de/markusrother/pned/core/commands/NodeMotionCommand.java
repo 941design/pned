@@ -9,7 +9,7 @@ import java.util.EventObject;
  * @author Markus Rother
  * @version 1.0
  */
-public class NodeMovedEvent extends EventObject {
+public class NodeMotionCommand extends EventObject {
 
 	private final Collection<String> nodeIds;
 	private final int deltaY;
@@ -23,7 +23,7 @@ public class NodeMovedEvent extends EventObject {
 	 * @param deltaX a int.
 	 * @param deltaY a int.
 	 */
-	public NodeMovedEvent(final Object source, final Collection<String> nodeIds, final int deltaX, final int deltaY) {
+	public NodeMotionCommand(final Object source, final Collection<String> nodeIds, final int deltaX, final int deltaY) {
 		// TODO - refactor to single node event!
 		// FIXME - Should probably take nodePromise!
 		super(source);

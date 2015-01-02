@@ -2,7 +2,7 @@ package de.markusrother.pned.core.listeners;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.core.commands.NodeMovedEvent;
+import de.markusrother.pned.core.commands.NodeMotionCommand;
 
 /**
  * <p>NodeMotionListener interface.</p>
@@ -17,8 +17,8 @@ public interface NodeMotionListener
 	/**
 	 * <p>nodeMoved.</p>
 	 *
-	 * @param e a {@link de.markusrother.pned.core.commands.NodeMovedEvent} object.
+	 * @param e a {@link de.markusrother.pned.core.commands.NodeMotionCommand} object.
 	 */
-	public void nodeMoved(NodeMovedEvent e);
+	public void nodeMoved(NodeMotionCommand e);
 
 }

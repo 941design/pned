@@ -7,13 +7,15 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
-import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
-import de.markusrother.pned.core.control.EventBus;
+import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 
 /**
- * <p>RemoveSelectedNodesAction class.</p>
+ * <p>
+ * RemoveSelectedNodesAction class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -28,30 +30,40 @@ public class RemoveSelectedNodesAction extends AbstractAction
 	private static final int mnemonic = KeyEvent.VK_R;
 
 	/**
-	 * <p>newMenuItem.</p>
+	 * <p>
+	 * newMenuItem.
+	 * </p>
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.core.control.EventBus} object.
-	 * @param source a {@link java.lang.Object} object.
-	 * @param enabled a boolean.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param source
+	 *            a {@link java.lang.Object} object.
+	 * @param enabled
+	 *            a boolean.
 	 * @return a {@link javax.swing.JMenuItem} object.
 	 */
-	public static JMenuItem newMenuItem(final EventBus eventMulticaster, final Object source, final boolean enabled) {
-		return new JMenuItem(new RemoveSelectedNodesAction(eventMulticaster, source, enabled));
+	public static JMenuItem newMenuItem(final GuiEventBus eventBus, final Object source, final boolean enabled) {
+		return new JMenuItem(new RemoveSelectedNodesAction(eventBus, source, enabled));
 	}
 
 	private final Object source;
-	private final EventBus eventBus;
+	private final GuiEventBus eventBus;
 
 	/**
-	 * <p>Constructor for RemoveSelectedNodesAction.</p>
+	 * <p>
+	 * Constructor for RemoveSelectedNodesAction.
+	 * </p>
 	 *
-	 * @param eventMulticaster a {@link de.markusrother.pned.core.control.EventBus} object.
-	 * @param source a {@link java.lang.Object} object.
-	 * @param enabled a boolean.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param source
+	 *            a {@link java.lang.Object} object.
+	 * @param enabled
+	 *            a boolean.
 	 */
-	public RemoveSelectedNodesAction(final EventBus eventMulticaster, final Object source, final boolean enabled) {
+	public RemoveSelectedNodesAction(final GuiEventBus eventBus, final Object source, final boolean enabled) {
 		super(label);
-		this.eventBus = eventMulticaster;
+		this.eventBus = eventBus;
 		this.source = source;
 		putValue(Action.MNEMONIC_KEY, mnemonic);
 		setEnabled(enabled);

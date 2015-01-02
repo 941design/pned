@@ -16,6 +16,7 @@ import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
 import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
 import de.markusrother.pned.gui.layout.listeners.TransitionLayoutListener;
+import de.markusrother.pned.gui.layout.style.NodeStyle;
 
 /**
  * <p>Transition class.</p>

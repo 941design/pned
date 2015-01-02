@@ -7,12 +7,13 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
-import de.markusrother.pned.core.commands.PlaceEditEvent;
+import de.markusrother.pned.core.commands.PlaceEditCommand;
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.listeners.PlaceEditListener;
 import de.markusrother.pned.gui.PlaceLayout;
 import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.layout.listeners.PlaceLayoutListener;
+import de.markusrother.pned.gui.layout.style.NodeStyle;
 import de.markusrother.pned.gui.listeners.MarkingEditListener;
 
 /**
@@ -110,7 +111,7 @@ public class Place extends AbstractNode
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final PlaceEditEvent cmd) {
+	public void setMarking(final PlaceEditCommand cmd) {
 		final String myId = getId();
 		final String placeId = cmd.getPlaceId();
 		if (myId.equals(placeId)) {

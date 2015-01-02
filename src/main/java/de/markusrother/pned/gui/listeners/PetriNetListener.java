@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.listeners;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.gui.events.PetriNetEditCommand;
+import de.markusrother.pned.gui.commands.PetriNetEditCommand;
 
 /**
  * <p>PetriNetListener interface.</p>
@@ -17,7 +17,7 @@ public interface PetriNetListener
 	/**
 	 * <p>disposePetriNet.</p>
 	 *
-	 * @param cmd a {@link de.markusrother.pned.gui.events.PetriNetEditCommand} object.
+	 * @param cmd a {@link de.markusrother.pned.gui.commands.PetriNetEditCommand} object.
 	 */
 	void createPetriNet(PetriNetEditCommand cmd);
 

@@ -8,7 +8,7 @@ import java.util.EventObject;
  * @author Markus Rother
  * @version 1.0
  */
-public class PlaceEditEvent extends EventObject {
+public class PlaceEditCommand extends EventObject {
 
 	private final String placeId;
 	private final int marking;
@@ -20,7 +20,7 @@ public class PlaceEditEvent extends EventObject {
 	 * @param placeId a {@link java.lang.String} object.
 	 * @param marking a int.
 	 */
-	public PlaceEditEvent(final Object source, final String placeId, final int marking) {
+	public PlaceEditCommand(final Object source, final String placeId, final int marking) {
 		super(source);
 		this.placeId = placeId;
 		this.marking = marking;

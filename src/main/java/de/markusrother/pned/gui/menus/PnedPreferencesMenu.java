@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 
 import de.markusrother.pned.gui.actions.OpenEditSettingsDialogAction;
-import de.markusrother.pned.gui.events.GuiEventTarget;
+import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 
 /**
  * <p>
@@ -25,13 +25,15 @@ public class PnedPreferencesMenu extends JMenu {
 	 * Constructor for PnedPreferencesMenu.
 	 * </p>
 	 *
-	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.gui.events.GuiEventTarget} object.
+	 * @param commandTarget
+	 *            a
+	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            object.
 	 */
-	PnedPreferencesMenu(final GuiEventTarget eventTarget) {
+	PnedPreferencesMenu(final GuiCommandTarget commandTarget) {
 		super(label);
 		setMnemonic(KeyEvent.VK_P);
-		add(OpenEditSettingsDialogAction.newMenuItem(eventTarget));
+		add(OpenEditSettingsDialogAction.newMenuItem(commandTarget));
 	}
 
 }

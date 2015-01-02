@@ -35,12 +35,14 @@ public class OpenImportDialogAction extends AbstractOpenFileDialogAction {
 
 	/**
 	 * <p>
-	 * Creates and returns a {@link javax.swing.JMenuItem} where selection opens a
-	 * ImportDialog. (FIXME)
+	 * Creates and returns a {@link javax.swing.JMenuItem} where selection opens
+	 * a ImportDialog. (FIXME)
 	 * </p>
 	 *
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
-	 * @param fileDialogFactory a {@link de.markusrother.pned.gui.dialogs.FileDialogFactory} object.
+	 * @param fileDialogFactory
+	 *            a {@link de.markusrother.pned.gui.dialogs.FileDialogFactory}
+	 *            object.
 	 */
 	public static JMenuItem newMenuItem(final FileDialogFactory fileDialogFactory) {
 		final Action action = new OpenImportDialogAction(fileDialogFactory);
@@ -53,8 +55,8 @@ public class OpenImportDialogAction extends AbstractOpenFileDialogAction {
 	 * </p>
 	 *
 	 * @param fileDialogFactory
-	 *            an {@link de.markusrother.pned.gui.events.GuiEventTarget} to be
-	 *            posted to.
+	 *            an {@link de.markusrother.pned.gui.dialogs.FileDialogFactory}
+	 *            FIXME.
 	 */
 	private OpenImportDialogAction(final FileDialogFactory fileDialogFactory) {
 		super(fileDialogFactory, menuLabel, actionMnemonic);

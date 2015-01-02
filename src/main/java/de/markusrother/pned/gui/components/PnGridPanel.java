@@ -17,19 +17,19 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
 import de.markusrother.pned.core.commands.EdgeCreationCommand;
-import de.markusrother.pned.core.commands.NodeRemovalEvent;
+import de.markusrother.pned.core.commands.NodeRemovalCommand;
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
-import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
-import de.markusrother.pned.core.listeners.NodeRemovalListener;
-import de.markusrother.pned.gui.events.GuiEventBus;
+import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
+import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
-import de.markusrother.pned.gui.events.SetNodeTypeCommand;
+import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.EdgeCreator;
 import de.markusrother.pned.gui.listeners.NodeCreator;
 import de.markusrother.pned.gui.listeners.NodeListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.NodeSelector;
 import de.markusrother.pned.gui.listeners.PnGridPopupListener;
@@ -272,7 +272,7 @@ public class PnGridPanel extends JLayeredPane
 	public void removeSelectedNodes() {
 		// TODO - instead we could trigger the event below!
 		for (final AbstractNode node : currentSelection) {
-			eventBus.nodeRemoved(new NodeRemovalEvent(this, node.getId()));
+			eventBus.nodeRemoved(new NodeRemovalCommand(this, node.getId()));
 		}
 	}
 
@@ -540,7 +540,7 @@ public class PnGridPanel extends JLayeredPane
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeRemoved(final NodeRemovalEvent e) {
+	public void nodeRemoved(final NodeRemovalCommand e) {
 		// NOTE - Nodes, labels, and edges remove themselves.
 		repaint();
 	}

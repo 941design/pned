@@ -6,13 +6,13 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 
 import de.markusrother.pned.core.commands.PetriNetIOCommand;
-import de.markusrother.pned.gui.events.GuiEventTarget;
+import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 
 /**
  * <p>
  * File dialog for opening Petri nets from pnml (xml). Successful file selection
  * posts a {@link de.markusrother.pned.core.commands.PetriNetIOCommand} to the
- * provided {@link de.markusrother.pned.gui.events.GuiEventTarget}.
+ * provided {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}.
  * </p>
  *
  * @author Markus Rother
@@ -30,13 +30,15 @@ public class OpenFileDialog extends AbstractFileDialog {
 	 * Opens this dialog.
 	 * </p>
 	 *
-	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.gui.events.GuiEventTarget} object.
+	 * @param commandTarget
+	 *            a
+	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            object.
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
 	 */
-	public static void open(final GuiEventTarget eventTarget, final File dir) {
-		final OpenFileDialog dialog = new OpenFileDialog(eventTarget, dir);
+	public static void open(final GuiCommandTarget commandTarget, final File dir) {
+		final OpenFileDialog dialog = new OpenFileDialog(commandTarget, dir);
 		dialog.showDialogAndProcessResult();
 	}
 
@@ -45,14 +47,15 @@ public class OpenFileDialog extends AbstractFileDialog {
 	 * Constructor for OpenFileDialog.
 	 * </p>
 	 *
-	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.gui.events.GuiEventTarget} to be
-	 *            posted to.
+	 * @param commandTarget
+	 *            an
+	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            to be posted to.
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
 	 */
-	private OpenFileDialog(final GuiEventTarget eventTarget, final File dir) {
-		super(eventTarget, title, dir, approveButtonLabel);
+	private OpenFileDialog(final GuiCommandTarget commandTarget, final File dir) {
+		super(commandTarget, title, dir, approveButtonLabel);
 		setDialogType(JFileChooser.OPEN_DIALOG);
 	}
 
@@ -64,8 +67,8 @@ public class OpenFileDialog extends AbstractFileDialog {
 		// If current net is to be purged send appropriate command
 		try {
 			final String path = file.getAbsolutePath();
-			eventTarget.setCurrentDirectory(new PetriNetIOCommand(this, new File(path)));
-			eventTarget.importPnml(new PetriNetIOCommand(this, file));
+			commandTarget.setCurrentDirectory(new PetriNetIOCommand(this, new File(path)));
+			commandTarget.importPnml(new PetriNetIOCommand(this, file));
 		} catch (final IOException e1) {
 			// TODO
 			throw new RuntimeException("TODO");

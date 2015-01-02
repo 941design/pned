@@ -3,23 +3,23 @@ package de.markusrother.pned.util;
 import java.util.EventObject;
 
 import de.markusrother.pned.core.commands.EdgeCreationCommand;
-import de.markusrother.pned.core.commands.NodeMovedEvent;
-import de.markusrother.pned.core.commands.NodeRemovalEvent;
+import de.markusrother.pned.core.commands.NodeMotionCommand;
+import de.markusrother.pned.core.commands.NodeRemovalCommand;
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
-import de.markusrother.pned.core.commands.PlaceEditEvent;
-import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.commands.PlaceEditCommand;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
-import de.markusrother.pned.core.listeners.NodeRemovalListener;
 import de.markusrother.pned.core.listeners.PlaceEditListener;
+import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
-import de.markusrother.pned.gui.events.SetNodeTypeCommand;
+import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 
 /**
@@ -28,7 +28,7 @@ import de.markusrother.pned.gui.listeners.NodeSelectionListener;
  * </p>
  *
  * FIXME - use compound interfaces
- * 
+ *
  * @author Markus Rother
  * @version 1.0
  */
@@ -103,7 +103,7 @@ public class PetriNetEventLogger
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeRemoved(final NodeRemovalEvent e) {
+	public void nodeRemoved(final NodeRemovalCommand e) {
 		log(e);
 	}
 
@@ -175,7 +175,7 @@ public class PetriNetEventLogger
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeMoved(final NodeMovedEvent e) {
+	public void nodeMoved(final NodeMotionCommand e) {
 		log(e);
 	}
 
@@ -187,7 +187,7 @@ public class PetriNetEventLogger
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final PlaceEditEvent cmd) {
+	public void setMarking(final PlaceEditCommand cmd) {
 		log(cmd);
 	}
 

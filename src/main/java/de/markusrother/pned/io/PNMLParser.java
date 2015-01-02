@@ -19,24 +19,24 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
 import de.markusrother.pned.core.commands.EdgeCreationCommand;
-import de.markusrother.pned.core.commands.LabelEditEvent;
-import de.markusrother.pned.core.commands.NodeMovedEvent;
+import de.markusrother.pned.core.commands.LabelEditCommand;
+import de.markusrother.pned.core.commands.NodeMotionCommand;
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
-import de.markusrother.pned.core.commands.PlaceEditEvent;
+import de.markusrother.pned.core.commands.PlaceEditCommand;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
-import de.markusrother.pned.core.listeners.CommandTarget;
+import de.markusrother.pned.core.control.CommandTarget;
 
 /**
  * <p>
  * A simple pnml (xml) parser. Given some sort of readable input the
  * {@link de.markusrother.pned.io.PNMLParser} interprets it as pnml, generating
  * {@link java.util.EventObject}s which are posted on the provided
- * {@link de.markusrother.pned.core.listeners.CommandTarget}.
+ * {@link de.markusrother.pned.core.control.CommandTarget}.
  * </p>
  * <p>
  * This class does <b>not</b> actually create a Petri Net. It only provides the
  * events necessary to do so by posting them to the provided
- * {@link de.markusrother.pned.core.listeners.CommandTarget} . To create a Petri Net
+ * {@link de.markusrother.pned.core.control.CommandTarget} . To create a Petri Net
  * the provided {@link java.util.EventObject}s have to be interpreted, e.g. by:
  * </p>
  *
@@ -49,7 +49,7 @@ import de.markusrother.pned.core.listeners.CommandTarget;
  * </pre>
  * <p>
  * ... where {@link de.markusrother.pned.core.control.EventBus} implements
- * {@link de.markusrother.pned.core.listeners.CommandTarget},
+ * {@link de.markusrother.pned.core.control.CommandTarget},
  * {@link de.markusrother.pned.core.control.EventAwarePetriNet} implements all necessary
  * {@link java.util.EventListener}s, and {@code pnmlResource} is any first
  * parameter of one of the following business methods.
@@ -63,7 +63,7 @@ import de.markusrother.pned.core.listeners.CommandTarget;
  * </ul>
  * <p>
  * TODO - There should be a single interface similar to
- * {@link de.markusrother.pned.core.listeners.CommandTarget} extending all listeners
+ * {@link de.markusrother.pned.core.control.CommandTarget} extending all listeners
  * necessary to create a Petri Net.
  * </p>
  * <p>
@@ -73,7 +73,7 @@ import de.markusrother.pned.core.listeners.CommandTarget;
  * FIXME - Rename all events needed here, to commands.
  * </p>
  * <p>
- * FIXME - Move {@link de.markusrother.pned.core.listeners.CommandTarget} and all
+ * FIXME - Move {@link de.markusrother.pned.core.control.CommandTarget} and all
  * events needed here, to a different package.
  * </p>
  *
@@ -87,13 +87,13 @@ public class PNMLParser {
 	/**
 	 * <p>
 	 * Parses given {@link java.net.URL}, and broadcasts resulting events on
-	 * given {@link de.markusrother.pned.core.listeners.CommandTarget}.
+	 * given {@link de.markusrother.pned.core.control.CommandTarget}.
 	 * </p>
 	 *
 	 * @param resource
 	 *            a {@link java.net.URL} to be read.
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.core.listeners.CommandTarget} to
+	 *            an {@link de.markusrother.pned.core.control.CommandTarget} to
 	 *            which parsed results are broadcasted as events.
 	 * @throws javax.xml.stream.XMLStreamException
 	 *             if any.
@@ -109,13 +109,13 @@ public class PNMLParser {
 	/**
 	 * <p>
 	 * Parses given {@link java.io.File}, and broadcasts resulting events on
-	 * given {@link de.markusrother.pned.core.listeners.CommandTarget}.
+	 * given {@link de.markusrother.pned.core.control.CommandTarget}.
 	 * </p>
 	 *
 	 * @param file
 	 *            a {@link java.io.File} to be read.
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.core.listeners.CommandTarget} to
+	 *            an {@link de.markusrother.pned.core.control.CommandTarget} to
 	 *            which parsed results are broadcasted as events.
 	 * @throws java.io.FileNotFoundException
 	 *             if any.
@@ -130,13 +130,13 @@ public class PNMLParser {
 	/**
 	 * <p>
 	 * Parses given {@link java.io.InputStream}, and broadcasts resulting events
-	 * on given {@link de.markusrother.pned.core.listeners.CommandTarget}.
+	 * on given {@link de.markusrother.pned.core.control.CommandTarget}.
 	 * </p>
 	 *
 	 * @param inputStream
 	 *            a {@link java.io.InputStream} to be read.
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.core.listeners.CommandTarget} to
+	 *            an {@link de.markusrother.pned.core.control.CommandTarget} to
 	 *            which parsed results are broadcasted as events.
 	 * @throws javax.xml.stream.XMLStreamException
 	 *             if any.
@@ -150,13 +150,13 @@ public class PNMLParser {
 	 * <p>
 	 * Parses given {@link javax.xml.stream.XMLEventReader}, and broadcasts
 	 * resulting events on given
-	 * {@link de.markusrother.pned.core.listeners.CommandTarget}.
+	 * {@link de.markusrother.pned.core.control.CommandTarget}.
 	 * </p>
 	 *
 	 * @param xmlEventReader
 	 *            a {@link javax.xml.stream.XMLEventReader} to be read.
 	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.core.listeners.CommandTarget} to
+	 *            an {@link de.markusrother.pned.core.control.CommandTarget} to
 	 *            which parsed results are broadcasted as events.
 	 */
 	public static void parse(final XMLEventReader xmlEventReader, final CommandTarget eventTarget) {
@@ -207,7 +207,7 @@ public class PNMLParser {
 	 * @param xmlParser
 	 *            a {@link javax.xml.stream.XMLEventReader} to be read from.
 	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.core.listeners.CommandTarget} to be
+	 *            a {@link de.markusrother.pned.core.control.CommandTarget} to be
 	 *            broadcasted to.
 	 */
 	private PNMLParser(final XMLEventReader xmlParser, final CommandTarget eventTarget) {
@@ -446,7 +446,7 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Posts {@link NodeMovedEvent} on the provided {@link CommandTarget}.
+	 * Posts {@link NodeMotionCommand} on the provided {@link CommandTarget}.
 	 *
 	 * @param elementId
 	 *            Identifikationstext des Elements
@@ -459,12 +459,12 @@ public class PNMLParser {
 		// FIXME - catch NumberFormatException!
 		final int deltaX = Integer.valueOf(x);
 		final int deltaY = Integer.valueOf(y);
-		final NodeMovedEvent e = new NodeMovedEvent(this, Arrays.asList(elementId), deltaX, deltaY);
+		final NodeMotionCommand e = new NodeMotionCommand(this, Arrays.asList(elementId), deltaX, deltaY);
 		eventTarget.nodeMoved(e);
 	}
 
 	/**
-	 * Posts {@link LabelEditEvent} on the provided {@link CommandTarget}.
+	 * Posts {@link LabelEditCommand} on the provided {@link CommandTarget}.
 	 *
 	 * @param elementId
 	 *            Identifikationstext des Elements
@@ -472,12 +472,12 @@ public class PNMLParser {
 	 *            Beschriftungstext des Elements
 	 */
 	private void setName(final String elementId, final String label) {
-		final LabelEditEvent e = new LabelEditEvent(this, elementId, label);
+		final LabelEditCommand e = new LabelEditCommand(this, elementId, label);
 		eventTarget.setLabel(e);
 	}
 
 	/**
-	 * Posts {@link PlaceEditEvent} on the provided {@link CommandTarget}.
+	 * Posts {@link PlaceEditCommand} on the provided {@link CommandTarget}.
 	 *
 	 * @param placeId
 	 *            Identifikationstext des Elements
@@ -485,7 +485,8 @@ public class PNMLParser {
 	 *            Markierung des Elements
 	 */
 	private void setMarking(final String placeId, final String marking) {
-		final PlaceEditEvent e = new PlaceEditEvent(this, placeId, Integer.valueOf(marking));
+		final PlaceEditCommand e = new PlaceEditCommand(this, placeId, Integer.valueOf(marking));
 		eventTarget.setMarking(e);
 	}
+
 }

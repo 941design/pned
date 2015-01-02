@@ -13,7 +13,7 @@ import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.actions.CreatePlaceAction;
 import de.markusrother.pned.gui.actions.CreateTransitionAction;
 import de.markusrother.pned.gui.actions.RemoveSelectedNodesAction;
-import de.markusrother.pned.gui.events.GuiEventBus;
+import de.markusrother.pned.gui.control.GuiEventBus;
 
 /**
  * <p>

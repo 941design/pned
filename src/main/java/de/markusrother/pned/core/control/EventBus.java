@@ -7,28 +7,25 @@ import javax.swing.SwingWorker;
 import javax.swing.event.EventListenerList;
 
 import de.markusrother.pned.core.commands.EdgeCreationCommand;
-import de.markusrother.pned.core.commands.LabelEditEvent;
-import de.markusrother.pned.core.commands.NodeMovedEvent;
-import de.markusrother.pned.core.commands.NodeRemovalEvent;
+import de.markusrother.pned.core.commands.LabelEditCommand;
+import de.markusrother.pned.core.commands.NodeMotionCommand;
+import de.markusrother.pned.core.commands.NodeRemovalCommand;
 import de.markusrother.pned.core.commands.PetriNetIOCommand;
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
-import de.markusrother.pned.core.commands.PlaceEditEvent;
-import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.commands.PlaceEditCommand;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
-import de.markusrother.pned.core.listeners.CommandTarget;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
-import de.markusrother.pned.core.listeners.EventTarget;
 import de.markusrother.pned.core.listeners.IdRequestListener;
 import de.markusrother.pned.core.listeners.LabelEditListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
-import de.markusrother.pned.core.listeners.NodeRemovalListener;
 import de.markusrother.pned.core.listeners.PetriNetIOListener;
 import de.markusrother.pned.core.listeners.PlaceEditListener;
-import de.markusrother.pned.core.listeners.RequestTarget;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
 import de.markusrother.pned.core.requests.IdRequest;
+import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 
 /**
  * TODO - We could distinguish Two sources GUI and MODEL. GUI could be anything
@@ -119,7 +116,7 @@ public class EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final PlaceEditEvent e) {
+	public void setMarking(final PlaceEditCommand e) {
 		for (final PlaceEditListener l : getListeners(PlaceEditListener.class)) {
 			l.setMarking(e);
 		}
@@ -127,7 +124,7 @@ public class EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeRemoved(final NodeRemovalEvent e) {
+	public void nodeRemoved(final NodeRemovalCommand e) {
 		for (final NodeRemovalListener l : getListeners(NodeRemovalListener.class)) {
 			l.nodeRemoved(e);
 		}
@@ -143,7 +140,7 @@ public class EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeMoved(final NodeMovedEvent e) {
+	public void nodeMoved(final NodeMotionCommand e) {
 		for (final NodeMotionListener l : getListeners(NodeMotionListener.class)) {
 			l.nodeMoved(e);
 		}
@@ -151,7 +148,7 @@ public class EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void setLabel(final LabelEditEvent e) {
+	public void setLabel(final LabelEditCommand e) {
 		for (final LabelEditListener l : getListeners(LabelEditListener.class)) {
 			l.setLabel(e);
 		}

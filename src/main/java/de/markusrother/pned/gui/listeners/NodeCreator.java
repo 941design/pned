@@ -9,7 +9,7 @@ import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.requests.IdRequest;
 import de.markusrother.pned.gui.NodeCreationMode;
-import de.markusrother.pned.gui.events.SetNodeTypeCommand;
+import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 
 /**
  * TODO - suspend/enable on selection event!

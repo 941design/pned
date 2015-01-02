@@ -16,9 +16,9 @@ import de.markusrother.pned.core.commands.EdgeCreationCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.components.EdgeComponent;
 import de.markusrother.pned.gui.components.PnGridPanel;
+import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.EdgeEditEvent.Type;
-import de.markusrother.pned.gui.events.GuiEventBus;
 import de.markusrother.swing.DoubleClickListener;
 
 /**

@@ -7,11 +7,12 @@ import javax.swing.Action;
 import javax.swing.JMenuItem;
 
 import de.markusrother.pned.gui.dialogs.EditSettingsDialog;
-import de.markusrother.pned.gui.events.GuiEventTarget;
+import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 
 /**
  * <p>
- * Action that opens an {@link de.markusrother.pned.gui.dialogs.EditSettingsDialog} upon performing.
+ * Action that opens an
+ * {@link de.markusrother.pned.gui.dialogs.EditSettingsDialog} upon performing.
  * </p>
  *
  * @author Markus Rother
@@ -26,17 +27,18 @@ public class OpenEditSettingsDialogAction extends AbstractOpenDialogAction {
 
 	/**
 	 * <p>
-	 * Creates and returns a {@link javax.swing.JMenuItem} where selection opens an
-	 * {@link de.markusrother.pned.gui.dialogs.EditSettingsDialog}.
+	 * Creates and returns a {@link javax.swing.JMenuItem} where selection opens
+	 * an {@link de.markusrother.pned.gui.dialogs.EditSettingsDialog}.
 	 * </p>
 	 *
-	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.gui.events.GuiEventTarget} to be posted
-	 *            to.
+	 * @param commandTarget
+	 *            a
+	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            to be posted to.
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
 	 */
-	public static JMenuItem newMenuItem(final GuiEventTarget eventTarget) {
-		final Action action = new OpenEditSettingsDialogAction(eventTarget);
+	public static JMenuItem newMenuItem(final GuiCommandTarget commandTarget) {
+		final Action action = new OpenEditSettingsDialogAction(commandTarget);
 		return new JMenuItem(action);
 	}
 
@@ -45,18 +47,19 @@ public class OpenEditSettingsDialogAction extends AbstractOpenDialogAction {
 	 * Constructor for EditSettingsAction.
 	 * </p>
 	 *
-	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.gui.events.GuiEventTarget} to be posted
-	 *            to.
+	 * @param commandTarget
+	 *            a
+	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            to be posted to.
 	 */
-	public OpenEditSettingsDialogAction(final GuiEventTarget eventTarget) {
-		super(eventTarget, label, mnemonic);
+	public OpenEditSettingsDialogAction(final GuiCommandTarget commandTarget) {
+		super(commandTarget, label, mnemonic);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		EditSettingsDialog.open(eventTarget);
+		EditSettingsDialog.open(commandTarget);
 	}
 
 }

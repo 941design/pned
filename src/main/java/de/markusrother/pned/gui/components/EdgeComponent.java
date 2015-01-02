@@ -9,21 +9,22 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 
-import de.markusrother.pned.core.commands.NodeMovedEvent;
-import de.markusrother.pned.core.commands.NodeRemovalEvent;
-import de.markusrother.pned.core.commands.RemoveSelectedNodesEvent;
+import de.markusrother.pned.core.commands.NodeMotionCommand;
+import de.markusrother.pned.core.commands.NodeRemovalCommand;
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
-import de.markusrother.pned.core.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
+import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.layout.commands.EdgeLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
 import de.markusrother.pned.gui.layout.listeners.EdgeLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.PlaceLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.TransitionLayoutListener;
+import de.markusrother.pned.gui.layout.style.EdgeStyle;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.swing.HoverListener;
 
 /**
@@ -54,7 +55,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	/**
 	 * <p>Getter for the field <code>style</code>.</p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.components.EdgeStyle} object.
+	 * @return a {@link de.markusrother.pned.gui.layout.style.EdgeStyle} object.
 	 */
 	public EdgeStyle getStyle() {
 		return style;
@@ -245,7 +246,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeRemoved(final NodeRemovalEvent e) {
+	public void nodeRemoved(final NodeRemovalCommand e) {
 		final String sourceId = getSourceId();
 		final String targetId = getTargetId();
 		final String nodeId = e.getNodeId();
@@ -364,7 +365,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeMoved(final NodeMovedEvent event) {
+	public void nodeMoved(final NodeMotionCommand event) {
 		boolean repaint = false;
 		final String sourceId = getSourceId();
 		final String targetId = getTargetId();

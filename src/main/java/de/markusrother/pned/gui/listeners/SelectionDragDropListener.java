@@ -6,9 +6,9 @@ import java.awt.Point;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import de.markusrother.pned.core.commands.NodeMovedEvent;
+import de.markusrother.pned.core.commands.NodeMotionCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.events.GuiEventBus;
+import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.DragDropListener;
 
@@ -21,6 +21,7 @@ import de.markusrother.swing.DragDropListener;
 public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 
 	private final Collection<AbstractNode> nodes;
+	// FIXME - GuiCommandTarget should suffice
 	private final GuiEventBus eventBus;
 
 	/**
@@ -52,7 +53,7 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 		for (final AbstractNode node : nodes) {
 			nodeIds.add(node.getId());
 		}
-		eventBus.nodeMoved(new NodeMovedEvent(this, nodeIds, deltaX, deltaY));
+		eventBus.nodeMoved(new NodeMotionCommand(this, nodeIds, deltaX, deltaY));
 	}
 
 	/** {@inheritDoc} */

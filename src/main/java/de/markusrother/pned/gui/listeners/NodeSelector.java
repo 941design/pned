@@ -8,7 +8,7 @@ import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.SELECT;
 import java.util.Collection;
 
 import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.events.GuiEventBus;
+import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.Selector;
 
@@ -50,6 +50,7 @@ import de.markusrother.swing.Selector;
  */
 public class NodeSelector extends Selector<AbstractNode> {
 
+	// FIXME - GuiCommandTarget should do
 	private final GuiEventBus eventBus;
 
 	/**

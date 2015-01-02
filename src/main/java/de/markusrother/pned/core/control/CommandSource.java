@@ -8,7 +8,7 @@ import java.util.EventListener;
  * </p>
  *
  * FIXME - rename to CommandSource with T super CommandTarget
- * 
+ *
  * @author Markus Rother
  * @version 1.0
  */

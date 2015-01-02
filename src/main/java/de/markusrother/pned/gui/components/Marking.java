@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand;
 import de.markusrother.pned.gui.layout.listeners.MarkingLayoutListener;
+import de.markusrother.pned.gui.layout.style.MarkingStyle;
 
 /**
  * <p>Marking class.</p>

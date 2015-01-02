@@ -1,4 +1,4 @@
-package de.markusrother.pned.core.commands;
+package de.markusrother.pned.gui.events;
 
 import java.util.EventObject;
 

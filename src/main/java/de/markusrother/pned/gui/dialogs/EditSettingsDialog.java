@@ -12,18 +12,19 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import de.markusrother.pned.gui.events.GuiEventTarget;
 import de.markusrother.pned.gui.layout.commands.EdgeLayoutCommand;
+import de.markusrother.pned.gui.layout.commands.LayoutCommand.ChangeType;
 import de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
-import de.markusrother.pned.gui.layout.commands.LayoutCommand.ChangeType;
+import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 import de.markusrother.swing.ScaleGroup;
 
 /**
  * <p>
  * Dialog for adjusting Petri net element sizes. Size changes are posted as
- * {@link java.util.EventObject}s to the provided {@link de.markusrother.pned.gui.events.GuiEventTarget}.
+ * {@link java.util.EventObject}s to the provided
+ * {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}.
  * </p>
  *
  * @author Markus Rother
@@ -45,13 +46,14 @@ public class EditSettingsDialog extends AbstractDialog {
 	 * Opens this dialog.
 	 * </p>
 	 *
-	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.gui.events.GuiEventTarget} to be
-	 *            posted to.
+	 * @param commandTarget
+	 *            an
+	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            to be posted to.
 	 */
-	public static void open(final GuiEventTarget eventTarget) {
+	public static void open(final GuiCommandTarget commandTarget) {
 		// TODO - take parent component and model
-		final EditSettingsDialog editSettingsDialog = new EditSettingsDialog(eventTarget);
+		final EditSettingsDialog editSettingsDialog = new EditSettingsDialog(commandTarget);
 		editSettingsDialog.pack();
 		editSettingsDialog.setVisible(true);
 	}
@@ -61,12 +63,13 @@ public class EditSettingsDialog extends AbstractDialog {
 	 * Constructor for EditSettingsDialog.
 	 * </p>
 	 *
-	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.gui.events.GuiEventTarget} to be
-	 *            posted to.
+	 * @param commandTarget
+	 *            an
+	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            to be posted to.
 	 */
-	private EditSettingsDialog(final GuiEventTarget eventTarget) {
-		super(eventTarget, title);
+	private EditSettingsDialog(final GuiCommandTarget commandTarget) {
+		super(commandTarget, title);
 
 		setPreferredSize(preferredSize);
 
@@ -100,7 +103,7 @@ public class EditSettingsDialog extends AbstractDialog {
 			public void stateChanged(final ChangeEvent e) {
 				final int size = scale.getValue();
 				final PlaceLayoutCommand cmd = new PlaceLayoutCommand(this, ChangeType.SIZE, size);
-				eventTarget.setSize(cmd);
+				commandTarget.setSize(cmd);
 			}
 		});
 		return scale;
@@ -121,7 +124,7 @@ public class EditSettingsDialog extends AbstractDialog {
 			public void stateChanged(final ChangeEvent e) {
 				final int size = scale.getValue();
 				final TransitionLayoutCommand cmd = new TransitionLayoutCommand(this, ChangeType.SIZE, size);
-				eventTarget.setSize(cmd);
+				commandTarget.setSize(cmd);
 			}
 		});
 		return scale;
@@ -142,7 +145,7 @@ public class EditSettingsDialog extends AbstractDialog {
 			public void stateChanged(final ChangeEvent e) {
 				final int size = scale.getValue();
 				final MarkingLayoutCommand cmd = new MarkingLayoutCommand(this, ChangeType.SIZE, size);
-				eventTarget.setSize(cmd);
+				commandTarget.setSize(cmd);
 			}
 		});
 		return scale;
@@ -163,9 +166,10 @@ public class EditSettingsDialog extends AbstractDialog {
 			public void stateChanged(final ChangeEvent e) {
 				final int size = scale.getValue();
 				final EdgeLayoutCommand cmd = new EdgeLayoutCommand(this, ChangeType.SIZE, size);
-				eventTarget.setSize(cmd);
+				commandTarget.setSize(cmd);
 			}
 		});
 		return scale;
 	}
+
 }

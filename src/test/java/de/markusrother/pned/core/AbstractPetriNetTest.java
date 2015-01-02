@@ -14,10 +14,10 @@ import org.junit.Before;
 
 import de.markusrother.pned.core.commands.AbstractNodeCreationCommand;
 import de.markusrother.pned.core.commands.EdgeCreationCommand;
-import de.markusrother.pned.core.commands.LabelEditEvent;
-import de.markusrother.pned.core.commands.NodeRemovalEvent;
+import de.markusrother.pned.core.commands.LabelEditCommand;
+import de.markusrother.pned.core.commands.NodeRemovalCommand;
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
-import de.markusrother.pned.core.commands.PlaceEditEvent;
+import de.markusrother.pned.core.commands.PlaceEditCommand;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.control.EventAwarePetriNet;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
@@ -25,9 +25,9 @@ import de.markusrother.pned.core.events.TransitionActivationEvent.Type;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.LabelEditListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
-import de.markusrother.pned.core.listeners.NodeRemovalListener;
 import de.markusrother.pned.core.listeners.PlaceEditListener;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 
 public abstract class AbstractPetriNetTest
 	implements
@@ -118,14 +118,14 @@ public abstract class AbstractPetriNetTest
 	}
 
 	protected void setLabel(final String placeId, final String label) {
-		final LabelEditEvent cmd = new LabelEditEvent(source, placeId, label);
+		final LabelEditCommand cmd = new LabelEditCommand(source, placeId, label);
 		for (final LabelEditListener l : getListeners(LabelEditListener.class)) {
 			l.setLabel(cmd);
 		}
 	}
 
 	protected void setMarking(final String placeId, final int marking) {
-		final PlaceEditEvent cmd = new PlaceEditEvent(source, placeId, marking);
+		final PlaceEditCommand cmd = new PlaceEditCommand(source, placeId, marking);
 		for (final PlaceEditListener l : getListeners(PlaceEditListener.class)) {
 			l.setMarking(cmd);
 		}
@@ -150,7 +150,7 @@ public abstract class AbstractPetriNetTest
 	}
 
 	protected void removeNode(final String nodeId) {
-		final NodeRemovalEvent cmd = new NodeRemovalEvent(source, nodeId);
+		final NodeRemovalCommand cmd = new NodeRemovalCommand(source, nodeId);
 		for (final NodeRemovalListener l : getListeners(NodeRemovalListener.class)) {
 			l.nodeRemoved(cmd);
 		}

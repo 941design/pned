@@ -2,7 +2,7 @@ package de.markusrother.pned.core.listeners;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.core.commands.PlaceEditEvent;
+import de.markusrother.pned.core.commands.PlaceEditCommand;
 
 /**
  * <p>PlaceEditListener interface.</p>
@@ -17,8 +17,8 @@ public interface PlaceEditListener
 	/**
 	 * <p>setMarking.</p>
 	 *
-	 * @param cmd a {@link de.markusrother.pned.core.commands.PlaceEditEvent} object.
+	 * @param cmd a {@link de.markusrother.pned.core.commands.PlaceEditCommand} object.
 	 */
-	void setMarking(PlaceEditEvent cmd);
+	void setMarking(PlaceEditCommand cmd);
 
 }

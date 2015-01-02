@@ -6,13 +6,13 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 
 import de.markusrother.pned.core.commands.PetriNetIOCommand;
-import de.markusrother.pned.gui.events.GuiEventTarget;
+import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 
 /**
  * <p>
  * File dialog for saving Petri nets to pnml (xml). Successful file selection
  * posts a {@link de.markusrother.pned.core.commands.PetriNetIOCommand} to the
- * provided {@link de.markusrother.pned.gui.events.GuiEventTarget}.
+ * provided {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}.
  * </p>
  *
  * @author Markus Rother
@@ -30,14 +30,15 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * Opens this dialog.
 	 * </p>
 	 *
-	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.gui.events.GuiEventTarget} to be
-	 *            posted to.
+	 * @param commandTarget
+	 *            an
+	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            to be posted to.
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
 	 */
-	public static void open(final GuiEventTarget eventTarget, final File dir) {
-		final SaveFileDialog dialog = new SaveFileDialog(eventTarget, dir);
+	public static void open(final GuiCommandTarget commandTarget, final File dir) {
+		final SaveFileDialog dialog = new SaveFileDialog(commandTarget, dir);
 		dialog.showDialogAndProcessResult();
 	}
 
@@ -46,14 +47,15 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * Constructor for SaveFileDialog.
 	 * </p>
 	 *
-	 * @param eventTarget
-	 *            an {@link de.markusrother.pned.gui.events.GuiEventTarget} to be
-	 *            posted to.
+	 * @param commandTarget
+	 *            an
+	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            to be posted to.
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
 	 */
-	private SaveFileDialog(final GuiEventTarget eventTarget, final File dir) {
-		super(eventTarget, title, dir, approveButtonLabel);
+	private SaveFileDialog(final GuiCommandTarget commandTarget, final File dir) {
+		super(commandTarget, title, dir, approveButtonLabel);
 		setDialogType(JFileChooser.SAVE_DIALOG);
 	}
 
@@ -63,8 +65,8 @@ public class SaveFileDialog extends AbstractFileDialog {
 		// TODO - prompt for overwrite!
 		try {
 			final String path = file.getAbsolutePath();
-			eventTarget.setCurrentDirectory(new PetriNetIOCommand(this, new File(path)));
-			eventTarget.exportPnml(new PetriNetIOCommand(this, file));
+			commandTarget.setCurrentDirectory(new PetriNetIOCommand(this, new File(path)));
+			commandTarget.exportPnml(new PetriNetIOCommand(this, file));
 		} catch (final IOException e) {
 			// TODO
 			throw new RuntimeException("TODO");

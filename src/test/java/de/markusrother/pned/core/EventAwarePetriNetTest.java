@@ -11,9 +11,9 @@ import de.markusrother.pned.core.listeners.IdRequestListener;
 import de.markusrother.pned.core.listeners.LabelEditListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
-import de.markusrother.pned.core.listeners.NodeRemovalListener;
 import de.markusrother.pned.core.listeners.PetriNetIOListener;
 import de.markusrother.pned.core.listeners.PlaceEditListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 
 /**
  * TODO

@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.listeners;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.gui.events.SetNodeTypeCommand;
+import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 
 /**
  * <p>NodeListener interface.</p>
@@ -17,7 +17,7 @@ public interface NodeListener
 	/**
 	 * <p>setCurrentNodeType.</p>
 	 *
-	 * @param cmd a {@link de.markusrother.pned.gui.events.SetNodeTypeCommand} object.
+	 * @param cmd a {@link de.markusrother.pned.gui.commands.SetNodeTypeCommand} object.
 	 */
 	void setCurrentNodeType(SetNodeTypeCommand cmd);
 

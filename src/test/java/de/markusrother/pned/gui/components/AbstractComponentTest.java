@@ -12,16 +12,16 @@ import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.LabelEditListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
-import de.markusrother.pned.core.listeners.NodeRemovalListener;
 import de.markusrother.pned.core.listeners.PlaceEditListener;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
-import de.markusrother.pned.gui.events.GuiEventBus;
+import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.layout.listeners.EdgeLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.MarkingLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.PlaceLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.TransitionLayoutListener;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeListener;
+import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.PetriNetListener;
 

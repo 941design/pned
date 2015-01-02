@@ -8,7 +8,7 @@ import java.util.EventObject;
  * @author Markus Rother
  * @version 1.0
  */
-public class LabelEditEvent extends EventObject {
+public class LabelEditCommand extends EventObject {
 
 	private final String elementId;
 	private final String label;
@@ -20,7 +20,7 @@ public class LabelEditEvent extends EventObject {
 	 * @param elementId a {@link java.lang.String} object.
 	 * @param label a {@link java.lang.String} object.
 	 */
-	public LabelEditEvent(final Object source, final String elementId, final String label) {
+	public LabelEditCommand(final Object source, final String elementId, final String label) {
 		super(source);
 		this.elementId = elementId;
 		this.label = label;

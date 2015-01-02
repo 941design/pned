@@ -1,8 +1,12 @@
-package de.markusrother.pned.gui.events;
+package de.markusrother.pned.gui.control;
 
 import javax.swing.SwingWorker;
 
 import de.markusrother.pned.core.control.EventBus;
+import de.markusrother.pned.gui.commands.PetriNetEditCommand;
+import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
+import de.markusrother.pned.gui.events.EdgeEditEvent;
+import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.layout.commands.EdgeLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
@@ -12,6 +16,8 @@ import de.markusrother.pned.gui.layout.listeners.MarkingLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.PlaceLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.TransitionLayoutListener;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
+import de.markusrother.pned.gui.listeners.GuiCommandTarget;
+import de.markusrother.pned.gui.listeners.GuiRequestTarget;
 import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeRequestListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
@@ -26,7 +32,8 @@ import de.markusrother.pned.gui.requests.NodeRequest;
  */
 public class GuiEventBus extends EventBus
 	implements
-		GuiEventTarget {
+		GuiCommandTarget,
+		GuiRequestTarget {
 
 	/** {@inheritDoc} */
 	@Override

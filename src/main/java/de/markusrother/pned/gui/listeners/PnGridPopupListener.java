@@ -17,7 +17,7 @@ import de.markusrother.pned.gui.actions.LocationProvider;
 import de.markusrother.pned.gui.actions.RemoveSelectedNodesAction;
 import de.markusrother.pned.gui.components.PnGridPanel;
 import de.markusrother.pned.gui.components.PnGridPanel.State;
-import de.markusrother.pned.gui.events.GuiEventBus;
+import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.swing.PopupListener;
 
 /**

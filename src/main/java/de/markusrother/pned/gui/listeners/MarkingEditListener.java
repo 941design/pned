@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.regex.Pattern;
 
-import de.markusrother.pned.core.commands.PlaceEditEvent;
+import de.markusrother.pned.core.commands.PlaceEditCommand;
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.gui.components.Place;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
@@ -61,7 +61,7 @@ public class MarkingEditListener extends MultiClickListener
 			@Override
 			public void textEntered(final ActionEvent e) {
 				final String text = textField.getText();
-				eventBus.setMarking(new PlaceEditEvent(this, place.getId(), Integer.valueOf(text)));
+				eventBus.setMarking(new PlaceEditCommand(this, place.getId(), Integer.valueOf(text)));
 			}
 		});
 	}
@@ -169,4 +169,5 @@ public class MarkingEditListener extends MultiClickListener
 	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
 		// IGNORE
 	}
+
 }

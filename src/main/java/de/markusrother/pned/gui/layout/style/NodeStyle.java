@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui.components;
+package de.markusrother.pned.gui.layout.style;
 
 import java.awt.Color;
 

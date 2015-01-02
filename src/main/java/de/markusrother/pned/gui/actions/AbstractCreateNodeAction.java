@@ -9,7 +9,7 @@ import javax.swing.Action;
 
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.requests.IdRequest;
-import de.markusrother.pned.gui.events.GuiEventBus;
+import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.listeners.NodeListener;
 
 /**
@@ -23,7 +23,7 @@ import de.markusrother.pned.gui.listeners.NodeListener;
  * </p>
  * <p>
  * Setting the default node type posts a
- * {@link de.markusrother.pned.gui.events.SetNodeTypeCommand} on the provided
+ * {@link de.markusrother.pned.gui.commands.SetNodeTypeCommand} on the provided
  * {@link EventBus}. This is done without performing other actions. The actual
  * {@link java.awt.event.ActionListener} is implemented by subclasses.
  * </p>
@@ -71,7 +71,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            an {@link de.markusrother.pned.core.control.EventBus} to be
+	 *            an {@link de.markusrother.pned.gui.control.GuiEventBus} to be
 	 *            posted to.
 	 * @param source
 	 *            an {@link java.lang.Object} - the posted
@@ -112,7 +112,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 
 	/**
 	 * <p>
-	 * Posts {@link de.markusrother.pned.gui.events.SetNodeTypeCommand} on
+	 * Posts {@link de.markusrother.pned.gui.commands.SetNodeTypeCommand} on
 	 * {@link de.markusrother.pned.core.control.EventBus}.
 	 * </p>
 	 */

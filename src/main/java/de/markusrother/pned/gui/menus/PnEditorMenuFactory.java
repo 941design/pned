@@ -3,8 +3,8 @@ package de.markusrother.pned.gui.menus;
 import javax.swing.JMenu;
 
 import de.markusrother.pned.gui.NodeCreationMode;
+import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.dialogs.FileDialogFactory;
-import de.markusrother.pned.gui.events.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 

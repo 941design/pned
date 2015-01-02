@@ -4,8 +4,8 @@ import java.io.File;
 
 import de.markusrother.pned.core.commands.PetriNetIOCommand;
 import de.markusrother.pned.core.listeners.PetriNetIOListener;
-import de.markusrother.pned.gui.events.GuiEventBus;
-import de.markusrother.pned.gui.events.GuiEventTarget;
+import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 
 /**
  * <p>
@@ -43,13 +43,14 @@ public class FileDialogFactory
 
 	/**
 	 * <p>
-	 * Getter for this factories current {#link GuiEventTarget}.
+	 * Getter for this factories current {@link GuiCommandTarget}.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.events.GuiEventTarget} to which
-	 *         events are posted to.
+	 * @return a
+	 *         {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *         to which events are posted to.
 	 */
-	public GuiEventTarget getEventTarget() {
+	public GuiCommandTarget getCommandTarget() {
 		return eventBus;
 	}
 

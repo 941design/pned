@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
 import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.events.GuiEventBus;
+import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.DragDropListener;
 
@@ -26,6 +26,7 @@ import de.markusrother.swing.DragDropListener;
  */
 public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 
+	// FIXME - GuiCommandTarget should suffice
 	private final GuiEventBus eventBus;
 
 	/**
