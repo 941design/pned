@@ -47,10 +47,12 @@ public class JavadocTest {
 			final JavaMethod method = (JavaMethod) item;
 			final List<DocletTag> tags = method.getTagsByName("param");
 			final List<JavaParameter> parameters = method.getParameters();
-			if (inheritPattern.matcher(method.getComment()).matches()) {
+			final String comment = method.getComment();
+			if (comment == null) {
+				return false;
+			} else if (inheritPattern.matcher(comment).matches()) {
 				return true;
-			}
-			if (parameters.size() > tags.size()) {
+			} else if (parameters.size() > tags.size()) {
 				return false;
 			}
 			final Iterator<JavaParameter> paramIterator = parameters.iterator();
