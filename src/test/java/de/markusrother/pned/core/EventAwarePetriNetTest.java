@@ -156,6 +156,12 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 	}
 
 	@Test
+	public void testCreatingTransitionFiresActivationEvent() {
+		createTransition(t1);
+		assertTransitionWasActivated(t1);
+	}
+
+	@Test
 	public void testConnectedInactiveTransition() {
 		createPlace(p1);
 		createTransition(t1);

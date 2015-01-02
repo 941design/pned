@@ -15,6 +15,7 @@ import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.layout.listeners.PlaceLayoutListener;
 import de.markusrother.pned.gui.layout.style.NodeStyle;
 import de.markusrother.pned.gui.listeners.MarkingEditListener;
+import de.markusrother.util.JsonBuilder;
 
 /**
  * TODO - on hover create pop up with + / - to add/remove weights
@@ -40,10 +41,14 @@ public class Place extends AbstractNode
 	private final NodeStyle style = NodeStyle.DEFAULT;
 
 	/**
-	 * <p>Constructor for Place.</p>
+	 * <p>
+	 * Constructor for Place.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
-	 * @param diameter a int.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param diameter
+	 *            a int.
 	 */
 	public Place(final EventBus eventBus, final int diameter) {
 		super(eventBus, new PlaceLayout());
@@ -81,7 +86,9 @@ public class Place extends AbstractNode
 	}
 
 	/**
-	 * <p>getEllipse.</p>
+	 * <p>
+	 * getEllipse.
+	 * </p>
 	 *
 	 * @return a {@link java.awt.geom.Ellipse2D} object.
 	 */
@@ -101,7 +108,9 @@ public class Place extends AbstractNode
 	}
 
 	/**
-	 * <p>Getter for the field <code>marking</code>.</p>
+	 * <p>
+	 * Getter for the field <code>marking</code>.
+	 * </p>
 	 *
 	 * @return a int.
 	 */
@@ -135,6 +144,19 @@ public class Place extends AbstractNode
 		// child.revalidate();
 		// }
 		repaint(); // REDUNDANT
+	}
+
+	@Override
+	public String toString() {
+		return toJson();
+	}
+
+	@Override
+	public String toJson() {
+		final JsonBuilder builder = new JsonBuilder();
+		return builder.append("id", getId()) //
+				.append("marking", getMarking()) //
+				.toString();
 	}
 
 }

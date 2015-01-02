@@ -5,6 +5,7 @@ import javax.swing.SwingWorker;
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.gui.commands.PetriNetEditCommand;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
+import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.layout.commands.EdgeLayoutCommand;
@@ -57,13 +58,7 @@ public class GuiEventBus extends EventBus
 	@Override
 	public void requestNode(final NodeRequest req) {
 		for (final NodeRequestListener l : getListeners(NodeRequestListener.class)) {
-			final SwingWorker<Object, Object> worker = new SwingWorker<Object, Object>() {
-				@Override
-				protected Object doInBackground() {
-					l.requestNode(req);
-					return null;
-				}
-			};
+			final SwingWorker<AbstractNode, Object> worker = req.createWorker(l);
 			worker.execute();
 		}
 	}

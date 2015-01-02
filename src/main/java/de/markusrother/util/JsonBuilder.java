@@ -1,7 +1,9 @@
 package de.markusrother.util;
 
 /**
- * <p>JsonBuilder class.</p>
+ * <p>
+ * JsonBuilder class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -11,39 +13,61 @@ public class JsonBuilder {
 	private final StringBuilder sb;
 
 	/**
-	 * <p>Constructor for JsonBuilder.</p>
+	 * <p>
+	 * Constructor for JsonBuilder.
+	 * </p>
 	 */
 	public JsonBuilder() {
 		this.sb = new StringBuilder();
 	}
 
 	/**
-	 * <p>append.</p>
+	 * <p>
+	 * append.
+	 * </p>
 	 *
-	 * @param name a {@link java.lang.String} object.
-	 * @param value a int.
+	 * @param name
+	 *            a {@link java.lang.String} object.
+	 * @param value
+	 *            a int.
 	 * @return a {@link de.markusrother.util.JsonBuilder} object.
 	 */
 	public JsonBuilder append(final String name, final int value) {
-		return append(name, String.valueOf(value));
+		startAttribute(name) //
+				.append(String.valueOf(value)) //
+				.appendComma();
+		return this;
 	}
 
-	/**
-	 * <p>append.</p>
-	 *
-	 * @param name a {@link java.lang.String} object.
-	 * @param value a {@link java.lang.String} object.
-	 * @return a {@link de.markusrother.util.JsonBuilder} object.
-	 */
-	public JsonBuilder append(final String name, final String value) {
+	public JsonBuilder append(final String name, final boolean value) {
 		startAttribute(name) //
-				.append(value) //
+				.append(String.valueOf(value)) //
 				.appendComma();
 		return this;
 	}
 
 	/**
-	 * <p>appendComma.</p>
+	 * <p>
+	 * append.
+	 * </p>
+	 *
+	 * @param name
+	 *            a {@link java.lang.String} object.
+	 * @param value
+	 *            a {@link java.lang.String} object.
+	 * @return a {@link de.markusrother.util.JsonBuilder} object.
+	 */
+	public JsonBuilder append(final String name, final String value) {
+		startAttribute(name) //
+				.append('"' + value + '"') //
+				.appendComma();
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * appendComma.
+	 * </p>
 	 *
 	 * @return a {@link de.markusrother.util.JsonBuilder} object.
 	 */
@@ -53,9 +77,12 @@ public class JsonBuilder {
 	}
 
 	/**
-	 * <p>startAttribute.</p>
+	 * <p>
+	 * startAttribute.
+	 * </p>
 	 *
-	 * @param name a {@link java.lang.String} object.
+	 * @param name
+	 *            a {@link java.lang.String} object.
 	 * @return a {@link de.markusrother.util.JsonBuilder} object.
 	 */
 	private JsonBuilder startAttribute(final String name) {
@@ -64,9 +91,12 @@ public class JsonBuilder {
 	}
 
 	/**
-	 * <p>append.</p>
+	 * <p>
+	 * append.
+	 * </p>
 	 *
-	 * @param s a {@link java.lang.String} object.
+	 * @param s
+	 *            a {@link java.lang.String} object.
 	 * @return a {@link de.markusrother.util.JsonBuilder} object.
 	 */
 	private JsonBuilder append(final String s) {
@@ -75,9 +105,12 @@ public class JsonBuilder {
 	}
 
 	/**
-	 * <p>append.</p>
+	 * <p>
+	 * append.
+	 * </p>
 	 *
-	 * @param c a char.
+	 * @param c
+	 *            a char.
 	 * @return a {@link de.markusrother.util.JsonBuilder} object.
 	 */
 	private JsonBuilder append(final char c) {
@@ -93,10 +126,14 @@ public class JsonBuilder {
 	}
 
 	/**
-	 * <p>appendList.</p>
+	 * <p>
+	 * appendList.
+	 * </p>
 	 *
-	 * @param name a {@link java.lang.String} object.
-	 * @param objects a {@link de.markusrother.util.JsonSerializable} object.
+	 * @param name
+	 *            a {@link java.lang.String} object.
+	 * @param objects
+	 *            a {@link de.markusrother.util.JsonSerializable} object.
 	 * @return a {@link de.markusrother.util.JsonBuilder} object.
 	 */
 	public JsonBuilder appendList(final String name, final JsonSerializable... objects) {
@@ -108,9 +145,12 @@ public class JsonBuilder {
 	}
 
 	/**
-	 * <p>appendObjects.</p>
+	 * <p>
+	 * appendObjects.
+	 * </p>
 	 *
-	 * @param objects a {@link de.markusrother.util.JsonSerializable} object.
+	 * @param objects
+	 *            a {@link de.markusrother.util.JsonSerializable} object.
 	 * @return a {@link de.markusrother.util.JsonBuilder} object.
 	 */
 	private JsonBuilder appendObjects(final JsonSerializable... objects) {

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 import javax.swing.event.EventListenerList;
@@ -125,7 +126,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	@Override
 	public void importPnml(final PetriNetIOCommand cmd) {
 		// IGNORE - We could import on top of this net...
-		// It is however not appropriate to start a new net here, as 
+		// It is however not appropriate to start a new net here, as
 		// each EventBus is bound to a net.
 	}
 
@@ -159,7 +160,8 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		final Point point = cmd.getPoint();
 		final String nodeId = cmd.getNodeId();
 		try {
-			createTransition(nodeId, point);
+			final TransitionModel transition = createTransition(nodeId, point);
+			fireTransitionActivationEvent(Arrays.asList(transition));
 		} catch (final UnavailableIdException e) {
 			// FIXME - create RequestException
 			throw new RuntimeException("TODO");

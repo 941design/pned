@@ -5,20 +5,28 @@ import java.awt.Point;
 import java.util.EventObject;
 
 import de.markusrother.pned.gui.components.EdgeComponent;
+import de.markusrother.util.JsonBuilder;
+import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
  * EdgeEditEvent class.
  * </p>
+ * 
+ * FIXME - coordinate handling is somewhat inconsistent
+ * 
+ * FIXME - We could request an id upon initial creation
  *
  * @author Markus Rother
  * @version 1.0
  */
-public class EdgeEditEvent extends EventObject {
+public class EdgeEditEvent extends EventObject
+	implements
+		JsonSerializable {
 
 	public enum Type {
 		EDGE_STARTED,
-		EDGE_CHANGED,
+		EDGE_MOVED,
 		EDGE_CANCELLED,
 		EDGE_FINISHED,
 		COMPONENT_ENTERED,
@@ -104,4 +112,22 @@ public class EdgeEditEvent extends EventObject {
 	public Component getComponent() {
 		return component;
 	}
+
+	@Override
+	public String toString() {
+		return toJson();
+	}
+
+	@Override
+	public String toJson() {
+		final JsonBuilder builder = new JsonBuilder();
+		return builder.append("type", type.name()) //
+				.append("edgeId", "TODO") //
+				.append("sourceId", edge.getSourceId()) //
+				.append("targetId", edge.getTargetId()) //
+				.append("x", location.x) //
+				.append("y", location.y) //
+				.toString();
+	}
+
 }

@@ -30,6 +30,7 @@ import de.markusrother.pned.gui.requests.NodeRequest;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 import de.markusrother.swing.Selectable;
+import de.markusrother.util.JsonSerializable;
 
 /**
  * TODO - We can get rid entirely of the single component drag listener, if we
@@ -48,7 +49,8 @@ public abstract class AbstractNode extends JPanel
 		EdgeEditListener,
 		Selectable,
 		Disposable,
-		DefinitelyBounded {
+		DefinitelyBounded,
+		JsonSerializable {
 
 	/** Constant <code>NO_LAYOUT_MANAGER</code> */
 	private static final LayoutManager NO_LAYOUT_MANAGER = null;

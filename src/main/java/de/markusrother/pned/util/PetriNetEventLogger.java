@@ -2,7 +2,7 @@ package de.markusrother.pned.util;
 
 import java.util.EventObject;
 
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.core.control.EventBus;
 
 /**
  * <p>
@@ -16,7 +16,7 @@ import de.markusrother.pned.gui.control.GuiEventBus;
  */
 public class PetriNetEventLogger extends PetriNetEventAdapter {
 
-	public static void log(final GuiEventBus eventBus) {
+	public static void log(final EventBus eventBus) {
 		final PetriNetEventLogger logger = new PetriNetEventLogger();
 		logger.setEventBus(eventBus);
 	}

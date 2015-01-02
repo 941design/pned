@@ -3,6 +3,8 @@ package de.markusrother.pned.gui.commands;
 import java.util.EventObject;
 
 import de.markusrother.pned.gui.NodeCreationMode;
+import de.markusrother.util.JsonBuilder;
+import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
@@ -14,7 +16,9 @@ import de.markusrother.pned.gui.NodeCreationMode;
  * @author Markus Rother
  * @version 1.0
  */
-public class SetNodeTypeCommand extends EventObject {
+public class SetNodeTypeCommand extends EventObject
+	implements
+		JsonSerializable {
 
 	private final NodeCreationMode mode;
 
@@ -42,6 +46,18 @@ public class SetNodeTypeCommand extends EventObject {
 	 */
 	public NodeCreationMode getMode() {
 		return mode;
+	}
+
+	@Override
+	public String toString() {
+		return toJson();
+	}
+
+	@Override
+	public String toJson() {
+		final JsonBuilder builder = new JsonBuilder();
+		return builder.append("type", mode.name()) //
+				.toString();
 	}
 
 }

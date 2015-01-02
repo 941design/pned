@@ -195,13 +195,7 @@ public class EventBus
 	@Override
 	public void requestId(final IdRequest req) {
 		for (final IdRequestListener l : getListeners(IdRequestListener.class)) {
-			final SwingWorker<Object, Object> worker = new SwingWorker<Object, Object>() {
-				@Override
-				protected Object doInBackground() {
-					l.requestId(req);
-					return null;
-				}
-			};
+			final SwingWorker<String, Object> worker = req.createWorker(l);
 			worker.execute();
 		}
 	}

@@ -111,12 +111,11 @@ public abstract class PetriNetEventAdapter
 		process(cmd);
 	}
 
-	protected abstract void process(final EventObject e);
-
 	@Override
 	public void requestId(final IdRequest req) {
-		// TODO
-		throw new RuntimeException("TODO");
+		process(req);
 	}
+
+	protected abstract void process(final EventObject e);
 
 }

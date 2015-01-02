@@ -20,7 +20,7 @@ import de.markusrother.pned.gui.listeners.PetriNetListener;
 import de.markusrother.pned.gui.menus.PnEditorMenuFactory;
 import de.markusrother.pned.gui.menus.PnedMenuBar;
 import de.markusrother.pned.io.PNMLParser;
-import de.markusrother.pned.util.PetriNetEventLogger;
+import de.markusrother.pned.util.PetriNetGuiEventLogger;
 
 /**
  * <p>
@@ -73,7 +73,7 @@ public class PnEditorFrame extends JFrame
 		pack();
 		setVisible(true);
 
-		PetriNetEventLogger.log(eventBus);
+		PetriNetGuiEventLogger.log(eventBus);
 	}
 
 	/**

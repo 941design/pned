@@ -3,7 +3,7 @@ package de.markusrother.pned.gui.listeners;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.COMPONENT_ENTERED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.COMPONENT_EXITED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_CANCELLED;
-import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_CHANGED;
+import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_MOVED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_FINISHED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_STARTED;
 
@@ -221,7 +221,7 @@ public class EdgeCreator extends DoubleClickListener {
 		super.mouseMoved(e);
 		if (edge != null) {
 			eventBus.edgeMoved(new EdgeEditEvent(this, //
-					EDGE_CHANGED, //
+					EDGE_MOVED, //
 					edge, //
 					getParentRelativeLocation(e), //
 					e.getComponent()));

@@ -17,9 +17,12 @@ import de.markusrother.pned.core.listeners.TransitionActivationListener;
 import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
 import de.markusrother.pned.gui.layout.listeners.TransitionLayoutListener;
 import de.markusrother.pned.gui.layout.style.NodeStyle;
+import de.markusrother.util.JsonBuilder;
 
 /**
- * <p>Transition class.</p>
+ * <p>
+ * Transition class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -34,10 +37,14 @@ public class Transition extends AbstractNode
 	private boolean isActive = true;
 
 	/**
-	 * <p>Constructor for Transition.</p>
+	 * <p>
+	 * Constructor for Transition.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
-	 * @param extent a int.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param extent
+	 *            a int.
 	 */
 	public Transition(final EventBus eventBus, final int extent) {
 		super(eventBus);
@@ -77,7 +84,9 @@ public class Transition extends AbstractNode
 	}
 
 	/**
-	 * <p>getRectangle.</p>
+	 * <p>
+	 * getRectangle.
+	 * </p>
 	 *
 	 * @return a {@link java.awt.Rectangle} object.
 	 */
@@ -139,6 +148,19 @@ public class Transition extends AbstractNode
 		if (myId.equals(e.getTransitionId())) {
 			isActive = false;
 		}
+	}
+
+	@Override
+	public String toString() {
+		return toJson();
+	}
+
+	@Override
+	public String toJson() {
+		final JsonBuilder builder = new JsonBuilder();
+		return builder.append("id", getId()) //
+				.append("isActive", isActive) //
+				.toString();
 	}
 
 }
