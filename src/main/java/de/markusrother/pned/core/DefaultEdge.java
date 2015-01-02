@@ -3,7 +3,7 @@ package de.markusrother.pned.core;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import de.markusrother.util.JsonBuildable;
+import de.markusrother.util.JsonSerializable;
 import de.markusrother.util.JsonBuilder;
 
 /**
@@ -18,7 +18,7 @@ import de.markusrother.util.JsonBuilder;
 public class DefaultEdge
 	implements
 		EdgeModel,
-		JsonBuildable {
+		JsonSerializable {
 
 	/** This edge's immutable unique identifier */
 	private final String id;

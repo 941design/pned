@@ -3,6 +3,9 @@ package de.markusrother.pned.core.commands;
 import java.awt.Point;
 import java.util.EventObject;
 
+import de.markusrother.util.JsonBuilder;
+import de.markusrother.util.JsonSerializable;
+
 /**
  * <p>
  * Abstract AbstractNodeCreationCommand class.
@@ -11,7 +14,9 @@ import java.util.EventObject;
  * @author Markus Rother
  * @version 1.0
  */
-public abstract class AbstractNodeCreationCommand extends EventObject {
+public abstract class AbstractNodeCreationCommand extends EventObject
+	implements
+		JsonSerializable {
 
 	private final Point point;
 	private final String nodeId;
@@ -54,6 +59,20 @@ public abstract class AbstractNodeCreationCommand extends EventObject {
 	 */
 	public Point getPoint() {
 		return point.getLocation();
+	}
+
+	@Override
+	public String toString() {
+		return toJson();
+	}
+
+	@Override
+	public String toJson() {
+		final JsonBuilder builder = new JsonBuilder();
+		return builder.append("nodeId", nodeId) //
+				.append("x", point.x) //
+				.append("y", point.y) //
+				.toString();
 	}
 
 }

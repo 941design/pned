@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import de.markusrother.pned.core.exceptions.NoSuchNodeException;
 import de.markusrother.pned.core.exceptions.UnavailableIdException;
-import de.markusrother.util.JsonBuildable;
+import de.markusrother.util.JsonSerializable;
 import de.markusrother.util.JsonBuilder;
 
 /**
@@ -29,7 +29,7 @@ import de.markusrother.util.JsonBuilder;
 public class DefaultPetriNet
 	implements
 		PetriNetModel,
-		JsonBuildable {
+		JsonSerializable {
 
 	/** All of this Petri net's current places. */
 	protected final Collection<PlaceModel> places;
@@ -358,9 +358,9 @@ public class DefaultPetriNet
 	@Override
 	public String toJson() {
 		final JsonBuilder jb = new JsonBuilder();
-		return jb.appendList("places", places.toArray(new JsonBuildable[places.size()])) //
-				.appendList("transitions", transitions.toArray(new JsonBuildable[transitions.size()])) //
-				.appendList("edges", edges.toArray(new JsonBuildable[edges.size()])) //
+		return jb.appendList("places", places.toArray(new JsonSerializable[places.size()])) //
+				.appendList("transitions", transitions.toArray(new JsonSerializable[transitions.size()])) //
+				.appendList("edges", edges.toArray(new JsonSerializable[edges.size()])) //
 				.toString();
 	}
 }

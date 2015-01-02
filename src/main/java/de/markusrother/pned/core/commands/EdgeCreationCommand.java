@@ -2,6 +2,9 @@ package de.markusrother.pned.core.commands;
 
 import java.util.EventObject;
 
+import de.markusrother.util.JsonBuilder;
+import de.markusrother.util.JsonSerializable;
+
 /**
  * <p>
  * EdgeCreationCommand class.
@@ -10,7 +13,9 @@ import java.util.EventObject;
  * @author Markus Rother
  * @version 1.0
  */
-public class EdgeCreationCommand extends EventObject {
+public class EdgeCreationCommand extends EventObject
+	implements
+		JsonSerializable {
 
 	private final String edgeId;
 	private final String sourceId;
@@ -68,6 +73,20 @@ public class EdgeCreationCommand extends EventObject {
 	 */
 	public String getTargetId() {
 		return targetId;
+	}
+
+	@Override
+	public String toString() {
+		return toJson();
+	}
+
+	@Override
+	public String toJson() {
+		final JsonBuilder builder = new JsonBuilder();
+		return builder.append("edgeId", edgeId) //
+				.append("sourceId", sourceId) //
+				.append("targetId", targetId) //
+				.toString();
 	}
 
 }

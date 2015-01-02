@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.markusrother.pned.io.AbsolutePositionMarshaller;
 import de.markusrother.pned.io.LabelMarshaller;
-import de.markusrother.util.JsonBuildable;
+import de.markusrother.util.JsonSerializable;
 import de.markusrother.util.JsonBuilder;
 
 /**
@@ -22,7 +22,7 @@ import de.markusrother.util.JsonBuilder;
 public abstract class AbstractDefaultNode
 	implements
 		NodeModel,
-		JsonBuildable {
+		JsonSerializable {
 
 	private final String id;
 	private String label;

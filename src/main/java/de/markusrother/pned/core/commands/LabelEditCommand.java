@@ -2,6 +2,9 @@ package de.markusrother.pned.core.commands;
 
 import java.util.EventObject;
 
+import de.markusrother.util.JsonBuilder;
+import de.markusrother.util.JsonSerializable;
+
 /**
  * <p>
  * LabelEditEvent class.
@@ -10,7 +13,9 @@ import java.util.EventObject;
  * @author Markus Rother
  * @version 1.0
  */
-public class LabelEditCommand extends EventObject {
+public class LabelEditCommand extends EventObject
+	implements
+		JsonSerializable {
 
 	public enum Type {
 		SET_LABEL
@@ -59,6 +64,20 @@ public class LabelEditCommand extends EventObject {
 	 */
 	public String getLabel() {
 		return label;
+	}
+
+	@Override
+	public String toString() {
+		return toJson();
+	}
+
+	@Override
+	public String toJson() {
+		final JsonBuilder builder = new JsonBuilder();
+		return builder.append("elementId", elementId) //
+				.append("type", type.name()) //
+				.append("label", label) //
+				.toString();
 	}
 
 }

@@ -35,7 +35,7 @@ public class PetriNetEventLogger extends PetriNetEventAdapter {
 	 *            a {@link java.util.EventObject} object.
 	 */
 	protected void log(final EventObject event) {
-		System.out.println(event.getClass().getSimpleName());
+		System.out.println(event);
 	}
 
 }

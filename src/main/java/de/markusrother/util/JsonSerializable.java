@@ -6,7 +6,7 @@ package de.markusrother.util;
  * @author Markus Rother
  * @version 1.0
  */
-public interface JsonBuildable {
+public interface JsonSerializable {
 
 	/**
 	 * <p>toJson.</p>

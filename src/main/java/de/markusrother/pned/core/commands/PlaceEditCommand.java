@@ -2,6 +2,9 @@ package de.markusrother.pned.core.commands;
 
 import java.util.EventObject;
 
+import de.markusrother.util.JsonBuilder;
+import de.markusrother.util.JsonSerializable;
+
 /**
  * <p>
  * PlaceEditEvent class.
@@ -10,7 +13,9 @@ import java.util.EventObject;
  * @author Markus Rother
  * @version 1.0
  */
-public class PlaceEditCommand extends EventObject {
+public class PlaceEditCommand extends EventObject
+	implements
+		JsonSerializable {
 
 	public enum Type {
 		SET_MARKING
@@ -59,6 +64,20 @@ public class PlaceEditCommand extends EventObject {
 	 */
 	public int getMarking() {
 		return marking;
+	}
+
+	@Override
+	public String toString() {
+		return toJson();
+	}
+
+	@Override
+	public String toJson() {
+		final JsonBuilder builder = new JsonBuilder();
+		return builder.append("placeId", placeId) //
+				.append("type", type.name()) //
+				.append("marking", marking) //
+				.toString();
 	}
 
 }

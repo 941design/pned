@@ -2,6 +2,9 @@ package de.markusrother.pned.core.commands;
 
 import java.util.EventObject;
 
+import de.markusrother.util.JsonBuilder;
+import de.markusrother.util.JsonSerializable;
+
 /**
  * <p>
  * NodeMovedEvent class.
@@ -10,7 +13,9 @@ import java.util.EventObject;
  * @author Markus Rother
  * @version 1.0
  */
-public class NodeMotionCommand extends EventObject {
+public class NodeMotionCommand extends EventObject
+	implements
+		JsonSerializable {
 
 	private final String nodeId;
 	private final int deltaY;
@@ -70,6 +75,20 @@ public class NodeMotionCommand extends EventObject {
 	 */
 	public int getDeltaY() {
 		return deltaY;
+	}
+
+	@Override
+	public String toString() {
+		return toJson();
+	}
+
+	@Override
+	public String toJson() {
+		final JsonBuilder builder = new JsonBuilder();
+		return builder.append("nodeId", nodeId) //
+				.append("deltaX", deltaX) //
+				.append("deltaY", deltaY) //
+				.toString();
 	}
 
 }

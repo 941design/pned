@@ -3,6 +3,9 @@ package de.markusrother.pned.core.commands;
 import java.io.File;
 import java.util.EventObject;
 
+import de.markusrother.util.JsonBuilder;
+import de.markusrother.util.JsonSerializable;
+
 /**
  * <p>
  * PetriNetIOCommand class.
@@ -11,7 +14,9 @@ import java.util.EventObject;
  * @author Markus Rother
  * @version 1.0
  */
-public class PetriNetIOCommand extends EventObject {
+public class PetriNetIOCommand extends EventObject
+	implements
+		JsonSerializable {
 
 	public enum Type {
 		OPEN,
@@ -47,6 +52,19 @@ public class PetriNetIOCommand extends EventObject {
 	 */
 	public File getFile() {
 		return file;
+	}
+
+	@Override
+	public String toString() {
+		return toJson();
+	}
+
+	@Override
+	public String toJson() {
+		final JsonBuilder builder = new JsonBuilder();
+		return builder.append("type", type.name()) //
+				.append("file", file.getAbsolutePath()) //
+				.toString();
 	}
 
 }

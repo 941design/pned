@@ -2,21 +2,32 @@ package de.markusrother.pned.core.commands;
 
 import java.util.EventObject;
 
+import de.markusrother.util.JsonBuilder;
+import de.markusrother.util.JsonSerializable;
+
 /**
- * <p>NodeRemovalEvent class.</p>
+ * <p>
+ * NodeRemovalEvent class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
-public class NodeRemovalCommand extends EventObject {
+public class NodeRemovalCommand extends EventObject
+	implements
+		JsonSerializable {
 
 	private final String nodeId;
 
 	/**
-	 * <p>Constructor for NodeRemovalEvent.</p>
+	 * <p>
+	 * Constructor for NodeRemovalEvent.
+	 * </p>
 	 *
-	 * @param source a {@link java.lang.Object} object.
-	 * @param nodeId a {@link java.lang.String} object.
+	 * @param source
+	 *            a {@link java.lang.Object} object.
+	 * @param nodeId
+	 *            a {@link java.lang.String} object.
 	 */
 	public NodeRemovalCommand(final Object source, final String nodeId) {
 		super(source);
@@ -24,12 +35,26 @@ public class NodeRemovalCommand extends EventObject {
 	}
 
 	/**
-	 * <p>Getter for the field <code>nodeId</code>.</p>
+	 * <p>
+	 * Getter for the field <code>nodeId</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.
 	 */
 	public String getNodeId() {
 		return nodeId;
+	}
+
+	@Override
+	public String toString() {
+		return toJson();
+	}
+
+	@Override
+	public String toJson() {
+		final JsonBuilder builder = new JsonBuilder();
+		return builder.append("nodeId", nodeId) //
+				.toString();
 	}
 
 }

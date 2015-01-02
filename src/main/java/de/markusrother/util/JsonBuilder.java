@@ -96,10 +96,10 @@ public class JsonBuilder {
 	 * <p>appendList.</p>
 	 *
 	 * @param name a {@link java.lang.String} object.
-	 * @param objects a {@link de.markusrother.util.JsonBuildable} object.
+	 * @param objects a {@link de.markusrother.util.JsonSerializable} object.
 	 * @return a {@link de.markusrother.util.JsonBuilder} object.
 	 */
-	public JsonBuilder appendList(final String name, final JsonBuildable... objects) {
+	public JsonBuilder appendList(final String name, final JsonSerializable... objects) {
 		return startAttribute(name) //
 				.append('[') //
 				.appendObjects(objects) //
@@ -110,14 +110,14 @@ public class JsonBuilder {
 	/**
 	 * <p>appendObjects.</p>
 	 *
-	 * @param objects a {@link de.markusrother.util.JsonBuildable} object.
+	 * @param objects a {@link de.markusrother.util.JsonSerializable} object.
 	 * @return a {@link de.markusrother.util.JsonBuilder} object.
 	 */
-	private JsonBuilder appendObjects(final JsonBuildable... objects) {
+	private JsonBuilder appendObjects(final JsonSerializable... objects) {
 		if (objects.length == 0) {
 			return this;
 		}
-		for (final JsonBuildable o : objects) {
+		for (final JsonSerializable o : objects) {
 			append(o.toJson()) //
 					.appendComma();
 		}
