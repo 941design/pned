@@ -18,7 +18,6 @@ import de.markusrother.pned.gui.components.EdgeComponent;
 import de.markusrother.pned.gui.components.PnGridPanel;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
-import de.markusrother.pned.gui.events.EdgeEditEvent.Type;
 import de.markusrother.swing.DoubleClickListener;
 
 /**
@@ -140,37 +139,6 @@ public class EdgeCreator extends DoubleClickListener {
 		}
 	}
 
-	/**
-	 * <p>
-	 * fire.
-	 * </p>
-	 *
-	 * @param type
-	 *            a {@link de.markusrother.pned.gui.events.EdgeEditEvent.Type}
-	 *            object.
-	 * @param e
-	 *            a {@link java.awt.event.MouseEvent} object.
-	 * @param component
-	 *            a {@link java.awt.Component} object.
-	 */
-	private void fire(final Type type, final MouseEvent e, final Component component) {
-		final Point location = getParentRelativeLocation(e);
-		fire(new EdgeEditEvent(type, this, edge, location, component));
-	}
-
-	/**
-	 * <p>
-	 * fire.
-	 * </p>
-	 *
-	 * @param e
-	 *            a {@link de.markusrother.pned.gui.events.EdgeEditEvent}
-	 *            object.
-	 */
-	private void fire(final EdgeEditEvent e) {
-		eventBus.fireEdgeEditEvent(e);
-	}
-
 	/** {@inheritDoc} */
 	@Override
 	public void mouseClicked(final MouseEvent e) {
@@ -200,7 +168,11 @@ public class EdgeCreator extends DoubleClickListener {
 			edge = pnGridPanel.createEdge(sourceNode, point);
 			// The container should then implement createEdge, finishEdge,
 			// removeEdge, etc.
-			fire(EDGE_STARTED, e, sourceNode);
+			eventBus.edgeStarted(new EdgeEditEvent(this, //
+					EDGE_STARTED, //
+					edge, //
+					getParentRelativeLocation(e), //
+					sourceNode));
 		}
 	}
 
@@ -221,7 +193,11 @@ public class EdgeCreator extends DoubleClickListener {
 			// edge.addMouseMotionListener(this);
 			// edge.addMouseListener(this);
 			// event intended to be ignored by gui.
-			fire(EDGE_FINISHED, e, targetNode);
+			eventBus.edgeStarted(new EdgeEditEvent(this, //
+					EDGE_FINISHED, //
+					edge, //
+					getParentRelativeLocation(e), //
+					targetNode));
 			final String edgeId = eventBus.requestId();
 			eventBus.createEdge(new EdgeCreationCommand(this, edgeId, edge.getSourceId(), edge.getTargetId()));
 		} else {
@@ -230,7 +206,11 @@ public class EdgeCreator extends DoubleClickListener {
 			// different layer!
 			pnGridPanel.removeEdge(edge);
 			// container.removeEdge(edge);
-			fire(EDGE_CANCELLED, e, e.getComponent());
+			eventBus.edgeStarted(new EdgeEditEvent(this, //
+					EDGE_CANCELLED, //
+					edge, //
+					getParentRelativeLocation(e), //
+					e.getComponent()));
 		}
 		edge = null;
 	}
@@ -240,7 +220,11 @@ public class EdgeCreator extends DoubleClickListener {
 	public void mouseMoved(final MouseEvent e) {
 		super.mouseMoved(e);
 		if (edge != null) {
-			fire(EDGE_CHANGED, e, e.getComponent());
+			eventBus.edgeStarted(new EdgeEditEvent(this, //
+					EDGE_CHANGED, //
+					edge, //
+					getParentRelativeLocation(e), //
+					e.getComponent()));
 			pnGridPanel.repaint(); // TODO - Why?
 		}
 	}
@@ -250,7 +234,11 @@ public class EdgeCreator extends DoubleClickListener {
 	public void mouseEntered(final MouseEvent e) {
 		super.mouseEntered(e);
 		if (edge != null) {
-			fire(COMPONENT_ENTERED, e, e.getComponent());
+			eventBus.edgeStarted(new EdgeEditEvent(this, //
+					COMPONENT_ENTERED, //
+					edge, //
+					getParentRelativeLocation(e), //
+					e.getComponent()));
 		}
 	}
 
@@ -259,7 +247,11 @@ public class EdgeCreator extends DoubleClickListener {
 	public void mouseExited(final MouseEvent e) {
 		super.mouseExited(e);
 		if (edge != null) {
-			fire(COMPONENT_EXITED, e, e.getComponent());
+			eventBus.edgeStarted(new EdgeEditEvent(this, //
+					COMPONENT_EXITED, //
+					edge, //
+					getParentRelativeLocation(e), //
+					e.getComponent()));
 		}
 	}
 

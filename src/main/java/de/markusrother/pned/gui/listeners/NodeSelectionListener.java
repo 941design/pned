@@ -17,29 +17,29 @@ public interface NodeSelectionListener
 	/**
 	 * <p>nodesSelected.</p>
 	 *
-	 * @param event a {@link de.markusrother.pned.gui.events.NodeSelectionEvent} object.
+	 * @param e a {@link de.markusrother.pned.gui.events.NodeSelectionEvent} object.
 	 */
-	public void nodesSelected(NodeSelectionEvent event);
+	public void nodesSelected(NodeSelectionEvent e);
 
 	/**
 	 * <p>nodesUnselected.</p>
 	 *
-	 * @param event a {@link de.markusrother.pned.gui.events.NodeSelectionEvent} object.
+	 * @param e a {@link de.markusrother.pned.gui.events.NodeSelectionEvent} object.
 	 */
-	public void nodesUnselected(NodeSelectionEvent event);
+	public void nodesUnselected(NodeSelectionEvent e);
 
 	/**
 	 * <p>nodeSelectionFinished.</p>
 	 *
-	 * @param event a {@link de.markusrother.pned.gui.events.NodeSelectionEvent} object.
+	 * @param e a {@link de.markusrother.pned.gui.events.NodeSelectionEvent} object.
 	 */
-	public void nodeSelectionFinished(NodeSelectionEvent event);
+	public void nodeSelectionFinished(NodeSelectionEvent e);
 
 	/**
 	 * <p>nodeSelectionCancelled.</p>
 	 *
-	 * @param event a {@link de.markusrother.pned.gui.events.NodeSelectionEvent} object.
+	 * @param e a {@link de.markusrother.pned.gui.events.NodeSelectionEvent} object.
 	 */
-	public void nodeSelectionCancelled(NodeSelectionEvent event);
+	public void nodeSelectionCancelled(NodeSelectionEvent e);
 
 }

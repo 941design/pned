@@ -8,7 +8,6 @@ import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.SELECT;
 import java.util.Collection;
 
 import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.Selector;
 
@@ -51,19 +50,19 @@ import de.markusrother.swing.Selector;
 public class NodeSelector extends Selector<AbstractNode> {
 
 	// FIXME - GuiCommandTarget should do
-	private final GuiEventBus eventBus;
+	private final GuiEventTarget eventTarget;
 
 	/**
 	 * <p>
 	 * Constructor for NodeSelector.
 	 * </p>
 	 *
-	 * @param eventBus
+	 * @param eventTarget
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
-	public NodeSelector(final GuiEventBus eventBus) {
+	public NodeSelector(final GuiEventTarget eventTarget) {
 		super(AbstractNode.class);
-		this.eventBus = eventBus;
+		this.eventTarget = eventTarget;
 	}
 
 	/**
@@ -74,7 +73,7 @@ public class NodeSelector extends Selector<AbstractNode> {
 	 */
 	@Override
 	public void startedSelection() {
-		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
+		eventTarget.nodeSelectionCancelled(new NodeSelectionEvent(CANCEL, this));
 	}
 
 	/**
@@ -85,7 +84,7 @@ public class NodeSelector extends Selector<AbstractNode> {
 	 */
 	@Override
 	public void addedToSelection(final Collection<AbstractNode> nodes) {
-		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, nodes));
+		eventTarget.nodesSelected(new NodeSelectionEvent(SELECT, this, nodes));
 	}
 
 	/**
@@ -96,7 +95,7 @@ public class NodeSelector extends Selector<AbstractNode> {
 	 */
 	@Override
 	public void removedFromSelection(final Collection<AbstractNode> nodes) {
-		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(DESELECT, this, nodes));
+		eventTarget.nodesUnselected(new NodeSelectionEvent(DESELECT, this, nodes));
 	}
 
 	/**
@@ -106,7 +105,7 @@ public class NodeSelector extends Selector<AbstractNode> {
 	 */
 	@Override
 	public void finishedSelection(final Collection<AbstractNode> nodes) {
-		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(FINISH, this, nodes));
+		eventTarget.nodeSelectionFinished(new NodeSelectionEvent(FINISH, this, nodes));
 	}
 
 }

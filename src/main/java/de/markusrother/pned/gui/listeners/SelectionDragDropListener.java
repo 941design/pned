@@ -69,6 +69,7 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 			// TODO - This should be done by the node, too.
 			node.removeDragListener(this);
 		}
-		eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
+		eventBus.nodeSelectionCancelled(new NodeSelectionEvent(CANCEL, this));
 	}
+
 }

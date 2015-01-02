@@ -17,6 +17,7 @@ import de.markusrother.pned.gui.layout.listeners.PlaceLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.TransitionLayoutListener;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.GuiCommandTarget;
+import de.markusrother.pned.gui.listeners.GuiEventTarget;
 import de.markusrother.pned.gui.listeners.GuiRequestTarget;
 import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeRequestListener;
@@ -33,6 +34,7 @@ import de.markusrother.pned.gui.requests.NodeRequest;
 public class GuiEventBus extends EventBus
 	implements
 		GuiCommandTarget,
+		GuiEventTarget,
 		GuiRequestTarget {
 
 	/** {@inheritDoc} */
@@ -66,69 +68,73 @@ public class GuiEventBus extends EventBus
 		}
 	}
 
-	/**
-	 * <p>
-	 * fireNodeSelectionEvent.
-	 * </p>
-	 *
-	 * @param e
-	 *            a {@link de.markusrother.pned.gui.events.NodeSelectionEvent}
-	 *            object.
-	 */
-	public void fireNodeSelectionEvent(final NodeSelectionEvent e) {
+	@Override
+	public void nodesSelected(final NodeSelectionEvent e) {
 		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
-			switch (e.getType()) {
-			case SELECT:
-				l.nodesSelected(e);
-				break;
-			case DESELECT:
-				l.nodesUnselected(e);
-				break;
-			case FINISH:
-				l.nodeSelectionFinished(e);
-				break;
-			case CANCEL:
-				l.nodeSelectionCancelled(e);
-				break;
-			default:
-				throw new IllegalStateException();
-			}
+			l.nodesSelected(e);
 		}
 	}
 
-	/**
-	 * <p>
-	 * fireEdgeEditEvent.
-	 * </p>
-	 *
-	 * @param e
-	 *            a {@link de.markusrother.pned.gui.events.EdgeEditEvent}
-	 *            object.
-	 */
-	public void fireEdgeEditEvent(final EdgeEditEvent e) {
+	@Override
+	public void nodesUnselected(final NodeSelectionEvent e) {
+		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
+			l.nodesUnselected(e);
+		}
+	}
+
+	@Override
+	public void nodeSelectionFinished(final NodeSelectionEvent e) {
+		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
+			l.nodeSelectionFinished(e);
+		}
+	}
+
+	@Override
+	public void nodeSelectionCancelled(final NodeSelectionEvent e) {
+		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
+			l.nodeSelectionCancelled(e);
+		}
+	}
+
+	@Override
+	public void targetComponentEntered(final EdgeEditEvent e) {
 		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
-			switch (e.getType()) {
-			case COMPONENT_ENTERED:
-				l.targetComponentEntered(e);
-				break;
-			case COMPONENT_EXITED:
-				l.targetComponentExited(e);
-				break;
-			case EDGE_CHANGED:
-				l.edgeMoved(e);
-				break;
-			case EDGE_CANCELLED:
-				l.edgeCancelled(e);
-				break;
-			case EDGE_FINISHED:
-				l.edgeFinished(e);
-				break;
-			case EDGE_STARTED:
-				l.edgeStarted(e);
-				break;
-			default:
-				throw new IllegalStateException();
-			}
+			l.targetComponentEntered(e);
+		}
+	}
+
+	@Override
+	public void targetComponentExited(final EdgeEditEvent e) {
+		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
+			l.targetComponentExited(e);
+		}
+	}
+
+	@Override
+	public void edgeMoved(final EdgeEditEvent e) {
+		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
+			l.edgeMoved(e);
+		}
+	}
+
+	@Override
+	public void edgeCancelled(final EdgeEditEvent e) {
+		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
+			l.edgeCancelled(e);
+		}
+	}
+
+	@Override
+	public void edgeFinished(final EdgeEditEvent e) {
+		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
+			l.edgeFinished(e);
+		}
+	}
+
+	@Override
+	public void edgeStarted(final EdgeEditEvent e) {
+		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
+			l.edgeStarted(e);
 		}
 	}
 

@@ -20,6 +20,7 @@ import de.markusrother.pned.gui.listeners.PetriNetListener;
 import de.markusrother.pned.gui.menus.PnEditorMenuFactory;
 import de.markusrother.pned.gui.menus.PnedMenuBar;
 import de.markusrother.pned.io.PNMLParser;
+import de.markusrother.pned.util.PetriNetEventLogger;
 
 /**
  * <p>
@@ -35,7 +36,7 @@ public class PnEditorFrame extends JFrame
 		PetriNetIOListener {
 
 	/** Constant <code>preferredSize</code> */
-	private static final Dimension preferredSize = new Dimension(800, 600);
+	private static final Dimension preferredSize = new Dimension(2000, 1000);
 
 	private GuiEventBus eventBus;
 	private final PnEditorMenuFactory menuFactory;
@@ -62,12 +63,17 @@ public class PnEditorFrame extends JFrame
 		this.pnedMenuBar = new PnedMenuBar(menuFactory);
 
 		setPreferredSize(preferredSize);
+
+		// final JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+		// grid, new PnGridPanel(eventBus));
+		// add(split, BorderLayout.CENTER);
+
 		add(grid, BorderLayout.CENTER);
 		setJMenuBar(pnedMenuBar);
 		pack();
 		setVisible(true);
 
-		// PetriNetEventLogger.instantiate(eventMulticaster);
+		PetriNetEventLogger.log(eventBus);
 	}
 
 	/**

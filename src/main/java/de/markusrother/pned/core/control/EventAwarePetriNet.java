@@ -125,6 +125,8 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	@Override
 	public void importPnml(final PetriNetIOCommand cmd) {
 		// IGNORE - We could import on top of this net...
+		// It is however not appropriate to start a new net here, as 
+		// each EventBus is bound to a net.
 	}
 
 	/** {@inheritDoc} */

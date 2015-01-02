@@ -1,5 +1,7 @@
 package de.markusrother.pned.gui.components;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.EventListener;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,28 +39,41 @@ public abstract class AbstractComponentTest<T> {
 
 	protected abstract T getComponent();
 
-	private List<Class<EventListener>> getEventListenerClasses(final T component) {
-		final List<Class<EventListener>> listenerClasses = new LinkedList<>();
-		Class<? extends Object> type = component.getClass();
-		while (type != Object.class) {
-			for (final Class<?> iface : type.getInterfaces()) {
-				if (EventListener.class.isAssignableFrom(iface)) {
-					final @SuppressWarnings("unchecked") Class<EventListener> listenerClass = (Class<EventListener>) iface;
-					listenerClasses.add(listenerClass);
-				}
+	public static List<Class<EventListener>> getEventListenerClasses(final Class<?> clazz) {
+		final Collection<Class<?>> interfaces = getInterfaces(clazz);
+		final List<Class<EventListener>> listenerInterfaces = new LinkedList<>();
+		for (final Class<?> iface : interfaces) {
+			if (EventListener.class.isAssignableFrom(iface) //
+					&& iface != EventListener.class //
+					&& Arrays.asList(iface.getInterfaces()).contains(EventListener.class)) {
+				final @SuppressWarnings("unchecked") Class<EventListener> listenerClass = (Class<EventListener>) iface;
+				listenerInterfaces.add(listenerClass);
+			}
+		}
+		return listenerInterfaces;
+	}
+
+	public static Collection<Class<?>> getInterfaces(final Class<?> clazz) {
+		final List<Class<?>> interfaces = new LinkedList<>();
+		Class<? extends Object> type = clazz;
+		while (type != null && type != Object.class) {
+			final List<Class<?>> ifaces = Arrays.asList(type.getInterfaces());
+			interfaces.addAll(ifaces);
+			for (final Class<?> iface : ifaces) {
+				interfaces.addAll(getInterfaces(iface));
 			}
 			type = type.getSuperclass();
 		}
-		return listenerClasses;
+		return interfaces;
 	}
 
 	@Test
 	public void testComponentAddsItselfToListeners() {
 		final T component = getComponent();
-		final List<Class<EventListener>> listenerClasses = getEventListenerClasses(component);
+		final List<Class<EventListener>> listenerClasses = getEventListenerClasses(component.getClass());
 		for (final Class<EventListener> listenerClass : listenerClasses) {
 			final EventListener listener = (EventListener) component;
-			Mockito.verify(eventMulticastMock).addListener(listenerClass, listener);
+			Mockito.verify(eventMulticastMock, Mockito.times(1)).addListener(listenerClass, listener);
 		}
 	}
 

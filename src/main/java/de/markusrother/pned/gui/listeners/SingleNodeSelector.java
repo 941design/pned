@@ -82,8 +82,8 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 		} else {
 			// NOTE - Do NOT rely on event status change within this method!
 			// We have to cancel other singly selected nodes, too:
-			eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(CANCEL, this));
-			eventBus.fireNodeSelectionEvent(new NodeSelectionEvent(SELECT, this, Arrays.asList(node)));
+			eventBus.nodeSelectionCancelled(new NodeSelectionEvent(CANCEL, this));
+			eventBus.nodesSelected(new NodeSelectionEvent(SELECT, this, Arrays.asList(node)));
 		}
 	}
 

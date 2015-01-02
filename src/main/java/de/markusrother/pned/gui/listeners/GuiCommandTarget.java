@@ -4,7 +4,9 @@ import de.markusrother.pned.core.control.CommandTarget;
 import de.markusrother.pned.gui.layout.listeners.LayoutCommandTarget;
 
 /**
- * <p>GuiCommandTarget interface.</p>
+ * <p>
+ * GuiCommandTarget interface.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
