@@ -193,7 +193,7 @@ public class EdgeCreator extends DoubleClickListener {
 			// edge.addMouseMotionListener(this);
 			// edge.addMouseListener(this);
 			// event intended to be ignored by gui.
-			eventBus.edgeStarted(new EdgeEditEvent(this, //
+			eventBus.edgeFinished(new EdgeEditEvent(this, //
 					EDGE_FINISHED, //
 					edge, //
 					getParentRelativeLocation(e), //
@@ -206,7 +206,7 @@ public class EdgeCreator extends DoubleClickListener {
 			// different layer!
 			pnGridPanel.removeEdge(edge);
 			// container.removeEdge(edge);
-			eventBus.edgeStarted(new EdgeEditEvent(this, //
+			eventBus.edgeCancelled(new EdgeEditEvent(this, //
 					EDGE_CANCELLED, //
 					edge, //
 					getParentRelativeLocation(e), //
@@ -220,7 +220,7 @@ public class EdgeCreator extends DoubleClickListener {
 	public void mouseMoved(final MouseEvent e) {
 		super.mouseMoved(e);
 		if (edge != null) {
-			eventBus.edgeStarted(new EdgeEditEvent(this, //
+			eventBus.edgeMoved(new EdgeEditEvent(this, //
 					EDGE_CHANGED, //
 					edge, //
 					getParentRelativeLocation(e), //
@@ -234,7 +234,7 @@ public class EdgeCreator extends DoubleClickListener {
 	public void mouseEntered(final MouseEvent e) {
 		super.mouseEntered(e);
 		if (edge != null) {
-			eventBus.edgeStarted(new EdgeEditEvent(this, //
+			eventBus.targetComponentEntered(new EdgeEditEvent(this, //
 					COMPONENT_ENTERED, //
 					edge, //
 					getParentRelativeLocation(e), //
@@ -247,7 +247,7 @@ public class EdgeCreator extends DoubleClickListener {
 	public void mouseExited(final MouseEvent e) {
 		super.mouseExited(e);
 		if (edge != null) {
-			eventBus.edgeStarted(new EdgeEditEvent(this, //
+			eventBus.targetComponentExited(new EdgeEditEvent(this, //
 					COMPONENT_EXITED, //
 					edge, //
 					getParentRelativeLocation(e), //
