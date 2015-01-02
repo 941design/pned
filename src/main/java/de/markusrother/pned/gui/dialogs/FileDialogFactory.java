@@ -46,9 +46,8 @@ public class FileDialogFactory
 	 * Getter for this factories current {@link GuiCommandTarget}.
 	 * </p>
 	 *
-	 * @return a
-	 *         {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
-	 *         to which events are posted to.
+	 * @return a {@link de.markusrother.pned.gui.listeners.GuiCommandTarget} to
+	 *         which events are posted to.
 	 */
 	public GuiCommandTarget getCommandTarget() {
 		return eventBus;
@@ -60,9 +59,9 @@ public class FileDialogFactory
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} to which
-	 *            resulting events are posted to and to which is listened to for
-	 *            directory changes.
+	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} to
+	 *            which resulting events are posted to and to which is listened
+	 *            to for directory changes.
 	 */
 	public void setEventBus(final GuiEventBus eventBus) {
 		assert (this.eventBus != null);

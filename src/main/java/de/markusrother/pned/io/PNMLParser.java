@@ -36,8 +36,9 @@ import de.markusrother.pned.core.control.CommandTarget;
  * <p>
  * This class does <b>not</b> actually create a Petri Net. It only provides the
  * events necessary to do so by posting them to the provided
- * {@link de.markusrother.pned.core.control.CommandTarget} . To create a Petri Net
- * the provided {@link java.util.EventObject}s have to be interpreted, e.g. by:
+ * {@link de.markusrother.pned.core.control.CommandTarget} . To create a Petri
+ * Net the provided {@link java.util.EventObject}s have to be interpreted, e.g.
+ * by:
  * </p>
  *
  * <pre>
@@ -50,9 +51,9 @@ import de.markusrother.pned.core.control.CommandTarget;
  * <p>
  * ... where {@link de.markusrother.pned.core.control.EventBus} implements
  * {@link de.markusrother.pned.core.control.CommandTarget},
- * {@link de.markusrother.pned.core.control.EventAwarePetriNet} implements all necessary
- * {@link java.util.EventListener}s, and {@code pnmlResource} is any first
- * parameter of one of the following business methods.
+ * {@link de.markusrother.pned.core.control.EventAwarePetriNet} implements all
+ * necessary {@link java.util.EventListener}s, and {@code pnmlResource} is any
+ * first parameter of one of the following business methods.
  * </p>
  * Available business methods:
  * <ul>
@@ -63,8 +64,8 @@ import de.markusrother.pned.core.control.CommandTarget;
  * </ul>
  * <p>
  * TODO - There should be a single interface similar to
- * {@link de.markusrother.pned.core.control.CommandTarget} extending all listeners
- * necessary to create a Petri Net.
+ * {@link de.markusrother.pned.core.control.CommandTarget} extending all
+ * listeners necessary to create a Petri Net.
  * </p>
  * <p>
  * FIXME - Test against malformed xml/pnml.
@@ -100,7 +101,8 @@ public class PNMLParser {
 	 * @throws java.io.IOException
 	 *             if any.
 	 */
-	public static void parse(final URL resource, final CommandTarget eventTarget) throws XMLStreamException, IOException {
+	public static void parse(final URL resource, final CommandTarget eventTarget) throws XMLStreamException,
+			IOException {
 		try (InputStream inputStream = resource.openStream()) {
 			parse(inputStream, eventTarget);
 		}
@@ -207,8 +209,8 @@ public class PNMLParser {
 	 * @param xmlParser
 	 *            a {@link javax.xml.stream.XMLEventReader} to be read from.
 	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.core.control.CommandTarget} to be
-	 *            broadcasted to.
+	 *            a {@link de.markusrother.pned.core.control.CommandTarget} to
+	 *            be broadcasted to.
 	 */
 	private PNMLParser(final XMLEventReader xmlParser, final CommandTarget eventTarget) {
 		this.xmlParser = xmlParser;
@@ -292,7 +294,7 @@ public class PNMLParser {
 	 * gelesen wird.
 	 *
 	 * @param value
-	 *            Der gelesene Text als String
+	 *            a {@link java.lang.String} Der gelesene Text als String
 	 */
 	private void handleValue(final String value) {
 		if (isName) {
@@ -306,7 +308,8 @@ public class PNMLParser {
 	 * Diese Methode wird aufgerufen, wenn ein Positionselement gelesen wird.
 	 *
 	 * @param element
-	 *            das Positionselement
+	 *            a {@link javax.xml.stream.events.StartElement} das
+	 *            Positionselement
 	 */
 	private void handlePosition(final StartElement element) {
 		String x = null;
@@ -331,7 +334,8 @@ public class PNMLParser {
 	 * Diese Methode wird aufgerufen, wenn ein Transitionselement gelesen wird.
 	 *
 	 * @param element
-	 *            das Transitionselement
+	 *            a {@link javax.xml.stream.events.StartElement} das
+	 *            Transitionselement
 	 */
 	private void handleTransition(final StartElement element) {
 		String transitionId = null;
@@ -356,7 +360,8 @@ public class PNMLParser {
 	 * Diese Methode wird aufgerufen, wenn ein Stellenelement gelesen wird.
 	 *
 	 * @param element
-	 *            das Stellenelement
+	 *            a {@link javax.xml.stream.events.StartElement} das
+	 *            Stellenelement
 	 */
 	private void handlePlace(final StartElement element) {
 		String placeId = null;
@@ -381,7 +386,8 @@ public class PNMLParser {
 	 * Diese Methode wird aufgerufen, wenn ein Kantenelement gelesen wird.
 	 *
 	 * @param element
-	 *            das Kantenelement
+	 *            a {@link javax.xml.stream.events.StartElement} das
+	 *            Kantenelement
 	 */
 	private void handleArc(final StartElement element) {
 		String arcId = null;
@@ -412,7 +418,7 @@ public class PNMLParser {
 	 * {@link CommandTarget}.
 	 *
 	 * @param transitionId
-	 *            Identifikationstext der Transition
+	 *            a {@link java.lang.String} Identifikationstext der Transition
 	 */
 	private void newTransition(final String transitionId) {
 		final TransitionCreationCommand cmd = new TransitionCreationCommand(this, transitionId);
@@ -423,7 +429,7 @@ public class PNMLParser {
 	 * Posts {@link PlaceCreationCommand} on the provided {@link CommandTarget}.
 	 *
 	 * @param placeId
-	 *            Identifikationstext der Stelle
+	 *            a {@link java.lang.String} Identifikationstext der Stelle
 	 */
 	private void newPlace(final String placeId) {
 		final PlaceCreationCommand cmd = new PlaceCreationCommand(this, placeId);
@@ -434,11 +440,13 @@ public class PNMLParser {
 	 * Posts {@link EdgeCreationCommand} on the provided {@link CommandTarget}.
 	 *
 	 * @param edgeId
-	 *            Identifikationstext der Kante
+	 *            a {@link java.lang.String} Identifikationstext der Kante
 	 * @param sourceId
-	 *            Identifikationstext des Startelements der Kante
+	 *            a {@link java.lang.String} Identifikationstext des
+	 *            Startelements der Kante
 	 * @param targetId
-	 *            Identifikationstext des Endelements der Kante
+	 *            a {@link java.lang.String} Identifikationstext des Endelements
+	 *            der Kante
 	 */
 	private void newArc(final String edgeId, final String sourceId, final String targetId) {
 		final EdgeCreationCommand cmd = new EdgeCreationCommand(this, edgeId, sourceId, targetId);
@@ -449,11 +457,11 @@ public class PNMLParser {
 	 * Posts {@link NodeMotionCommand} on the provided {@link CommandTarget}.
 	 *
 	 * @param elementId
-	 *            Identifikationstext des Elements
+	 *            a {@link java.lang.String} Identifikationstext des Elements
 	 * @param x
-	 *            x Position des Elements
+	 *            a {@link java.lang.String} x Position des Elements
 	 * @param y
-	 *            y Position des Elements
+	 *            a {@link java.lang.String} y Position des Elements
 	 */
 	private void setPosition(final String elementId, final String x, final String y) {
 		// FIXME - catch NumberFormatException!
@@ -467,9 +475,9 @@ public class PNMLParser {
 	 * Posts {@link LabelEditCommand} on the provided {@link CommandTarget}.
 	 *
 	 * @param elementId
-	 *            Identifikationstext des Elements
+	 *            a {@link java.lang.String} Identifikationstext des Elements
 	 * @param label
-	 *            Beschriftungstext des Elements
+	 *            a {@link java.lang.String} Beschriftungstext des Elements
 	 */
 	private void setName(final String elementId, final String label) {
 		final LabelEditCommand e = new LabelEditCommand(this, elementId, label);
@@ -480,9 +488,9 @@ public class PNMLParser {
 	 * Posts {@link PlaceEditCommand} on the provided {@link CommandTarget}.
 	 *
 	 * @param placeId
-	 *            Identifikationstext des Elements
+	 *            a {@link java.lang.String} Identifikationstext des Elements
 	 * @param marking
-	 *            Markierung des Elements
+	 *            a {@link java.lang.String} Markierung des Elements
 	 */
 	private void setMarking(final String placeId, final String marking) {
 		final PlaceEditCommand e = new PlaceEditCommand(this, placeId, Integer.valueOf(marking));

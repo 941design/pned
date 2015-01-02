@@ -124,7 +124,7 @@ public class PnEditorMenuFactory
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
 	 */
 	public void setEventBus(final GuiEventBus eventBus) {
 		if (this.eventBus != null) {

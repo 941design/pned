@@ -35,7 +35,7 @@ public class RemoveSelectedNodesAction extends AbstractAction
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
 	 * @param source
 	 *            a {@link java.lang.Object} object.
 	 * @param enabled
@@ -55,7 +55,7 @@ public class RemoveSelectedNodesAction extends AbstractAction
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
 	 * @param source
 	 *            a {@link java.lang.Object} object.
 	 * @param enabled
