@@ -13,17 +13,25 @@ class NodeRequestWorker extends SwingWorker<AbstractNode, Object> {
 	protected final NodeRequest request;
 	protected final NodeRequestListener listener;
 
+	/**
+	 * <p>Constructor for NodeRequestWorker.</p>
+	 *
+	 * @param request a {@link de.markusrother.pned.gui.requests.NodeRequest} object.
+	 * @param listener a {@link de.markusrother.pned.gui.listeners.NodeRequestListener} object.
+	 */
 	public NodeRequestWorker(final NodeRequest request, final NodeRequestListener listener) {
 		this.request = request;
 		this.listener = listener;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected AbstractNode doInBackground() throws TimeoutException {
 		listener.requestNode(request);
 		return request.get();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void done() {
 		try {

@@ -5,7 +5,9 @@ import java.util.EventObject;
 import de.markusrother.pned.gui.control.GuiEventBus;
 
 /**
- * <p>PetriNetGuiEventLogger class.</p>
+ * <p>
+ * PetriNetGuiEventLogger class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -13,9 +15,12 @@ import de.markusrother.pned.gui.control.GuiEventBus;
 public class PetriNetGuiEventLogger extends PetriNetGuiEventAdapter {
 
 	/**
-	 * <p>log.</p>
+	 * <p>
+	 * log.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
 	 */
 	public static void log(final GuiEventBus eventBus) {
 		final PetriNetGuiEventLogger logger = new PetriNetGuiEventLogger();
@@ -28,6 +33,10 @@ public class PetriNetGuiEventLogger extends PetriNetGuiEventAdapter {
 		log(e);
 	}
 
+	/**
+	 * @param e
+	 *            a {@link java.util.EventObject} object.
+	 */
 	private void log(final EventObject e) {
 		System.out.println(e);
 	}
