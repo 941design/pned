@@ -5,7 +5,11 @@ import java.util.EventListener;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 
 /**
- * <p>TransitionActivationListener interface.</p>
+ * <p>
+ * TransitionActivationListener interface.
+ * </p>
+ * 
+ * FIXME - Create TransitionActivationCommand
  *
  * @author Markus Rother
  * @version 1.0
@@ -15,16 +19,26 @@ public interface TransitionActivationListener
 		EventListener {
 
 	/**
-	 * <p>transitionActivated.</p>
+	 * <p>
+	 * transitionActivated.
+	 * </p>
 	 *
-	 * @param e a {@link de.markusrother.pned.core.events.TransitionActivationEvent} object.
+	 * @param e
+	 *            a
+	 *            {@link de.markusrother.pned.core.events.TransitionActivationEvent}
+	 *            object.
 	 */
 	void transitionActivated(TransitionActivationEvent e);
 
 	/**
-	 * <p>transitionDeactivated.</p>
+	 * <p>
+	 * transitionDeactivated.
+	 * </p>
 	 *
-	 * @param e a {@link de.markusrother.pned.core.events.TransitionActivationEvent} object.
+	 * @param e
+	 *            a
+	 *            {@link de.markusrother.pned.core.events.TransitionActivationEvent}
+	 *            object.
 	 */
 	void transitionDeactivated(TransitionActivationEvent e);
 

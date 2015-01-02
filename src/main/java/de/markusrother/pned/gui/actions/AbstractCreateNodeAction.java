@@ -2,13 +2,11 @@ package de.markusrother.pned.gui.actions;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.concurrent.TimeoutException;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import de.markusrother.pned.core.control.EventBus;
-import de.markusrother.pned.core.requests.IdRequest;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.listeners.NodeListener;
 
@@ -127,22 +125,5 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 *            a boolean.
 	 */
 	protected abstract void setSelected(final boolean selected);
-
-	/**
-	 * <p>
-	 * Posts {@link de.markusrother.pned.core.requests.IdRequest} on
-	 * {@link de.markusrother.pned.core.control.EventBus} and returns requested
-	 * id.
-	 * </p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 * @throws java.util.concurrent.TimeoutException
-	 *             if no id was set.
-	 */
-	protected String requestNodeId() throws TimeoutException {
-		final IdRequest req = new IdRequest(this);
-		eventBus.requestId(req);
-		return req.get();
-	}
 
 }

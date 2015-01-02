@@ -1,5 +1,6 @@
 package de.markusrother.pned.io;
 
+import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -84,6 +85,8 @@ import de.markusrother.pned.core.control.CommandTarget;
  * @see CommandTarget
  */
 public class PNMLParser {
+
+	private static final Point initialNodeOrigin = new Point(100, 100);
 
 	/**
 	 * <p>
@@ -421,7 +424,7 @@ public class PNMLParser {
 	 *            a {@link java.lang.String} Identifikationstext der Transition
 	 */
 	private void newTransition(final String transitionId) {
-		final TransitionCreationCommand cmd = new TransitionCreationCommand(this, transitionId);
+		final TransitionCreationCommand cmd = new TransitionCreationCommand(this, transitionId, initialNodeOrigin);
 		eventTarget.createTransition(cmd);
 	}
 
@@ -432,7 +435,7 @@ public class PNMLParser {
 	 *            a {@link java.lang.String} Identifikationstext der Stelle
 	 */
 	private void newPlace(final String placeId) {
-		final PlaceCreationCommand cmd = new PlaceCreationCommand(this, placeId);
+		final PlaceCreationCommand cmd = new PlaceCreationCommand(this, placeId, initialNodeOrigin);
 		eventTarget.createPlace(cmd);
 	}
 

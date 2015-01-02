@@ -222,7 +222,8 @@ public class EdgeCreator extends DoubleClickListener {
 			// edge.addMouseListener(this);
 			// event intended to be ignored by gui.
 			fire(EDGE_FINISHED, e, targetNode);
-			eventBus.createEdge(new EdgeCreationCommand(this, edge.getSourceId(), edge.getTargetId()));
+			final String edgeId = eventBus.requestId();
+			eventBus.createEdge(new EdgeCreationCommand(this, edgeId, edge.getSourceId(), edge.getTargetId()));
 		} else {
 			// TODO - nicer (should not call surrounding class):
 			// The edge is not yet part of the model and could go to a

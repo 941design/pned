@@ -2,12 +2,10 @@ package de.markusrother.pned.gui.listeners;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.concurrent.TimeoutException;
 
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.control.EventBus;
-import de.markusrother.pned.core.requests.IdRequest;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 
@@ -52,7 +50,7 @@ public class NodeCreator extends MouseAdapter
 		// the results to create documentation, though, and to test! Such
 		// that: For a given configuration of states we expect a list of
 		// activated listeners.
-		final String nodeId = requestId();
+		final String nodeId = eventBus.requestId();
 		switch (mode) {
 		case PLACE:
 			eventBus.createPlace(new PlaceCreationCommand(this, nodeId, e.getPoint()));
@@ -62,24 +60,6 @@ public class NodeCreator extends MouseAdapter
 			break;
 		default:
 			throw new IllegalStateException();
-		}
-	}
-
-	/**
-	 * <p>
-	 * requestId.
-	 * </p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	private String requestId() {
-		try {
-			final IdRequest req = new IdRequest(this);
-			eventBus.requestId(req);
-			return req.get();
-		} catch (final TimeoutException e) {
-			// FIXME - throw custom exception
-			throw new RuntimeException("TODO");
 		}
 	}
 

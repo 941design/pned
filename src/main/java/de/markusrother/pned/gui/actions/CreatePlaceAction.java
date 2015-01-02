@@ -4,7 +4,6 @@ import static de.markusrother.pned.gui.NodeCreationMode.PLACE;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.concurrent.TimeoutException;
 
 import javax.swing.Action;
 import javax.swing.JRadioButtonMenuItem;
@@ -86,14 +85,8 @@ public class CreatePlaceAction extends AbstractCreateNodeAction {
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-
-		try {
-			final String nodeId = requestNodeId();
-			eventBus.createPlace(new PlaceCreationCommand(source, nodeId, locationProvider.getLocation()));
-		} catch (final TimeoutException e1) {
-			// FIXME - create custom Exception
-			throw new RuntimeException("TODO");
-		}
+		final String nodeId = eventBus.requestId();
+		eventBus.createPlace(new PlaceCreationCommand(source, nodeId, locationProvider.getLocation()));
 	}
 
 	/** {@inheritDoc} */

@@ -4,7 +4,6 @@ import static de.markusrother.pned.gui.NodeCreationMode.TRANSITION;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.concurrent.TimeoutException;
 
 import javax.swing.Action;
 import javax.swing.JRadioButtonMenuItem;
@@ -87,13 +86,8 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		try {
-			final String nodeId = requestNodeId();
-			eventBus.createTransition(new TransitionCreationCommand(source, nodeId, locationProvider.getLocation()));
-		} catch (final TimeoutException e1) {
-			// FIXME - create custom Exception
-			throw new RuntimeException("TODO");
-		}
+		final String nodeId = eventBus.requestId();
+		eventBus.createTransition(new TransitionCreationCommand(source, nodeId, locationProvider.getLocation()));
 	}
 
 	/** {@inheritDoc} */

@@ -12,7 +12,6 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 
-import de.markusrother.pned.core.commands.AbstractNodeCreationCommand;
 import de.markusrother.pned.core.commands.EdgeCreationCommand;
 import de.markusrother.pned.core.commands.LabelEditCommand;
 import de.markusrother.pned.core.commands.NodeRemovalCommand;
@@ -45,7 +44,7 @@ public abstract class AbstractPetriNetTest
 	protected static final String l1 = "label1";
 
 	protected static final int NO_MARKING = 0;
-	protected static final Point DEFAULT_ORIGIN = AbstractNodeCreationCommand.defaultNodeOrigin;
+	protected static final Point DEFAULT_ORIGIN = new Point(100, 100);
 
 	protected List<EventObject> events;
 	protected EventAwarePetriNet net;
@@ -95,18 +94,18 @@ public abstract class AbstractPetriNetTest
 	}
 
 	protected void createPlace(final String placeId) {
-		final PlaceCreationCommand cmd = new PlaceCreationCommand(source, placeId);
+		final PlaceCreationCommand cmd = new PlaceCreationCommand(source, placeId, DEFAULT_ORIGIN);
 		createPlace(cmd);
 	}
 
 	protected void createPlace(final String placeId, final String label) {
-		final PlaceCreationCommand cmd = new PlaceCreationCommand(source, placeId);
+		final PlaceCreationCommand cmd = new PlaceCreationCommand(source, placeId, DEFAULT_ORIGIN);
 		createPlace(cmd);
 		setLabel(placeId, label);
 	}
 
 	protected void createPlace(final String placeId, final int marking) {
-		final PlaceCreationCommand cmd = new PlaceCreationCommand(source, placeId);
+		final PlaceCreationCommand cmd = new PlaceCreationCommand(source, placeId, DEFAULT_ORIGIN);
 		createPlace(cmd);
 		setMarking(placeId, marking);
 	}
@@ -132,7 +131,7 @@ public abstract class AbstractPetriNetTest
 	}
 
 	protected void createTransition(final String transitionId) {
-		final TransitionCreationCommand cmd = new TransitionCreationCommand(source, transitionId);
+		final TransitionCreationCommand cmd = new TransitionCreationCommand(source, transitionId, DEFAULT_ORIGIN);
 		createTransition(cmd);
 	}
 

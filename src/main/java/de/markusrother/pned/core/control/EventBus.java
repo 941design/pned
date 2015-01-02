@@ -2,6 +2,7 @@ package de.markusrother.pned.core.control;
 
 import java.io.IOException;
 import java.util.EventListener;
+import java.util.concurrent.TimeoutException;
 
 import javax.swing.SwingWorker;
 import javax.swing.event.EventListenerList;
@@ -167,6 +168,28 @@ public class EventBus
 	public void transitionDeactivated(final TransitionActivationEvent e) {
 		for (final TransitionActivationListener l : getListeners(TransitionActivationListener.class)) {
 			l.transitionDeactivated(e);
+		}
+	}
+
+	/**
+	 * <p>
+	 * Posts {@link de.markusrother.pned.core.requests.IdRequest} on
+	 * {@link de.markusrother.pned.core.control.EventBus} and returns requested
+	 * id.
+	 * </p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 * @throws java.util.concurrent.TimeoutException
+	 *             if no id was set.
+	 */
+	public String requestId() {
+		try {
+			final IdRequest req = new IdRequest(this);
+			requestId(req);
+			return req.get();
+		} catch (final TimeoutException e) {
+			// FIXME - create custom Exception
+			throw new RuntimeException("TODO");
 		}
 	}
 

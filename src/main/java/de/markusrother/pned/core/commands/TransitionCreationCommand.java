@@ -3,7 +3,9 @@ package de.markusrother.pned.core.commands;
 import java.awt.Point;
 
 /**
- * <p>TransitionCreationCommand class.</p>
+ * <p>
+ * TransitionCreationCommand class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -11,21 +13,16 @@ import java.awt.Point;
 public class TransitionCreationCommand extends AbstractNodeCreationCommand {
 
 	/**
-	 * <p>Constructor for TransitionCreationCommand.</p>
+	 * <p>
+	 * Constructor for TransitionCreationCommand.
+	 * </p>
 	 *
-	 * @param source a {@link java.lang.Object} object.
-	 * @param nodeId a {@link java.lang.String} object.
-	 */
-	public TransitionCreationCommand(final Object source, final String nodeId) {
-		super(source, nodeId);
-	}
-
-	/**
-	 * <p>Constructor for TransitionCreationCommand.</p>
-	 *
-	 * @param source a {@link java.lang.Object} object.
-	 * @param nodeId a {@link java.lang.String} object.
-	 * @param point a {@link java.awt.Point} object.
+	 * @param source
+	 *            a {@link java.lang.Object} object.
+	 * @param nodeId
+	 *            a {@link java.lang.String} object.
+	 * @param point
+	 *            a {@link java.awt.Point} object.
 	 */
 	public TransitionCreationCommand(final Object source, final String nodeId, final Point point) {
 		super(source, nodeId, point);
