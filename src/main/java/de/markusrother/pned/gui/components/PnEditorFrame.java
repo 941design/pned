@@ -169,7 +169,7 @@ public class PnEditorFrame extends JFrame
 		// TODO - existing ui should rather be proxied!
 		final CustomScrollPaneUI ui = new CustomScrollPaneUI();
 		ui.addVerticalChangeListener(new VerticalComponentResizer(component));
-		ui.addVerticalChangeListener(new HorizontalComponentResizer(component));
+		ui.addHorizontalChangeListener(new HorizontalComponentResizer(component));
 		scrollPane.setUI(ui);
 		return scrollPane;
 	}
