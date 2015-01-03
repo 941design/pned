@@ -28,7 +28,7 @@ import de.markusrother.pned.gui.menus.PnedMenuBar;
 import de.markusrother.pned.io.PNMLParser;
 import de.markusrother.pned.util.PetriNetGuiEventLogger;
 import de.markusrother.swing.CustomScrollPaneUI;
-import de.markusrother.swing.snap.SnapGridComponent;
+import de.markusrother.swing.GridComponent;
 
 /**
  * <p>
@@ -68,11 +68,13 @@ public class PnEditorFrame extends JFrame
 		this.eventBus = createNewContext();
 		this.menuFactory = new PnEditorMenuFactory(eventBus);
 		this.grid = new PnGridPanel(eventBus);
+		// TODO - maybe we can adjust the grid layers preferred sizes with a
+		// propertyChangeListener!?
 		this.pnedMenuBar = new PnedMenuBar(menuFactory);
 
 		setPreferredSize(preferredSize);
 
-		final SnapGridComponent sg = new SnapGridComponent(new Dimension(40, 40), Color.GRAY);
+		final GridComponent sg = new GridComponent(new Dimension(40, 40), Color.GRAY);
 		sg.setPreferredSize(new Dimension(2000, 2000));
 		final JScrollPane panel = new JScrollPane(sg, //
 				// final JScrollPane panel = new JScrollPane(grid, //
@@ -104,8 +106,8 @@ public class PnEditorFrame extends JFrame
 		});
 		panel.setUI(ui);
 
-		add(panel, BorderLayout.CENTER);
-		// add(grid, BorderLayout.CENTER);
+		// add(panel, BorderLayout.CENTER);
+		add(grid, BorderLayout.CENTER);
 		setJMenuBar(pnedMenuBar);
 		pack();
 		setVisible(true);

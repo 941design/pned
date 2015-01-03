@@ -37,7 +37,7 @@ import de.markusrother.pned.gui.listeners.SelectionDragDropListener;
 import de.markusrother.pned.gui.listeners.SingleNodeSelector;
 import de.markusrother.pned.gui.requests.NodeRequest;
 import de.markusrother.swing.DragDropListener;
-import de.markusrother.swing.snap.SnapGridComponent;
+import de.markusrother.swing.GridComponent;
 
 /**
  * TODO - create MouseListener/Adapter which distinguishes between left and
@@ -148,7 +148,7 @@ public class PnGridPanel extends JLayeredPane
 		setPreferredSize(preferredSize);
 		// setBackground(Color.BLUE);
 		// TODO - set the number of rectangles to be displayed:
-		nodeLayer = new SnapGridComponent(new Dimension(40, 40), Color.GRAY);
+		nodeLayer = new GridComponent(new Dimension(40, 40), Color.GRAY);
 		// TODO - get preferred size from parent
 		nodeLayer.setPreferredSize(preferredSize);
 		// Must set bounds manually for JLayeredPane
