@@ -6,7 +6,9 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 /**
- * <p>NodeStyle class.</p>
+ * <p>
+ * NodeStyle class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -21,8 +23,8 @@ public class NodeStyle {
 		DEFAULT.setHoverColor(new Color(160, 220, 180, 120));
 		DEFAULT.setSelectionColor(new Color(160, 160, 160, 120));
 		DEFAULT.setDefaultBorder(null);
-		DEFAULT.setSelectionBorder(new LineBorder(Color.MAGENTA));
-		DEFAULT.setHoverBorder(new LineBorder(Color.GREEN));
+		DEFAULT.setSelectionBorder(new LineBorder(Color.MAGENTA, 2));
+		DEFAULT.setHoverBorder(new LineBorder(Color.GREEN, 2));
 	}
 
 	private Color defaultColor;
@@ -33,7 +35,9 @@ public class NodeStyle {
 	private Border hoverBorder;
 
 	/**
-	 * <p>Getter for the field <code>defaultColor</code>.</p>
+	 * <p>
+	 * Getter for the field <code>defaultColor</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.awt.Color} object.
 	 */
@@ -42,16 +46,21 @@ public class NodeStyle {
 	}
 
 	/**
-	 * <p>Setter for the field <code>defaultColor</code>.</p>
+	 * <p>
+	 * Setter for the field <code>defaultColor</code>.
+	 * </p>
 	 *
-	 * @param defaultColor a {@link java.awt.Color} object.
+	 * @param defaultColor
+	 *            a {@link java.awt.Color} object.
 	 */
 	public void setDefaultColor(final Color defaultColor) {
 		this.defaultColor = defaultColor;
 	}
 
 	/**
-	 * <p>Getter for the field <code>selectionColor</code>.</p>
+	 * <p>
+	 * Getter for the field <code>selectionColor</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.awt.Color} object.
 	 */
@@ -60,16 +69,21 @@ public class NodeStyle {
 	}
 
 	/**
-	 * <p>Setter for the field <code>selectionColor</code>.</p>
+	 * <p>
+	 * Setter for the field <code>selectionColor</code>.
+	 * </p>
 	 *
-	 * @param selectionColor a {@link java.awt.Color} object.
+	 * @param selectionColor
+	 *            a {@link java.awt.Color} object.
 	 */
 	public void setSelectionColor(final Color selectionColor) {
 		this.selectionColor = selectionColor;
 	}
 
 	/**
-	 * <p>Getter for the field <code>hoverColor</code>.</p>
+	 * <p>
+	 * Getter for the field <code>hoverColor</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.awt.Color} object.
 	 */
@@ -78,16 +92,21 @@ public class NodeStyle {
 	}
 
 	/**
-	 * <p>Setter for the field <code>hoverColor</code>.</p>
+	 * <p>
+	 * Setter for the field <code>hoverColor</code>.
+	 * </p>
 	 *
-	 * @param hoverColor a {@link java.awt.Color} object.
+	 * @param hoverColor
+	 *            a {@link java.awt.Color} object.
 	 */
 	public void setHoverColor(final Color hoverColor) {
 		this.hoverColor = hoverColor;
 	}
 
 	/**
-	 * <p>Getter for the field <code>defaultBorder</code>.</p>
+	 * <p>
+	 * Getter for the field <code>defaultBorder</code>.
+	 * </p>
 	 *
 	 * @return a {@link javax.swing.border.Border} object.
 	 */
@@ -96,16 +115,21 @@ public class NodeStyle {
 	}
 
 	/**
-	 * <p>Setter for the field <code>defaultBorder</code>.</p>
+	 * <p>
+	 * Setter for the field <code>defaultBorder</code>.
+	 * </p>
 	 *
-	 * @param defaultBorder a {@link javax.swing.border.Border} object.
+	 * @param defaultBorder
+	 *            a {@link javax.swing.border.Border} object.
 	 */
 	public void setDefaultBorder(final Border defaultBorder) {
 		this.defaultBorder = defaultBorder;
 	}
 
 	/**
-	 * <p>Getter for the field <code>selectionBorder</code>.</p>
+	 * <p>
+	 * Getter for the field <code>selectionBorder</code>.
+	 * </p>
 	 *
 	 * @return a {@link javax.swing.border.Border} object.
 	 */
@@ -114,16 +138,21 @@ public class NodeStyle {
 	}
 
 	/**
-	 * <p>Setter for the field <code>selectionBorder</code>.</p>
+	 * <p>
+	 * Setter for the field <code>selectionBorder</code>.
+	 * </p>
 	 *
-	 * @param selectionBorder a {@link javax.swing.border.Border} object.
+	 * @param selectionBorder
+	 *            a {@link javax.swing.border.Border} object.
 	 */
 	public void setSelectionBorder(final Border selectionBorder) {
 		this.selectionBorder = selectionBorder;
 	}
 
 	/**
-	 * <p>Getter for the field <code>hoverBorder</code>.</p>
+	 * <p>
+	 * Getter for the field <code>hoverBorder</code>.
+	 * </p>
 	 *
 	 * @return a {@link javax.swing.border.Border} object.
 	 */
@@ -132,9 +161,12 @@ public class NodeStyle {
 	}
 
 	/**
-	 * <p>Setter for the field <code>hoverBorder</code>.</p>
+	 * <p>
+	 * Setter for the field <code>hoverBorder</code>.
+	 * </p>
 	 *
-	 * @param hoverBorder a {@link javax.swing.border.Border} object.
+	 * @param hoverBorder
+	 *            a {@link javax.swing.border.Border} object.
 	 */
 	public void setHoverBorder(final Border hoverBorder) {
 		this.hoverBorder = hoverBorder;

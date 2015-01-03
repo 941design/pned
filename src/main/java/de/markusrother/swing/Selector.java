@@ -34,9 +34,12 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 	private Collection<T> currentSelection;
 
 	/**
-	 * <p>Constructor for Selector.</p>
+	 * <p>
+	 * Constructor for Selector.
+	 * </p>
 	 *
-	 * @param type a {@link java.lang.Class} object.
+	 * @param type
+	 *            a {@link java.lang.Class} object.
 	 */
 	public Selector(final Class<T> type) {
 		super(Container.class);
@@ -44,7 +47,9 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 	}
 
 	/**
-	 * <p>Getter for the field <code>currentSelection</code>.</p>
+	 * <p>
+	 * Getter for the field <code>currentSelection</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.util.Collection} object.
 	 */
@@ -53,25 +58,33 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 	}
 
 	/**
-	 * <p>createSelectionPanel.</p>
+	 * <p>
+	 * createSelectionPanel.
+	 * </p>
 	 *
-	 * @param origin a {@link java.awt.Point} object.
+	 * @param origin
+	 *            a {@link java.awt.Point} object.
 	 * @return a {@link javax.swing.JPanel} object.
 	 */
 	private JPanel createSelectionPanel(final Point origin) {
 		// TODO - either make abstract or add layout manager!
 		final JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(Color.CYAN, 2));
+		panel.setBorder(new LineBorder(Color.CYAN, 3)); // FIXME - constructor
+														// params
 		panel.setBounds(new Rectangle(origin, new Dimension()));
 		panel.setOpaque(false);
 		return panel;
 	}
 
 	/**
-	 * <p>collectSelectedItems.</p>
+	 * <p>
+	 * collectSelectedItems.
+	 * </p>
 	 *
-	 * @param container a {@link java.awt.Container} object.
-	 * @param r a {@link java.awt.Rectangle} object.
+	 * @param container
+	 *            a {@link java.awt.Container} object.
+	 * @param r
+	 *            a {@link java.awt.Rectangle} object.
 	 * @return a {@link java.util.Collection} object.
 	 */
 	private Collection<T> collectSelectedItems(final Container container, final Rectangle r) {
@@ -108,11 +121,16 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 	}
 
 	/**
-	 * <p>getNewSelectionBounds.</p>
+	 * <p>
+	 * getNewSelectionBounds.
+	 * </p>
 	 *
-	 * @param r a {@link java.awt.Rectangle} object.
-	 * @param deltaX a int.
-	 * @param deltaY a int.
+	 * @param r
+	 *            a {@link java.awt.Rectangle} object.
+	 * @param deltaX
+	 *            a int.
+	 * @param deltaY
+	 *            a int.
 	 * @return a {@link java.awt.Rectangle} object.
 	 */
 	Rectangle getNewSelectionBounds(final Rectangle r, final int deltaX, final int deltaY) {
@@ -178,10 +196,14 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 	}
 
 	/**
-	 * <p>adjustSelectedItems.</p>
+	 * <p>
+	 * adjustSelectedItems.
+	 * </p>
 	 *
-	 * @param container a {@link java.awt.Container} object.
-	 * @param selection a {@link java.awt.Rectangle} object.
+	 * @param container
+	 *            a {@link java.awt.Container} object.
+	 * @param selection
+	 *            a {@link java.awt.Rectangle} object.
 	 */
 	private void adjustSelectedItems(final Container container, final Rectangle selection) {
 
@@ -205,37 +227,53 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 	}
 
 	/**
-	 * <p>startedSelection.</p>
+	 * <p>
+	 * startedSelection.
+	 * </p>
 	 */
 	public abstract void startedSelection();
 
 	/**
-	 * <p>addedToSelection.</p>
+	 * <p>
+	 * addedToSelection.
+	 * </p>
 	 *
-	 * @param items a {@link java.util.Collection} object.
+	 * @param items
+	 *            a {@link java.util.Collection} object.
 	 */
 	public abstract void addedToSelection(Collection<T> items);
 
 	/**
-	 * <p>removedFromSelection.</p>
+	 * <p>
+	 * removedFromSelection.
+	 * </p>
 	 *
-	 * @param items a {@link java.util.Collection} object.
+	 * @param items
+	 *            a {@link java.util.Collection} object.
 	 */
 	public abstract void removedFromSelection(Collection<T> items);
 
 	/**
-	 * <p>finishedSelection.</p>
+	 * <p>
+	 * finishedSelection.
+	 * </p>
 	 *
-	 * @param items a {@link java.util.Collection} object.
+	 * @param items
+	 *            a {@link java.util.Collection} object.
 	 */
 	public abstract void finishedSelection(Collection<T> items);
 
 	/**
-	 * <p>resizeDragPanelBounds.</p>
+	 * <p>
+	 * resizeDragPanelBounds.
+	 * </p>
 	 *
-	 * @param r a {@link java.awt.Rectangle} object.
-	 * @param deltaX a int.
-	 * @param deltaY a int.
+	 * @param r
+	 *            a {@link java.awt.Rectangle} object.
+	 * @param deltaX
+	 *            a int.
+	 * @param deltaY
+	 *            a int.
 	 * @return a {@link java.awt.Rectangle} object.
 	 */
 	public static Rectangle resizeDragPanelBounds(final Rectangle r, final int deltaX, final int deltaY) {

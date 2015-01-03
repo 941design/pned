@@ -8,6 +8,12 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicScrollPaneUI;
 
+/**
+ * TODO - Maybe it is necessary to create one UI each for all LAFs!?
+ * 
+ * TODO - Also Subclass JScrollPane with a customized
+ * {@code public String getUIClassID()}
+ */
 public class CustomScrollPaneUI extends BasicScrollPaneUI
 	implements
 		ChangeListener {

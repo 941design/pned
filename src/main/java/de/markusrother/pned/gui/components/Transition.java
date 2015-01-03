@@ -32,6 +32,8 @@ public class Transition extends AbstractNode
 		TransitionActivationListener,
 		TransitionLayoutListener {
 
+	private static final Color activatedColor = Color.GREEN;
+	private static final Color deactivatedColor = Color.GRAY;
 	private int extent;
 	private final NodeStyle style = NodeStyle.DEFAULT;
 	private boolean isActive = true;
@@ -70,9 +72,9 @@ public class Transition extends AbstractNode
 		// TODO - how to manage node locations?
 		// setPreferredSize(dimension);
 		if (isActive) {
-			setForeground(Color.BLUE);
+			setForeground(activatedColor);
 		} else {
-			setForeground(Color.YELLOW);
+			setForeground(deactivatedColor);
 		}
 		g2.fill(getShape());
 	}
