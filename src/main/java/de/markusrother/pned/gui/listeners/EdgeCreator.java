@@ -3,8 +3,8 @@ package de.markusrother.pned.gui.listeners;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.COMPONENT_ENTERED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.COMPONENT_EXITED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_CANCELLED;
-import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_MOVED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_FINISHED;
+import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_MOVED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_STARTED;
 
 import java.awt.Component;
@@ -100,6 +100,7 @@ public class EdgeCreator extends DoubleClickListener {
 		try {
 			return (AbstractNode) component;
 		} catch (final ClassCastException e) {
+			e.printStackTrace();
 			// TODO
 			throw new RuntimeException("TODO");
 		}
@@ -162,7 +163,7 @@ public class EdgeCreator extends DoubleClickListener {
 			maybeFinishOrCancelEdge(e);
 		} else {
 			final AbstractNode sourceNode = expectNode(e.getComponent());
-			final Point point = pnGridPanel.getGridRelativeLocation(e.getLocationOnScreen());
+			final Point point = pnGridPanel.getGridRelativeLocation(e);
 			// This must cause listener suspension in various components!
 			// TODO - use promise for edge!
 			edge = pnGridPanel.createEdge(sourceNode, point);

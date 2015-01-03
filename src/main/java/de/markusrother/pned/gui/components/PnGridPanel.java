@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -61,7 +62,11 @@ public class PnGridPanel extends JLayeredPane
 		NodeListener,
 		NodeCreationListener,
 		EdgeCreationListener,
-		NodeRemovalListener {
+		NodeRemovalListener
+// FIXME
+// PlaceLayoutListener,
+// TransitionLayoutListener
+{
 
 	// TODO - This could be properties!
 	public enum State {
@@ -211,13 +216,22 @@ public class PnGridPanel extends JLayeredPane
 	 * <p>
 	 * getGridRelativeLocation.
 	 * </p>
-	 *
-	 * @param pointOnScreen
-	 *            a {@link java.awt.Point} object.
+	 * 
 	 * @return a {@link java.awt.Point} object.
 	 */
-	public Point getGridRelativeLocation(final Point pointOnScreen) {
-		return delta(pointOnScreen, nodeLayer.getLocationOnScreen());
+	public Point getGridRelativeLocation(final MouseEvent e) {
+		final Point offset = e.getPoint().getLocation();
+		Component component = (Component) e.getSource();
+		while (component != this) {
+			if (component.getParent() == null) {
+				throw new IllegalStateException("Trying to retrieve relative location of a non-child.");
+			}
+			component = component.getParent();
+			final Point location = component.getLocation();
+			offset.translate(location.x, location.y);
+		}
+		final Point delta = delta(offset, nodeLayer.getLocationOnScreen());
+		return delta;
 	}
 
 	/**
@@ -310,7 +324,8 @@ public class PnGridPanel extends JLayeredPane
 	 */
 	private <T extends AbstractNode> void addNodeComponent(final T node, final Point origin) {
 		// TODO - this method is too big!
-		final Dimension d = node.getPreferredSize();
+		final Dimension d = node.getPreferredSize(); // FIXME - didn't we just set
+														// the preferred size!
 		final Point nodeOrigin = origin.getLocation(); // TODO - Why?
 		nodeOrigin.translate(-d.width / 2, -d.height / 2); // TODO - Why?
 		node.setBounds(new Rectangle(nodeOrigin, node.getPreferredSize()));
@@ -446,7 +461,7 @@ public class PnGridPanel extends JLayeredPane
 	 *            object.
 	 */
 	private void addEdgeComponent(final EdgeComponent edge) {
-		edge.setBounds(this.getBounds()); // OBSOLETE?
+		edge.setBounds(new Rectangle(new Point(0, 0), this.getSize())); // OBSOLETE?
 		edgeLayer.add(edge);
 		edgeLayer.repaint();
 	}
