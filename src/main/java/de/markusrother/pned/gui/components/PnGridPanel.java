@@ -29,6 +29,7 @@ import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.EdgeCreator;
 import de.markusrother.pned.gui.listeners.NodeCreator;
+import de.markusrother.pned.gui.listeners.NodeLabelEditor;
 import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
@@ -98,6 +99,7 @@ public class PnGridPanel extends JLayeredPane
 	private final NodeSelector multipleNodeSelector;
 	private final SingleNodeSelector singleNodeSelector;
 	private final PnGridPopupListener popupCreator;
+	private final NodeLabelEditor nodeLabelEditor;
 
 	private final EnumSet<State> state;
 	// Stateful/Throwaway listeners:
@@ -175,6 +177,7 @@ public class PnGridPanel extends JLayeredPane
 		multipleNodeSelector = new NodeSelector(eventBus);
 		singleNodeSelector = new SingleNodeSelector(eventBus);
 		popupCreator = new PnGridPopupListener(eventBus, this);
+		nodeLabelEditor = new NodeLabelEditor(eventBus);
 
 		currentSelection = new HashSet<>();
 
@@ -324,8 +327,9 @@ public class PnGridPanel extends JLayeredPane
 	 */
 	private <T extends AbstractNode> void addNodeComponent(final T node, final Point origin) {
 		// TODO - this method is too big!
-		final Dimension d = node.getPreferredSize(); // FIXME - didn't we just set
-														// the preferred size!
+		final Dimension d = node.getPreferredSize(); // FIXME - didn't we just
+														// set the preferred
+														// size!
 		final Point nodeOrigin = origin.getLocation(); // TODO - Why?
 		nodeOrigin.translate(-d.width / 2, -d.height / 2); // TODO - Why?
 		node.setBounds(new Rectangle(nodeOrigin, node.getPreferredSize()));
@@ -377,7 +381,7 @@ public class PnGridPanel extends JLayeredPane
 	public JLabel createLabel(final Point origin, final String nodeId) {
 		// TODO - We could create an edge that connects label with node, synced
 		// similarly to the node.
-		final NodeLabel label = new NodeLabel(eventBus, nodeId);
+		final NodeLabel label = new NodeLabel(eventBus, nodeLabelEditor, nodeId);
 		addLabelComponent(label, origin);
 		// eventBus.fireLabelCreatedEvent(null);
 		return label;
@@ -425,6 +429,7 @@ public class PnGridPanel extends JLayeredPane
 			final AbstractNode node = req.get(); // FIXME - insert timeout here!
 			return node;
 		} catch (final TimeoutException e) {
+			e.printStackTrace();
 			// FIXME - create custom Exception
 			throw new RuntimeException("TODO");
 		}

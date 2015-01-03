@@ -14,10 +14,17 @@ class NodeRequestWorker extends SwingWorker<AbstractNode, Object> {
 	protected final NodeRequestListener listener;
 
 	/**
-	 * <p>Constructor for NodeRequestWorker.</p>
+	 * <p>
+	 * Constructor for NodeRequestWorker.
+	 * </p>
 	 *
-	 * @param request a {@link de.markusrother.pned.gui.requests.NodeRequest} object.
-	 * @param listener a {@link de.markusrother.pned.gui.listeners.NodeRequestListener} object.
+	 * @param request
+	 *            a {@link de.markusrother.pned.gui.requests.NodeRequest}
+	 *            object.
+	 * @param listener
+	 *            a
+	 *            {@link de.markusrother.pned.gui.listeners.NodeRequestListener}
+	 *            object.
 	 */
 	public NodeRequestWorker(final NodeRequest request, final NodeRequestListener listener) {
 		this.request = request;
@@ -37,6 +44,7 @@ class NodeRequestWorker extends SwingWorker<AbstractNode, Object> {
 		try {
 			get();
 		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
 			// TODO - use custom exception
 			throw new RuntimeException("TODO");
 		}
