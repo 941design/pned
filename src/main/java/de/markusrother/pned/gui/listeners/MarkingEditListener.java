@@ -1,5 +1,6 @@
 package de.markusrother.pned.gui.listeners;
 
+import java.awt.AWTEvent;
 import java.awt.Container;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -72,6 +73,12 @@ public class MarkingEditListener extends MultiClickListener
 			public void textEntered(final ActionEvent e) {
 				final String text = textField.getText();
 				eventBus.setMarking(new PlaceEditCommand(this, Type.SET_MARKING, place.getId(), Integer.valueOf(text)));
+			}
+
+			@Override
+			public void cancel(final AWTEvent e) {
+				// TODO
+				throw new RuntimeException("TODO");
 			}
 		});
 	}
@@ -186,6 +193,12 @@ public class MarkingEditListener extends MultiClickListener
 	@Override
 	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
 		// IGNORE
+	}
+
+	@Override
+	public void cancel(final AWTEvent e) {
+		// TODO
+		throw new RuntimeException("TODO");
 	}
 
 }

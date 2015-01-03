@@ -1,8 +1,11 @@
 package de.markusrother.swing;
 
+import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.regex.Pattern;
@@ -10,14 +13,17 @@ import java.util.regex.Pattern;
 import javax.swing.JTextField;
 
 /**
- * <p>CheckedTextField class.</p>
+ * <p>
+ * CheckedTextField class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
 public class CheckedTextField extends JTextField
 	implements
-		ActionListener {
+		ActionListener,
+		KeyListener {
 
 	/** Constant <code>validTextColor</code> */
 	private static final Color validTextColor = Color.BLACK;
@@ -31,39 +37,75 @@ public class CheckedTextField extends JTextField
 	private final Pattern pattern;
 
 	/**
-	 * <p>Constructor for CheckedTextField.</p>
+	 * <p>
+	 * Constructor for CheckedTextField.
+	 * </p>
 	 *
-	 * @param pattern a {@link java.util.regex.Pattern} object.
-	 * @param jTextFieldSize a int.
+	 * @param pattern
+	 *            a {@link java.util.regex.Pattern} object.
+	 * @param jTextFieldSize
+	 *            a int.
 	 */
 	public CheckedTextField(final Pattern pattern, final int jTextFieldSize) {
 		this(NO_TEXT, pattern, jTextFieldSize);
 	}
 
 	/**
-	 * <p>Constructor for CheckedTextField.</p>
+	 * <p>
+	 * Constructor for CheckedTextField.
+	 * </p>
 	 *
-	 * @param text a {@link java.lang.String} object.
-	 * @param pattern a {@link java.util.regex.Pattern} object.
-	 * @param jTextFieldSize a int.
+	 * @param text
+	 *            a {@link java.lang.String} object.
+	 * @param pattern
+	 *            a {@link java.util.regex.Pattern} object.
+	 * @param jTextFieldSize
+	 *            a int.
 	 */
 	public CheckedTextField(final String text, final Pattern pattern, final int jTextFieldSize) {
 		super(text, jTextFieldSize);
 		this.listeners = new LinkedList<>();
 		this.pattern = pattern;
 		addActionListener(this);
+		addKeyListener(this);
 	}
 
 	/**
-	 * <p>fireTextEnteredEvent.</p>
+	 * <p>
+	 * fireTextEnteredEvent.
+	 * </p>
 	 *
-	 * @param e a {@link java.awt.event.ActionEvent} object.
+	 * @param e
+	 *            a {@link java.awt.event.ActionEvent} object.
 	 */
 	private void fireTextEnteredEvent(final ActionEvent e) {
 		e.setSource(this);
 		for (final TextListener l : listeners) {
 			l.textEntered(e);
 		}
+	}
+
+	private void cancel(final AWTEvent e) {
+		for (final TextListener l : listeners) {
+			l.cancel(e);
+		}
+	}
+
+	@Override
+	public void keyTyped(final KeyEvent e) {
+		if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+			cancel(e);
+		}
+	}
+
+	@Override
+	public void keyPressed(final KeyEvent e) {
+		// IGNORE
+	}
+
+	@Override
+	public void keyReleased(final KeyEvent e) {
+		// IGNORE
 	}
 
 	/** {@inheritDoc} */
@@ -79,18 +121,24 @@ public class CheckedTextField extends JTextField
 	}
 
 	/**
-	 * <p>addTextListener.</p>
+	 * <p>
+	 * addTextListener.
+	 * </p>
 	 *
-	 * @param listener a {@link de.markusrother.swing.TextListener} object.
+	 * @param listener
+	 *            a {@link de.markusrother.swing.TextListener} object.
 	 */
 	public void addTextListener(final TextListener listener) {
 		listeners.add(listener);
 	}
 
 	/**
-	 * <p>removeTextListener.</p>
+	 * <p>
+	 * removeTextListener.
+	 * </p>
 	 *
-	 * @param listener a {@link de.markusrother.swing.TextListener} object.
+	 * @param listener
+	 *            a {@link de.markusrother.swing.TextListener} object.
 	 */
 	public void removeTextListener(final TextListener listener) {
 		listeners.remove(listener);

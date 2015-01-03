@@ -2,6 +2,7 @@ package de.markusrother.swing;
 
 import static de.markusrother.util.Patterns.intPattern;
 
+import java.awt.AWTEvent;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 
@@ -15,7 +16,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * <p>ScaleGroup class.</p>
+ * <p>
+ * ScaleGroup class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -41,21 +44,30 @@ public class ScaleGroup extends JPanel
 	private final CheckedTextField textField;
 
 	/**
-	 * <p>Constructor for ScaleGroup.</p>
+	 * <p>
+	 * Constructor for ScaleGroup.
+	 * </p>
 	 *
-	 * @param label a {@link java.lang.String} object.
-	 * @param orientation a {@link de.markusrother.swing.ScaleGroup.Orientation} object.
+	 * @param label
+	 *            a {@link java.lang.String} object.
+	 * @param orientation
+	 *            a {@link de.markusrother.swing.ScaleGroup.Orientation} object.
 	 */
 	public ScaleGroup(final String label, final Orientation orientation) {
 		this(label, orientation, new DefaultBoundedRangeModel());
 	}
 
 	/**
-	 * <p>Constructor for ScaleGroup.</p>
+	 * <p>
+	 * Constructor for ScaleGroup.
+	 * </p>
 	 *
-	 * @param label a {@link java.lang.String} object.
-	 * @param orientation a {@link de.markusrother.swing.ScaleGroup.Orientation} object.
-	 * @param model a {@link javax.swing.BoundedRangeModel} object.
+	 * @param label
+	 *            a {@link java.lang.String} object.
+	 * @param orientation
+	 *            a {@link de.markusrother.swing.ScaleGroup.Orientation} object.
+	 * @param model
+	 *            a {@link javax.swing.BoundedRangeModel} object.
 	 */
 	public ScaleGroup(final String label, final Orientation orientation, final BoundedRangeModel model) {
 
@@ -80,7 +92,9 @@ public class ScaleGroup extends JPanel
 	}
 
 	/**
-	 * <p>fireValueChangedEvent.</p>
+	 * <p>
+	 * fireValueChangedEvent.
+	 * </p>
 	 */
 	private void fireValueChangedEvent() {
 		final ChangeEvent e = new ChangeEvent(this);
@@ -137,7 +151,9 @@ public class ScaleGroup extends JPanel
 	}
 
 	/**
-	 * <p>getLabel.</p>
+	 * <p>
+	 * getLabel.
+	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.
 	 */
@@ -146,16 +162,21 @@ public class ScaleGroup extends JPanel
 	}
 
 	/**
-	 * <p>setLabel.</p>
+	 * <p>
+	 * setLabel.
+	 * </p>
 	 *
-	 * @param label a {@link java.lang.String} object.
+	 * @param label
+	 *            a {@link java.lang.String} object.
 	 */
 	public void setLabel(final String label) {
 		jLabel.setText(label);
 	}
 
 	/**
-	 * <p>getValue.</p>
+	 * <p>
+	 * getValue.
+	 * </p>
 	 *
 	 * @return a int.
 	 */
@@ -164,16 +185,21 @@ public class ScaleGroup extends JPanel
 	}
 
 	/**
-	 * <p>setValue.</p>
+	 * <p>
+	 * setValue.
+	 * </p>
 	 *
-	 * @param value a int.
+	 * @param value
+	 *            a int.
 	 */
 	public void setValue(final int value) {
 		jSlider.setValue(value);
 	}
 
 	/**
-	 * <p>getModel.</p>
+	 * <p>
+	 * getModel.
+	 * </p>
 	 *
 	 * @return a {@link javax.swing.BoundedRangeModel} object.
 	 */
@@ -182,11 +208,21 @@ public class ScaleGroup extends JPanel
 	}
 
 	/**
-	 * <p>setModel.</p>
+	 * <p>
+	 * setModel.
+	 * </p>
 	 *
-	 * @param model a {@link javax.swing.BoundedRangeModel} object.
+	 * @param model
+	 *            a {@link javax.swing.BoundedRangeModel} object.
 	 */
 	public void setModel(final BoundedRangeModel model) {
 		jSlider.setModel(model);
 	}
+
+	@Override
+	public void cancel(final AWTEvent e) {
+		// TODO
+		throw new RuntimeException("TODO");
+	}
+
 }
