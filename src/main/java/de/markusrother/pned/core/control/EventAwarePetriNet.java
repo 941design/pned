@@ -21,8 +21,10 @@ import de.markusrother.pned.core.commands.NodeMotionCommand;
 import de.markusrother.pned.core.commands.NodeRemovalCommand;
 import de.markusrother.pned.core.commands.PetriNetIOCommand;
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
-import de.markusrother.pned.core.commands.PlaceEditCommand;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
+import de.markusrother.pned.core.commands.TransitionExecutionCommand;
+import de.markusrother.pned.core.events.PlaceChangeEvent;
+import de.markusrother.pned.core.events.PlaceEventObject;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.events.TransitionActivationEvent.Type;
 import de.markusrother.pned.core.exceptions.NoSuchNodeException;
@@ -33,8 +35,9 @@ import de.markusrother.pned.core.listeners.LabelEditListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
 import de.markusrother.pned.core.listeners.PetriNetIOListener;
-import de.markusrother.pned.core.listeners.PlaceEditListener;
+import de.markusrother.pned.core.listeners.PlaceListener;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
+import de.markusrother.pned.core.listeners.TransitionListener;
 import de.markusrother.pned.core.requests.IdRequest;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
@@ -56,6 +59,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		RequestTarget,
 		EventSource {
 
+	private final EventBus eventBus;
 	private final EventListenerList listeners;
 
 	/**
@@ -83,6 +87,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	 *            FIXME
 	 */
 	public EventAwarePetriNet(final EventBus eventBus) {
+		this.eventBus = eventBus;
 		this.listeners = new EventListenerList();
 
 		eventBus.addListener(IdRequestListener.class, this);
@@ -90,9 +95,10 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		eventBus.addListener(EdgeCreationListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeMotionListener.class, this);
-		eventBus.addListener(PlaceEditListener.class, this);
+		eventBus.addListener(PlaceListener.class, this);
 		eventBus.addListener(LabelEditListener.class, this);
 		eventBus.addListener(PetriNetIOListener.class, this);
+		eventBus.addListener(TransitionListener.class, this);
 
 		this.addTransitionActivationListener(eventBus);
 	}
@@ -235,7 +241,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final PlaceEditCommand e) {
+	public void setMarking(final PlaceEventObject e) {
 		final String placeId = e.getPlaceId();
 		final int marking = e.getMarking();
 		maybeFireTransitionActivationEvent(new Runnable() {
@@ -329,6 +335,37 @@ public class EventAwarePetriNet extends DefaultPetriNet
 				listener.transitionActivated(e);
 			}
 		}
+	}
+
+	@Override
+	public void fireTransition(final TransitionExecutionCommand cmd) {
+		final String transitionId = cmd.getTransitionId();
+		try {
+			fireTransition(transitionId);
+		} catch (final NoSuchNodeException e) {
+			// FIXME - throw some generic exception
+			throw new RuntimeException("TODO");
+		}
+	}
+
+	@Override
+	protected void decrementMarking(final PlaceModel place) {
+		super.decrementMarking(place);
+		final PlaceChangeEvent evt = new PlaceChangeEvent(this, //
+				PlaceEventObject.Type.SET_MARKING, //
+				place.getId(), //
+				place.getMarking()); // The new marking
+		eventBus.setMarking(evt);
+	}
+
+	@Override
+	protected void incrementMarking(final PlaceModel place) {
+		super.incrementMarking(place);
+		final PlaceChangeEvent evt = new PlaceChangeEvent(this, //
+				PlaceEventObject.Type.SET_MARKING, //
+				place.getId(), //
+				place.getMarking()); // The new marking
+		eventBus.setMarking(evt);
 	}
 
 }

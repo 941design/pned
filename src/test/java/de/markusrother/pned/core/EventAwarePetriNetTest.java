@@ -12,7 +12,7 @@ import de.markusrother.pned.core.listeners.LabelEditListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
 import de.markusrother.pned.core.listeners.PetriNetIOListener;
-import de.markusrother.pned.core.listeners.PlaceEditListener;
+import de.markusrother.pned.core.listeners.PlaceListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 
 /**
@@ -39,7 +39,7 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 		assertEquals(net, eventBus.getListeners(EdgeCreationListener.class)[0]);
 		assertEquals(net, eventBus.getListeners(NodeRemovalListener.class)[0]);
 		assertEquals(net, eventBus.getListeners(NodeMotionListener.class)[0]);
-		assertEquals(net, eventBus.getListeners(PlaceEditListener.class)[0]);
+		assertEquals(net, eventBus.getListeners(PlaceListener.class)[0]);
 		assertEquals(net, eventBus.getListeners(LabelEditListener.class)[0]);
 	}
 
@@ -260,6 +260,73 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 		// Assert postconditions:
 		assertActiveTransitionsSizeEquals(2);
 		assertTransitionWasActivated(t1);
+		assertTransitionWasActivated(t2);
+	}
+
+	@Test
+	public void testFireTransitionWithInputOnly() {
+		// Set up:
+		createPlace(p1, 1);
+		createTransition(t1);
+		createEdge(e1, p1, t1);
+		// Assert preconditions:
+		assertPlacesContains(p1, DEFAULT_ORIGIN, 1);
+		assertActiveTransitionsContains(t1, DEFAULT_ORIGIN);
+		// Change:
+		fireTransition(t1);
+		// Assert postconditions:
+		assertPlacesContains(p1, DEFAULT_ORIGIN, 0);
+	}
+
+	@Test
+	public void testFireTransitionWithInputAndOutput() {
+		// Set up:
+		createPlace(p1, 1);
+		createPlace(p2, 0);
+		createTransition(t1);
+		createEdge(e1, p1, t1);
+		createEdge(e2, t1, p2);
+		// Assert preconditions:
+		assertPlacesContains(p1, DEFAULT_ORIGIN, 1);
+		assertPlacesContains(p2, DEFAULT_ORIGIN, 0);
+		assertActiveTransitionsContains(t1, DEFAULT_ORIGIN);
+		// Change:
+		fireTransition(t1);
+		// Assert postconditions:
+		assertPlacesContains(p1, DEFAULT_ORIGIN, 0);
+		assertPlacesContains(p2, DEFAULT_ORIGIN, 1);
+	}
+
+	@Test
+	public void testFireTransitionProducesSetMarkingEvents() {
+		// Set up:
+		createPlace(p1, 1);
+		createTransition(t1);
+		createEdge(e1, p1, t1);
+		// Assert preconditions:
+		assertPlacesContains(p1, DEFAULT_ORIGIN, 1);
+		assertActiveTransitionsContains(t1, DEFAULT_ORIGIN);
+		// Change:
+		fireTransition(t1);
+		// Assert postconditions:
+		assertMarkingWasSet(p1, 0);
+	}
+
+	@Test
+	public void testFireTransitionProducesTransitionActivationEvents() {
+		// Set up:
+		createPlace(p1, 1);
+		createTransition(t1);
+		createPlace(p2, 0);
+		createTransition(t2);
+		createEdge(e1, p1, t1);
+		createEdge(e2, t1, p2);
+		createEdge(e3, p2, t2);
+		// Assert preconditions:
+		denyActiveTransitionsContains(t2, DEFAULT_ORIGIN);
+		// Change:
+		fireTransition(t1);
+		// Assert postconditions:
 		assertTransitionWasActivated(t2);
 	}
 

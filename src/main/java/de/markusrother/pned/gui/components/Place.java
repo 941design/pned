@@ -7,9 +7,9 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
-import de.markusrother.pned.core.commands.PlaceEditCommand;
 import de.markusrother.pned.core.control.EventBus;
-import de.markusrother.pned.core.listeners.PlaceEditListener;
+import de.markusrother.pned.core.events.PlaceEventObject;
+import de.markusrother.pned.core.listeners.PlaceListener;
 import de.markusrother.pned.gui.PlaceLayout;
 import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.layout.listeners.PlaceLayoutListener;
@@ -32,7 +32,7 @@ import de.markusrother.util.JsonBuilder;
  */
 public class Place extends AbstractNode
 	implements
-		PlaceEditListener,
+		PlaceListener,
 		PlaceLayoutListener {
 
 	private final Marking marking;
@@ -60,7 +60,7 @@ public class Place extends AbstractNode
 		addMouseListener(new MarkingEditListener(eventBus));
 		// FIXME - dispose!
 		eventBus.addListener(PlaceLayoutListener.class, this);
-		eventBus.addListener(PlaceEditListener.class, this);
+		eventBus.addListener(PlaceListener.class, this);
 	}
 
 	/** {@inheritDoc} */
@@ -120,11 +120,11 @@ public class Place extends AbstractNode
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final PlaceEditCommand cmd) {
+	public void setMarking(final PlaceEventObject evt) {
 		final String myId = getId();
-		final String placeId = cmd.getPlaceId();
+		final String placeId = evt.getPlaceId();
 		if (myId.equals(placeId)) {
-			marking.setValue(cmd.getMarking());
+			marking.setValue(evt.getMarking());
 		}
 	}
 

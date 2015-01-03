@@ -18,20 +18,27 @@ import de.markusrother.pned.core.commands.NodeRemovalCommand;
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
 import de.markusrother.pned.core.commands.PlaceEditCommand;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
+import de.markusrother.pned.core.commands.TransitionExecutionCommand;
 import de.markusrother.pned.core.control.EventAwarePetriNet;
 import de.markusrother.pned.core.control.EventBus;
+import de.markusrother.pned.core.events.PlaceChangeEvent;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.events.TransitionActivationEvent.Type;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.LabelEditListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
-import de.markusrother.pned.core.listeners.PlaceEditListener;
-import de.markusrother.pned.core.listeners.TransitionActivationListener;
+import de.markusrother.pned.core.listeners.PlaceListener;
+import de.markusrother.pned.core.listeners.TransitionListener;
+import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
+import de.markusrother.pned.util.PetriNetEventAdapter;
 
 public abstract class AbstractPetriNetTest
 	implements
-		TransitionActivationListener {
+		NodeCreationListener,
+		NodeRemovalListener,
+		TransitionListener,
+		LabelEditListener {
 
 	protected static final String p1 = "place1";
 	protected static final String p2 = "place2";
@@ -52,16 +59,6 @@ public abstract class AbstractPetriNetTest
 	private Object source;
 	private EventBus eventBus;
 
-	@Override
-	public void transitionActivated(final TransitionActivationEvent e) {
-		events.add(e);
-	}
-
-	@Override
-	public void transitionDeactivated(final TransitionActivationEvent e) {
-		events.add(e);
-	}
-
 	protected <T extends EventObject> Collection<T> getEvents(final Class<T> clazz) {
 		final Collection<T> selectedEvents = new LinkedList<>();
 		for (final EventObject event : events) {
@@ -76,10 +73,16 @@ public abstract class AbstractPetriNetTest
 	@Before
 	public void setUp() {
 		this.source = this;
-		this.events = new LinkedList<>();
 		this.eventBus = new EventBus();
-		this.net = new EventAwarePetriNet(this.eventBus);
-		net.addTransitionActivationListener(this);
+		this.events = new LinkedList<>();
+		this.net = new EventAwarePetriNet(eventBus);
+		final PetriNetEventAdapter eventAdapter = new PetriNetEventAdapter() {
+			@Override
+			protected void process(final EventObject e) {
+				events.add(e);
+			}
+		};
+		eventAdapter.setEventBus(eventBus);
 	}
 
 	private <T extends EventListener> T[] getListeners(final Class<T> clazz) {
@@ -111,7 +114,8 @@ public abstract class AbstractPetriNetTest
 		setMarking(placeId, marking);
 	}
 
-	private void createPlace(final PlaceCreationCommand cmd) {
+	@Override
+	public void createPlace(final PlaceCreationCommand cmd) {
 		for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
 			l.createPlace(cmd);
 		}
@@ -119,6 +123,11 @@ public abstract class AbstractPetriNetTest
 
 	protected void setLabel(final String placeId, final String label) {
 		final LabelEditCommand cmd = new LabelEditCommand(source, LabelEditCommand.Type.SET_LABEL, placeId, label);
+		setLabel(cmd);
+	}
+
+	@Override
+	public void setLabel(final LabelEditCommand cmd) {
 		for (final LabelEditListener l : getListeners(LabelEditListener.class)) {
 			l.setLabel(cmd);
 		}
@@ -126,7 +135,7 @@ public abstract class AbstractPetriNetTest
 
 	protected void setMarking(final String placeId, final int marking) {
 		final PlaceEditCommand cmd = new PlaceEditCommand(source, PlaceEditCommand.Type.SET_MARKING, placeId, marking);
-		for (final PlaceEditListener l : getListeners(PlaceEditListener.class)) {
+		for (final PlaceListener l : getListeners(PlaceListener.class)) {
 			l.setMarking(cmd);
 		}
 	}
@@ -136,9 +145,22 @@ public abstract class AbstractPetriNetTest
 		createTransition(cmd);
 	}
 
-	private void createTransition(final TransitionCreationCommand cmd) {
+	@Override
+	public void createTransition(final TransitionCreationCommand cmd) {
 		for (final NodeCreationListener l : getListeners(NodeCreationListener.class)) {
 			l.createTransition(cmd);
+		}
+	}
+
+	protected void fireTransition(final String transitionId) {
+		final TransitionExecutionCommand cmd = new TransitionExecutionCommand(source, transitionId);
+		fireTransition(cmd);
+	}
+
+	@Override
+	public void fireTransition(final TransitionExecutionCommand cmd) {
+		for (final TransitionListener l : getListeners(TransitionListener.class)) {
+			l.fireTransition(cmd);
 		}
 	}
 
@@ -151,9 +173,20 @@ public abstract class AbstractPetriNetTest
 
 	protected void removeNode(final String nodeId) {
 		final NodeRemovalCommand cmd = new NodeRemovalCommand(source, nodeId);
+		nodeRemoved(cmd);
+	}
+
+	@Override
+	public void nodeRemoved(final NodeRemovalCommand cmd) {
 		for (final NodeRemovalListener l : getListeners(NodeRemovalListener.class)) {
 			l.nodeRemoved(cmd);
 		}
+	}
+
+	@Override
+	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
+		// TODO, OBSOLETE
+		throw new RuntimeException("TODO");
 	}
 
 	protected void assertPlacesContains(final String placeId, final Point origin, final int marking) {
@@ -188,6 +221,15 @@ public abstract class AbstractPetriNetTest
 		}
 	}
 
+	protected void denyActiveTransitionsContains(final String transitionId, final Point origin) {
+		final Collection<TransitionModel> transitions = net.getActiveTransitions();
+		for (final TransitionModel transition : transitions) {
+			if (transition.hasId(transitionId)) {
+				Assert.fail();
+			}
+		}
+	}
+
 	protected void assertPlacesSizeEquals(final int size) {
 		assertEquals(size, net.getPlaces().size());
 	}
@@ -217,6 +259,16 @@ public abstract class AbstractPetriNetTest
 	protected void assertTransitionWasDeactivated(final String transitionId) {
 		for (final TransitionActivationEvent e : getEvents(TransitionActivationEvent.class)) {
 			if (Type.DEACTIVATION.equals(e.getType()) && transitionId.equals(e.getTransitionId())) {
+				Assert.assertTrue(true);
+				return;
+			}
+		}
+		Assert.fail();
+	}
+
+	protected void assertMarkingWasSet(final String placeId, final int marking) {
+		for (final PlaceChangeEvent e : getEvents(PlaceChangeEvent.class)) {
+			if (placeId.equals(e.getPlaceId())) {
 				Assert.assertTrue(true);
 				return;
 			}

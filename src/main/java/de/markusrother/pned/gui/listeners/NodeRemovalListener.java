@@ -24,11 +24,11 @@ public interface NodeRemovalListener
 	 * nodeRemoved.
 	 * </p>
 	 *
-	 * @param e
+	 * @param cmd
 	 *            a {@link de.markusrother.pned.core.commands.NodeRemovalCommand}
 	 *            object.
 	 */
-	void nodeRemoved(NodeRemovalCommand e);
+	void nodeRemoved(NodeRemovalCommand cmd);
 
 	/**
 	 * <p>
@@ -37,11 +37,11 @@ public interface NodeRemovalListener
 	 *
 	 * FIXME - separate
 	 *
-	 * @param e
+	 * @param cmd
 	 *            a
 	 *            {@link de.markusrother.pned.gui.events.RemoveSelectedNodesEvent}
 	 *            object.
 	 */
-	void removeSelectedNodes(RemoveSelectedNodesEvent e);
+	void removeSelectedNodes(RemoveSelectedNodesEvent cmd);
 
 }

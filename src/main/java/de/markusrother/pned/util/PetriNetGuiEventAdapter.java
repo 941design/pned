@@ -8,8 +8,9 @@ import de.markusrother.pned.core.commands.NodeMotionCommand;
 import de.markusrother.pned.core.commands.NodeRemovalCommand;
 import de.markusrother.pned.core.commands.PetriNetIOCommand;
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
-import de.markusrother.pned.core.commands.PlaceEditCommand;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
+import de.markusrother.pned.core.commands.TransitionExecutionCommand;
+import de.markusrother.pned.core.events.PlaceEventObject;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.IdRequestListener;
@@ -17,8 +18,9 @@ import de.markusrother.pned.core.listeners.LabelEditListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
 import de.markusrother.pned.core.listeners.PetriNetIOListener;
-import de.markusrother.pned.core.listeners.PlaceEditListener;
+import de.markusrother.pned.core.listeners.PlaceListener;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
+import de.markusrother.pned.core.listeners.TransitionListener;
 import de.markusrother.pned.core.requests.IdRequest;
 import de.markusrother.pned.gui.commands.PetriNetEditCommand;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
@@ -46,7 +48,9 @@ import de.markusrother.pned.gui.listeners.PetriNetListener;
 import de.markusrother.pned.gui.requests.NodeRequest;
 
 /**
- * <p>Abstract PetriNetGuiEventAdapter class.</p>
+ * <p>
+ * Abstract PetriNetGuiEventAdapter class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -58,9 +62,12 @@ public abstract class PetriNetGuiEventAdapter
 		GuiRequestTarget {
 
 	/**
-	 * <p>setEventBus.</p>
+	 * <p>
+	 * setEventBus.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
 	 */
 	public void setEventBus(final GuiEventBus eventBus) {
 		eventBus.addListener(PetriNetIOListener.class, this);
@@ -69,11 +76,12 @@ public abstract class PetriNetGuiEventAdapter
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeCreationListener.class, this);
 		eventBus.addListener(NodeMotionListener.class, this);
-		eventBus.addListener(PlaceEditListener.class, this);
+		eventBus.addListener(PlaceListener.class, this);
 		eventBus.addListener(EdgeEditListener.class, this);
 		eventBus.addListener(NodeRequestListener.class, this);
 		eventBus.addListener(PlaceLayoutListener.class, this);
 		eventBus.addListener(LabelEditListener.class, this);
+		eventBus.addListener(TransitionListener.class, this);
 		eventBus.addListener(TransitionActivationListener.class, this);
 		eventBus.addListener(TransitionLayoutListener.class, this);
 		eventBus.addListener(EdgeLayoutListener.class, this);
@@ -229,8 +237,8 @@ public abstract class PetriNetGuiEventAdapter
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final PlaceEditCommand cmd) {
-		process(cmd);
+	public void setMarking(final PlaceEventObject evt) {
+		process(evt);
 	}
 
 	/** {@inheritDoc} */
@@ -269,10 +277,19 @@ public abstract class PetriNetGuiEventAdapter
 		process(req);
 	}
 
+	/** {@inheritDoc} */
+	@Override
+	public void fireTransition(final TransitionExecutionCommand cmd) {
+		process(cmd);
+	}
+
 	/**
-	 * <p>process.</p>
+	 * <p>
+	 * process.
+	 * </p>
 	 *
-	 * @param e a {@link java.util.EventObject} object.
+	 * @param e
+	 *            a {@link java.util.EventObject} object.
 	 */
 	protected abstract void process(final EventObject e);
 

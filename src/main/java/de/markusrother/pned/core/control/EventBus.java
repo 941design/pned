@@ -13,8 +13,9 @@ import de.markusrother.pned.core.commands.NodeMotionCommand;
 import de.markusrother.pned.core.commands.NodeRemovalCommand;
 import de.markusrother.pned.core.commands.PetriNetIOCommand;
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
-import de.markusrother.pned.core.commands.PlaceEditCommand;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
+import de.markusrother.pned.core.commands.TransitionExecutionCommand;
+import de.markusrother.pned.core.events.PlaceEventObject;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.IdRequestListener;
@@ -22,8 +23,9 @@ import de.markusrother.pned.core.listeners.LabelEditListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
 import de.markusrother.pned.core.listeners.PetriNetIOListener;
-import de.markusrother.pned.core.listeners.PlaceEditListener;
+import de.markusrother.pned.core.listeners.PlaceListener;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
+import de.markusrother.pned.core.listeners.TransitionListener;
 import de.markusrother.pned.core.requests.IdRequest;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
@@ -117,9 +119,9 @@ public class EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final PlaceEditCommand e) {
-		for (final PlaceEditListener l : getListeners(PlaceEditListener.class)) {
-			l.setMarking(e);
+	public void setMarking(final PlaceEventObject evt) {
+		for (final PlaceListener l : getListeners(PlaceListener.class)) {
+			l.setMarking(evt);
 		}
 	}
 
@@ -168,6 +170,14 @@ public class EventBus
 	public void transitionDeactivated(final TransitionActivationEvent e) {
 		for (final TransitionActivationListener l : getListeners(TransitionActivationListener.class)) {
 			l.transitionDeactivated(e);
+		}
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void fireTransition(final TransitionExecutionCommand cmd) {
+		for (final TransitionListener l : getListeners(TransitionListener.class)) {
+			l.fireTransition(cmd);
 		}
 	}
 

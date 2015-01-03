@@ -9,8 +9,8 @@ import java.awt.event.MouseEvent;
 import java.util.regex.Pattern;
 
 import de.markusrother.pned.core.commands.PlaceEditCommand;
-import de.markusrother.pned.core.commands.PlaceEditCommand.Type;
 import de.markusrother.pned.core.control.EventBus;
+import de.markusrother.pned.core.events.PlaceEventObject.Type;
 import de.markusrother.pned.gui.components.Place;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.CheckedTextField;

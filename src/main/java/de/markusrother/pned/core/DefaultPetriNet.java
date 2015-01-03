@@ -13,8 +13,8 @@ import javax.xml.bind.annotation.XmlType;
 
 import de.markusrother.pned.core.exceptions.NoSuchNodeException;
 import de.markusrother.pned.core.exceptions.UnavailableIdException;
-import de.markusrother.util.JsonSerializable;
 import de.markusrother.util.JsonBuilder;
+import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
@@ -210,8 +210,8 @@ public class DefaultPetriNet
 	 * Returns this Petri net's places and transitions.
 	 * </p>
 	 *
-	 * @return a {@link java.util.Collection} of {@link de.markusrother.pned.core.NodeModel} - all current
-	 *         nodes.
+	 * @return a {@link java.util.Collection} of
+	 *         {@link de.markusrother.pned.core.NodeModel} - all current nodes.
 	 */
 	@XmlAnyElement
 	protected Collection<NodeModel> getNodes() {
@@ -346,6 +346,100 @@ public class DefaultPetriNet
 	@Override
 	public void removeEdge(final EdgeModel edge) {
 		edges.remove(edge);
+	}
+
+	@Override
+	public void fireTransition(final String transitionId) throws NoSuchNodeException {
+		final TransitionModel transition = getTransition(transitionId);
+		if (transition == null) {
+			// TEST
+			throw new NoSuchNodeException(transitionId);
+		} else if (!getActiveTransitions().contains(transition)) {
+			// TODO, TEST
+			throw new RuntimeException("TODO");
+		}
+		decrementIncomingPlaceMarkings(transition);
+		incrementOutgoingPlaceMarkings(transition);
+	}
+
+	private Collection<String> getInputNodeIds(final NodeModel node) {
+		final Collection<EdgeModel> edges = getIncomingEdges(node);
+		final Collection<String> nodeIds = new LinkedList<>();
+		for (final EdgeModel edge : edges) {
+			nodeIds.add(edge.getSourceId());
+		}
+		return nodeIds;
+	}
+
+	private Collection<EdgeModel> getIncomingEdges(final NodeModel node) {
+		final Collection<EdgeModel> edges = new LinkedList<>();
+		for (final EdgeModel edge : this.edges) {
+			if (node.getId().equals(edge.getTargetId())) {
+				edges.add(edge);
+			}
+		}
+		return edges;
+	}
+
+	private Collection<EdgeModel> getOutgoingEdges(final NodeModel node) {
+		final Collection<EdgeModel> edges = new LinkedList<>();
+		for (final EdgeModel edge : this.edges) {
+			if (node.getId().equals(edge.getSourceId())) {
+				edges.add(edge);
+			}
+		}
+		return edges;
+	}
+
+	private Collection<String> getOutputNodeIds(final NodeModel node) {
+		final Collection<EdgeModel> edges = getOutgoingEdges(node);
+		final Collection<String> nodeIds = new LinkedList<>();
+		for (final EdgeModel edge : edges) {
+			nodeIds.add(edge.getTargetId());
+		}
+		return nodeIds;
+	}
+
+	private void decrementIncomingPlaceMarkings(final TransitionModel transition) {
+		final Collection<PlaceModel> in = getInputPlaces(transition);
+		for (final PlaceModel place : in) {
+			decrementMarking(place);
+		}
+	}
+
+	protected void decrementMarking(final PlaceModel place) {
+		setMarking(place, place.getMarking() - 1);
+	}
+
+	private void incrementOutgoingPlaceMarkings(final TransitionModel transition) {
+		final Collection<PlaceModel> out = getOutputPlaces(transition);
+		for (final PlaceModel place : out) {
+			incrementMarking(place);
+		}
+	}
+
+	protected void incrementMarking(final PlaceModel place) {
+		setMarking(place, place.getMarking() + 1);
+	}
+
+	private Collection<PlaceModel> getInputPlaces(final TransitionModel transition) {
+		final Collection<String> placeIds = getInputNodeIds(transition);
+		return getPlaces(placeIds);
+	}
+
+	private Collection<PlaceModel> getOutputPlaces(final TransitionModel transition) {
+		final Collection<String> placeIds = getOutputNodeIds(transition);
+		return getPlaces(placeIds);
+	}
+
+	private Collection<PlaceModel> getPlaces(final Collection<String> placeIds) {
+		final Collection<PlaceModel> places = new LinkedList<>();
+		for (final PlaceModel place : this.places) {
+			if (placeIds.contains(place.getId())) {
+				places.add(place);
+			}
+		}
+		return places;
 	}
 
 	/** {@inheritDoc} */

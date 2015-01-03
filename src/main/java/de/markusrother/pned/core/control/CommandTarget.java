@@ -5,7 +5,8 @@ import de.markusrother.pned.core.listeners.LabelEditListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
 import de.markusrother.pned.core.listeners.PetriNetIOListener;
-import de.markusrother.pned.core.listeners.PlaceEditListener;
+import de.markusrother.pned.core.listeners.PlaceListener;
+import de.markusrother.pned.core.listeners.TransitionListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 
 /**
@@ -23,7 +24,8 @@ public interface CommandTarget
 		EdgeCreationListener,
 		NodeMotionListener,
 		NodeRemovalListener,
-		PlaceEditListener,
-		LabelEditListener {
+		PlaceListener,
+		LabelEditListener,
+		TransitionListener {
 
 }
