@@ -14,7 +14,9 @@ import de.markusrother.pned.core.listeners.LabelEditListener;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.LabelHoverListener;
 import de.markusrother.pned.gui.listeners.NodeLabelEditor;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
@@ -33,9 +35,10 @@ import de.markusrother.swing.DragDropListener;
 public class NodeLabel extends JLabel
 	implements
 		LabelEditListener,
+		NodeMotionListener,
 		NodeRemovalListener,
-		Disposable,
-		NodeMotionListener {
+		EdgeEditListener,
+		Disposable {
 
 	/** Constant <code>style</code> */
 	private static NodeLabelStyle style = new NodeLabelStyle();
@@ -53,7 +56,7 @@ public class NodeLabel extends JLabel
 	private final DragDropListener<NodeLabel> dragDropListener;
 	private final String nodeId;
 	private final GuiEventBus eventBus;
-	// private final NodeLabelEditor labelEditor;
+	private final NodeLabelEditor labelEditor;
 	private final LabelHoverListener hoverListener;
 
 	private ComponentState state;
@@ -101,16 +104,17 @@ public class NodeLabel extends JLabel
 		this.dragDropListener = new DefaultDragDropListener<>(NodeLabel.class, this);
 		DragDropListener.addToComponent(this, dragDropListener);
 
-		// this.labelEditor = labelEditor;
+		this.labelEditor = labelEditor;
 		labelEditor.addToComponent(this);
 
 		this.hoverListener = new LabelHoverListener();
 		this.hoverListener.addToComponent(this);
 
 		// FIXME - dispose and test disposal!
+		eventBus.addListener(LabelEditListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeMotionListener.class, this);
-		eventBus.addListener(LabelEditListener.class, this);
+		eventBus.addListener(EdgeEditListener.class, this);
 
 		setState(ComponentState.DEFAULT);
 	}
@@ -207,6 +211,54 @@ public class NodeLabel extends JLabel
 			setText(e.getLabel());
 			setSize(getPreferredSize()); // TODO - padding!
 		}
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void targetComponentEntered(final EdgeEditEvent e) {
+		// IGNORE
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void targetComponentExited(final EdgeEditEvent e) {
+		// IGNORE
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void edgeMoved(final EdgeEditEvent e) {
+		// IGNORE
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void edgeCancelled(final EdgeEditEvent e) {
+		installListeners();
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void edgeFinished(final EdgeEditEvent e) {
+		installListeners();
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void edgeStarted(final EdgeEditEvent e) {
+		suspendListeners();
+	}
+
+	protected void suspendListeners() {
+		DragDropListener.removeFromComponent(this, dragDropListener);
+		labelEditor.removeFromComponent(this);
+		hoverListener.removeFromComponent(this);
+	}
+
+	protected void installListeners() {
+		DragDropListener.addToComponent(this, dragDropListener);
+		labelEditor.addToComponent(this);
+		hoverListener.addToComponent(this);
 	}
 
 }
