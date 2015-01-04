@@ -216,7 +216,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * @param target
 	 *            a {@link java.awt.Point} object.
 	 */
-	public EdgeComponent(final EventBus eventBus, final AbstractNode sourceComponent,
+	private EdgeComponent(final EventBus eventBus, final AbstractNode sourceComponent,
 			final AbstractNode targetComponent, final Point source, final Point target) {
 		super(sourceComponent, targetComponent, source, target);
 		this.eventBus = eventBus;

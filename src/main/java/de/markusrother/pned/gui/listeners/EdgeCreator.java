@@ -1,5 +1,6 @@
 package de.markusrother.pned.gui.listeners;
 
+import static de.markusrother.pned.gui.components.PnGridPanel.getCenter;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.COMPONENT_ENTERED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.COMPONENT_EXITED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_CANCELLED;
@@ -15,7 +16,6 @@ import java.awt.event.MouseEvent;
 import de.markusrother.pned.core.commands.EdgeCreationCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.components.EdgeComponent;
-import de.markusrother.pned.gui.components.PnGridPanel;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.swing.MultiClickListener;
@@ -25,18 +25,17 @@ import de.markusrother.swing.MultiClickListener;
  * click and an EdgeDrawListener or EdgeEditor. That would avoid all the
  * duplicated edge != null checks.
  *
+ * TODO - Drawing could also start upon exit!
+ *
  * @author Markus Rother
  * @version 1.0
  */
 public class EdgeCreator extends MultiClickListener {
 
-	// TODO - Drawing could also start upon exit!
-
-	private final PnGridPanel pnGridPanel;
+	private final GuiEventBus eventBus;
+	private final Container container;
 
 	private EdgeComponent edge;
-
-	private final GuiEventBus eventBus;
 
 	/**
 	 * <p>
@@ -70,16 +69,6 @@ public class EdgeCreator extends MultiClickListener {
 		component.removeMouseMotionListener(listener);
 	}
 
-	@Override
-	public void addToComponent(final Component component) {
-		addToComponent(component, this);
-	}
-
-	@Override
-	public void removeFromComponent(final Component component) {
-		removeFromComponent(component, this);
-	}
-
 	/**
 	 * <p>
 	 * Constructor for EdgeCreator.
@@ -87,13 +76,23 @@ public class EdgeCreator extends MultiClickListener {
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
-	 * @param pnGridPanel
-	 *            a {@link de.markusrother.pned.gui.components.PnGridPanel}
-	 *            object.
+	 * @param container a {@link java.awt.Container} object.
 	 */
-	public EdgeCreator(final GuiEventBus eventBus, final PnGridPanel pnGridPanel) {
+	public EdgeCreator(final GuiEventBus eventBus, final Container container) {
 		this.eventBus = eventBus;
-		this.pnGridPanel = pnGridPanel;
+		this.container = container;
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void addToComponent(final Component component) {
+		addToComponent(component, this);
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void removeFromComponent(final Component component) {
+		removeFromComponent(component, this);
 	}
 
 	/**
@@ -150,6 +149,7 @@ public class EdgeCreator extends MultiClickListener {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseClickedLeft(final MouseEvent e) {
 		if (edge != null && !edge.acceptsTarget(e.getComponent())) {
@@ -157,11 +157,13 @@ public class EdgeCreator extends MultiClickListener {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseClickedRight(final MouseEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseClickedMiddle(final MouseEvent e) {
 		// IGNORE
@@ -170,69 +172,76 @@ public class EdgeCreator extends MultiClickListener {
 	/** {@inheritDoc} */
 	@Override
 	public void mouseDoubleClickedLeft(final MouseEvent e) {
-		if (edge != null) {
-			maybeFinishOrCancelEdge(e);
-			return;
-		} else if (!(e.getComponent() instanceof AbstractNode)) {
-			// IGNORE
+		final Component component = e.getComponent();
+		if (edge == null && component instanceof AbstractNode) {
+			doStartEdge(e);
 			return;
 		} else {
-			final AbstractNode sourceNode = expectNode(e.getComponent());
-			final Point point = pnGridPanel.getGridRelativeLocation(e);
-			// This must cause listener suspension in various components!
-			// TODO - use promise for edge!
-			edge = pnGridPanel.createEdge(sourceNode, point);
-			// The container should then implement createEdge, finishEdge,
-			// removeEdge, etc.
-			eventBus.edgeStarted(new EdgeEditEvent(this, //
-					EDGE_STARTED, //
-					edge, //
-					getParentRelativeLocation(e), //
-					sourceNode));
+			if (edge.acceptsTarget(component)) {
+				doFinishEdge(e);
+			} else {
+				doCancelEdge(e);
+			}
 		}
 	}
 
 	/**
-	 * <p>
-	 * maybeFinishOrCancelEdge.
-	 * </p>
+	 * <p>doStartEdge.</p>
 	 *
-	 * @param e
-	 *            a {@link java.awt.event.MouseEvent} object.
+	 * @param e a {@link java.awt.event.MouseEvent} object.
 	 */
-	private void maybeFinishOrCancelEdge(final MouseEvent e) {
-		// TODO - this idiom is somewhat redundant:
-		// Connecting existing edge:
-		if (edge.acceptsTarget(e.getComponent())) {
-			final AbstractNode targetNode = expectNode(e.getComponent());
-			// // TODO - Edge should NOT require an edge creation listener!
-			// edge.addMouseMotionListener(this);
-			// edge.addMouseListener(this);
-			// event intended to be ignored by gui.
-			eventBus.edgeFinished(new EdgeEditEvent(this, //
-					EDGE_FINISHED, //
-					edge, //
-					getParentRelativeLocation(e), //
-					targetNode));
-			final String edgeId = eventBus.requestId();
-			eventBus.createEdge(new EdgeCreationCommand(this, edgeId, edge.getSourceId(), edge.getTargetId()));
-			edge = null;
-		} else {
-			doCancelEdge(e);
-		}
+	private void doStartEdge(final MouseEvent e) {
+		final AbstractNode sourceNode = expectNode(e.getComponent());
+		final Point target = e.getPoint();
+		final Point origin = sourceNode.getLocation();
+		target.translate(origin.x, origin.y);
+		final Point source = getCenter(sourceNode);
+		// TODO - Constructor should require center(source) and target points.
+		edge = new EdgeComponent(eventBus, sourceNode, source, target);
+		edge.setBounds(container.getBounds()); // OBSOLETE?
+		container.add(edge);
+		container.repaint();
+		eventBus.edgeStarted(new EdgeEditEvent(this, //
+				EDGE_STARTED, //
+				edge, //
+				target, //
+				sourceNode));
 	}
 
+	/**
+	 * <p>doFinishEdge.</p>
+	 *
+	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 */
+	private void doFinishEdge(final MouseEvent e) {
+		final AbstractNode targetNode = expectNode(e.getComponent());
+		eventBus.edgeFinished(new EdgeEditEvent(this, //
+				EDGE_FINISHED, //
+				edge, //
+				getParentRelativeLocation(e), //
+				targetNode));
+		final String edgeId = eventBus.requestId();
+		eventBus.createEdge(new EdgeCreationCommand(this, edgeId, edge.getSourceId(), edge.getTargetId()));
+		container.remove(edge);
+		container.revalidate();
+		container.repaint();
+		edge = null;
+	}
+
+	/**
+	 * <p>doCancelEdge.</p>
+	 *
+	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 */
 	private void doCancelEdge(final MouseEvent e) {
-		// TODO - nicer (should not call surrounding class):
-		// The edge is not yet part of the model and could go to a
-		// different layer!
-		pnGridPanel.removeEdge(edge);
-		// container.removeEdge(edge);
 		eventBus.edgeCancelled(new EdgeEditEvent(this, //
 				EDGE_CANCELLED, //
 				edge, //
 				getParentRelativeLocation(e), //
 				e.getComponent()));
+		container.remove(edge);
+		container.revalidate();
+		container.repaint();
 		edge = null;
 	}
 
@@ -241,14 +250,23 @@ public class EdgeCreator extends MultiClickListener {
 	public void mouseMoved(final MouseEvent e) {
 		super.mouseMoved(e);
 		if (edge != null) {
-			eventBus.edgeMoved(new EdgeEditEvent(this, //
-					EDGE_MOVED, //
-					edge, //
-					getParentRelativeLocation(e), //
-					e.getComponent()));
-			pnGridPanel.revalidate(); // TODO - Why?
-			pnGridPanel.repaint(); // TODO - Why?
+			doMoveEdge(e);
 		}
+	}
+
+	/**
+	 * <p>doMoveEdge.</p>
+	 *
+	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 */
+	private void doMoveEdge(final MouseEvent e) {
+		eventBus.edgeMoved(new EdgeEditEvent(this, //
+				EDGE_MOVED, //
+				edge, //
+				getParentRelativeLocation(e), //
+				e.getComponent()));
+		container.revalidate();
+		container.repaint();
 	}
 
 	/** {@inheritDoc} */
@@ -256,12 +274,21 @@ public class EdgeCreator extends MultiClickListener {
 	public void mouseEntered(final MouseEvent e) {
 		super.mouseEntered(e);
 		if (edge != null) {
-			eventBus.componentEntered(new EdgeEditEvent(this, //
-					COMPONENT_ENTERED, //
-					edge, //
-					getParentRelativeLocation(e), //
-					e.getComponent()));
+			doEnterComponent(e);
 		}
+	}
+
+	/**
+	 * <p>doEnterComponent.</p>
+	 *
+	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 */
+	private void doEnterComponent(final MouseEvent e) {
+		eventBus.componentEntered(new EdgeEditEvent(this, //
+				COMPONENT_ENTERED, //
+				edge, //
+				getParentRelativeLocation(e), //
+				e.getComponent()));
 	}
 
 	/** {@inheritDoc} */
@@ -269,12 +296,21 @@ public class EdgeCreator extends MultiClickListener {
 	public void mouseExited(final MouseEvent e) {
 		super.mouseExited(e);
 		if (edge != null) {
-			eventBus.componentExited(new EdgeEditEvent(this, //
-					COMPONENT_EXITED, //
-					edge, //
-					getParentRelativeLocation(e), //
-					e.getComponent()));
+			doExitComponent(e);
 		}
+	}
+
+	/**
+	 * <p>doExitComponent.</p>
+	 *
+	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 */
+	private void doExitComponent(final MouseEvent e) {
+		eventBus.componentExited(new EdgeEditEvent(this, //
+				COMPONENT_EXITED, //
+				edge, //
+				getParentRelativeLocation(e), //
+				e.getComponent()));
 	}
 
 }

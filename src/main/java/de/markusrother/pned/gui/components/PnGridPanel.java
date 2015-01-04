@@ -172,7 +172,7 @@ public class PnGridPanel extends JLayeredPane
 		labelLayer = createLayer(10);
 
 		// Listeners that are needed by children, are kept here:
-		this.edgeCreator = new EdgeCreator(eventBus, this);
+		this.edgeCreator = new EdgeCreator(eventBus, edgeLayer);
 		this.nodeCreator = new NodeCreator(eventBus);
 		this.multipleNodeSelector = new NodeSelector(eventBus);
 		this.singleNodeSelector = new SingleNodeSelector(eventBus);
@@ -440,27 +440,6 @@ public class PnGridPanel extends JLayeredPane
 
 	/**
 	 * <p>
-	 * createEdge.
-	 * </p>
-	 *
-	 * @param sourceNode
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
-	 *            object.
-	 * @param target
-	 *            a {@link java.awt.Point} object.
-	 * @return a {@link de.markusrother.pned.gui.components.EdgeComponent}
-	 *         object.
-	 */
-	public EdgeComponent createEdge(final AbstractNode sourceNode, final Point target) {
-		final Point source = getCenter(sourceNode);
-		final EdgeComponent edge = new EdgeComponent(eventBus, sourceNode, source, target);
-		edge.setBounds(this.getBounds()); // OBSOLETE?
-		addEdgeComponent(edge);
-		return edge;
-	}
-
-	/**
-	 * <p>
 	 * addEdgeComponent.
 	 * </p>
 	 *
@@ -472,20 +451,6 @@ public class PnGridPanel extends JLayeredPane
 		edge.setBounds(new Rectangle(new Point(0, 0), this.getSize())); // OBSOLETE?
 		edgeLayer.add(edge);
 		edgeLayer.repaint();
-	}
-
-	/**
-	 * <p>
-	 * removeEdge.
-	 * </p>
-	 *
-	 * @param edge
-	 *            a {@link de.markusrother.pned.gui.components.EdgeComponent}
-	 *            object.
-	 */
-	public void removeEdge(final EdgeComponent edge) {
-		nodeLayer.remove(edge);
-		nodeLayer.repaint();
 	}
 
 	/** {@inheritDoc} */
