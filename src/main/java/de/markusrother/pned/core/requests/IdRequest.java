@@ -50,7 +50,7 @@ public class IdRequest extends Request<String>
 	/** {@inheritDoc} */
 	@Override
 	public String toString() {
-		return toJson();
+		return getClass().getSimpleName() + ':' + toJson();
 	}
 
 	/** {@inheritDoc} */

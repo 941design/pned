@@ -11,7 +11,7 @@ import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.components.Place;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
-import de.markusrother.swing.AbstractRightClickTextFieldEditor;
+import de.markusrother.swing.RightClickTextFieldEdit;
 import de.markusrother.swing.CheckedTextField;
 
 /**
@@ -22,7 +22,7 @@ import de.markusrother.swing.CheckedTextField;
  * @author Markus Rother
  * @version 1.0
  */
-public class MarkingEditor extends AbstractRightClickTextFieldEditor<Place>
+public class MarkingEditor extends RightClickTextFieldEdit<Place>
 	implements
 		NodeCreationListener,
 		NodeSelectionListener {

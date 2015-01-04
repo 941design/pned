@@ -96,7 +96,7 @@ public class NodeSelectionEvent extends EventObject
 	/** {@inheritDoc} */
 	@Override
 	public String toString() {
-		return toJson();
+		return getClass().getSimpleName() + ':' + toJson();
 	}
 
 	/** {@inheritDoc} */

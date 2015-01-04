@@ -36,7 +36,10 @@ public class LabelEditCommand extends EventObject
 	 *            a {@link java.lang.String} object.
 	 * @param label
 	 *            a {@link java.lang.String} object.
-	 * @param type a {@link de.markusrother.pned.core.commands.LabelEditCommand.Type} object.
+	 * @param type
+	 *            a
+	 *            {@link de.markusrother.pned.core.commands.LabelEditCommand.Type}
+	 *            object.
 	 */
 	public LabelEditCommand(final Object source, final Type type, final String elementId, final String label) {
 		super(source);
@@ -70,7 +73,7 @@ public class LabelEditCommand extends EventObject
 	/** {@inheritDoc} */
 	@Override
 	public String toString() {
-		return toJson();
+		return getClass().getSimpleName() + ':' + toJson();
 	}
 
 	/** {@inheritDoc} */

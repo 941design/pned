@@ -6,7 +6,9 @@ import de.markusrother.util.JsonBuilder;
 import de.markusrother.util.JsonSerializable;
 
 /**
- * <p>TransitionExecutionCommand class.</p>
+ * <p>
+ * TransitionExecutionCommand class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -18,10 +20,14 @@ public class TransitionExecutionCommand extends EventObject
 	private final String transitionId;
 
 	/**
-	 * <p>Constructor for TransitionExecutionCommand.</p>
+	 * <p>
+	 * Constructor for TransitionExecutionCommand.
+	 * </p>
 	 *
-	 * @param source a {@link java.lang.Object} object.
-	 * @param transitionId a {@link java.lang.String} object.
+	 * @param source
+	 *            a {@link java.lang.Object} object.
+	 * @param transitionId
+	 *            a {@link java.lang.String} object.
 	 */
 	public TransitionExecutionCommand(final Object source, final String transitionId) {
 		super(source);
@@ -29,7 +35,9 @@ public class TransitionExecutionCommand extends EventObject
 	}
 
 	/**
-	 * <p>Getter for the field <code>transitionId</code>.</p>
+	 * <p>
+	 * Getter for the field <code>transitionId</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.
 	 */
@@ -40,7 +48,7 @@ public class TransitionExecutionCommand extends EventObject
 	/** {@inheritDoc} */
 	@Override
 	public String toString() {
-		return toJson();
+		return getClass().getSimpleName() + ':' + toJson();
 	}
 
 	/** {@inheritDoc} */
