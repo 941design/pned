@@ -8,7 +8,7 @@ package de.markusrother.pned.core.exceptions;
  * @author Markus Rother
  * @version 1.0
  */
-public class PetriNetInconsistencyException extends Exception {
+public class PetriNetException extends Exception {
 
 	/**
 	 * <p>
@@ -18,7 +18,7 @@ public class PetriNetInconsistencyException extends Exception {
 	 * @param message
 	 *            a {@link java.lang.String} object.
 	 */
-	public PetriNetInconsistencyException(final String message) {
+	public PetriNetException(final String message) {
 		super(message);
 	}
 

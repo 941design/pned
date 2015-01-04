@@ -29,6 +29,7 @@ import de.markusrother.pned.core.events.PlaceEventObject;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.events.TransitionActivationEvent.Type;
 import de.markusrother.pned.core.exceptions.NoSuchNodeException;
+import de.markusrother.pned.core.exceptions.TransitionInactiveException;
 import de.markusrother.pned.core.exceptions.UnavailableIdException;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.IdRequestListener;
@@ -419,6 +420,9 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		} catch (final NoSuchNodeException e) {
 			// FIXME - throw some generic exception
 			throw new RuntimeException("TODO");
+		} catch (final TransitionInactiveException e) {
+			// FIXME - throw some generic exception
+			throw new RuntimeException("TODO - Trying to fire inactive transition");
 		}
 	}
 

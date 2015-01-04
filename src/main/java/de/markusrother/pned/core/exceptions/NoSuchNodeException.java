@@ -6,7 +6,7 @@ package de.markusrother.pned.core.exceptions;
  * @author Markus Rother
  * @version 1.0
  */
-public class NoSuchNodeException extends PetriNetInconsistencyException {
+public class NoSuchNodeException extends PetriNetException {
 
 	/**
 	 * <p>Constructor for NoSuchNodeException.</p>

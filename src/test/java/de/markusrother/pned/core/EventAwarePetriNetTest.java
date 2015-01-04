@@ -344,4 +344,21 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 		assertTransitionWasDeactivated(t1);
 	}
 
+	@Test(expected = Exception.class)
+	public void testFailFiringInactiveTransition() {
+		// Set up:
+		createPlace(p1, 0);
+		createTransition(t1);
+		createEdge(e1, p1, t1);
+		// Assert preconditions:
+		denyActiveTransitionsContains(t1);
+		// Change:
+		fireTransition(t1);
+	}
+
+	@Test(expected = Exception.class)
+	public void testFailFiringNonexistingTransition() {
+		fireTransition(t1);
+	}
+
 }
