@@ -4,7 +4,9 @@ import java.awt.Component;
 import java.awt.Point;
 
 /**
- * <p>HoverAdapter class.</p>
+ * <p>
+ * HoverAdapter class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -13,7 +15,7 @@ public class HoverAdapter extends HoverListener {
 
 	/** {@inheritDoc} */
 	@Override
-	protected boolean inHoverArea(final Point p) {
+	protected boolean inHoverArea(final Component component, final Point p) {
 		return true;
 	}
 

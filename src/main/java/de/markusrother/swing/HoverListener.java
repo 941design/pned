@@ -60,14 +60,15 @@ public abstract class HoverListener extends MouseAdapter {
 	/** {@inheritDoc} */
 	@Override
 	public void mouseMoved(final MouseEvent e) {
+		final Component component = e.getComponent();
 		if (hovering) {
-			if (!inHoverArea(e.getPoint())) {
+			if (!inHoverArea(component, e.getPoint())) {
 				hovering = false;
-				endHover(e.getComponent());
+				endHover(component);
 			}
-		} else if (inHoverArea(e.getPoint())) {
+		} else if (inHoverArea(component, e.getPoint())) {
 			hovering = true;
-			startHover(e.getComponent());
+			startHover(component);
 		}
 	}
 
@@ -83,7 +84,7 @@ public abstract class HoverListener extends MouseAdapter {
 	 *            a {@link java.awt.Point} object.
 	 * @return a boolean.
 	 */
-	protected abstract boolean inHoverArea(Point p);
+	protected abstract boolean inHoverArea(Component component, Point p);
 
 	/**
 	 * <p>
@@ -106,18 +107,24 @@ public abstract class HoverListener extends MouseAdapter {
 	protected abstract void endHover(Component component);
 
 	/**
-	 * <p>addToComponent.</p>
+	 * <p>
+	 * addToComponent.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
 	 */
 	public void addToComponent(final Component component) {
 		addToComponent(component, this);
 	}
 
 	/**
-	 * <p>removeFromComponent.</p>
+	 * <p>
+	 * removeFromComponent.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
 	 */
 	public void removeFromComponent(final Component component) {
 		removeFromComponent(component, this);

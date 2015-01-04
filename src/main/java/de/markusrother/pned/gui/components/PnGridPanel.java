@@ -448,8 +448,9 @@ public class PnGridPanel extends JLayeredPane
 	 *            object.
 	 */
 	private void addEdgeComponent(final EdgeComponent edge) {
-		edge.setBounds(new Rectangle(new Point(0, 0), this.getSize())); // OBSOLETE?
+		edge.setBounds(edgeLayer.getBounds());
 		edgeLayer.add(edge);
+		edgeLayer.revalidate();
 		edgeLayer.repaint();
 	}
 

@@ -76,7 +76,8 @@ public class EdgeCreator extends MultiClickListener {
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
-	 * @param container a {@link java.awt.Container} object.
+	 * @param container
+	 *            a {@link java.awt.Container} object.
 	 */
 	public EdgeCreator(final GuiEventBus eventBus, final Container container) {
 		this.eventBus = eventBus;
@@ -173,9 +174,10 @@ public class EdgeCreator extends MultiClickListener {
 	@Override
 	public void mouseDoubleClickedLeft(final MouseEvent e) {
 		final Component component = e.getComponent();
-		if (edge == null && component instanceof AbstractNode) {
-			doStartEdge(e);
-			return;
+		if (edge == null) {
+			if (component instanceof AbstractNode) {
+				doStartEdge(e);
+			}
 		} else {
 			if (edge.acceptsTarget(component)) {
 				doFinishEdge(e);
@@ -186,9 +188,12 @@ public class EdgeCreator extends MultiClickListener {
 	}
 
 	/**
-	 * <p>doStartEdge.</p>
+	 * <p>
+	 * doStartEdge.
+	 * </p>
 	 *
-	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 * @param e
+	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	private void doStartEdge(final MouseEvent e) {
 		final AbstractNode sourceNode = expectNode(e.getComponent());
@@ -198,9 +203,12 @@ public class EdgeCreator extends MultiClickListener {
 		final Point source = getCenter(sourceNode);
 		// TODO - Constructor should require center(source) and target points.
 		edge = new EdgeComponent(eventBus, sourceNode, source, target);
-		edge.setBounds(container.getBounds()); // OBSOLETE?
+		edge.setBounds(container.getBounds());
 		container.add(edge);
 		container.repaint();
+		// Must add to edge component because the edge has the same bounds as
+		// container and would keep events from bubbling!
+		addToComponent(edge);
 		eventBus.edgeStarted(new EdgeEditEvent(this, //
 				EDGE_STARTED, //
 				edge, //
@@ -209,9 +217,12 @@ public class EdgeCreator extends MultiClickListener {
 	}
 
 	/**
-	 * <p>doFinishEdge.</p>
+	 * <p>
+	 * doFinishEdge.
+	 * </p>
 	 *
-	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 * @param e
+	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	private void doFinishEdge(final MouseEvent e) {
 		final AbstractNode targetNode = expectNode(e.getComponent());
@@ -221,7 +232,10 @@ public class EdgeCreator extends MultiClickListener {
 				getParentRelativeLocation(e), //
 				targetNode));
 		final String edgeId = eventBus.requestId();
-		eventBus.createEdge(new EdgeCreationCommand(this, edgeId, edge.getSourceId(), edge.getTargetId()));
+		eventBus.createEdge(new EdgeCreationCommand(this, //
+				edgeId, //
+				edge.getSourceId(), //
+				edge.getTargetId()));
 		container.remove(edge);
 		container.revalidate();
 		container.repaint();
@@ -229,9 +243,12 @@ public class EdgeCreator extends MultiClickListener {
 	}
 
 	/**
-	 * <p>doCancelEdge.</p>
+	 * <p>
+	 * doCancelEdge.
+	 * </p>
 	 *
-	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 * @param e
+	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	private void doCancelEdge(final MouseEvent e) {
 		eventBus.edgeCancelled(new EdgeEditEvent(this, //
@@ -255,9 +272,12 @@ public class EdgeCreator extends MultiClickListener {
 	}
 
 	/**
-	 * <p>doMoveEdge.</p>
+	 * <p>
+	 * doMoveEdge.
+	 * </p>
 	 *
-	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 * @param e
+	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	private void doMoveEdge(final MouseEvent e) {
 		eventBus.edgeMoved(new EdgeEditEvent(this, //
@@ -279,9 +299,12 @@ public class EdgeCreator extends MultiClickListener {
 	}
 
 	/**
-	 * <p>doEnterComponent.</p>
+	 * <p>
+	 * doEnterComponent.
+	 * </p>
 	 *
-	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 * @param e
+	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	private void doEnterComponent(final MouseEvent e) {
 		eventBus.componentEntered(new EdgeEditEvent(this, //
@@ -301,9 +324,12 @@ public class EdgeCreator extends MultiClickListener {
 	}
 
 	/**
-	 * <p>doExitComponent.</p>
+	 * <p>
+	 * doExitComponent.
+	 * </p>
 	 *
-	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 * @param e
+	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	private void doExitComponent(final MouseEvent e) {
 		eventBus.componentExited(new EdgeEditEvent(this, //

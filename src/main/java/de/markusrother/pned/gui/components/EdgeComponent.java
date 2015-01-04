@@ -24,6 +24,7 @@ import de.markusrother.pned.gui.layout.listeners.PlaceLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.TransitionLayoutListener;
 import de.markusrother.pned.gui.layout.style.EdgeStyle;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
+import de.markusrother.pned.gui.listeners.EdgeHoverListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.swing.HoverListener;
 
@@ -31,6 +32,8 @@ import de.markusrother.swing.HoverListener;
  * TODO - manage the contact-points of source component, too. Create a segment
  * which is invisible, but connected, to the source components center, avoiding
  * flickering.
+ * 
+ * FIXME - create subclass for unfinished EdgeComponent
  *
  * @author Markus Rother
  * @version 1.0
@@ -83,39 +86,6 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 */
 	public String getTargetId() {
 		return targetComponent == null ? null : targetComponent.getId();
-	}
-
-	/**
-	 * <p>
-	 * createHoverListener.
-	 * </p>
-	 *
-	 * @param edge
-	 *            a {@link de.markusrother.pned.gui.components.EdgeComponent}
-	 *            object.
-	 * @return a {@link de.markusrother.swing.HoverListener} object.
-	 */
-	private static HoverListener createHoverListener(final EdgeComponent edge) {
-
-		// TODO - extract class!
-
-		return new HoverListener() {
-
-			@Override
-			protected boolean inHoverArea(final Point p) {
-				return edge.edgeContains(p);
-			}
-
-			@Override
-			protected void startHover(final Component component) {
-				edge.setState(ComponentState.HOVER);
-			}
-
-			@Override
-			protected void endHover(final Component component) {
-				edge.setState(ComponentState.DEFAULT);
-			}
-		};
 	}
 
 	private Shape tip;
@@ -292,7 +262,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *            a {@link java.awt.Point} object.
 	 * @return a boolean.
 	 */
-	boolean edgeContains(final Point point) {
+	public boolean edgeContains(final Point point) {
 		// WTF !? line.contains(point) returns false, with the explanation:
 		// "lines never contain AREAS" WTF! A point is not an area...
 		// TODO - line thickness is variable!
@@ -390,7 +360,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 		setTargetComponent((AbstractNode) e.getComponent());
 
-		final HoverListener hoverListener = createHoverListener(this);
+		final HoverListener hoverListener = EdgeHoverListener.INSTANCE;
 		// TODO - setHoverListener() -> to field.
 		HoverListener.addToComponent(this, hoverListener);
 
