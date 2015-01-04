@@ -35,6 +35,11 @@ public class PetriNetEditCommand extends EventObject {
 		this.type = type;
 	}
 
+	/**
+	 * <p>Getter for the field <code>type</code>.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.commands.PetriNetEditCommand.Type} object.
+	 */
 	public Type getType() {
 		return type;
 	}

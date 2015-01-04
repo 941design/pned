@@ -23,6 +23,11 @@ public interface TextListener {
 	 */
 	void textEntered(ActionEvent e);
 
+	/**
+	 * <p>cancel.</p>
+	 *
+	 * @param e a {@link java.awt.AWTEvent} object.
+	 */
 	void cancel(AWTEvent e);
 
 }

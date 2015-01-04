@@ -43,7 +43,7 @@ import de.markusrother.swing.Selector;
  * <p>
  * NodeSelector class.
  * </p>
- * 
+ *
  * FIXME - What is the difference between SelectionDragDropoListener???
  *
  * @author Markus Rother

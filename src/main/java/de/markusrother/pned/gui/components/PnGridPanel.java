@@ -220,6 +220,8 @@ public class PnGridPanel extends JLayeredPane
 	 * getGridRelativeLocation.
 	 * </p>
 	 * 
+	 * @param e 
+	 * 			a {@link java.awt.event.MouseEvent} object.
 	 * @return a {@link java.awt.Point} object.
 	 */
 	public Point getGridRelativeLocation(final MouseEvent e) {

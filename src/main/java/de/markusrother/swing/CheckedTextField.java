@@ -91,6 +91,7 @@ public class CheckedTextField extends JTextField
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void keyTyped(final KeyEvent e) {
 		if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
@@ -98,11 +99,13 @@ public class CheckedTextField extends JTextField
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void keyPressed(final KeyEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void keyReleased(final KeyEvent e) {
 		// IGNORE

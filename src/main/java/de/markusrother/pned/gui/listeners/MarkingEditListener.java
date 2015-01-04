@@ -195,6 +195,7 @@ public class MarkingEditListener extends MultiClickListener
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void cancel(final AWTEvent e) {
 		// TODO

@@ -348,6 +348,7 @@ public class DefaultPetriNet
 		edges.remove(edge);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void fireTransition(final String transitionId) throws NoSuchNodeException {
 		final TransitionModel transition = getTransition(transitionId);
@@ -407,6 +408,11 @@ public class DefaultPetriNet
 		}
 	}
 
+	/**
+	 * <p>decrementInputPlaceMarking.</p>
+	 *
+	 * @param place a {@link de.markusrother.pned.core.PlaceModel} object.
+	 */
 	protected void decrementInputPlaceMarking(final PlaceModel place) {
 		setMarking(place, place.getMarking() - 1);
 	}
@@ -418,6 +424,11 @@ public class DefaultPetriNet
 		}
 	}
 
+	/**
+	 * <p>incrementOutputPlaceMarking.</p>
+	 *
+	 * @param place a {@link de.markusrother.pned.core.PlaceModel} object.
+	 */
 	protected void incrementOutputPlaceMarking(final PlaceModel place) {
 		setMarking(place, place.getMarking() + 1);
 	}

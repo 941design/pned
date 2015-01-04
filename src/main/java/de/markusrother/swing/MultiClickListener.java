@@ -16,10 +16,22 @@ import javax.swing.SwingUtilities;
  */
 public abstract class MultiClickListener extends MouseAdapter {
 
+	/**
+	 * <p>addToComponent.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 * @param listener a {@link de.markusrother.swing.MultiClickListener} object.
+	 */
 	public static void addToComponent(final Component component, final MultiClickListener listener) {
 		component.addMouseListener(listener);
 	}
 
+	/**
+	 * <p>removeFromComponent.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 * @param listener a {@link de.markusrother.swing.MultiClickListener} object.
+	 */
 	public static void removeFromComponent(final Component component, final MultiClickListener listener) {
 		component.removeMouseListener(listener);
 	}
@@ -80,10 +92,20 @@ public abstract class MultiClickListener extends MouseAdapter {
 	 */
 	public abstract void mouseClickedMiddle(final MouseEvent e);
 
+	/**
+	 * <p>addToComponent.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 */
 	public void addToComponent(final Component component) {
 		addToComponent(component, this);
 	}
 
+	/**
+	 * <p>removeFromComponent.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 */
 	public void removeFromComponent(final Component component) {
 		removeFromComponent(component, this);
 	}

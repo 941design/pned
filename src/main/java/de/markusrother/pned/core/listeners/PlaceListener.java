@@ -21,9 +21,7 @@ public interface PlaceListener
 	 * setMarking.
 	 * </p>
 	 *
-	 * @param cmd
-	 *            a {@link de.markusrother.pned.core.commands.PlaceEditCommand}
-	 *            object.
+	 * @param evt a {@link de.markusrother.pned.core.events.PlaceEventObject} object.
 	 */
 	void setMarking(PlaceEventObject evt);
 

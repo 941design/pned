@@ -360,6 +360,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		return events;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void fireTransition(final TransitionExecutionCommand cmd) {
 		final String transitionId = cmd.getTransitionId();
@@ -389,6 +390,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void decrementInputPlaceMarking(final PlaceModel place) {
 		super.decrementInputPlaceMarking(place);
@@ -399,6 +401,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		eventBus.setMarking(evt);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void incrementOutputPlaceMarking(final PlaceModel place) {
 		super.incrementOutputPlaceMarking(place);

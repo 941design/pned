@@ -105,10 +105,20 @@ public abstract class HoverListener extends MouseAdapter {
 	 */
 	protected abstract void endHover(Component component);
 
+	/**
+	 * <p>addToComponent.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 */
 	public void addToComponent(final Component component) {
 		addToComponent(component, this);
 	}
 
+	/**
+	 * <p>removeFromComponent.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 */
 	public void removeFromComponent(final Component component) {
 		removeFromComponent(component, this);
 	}

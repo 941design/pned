@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import javax.swing.JComponent;
 
 /**
+ * <p>GridComponent class.</p>
+ *
  * @author Markus Rother
  * @version 1.0
  */

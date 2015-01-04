@@ -69,6 +69,7 @@ public class NodeLabel extends JLabel
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param nodeId
 	 *            a {@link java.lang.String} object.
+	 * @param labelEditor a {@link de.markusrother.pned.gui.listeners.NodeLabelEditor} object.
 	 */
 	public NodeLabel(final GuiEventBus eventBus, final NodeLabelEditor labelEditor, final String nodeId) {
 		this(eventBus, nodeId, labelEditor, nodeId);
@@ -85,6 +86,7 @@ public class NodeLabel extends JLabel
 	 *            a {@link java.lang.String} object.
 	 * @param nodeLabel
 	 *            a {@link java.lang.String} object.
+	 * @param labelEditor a {@link de.markusrother.pned.gui.listeners.NodeLabelEditor} object.
 	 */
 	public NodeLabel(final GuiEventBus eventBus, final String nodeId, final NodeLabelEditor labelEditor,
 			final String nodeLabel) {
@@ -111,6 +113,11 @@ public class NodeLabel extends JLabel
 		setState(ComponentState.DEFAULT);
 	}
 
+	/**
+	 * <p>Getter for the field <code>nodeId</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getNodeId() {
 		return nodeId;
 	}
@@ -127,6 +134,11 @@ public class NodeLabel extends JLabel
 		return state;
 	}
 
+	/**
+	 * <p>Getter for the field <code>eventBus</code>.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.core.control.EventBus} object.
+	 */
 	public EventBus getEventBus() {
 		return eventBus;
 	}
@@ -191,6 +203,9 @@ public class NodeLabel extends JLabel
 		}
 	}
 
+	/**
+	 * <p>startEditLabel.</p>
+	 */
 	public void startEditLabel() {
 		// Could also be communicated via EventBus!
 		// TODO - Creating the text field should go to NodeLabelEditor!
@@ -201,6 +216,9 @@ public class NodeLabel extends JLabel
 		editTextField.requestFocus();
 	}
 
+	/**
+	 * <p>cancelEditLabel.</p>
+	 */
 	public void cancelEditLabel() {
 		// Could also be communicated via EventBus!
 		setVisible(true);

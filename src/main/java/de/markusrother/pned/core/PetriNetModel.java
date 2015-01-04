@@ -251,6 +251,12 @@ public interface PetriNetModel {
 	 */
 	void removeEdge(EdgeModel edge);
 
+	/**
+	 * <p>fireTransition.</p>
+	 *
+	 * @param transitionId a {@link java.lang.String} object.
+	 * @throws de.markusrother.pned.core.exceptions.NoSuchNodeException if any.
+	 */
 	void fireTransition(String transitionId) throws NoSuchNodeException;
 
 }

@@ -10,6 +10,12 @@ import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.swing.RightClickListener;
 
+/**
+ * <p>NodeLabelEditor class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class NodeLabelEditor extends RightClickListener
 	implements
 		NodeCreationListener,
@@ -17,6 +23,11 @@ public class NodeLabelEditor extends RightClickListener
 
 	private NodeLabel currentLabel;
 
+	/**
+	 * <p>Constructor for NodeLabelEditor.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
+	 */
 	public NodeLabelEditor(final GuiEventBus eventBus) {
 		eventBus.addListener(NodeCreationListener.class, this);
 		eventBus.addListener(NodeSelectionListener.class, this);
@@ -39,37 +50,44 @@ public class NodeLabelEditor extends RightClickListener
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseClickedRight(final MouseEvent e) {
 		final NodeLabel nodeLabel = (NodeLabel) e.getSource();
 		startEditLabel(nodeLabel);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodesSelected(final NodeSelectionEvent e) {
 		cancelEditLabel();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodesUnselected(final NodeSelectionEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeSelectionFinished(final NodeSelectionEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeSelectionCancelled(final NodeSelectionEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createPlace(final PlaceCreationCommand cmd) {
 		cancelEditLabel();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createTransition(final TransitionCreationCommand cmd) {
 		cancelEditLabel();

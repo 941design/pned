@@ -9,6 +9,12 @@ import javax.swing.plaf.basic.BasicRadioButtonMenuItemUI;
 
 import sun.swing.MenuItemLayoutHelper;
 
+/**
+ * <p>CustomRadioButtonMenuItemUI class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class CustomRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
 	implements
 		MouseListener {
@@ -29,6 +35,7 @@ public class CustomRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected synchronized void doClick(final MenuSelectionManager msm) {
 		// We will proceed upon determining whether or not the MouseEvent
@@ -38,6 +45,7 @@ public class CustomRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
 		notify();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public synchronized void mouseClicked(final MouseEvent e) {
 		final Rectangle textRect = getTextRect();
@@ -67,21 +75,25 @@ public class CustomRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
 		return lr.getTextRect();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mousePressed(final MouseEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseReleased(final MouseEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseEntered(final MouseEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void mouseExited(final MouseEvent e) {
 		// IGNORE

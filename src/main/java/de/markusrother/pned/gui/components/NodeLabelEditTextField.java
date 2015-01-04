@@ -10,17 +10,30 @@ import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 import de.markusrother.swing.CheckedTextField;
 import de.markusrother.swing.TextListener;
 
+/**
+ * <p>NodeLabelEditTextField class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class NodeLabelEditTextField extends CheckedTextField
 	implements
 		TextListener {
 
 	// TODO - move
+	/** Constant <code>labelPattern</code> */
 	public final static Pattern labelPattern = Pattern.compile("[\\w\\s\\d]*");
 
 	private final GuiCommandTarget eventTarget;
 
 	private final NodeLabel label;
 
+	/**
+	 * <p>Constructor for NodeLabelEditTextField.</p>
+	 *
+	 * @param eventTarget a {@link de.markusrother.pned.gui.listeners.GuiCommandTarget} object.
+	 * @param label a {@link de.markusrother.pned.gui.components.NodeLabel} object.
+	 */
 	public NodeLabelEditTextField(final GuiCommandTarget eventTarget, final NodeLabel label) {
 		super(label.getText(), labelPattern, label.getText().length() + 10);
 		this.eventTarget = eventTarget;
@@ -28,6 +41,7 @@ public class NodeLabelEditTextField extends CheckedTextField
 		addTextListener(this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void textEntered(final ActionEvent e) {
 		eventTarget.setLabel(new LabelEditCommand(this, //
@@ -37,6 +51,7 @@ public class NodeLabelEditTextField extends CheckedTextField
 		removeFromParent();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void cancel(final AWTEvent e) {
 		removeFromParent();

@@ -219,6 +219,7 @@ public class ScaleGroup extends JPanel
 		jSlider.setModel(model);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void cancel(final AWTEvent e) {
 		// TODO
