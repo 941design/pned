@@ -215,13 +215,13 @@ public class NodeLabel extends JLabel
 
 	/** {@inheritDoc} */
 	@Override
-	public void targetComponentEntered(final EdgeEditEvent e) {
+	public void componentEntered(final EdgeEditEvent e) {
 		// IGNORE
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void targetComponentExited(final EdgeEditEvent e) {
+	public void componentExited(final EdgeEditEvent e) {
 		// IGNORE
 	}
 

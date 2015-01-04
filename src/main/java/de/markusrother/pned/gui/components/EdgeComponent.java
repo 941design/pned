@@ -318,7 +318,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 	/** {@inheritDoc} */
 	@Override
-	public void targetComponentEntered(final EdgeEditEvent e) {
+	public void componentEntered(final EdgeEditEvent e) {
 		if (e.getEdge() != this) {
 			// IGNORE - Not interested in other edges events.
 			return;
@@ -333,7 +333,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 	/** {@inheritDoc} */
 	@Override
-	public void targetComponentExited(final EdgeEditEvent e) {
+	public void componentExited(final EdgeEditEvent e) {
 		if (e.getEdge() != this) {
 			// IGNORE - Not interested in other edges events.
 			return;

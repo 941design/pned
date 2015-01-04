@@ -19,14 +19,14 @@ public interface EdgeEditListener
 	 *
 	 * @param e a {@link de.markusrother.pned.gui.events.EdgeEditEvent} object.
 	 */
-	void targetComponentEntered(EdgeEditEvent e);
+	void componentEntered(EdgeEditEvent e);
 
 	/**
 	 * <p>targetComponentExited.</p>
 	 *
 	 * @param e a {@link de.markusrother.pned.gui.events.EdgeEditEvent} object.
 	 */
-	void targetComponentExited(EdgeEditEvent e);
+	void componentExited(EdgeEditEvent e);
 
 	/**
 	 * <p>edgeMoved.</p>

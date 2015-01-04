@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
 import java.util.EnumSet;
@@ -25,9 +24,11 @@ import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.EdgeCreator;
+import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.MarkingEditor;
 import de.markusrother.pned.gui.listeners.NodeCreator;
 import de.markusrother.pned.gui.listeners.NodeLabelEditor;
@@ -60,11 +61,13 @@ import de.markusrother.swing.GridComponent;
  */
 public class PnGridPanel extends JLayeredPane
 	implements
-		NodeSelectionListener,
 		NodeListener,
 		NodeCreationListener,
+		NodeSelectionListener,
+		NodeRemovalListener,
 		EdgeCreationListener,
-		NodeRemovalListener
+		EdgeEditListener
+
 // FIXME
 // PlaceLayoutListener,
 // TransitionLayoutListener
@@ -96,7 +99,7 @@ public class PnGridPanel extends JLayeredPane
 	private final JComponent labelLayer;
 
 	private final EdgeCreator edgeCreator;
-	private final MouseAdapter nodeCreator;
+	private final NodeCreator nodeCreator;
 	private final NodeSelector multipleNodeSelector;
 	private final SingleNodeSelector singleNodeSelector;
 	private final PnGridPopupListener popupCreator;
@@ -178,17 +181,20 @@ public class PnGridPanel extends JLayeredPane
 		this.markingEditor = new MarkingEditor(eventBus);
 
 		add(nodeLayer, new Integer(1));
-		nodeLayer.addMouseListener(nodeCreator);
-		nodeLayer.addMouseMotionListener(edgeCreator);
-		nodeLayer.addMouseListener(popupCreator);
+		nodeCreator.addToComponent(nodeLayer);
+		edgeCreator.addToComponent(nodeLayer);
+		popupCreator.addToComponent(nodeLayer);
 		DragDropListener.addToComponent(nodeLayer, multipleNodeSelector);
 
 		// FIXME - dispose!
-		eventBus.addListener(NodeSelectionListener.class, this);
 		eventBus.addListener(NodeListener.class, this);
 		eventBus.addListener(NodeCreationListener.class, this);
-		eventBus.addListener(EdgeCreationListener.class, this);
+		eventBus.addListener(NodeSelectionListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
+		eventBus.addListener(EdgeCreationListener.class, this);
+		// TODO - This is currently without effect, because edge components are
+		// laid on top and prevent mouse events from bubbling!
+		eventBus.addListener(EdgeEditListener.class, this);
 	}
 
 	/**
@@ -572,6 +578,51 @@ public class PnGridPanel extends JLayeredPane
 	@Override
 	public void nodeSelectionFinished(final NodeMultiSelectionEvent event) {
 		// IGNORE
+	}
+
+	@Override
+	public void componentEntered(final EdgeEditEvent e) {
+		// IGNORE
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void componentExited(final EdgeEditEvent e) {
+		// IGNORE
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void edgeMoved(final EdgeEditEvent e) {
+		// IGNORE
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void edgeCancelled(final EdgeEditEvent e) {
+		installListeners();
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void edgeFinished(final EdgeEditEvent e) {
+		installListeners();
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void edgeStarted(final EdgeEditEvent e) {
+		suspendListeners();
+	}
+
+	protected void suspendListeners() {
+		nodeCreator.removeFromComponent(nodeLayer);
+		popupCreator.removeFromComponent(nodeLayer);
+	}
+
+	protected void installListeners() {
+		nodeCreator.addToComponent(nodeLayer);
+		popupCreator.addToComponent(nodeLayer);
 	}
 
 }

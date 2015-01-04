@@ -123,13 +123,13 @@ public abstract class PetriNetGuiEventAdapter
 
 	/** {@inheritDoc} */
 	@Override
-	public void targetComponentEntered(final EdgeEditEvent e) {
+	public void componentEntered(final EdgeEditEvent e) {
 		process(e);
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void targetComponentExited(final EdgeEditEvent e) {
+	public void componentExited(final EdgeEditEvent e) {
 		process(e);
 	}
 

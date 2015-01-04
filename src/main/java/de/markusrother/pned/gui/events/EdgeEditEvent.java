@@ -124,6 +124,7 @@ public class EdgeEditEvent extends EventObject
 	public String toJson() {
 		final JsonBuilder builder = new JsonBuilder();
 		return builder.append("type", type.name()) //
+				.append("component", component.toString()) //
 				.append("edgeId", "TODO") //
 				.append("sourceId", edge.getSourceId()) //
 				.append("targetId", edge.getTargetId()) //

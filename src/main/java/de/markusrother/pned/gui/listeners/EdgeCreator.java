@@ -18,7 +18,7 @@ import de.markusrother.pned.gui.components.EdgeComponent;
 import de.markusrother.pned.gui.components.PnGridPanel;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
-import de.markusrother.swing.DoubleClickListener;
+import de.markusrother.swing.MultiClickListener;
 
 /**
  * TODO - This could be split into an initial listener for receiving the double
@@ -28,7 +28,7 @@ import de.markusrother.swing.DoubleClickListener;
  * @author Markus Rother
  * @version 1.0
  */
-public class EdgeCreator extends DoubleClickListener {
+public class EdgeCreator extends MultiClickListener {
 
 	// TODO - Drawing could also start upon exit!
 
@@ -68,6 +68,16 @@ public class EdgeCreator extends DoubleClickListener {
 	public static void removeFromComponent(final Component component, final EdgeCreator listener) {
 		component.removeMouseListener(listener);
 		component.removeMouseMotionListener(listener);
+	}
+
+	@Override
+	public void addToComponent(final Component component) {
+		addToComponent(component, this);
+	}
+
+	@Override
+	public void removeFromComponent(final Component component) {
+		removeFromComponent(component, this);
 	}
 
 	/**
@@ -140,20 +150,21 @@ public class EdgeCreator extends DoubleClickListener {
 		}
 	}
 
-	/** {@inheritDoc} */
 	@Override
-	public void mouseClicked(final MouseEvent e) {
-		super.mouseClicked(e);
-		if (edge == null) {
-			// IGNORE - We haven't started yet.
-			return;
+	public void mouseClickedLeft(final MouseEvent e) {
+		if (edge != null && !edge.acceptsTarget(e.getComponent())) {
+			doCancelEdge(e);
 		}
-		// TODO - This does not yet work, because both, mouseClicked and
-		// mouseDoubleClicked are invoked. If we do not want to create separate
-		// listeners (one for starting to draw and one for the actual drawing),
-		// we could as well tweak all of this into mouseClicked, and no longer
-		// extending DoubleClickListener.
-		// maybeFinishOrCancelEdge(e);
+	}
+
+	@Override
+	public void mouseClickedRight(final MouseEvent e) {
+		// IGNORE
+	}
+
+	@Override
+	public void mouseClickedMiddle(final MouseEvent e) {
+		// IGNORE
 	}
 
 	/** {@inheritDoc} */
@@ -161,6 +172,10 @@ public class EdgeCreator extends DoubleClickListener {
 	public void mouseDoubleClickedLeft(final MouseEvent e) {
 		if (edge != null) {
 			maybeFinishOrCancelEdge(e);
+			return;
+		} else if (!(e.getComponent() instanceof AbstractNode)) {
+			// IGNORE
+			return;
 		} else {
 			final AbstractNode sourceNode = expectNode(e.getComponent());
 			final Point point = pnGridPanel.getGridRelativeLocation(e);
@@ -201,18 +216,23 @@ public class EdgeCreator extends DoubleClickListener {
 					targetNode));
 			final String edgeId = eventBus.requestId();
 			eventBus.createEdge(new EdgeCreationCommand(this, edgeId, edge.getSourceId(), edge.getTargetId()));
+			edge = null;
 		} else {
-			// TODO - nicer (should not call surrounding class):
-			// The edge is not yet part of the model and could go to a
-			// different layer!
-			pnGridPanel.removeEdge(edge);
-			// container.removeEdge(edge);
-			eventBus.edgeCancelled(new EdgeEditEvent(this, //
-					EDGE_CANCELLED, //
-					edge, //
-					getParentRelativeLocation(e), //
-					e.getComponent()));
+			doCancelEdge(e);
 		}
+	}
+
+	private void doCancelEdge(final MouseEvent e) {
+		// TODO - nicer (should not call surrounding class):
+		// The edge is not yet part of the model and could go to a
+		// different layer!
+		pnGridPanel.removeEdge(edge);
+		// container.removeEdge(edge);
+		eventBus.edgeCancelled(new EdgeEditEvent(this, //
+				EDGE_CANCELLED, //
+				edge, //
+				getParentRelativeLocation(e), //
+				e.getComponent()));
 		edge = null;
 	}
 
@@ -226,6 +246,7 @@ public class EdgeCreator extends DoubleClickListener {
 					edge, //
 					getParentRelativeLocation(e), //
 					e.getComponent()));
+			pnGridPanel.revalidate(); // TODO - Why?
 			pnGridPanel.repaint(); // TODO - Why?
 		}
 	}
@@ -235,7 +256,7 @@ public class EdgeCreator extends DoubleClickListener {
 	public void mouseEntered(final MouseEvent e) {
 		super.mouseEntered(e);
 		if (edge != null) {
-			eventBus.targetComponentEntered(new EdgeEditEvent(this, //
+			eventBus.componentEntered(new EdgeEditEvent(this, //
 					COMPONENT_ENTERED, //
 					edge, //
 					getParentRelativeLocation(e), //
@@ -248,7 +269,7 @@ public class EdgeCreator extends DoubleClickListener {
 	public void mouseExited(final MouseEvent e) {
 		super.mouseExited(e);
 		if (edge != null) {
-			eventBus.targetComponentExited(new EdgeEditEvent(this, //
+			eventBus.componentExited(new EdgeEditEvent(this, //
 					COMPONENT_EXITED, //
 					edge, //
 					getParentRelativeLocation(e), //

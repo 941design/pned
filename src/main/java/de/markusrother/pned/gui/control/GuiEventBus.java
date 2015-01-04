@@ -97,17 +97,17 @@ public class GuiEventBus extends EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void targetComponentEntered(final EdgeEditEvent e) {
+	public void componentEntered(final EdgeEditEvent e) {
 		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
-			l.targetComponentEntered(e);
+			l.componentEntered(e);
 		}
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void targetComponentExited(final EdgeEditEvent e) {
+	public void componentExited(final EdgeEditEvent e) {
 		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
-			l.targetComponentExited(e);
+			l.componentExited(e);
 		}
 	}
 
