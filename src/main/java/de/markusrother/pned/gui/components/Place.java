@@ -50,6 +50,7 @@ public class Place extends AbstractNode
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param diameter
 	 *            a int.
+	 * @param markingEditor a {@link de.markusrother.pned.gui.listeners.MarkingEditor} object.
 	 */
 	public Place(final EventBus eventBus, final MarkingEditor markingEditor, final int diameter) {
 		super(eventBus, new PlaceLayout());

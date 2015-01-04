@@ -50,16 +50,19 @@ public class NodeLabelEditor extends AbstractRightClickTextFieldEditor<NodeLabel
 		eventBus.addListener(NodeSelectionListener.class, this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String getInitialText(final NodeLabel nodeLabel) {
 		return nodeLabel.getText();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void startEdit(final NodeLabel nodeLabel, final MouseEvent evt) {
 		nodeLabel.setVisible(false);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void cancelEdit(final NodeLabel nodeLabel) {
 		nodeLabel.setVisible(true);
@@ -75,6 +78,7 @@ public class NodeLabelEditor extends AbstractRightClickTextFieldEditor<NodeLabel
 		nodeLabel.setVisible(true);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void addTextField(final NodeLabel nodeLabel, final CheckedTextField textField) {
 		// Not nice that we grab parent, here!
@@ -82,6 +86,7 @@ public class NodeLabelEditor extends AbstractRightClickTextFieldEditor<NodeLabel
 		nodeLabel.getParent().repaint();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeTextField(final NodeLabel nodeLabel, final CheckedTextField textField) {
 		// Not nice that we grab parent, here!

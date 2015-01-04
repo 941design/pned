@@ -50,21 +50,25 @@ public class MarkingEditor extends AbstractRightClickTextFieldEditor<Place>
 		eventBus.addListener(NodeSelectionListener.class, this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String getInitialText(final Place place) {
 		return String.valueOf(place.getMarking());
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void startEdit(final Place place, final MouseEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void cancelEdit(final Place place) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void finishEdit(final Place place, final String text) {
 		eventBus.setMarking(new PlaceEditCommand(this, //
@@ -73,6 +77,7 @@ public class MarkingEditor extends AbstractRightClickTextFieldEditor<Place>
 				Integer.valueOf(text))); // Validated by markingPattern!
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void addTextField(final Place place, final CheckedTextField textField) {
 		// TODO - set location
@@ -82,6 +87,7 @@ public class MarkingEditor extends AbstractRightClickTextFieldEditor<Place>
 		parent.repaint();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeTextField(final Place place, final CheckedTextField textField) {
 		final Container parent = place.getParent();
