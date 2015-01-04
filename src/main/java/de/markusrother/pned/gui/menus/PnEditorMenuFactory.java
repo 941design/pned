@@ -1,26 +1,14 @@
 package de.markusrother.pned.gui.menus;
 
-import static de.markusrother.pned.gui.NodeCreationMode.PLACE;
-import static de.markusrother.pned.gui.NodeCreationMode.TRANSITION;
-
 import java.awt.Point;
-import java.awt.event.KeyEvent;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JComponent;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
-import javax.swing.JRadioButtonMenuItem;
 
-import de.markusrother.pned.gui.NodeCreationMode;
-import de.markusrother.pned.gui.actions.CreatePlaceAction;
-import de.markusrother.pned.gui.actions.CreateTransitionAction;
-import de.markusrother.pned.gui.actions.LocationProvider;
-import de.markusrother.pned.gui.actions.RemoveSelectedNodesAction;
+import de.markusrother.pned.gui.actions.AbstractMenuFactory;
+import de.markusrother.pned.gui.actions.EditMenuFactory;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.dialogs.FileDialogFactory;
-import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
-import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 
 /**
  * TODO - maintain state and keep track of number of selected nodes! Depending
@@ -39,21 +27,10 @@ import de.markusrother.pned.gui.listeners.NodeSelectionListener;
  * @author Markus Rother
  * @version 1.0
  */
-public class PnEditorMenuFactory
-	implements
-		NodeSelectionListener {
+public class PnEditorMenuFactory extends AbstractMenuFactory {
 
-	/** Constant <code>label="Edit"</code> */
-	private static final String editMenulabel = "Edit";
-	/** Constant <code>mnemonic=KeyEvent.VK_E</code> */
-	private static final int editMenuMnemonic = KeyEvent.VK_E;
-	/** Constant <code>defaultNodeLocation</code> at x=100, y=100. */
-	private static final Point defaultNodeLocation = new Point(100, 100);
-
-	private boolean areNodesSelected;
-	private final NodeCreationMode nodeCreationMode;
-	private GuiEventBus eventBus;
 	private final FileDialogFactory fileDialogFactory;
+	private final EditMenuFactory editMenuFactory;
 
 	/**
 	 * <p>
@@ -64,12 +41,9 @@ public class PnEditorMenuFactory
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
 	public PnEditorMenuFactory(final GuiEventBus eventBus) {
-		this.eventBus = eventBus;
-		this.areNodesSelected = false;
-		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
+		super(eventBus);
 		this.fileDialogFactory = new FileDialogFactory(eventBus);
-
-		eventBus.addListener(NodeSelectionListener.class, this);
+		this.editMenuFactory = new EditMenuFactory(eventBus);
 	}
 
 	/**
@@ -90,33 +64,7 @@ public class PnEditorMenuFactory
 		// TODO - we have to make sure that upon loading files or other actions
 		// that indirectly deselect nodes the removal action is also disabled.
 		// An idea would be to have implicit actions.
-		final JMenu jMenu = new JMenu(editMenulabel);
-		jMenu.setMnemonic(editMenuMnemonic);
-		populateEditMenu(jMenu, DefaultNodeLocationProvider.INSTANCE);
-		return jMenu;
-	}
-
-	private void populateEditMenu(final JComponent jMenu, final LocationProvider locationProvider) {
-		final Object eventSource = jMenu;
-		final ButtonGroup buttonGroup = new ButtonGroup();
-
-		final JRadioButtonMenuItem placeItem = CreatePlaceAction.newMenuItem( //
-				eventBus, //
-				eventSource, //
-				locationProvider);
-		buttonGroup.add(placeItem);
-		jMenu.add(placeItem);
-		placeItem.setSelected(nodeCreationMode == PLACE);
-
-		final JRadioButtonMenuItem transitionItem = CreateTransitionAction.newMenuItem( //
-				eventBus, //
-				eventSource, //
-				locationProvider);
-		buttonGroup.add(transitionItem);
-		jMenu.add(transitionItem);
-		transitionItem.setSelected(nodeCreationMode == TRANSITION);
-
-		jMenu.add(RemoveSelectedNodesAction.newMenuItem(eventBus, eventSource, areNodesSelected));
+		return editMenuFactory.newMenu();
 	}
 
 	/**
@@ -147,57 +95,13 @@ public class PnEditorMenuFactory
 	 * </p>
 	 *
 	 */
-	public JPopupMenu newPopupMenu(final Point poin) {
-		final JPopupMenu popup = new JPopupMenu();
-		final LocationProvider locationProvider = new LocationProvider() {
-			@Override
-			public Point getLocation() {
-				return poin;
-			}
-		};
-		populateEditMenu(popup, locationProvider);
-		return popup;
+	public JPopupMenu newPopupMenu(final Point point) {
+		return editMenuFactory.newPopupMenu(point);
 	}
 
-	/** {@inheritDoc} */
 	@Override
-	public void nodesSelected(final NodeMultiSelectionEvent event) {
-		// IGNORE
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void nodesUnselected(final NodeMultiSelectionEvent event) {
-		// IGNORE
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void nodeSelectionFinished(final NodeMultiSelectionEvent event) {
-		areNodesSelected = !event.getNodes().isEmpty();
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void nodeSelectionCancelled(final NodeMultiSelectionEvent event) {
-		areNodesSelected = false;
-	}
-
-	/**
-	 * <p>
-	 * Setter for the field <code>eventMulticaster</code>.
-	 * </p>
-	 *
-	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
-	 */
 	public void setEventBus(final GuiEventBus eventBus) {
-		if (this.eventBus != null) {
-			this.eventBus.removeListener(NodeSelectionListener.class, this);
-		}
-		this.eventBus = eventBus;
-		// FIXME - dispose, remove upon close!
-		this.eventBus.addListener(NodeSelectionListener.class, this);
+		super.setEventBus(eventBus);
 		this.fileDialogFactory.setEventBus(eventBus);
 	}
 

@@ -3,7 +3,6 @@ package de.markusrother.pned.gui.actions;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
@@ -20,7 +19,7 @@ import de.markusrother.pned.gui.listeners.NodeSelectionListener;
  * @author Markus Rother
  * @version 1.0
  */
-public class RemoveSelectedNodesAction extends AbstractAction
+public class RemoveSelectedNodesAction extends AbstractGuiAction
 	implements
 		NodeSelectionListener {
 
@@ -46,9 +45,6 @@ public class RemoveSelectedNodesAction extends AbstractAction
 		return new JMenuItem(new RemoveSelectedNodesAction(eventBus, source, enabled));
 	}
 
-	private final Object source;
-	private final GuiEventBus eventBus;
-
 	/**
 	 * <p>
 	 * Constructor for RemoveSelectedNodesAction.
@@ -62,11 +58,11 @@ public class RemoveSelectedNodesAction extends AbstractAction
 	 *            a boolean.
 	 */
 	public RemoveSelectedNodesAction(final GuiEventBus eventBus, final Object source, final boolean enabled) {
-		super(label);
-		this.eventBus = eventBus;
-		this.source = source;
+		super(label, source, eventBus);
+
 		putValue(Action.MNEMONIC_KEY, mnemonic);
 		setEnabled(enabled);
+
 		// FIXME - dispose!
 		eventBus.addListener(NodeSelectionListener.class, this);
 	}
@@ -75,6 +71,7 @@ public class RemoveSelectedNodesAction extends AbstractAction
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 		eventBus.removeSelectedNodes(new RemoveSelectedNodesEvent(source));
+		setEnabled(false);
 	}
 
 	/** {@inheritDoc} */
