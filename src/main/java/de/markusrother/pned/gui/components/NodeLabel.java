@@ -22,7 +22,6 @@ import de.markusrother.pned.gui.styles.NodeLabelStyle;
 import de.markusrother.swing.CheckedTextField;
 import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
-import de.markusrother.swing.HoverListener;
 
 /**
  * <p>
@@ -55,7 +54,7 @@ public class NodeLabel extends JLabel
 	private final DragDropListener<NodeLabel> dragDropListener;
 	private final String nodeId;
 	private final GuiEventBus eventBus;
-	private final NodeLabelEditor labelEditor;
+	// private final NodeLabelEditor labelEditor;
 	private final LabelHoverListener hoverListener;
 
 	private ComponentState state;
@@ -98,11 +97,11 @@ public class NodeLabel extends JLabel
 		this.dragDropListener = new DefaultDragDropListener<>(NodeLabel.class, this);
 		DragDropListener.addToComponent(this, dragDropListener);
 
-		this.labelEditor = labelEditor;
-		NodeLabelEditor.addToComponent(this, labelEditor);
+		// this.labelEditor = labelEditor;
+		labelEditor.addToComponent(this);
 
 		this.hoverListener = new LabelHoverListener();
-		HoverListener.addToComponent(this, hoverListener);
+		this.hoverListener.addToComponent(this);
 
 		// FIXME - dispose and test disposal!
 		eventBus.addListener(NodeRemovalListener.class, this);
