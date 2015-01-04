@@ -17,6 +17,7 @@ import de.markusrother.pned.core.listeners.TransitionActivationListener;
 import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
 import de.markusrother.pned.gui.layout.listeners.TransitionLayoutListener;
 import de.markusrother.pned.gui.layout.style.NodeStyle;
+import de.markusrother.pned.gui.listeners.TransitionActivator;
 import de.markusrother.util.JsonBuilder;
 
 /**
@@ -36,6 +37,7 @@ public class Transition extends AbstractNode
 	private static final Color deactivatedColor = Color.GRAY;
 	private int extent;
 	private final NodeStyle style = NodeStyle.DEFAULT;
+	private final TransitionActivator activator;
 	private boolean isActive = true;
 
 	/**
@@ -53,6 +55,10 @@ public class Transition extends AbstractNode
 		// TODO - use model!
 		this.extent = extent;
 		setOpaque(false);
+
+		this.activator = new TransitionActivator(eventBus);
+		activator.addToComponent(this);
+
 		// FIXME - dispose!
 		eventBus.addListener(TransitionLayoutListener.class, this);
 		eventBus.addListener(TransitionActivationListener.class, this);
