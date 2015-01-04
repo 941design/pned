@@ -233,12 +233,11 @@ public class PnGridPanel extends JLayeredPane
 			if (component.getParent() == null) {
 				throw new IllegalStateException("Trying to retrieve relative location of a non-child.");
 			}
-			component = component.getParent();
 			final Point location = component.getLocation();
 			offset.translate(location.x, location.y);
+			component = component.getParent();
 		}
-		final Point delta = delta(offset, nodeLayer.getLocationOnScreen());
-		return delta;
+		return offset;
 	}
 
 	/**
