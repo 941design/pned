@@ -63,7 +63,7 @@ public class PnEditorFrame extends JFrame
 
 		this.eventBus = createNewContext();
 		this.menuFactory = new PnEditorMenuFactory(eventBus);
-		this.grid = new PnGridPanel(eventBus);
+		this.grid = new PnGridPanel(eventBus, menuFactory);
 		// TODO - maybe we can adjust the grid layers preferred sizes with a
 		// propertyChangeListener!?
 		this.pnedMenuBar = new PnedMenuBar(menuFactory);
@@ -83,9 +83,12 @@ public class PnEditorFrame extends JFrame
 	}
 
 	/**
-	 * <p>createAutoResizableScrollPane.</p>
+	 * <p>
+	 * createAutoResizableScrollPane.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
 	 * @return a {@link javax.swing.JScrollPane} object.
 	 */
 	private JScrollPane createAutoResizableScrollPane(final Component component) {
@@ -161,7 +164,7 @@ public class PnEditorFrame extends JFrame
 		eventBus.removeListener(PetriNetIOListener.class, this);
 
 		this.eventBus = createNewContext();
-		this.grid = new PnGridPanel(eventBus);
+		this.grid = new PnGridPanel(eventBus, menuFactory);
 		this.pnedMenuBar = new PnedMenuBar(menuFactory);
 
 		add(grid, BorderLayout.CENTER);

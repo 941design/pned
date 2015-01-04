@@ -39,6 +39,7 @@ import de.markusrother.pned.gui.listeners.NodeSelector;
 import de.markusrother.pned.gui.listeners.PnGridPopupListener;
 import de.markusrother.pned.gui.listeners.SelectionDragDropListener;
 import de.markusrother.pned.gui.listeners.SingleNodeSelector;
+import de.markusrother.pned.gui.menus.PnEditorMenuFactory;
 import de.markusrother.pned.gui.requests.NodeRequest;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.GridComponent;
@@ -150,8 +151,9 @@ public class PnGridPanel extends JLayeredPane
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param menuFactory
 	 */
-	public PnGridPanel(final GuiEventBus eventBus) {
+	public PnGridPanel(final GuiEventBus eventBus, final PnEditorMenuFactory menuFactory) {
 
 		this.eventBus = eventBus;
 		this.currentSelection = new HashSet<>();
@@ -176,7 +178,7 @@ public class PnGridPanel extends JLayeredPane
 		this.nodeCreator = new NodeCreator(eventBus);
 		this.multipleNodeSelector = new NodeSelector(eventBus);
 		this.singleNodeSelector = new SingleNodeSelector(eventBus);
-		this.popupCreator = new PnGridPopupListener(eventBus, this);
+		this.popupCreator = new PnGridPopupListener(menuFactory);
 		this.nodeLabelEditor = new NodeLabelEditor(eventBus);
 		this.markingEditor = new MarkingEditor(eventBus);
 

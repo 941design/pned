@@ -1,8 +1,22 @@
 package de.markusrother.pned.gui.menus;
 
+import static de.markusrother.pned.gui.NodeCreationMode.PLACE;
+import static de.markusrother.pned.gui.NodeCreationMode.TRANSITION;
+
+import java.awt.Point;
+import java.awt.event.KeyEvent;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JComponent;
 import javax.swing.JMenu;
+import javax.swing.JPopupMenu;
+import javax.swing.JRadioButtonMenuItem;
 
 import de.markusrother.pned.gui.NodeCreationMode;
+import de.markusrother.pned.gui.actions.CreatePlaceAction;
+import de.markusrother.pned.gui.actions.CreateTransitionAction;
+import de.markusrother.pned.gui.actions.LocationProvider;
+import de.markusrother.pned.gui.actions.RemoveSelectedNodesAction;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.dialogs.FileDialogFactory;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
@@ -29,6 +43,13 @@ public class PnEditorMenuFactory
 	implements
 		NodeSelectionListener {
 
+	/** Constant <code>label="Edit"</code> */
+	private static final String editMenulabel = "Edit";
+	/** Constant <code>mnemonic=KeyEvent.VK_E</code> */
+	private static final int editMenuMnemonic = KeyEvent.VK_E;
+	/** Constant <code>defaultNodeLocation</code> at x=100, y=100. */
+	private static final Point defaultNodeLocation = new Point(100, 100);
+
 	private boolean areNodesSelected;
 	private final NodeCreationMode nodeCreationMode;
 	private GuiEventBus eventBus;
@@ -47,6 +68,8 @@ public class PnEditorMenuFactory
 		this.areNodesSelected = false;
 		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
 		this.fileDialogFactory = new FileDialogFactory(eventBus);
+
+		eventBus.addListener(NodeSelectionListener.class, this);
 	}
 
 	/**
@@ -54,10 +77,46 @@ public class PnEditorMenuFactory
 	 * newEditMenu.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.menus.PnedEditMenu} object.
 	 */
-	public PnedEditMenu newEditMenu() {
-		return new PnedEditMenu(eventBus, areNodesSelected, nodeCreationMode);
+	public JMenu newEditMenu() {
+		// TODO - Why not receive the grid, because Actions are grid dependent
+		// rather than headless model dependent. That is exactly the choice I
+		// have to make, here: Should menus be headless (via eventBus) or not.
+		// If so, we need a stateful MenuFactory that listens on the bus. That
+		// is however not sufficient, because, the menubar is instantiated once.
+		// The created instances would hence also have to listen to the bus
+		// themselves (or to property changes for that matter).
+
+		// TODO - we have to make sure that upon loading files or other actions
+		// that indirectly deselect nodes the removal action is also disabled.
+		// An idea would be to have implicit actions.
+		final JMenu jMenu = new JMenu(editMenulabel);
+		jMenu.setMnemonic(editMenuMnemonic);
+		populateEditMenu(jMenu, DefaultNodeLocationProvider.INSTANCE);
+		return jMenu;
+	}
+
+	private void populateEditMenu(final JComponent jMenu, final LocationProvider locationProvider) {
+		final Object eventSource = jMenu;
+		final ButtonGroup buttonGroup = new ButtonGroup();
+
+		final JRadioButtonMenuItem placeItem = CreatePlaceAction.newMenuItem( //
+				eventBus, //
+				eventSource, //
+				locationProvider);
+		buttonGroup.add(placeItem);
+		jMenu.add(placeItem);
+		placeItem.setSelected(nodeCreationMode == PLACE);
+
+		final JRadioButtonMenuItem transitionItem = CreateTransitionAction.newMenuItem( //
+				eventBus, //
+				eventSource, //
+				locationProvider);
+		buttonGroup.add(transitionItem);
+		jMenu.add(transitionItem);
+		transitionItem.setSelected(nodeCreationMode == TRANSITION);
+
+		jMenu.add(RemoveSelectedNodesAction.newMenuItem(eventBus, eventSource, areNodesSelected));
 	}
 
 	/**
@@ -87,11 +146,17 @@ public class PnEditorMenuFactory
 	 * newPopupMenu.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.menus.PnedEditMenu} object.
 	 */
-	public PnedEditMenu newPopupMenu() {
-		// TODO
-		throw new RuntimeException("TODO");
+	public JPopupMenu newPopupMenu(final Point poin) {
+		final JPopupMenu popup = new JPopupMenu();
+		final LocationProvider locationProvider = new LocationProvider() {
+			@Override
+			public Point getLocation() {
+				return poin;
+			}
+		};
+		populateEditMenu(popup, locationProvider);
+		return popup;
 	}
 
 	/** {@inheritDoc} */
