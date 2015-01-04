@@ -28,6 +28,7 @@ import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.EdgeCreator;
+import de.markusrother.pned.gui.listeners.MarkingEditor;
 import de.markusrother.pned.gui.listeners.NodeCreator;
 import de.markusrother.pned.gui.listeners.NodeLabelEditor;
 import de.markusrother.pned.gui.listeners.NodeListener;
@@ -100,6 +101,7 @@ public class PnGridPanel extends JLayeredPane
 	private final SingleNodeSelector singleNodeSelector;
 	private final PnGridPopupListener popupCreator;
 	private final NodeLabelEditor nodeLabelEditor;
+	private final MarkingEditor markingEditor;
 
 	private final EnumSet<State> state;
 	// Stateful/Throwaway listeners:
@@ -149,7 +151,7 @@ public class PnGridPanel extends JLayeredPane
 	public PnGridPanel(final GuiEventBus eventBus) {
 
 		this.eventBus = eventBus;
-
+		this.currentSelection = new HashSet<>();
 		this.state = defaultState;
 
 		setPreferredSize(preferredSize);
@@ -166,20 +168,14 @@ public class PnGridPanel extends JLayeredPane
 
 		labelLayer = createLayer(10);
 
-		// new ListenerManager(State) {
-		// List<EventListener> getListeners(EnumSet<State> enumSet) {
-		// if...else
-		// }
-		// }
 		// Listeners that are needed by children, are kept here:
-		edgeCreator = new EdgeCreator(eventBus, this);
-		nodeCreator = new NodeCreator(eventBus);
-		multipleNodeSelector = new NodeSelector(eventBus);
-		singleNodeSelector = new SingleNodeSelector(eventBus);
-		popupCreator = new PnGridPopupListener(eventBus, this);
-		nodeLabelEditor = new NodeLabelEditor(eventBus);
-
-		currentSelection = new HashSet<>();
+		this.edgeCreator = new EdgeCreator(eventBus, this);
+		this.nodeCreator = new NodeCreator(eventBus);
+		this.multipleNodeSelector = new NodeSelector(eventBus);
+		this.singleNodeSelector = new SingleNodeSelector(eventBus);
+		this.popupCreator = new PnGridPopupListener(eventBus, this);
+		this.nodeLabelEditor = new NodeLabelEditor(eventBus);
+		this.markingEditor = new MarkingEditor(eventBus);
 
 		add(nodeLayer, new Integer(1));
 		nodeLayer.addMouseListener(nodeCreator);
@@ -220,8 +216,8 @@ public class PnGridPanel extends JLayeredPane
 	 * getGridRelativeLocation.
 	 * </p>
 	 * 
-	 * @param e 
-	 * 			a {@link java.awt.event.MouseEvent} object.
+	 * @param e
+	 *            a {@link java.awt.event.MouseEvent} object.
 	 * @return a {@link java.awt.Point} object.
 	 */
 	public Point getGridRelativeLocation(final MouseEvent e) {
@@ -298,7 +294,7 @@ public class PnGridPanel extends JLayeredPane
 	@Override
 	public void createPlace(final PlaceCreationCommand cmd) {
 		// TODO - use currentPlaceStyle!
-		final Place place = new Place(eventBus, (int) placeDimensions.getWidth());
+		final Place place = new Place(eventBus, markingEditor, (int) placeDimensions.getWidth());
 		addNodeComponent(place, cmd.getPoint());
 		place.setId(cmd.getNodeId());
 		addListeners(place);

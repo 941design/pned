@@ -19,7 +19,6 @@ import de.markusrother.pned.gui.listeners.LabelHoverListener;
 import de.markusrother.pned.gui.listeners.NodeLabelEditor;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.styles.NodeLabelStyle;
-import de.markusrother.swing.CheckedTextField;
 import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
 
@@ -58,7 +57,6 @@ public class NodeLabel extends JLabel
 	private final LabelHoverListener hoverListener;
 
 	private ComponentState state;
-	private CheckedTextField editTextField;
 
 	/**
 	 * <p>
@@ -69,7 +67,9 @@ public class NodeLabel extends JLabel
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param nodeId
 	 *            a {@link java.lang.String} object.
-	 * @param labelEditor a {@link de.markusrother.pned.gui.listeners.NodeLabelEditor} object.
+	 * @param labelEditor
+	 *            a {@link de.markusrother.pned.gui.listeners.NodeLabelEditor}
+	 *            object.
 	 */
 	public NodeLabel(final GuiEventBus eventBus, final NodeLabelEditor labelEditor, final String nodeId) {
 		this(eventBus, nodeId, labelEditor, nodeId);
@@ -86,7 +86,9 @@ public class NodeLabel extends JLabel
 	 *            a {@link java.lang.String} object.
 	 * @param nodeLabel
 	 *            a {@link java.lang.String} object.
-	 * @param labelEditor a {@link de.markusrother.pned.gui.listeners.NodeLabelEditor} object.
+	 * @param labelEditor
+	 *            a {@link de.markusrother.pned.gui.listeners.NodeLabelEditor}
+	 *            object.
 	 */
 	public NodeLabel(final GuiEventBus eventBus, final String nodeId, final NodeLabelEditor labelEditor,
 			final String nodeLabel) {
@@ -114,7 +116,9 @@ public class NodeLabel extends JLabel
 	}
 
 	/**
-	 * <p>Getter for the field <code>nodeId</code>.</p>
+	 * <p>
+	 * Getter for the field <code>nodeId</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.
 	 */
@@ -135,7 +139,9 @@ public class NodeLabel extends JLabel
 	}
 
 	/**
-	 * <p>Getter for the field <code>eventBus</code>.</p>
+	 * <p>
+	 * Getter for the field <code>eventBus</code>.
+	 * </p>
 	 *
 	 * @return a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
@@ -201,31 +207,6 @@ public class NodeLabel extends JLabel
 			setText(e.getLabel());
 			setSize(getPreferredSize()); // TODO - padding!
 		}
-	}
-
-	/**
-	 * <p>startEditLabel.</p>
-	 */
-	public void startEditLabel() {
-		// Could also be communicated via EventBus!
-		// TODO - Creating the text field should go to NodeLabelEditor!
-		editTextField = new NodeLabelEditTextField(eventBus, this);
-		editTextField.setBounds(new Rectangle(this.getLocation(), editTextField.getPreferredSize()));
-		setVisible(false);
-		getParent().add(editTextField); // Not nice that we grab parent, here!
-		editTextField.requestFocus();
-	}
-
-	/**
-	 * <p>cancelEditLabel.</p>
-	 */
-	public void cancelEditLabel() {
-		// Could also be communicated via EventBus!
-		setVisible(true);
-		// Not nice that we grab parent, here!
-		getParent().remove(editTextField);
-		getParent().repaint();
-		editTextField = null;
 	}
 
 }

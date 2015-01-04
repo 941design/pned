@@ -14,7 +14,7 @@ import de.markusrother.pned.gui.PlaceLayout;
 import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.layout.listeners.PlaceLayoutListener;
 import de.markusrother.pned.gui.layout.style.NodeStyle;
-import de.markusrother.pned.gui.listeners.MarkingEditListener;
+import de.markusrother.pned.gui.listeners.MarkingEditor;
 import de.markusrother.util.JsonBuilder;
 
 /**
@@ -36,9 +36,10 @@ public class Place extends AbstractNode
 		PlaceLayoutListener {
 
 	private final Marking marking;
+	private final MarkingEditor markingEditor;
+	private final NodeStyle style = NodeStyle.DEFAULT;
 
 	private int diameter;
-	private final NodeStyle style = NodeStyle.DEFAULT;
 
 	/**
 	 * <p>
@@ -50,17 +51,21 @@ public class Place extends AbstractNode
 	 * @param diameter
 	 *            a int.
 	 */
-	public Place(final EventBus eventBus, final int diameter) {
+	public Place(final EventBus eventBus, final MarkingEditor markingEditor, final int diameter) {
 		super(eventBus, new PlaceLayout());
-		// TODO - use model instead of label
+
 		this.diameter = diameter;
 		this.marking = new Marking(eventBus);
-		add(this.marking, PlaceLayout.CENTER);
-		setOpaque(false);
-		addMouseListener(new MarkingEditListener(eventBus));
+
+		this.markingEditor = markingEditor;
+		markingEditor.addToComponent(this);
+
 		// FIXME - dispose!
 		eventBus.addListener(PlaceLayoutListener.class, this);
 		eventBus.addListener(PlaceListener.class, this);
+
+		add(this.marking, PlaceLayout.CENTER);
+		setOpaque(false);
 	}
 
 	/** {@inheritDoc} */

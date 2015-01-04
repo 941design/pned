@@ -8,13 +8,16 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 import org.junit.Test;
+import org.mockito.Mockito;
+
+import de.markusrother.pned.gui.listeners.MarkingEditor;
 
 public class PlaceTest extends AbstractNodeTest<Place> {
 
 	private Place place;
 
 	private void createPlace(final Dimension dimension) {
-		place = new Place(eventMulticastMock, (int) dimension.getWidth());
+		place = new Place(eventMulticastMock, Mockito.mock(MarkingEditor.class), (int) dimension.getWidth());
 	}
 
 	private void assertAngleIntersectsAt(final double theta, final Point2D expected) {
@@ -53,7 +56,7 @@ public class PlaceTest extends AbstractNodeTest<Place> {
 
 	@Override
 	protected Place getComponent() {
-		return new Place(eventMulticastMock, 0);
+		return new Place(eventMulticastMock, Mockito.mock(MarkingEditor.class), 0);
 	}
 
 }
