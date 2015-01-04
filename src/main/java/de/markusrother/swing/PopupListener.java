@@ -1,15 +1,70 @@
 package de.markusrother.swing;
 
+import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * <p>Abstract PopupListener class.</p>
+ * <p>
+ * Abstract PopupListener class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
 public abstract class PopupListener extends MouseAdapter {
+
+	/**
+	 * <p>
+	 * addToComponent.
+	 * </p>
+	 *
+	 * @param component
+	 *            a {@link java.awt.Component} object.
+	 * @param listener
+	 *            a {@link de.markusrother.swing.MultiClickListener} object.
+	 */
+	public static void addToComponent(final Component component, final PopupListener listener) {
+		component.addMouseListener(listener);
+	}
+
+	/**
+	 * <p>
+	 * removeFromComponent.
+	 * </p>
+	 *
+	 * @param component
+	 *            a {@link java.awt.Component} object.
+	 * @param listener
+	 *            a {@link de.markusrother.swing.MultiClickListener} object.
+	 */
+	public static void removeFromComponent(final Component component, final PopupListener listener) {
+		component.removeMouseListener(listener);
+	}
+
+	/**
+	 * <p>
+	 * addToComponent.
+	 * </p>
+	 *
+	 * @param component
+	 *            a {@link java.awt.Component} object.
+	 */
+	public void addToComponent(final Component component) {
+		addToComponent(component, this);
+	}
+
+	/**
+	 * <p>
+	 * removeFromComponent.
+	 * </p>
+	 *
+	 * @param component
+	 *            a {@link java.awt.Component} object.
+	 */
+	public void removeFromComponent(final Component component) {
+		removeFromComponent(component, this);
+	}
 
 	/** {@inheritDoc} */
 	@Override
@@ -30,9 +85,12 @@ public abstract class PopupListener extends MouseAdapter {
 	}
 
 	/**
-	 * <p>maybePopup.</p>
+	 * <p>
+	 * maybePopup.
+	 * </p>
 	 *
-	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 * @param e
+	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	private void maybePopup(final MouseEvent e) {
 		if (e.isPopupTrigger()) {
@@ -41,9 +99,12 @@ public abstract class PopupListener extends MouseAdapter {
 	}
 
 	/**
-	 * <p>popup.</p>
+	 * <p>
+	 * popup.
+	 * </p>
 	 *
-	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 * @param e
+	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	public abstract void popup(MouseEvent e);
 

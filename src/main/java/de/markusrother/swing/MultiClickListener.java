@@ -36,6 +36,24 @@ public abstract class MultiClickListener extends MouseAdapter {
 		component.removeMouseListener(listener);
 	}
 
+	/**
+	 * <p>addToComponent.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 */
+	public void addToComponent(final Component component) {
+		addToComponent(component, this);
+	}
+
+	/**
+	 * <p>removeFromComponent.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 */
+	public void removeFromComponent(final Component component) {
+		removeFromComponent(component, this);
+	}
+
 	/** {@inheritDoc} */
 	@Override
 	public void mouseClicked(final MouseEvent e) {
@@ -91,23 +109,5 @@ public abstract class MultiClickListener extends MouseAdapter {
 	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	public abstract void mouseClickedMiddle(final MouseEvent e);
-
-	/**
-	 * <p>addToComponent.</p>
-	 *
-	 * @param component a {@link java.awt.Component} object.
-	 */
-	public void addToComponent(final Component component) {
-		addToComponent(component, this);
-	}
-
-	/**
-	 * <p>removeFromComponent.</p>
-	 *
-	 * @param component a {@link java.awt.Component} object.
-	 */
-	public void removeFromComponent(final Component component) {
-		removeFromComponent(component, this);
-	}
 
 }
