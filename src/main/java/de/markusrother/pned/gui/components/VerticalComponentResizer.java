@@ -13,6 +13,11 @@ import javax.swing.BoundedRangeModel;
  */
 public class VerticalComponentResizer extends ComponentResizer {
 
+	/**
+	 * <p>Constructor for VerticalComponentResizer.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 */
 	VerticalComponentResizer(final Component component) {
 		super(component);
 	}

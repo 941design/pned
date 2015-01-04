@@ -17,6 +17,7 @@ public abstract class AbstractRightClickTextFieldEditor<T extends Component> ext
 	implements
 		TextListener {
 
+	/** Constant <code>trailingWS=10</code> */
 	private static final int trailingWS = 10;
 
 	private final Class<? extends T> type;
@@ -51,6 +52,12 @@ public abstract class AbstractRightClickTextFieldEditor<T extends Component> ext
 		doStartEdit(source, e);
 	}
 
+	/**
+	 * <p>doStartEdit.</p>
+	 *
+	 * @param source a T object.
+	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 */
 	private void doStartEdit(final T source, final MouseEvent e) {
 		editedObject = source;
 

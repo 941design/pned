@@ -21,10 +21,18 @@ public class CustomRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
 
 	private MenuSelectionManager cachedMsm;
 
+	/**
+	 * <p>Constructor for CustomRadioButtonMenuItemUI.</p>
+	 *
+	 * @param menuItem a {@link de.markusrother.swing.CustomRadioButtonMenuItem} object.
+	 */
 	CustomRadioButtonMenuItemUI(final CustomRadioButtonMenuItem menuItem) {
 		this.menuItem = menuItem;
 	}
 
+	/**
+	 * <p>waitForCachingMsm.</p>
+	 */
 	private void waitForCachingMsm() {
 		while (cachedMsm == null) {
 			try {
@@ -61,6 +69,11 @@ public class CustomRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
 		cachedMsm = null;
 	}
 
+	/**
+	 * <p>getTextRect.</p>
+	 *
+	 * @return a {@link java.awt.Rectangle} object.
+	 */
 	private Rectangle getTextRect() {
 		// This code was copied from
 		// javax.swing.plaf.basic.BasicMenuItemUI.paintMenuItem()

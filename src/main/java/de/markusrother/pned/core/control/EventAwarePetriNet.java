@@ -83,9 +83,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a T object.
-	 * @param <T>
-	 *            FIXME
+	 *            a {@link EventBus} object.
 	 */
 	public EventAwarePetriNet(final EventBus eventBus) {
 		this.eventBus = eventBus;
@@ -296,7 +294,15 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		fireTransitionAcivationEvents(events);
 	}
 
-
+	/**
+	 * <p>
+	 * maybeGetTransitionActivationEvents.
+	 * </p>
+	 *
+	 * @param runnable
+	 *            a {@link java.lang.Runnable} object.
+	 * @return a {@link java.util.Collection} object.
+	 */
 	private Collection<TransitionActivationEvent> maybeGetTransitionActivationEvents(final Runnable runnable) {
 
 		final Collection<TransitionActivationEvent> events = new LinkedList<>();
@@ -318,6 +324,14 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		return events;
 	}
 
+	/**
+	 * <p>
+	 * fireTransitionAcivationEvents.
+	 * </p>
+	 *
+	 * @param events
+	 *            a {@link java.util.Collection} object.
+	 */
 	private void fireTransitionAcivationEvents(final Collection<TransitionActivationEvent> events) {
 		for (final TransitionActivationEvent evt : events) {
 			for (final TransitionActivationListener listener : listeners
@@ -336,6 +350,15 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		}
 	}
 
+	/**
+	 * <p>
+	 * createTransitionDeactivationEvents.
+	 * </p>
+	 *
+	 * @param deactivated
+	 *            a {@link java.util.Collection} object.
+	 * @return a {@link java.util.Collection} object.
+	 */
 	private Collection<TransitionActivationEvent> createTransitionDeactivationEvents(
 			final Collection<TransitionModel> deactivated) {
 		final Collection<TransitionActivationEvent> events = new LinkedList<>();
@@ -348,6 +371,15 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		return events;
 	}
 
+	/**
+	 * <p>
+	 * createTransitionActivationEvent.
+	 * </p>
+	 *
+	 * @param activated
+	 *            a {@link java.util.Collection} object.
+	 * @return a {@link java.util.Collection} object.
+	 */
 	private Collection<TransitionActivationEvent> createTransitionActivationEvent(
 			final Collection<TransitionModel> activated) {
 		final Collection<TransitionActivationEvent> events = new LinkedList<>();

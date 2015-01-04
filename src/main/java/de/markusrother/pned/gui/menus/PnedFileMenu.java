@@ -33,7 +33,7 @@ public class PnedFileMenu extends JMenu {
 	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
 	 *            object.
 	 * @param fileDialogFactory
-	 *            a {@link FileDialogFactory}.
+	 *            a {@link de.markusrother.pned.gui.dialogs.FileDialogFactory}.
 	 */
 	PnedFileMenu(final GuiCommandTarget commandTarget, final FileDialogFactory fileDialogFactory) {
 		super(label);

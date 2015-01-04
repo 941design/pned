@@ -90,7 +90,7 @@ public class EditSettingsDialog extends AbstractDialog {
 
 	/**
 	 * <p>
-	 * Creates and returns {@link ScaleGroup} for adjusting place size for all
+	 * Creates and returns {@link de.markusrother.swing.ScaleGroup} for adjusting place size for all
 	 * nodes.
 	 * </p>
 	 *
@@ -111,7 +111,7 @@ public class EditSettingsDialog extends AbstractDialog {
 
 	/**
 	 * <p>
-	 * Creates and returns {@link ScaleGroup} for adjusting transition size for
+	 * Creates and returns {@link de.markusrother.swing.ScaleGroup} for adjusting transition size for
 	 * all nodes.
 	 * </p>
 	 *
@@ -132,7 +132,7 @@ public class EditSettingsDialog extends AbstractDialog {
 
 	/**
 	 * <p>
-	 * Creates and returns {@link ScaleGroup} for adjusting marking size for all
+	 * Creates and returns {@link de.markusrother.swing.ScaleGroup} for adjusting marking size for all
 	 * markings.
 	 * </p>
 	 *
@@ -153,7 +153,7 @@ public class EditSettingsDialog extends AbstractDialog {
 
 	/**
 	 * <p>
-	 * Creates and returns {@link ScaleGroup} for adjusting edge tip size for
+	 * Creates and returns {@link de.markusrother.swing.ScaleGroup} for adjusting edge tip size for
 	 * all edges.
 	 * </p>
 	 *

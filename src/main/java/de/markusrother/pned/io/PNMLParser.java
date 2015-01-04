@@ -85,6 +85,7 @@ import de.markusrother.pned.core.control.CommandTarget;
  */
 public class PNMLParser {
 
+	/** Constant <code>initialNodeOrigin</code> */
 	private static final Point initialNodeOrigin = new Point(100, 100);
 
 	/**
@@ -416,8 +417,8 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Posts {@link TransitionCreationCommand} on the provided
-	 * {@link CommandTarget}.
+	 * Posts {@link de.markusrother.pned.core.commands.TransitionCreationCommand} on the provided
+	 * {@link de.markusrother.pned.core.control.CommandTarget}.
 	 *
 	 * @param transitionId
 	 *            a {@link java.lang.String} Identifikationstext der Transition
@@ -430,7 +431,7 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Posts {@link PlaceCreationCommand} on the provided {@link CommandTarget}.
+	 * Posts {@link de.markusrother.pned.core.commands.PlaceCreationCommand} on the provided {@link de.markusrother.pned.core.control.CommandTarget}.
 	 *
 	 * @param placeId
 	 *            a {@link java.lang.String} Identifikationstext der Stelle
@@ -443,7 +444,7 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Posts {@link EdgeCreationCommand} on the provided {@link CommandTarget}.
+	 * Posts {@link de.markusrother.pned.core.commands.EdgeCreationCommand} on the provided {@link de.markusrother.pned.core.control.CommandTarget}.
 	 *
 	 * @param edgeId
 	 *            a {@link java.lang.String} Identifikationstext der Kante
@@ -463,7 +464,7 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Posts {@link NodeMotionCommand} on the provided {@link CommandTarget}.
+	 * Posts {@link de.markusrother.pned.core.commands.NodeMotionCommand} on the provided {@link de.markusrother.pned.core.control.CommandTarget}.
 	 *
 	 * @param elementId
 	 *            a {@link java.lang.String} Identifikationstext des Elements
@@ -484,7 +485,7 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Posts {@link LabelEditCommand} on the provided {@link CommandTarget}.
+	 * Posts {@link de.markusrother.pned.core.commands.LabelEditCommand} on the provided {@link de.markusrother.pned.core.control.CommandTarget}.
 	 *
 	 * @param elementId
 	 *            a {@link java.lang.String} Identifikationstext des Elements
@@ -500,7 +501,7 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Posts {@link PlaceEditCommand} on the provided {@link CommandTarget}.
+	 * Posts {@link de.markusrother.pned.core.commands.PlaceEditCommand} on the provided {@link de.markusrother.pned.core.control.CommandTarget}.
 	 *
 	 * @param placeId
 	 *            a {@link java.lang.String} Identifikationstext des Elements

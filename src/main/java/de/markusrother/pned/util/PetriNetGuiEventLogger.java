@@ -34,6 +34,8 @@ public class PetriNetGuiEventLogger extends PetriNetGuiEventAdapter {
 	}
 
 	/**
+	 * <p>log.</p>
+	 *
 	 * @param e
 	 *            a {@link java.util.EventObject} object.
 	 */

@@ -8,6 +8,12 @@ import javax.swing.SwingWorker;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.listeners.NodeRequestListener;
 
+/**
+ * <p>NodeRequestWorker class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 class NodeRequestWorker extends SwingWorker<AbstractNode, Object> {
 
 	protected final NodeRequest request;

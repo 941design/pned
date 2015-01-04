@@ -7,6 +7,12 @@ import javax.swing.SwingWorker;
 
 import de.markusrother.pned.core.listeners.IdRequestListener;
 
+/**
+ * <p>IdRequestWorker class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 class IdRequestWorker extends SwingWorker<String, Object> {
 
 	private final IdRequest request;

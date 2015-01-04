@@ -6,6 +6,12 @@ import javax.swing.BoundedRangeModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * <p>Abstract ComponentResizer class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 abstract class ComponentResizer
 	implements
 		ChangeListener {
@@ -17,6 +23,11 @@ abstract class ComponentResizer
 
 	protected final Component component;
 
+	/**
+	 * <p>Constructor for ComponentResizer.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 */
 	ComponentResizer(final Component component) {
 		this.component = component;
 	}

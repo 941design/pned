@@ -82,6 +82,12 @@ public class PnEditorFrame extends JFrame
 		PetriNetGuiEventLogger.log(eventBus);
 	}
 
+	/**
+	 * <p>createAutoResizableScrollPane.</p>
+	 *
+	 * @param component a {@link java.awt.Component} object.
+	 * @return a {@link javax.swing.JScrollPane} object.
+	 */
 	private JScrollPane createAutoResizableScrollPane(final Component component) {
 		final JScrollPane scrollPane = new JScrollPane(component, //
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, //

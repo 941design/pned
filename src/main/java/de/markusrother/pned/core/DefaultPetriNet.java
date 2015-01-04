@@ -363,6 +363,12 @@ public class DefaultPetriNet
 		incrementOutputPlaceMarkings(transition);
 	}
 
+	/**
+	 * <p>getInputNodeIds.</p>
+	 *
+	 * @param node a {@link de.markusrother.pned.core.NodeModel} object.
+	 * @return a {@link java.util.Collection} object.
+	 */
 	private Collection<String> getInputNodeIds(final NodeModel node) {
 		final Collection<EdgeModel> edges = getIncomingEdges(node);
 		final Collection<String> nodeIds = new LinkedList<>();
@@ -372,6 +378,12 @@ public class DefaultPetriNet
 		return nodeIds;
 	}
 
+	/**
+	 * <p>getIncomingEdges.</p>
+	 *
+	 * @param node a {@link de.markusrother.pned.core.NodeModel} object.
+	 * @return a {@link java.util.Collection} object.
+	 */
 	private Collection<EdgeModel> getIncomingEdges(final NodeModel node) {
 		final Collection<EdgeModel> edges = new LinkedList<>();
 		for (final EdgeModel edge : this.edges) {
@@ -382,6 +394,12 @@ public class DefaultPetriNet
 		return edges;
 	}
 
+	/**
+	 * <p>getOutgoingEdges.</p>
+	 *
+	 * @param node a {@link de.markusrother.pned.core.NodeModel} object.
+	 * @return a {@link java.util.Collection} object.
+	 */
 	private Collection<EdgeModel> getOutgoingEdges(final NodeModel node) {
 		final Collection<EdgeModel> edges = new LinkedList<>();
 		for (final EdgeModel edge : this.edges) {
@@ -392,6 +410,12 @@ public class DefaultPetriNet
 		return edges;
 	}
 
+	/**
+	 * <p>getOutputNodeIds.</p>
+	 *
+	 * @param node a {@link de.markusrother.pned.core.NodeModel} object.
+	 * @return a {@link java.util.Collection} object.
+	 */
 	private Collection<String> getOutputNodeIds(final NodeModel node) {
 		final Collection<EdgeModel> edges = getOutgoingEdges(node);
 		final Collection<String> nodeIds = new LinkedList<>();
@@ -401,6 +425,11 @@ public class DefaultPetriNet
 		return nodeIds;
 	}
 
+	/**
+	 * <p>decrementInputPlaceMarkings.</p>
+	 *
+	 * @param transition a {@link de.markusrother.pned.core.TransitionModel} object.
+	 */
 	private void decrementInputPlaceMarkings(final TransitionModel transition) {
 		final Collection<PlaceModel> in = getInputPlaces(transition);
 		for (final PlaceModel place : in) {
@@ -417,6 +446,11 @@ public class DefaultPetriNet
 		setMarking(place, place.getMarking() - 1);
 	}
 
+	/**
+	 * <p>incrementOutputPlaceMarkings.</p>
+	 *
+	 * @param transition a {@link de.markusrother.pned.core.TransitionModel} object.
+	 */
 	private void incrementOutputPlaceMarkings(final TransitionModel transition) {
 		final Collection<PlaceModel> out = getOutputPlaces(transition);
 		for (final PlaceModel place : out) {
@@ -433,16 +467,34 @@ public class DefaultPetriNet
 		setMarking(place, place.getMarking() + 1);
 	}
 
+	/**
+	 * <p>getInputPlaces.</p>
+	 *
+	 * @param transition a {@link de.markusrother.pned.core.TransitionModel} object.
+	 * @return a {@link java.util.Collection} object.
+	 */
 	private Collection<PlaceModel> getInputPlaces(final TransitionModel transition) {
 		final Collection<String> placeIds = getInputNodeIds(transition);
 		return getPlaces(placeIds);
 	}
 
+	/**
+	 * <p>getOutputPlaces.</p>
+	 *
+	 * @param transition a {@link de.markusrother.pned.core.TransitionModel} object.
+	 * @return a {@link java.util.Collection} object.
+	 */
 	private Collection<PlaceModel> getOutputPlaces(final TransitionModel transition) {
 		final Collection<String> placeIds = getOutputNodeIds(transition);
 		return getPlaces(placeIds);
 	}
 
+	/**
+	 * <p>Getter for the field <code>places</code>.</p>
+	 *
+	 * @param placeIds a {@link java.util.Collection} object.
+	 * @return a {@link java.util.Collection} object.
+	 */
 	private Collection<PlaceModel> getPlaces(final Collection<String> placeIds) {
 		final Collection<PlaceModel> places = new LinkedList<>();
 		for (final PlaceModel place : this.places) {

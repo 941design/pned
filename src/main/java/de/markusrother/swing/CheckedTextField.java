@@ -85,6 +85,11 @@ public class CheckedTextField extends JTextField
 		}
 	}
 
+	/**
+	 * <p>cancel.</p>
+	 *
+	 * @param e a {@link java.awt.AWTEvent} object.
+	 */
 	private void cancel(final AWTEvent e) {
 		for (final TextListener l : listeners) {
 			l.cancel(e);

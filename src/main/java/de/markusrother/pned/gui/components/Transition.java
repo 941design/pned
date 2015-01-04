@@ -33,8 +33,11 @@ public class Transition extends AbstractNode
 		TransitionActivationListener,
 		TransitionLayoutListener {
 
+	/** Constant <code>activatedColor</code> */
 	private static final Color activatedColor = Color.GREEN;
+	/** Constant <code>deactivatedColor</code> */
 	private static final Color deactivatedColor = Color.GRAY;
+
 	private int extent;
 	private final NodeStyle style = NodeStyle.DEFAULT;
 	private final TransitionActivator activator;

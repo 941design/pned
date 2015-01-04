@@ -14,7 +14,7 @@ import de.markusrother.pned.gui.listeners.NodeListener;
  * <p>
  * Abstract superclass for compound node actions: default node type selection
  * <b>and</b> node creation. This action combines an
- * {@link java.awt.event.ActionListener} with an {@link ItemListener} for
+ * {@link java.awt.event.ActionListener} with an {@link java.awt.event.ItemListener} for
  * selectable items. It can be used for e.g.
  * {@link javax.swing.JRadioButtonMenuItem}s where toggle and selection trigger
  * separate {@link java.awt.event.ActionEvent}s.
@@ -22,10 +22,10 @@ import de.markusrother.pned.gui.listeners.NodeListener;
  * <p>
  * Setting the default node type posts a
  * {@link de.markusrother.pned.gui.commands.SetNodeTypeCommand} on the provided
- * {@link EventBus}. This is done without performing other actions. The actual
+ * {@link de.markusrother.pned.core.control.EventBus}. This is done without performing other actions. The actual
  * {@link java.awt.event.ActionListener} is implemented by subclasses.
  * </p>
- * 
+ *
  * <p>
  * TODO - Take generic argument EventTarget and IdRequestListener
  * </p>
@@ -38,7 +38,7 @@ import de.markusrother.pned.gui.listeners.NodeListener;
  * <p>
  * TODO - Create generic class for this double feature.
  * </p>
- * 
+ *
  * @author Markus Rother
  * @version 1.0
  */
