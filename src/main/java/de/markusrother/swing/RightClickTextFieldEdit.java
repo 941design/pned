@@ -8,7 +8,9 @@ import java.awt.event.MouseEvent;
 import java.util.regex.Pattern;
 
 /**
- * <p>Abstract AbstractRightClickTextFieldEditor class.</p>
+ * <p>
+ * Abstract AbstractRightClickTextFieldEditor class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -27,10 +29,14 @@ public abstract class RightClickTextFieldEdit<T extends Component> extends Right
 	private CheckedTextField textField;
 
 	/**
-	 * <p>Constructor for AbstractRightClickTextFieldEditor.</p>
+	 * <p>
+	 * Constructor for AbstractRightClickTextFieldEditor.
+	 * </p>
 	 *
-	 * @param type a {@link java.lang.Class} object.
-	 * @param pattern a {@link java.util.regex.Pattern} object.
+	 * @param type
+	 *            a {@link java.lang.Class} object.
+	 * @param pattern
+	 *            a {@link java.util.regex.Pattern} object.
 	 */
 	protected RightClickTextFieldEdit(final Class<? extends T> type, final Pattern pattern) {
 		this.type = type;
@@ -53,10 +59,14 @@ public abstract class RightClickTextFieldEdit<T extends Component> extends Right
 	}
 
 	/**
-	 * <p>doStartEdit.</p>
+	 * <p>
+	 * doStartEdit.
+	 * </p>
 	 *
-	 * @param source a T object.
-	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 * @param source
+	 *            a T object.
+	 * @param e
+	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	private void doStartEdit(final T source, final MouseEvent e) {
 		editedObject = source;
@@ -74,31 +84,44 @@ public abstract class RightClickTextFieldEdit<T extends Component> extends Right
 	}
 
 	/**
-	 * <p>getInitialText.</p>
+	 * <p>
+	 * getInitialText.
+	 * </p>
 	 *
-	 * @param editedObject a T object.
+	 * @param editedObject
+	 *            a T object.
 	 * @return a {@link java.lang.String} object.
 	 */
 	public abstract String getInitialText(T editedObject);
 
 	/**
-	 * <p>startEdit.</p>
+	 * <p>
+	 * startEdit.
+	 * </p>
 	 *
-	 * @param editedObject a T object.
-	 * @param e a {@link java.awt.event.MouseEvent} object.
+	 * @param editedObject
+	 *            a T object.
+	 * @param e
+	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	public abstract void startEdit(T editedObject, MouseEvent e);
 
 	/**
-	 * <p>finishEdit.</p>
+	 * <p>
+	 * finishEdit.
+	 * </p>
 	 *
-	 * @param editedObject a T object.
-	 * @param text a {@link java.lang.String} object.
+	 * @param editedObject
+	 *            a T object.
+	 * @param text
+	 *            a {@link java.lang.String} object.
 	 */
 	public abstract void finishEdit(T editedObject, String text);
 
 	/**
-	 * <p>doCancelEdit.</p>
+	 * <p>
+	 * doCancelEdit.
+	 * </p>
 	 */
 	protected void doCancelEdit() {
 		if (editedObject != null) {
@@ -110,27 +133,42 @@ public abstract class RightClickTextFieldEdit<T extends Component> extends Right
 	}
 
 	/**
-	 * <p>cancelEdit.</p>
+	 * <p>
+	 * cancelEdit.
+	 * </p>
 	 *
-	 * @param editedObject a T object.
+	 * @param editedObject
+	 *            a T object.
 	 */
 	public abstract void cancelEdit(T editedObject);
 
 	/**
-	 * <p>addTextField.</p>
+	 * <p>
+	 * addTextField.
+	 * </p>
 	 *
-	 * @param editedObject a T object.
-	 * @param textField a {@link de.markusrother.swing.CheckedTextField} object.
+	 * @param editedObject
+	 *            a T object.
+	 * @param textField
+	 *            a {@link de.markusrother.swing.CheckedTextField} object.
 	 */
 	public abstract void addTextField(T editedObject, CheckedTextField textField);
 
 	/**
-	 * <p>removeTextField.</p>
+	 * <p>
+	 * removeTextField.
+	 * </p>
 	 *
-	 * @param editedObject a T object.
-	 * @param textField a {@link de.markusrother.swing.CheckedTextField} object.
+	 * @param editedObject
+	 *            a T object.
+	 * @param textField
+	 *            a {@link de.markusrother.swing.CheckedTextField} object.
 	 */
 	public abstract void removeTextField(T editedObject, CheckedTextField textField);
+
+	public boolean isEditing(final T object) {
+		return editedObject == object;
+	}
 
 	/** {@inheritDoc} */
 	@Override

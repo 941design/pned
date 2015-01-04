@@ -2,17 +2,20 @@ package de.markusrother.pned.gui.listeners;
 
 import java.awt.Container;
 import java.awt.event.MouseEvent;
+import java.util.Collection;
 import java.util.regex.Pattern;
 
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
 import de.markusrother.pned.core.commands.PlaceEditCommand;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
+import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.components.Place;
+import de.markusrother.pned.gui.components.Transition;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeSelectionEvent;
-import de.markusrother.swing.RightClickTextFieldEdit;
 import de.markusrother.swing.CheckedTextField;
+import de.markusrother.swing.RightClickTextFieldEdit;
 
 /**
  * <p>
@@ -99,7 +102,15 @@ public class MarkingEditor extends RightClickTextFieldEdit<Place>
 	/** {@inheritDoc} */
 	@Override
 	public void nodesSelected(final NodeSelectionEvent e) {
-		// IGNORE
+		final Collection<AbstractNode> nodes = e.getNodes();
+		if (nodes.size() != 1) {
+			doCancelEdit();
+		} else {
+			final AbstractNode node = nodes.iterator().next();
+			if (node instanceof Transition || !isEditing((Place) node)) {
+				doCancelEdit();
+			}
+		}
 	}
 
 	/** {@inheritDoc} */
