@@ -42,12 +42,15 @@ public class JavadocTest {
 
 	static abstract class MethodMatcher extends BaseMatcher<JavaMethod> {
 
+		private JavaMethod methodUnderTest;
+		private JavaParameter parameterUnderTest;
+
 		@Override
 		public boolean matches(final Object item) {
-			final JavaMethod method = (JavaMethod) item;
-			final List<DocletTag> tags = method.getTagsByName("param");
-			final List<JavaParameter> parameters = method.getParameters();
-			final String comment = method.getComment();
+			this.methodUnderTest = (JavaMethod) item;
+			final List<DocletTag> tags = methodUnderTest.getTagsByName("param");
+			final List<JavaParameter> parameters = methodUnderTest.getParameters();
+			final String comment = methodUnderTest.getComment();
 			if (comment == null) {
 				return false;
 			} else if (inheritPattern.matcher(comment).matches()) {
@@ -59,9 +62,9 @@ public class JavadocTest {
 			final Iterator<DocletTag> tagIterator = tags.iterator();
 			while (paramIterator.hasNext()) {
 				final DocletTag tag = tagIterator.next();
-				final JavaParameter parameter = paramIterator.next();
+				parameterUnderTest = paramIterator.next();
 				// TODO - parameter.getTag() should do!
-				if (!tagMatchesParameter(tag, parameter)) {
+				if (!tagMatchesParameter(tag, parameterUnderTest)) {
 					return false;
 				}
 			}
@@ -75,7 +78,10 @@ public class JavadocTest {
 
 		@Override
 		public void describeTo(final Description description) {
-			description.appendText("TODO");
+			description.appendText("not " //
+					+ methodUnderTest.getDeclaringClass().getName() + '.'//
+					+ methodUnderTest.getName() + "(..)" //
+					+ " for parameter: " + parameterUnderTest);
 		}
 
 	}

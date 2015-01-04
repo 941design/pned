@@ -6,12 +6,9 @@ import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import javax.swing.BoundedRangeModel;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.xml.stream.XMLStreamException;
 
 import de.markusrother.pned.core.commands.PetriNetIOCommand;
@@ -51,82 +48,6 @@ public class PnEditorFrame extends JFrame
 	private PnedMenuBar pnedMenuBar;
 
 	private File currentPath;
-
-	private static abstract class ComponentResizer
-		implements
-			ChangeListener {
-
-		protected static final double enlargementFactor = 1.001;
-		protected static final double thresholdRatio = 0.9;
-
-		protected final Component component;
-
-		ComponentResizer(final Component component) {
-			this.component = component;
-		}
-
-		@Override
-		public void stateChanged(final ChangeEvent e) {
-			if (e.getSource() instanceof BoundedRangeModel) {
-				stateChanged((BoundedRangeModel) e.getSource());
-			} else {
-				throw new IllegalArgumentException("Can only listen to state changes of "
-						+ BoundedRangeModel.class.getSimpleName());
-			}
-		}
-
-		protected abstract void stateChanged(BoundedRangeModel source);
-
-	}
-
-	private static class VerticalComponentResizer extends ComponentResizer {
-
-		VerticalComponentResizer(final Component component) {
-			super(component);
-		}
-
-		@Override
-		protected void stateChanged(final BoundedRangeModel model) {
-			final double extent = model.getExtent();
-			final double maximum = model.getMaximum();
-			final double value = model.getValue();
-			// Must use preferredSize, because dimensions are initialized
-			// with zero.
-			final Dimension preferredSize = component.getPreferredSize();
-			final double height = preferredSize.getHeight();
-			final double width = preferredSize.getWidth();
-			final double ratio = (value + extent) / maximum;
-			if (ratio > thresholdRatio) {
-				// TODO - calculate biggest increment possible!
-				component.setPreferredSize(new Dimension((int) width, (int) (height * enlargementFactor)));
-			}
-		}
-	}
-
-	private static class HorizontalComponentResizer extends ComponentResizer {
-
-		public HorizontalComponentResizer(final Component component) {
-			super(component);
-		}
-
-		@Override
-		protected void stateChanged(final BoundedRangeModel model) {
-			final double extent = model.getExtent();
-			final double maximum = model.getMaximum();
-			final double value = model.getValue();
-			// Must use preferredSize, because dimensions are initialized
-			// with zero.
-			final Dimension preferredSize = component.getPreferredSize();
-			final double height = preferredSize.getHeight();
-			final double width = preferredSize.getWidth();
-			final double ratio = (value + extent) / maximum;
-			if (ratio > thresholdRatio) {
-				// TODO - calculate biggest increment possible!
-				component.setPreferredSize(new Dimension((int) (width * enlargementFactor), (int) height));
-			}
-		}
-
-	}
 
 	/**
 	 * <p>
