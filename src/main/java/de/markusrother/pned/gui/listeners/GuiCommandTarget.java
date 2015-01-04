@@ -18,4 +18,6 @@ public interface GuiCommandTarget
 		PetriNetListener,
 		NodeListener {
 
+	// NOTHING
+
 }

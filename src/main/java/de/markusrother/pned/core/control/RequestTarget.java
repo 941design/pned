@@ -16,4 +16,6 @@ public interface RequestTarget
 	extends
 		IdRequestListener {
 
+	// NOTHING
+
 }

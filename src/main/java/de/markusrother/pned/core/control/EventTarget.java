@@ -3,7 +3,9 @@ package de.markusrother.pned.core.control;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
 
 /**
- * <p>EventTarget interface.</p>
+ * <p>
+ * EventTarget interface.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -11,5 +13,7 @@ import de.markusrother.pned.core.listeners.TransitionActivationListener;
 public interface EventTarget
 	extends
 		TransitionActivationListener {
+
+	// NOTHING
 
 }

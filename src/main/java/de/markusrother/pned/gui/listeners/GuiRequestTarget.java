@@ -15,4 +15,6 @@ public interface GuiRequestTarget
 		RequestTarget,
 		NodeRequestListener {
 
+	// NOTHING
+
 }
