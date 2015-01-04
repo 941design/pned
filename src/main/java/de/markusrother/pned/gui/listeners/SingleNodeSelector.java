@@ -1,7 +1,7 @@
 package de.markusrother.pned.gui.listeners;
 
-import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.CANCEL;
-import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.SELECT;
+import static de.markusrother.pned.gui.events.NodeMultiSelectionEvent.Type.CANCEL;
+import static de.markusrother.pned.gui.events.NodeMultiSelectionEvent.Type.SELECT;
 
 import java.awt.Component;
 import java.awt.Point;
@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.control.GuiEventBus;
-import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.swing.DragDropListener;
 
 /**
@@ -82,8 +82,8 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 		} else {
 			// NOTE - Do NOT rely on event status change within this method!
 			// We have to cancel other singly selected nodes, too:
-			eventBus.nodeSelectionCancelled(new NodeSelectionEvent(CANCEL, this));
-			eventBus.nodesSelected(new NodeSelectionEvent(SELECT, this, Arrays.asList(node)));
+			eventBus.nodeSelectionCancelled(new NodeMultiSelectionEvent(CANCEL, this));
+			eventBus.nodesSelected(new NodeMultiSelectionEvent(SELECT, this, Arrays.asList(node)));
 		}
 	}
 

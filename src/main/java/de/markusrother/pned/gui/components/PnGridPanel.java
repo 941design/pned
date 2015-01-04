@@ -25,7 +25,7 @@ import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.control.GuiEventBus;
-import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.EdgeCreator;
 import de.markusrother.pned.gui.listeners.MarkingEditor;
@@ -485,7 +485,7 @@ public class PnGridPanel extends JLayeredPane
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodesSelected(final NodeSelectionEvent event) {
+	public void nodesSelected(final NodeMultiSelectionEvent event) {
 		// TODO - changing selections are not yet repsected!
 		// TODO - only add new state if it was not selected before.
 		addState(State.MULTISELECTION);
@@ -508,13 +508,13 @@ public class PnGridPanel extends JLayeredPane
 	 * Event source may be gridPanel or another listener, model etc.
 	 */
 	@Override
-	public void nodesUnselected(final NodeSelectionEvent event) {
+	public void nodesUnselected(final NodeMultiSelectionEvent event) {
 		deselect(event.getNodes());
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
+	public void nodeSelectionCancelled(final NodeMultiSelectionEvent event) {
 		deselect(currentSelection);
 	}
 
@@ -570,7 +570,7 @@ public class PnGridPanel extends JLayeredPane
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeSelectionFinished(final NodeSelectionEvent event) {
+	public void nodeSelectionFinished(final NodeMultiSelectionEvent event) {
 		// IGNORE
 	}
 

@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.listeners;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 
 /**
  * Listener to observe node selection events
@@ -17,29 +17,29 @@ public interface NodeSelectionListener
 	/**
 	 * <p>nodesSelected.</p>
 	 *
-	 * @param e a {@link de.markusrother.pned.gui.events.NodeSelectionEvent} object.
+	 * @param e a {@link de.markusrother.pned.gui.events.NodeMultiSelectionEvent} object.
 	 */
-	public void nodesSelected(NodeSelectionEvent e);
+	public void nodesSelected(NodeMultiSelectionEvent e);
 
 	/**
 	 * <p>nodesUnselected.</p>
 	 *
-	 * @param e a {@link de.markusrother.pned.gui.events.NodeSelectionEvent} object.
+	 * @param e a {@link de.markusrother.pned.gui.events.NodeMultiSelectionEvent} object.
 	 */
-	public void nodesUnselected(NodeSelectionEvent e);
+	public void nodesUnselected(NodeMultiSelectionEvent e);
 
 	/**
 	 * <p>nodeSelectionFinished.</p>
 	 *
-	 * @param e a {@link de.markusrother.pned.gui.events.NodeSelectionEvent} object.
+	 * @param e a {@link de.markusrother.pned.gui.events.NodeMultiSelectionEvent} object.
 	 */
-	public void nodeSelectionFinished(NodeSelectionEvent e);
+	public void nodeSelectionFinished(NodeMultiSelectionEvent e);
 
 	/**
 	 * <p>nodeSelectionCancelled.</p>
 	 *
-	 * @param e a {@link de.markusrother.pned.gui.events.NodeSelectionEvent} object.
+	 * @param e a {@link de.markusrother.pned.gui.events.NodeMultiSelectionEvent} object.
 	 */
-	public void nodeSelectionCancelled(NodeSelectionEvent e);
+	public void nodeSelectionCancelled(NodeMultiSelectionEvent e);
 
 }

@@ -1,14 +1,14 @@
 package de.markusrother.pned.gui.listeners;
 
-import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.CANCEL;
-import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.DESELECT;
-import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.FINISH;
-import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.SELECT;
+import static de.markusrother.pned.gui.events.NodeMultiSelectionEvent.Type.CANCEL;
+import static de.markusrother.pned.gui.events.NodeMultiSelectionEvent.Type.DESELECT;
+import static de.markusrother.pned.gui.events.NodeMultiSelectionEvent.Type.FINISH;
+import static de.markusrother.pned.gui.events.NodeMultiSelectionEvent.Type.SELECT;
 
 import java.util.Collection;
 
 import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.swing.Selector;
 
 // Now we have a selection, and need to do something with it. Obtaining
@@ -75,7 +75,7 @@ public class NodeSelector extends Selector<AbstractNode> {
 	 */
 	@Override
 	public void startedSelection() {
-		eventTarget.nodeSelectionCancelled(new NodeSelectionEvent(CANCEL, this));
+		eventTarget.nodeSelectionCancelled(new NodeMultiSelectionEvent(CANCEL, this));
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class NodeSelector extends Selector<AbstractNode> {
 	 */
 	@Override
 	public void addedToSelection(final Collection<AbstractNode> nodes) {
-		eventTarget.nodesSelected(new NodeSelectionEvent(SELECT, this, nodes));
+		eventTarget.nodesSelected(new NodeMultiSelectionEvent(SELECT, this, nodes));
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class NodeSelector extends Selector<AbstractNode> {
 	 */
 	@Override
 	public void removedFromSelection(final Collection<AbstractNode> nodes) {
-		eventTarget.nodesUnselected(new NodeSelectionEvent(DESELECT, this, nodes));
+		eventTarget.nodesUnselected(new NodeMultiSelectionEvent(DESELECT, this, nodes));
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class NodeSelector extends Selector<AbstractNode> {
 	 */
 	@Override
 	public void finishedSelection(final Collection<AbstractNode> nodes) {
-		eventTarget.nodeSelectionFinished(new NodeSelectionEvent(FINISH, this, nodes));
+		eventTarget.nodeSelectionFinished(new NodeMultiSelectionEvent(FINISH, this, nodes));
 	}
 
 }

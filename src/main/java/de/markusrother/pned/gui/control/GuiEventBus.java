@@ -7,7 +7,7 @@ import de.markusrother.pned.gui.commands.PetriNetEditCommand;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
-import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.layout.commands.EdgeLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
@@ -65,7 +65,7 @@ public class GuiEventBus extends EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodesSelected(final NodeSelectionEvent e) {
+	public void nodesSelected(final NodeMultiSelectionEvent e) {
 		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
 			l.nodesSelected(e);
 		}
@@ -73,7 +73,7 @@ public class GuiEventBus extends EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodesUnselected(final NodeSelectionEvent e) {
+	public void nodesUnselected(final NodeMultiSelectionEvent e) {
 		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
 			l.nodesUnselected(e);
 		}
@@ -81,7 +81,7 @@ public class GuiEventBus extends EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeSelectionFinished(final NodeSelectionEvent e) {
+	public void nodeSelectionFinished(final NodeMultiSelectionEvent e) {
 		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
 			l.nodeSelectionFinished(e);
 		}
@@ -89,7 +89,7 @@ public class GuiEventBus extends EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeSelectionCancelled(final NodeSelectionEvent e) {
+	public void nodeSelectionCancelled(final NodeMultiSelectionEvent e) {
 		for (final NodeSelectionListener l : getListeners(NodeSelectionListener.class)) {
 			l.nodeSelectionCancelled(e);
 		}

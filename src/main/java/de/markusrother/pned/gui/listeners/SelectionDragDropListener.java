@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui.listeners;
 
-import static de.markusrother.pned.gui.events.NodeSelectionEvent.Type.CANCEL;
+import static de.markusrother.pned.gui.events.NodeMultiSelectionEvent.Type.CANCEL;
 
 import java.awt.Point;
 import java.util.Collection;
@@ -8,7 +8,7 @@ import java.util.Collection;
 import de.markusrother.pned.core.commands.NodeMotionCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.control.GuiEventBus;
-import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.swing.DragDropListener;
 
 /**
@@ -69,7 +69,7 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 			// TODO - This should be done by the node, too.
 			node.removeDragListener(this);
 		}
-		eventBus.nodeSelectionCancelled(new NodeSelectionEvent(CANCEL, this));
+		eventBus.nodeSelectionCancelled(new NodeMultiSelectionEvent(CANCEL, this));
 	}
 
 }

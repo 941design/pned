@@ -15,7 +15,7 @@ import de.markusrother.pned.core.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.DefinitelyBounded;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
-import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.layout.style.NodeStyle;
 import de.markusrother.pned.gui.listeners.EdgeCreator;
@@ -367,7 +367,7 @@ public abstract class AbstractNode extends JPanel
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodesSelected(final NodeSelectionEvent event) {
+	public void nodesSelected(final NodeMultiSelectionEvent event) {
 		// TODO - to improve performance iteration, the grid/container could
 		// instead listen to this event!
 		if (event.getNodes().contains(this)) {
@@ -386,7 +386,7 @@ public abstract class AbstractNode extends JPanel
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodesUnselected(final NodeSelectionEvent event) {
+	public void nodesUnselected(final NodeMultiSelectionEvent event) {
 		if (event.getNodes().contains(this)) {
 			deselect();
 		}
@@ -394,7 +394,7 @@ public abstract class AbstractNode extends JPanel
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeSelectionFinished(final NodeSelectionEvent event) {
+	public void nodeSelectionFinished(final NodeMultiSelectionEvent event) {
 		if (event.getNodes().contains(this)) {
 			// TODO - suspend selection listener?
 		}
@@ -402,7 +402,7 @@ public abstract class AbstractNode extends JPanel
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
+	public void nodeSelectionCancelled(final NodeMultiSelectionEvent event) {
 		if (isSelected()) {
 			deselect();
 		}

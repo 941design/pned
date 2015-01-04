@@ -26,7 +26,7 @@ import de.markusrother.pned.gui.commands.PetriNetEditCommand;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
-import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.layout.commands.EdgeLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand;
@@ -99,25 +99,25 @@ public abstract class PetriNetGuiEventAdapter
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodesSelected(final NodeSelectionEvent event) {
+	public void nodesSelected(final NodeMultiSelectionEvent event) {
 		process(event);
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodesUnselected(final NodeSelectionEvent event) {
+	public void nodesUnselected(final NodeMultiSelectionEvent event) {
 		process(event);
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeSelectionFinished(final NodeSelectionEvent e) {
+	public void nodeSelectionFinished(final NodeMultiSelectionEvent e) {
 		process(e);
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeSelectionCancelled(final NodeSelectionEvent e) {
+	public void nodeSelectionCancelled(final NodeMultiSelectionEvent e) {
 		process(e);
 	}
 

@@ -8,7 +8,7 @@ import javax.swing.Action;
 import javax.swing.JMenuItem;
 
 import de.markusrother.pned.gui.control.GuiEventBus;
-import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 
@@ -79,25 +79,25 @@ public class RemoveSelectedNodesAction extends AbstractAction
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodesSelected(final NodeSelectionEvent event) {
+	public void nodesSelected(final NodeMultiSelectionEvent event) {
 		// IGNORE
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodesUnselected(final NodeSelectionEvent event) {
+	public void nodesUnselected(final NodeMultiSelectionEvent event) {
 		// IGNORE
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeSelectionFinished(final NodeSelectionEvent event) {
+	public void nodeSelectionFinished(final NodeMultiSelectionEvent event) {
 		setEnabled(!event.getNodes().isEmpty());
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeSelectionCancelled(final NodeSelectionEvent event) {
+	public void nodeSelectionCancelled(final NodeMultiSelectionEvent event) {
 		setEnabled(false);
 	}
 

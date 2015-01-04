@@ -10,7 +10,7 @@ import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.components.NodeLabel;
 import de.markusrother.pned.gui.control.GuiEventBus;
-import de.markusrother.pned.gui.events.NodeSelectionEvent;
+import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.swing.RightClickTextFieldEdit;
 import de.markusrother.swing.CheckedTextField;
 
@@ -96,25 +96,25 @@ public class NodeLabelEditor extends RightClickTextFieldEdit<NodeLabel>
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodesSelected(final NodeSelectionEvent e) {
+	public void nodesSelected(final NodeMultiSelectionEvent e) {
 		doCancelEdit();
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodesUnselected(final NodeSelectionEvent e) {
+	public void nodesUnselected(final NodeMultiSelectionEvent e) {
 		// IGNORE
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeSelectionFinished(final NodeSelectionEvent e) {
+	public void nodeSelectionFinished(final NodeMultiSelectionEvent e) {
 		// IGNORE
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void nodeSelectionCancelled(final NodeSelectionEvent e) {
+	public void nodeSelectionCancelled(final NodeMultiSelectionEvent e) {
 		// IGNORE
 	}
 

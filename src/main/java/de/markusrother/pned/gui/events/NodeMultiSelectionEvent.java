@@ -16,7 +16,7 @@ import de.markusrother.util.JsonSerializable;
  * @author Markus Rother
  * @version 1.0
  */
-public class NodeSelectionEvent extends EventObject
+public class NodeMultiSelectionEvent extends EventObject
 	implements
 		JsonSerializable {
 
@@ -41,12 +41,12 @@ public class NodeSelectionEvent extends EventObject
 	 *
 	 * @param type
 	 *            a
-	 *            {@link de.markusrother.pned.gui.events.NodeSelectionEvent.Type}
+	 *            {@link de.markusrother.pned.gui.events.NodeMultiSelectionEvent.Type}
 	 *            object.
 	 * @param source
 	 *            a {@link java.lang.Object} object.
 	 */
-	public NodeSelectionEvent(final Type type, final Object source) {
+	public NodeMultiSelectionEvent(final Type type, final Object source) {
 		this(type, source, NO_NODES);
 	}
 
@@ -57,14 +57,14 @@ public class NodeSelectionEvent extends EventObject
 	 *
 	 * @param type
 	 *            a
-	 *            {@link de.markusrother.pned.gui.events.NodeSelectionEvent.Type}
+	 *            {@link de.markusrother.pned.gui.events.NodeMultiSelectionEvent.Type}
 	 *            object.
 	 * @param source
 	 *            a {@link java.lang.Object} object.
 	 * @param nodes
 	 *            a {@link java.util.Collection} object.
 	 */
-	public NodeSelectionEvent(final Type type, final Object source, final Collection<AbstractNode> nodes) {
+	public NodeMultiSelectionEvent(final Type type, final Object source, final Collection<AbstractNode> nodes) {
 		super(source);
 		this.type = type;
 		this.nodes = nodes;
@@ -75,7 +75,7 @@ public class NodeSelectionEvent extends EventObject
 	 * Getter for the field <code>type</code>.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.events.NodeSelectionEvent.Type}
+	 * @return a {@link de.markusrother.pned.gui.events.NodeMultiSelectionEvent.Type}
 	 *         object.
 	 */
 	public Type getType() {
