@@ -3,12 +3,14 @@ package de.markusrother.pned.gui.actions;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import de.markusrother.pned.core.commands.EdgeCreationCommand;
 import de.markusrother.pned.core.commands.NodeRemovalCommand;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.gui.NodeCreationMode;
+import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
@@ -25,11 +27,9 @@ public class AbstractMenuFactory
 	protected final Map<String, String> incomingEdgesMap;
 	protected GuiEventBus eventBus;
 	protected NodeCreationMode nodeCreationMode;
-	protected boolean areNodesSelected;
 
 	public AbstractMenuFactory(final GuiEventBus eventBus) {
 		this.eventBus = eventBus;
-		this.areNodesSelected = false;
 		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
 		this.selectedNodeIds = new HashSet<>();
 		this.incomingEdgesMap = new HashMap<>();
@@ -64,13 +64,15 @@ public class AbstractMenuFactory
 	/** {@inheritDoc} */
 	@Override
 	public void nodeSelectionFinished(final NodeMultiSelectionEvent event) {
-		areNodesSelected = !event.getNodes().isEmpty();
+		for (final AbstractNode node : event.getNodes()) {
+			selectedNodeIds.add(node.getId());
+		}
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void nodeSelectionCancelled(final NodeMultiSelectionEvent event) {
-		areNodesSelected = false;
+		selectedNodeIds.clear();
 	}
 
 	/**
@@ -98,12 +100,28 @@ public class AbstractMenuFactory
 
 	@Override
 	public void nodeRemoved(final NodeRemovalCommand cmd) {
-		areNodesSelected = false;
+		selectedNodeIds.clear();
 	}
 
 	@Override
 	public void removeSelectedNodes(final RemoveSelectedNodesEvent cmd) {
-		areNodesSelected = false;
+		selectedNodeIds.clear();
+	}
+
+	protected Set<String> filterTargetNodes(final Set<String> nodeIds) {
+		final Set<String> filtered = new HashSet<>();
+		for (final Entry<String, String> entry : incomingEdgesMap.entrySet()) {
+			final String edgeId = entry.getKey();
+			final String targetId = entry.getValue();
+			if (nodeIds.contains(targetId)) {
+				filtered.add(edgeId);
+			}
+		}
+		return filtered;
+	}
+
+	protected boolean areNodesSelected() {
+		return !selectedNodeIds.isEmpty();
 	}
 
 }

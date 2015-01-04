@@ -5,10 +5,12 @@ import static de.markusrother.pned.gui.NodeCreationMode.TRANSITION;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.util.Set;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.event.MenuEvent;
@@ -88,15 +90,16 @@ public class EditMenuFactory extends AbstractMenuFactory
 		component.add(transitionItem);
 		transitionItem.setSelected(nodeCreationMode == TRANSITION);
 
-		component.add(RemoveSelectedNodesAction.newMenuItem(eventBus, //
+		final JMenuItem removeNodesItem = RemoveSelectedNodesAction.newMenuItem( //
+				eventBus, //
 				eventSource, //
-				areNodesSelected));
+				areNodesSelected());
+		component.add(removeNodesItem);
 
-		// final HashMap<String, String> edgeToNodeId = new
-		// HashMap<>(incomingEdgesMap);
-		// component.add(RemoveIncomingEdgesAction.newMenuItem(eventBus, //
-		// eventSource, //
-		// edgeToNodeId));
+		final Set<String> edgeToNodeId = filterTargetNodes(selectedNodeIds);
+		component.add(RemoveIncomingEdgesAction.newMenuItem(eventBus, //
+				eventSource, //
+				edgeToNodeId));
 		// component.add(RemoveOutgoingEdgesAction.newMenuItem(eventBus,
 		// eventSource, selectedNodes));
 	}
