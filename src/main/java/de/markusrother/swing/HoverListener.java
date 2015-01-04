@@ -5,10 +5,10 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import de.markusrother.pned.gui.listeners.NodeHoverListener;
-
 /**
- * <p>Abstract HoverListener class.</p>
+ * <p>
+ * Abstract HoverListener class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -16,10 +16,14 @@ import de.markusrother.pned.gui.listeners.NodeHoverListener;
 public abstract class HoverListener extends MouseAdapter {
 
 	/**
-	 * <p>addToComponent.</p>
+	 * <p>
+	 * addToComponent.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
-	 * @param listener a {@link de.markusrother.swing.HoverListener} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
+	 * @param listener
+	 *            a {@link de.markusrother.swing.HoverListener} object.
 	 */
 	public static void addToComponent(final Component component, final HoverListener listener) {
 		component.addMouseListener(listener);
@@ -27,12 +31,17 @@ public abstract class HoverListener extends MouseAdapter {
 	}
 
 	/**
-	 * <p>removeFromComponent.</p>
+	 * <p>
+	 * removeFromComponent.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
-	 * @param listener a {@link de.markusrother.pned.gui.listeners.NodeHoverListener} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
+	 * @param listener
+	 *            a {@link de.markusrother.pned.gui.listeners.NodeHoverListener}
+	 *            object.
 	 */
-	public static void removeFromComponent(final Component component, final NodeHoverListener listener) {
+	public static void removeFromComponent(final Component component, final HoverListener listener) {
 		component.removeMouseListener(listener);
 		component.removeMouseMotionListener(listener);
 	}
@@ -66,24 +75,42 @@ public abstract class HoverListener extends MouseAdapter {
 	// constructor which takes a predicate or create a subclass where this
 	// method is abstract. Alternatively, getHoverArea() -> Shape
 	/**
-	 * <p>inHoverArea.</p>
+	 * <p>
+	 * inHoverArea.
+	 * </p>
 	 *
-	 * @param p a {@link java.awt.Point} object.
+	 * @param p
+	 *            a {@link java.awt.Point} object.
 	 * @return a boolean.
 	 */
 	protected abstract boolean inHoverArea(Point p);
 
 	/**
-	 * <p>startHover.</p>
+	 * <p>
+	 * startHover.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
 	 */
 	protected abstract void startHover(Component component);
 
 	/**
-	 * <p>endHover.</p>
+	 * <p>
+	 * endHover.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
 	 */
 	protected abstract void endHover(Component component);
+
+	public void addToComponent(final Component component) {
+		addToComponent(component, this);
+	}
+
+	public void removeFromComponent(final Component component) {
+		removeFromComponent(component, this);
+	}
+
 }

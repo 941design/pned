@@ -15,14 +15,6 @@ public class NodeLabelEditor extends RightClickListener
 		NodeCreationListener,
 		NodeSelectionListener {
 
-	public static void addToComponent(final NodeLabel nodeLabel, final NodeLabelEditor nodeLabelEditor) {
-		nodeLabel.addMouseListener(nodeLabelEditor);
-	}
-
-	public static void removeFromComponent(final NodeLabel nodeLabel, final NodeLabelEditor nodeLabelEditor) {
-		nodeLabel.removeMouseListener(nodeLabelEditor);
-	}
-
 	private NodeLabel currentLabel;
 
 	public NodeLabelEditor(final GuiEventBus eventBus) {
