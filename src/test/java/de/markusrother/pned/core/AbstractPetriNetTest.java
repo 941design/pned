@@ -221,7 +221,7 @@ public abstract class AbstractPetriNetTest
 		}
 	}
 
-	protected void denyActiveTransitionsContains(final String transitionId, final Point origin) {
+	protected void denyActiveTransitionsContains(final String transitionId) {
 		final Collection<TransitionModel> transitions = net.getActiveTransitions();
 		for (final TransitionModel transition : transitions) {
 			if (transition.hasId(transitionId)) {
@@ -268,7 +268,7 @@ public abstract class AbstractPetriNetTest
 
 	protected void assertMarkingWasSet(final String placeId, final int marking) {
 		for (final PlaceChangeEvent e : getEvents(PlaceChangeEvent.class)) {
-			if (placeId.equals(e.getPlaceId())) {
+			if (placeId.equals(e.getPlaceId()) && marking == e.getMarking()) {
 				Assert.assertTrue(true);
 				return;
 			}

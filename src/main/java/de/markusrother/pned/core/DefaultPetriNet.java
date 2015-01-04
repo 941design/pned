@@ -358,8 +358,8 @@ public class DefaultPetriNet
 			// TODO, TEST
 			throw new RuntimeException("TODO");
 		}
-		decrementIncomingPlaceMarkings(transition);
-		incrementOutgoingPlaceMarkings(transition);
+		decrementInputPlaceMarkings(transition);
+		incrementOutputPlaceMarkings(transition);
 	}
 
 	private Collection<String> getInputNodeIds(final NodeModel node) {
@@ -400,25 +400,25 @@ public class DefaultPetriNet
 		return nodeIds;
 	}
 
-	private void decrementIncomingPlaceMarkings(final TransitionModel transition) {
+	private void decrementInputPlaceMarkings(final TransitionModel transition) {
 		final Collection<PlaceModel> in = getInputPlaces(transition);
 		for (final PlaceModel place : in) {
-			decrementMarking(place);
+			decrementInputPlaceMarking(place);
 		}
 	}
 
-	protected void decrementMarking(final PlaceModel place) {
+	protected void decrementInputPlaceMarking(final PlaceModel place) {
 		setMarking(place, place.getMarking() - 1);
 	}
 
-	private void incrementOutgoingPlaceMarkings(final TransitionModel transition) {
+	private void incrementOutputPlaceMarkings(final TransitionModel transition) {
 		final Collection<PlaceModel> out = getOutputPlaces(transition);
 		for (final PlaceModel place : out) {
-			incrementMarking(place);
+			incrementOutputPlaceMarking(place);
 		}
 	}
 
-	protected void incrementMarking(final PlaceModel place) {
+	protected void incrementOutputPlaceMarking(final PlaceModel place) {
 		setMarking(place, place.getMarking() + 1);
 	}
 

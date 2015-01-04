@@ -39,7 +39,7 @@ public class TransitionActivationEvent extends EventObject
 	 * @param transitionId
 	 *            a {@link java.lang.String} object.
 	 */
-	public TransitionActivationEvent(final Type type, final Object source, final String transitionId) {
+	public TransitionActivationEvent(final Object source, final Type type, final String transitionId) {
 		super(source);
 		this.type = type;
 		this.transitionId = transitionId;

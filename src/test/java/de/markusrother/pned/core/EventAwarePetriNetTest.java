@@ -323,11 +323,25 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 		createEdge(e2, t1, p2);
 		createEdge(e3, p2, t2);
 		// Assert preconditions:
-		denyActiveTransitionsContains(t2, DEFAULT_ORIGIN);
+		denyActiveTransitionsContains(t2);
 		// Change:
 		fireTransition(t1);
 		// Assert postconditions:
 		assertTransitionWasActivated(t2);
+	}
+
+	@Test
+	public void testFireTransitionProducesTransitionDeactivationEvents() {
+		// Set up:
+		createPlace(p1, 1);
+		createTransition(t1);
+		createEdge(e1, p1, t1);
+		// Assert preconditions:
+		assertActiveTransitionsContains(t1, DEFAULT_ORIGIN);
+		// Change:
+		fireTransition(t1);
+		// Assert postconditions:
+		assertTransitionWasDeactivated(t1);
 	}
 
 }

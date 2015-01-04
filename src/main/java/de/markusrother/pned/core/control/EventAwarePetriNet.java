@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.swing.event.EventListenerList;
 import javax.xml.bind.JAXBException;
@@ -167,7 +168,10 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		final String nodeId = cmd.getNodeId();
 		try {
 			final TransitionModel transition = createTransition(nodeId, point);
-			fireTransitionActivationEvent(Arrays.asList(transition));
+			final TransitionActivationEvent evt = new TransitionActivationEvent(this, //
+					Type.ACTIVATION, //
+					transition.getId());
+			fireTransitionAcivationEvents(Arrays.asList(evt));
 		} catch (final UnavailableIdException e) {
 			// FIXME - create RequestException
 			throw new RuntimeException("TODO");
@@ -181,7 +185,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		final String sourceId = cmd.getSourceId();
 		final String targetId = cmd.getTargetId();
 
-		maybeFireTransitionActivationEvent(new Runnable() {
+		maybeFireTransitionActivationEvents(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -218,7 +222,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		final String nodeId = e.getNodeId();
 		final PlaceModel place = getPlace(nodeId);
 		if (place != null) {
-			maybeFireTransitionActivationEvent(new Runnable() {
+			maybeFireTransitionActivationEvents(new Runnable() {
 				@Override
 				public void run() {
 					removePlace(place);
@@ -242,9 +246,12 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	/** {@inheritDoc} */
 	@Override
 	public void setMarking(final PlaceEventObject e) {
+		if (e.getSource() == this) {
+			return;
+		}
 		final String placeId = e.getPlaceId();
 		final int marking = e.getMarking();
-		maybeFireTransitionActivationEvent(new Runnable() {
+		maybeFireTransitionActivationEvents(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -262,7 +269,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	public void setLabel(final LabelEditCommand e) {
 		final String placeId = e.getElementId();
 		final String label = e.getLabel();
-		maybeFireTransitionActivationEvent(new Runnable() {
+		maybeFireTransitionActivationEvents(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -284,7 +291,16 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	 * @param runnable
 	 *            a {@link java.lang.Runnable} object.
 	 */
-	private void maybeFireTransitionActivationEvent(final Runnable runnable) {
+	private void maybeFireTransitionActivationEvents(final Runnable runnable) {
+		final Collection<TransitionActivationEvent> events = maybeGetTransitionActivationEvents(runnable);
+		fireTransitionAcivationEvents(events);
+	}
+
+
+	private Collection<TransitionActivationEvent> maybeGetTransitionActivationEvents(final Runnable runnable) {
+
+		final Collection<TransitionActivationEvent> events = new LinkedList<>();
+
 		final Collection<TransitionModel> activeBefore = getActiveTransitions();
 
 		runnable.run();
@@ -293,55 +309,80 @@ public class EventAwarePetriNet extends DefaultPetriNet
 
 		final Collection<TransitionModel> deactivated = new ArrayList<>(activeBefore);
 		deactivated.removeAll(activeAfter);
-		fireTransitionDeactivationEvent(deactivated);
+		events.addAll(createTransitionDeactivationEvents(deactivated));
 
 		final Collection<TransitionModel> activated = new ArrayList<>(activeAfter);
 		activated.removeAll(activeBefore);
-		fireTransitionActivationEvent(activated);
+		events.addAll(createTransitionActivationEvent(activated));
+
+		return events;
 	}
 
-	/**
-	 * <p>
-	 * fireTransitionDeactivationEvent.
-	 * </p>
-	 *
-	 * @param deactivated
-	 *            a {@link java.util.Collection} object.
-	 */
-	private void fireTransitionDeactivationEvent(final Collection<TransitionModel> deactivated) {
+	private void fireTransitionAcivationEvents(final Collection<TransitionActivationEvent> events) {
+		for (final TransitionActivationEvent evt : events) {
+			for (final TransitionActivationListener listener : listeners
+					.getListeners(TransitionActivationListener.class)) {
+				switch (evt.getType()) {
+				case ACTIVATION:
+					listener.transitionActivated(evt);
+					break;
+				case DEACTIVATION:
+					listener.transitionDeactivated(evt);
+					break;
+				default:
+					throw new IllegalStateException();
+				}
+			}
+		}
+	}
+
+	private Collection<TransitionActivationEvent> createTransitionDeactivationEvents(
+			final Collection<TransitionModel> deactivated) {
+		final Collection<TransitionActivationEvent> events = new LinkedList<>();
 		for (final TransitionModel transition : deactivated) {
-			final TransitionActivationEvent e = new TransitionActivationEvent(Type.DEACTIVATION, this,
+			final TransitionActivationEvent e = new TransitionActivationEvent(this, //
+					Type.DEACTIVATION, //
 					transition.getId());
-			for (final TransitionActivationListener listener : listeners
-					.getListeners(TransitionActivationListener.class)) {
-				listener.transitionDeactivated(e);
-			}
+			events.add(e);
 		}
+		return events;
 	}
 
-	/**
-	 * <p>
-	 * fireTransitionActivationEvent.
-	 * </p>
-	 *
-	 * @param activated
-	 *            a {@link java.util.Collection} object.
-	 */
-	private void fireTransitionActivationEvent(final Collection<TransitionModel> activated) {
+	private Collection<TransitionActivationEvent> createTransitionActivationEvent(
+			final Collection<TransitionModel> activated) {
+		final Collection<TransitionActivationEvent> events = new LinkedList<>();
 		for (final TransitionModel transition : activated) {
-			final TransitionActivationEvent e = new TransitionActivationEvent(Type.ACTIVATION, this, transition.getId());
-			for (final TransitionActivationListener listener : listeners
-					.getListeners(TransitionActivationListener.class)) {
-				listener.transitionActivated(e);
-			}
+			final TransitionActivationEvent evt = new TransitionActivationEvent(this, //
+					Type.ACTIVATION, //
+					transition.getId());
+			events.add(evt);
 		}
+		return events;
 	}
 
 	@Override
 	public void fireTransition(final TransitionExecutionCommand cmd) {
 		final String transitionId = cmd.getTransitionId();
 		try {
+
+			final Collection<TransitionActivationEvent> events = new LinkedList<>();
+
+			final Collection<TransitionModel> activeBefore = getActiveTransitions();
+
 			fireTransition(transitionId);
+
+			final Collection<TransitionModel> activeAfter = getActiveTransitions();
+
+			final Collection<TransitionModel> deactivated = new ArrayList<>(activeBefore);
+			deactivated.removeAll(activeAfter);
+			events.addAll(createTransitionDeactivationEvents(deactivated));
+
+			final Collection<TransitionModel> activated = new ArrayList<>(activeAfter);
+			activated.removeAll(activeBefore);
+			events.addAll(createTransitionActivationEvent(activated));
+
+			fireTransitionAcivationEvents(events);
+
 		} catch (final NoSuchNodeException e) {
 			// FIXME - throw some generic exception
 			throw new RuntimeException("TODO");
@@ -349,8 +390,8 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	}
 
 	@Override
-	protected void decrementMarking(final PlaceModel place) {
-		super.decrementMarking(place);
+	protected void decrementInputPlaceMarking(final PlaceModel place) {
+		super.decrementInputPlaceMarking(place);
 		final PlaceChangeEvent evt = new PlaceChangeEvent(this, //
 				PlaceEventObject.Type.SET_MARKING, //
 				place.getId(), //
@@ -359,8 +400,8 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	}
 
 	@Override
-	protected void incrementMarking(final PlaceModel place) {
-		super.incrementMarking(place);
+	protected void incrementOutputPlaceMarking(final PlaceModel place) {
+		super.incrementOutputPlaceMarking(place);
 		final PlaceChangeEvent evt = new PlaceChangeEvent(this, //
 				PlaceEventObject.Type.SET_MARKING, //
 				place.getId(), //
