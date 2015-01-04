@@ -466,34 +466,33 @@ public abstract class AbstractNode extends JPanel
 	/** {@inheritDoc} */
 	@Override
 	public void edgeCancelled(final EdgeEditEvent e) {
-		// TODO - This could be wrapped in a StateToggleCommand
-		// TODO - Use state set instead!
-		resumeHoverListener();
-		// resumeEdgeCreationListener(); // TODO - remove?
-		resumeSelectionListener();
-		resumeDragDropListener();
+		installListeners();
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void edgeFinished(final EdgeEditEvent e) {
-		// TODO - This could be wrapped in a StateToggleCommand
-		// TODO - Use state set instead!
-		resumeHoverListener();
-		// resumeEdgeCreationListener();
-		resumeSelectionListener();
-		resumeDragDropListener();
+		installListeners();
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void edgeStarted(final EdgeEditEvent e) {
-		// TODO - This could be wrapped in a StateToggleCommand
-		// TODO - Use state set instead!
+		suspendListeners();
+	}
+
+	protected void suspendListeners() {
 		suspendHoverListener();
 		// suspendEdgeCreationListener();
 		suspendSelectionListener();
 		suspendDragDropListener();
+	}
+
+	protected void installListeners() {
+		resumeHoverListener();
+		// resumeEdgeCreationListener();
+		resumeSelectionListener();
+		resumeDragDropListener();
 	}
 
 	/** {@inheritDoc} */

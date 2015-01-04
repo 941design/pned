@@ -1,6 +1,5 @@
 package de.markusrother.pned.gui.listeners;
 
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import de.markusrother.pned.core.commands.PlaceCreationCommand;
@@ -8,6 +7,7 @@ import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
+import de.markusrother.swing.LeftClickListener;
 
 /**
  * TODO - suspend/enable on selection event!
@@ -15,7 +15,7 @@ import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
  * @author Markus Rother
  * @version 1.0
  */
-public class NodeCreator extends MouseAdapter
+public class NodeCreator extends LeftClickListener
 	implements
 		NodeListener {
 
@@ -38,7 +38,7 @@ public class NodeCreator extends MouseAdapter
 
 	/** {@inheritDoc} */
 	@Override
-	public void mouseClicked(final MouseEvent e) {
+	public void mouseClickedLeft(final MouseEvent e) {
 		// TODO - this could go through the event bus.
 		// Should the node creation listener itself have a state and listen
 		// to events? Or should components toggle listeners depending on
