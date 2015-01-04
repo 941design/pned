@@ -48,6 +48,8 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		new PnEditorFrame(TITLE);
+
+		// TODO - call show() from here
+		final @SuppressWarnings("unused") PnEditorFrame pnEditorFrame = new PnEditorFrame(TITLE);
 	}
 }

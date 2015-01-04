@@ -219,7 +219,7 @@ public class PnEditorFrame extends JFrame
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				final PnEditorFrame editorFrame = new PnEditorFrame("foobar");
+				final @SuppressWarnings("unused") PnEditorFrame editorFrame = new PnEditorFrame("foobar");
 			}
 		});
 	}
