@@ -69,7 +69,7 @@ public class PetriNetIOCommand extends EventObject
 	public String toJson() {
 		final JsonBuilder builder = new JsonBuilder();
 		return builder.append("type", type.name()) //
-				.append("file", file.getAbsolutePath()) //
+				.append("file", file) //
 				.toString();
 	}
 

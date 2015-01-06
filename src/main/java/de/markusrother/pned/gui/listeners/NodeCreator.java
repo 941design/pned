@@ -26,6 +26,8 @@ public class NodeCreator extends LeftClickListener
 	 * <p>
 	 * Constructor for NodeCreator.
 	 * </p>
+	 * 
+	 * TODO - take NodeCreationAction as param.
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.

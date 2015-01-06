@@ -79,7 +79,8 @@ public class TransitionActivationEvent extends EventObject
 	@Override
 	public String toJson() {
 		final JsonBuilder builder = new JsonBuilder();
-		return builder.append("type", type.name()) //
+		return builder.append("source", source.getClass().getSimpleName()) //
+				.append("type", type.name()) //
 				.append("transitionId", transitionId) //
 				.toString();
 	}

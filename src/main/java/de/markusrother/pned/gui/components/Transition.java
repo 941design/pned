@@ -81,9 +81,9 @@ public class Transition extends AbstractNode
 		// TODO - how to manage node locations?
 		// setPreferredSize(dimension);
 		if (isActive) {
-			setForeground(activatedColor);
+			g2.setColor(activatedColor);
 		} else {
-			setForeground(deactivatedColor);
+			g2.setColor(deactivatedColor);
 		}
 		g2.fill(getShape());
 	}

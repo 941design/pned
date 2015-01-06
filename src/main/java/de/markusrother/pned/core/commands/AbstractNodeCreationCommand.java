@@ -71,7 +71,8 @@ public abstract class AbstractNodeCreationCommand extends EventObject
 	@Override
 	public String toJson() {
 		final JsonBuilder builder = new JsonBuilder();
-		return builder.append("nodeId", nodeId) //
+		return builder.append("source", source.getClass().getSimpleName()) //
+				.append("nodeId", nodeId) //
 				.append("x", point.x) //
 				.append("y", point.y) //
 				.toString();

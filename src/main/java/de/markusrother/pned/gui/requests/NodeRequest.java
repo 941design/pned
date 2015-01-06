@@ -76,7 +76,8 @@ public class NodeRequest extends Request<AbstractNode>
 	public String toJson() {
 		try {
 			final JsonBuilder builder = new JsonBuilder();
-			return builder.append("node", get().toJson()) // TODO - NPE!
+			return builder.append("source", source.getClass().getSimpleName()) //
+					.append("node", get().toJson()) // TODO - NPE!
 					.toString();
 		} catch (final TimeoutException e) {
 			// TODO

@@ -1,5 +1,7 @@
 package de.markusrother.util;
 
+import java.io.File;
+
 /**
  * <p>
  * JsonBuilder class.
@@ -40,10 +42,14 @@ public class JsonBuilder {
 	}
 
 	/**
-	 * <p>append.</p>
+	 * <p>
+	 * append.
+	 * </p>
 	 *
-	 * @param name a {@link java.lang.String} object.
-	 * @param value a boolean.
+	 * @param name
+	 *            a {@link java.lang.String} object.
+	 * @param value
+	 *            a boolean.
 	 * @return a {@link de.markusrother.util.JsonBuilder} object.
 	 */
 	public JsonBuilder append(final String name, final boolean value) {
@@ -69,6 +75,15 @@ public class JsonBuilder {
 				.append('"' + value + '"') //
 				.appendComma();
 		return this;
+	}
+
+	public JsonBuilder append(final String name, final File file) {
+		final String path = file != null ? file.getAbsolutePath() : "";
+		return append(name, path);
+	}
+
+	public JsonBuilder append(final String name, final Object object) {
+		return append(name, object.toString());
 	}
 
 	/**
