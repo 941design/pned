@@ -77,6 +77,8 @@ public interface PetriNetModel {
 	 */
 	TransitionModel getTransition(String transitionId);
 
+	EdgeModel getEdge(String edgeId);
+
 	/**
 	 * <p>
 	 * Returns this Petri net's active transitions. A transition is active if

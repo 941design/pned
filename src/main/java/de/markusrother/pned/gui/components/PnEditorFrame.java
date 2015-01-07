@@ -72,36 +72,12 @@ public class PnEditorFrame extends JFrame
 
 		grid.setPreferredSize(new Dimension(2000, 2000));
 
-		final JScrollPane scrollPane = createAutoResizableScrollPane(grid);
-
-		add(scrollPane, BorderLayout.CENTER);
+		add(grid, BorderLayout.CENTER);
 		setJMenuBar(pnedMenuBar);
 		pack();
 		setVisible(true);
 
 		PetriNetGuiEventLogger.log(eventBus);
-	}
-
-	/**
-	 * <p>
-	 * createAutoResizableScrollPane.
-	 * </p>
-	 *
-	 * @param component
-	 *            a {@link java.awt.Component} object.
-	 * @return a {@link javax.swing.JScrollPane} object.
-	 */
-	private JScrollPane createAutoResizableScrollPane(final Component component) {
-		final JScrollPane scrollPane = new JScrollPane(component, //
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, //
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		// Must set ui manually, because there is no entire LAF configured!
-		// TODO - existing ui should rather be proxied!
-		final CustomScrollPaneUI ui = new CustomScrollPaneUI();
-		ui.addVerticalChangeListener(new VerticalComponentResizer(component));
-		ui.addHorizontalChangeListener(new HorizontalComponentResizer(component));
-		scrollPane.setUI(ui);
-		return scrollPane;
 	}
 
 	/**

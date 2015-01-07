@@ -13,6 +13,7 @@ import javax.swing.event.EventListenerList;
 import javax.xml.bind.JAXBException;
 
 import de.markusrother.pned.core.DefaultPetriNet;
+import de.markusrother.pned.core.EdgeModel;
 import de.markusrother.pned.core.NodeModel;
 import de.markusrother.pned.core.PlaceModel;
 import de.markusrother.pned.core.TransitionModel;
@@ -41,6 +42,7 @@ import de.markusrother.pned.core.listeners.PlaceListener;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
 import de.markusrother.pned.core.listeners.TransitionListener;
 import de.markusrother.pned.core.requests.IdRequest;
+import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.io.PetriNetMarshaller;
@@ -197,6 +199,22 @@ public class EventAwarePetriNet extends DefaultPetriNet
 					// FIXME - throw some generic exception
 					throw new RuntimeException("TODO");
 				}
+			}
+		});
+	}
+
+	@Override
+	public void removeEdge(final EdgeRemoveCommand cmd) {
+		final String edgeId = cmd.getEdgeId();
+		final EdgeModel edge = getEdge(edgeId);
+		if (edge == null) {
+			// TODO
+			throw new RuntimeException("TODO");
+		}
+		maybeFireTransitionActivationEvents(new Runnable() {
+			@Override
+			public void run() {
+				removeEdge(edge);
 			}
 		});
 	}

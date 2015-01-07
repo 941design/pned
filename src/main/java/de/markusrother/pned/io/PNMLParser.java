@@ -255,6 +255,7 @@ public class PNMLParser {
 					xmlParser.close();
 					break;
 				default:
+					System.out.println("WTF is this implemenation, it silently tolerates malformated xml.");
 				}
 			} catch (final XMLStreamException e) {
 				System.err.println("Fehler beim Parsen des PNML Dokuments. " + e.getMessage());
@@ -417,8 +418,9 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Posts {@link de.markusrother.pned.core.commands.TransitionCreationCommand} on the provided
-	 * {@link de.markusrother.pned.core.control.CommandTarget}.
+	 * Posts
+	 * {@link de.markusrother.pned.core.commands.TransitionCreationCommand} on
+	 * the provided {@link de.markusrother.pned.core.control.CommandTarget}.
 	 *
 	 * @param transitionId
 	 *            a {@link java.lang.String} Identifikationstext der Transition
@@ -431,7 +433,8 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Posts {@link de.markusrother.pned.core.commands.PlaceCreationCommand} on the provided {@link de.markusrother.pned.core.control.CommandTarget}.
+	 * Posts {@link de.markusrother.pned.core.commands.PlaceCreationCommand} on
+	 * the provided {@link de.markusrother.pned.core.control.CommandTarget}.
 	 *
 	 * @param placeId
 	 *            a {@link java.lang.String} Identifikationstext der Stelle
@@ -444,7 +447,8 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Posts {@link de.markusrother.pned.core.commands.EdgeCreationCommand} on the provided {@link de.markusrother.pned.core.control.CommandTarget}.
+	 * Posts {@link de.markusrother.pned.core.commands.EdgeCreationCommand} on
+	 * the provided {@link de.markusrother.pned.core.control.CommandTarget}.
 	 *
 	 * @param edgeId
 	 *            a {@link java.lang.String} Identifikationstext der Kante
@@ -456,6 +460,7 @@ public class PNMLParser {
 	 *            der Kante
 	 */
 	private void newArc(final String edgeId, final String sourceId, final String targetId) {
+		System.out.println("XXXXXXXXXX");
 		final EdgeCreationCommand cmd = new EdgeCreationCommand(this, //
 				edgeId, //
 				sourceId, //
@@ -464,7 +469,8 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Posts {@link de.markusrother.pned.core.commands.NodeMotionCommand} on the provided {@link de.markusrother.pned.core.control.CommandTarget}.
+	 * Posts {@link de.markusrother.pned.core.commands.NodeMotionCommand} on the
+	 * provided {@link de.markusrother.pned.core.control.CommandTarget}.
 	 *
 	 * @param elementId
 	 *            a {@link java.lang.String} Identifikationstext des Elements
@@ -485,7 +491,8 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Posts {@link de.markusrother.pned.core.commands.LabelEditCommand} on the provided {@link de.markusrother.pned.core.control.CommandTarget}.
+	 * Posts {@link de.markusrother.pned.core.commands.LabelEditCommand} on the
+	 * provided {@link de.markusrother.pned.core.control.CommandTarget}.
 	 *
 	 * @param elementId
 	 *            a {@link java.lang.String} Identifikationstext des Elements
@@ -501,7 +508,8 @@ public class PNMLParser {
 	}
 
 	/**
-	 * Posts {@link de.markusrother.pned.core.commands.PlaceEditCommand} on the provided {@link de.markusrother.pned.core.control.CommandTarget}.
+	 * Posts {@link de.markusrother.pned.core.commands.PlaceEditCommand} on the
+	 * provided {@link de.markusrother.pned.core.control.CommandTarget}.
 	 *
 	 * @param placeId
 	 *            a {@link java.lang.String} Identifikationstext des Elements

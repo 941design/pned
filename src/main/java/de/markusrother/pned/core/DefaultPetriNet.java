@@ -343,6 +343,16 @@ public class DefaultPetriNet
 		}
 	}
 
+	@Override
+	public EdgeModel getEdge(final String edgeId) {
+		for (final EdgeModel edge : edges) {
+			if (edge.hasId(edgeId)) {
+				return edge;
+			}
+		}
+		return null;
+	}
+
 	/** {@inheritDoc} */
 	@Override
 	public void removeEdge(final EdgeModel edge) {
@@ -556,4 +566,5 @@ public class DefaultPetriNet
 				.appendList("edges", edges.toArray(new JsonSerializable[edges.size()])) //
 				.toString();
 	}
+
 }

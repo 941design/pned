@@ -5,9 +5,8 @@ import java.awt.Point;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
-import de.markusrother.pned.gui.actions.AbstractMenuFactory;
 import de.markusrother.pned.gui.actions.EditMenuFactory;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.actions.GuiState;
 import de.markusrother.pned.gui.dialogs.FileDialogFactory;
 
 /**
@@ -27,10 +26,12 @@ import de.markusrother.pned.gui.dialogs.FileDialogFactory;
  * @author Markus Rother
  * @version 1.0
  */
-public class PnEditorMenuFactory extends AbstractMenuFactory {
+public class PnEditorMenuFactory {
 
 	private final FileDialogFactory fileDialogFactory;
 	private final EditMenuFactory editMenuFactory;
+
+	private final GuiState state;
 
 	/**
 	 * <p>
@@ -40,10 +41,10 @@ public class PnEditorMenuFactory extends AbstractMenuFactory {
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
-	public PnEditorMenuFactory(final GuiEventBus eventBus) {
-		super(eventBus);
-		this.fileDialogFactory = new FileDialogFactory(eventBus);
-		this.editMenuFactory = new EditMenuFactory(eventBus);
+	public PnEditorMenuFactory(final GuiState state) {
+		this.state = state;
+		this.fileDialogFactory = new FileDialogFactory(state);
+		this.editMenuFactory = new EditMenuFactory(state);
 	}
 
 	/**
@@ -75,7 +76,7 @@ public class PnEditorMenuFactory extends AbstractMenuFactory {
 	 * @return a {@link javax.swing.JMenu} object.
 	 */
 	public JMenu newFileMenu() {
-		return new PnedFileMenu(eventBus, fileDialogFactory);
+		return new PnedFileMenu(state.getEventBus(), fileDialogFactory);
 	}
 
 	/**
@@ -86,7 +87,7 @@ public class PnEditorMenuFactory extends AbstractMenuFactory {
 	 * @return a {@link javax.swing.JMenu} object.
 	 */
 	public JMenu newPreferencesMenu() {
-		return new PnedPreferencesMenu(eventBus);
+		return new PnedPreferencesMenu(state.getEventBus());
 	}
 
 	/**
@@ -97,12 +98,6 @@ public class PnEditorMenuFactory extends AbstractMenuFactory {
 	 */
 	public JPopupMenu newPopupMenu(final Point point) {
 		return editMenuFactory.newPopupMenu(point);
-	}
-
-	@Override
-	public void setEventBus(final GuiEventBus eventBus) {
-		super.setEventBus(eventBus);
-		this.fileDialogFactory.setEventBus(eventBus);
 	}
 
 }

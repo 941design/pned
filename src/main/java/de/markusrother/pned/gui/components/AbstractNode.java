@@ -439,6 +439,7 @@ public abstract class AbstractNode extends JPanel
 	/** {@inheritDoc} */
 	@Override
 	public void dispose() {
+		// FIXME - this was actually called suspend listeners!
 		eventBus.removeListener(NodeRemovalListener.class, this);
 		eventBus.removeListener(NodeSelectionListener.class, this);
 		eventBus.removeListener(EdgeEditListener.class, this);

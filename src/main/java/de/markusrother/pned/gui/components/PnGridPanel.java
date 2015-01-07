@@ -7,7 +7,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
-import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.TimeoutException;
@@ -22,7 +21,7 @@ import de.markusrother.pned.core.commands.PlaceCreationCommand;
 import de.markusrother.pned.core.commands.TransitionCreationCommand;
 import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.NodeCreationListener;
-import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
+import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
@@ -32,7 +31,6 @@ import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.MarkingEditor;
 import de.markusrother.pned.gui.listeners.NodeCreator;
 import de.markusrother.pned.gui.listeners.NodeLabelEditor;
-import de.markusrother.pned.gui.listeners.NodeListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.NodeSelector;
@@ -62,7 +60,6 @@ import de.markusrother.swing.GridComponent;
  */
 public class PnGridPanel extends JLayeredPane
 	implements
-		NodeListener,
 		NodeCreationListener,
 		NodeSelectionListener,
 		NodeRemovalListener,
@@ -90,9 +87,6 @@ public class PnGridPanel extends JLayeredPane
 	/** Constant <code>labelHeight=20</code> */
 	private static final int labelHeight = 20;
 
-	/** Constant <code>defaultState</code> */
-	private static final EnumSet<State> defaultState = EnumSet.of(State.PLACE_CREATION);
-
 	private final GuiEventBus eventBus;
 
 	private final JComponent nodeLayer;
@@ -107,7 +101,6 @@ public class PnGridPanel extends JLayeredPane
 	private final NodeLabelEditor nodeLabelEditor;
 	private final MarkingEditor markingEditor;
 
-	private final EnumSet<State> state;
 	// Stateful/Throwaway listeners:
 	SelectionDragDropListener nodeSelectionDragListener;
 
@@ -148,6 +141,8 @@ public class PnGridPanel extends JLayeredPane
 	/**
 	 * I don't quite like passing this to other classes/methods/constructors,
 	 * while this is not fully initialized!
+	 * 
+	 * @param state2
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
@@ -157,7 +152,6 @@ public class PnGridPanel extends JLayeredPane
 
 		this.eventBus = eventBus;
 		this.currentSelection = new HashSet<>();
-		this.state = defaultState;
 
 		setPreferredSize(preferredSize);
 		// setBackground(Color.BLUE);
@@ -189,7 +183,6 @@ public class PnGridPanel extends JLayeredPane
 		DragDropListener.addToComponent(nodeLayer, multipleNodeSelector);
 
 		// FIXME - dispose!
-		eventBus.addListener(NodeListener.class, this);
 		eventBus.addListener(NodeCreationListener.class, this);
 		eventBus.addListener(NodeSelectionListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
@@ -240,49 +233,6 @@ public class PnGridPanel extends JLayeredPane
 			component = component.getParent();
 		}
 		return offset;
-	}
-
-	/**
-	 * <p>
-	 * hasState.
-	 * </p>
-	 *
-	 * @param state
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.PnGridPanel.State}
-	 *            object.
-	 * @return a boolean.
-	 */
-	public boolean hasState(final State state) {
-		return this.state.contains(state);
-	}
-
-	/**
-	 * <p>
-	 * addState.
-	 * </p>
-	 *
-	 * @param state
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.PnGridPanel.State}
-	 *            object.
-	 */
-	protected void addState(final State state) {
-		this.state.add(state);
-	}
-
-	/**
-	 * <p>
-	 * removeState.
-	 * </p>
-	 *
-	 * @param state
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.PnGridPanel.State}
-	 *            object.
-	 */
-	protected void removeState(final State state) {
-		this.state.remove(state);
 	}
 
 	/**
@@ -411,10 +361,19 @@ public class PnGridPanel extends JLayeredPane
 	/** {@inheritDoc} */
 	@Override
 	public void createEdge(final EdgeCreationCommand cmd) {
+		final String edgeId = cmd.getEdgeId();
 		final AbstractNode sourceNode = requestNode(cmd.getSourceId());
 		final AbstractNode targetNode = requestNode(cmd.getTargetId());
-		final EdgeComponent edge = new EdgeComponent(eventBus, sourceNode, targetNode);
+		final EdgeComponent edge = new EdgeComponent(eventBus, edgeId, sourceNode, targetNode);
 		addEdgeComponent(edge);
+	}
+
+	/**
+	 * Edges remove themselves!
+	 */
+	@Override
+	public void removeEdge(final EdgeRemoveCommand cmd) {
+		// IGNORE
 	}
 
 	/**
@@ -460,8 +419,6 @@ public class PnGridPanel extends JLayeredPane
 	@Override
 	public void nodesSelected(final NodeMultiSelectionEvent event) {
 		// TODO - changing selections are not yet repsected!
-		// TODO - only add new state if it was not selected before.
-		addState(State.MULTISELECTION);
 		// TODO - This could be done by the EventBus or some object listening to
 		// the EventBus: PnedPropertyChangeMulticaster. However, We would still
 		// have to duplicate that information here (e.g. node creation type).
@@ -507,24 +464,6 @@ public class PnGridPanel extends JLayeredPane
 			// We dont want to use property change listeners because we need to
 			// connect references explicitly, adding listeners to all event
 			// sources.
-			removeState(State.MULTISELECTION);
-		}
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
-		switch (cmd.getMode()) {
-		case PLACE:
-			removeState(State.TRANSITION_CREATION);
-			addState(State.PLACE_CREATION);
-			break;
-		case TRANSITION:
-			removeState(State.PLACE_CREATION);
-			addState(State.TRANSITION_CREATION);
-			break;
-		default:
-			throw new IllegalStateException();
 		}
 	}
 

@@ -1,5 +1,8 @@
 package de.markusrother.pned.gui.control;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.swing.SwingWorker;
 
 import de.markusrother.pned.core.control.EventBus;
@@ -57,9 +60,20 @@ public class GuiEventBus extends EventBus
 	/** {@inheritDoc} */
 	@Override
 	public void requestNode(final NodeRequest req) {
-		for (final NodeRequestListener l : getListeners(NodeRequestListener.class)) {
+		final NodeRequestListener[] listeners = getListeners(NodeRequestListener.class);
+		// final ExecutorService threadPool =
+		// Executors.newFixedThreadPool(listeners.length);
+		// FIXME - use one threadpool as field!
+		// TODO - Create an own ThreadPool and a threadpool factory for each
+		// request. The Threadpool could then cancel threads of the same queue,
+		// if the first yields the searched node!
+		// FIXME
+		final ExecutorService threadPool = Executors.newCachedThreadPool();
+		for (final NodeRequestListener l : listeners) {
 			final SwingWorker<AbstractNode, Object> worker = req.createWorker(l);
-			worker.execute();
+			threadPool.submit(worker);
+			// NOTE - Do NOT use {@code worker.execute();} The default
+			// SwingWorker thread pool is not large enough!
 		}
 	}
 

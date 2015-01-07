@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
-import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
@@ -33,16 +32,14 @@ public class RemoveSelectedNodesAction extends AbstractGuiAction
 	 * newMenuItem.
 	 * </p>
 	 *
-	 * @param eventBus
+	 * @param state
 	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
 	 * @param source
 	 *            a {@link java.lang.Object} object.
-	 * @param enabled
-	 *            a boolean.
 	 * @return a {@link javax.swing.JMenuItem} object.
 	 */
-	public static JMenuItem newMenuItem(final GuiEventBus eventBus, final Object source, final boolean enabled) {
-		return new JMenuItem(new RemoveSelectedNodesAction(eventBus, source, enabled));
+	public static JMenuItem newMenuItem(final Object source, final GuiState state) {
+		return new JMenuItem(new RemoveSelectedNodesAction(source, state));
 	}
 
 	/**
@@ -54,36 +51,20 @@ public class RemoveSelectedNodesAction extends AbstractGuiAction
 	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
 	 * @param source
 	 *            a {@link java.lang.Object} object.
-	 * @param enabled
-	 *            a boolean.
 	 */
-	public RemoveSelectedNodesAction(final GuiEventBus eventBus, final Object source, final boolean enabled) {
-		super(label, source, eventBus);
+	public RemoveSelectedNodesAction(final Object source, final GuiState state) {
+		super(label, source, state);
 
 		putValue(Action.MNEMONIC_KEY, mnemonic);
-		setEnabled(enabled);
-
-		// FIXME - dispose!
-		eventBus.addListener(NodeSelectionListener.class, this);
+		final boolean areNodesSelected = state.areNodesSelected();
+		setEnabled(areNodesSelected);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		eventBus.removeSelectedNodes(new RemoveSelectedNodesEvent(source));
+		state.removeSelectedNodes(new RemoveSelectedNodesEvent(source));
 		setEnabled(false);
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void nodesSelected(final NodeMultiSelectionEvent event) {
-		// IGNORE
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void nodesUnselected(final NodeMultiSelectionEvent event) {
-		// IGNORE
 	}
 
 	/** {@inheritDoc} */

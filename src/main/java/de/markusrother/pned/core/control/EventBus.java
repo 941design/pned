@@ -27,6 +27,7 @@ import de.markusrother.pned.core.listeners.PlaceListener;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
 import de.markusrother.pned.core.listeners.TransitionListener;
 import de.markusrother.pned.core.requests.IdRequest;
+import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 
@@ -114,6 +115,13 @@ public class EventBus
 	public void createEdge(final EdgeCreationCommand cmd) {
 		for (final EdgeCreationListener l : getListeners(EdgeCreationListener.class)) {
 			l.createEdge(cmd);
+		}
+	}
+
+	@Override
+	public void removeEdge(final EdgeRemoveCommand cmd) {
+		for (final EdgeCreationListener l : getListeners(EdgeCreationListener.class)) {
+			l.removeEdge(cmd);
 		}
 	}
 

@@ -3,17 +3,21 @@ package de.markusrother.pned.gui.components;
 import static de.markusrother.util.TrigUtils.getRadiansOfDelta;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 
+import de.markusrother.pned.core.commands.EdgeCreationCommand;
 import de.markusrother.pned.core.commands.NodeMotionCommand;
 import de.markusrother.pned.core.commands.NodeRemovalCommand;
 import de.markusrother.pned.core.control.EventBus;
+import de.markusrother.pned.core.listeners.EdgeCreationListener;
 import de.markusrother.pned.core.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.Disposable;
+import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.layout.commands.EdgeLayoutCommand;
@@ -42,6 +46,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	implements
 		NodeRemovalListener,
 		NodeMotionListener,
+		EdgeCreationListener,
 		EdgeEditListener,
 		EdgeLayoutListener,
 		PlaceLayoutListener,
@@ -54,6 +59,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	private static final Point NO_SOURCE = new Point();
 	/** Constant <code>NO_TARGET</code> */
 	private static final Point NO_TARGET = new Point();
+	private static final String NO_ID = "";
 
 	/**
 	 * <p>
@@ -119,6 +125,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 	private final EventBus eventBus;
 	private final EdgeStyle style;
+	private final String id;
 
 	/**
 	 * <p>
@@ -140,7 +147,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 */
 	public EdgeComponent(final EventBus eventBus, final AbstractNode sourceComponent, final Point source,
 			final Point target) {
-		this(eventBus, sourceComponent, NO_TARGET_COMPONENT, source, target);
+		this(eventBus, NO_ID, sourceComponent, NO_TARGET_COMPONENT, source, target);
 	}
 
 	/**
@@ -157,8 +164,9 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
 	 *            object.
 	 */
-	public EdgeComponent(final EventBus eventBus, final AbstractNode sourceComponent, final AbstractNode targetComponent) {
-		this(eventBus, sourceComponent, targetComponent, NO_SOURCE, NO_TARGET);
+	public EdgeComponent(final EventBus eventBus, final String id, final AbstractNode sourceComponent,
+			final AbstractNode targetComponent) {
+		this(eventBus, id, sourceComponent, targetComponent, NO_SOURCE, NO_TARGET);
 		reconnect();
 	}
 
@@ -186,12 +194,14 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * @param target
 	 *            a {@link java.awt.Point} object.
 	 */
-	private EdgeComponent(final EventBus eventBus, final AbstractNode sourceComponent,
+	private EdgeComponent(final EventBus eventBus, final String id, final AbstractNode sourceComponent,
 			final AbstractNode targetComponent, final Point source, final Point target) {
 		super(sourceComponent, targetComponent, source, target);
 		this.eventBus = eventBus;
+		this.id = id;
 		this.style = EdgeStyle.DEFAULT;
 		setState(ComponentState.DEFAULT);
+		eventBus.addListener(EdgeCreationListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeMotionListener.class, this);
 		eventBus.addListener(EdgeLayoutListener.class, this);
@@ -377,6 +387,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	@Override
 	public void dispose() {
 		// TODO - create generic removeAllListeners()
+		eventBus.removeListener(EdgeCreationListener.class, this);
 		eventBus.removeListener(NodeRemovalListener.class, this);
 		eventBus.removeListener(NodeMotionListener.class, this);
 		eventBus.removeListener(EdgeLayoutListener.class, this);
@@ -385,7 +396,10 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		eventBus.removeListener(EdgeEditListener.class, this);
 		// TODO - may require synchronization, if two removal events are fired
 		// before this is properly removed from eventBus.
-		getParent().remove(this);
+		final Container parent = getParent();
+		parent.remove(this);
+		parent.revalidate();
+		parent.repaint();
 	}
 
 	/** {@inheritDoc} */
@@ -444,6 +458,19 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		final int extent = cmd.getSize();
 		style.setTipSize(extent);
 		repaint();
+	}
+
+	@Override
+	public void createEdge(final EdgeCreationCommand cmd) {
+		// IGNORE
+	}
+
+	@Override
+	public void removeEdge(final EdgeRemoveCommand cmd) {
+		final String edgeId = cmd.getEdgeId();
+		if (this.id.equals(edgeId)) {
+			dispose();
+		}
 	}
 
 }

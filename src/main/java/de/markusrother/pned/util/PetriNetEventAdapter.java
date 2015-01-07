@@ -26,6 +26,7 @@ import de.markusrother.pned.core.listeners.PlaceListener;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
 import de.markusrother.pned.core.listeners.TransitionListener;
 import de.markusrother.pned.core.requests.IdRequest;
+import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 
@@ -85,6 +86,12 @@ public abstract class PetriNetEventAdapter
 	/** {@inheritDoc} */
 	@Override
 	public void createEdge(final EdgeCreationCommand cmd) {
+		process(cmd);
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void removeEdge(final EdgeRemoveCommand cmd) {
 		process(cmd);
 	}
 

@@ -22,6 +22,7 @@ import de.markusrother.pned.core.listeners.PlaceListener;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
 import de.markusrother.pned.core.listeners.TransitionListener;
 import de.markusrother.pned.core.requests.IdRequest;
+import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.commands.PetriNetEditCommand;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.control.GuiEventBus;
@@ -51,6 +52,8 @@ import de.markusrother.pned.gui.requests.NodeRequest;
  * <p>
  * Abstract PetriNetGuiEventAdapter class.
  * </p>
+ * 
+ * FIXME - Name does not fit!
  *
  * @author Markus Rother
  * @version 1.0
@@ -62,14 +65,29 @@ public abstract class PetriNetGuiEventAdapter
 		GuiRequestTarget {
 
 	/**
+	 * The event target which is listened to.
+	 */
+	protected GuiEventBus eventBus;
+
+	/**
 	 * <p>
-	 * setEventBus.
+	 * Setter for the field <code>eventBus</code>.
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
+	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} to
+	 *            which resulting events are posted to and to which is listened
+	 *            to for state changes.
 	 */
 	public void setEventBus(final GuiEventBus eventBus) {
+		if (this.eventBus != null) {
+			suspendListeners();
+		}
+		this.eventBus = eventBus;
+		installListeners();
+	}
+
+	protected void installListeners() {
 		eventBus.addListener(PetriNetIOListener.class, this);
 		eventBus.addListener(PetriNetListener.class, this);
 		eventBus.addListener(NodeListener.class, this);
@@ -89,6 +107,11 @@ public abstract class PetriNetGuiEventAdapter
 		eventBus.addListener(NodeSelectionListener.class, this);
 		eventBus.addListener(IdRequestListener.class, this);
 		eventBus.addListener(EdgeCreationListener.class, this);
+	}
+
+	protected void suspendListeners() {
+		// TODO
+		throw new RuntimeException("TODO");
 	}
 
 	/** {@inheritDoc} */
@@ -214,6 +237,11 @@ public abstract class PetriNetGuiEventAdapter
 	/** {@inheritDoc} */
 	@Override
 	public void createEdge(final EdgeCreationCommand cmd) {
+		process(cmd);
+	}
+
+	@Override
+	public void removeEdge(final EdgeRemoveCommand cmd) {
 		process(cmd);
 	}
 

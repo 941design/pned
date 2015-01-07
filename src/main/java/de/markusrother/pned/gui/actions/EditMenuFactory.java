@@ -5,7 +5,6 @@ import static de.markusrother.pned.gui.NodeCreationMode.TRANSITION;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.util.Set;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
@@ -16,10 +15,9 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.menus.DefaultNodeLocationProvider;
 
-public class EditMenuFactory extends AbstractMenuFactory
+public class EditMenuFactory
 	implements
 		MenuListener {
 
@@ -28,8 +26,10 @@ public class EditMenuFactory extends AbstractMenuFactory
 	/** Constant <code>mnemonic=KeyEvent.VK_E</code> */
 	private static final int mnemonic = KeyEvent.VK_E;
 
-	public EditMenuFactory(final GuiEventBus eventBus) {
-		super(eventBus);
+	private final GuiState state;
+
+	public EditMenuFactory(final GuiState state) {
+		this.state = state;
 	}
 
 	public JMenu newMenu() {
@@ -75,33 +75,27 @@ public class EditMenuFactory extends AbstractMenuFactory
 		final ButtonGroup buttonGroup = new ButtonGroup();
 
 		final JRadioButtonMenuItem placeItem = CreatePlaceAction.newMenuItem( //
-				eventBus, //
+				state.getEventBus(), //
 				eventSource, //
 				locationProvider);
 		buttonGroup.add(placeItem);
 		component.add(placeItem);
-		placeItem.setSelected(nodeCreationMode == PLACE);
+		placeItem.setSelected(state.getNodeCreationMode() == PLACE);
 
 		final JRadioButtonMenuItem transitionItem = CreateTransitionAction.newMenuItem( //
-				eventBus, //
+				state.getEventBus(), //
 				eventSource, //
 				locationProvider);
 		buttonGroup.add(transitionItem);
 		component.add(transitionItem);
-		transitionItem.setSelected(nodeCreationMode == TRANSITION);
+		transitionItem.setSelected(state.getNodeCreationMode() == TRANSITION);
 
-		final JMenuItem removeNodesItem = RemoveSelectedNodesAction.newMenuItem( //
-				eventBus, //
-				eventSource, //
-				areNodesSelected());
+		final JMenuItem removeNodesItem = RemoveSelectedNodesAction.newMenuItem(eventSource, state);
+
 		component.add(removeNodesItem);
 
-		final Set<String> edgeToNodeId = filterTargetNodes(selectedNodeIds);
-		component.add(RemoveIncomingEdgesAction.newMenuItem(eventBus, //
-				eventSource, //
-				edgeToNodeId));
-		// component.add(RemoveOutgoingEdgesAction.newMenuItem(eventBus,
-		// eventSource, selectedNodes));
+		component.add(RemoveOutgoingEdgesAction.newMenuItem(eventSource, state));
+		component.add(RemoveIncomingEdgesAction.newMenuItem(eventSource, state));
 	}
 
 }
