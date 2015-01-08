@@ -3,17 +3,17 @@ package de.markusrother.pned.gui.components;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+
+import javax.swing.event.ChangeEvent;
 
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.events.PlaceEventObject;
 import de.markusrother.pned.core.listeners.PlaceListener;
 import de.markusrother.pned.gui.PlaceLayout;
-import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
-import de.markusrother.pned.gui.layout.listeners.PlaceLayoutListener;
-import de.markusrother.pned.gui.layout.style.NodeStyle;
 import de.markusrother.pned.gui.listeners.MarkingEditor;
 import de.markusrother.util.JsonBuilder;
 
@@ -32,14 +32,10 @@ import de.markusrother.util.JsonBuilder;
  */
 public class Place extends AbstractNode
 	implements
-		PlaceListener,
-		PlaceLayoutListener {
+		PlaceListener {
 
 	private final Marking marking;
 	private final MarkingEditor markingEditor;
-	private final NodeStyle style = NodeStyle.DEFAULT;
-
-	private int diameter;
 
 	/**
 	 * <p>
@@ -48,23 +44,22 @@ public class Place extends AbstractNode
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param placeId
 	 * @param diameter
 	 *            a int.
 	 * @param markingEditor
 	 *            a {@link de.markusrother.pned.gui.listeners.MarkingEditor}
 	 *            object.
 	 */
-	public Place(final EventBus eventBus, final MarkingEditor markingEditor, final int diameter) {
-		super(eventBus, new PlaceLayout());
-
-		this.diameter = diameter;
+	public Place(final EventBus eventBus, final String placeId, final MarkingEditor markingEditor,
+			final NodeStyleModel style) {
+		super(eventBus, placeId, new PlaceLayout(), style);
 		this.marking = new Marking(eventBus);
 		this.markingEditor = markingEditor;
 
 		markingEditor.addToComponent(this);
 
 		// FIXME - dispose!
-		eventBus.addListener(PlaceLayoutListener.class, this);
 		eventBus.addListener(PlaceListener.class, this);
 
 		add(this.marking, PlaceLayout.CENTER);
@@ -74,8 +69,8 @@ public class Place extends AbstractNode
 	/** {@inheritDoc} */
 	@Override
 	public Dimension getPreferredSize() {
-		// TODO - when to use getPreferredSize() vs. setPreferredSize()?
-		return new Dimension(diameter, diameter);
+		final int size = style.getSize();
+		return new Dimension(size, size);
 	}
 
 	/** {@inheritDoc} */
@@ -101,7 +96,8 @@ public class Place extends AbstractNode
 	 * @return a {@link java.awt.geom.Ellipse2D} object.
 	 */
 	private Ellipse2D getEllipse() {
-		return new Ellipse2D.Double(0, 0, diameter, diameter);
+		final Dimension preferredSize = getPreferredSize();
+		return new Ellipse2D.Double(0, 0, preferredSize.width, preferredSize.height);
 	}
 
 	/** {@inheritDoc} */
@@ -136,24 +132,6 @@ public class Place extends AbstractNode
 		}
 	}
 
-	/** {@inheritDoc} */
-	@Override
-	protected NodeStyle getStyle() {
-		return style;
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void setSize(final PlaceLayoutCommand cmd) {
-		this.diameter = cmd.getSize();
-		setSize(new Dimension(diameter, diameter));
-		// TODO - Are there any children to be validated?
-		// for (final Component child : getComponents()) {
-		// child.revalidate();
-		// }
-		repaint(); // REDUNDANT
-	}
-
 	@Override
 	protected void installListeners() {
 		super.installListeners();
@@ -179,6 +157,15 @@ public class Place extends AbstractNode
 		return builder.append("id", getId()) //
 				.append("marking", getMarking()) //
 				.toString();
+	}
+
+	@Override
+	public void stateChanged(final ChangeEvent e) {
+		if (e.getSource() == this.style) {
+			setBounds(new Rectangle(getLocation(), getPreferredSize()));
+		} else {
+			throw new RuntimeException("Unexpected event source " + e.getSource());
+		}
 	}
 
 }

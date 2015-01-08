@@ -28,7 +28,6 @@ import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.EdgeCreator;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
-import de.markusrother.pned.gui.listeners.MarkingEditor;
 import de.markusrother.pned.gui.listeners.NodeCreator;
 import de.markusrother.pned.gui.listeners.NodeLabelEditor;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
@@ -36,7 +35,6 @@ import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.NodeSelector;
 import de.markusrother.pned.gui.listeners.PnGridPopupListener;
 import de.markusrother.pned.gui.listeners.SelectionDragDropListener;
-import de.markusrother.pned.gui.listeners.SingleNodeSelector;
 import de.markusrother.pned.gui.menus.PnEditorMenuFactory;
 import de.markusrother.pned.gui.requests.NodeRequest;
 import de.markusrother.swing.DragDropListener;
@@ -64,26 +62,10 @@ public class PnGridPanel extends JLayeredPane
 		NodeSelectionListener,
 		NodeRemovalListener,
 		EdgeCreationListener,
-		EdgeEditListener
-
-// FIXME
-// PlaceLayoutListener,
-// TransitionLayoutListener
-{
-
-	// TODO - This could be properties!
-	public enum State {
-		MULTISELECTION, //
-		PLACE_CREATION, //
-		TRANSITION_CREATION, //
-	}
+		EdgeEditListener {
 
 	/** Constant <code>preferredSize</code> */
 	private static final Dimension preferredSize = new Dimension(3000, 3000);
-	/** Constant <code>transitionDimensions</code> */
-	private static final Dimension transitionDimensions = new Dimension(50, 50);
-	/** Constant <code>placeDimensions</code> */
-	private static final Dimension placeDimensions = new Dimension(50, 50);
 	/** Constant <code>labelHeight=20</code> */
 	private static final int labelHeight = 20;
 
@@ -96,15 +78,15 @@ public class PnGridPanel extends JLayeredPane
 	private final EdgeCreator edgeCreator;
 	private final NodeCreator nodeCreator;
 	private final NodeSelector multipleNodeSelector;
-	private final SingleNodeSelector singleNodeSelector;
+
 	private final PnGridPopupListener popupCreator;
 	private final NodeLabelEditor nodeLabelEditor;
-	private final MarkingEditor markingEditor;
 
 	// Stateful/Throwaway listeners:
 	SelectionDragDropListener nodeSelectionDragListener;
 
 	private final Set<AbstractNode> currentSelection;
+	private final NodeFactory nodeFactory;
 
 	/**
 	 * <p>
@@ -148,9 +130,10 @@ public class PnGridPanel extends JLayeredPane
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param menuFactory
 	 */
-	public PnGridPanel(final GuiEventBus eventBus, final PnEditorMenuFactory menuFactory) {
+	public PnGridPanel(final GuiEventBus eventBus, final PnEditorMenuFactory menuFactory, final NodeFactory nodeFactory) {
 
 		this.eventBus = eventBus;
+		this.nodeFactory = nodeFactory;
 		this.currentSelection = new HashSet<>();
 
 		setPreferredSize(preferredSize);
@@ -171,10 +154,8 @@ public class PnGridPanel extends JLayeredPane
 		this.edgeCreator = new EdgeCreator(eventBus, edgeLayer);
 		this.nodeCreator = new NodeCreator(eventBus);
 		this.multipleNodeSelector = new NodeSelector(eventBus);
-		this.singleNodeSelector = new SingleNodeSelector(eventBus);
 		this.popupCreator = new PnGridPopupListener(menuFactory);
 		this.nodeLabelEditor = new NodeLabelEditor(eventBus);
-		this.markingEditor = new MarkingEditor(eventBus);
 
 		add(nodeLayer, new Integer(1));
 		nodeCreator.addToComponent(nodeLayer);
@@ -250,22 +231,23 @@ public class PnGridPanel extends JLayeredPane
 	/** {@inheritDoc} */
 	@Override
 	public void createPlace(final PlaceCreationCommand cmd) {
-		// TODO - use currentPlaceStyle!
-		final Place place = new Place(eventBus, markingEditor, (int) placeDimensions.getWidth());
-		addNodeComponent(place, cmd.getPoint());
-		place.setId(cmd.getNodeId());
-		addListeners(place);
-		createLabel(place);
+		final String placeId = cmd.getNodeId();
+		final Point origin = cmd.getPoint();
+		final Place place = nodeFactory.newPlace(placeId);
+		addNodeComponent(place, origin);
+		createLabelFor(place);
+		place.setEdgeCreationListener(edgeCreator);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void createTransition(final TransitionCreationCommand cmd) {
-		final Transition transition = new Transition(eventBus, (int) transitionDimensions.getWidth());
-		addNodeComponent(transition, cmd.getPoint());
-		transition.setId(cmd.getNodeId());
-		addListeners(transition);
-		createLabel(transition);
+		final String transitionId = cmd.getNodeId();
+		final Point point = cmd.getPoint();
+		final Transition transition = nodeFactory.newTransition(transitionId);
+		addNodeComponent(transition, point);
+		createLabelFor(transition);
+		transition.setEdgeCreationListener(edgeCreator);
 	}
 
 	/**
@@ -294,20 +276,6 @@ public class PnGridPanel extends JLayeredPane
 
 	/**
 	 * <p>
-	 * addListeners.
-	 * </p>
-	 *
-	 * @param node
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
-	 *            object.
-	 */
-	private void addListeners(final AbstractNode node) {
-		node.setSingleNodeSelector(singleNodeSelector);
-		node.setEdgeCreationListener(edgeCreator);
-	}
-
-	/**
-	 * <p>
 	 * createLabel.
 	 * </p>
 	 *
@@ -316,7 +284,7 @@ public class PnGridPanel extends JLayeredPane
 	 *            object.
 	 * @return a {@link javax.swing.JLabel} object.
 	 */
-	private JLabel createLabel(final AbstractNode node) {
+	private JLabel createLabelFor(final AbstractNode node) {
 		final Point labelOrigin = node.getLocation();
 		labelOrigin.translate(0, -labelHeight);
 		return createLabel(labelOrigin, node.getId());

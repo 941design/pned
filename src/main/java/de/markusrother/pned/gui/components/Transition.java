@@ -11,12 +11,11 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 
+import javax.swing.event.ChangeEvent;
+
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.events.TransitionActivationEvent;
 import de.markusrother.pned.core.listeners.TransitionActivationListener;
-import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
-import de.markusrother.pned.gui.layout.listeners.TransitionLayoutListener;
-import de.markusrother.pned.gui.layout.style.NodeStyle;
 import de.markusrother.pned.gui.listeners.TransitionActivator;
 import de.markusrother.util.JsonBuilder;
 
@@ -30,16 +29,15 @@ import de.markusrother.util.JsonBuilder;
  */
 public class Transition extends AbstractNode
 	implements
-		TransitionActivationListener,
-		TransitionLayoutListener {
+		TransitionActivationListener {
+
+	// FIXME - move to TransitionStyleModel
 
 	/** Constant <code>activatedColor</code> */
 	private static final Color activatedColor = Color.GREEN;
 	/** Constant <code>deactivatedColor</code> */
 	private static final Color deactivatedColor = Color.GRAY;
 
-	private int extent;
-	private final NodeStyle style = NodeStyle.DEFAULT;
 	private final TransitionActivator activator;
 	private boolean isActive = true;
 
@@ -53,24 +51,22 @@ public class Transition extends AbstractNode
 	 * @param extent
 	 *            a int.
 	 */
-	public Transition(final EventBus eventBus, final int extent) {
-		super(eventBus);
-		// TODO - use model!
-		this.extent = extent;
+	public Transition(final EventBus eventBus, final String transitionId, final NodeStyleModel style) {
+		super(eventBus, transitionId, style);
 		setOpaque(false);
 
 		this.activator = new TransitionActivator(eventBus);
 		activator.addToComponent(this);
 
 		// FIXME - dispose!
-		eventBus.addListener(TransitionLayoutListener.class, this);
 		eventBus.addListener(TransitionActivationListener.class, this);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public Dimension getPreferredSize() {
-		return new Dimension(extent, extent);
+		final int size = style.getSize();
+		return new Dimension(size, size);
 	}
 
 	/** {@inheritDoc} */
@@ -102,7 +98,8 @@ public class Transition extends AbstractNode
 	 * @return a {@link java.awt.Rectangle} object.
 	 */
 	private Rectangle getRectangle() {
-		return new Rectangle(0, 0, extent, extent);
+		final Dimension preferredSize = getPreferredSize();
+		return new Rectangle(0, 0, preferredSize.width, preferredSize.height);
 	}
 
 	/** {@inheritDoc} */
@@ -127,20 +124,6 @@ public class Transition extends AbstractNode
 		} else {
 			throw new IllegalStateException();
 		}
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	protected NodeStyle getStyle() {
-		return style;
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void setSize(final TransitionLayoutCommand cmd) {
-		this.extent = cmd.getSize();
-		setSize(new Dimension(extent, extent));
-		repaint(); // REDUNDANT
 	}
 
 	/** {@inheritDoc} */
@@ -176,4 +159,12 @@ public class Transition extends AbstractNode
 				.toString();
 	}
 
+	@Override
+	public void stateChanged(final ChangeEvent e) {
+		if (e.getSource() == this.style) {
+			setBounds(new Rectangle(getLocation(), getPreferredSize()));
+		} else {
+			throw new RuntimeException("Unexpected event source " + e.getSource());
+		}
+	}
 }

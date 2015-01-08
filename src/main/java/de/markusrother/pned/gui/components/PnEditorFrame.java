@@ -16,6 +16,7 @@ import de.markusrother.pned.core.control.EventAwarePetriNet;
 import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.core.listeners.PetriNetIOListener;
 import de.markusrother.pned.gui.NodeCreationMode;
+import de.markusrother.pned.gui.actions.GuiState;
 import de.markusrother.pned.gui.commands.PetriNetEditCommand;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.control.GuiEventBus;
@@ -41,13 +42,16 @@ public class PnEditorFrame extends JFrame
 
 	/** Constant <code>preferredSize</code> */
 	private static final Dimension preferredSize = new Dimension(2000, 1000);
+	private static final Dimension gridSize = new Dimension(2000, 2000);
 
-	private GuiEventBus eventBus;
-	private final PnEditorMenuFactory menuFactory;
+	private PnEditorMenuFactory menuFactory;
 	private PnGridPanel grid;
 	private PnedMenuBar pnedMenuBar;
 
 	private File currentPath;
+
+	private GuiState state;
+	private JScrollPane scrollPane;
 
 	/**
 	 * <p>
@@ -61,23 +65,36 @@ public class PnEditorFrame extends JFrame
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		this.eventBus = createNewContext();
-		this.menuFactory = new PnEditorMenuFactory(eventBus);
-		this.grid = new PnGridPanel(eventBus, menuFactory);
-		// TODO - maybe we can adjust the grid layers preferred sizes with a
-		// propertyChangeListener!?
-		this.pnedMenuBar = new PnedMenuBar(menuFactory);
+		createNewContext();
+		createComponents();
 
-		setPreferredSize(preferredSize);
-
-		grid.setPreferredSize(new Dimension(2000, 2000));
-
-		add(grid, BorderLayout.CENTER);
-		setJMenuBar(pnedMenuBar);
-		pack();
 		setVisible(true);
 
-		PetriNetGuiEventLogger.log(eventBus);
+		final GuiEventBus eventBus = state.getEventBus();
+		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, NodeCreationMode.PLACE));
+		eventBus.setCurrentDirectory(new PetriNetIOCommand(this, PetriNetIOCommand.Type.STAT, currentPath));
+	}
+
+	/**
+	 * <p>
+	 * createAutoResizableScrollPane.
+	 * </p>
+	 *
+	 * @param component
+	 *            a {@link java.awt.Component} object.
+	 * @return a {@link javax.swing.JScrollPane} object.
+	 */
+	private JScrollPane createAutoResizableScrollPane(final Component component) {
+		final JScrollPane scrollPane = new JScrollPane(component, //
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, //
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		// Must set ui manually, because there is no entire LAF configured!
+		// TODO - existing ui should rather be proxied!
+		final CustomScrollPaneUI ui = new CustomScrollPaneUI();
+		ui.addVerticalChangeListener(new VerticalComponentResizer(component));
+		ui.addHorizontalChangeListener(new HorizontalComponentResizer(component));
+		scrollPane.setUI(ui);
+		return scrollPane;
 	}
 
 	/**
@@ -87,17 +104,21 @@ public class PnEditorFrame extends JFrame
 	 *
 	 * @return a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
-	private GuiEventBus createNewContext() {
+	private void createNewContext() {
 		final GuiEventBus eventBus = new GuiEventBus();
+		PetriNetGuiEventLogger.log(eventBus);
+
+		this.state = new GuiState(eventBus);
+		this.menuFactory = new PnEditorMenuFactory(state);
+
 		createPetriNetModel(eventBus);
+
+		installListeners(eventBus);
+	}
+
+	private void installListeners(final GuiEventBus eventBus) {
 		eventBus.addListener(PetriNetListener.class, this);
 		eventBus.addListener(PetriNetIOListener.class, this);
-		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, NodeCreationMode.PLACE));
-		if (menuFactory != null) {
-			menuFactory.setEventBus(eventBus);
-		}
-		eventBus.setCurrentDirectory(new PetriNetIOCommand(this, PetriNetIOCommand.Type.STAT, currentPath));
-		return eventBus;
 	}
 
 	/**
@@ -133,20 +154,41 @@ public class PnEditorFrame extends JFrame
 	/** {@inheritDoc} */
 	@Override
 	public void createPetriNet(final PetriNetEditCommand cmd) {
+		disposeCurrentContext();
+		removeComponents();
+		createNewContext();
+		createComponents();
+		repaint();
+	}
+
+	private void removeComponents() {
+		remove(grid);
+		getContentPane().remove(grid);
+	}
+
+	private void createComponents() {
+		final GuiEventBus eventBus = state.getEventBus();
+		this.grid = new PnGridPanel(eventBus, menuFactory, new NodeFactoryImpl(state));
+		this.grid.setPreferredSize(gridSize);
+		this.pnedMenuBar = new PnedMenuBar(menuFactory);
+		this.scrollPane = createAutoResizableScrollPane(grid);
+
+		add(scrollPane, BorderLayout.CENTER);
+		setJMenuBar(pnedMenuBar);
+		setPreferredSize(preferredSize);
+		pack();
+	}
+
+	private void disposeCurrentContext() {
 		// Assuming GC takes care of rest.
 		// Can only be gc'ed if EventBus becomes garbage as well.
-		getContentPane().remove(grid);
+		suspendListeners();
+	}
+
+	private void suspendListeners() {
+		final GuiEventBus eventBus = state.getEventBus();
 		eventBus.removeListener(PetriNetListener.class, this);
 		eventBus.removeListener(PetriNetIOListener.class, this);
-
-		this.eventBus = createNewContext();
-		this.grid = new PnGridPanel(eventBus, menuFactory);
-		this.pnedMenuBar = new PnedMenuBar(menuFactory);
-
-		add(grid, BorderLayout.CENTER);
-		setJMenuBar(pnedMenuBar);
-		pack();
-		// repaint(); // TODO ???
 	}
 
 	/** {@inheritDoc} */
@@ -161,10 +203,10 @@ public class PnEditorFrame extends JFrame
 		// FIXME - Creation and import should be handled by separate commands!
 		// Or export should also be handled here, instead of EventAwarePetriNet
 		// itself!
-		createPetriNet(null);
+		createPetriNet(new PetriNetEditCommand(this, PetriNetEditCommand.Type.NEW));
 		final File file = cmd.getFile();
 		try {
-			PNMLParser.parse(file, eventBus);
+			PNMLParser.parse(file, state.getEventBus());
 		} catch (FileNotFoundException | XMLStreamException e) {
 			// FIXME
 			throw new RuntimeException("TODO");

@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 
 import javax.swing.JPanel;
+import javax.swing.event.ChangeListener;
 
 import de.markusrother.pned.core.commands.NodeMotionCommand;
 import de.markusrother.pned.core.commands.NodeRemovalCommand;
@@ -17,7 +18,6 @@ import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.layout.style.NodeStyle;
 import de.markusrother.pned.gui.listeners.EdgeCreator;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.NodeHoverListener;
@@ -50,7 +50,8 @@ public abstract class AbstractNode extends JPanel
 		Selectable,
 		Disposable,
 		DefinitelyBounded,
-		JsonSerializable {
+		JsonSerializable,
+		ChangeListener {
 
 	/** Constant <code>NO_LAYOUT_MANAGER</code> */
 	private static final LayoutManager NO_LAYOUT_MANAGER = null;
@@ -60,11 +61,11 @@ public abstract class AbstractNode extends JPanel
 	private EdgeCreator edgeCreationListener;
 	private SingleNodeSelector singleNodeSelector;
 
-	protected ComponentState state;
-	// TODO - This could be substituted with a Model.
-	private String id;
-
 	protected final EventBus eventBus;
+
+	protected final String id;
+	protected ComponentState state;
+	protected NodeStyleModel style;
 
 	/**
 	 * <p>
@@ -76,11 +77,18 @@ public abstract class AbstractNode extends JPanel
 	 * @param layoutManager
 	 *            a {@link java.awt.LayoutManager} object.
 	 */
-	public AbstractNode(final EventBus eventBus, final LayoutManager layoutManager) {
+	public AbstractNode(final EventBus eventBus, final String id, final LayoutManager layoutManager,
+			final NodeStyleModel style) {
 		super(layoutManager);
 		this.eventBus = eventBus;
+		this.id = id;
 		this.state = ComponentState.DEFAULT; // TODO - empty EnumSet
+
+		setStyle(style);
+
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
+
+		// FIXME - refactor to installListeners() / suspendListeners
 		// TODO - In prospect to JDK8, I do not use Adapters. Default
 		// implementations in adapters allow us to remove the ignored methods.
 		eventBus.addListener(NodeMotionListener.class, this);
@@ -98,8 +106,8 @@ public abstract class AbstractNode extends JPanel
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
-	public AbstractNode(final EventBus eventBus) {
-		this(eventBus, NO_LAYOUT_MANAGER);
+	public AbstractNode(final EventBus eventBus, final String id, final NodeStyleModel style) {
+		this(eventBus, id, NO_LAYOUT_MANAGER, style);
 	}
 
 	/**
@@ -111,20 +119,10 @@ public abstract class AbstractNode extends JPanel
 	 */
 	protected abstract Shape getShape();
 
-	/**
-	 * <p>
-	 * getStyle.
-	 * </p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.layout.style.NodeStyle} object.
-	 */
-	protected abstract NodeStyle getStyle();
-
 	/** {@inheritDoc} */
 	@Override
 	protected void paintComponent(final Graphics g) {
 		super.paintComponent(g);
-		final NodeStyle style = getStyle();
 		switch (state) {
 		case MULTI_SELECTED:
 		case SINGLE_SELECTED:
@@ -155,18 +153,6 @@ public abstract class AbstractNode extends JPanel
 	 */
 	public String getId() {
 		return id;
-	}
-
-	/**
-	 * <p>
-	 * Setter for the field <code>id</code>.
-	 * </p>
-	 *
-	 * @param nodeId
-	 *            a {@link java.lang.String} object.
-	 */
-	public void setId(final String nodeId) {
-		this.id = nodeId;
 	}
 
 	/**
@@ -504,6 +490,14 @@ public abstract class AbstractNode extends JPanel
 		if (myId.equals(requestedId)) {
 			req.set(this);
 		}
+	}
+
+	void setStyle(final NodeStyleModel style) {
+		if (this.style != null) {
+			this.style.removeChangeListener(this);
+		}
+		this.style = style;
+		this.style.addChangeListener(this);
 	}
 
 }

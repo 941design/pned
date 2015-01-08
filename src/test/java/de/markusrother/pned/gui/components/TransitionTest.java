@@ -11,12 +11,18 @@ import java.awt.geom.Point2D;
 
 import org.junit.Test;
 
+import de.markusrother.pned.gui.layout.style.NodeStyle;
+
 public class TransitionTest extends AbstractNodeTest<Transition> {
+
+	private static final String NO_ID = null;
 
 	private Transition transition;
 
 	private void createTransition(final Dimension dimension) {
-		transition = new Transition(eventMulticastMock, (int) dimension.getWidth());
+		transition = new Transition(eventMulticastMock, //
+				NO_ID, //
+				NodeStyle.DEFAULT);
 	}
 
 	private void assertAngleIntersectsAt(final double theta, final Point2D expected) {
@@ -73,6 +79,8 @@ public class TransitionTest extends AbstractNodeTest<Transition> {
 
 	@Override
 	protected Transition getComponent() {
-		return new Transition(eventMulticastMock, 0);
+		return new Transition(eventMulticastMock, //
+				NO_ID, //
+				NodeStyle.DEFAULT);
 	}
 }

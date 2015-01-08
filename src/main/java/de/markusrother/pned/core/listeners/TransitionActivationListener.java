@@ -10,6 +10,8 @@ import de.markusrother.pned.core.events.TransitionActivationEvent;
  * </p>
  *
  * FIXME - Create TransitionActivationCommand
+ * 
+ * FIXME - merge with TransitionListener
  *
  * @author Markus Rother
  * @version 1.0

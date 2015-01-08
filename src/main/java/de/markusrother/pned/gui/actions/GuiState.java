@@ -17,9 +17,13 @@ import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
+import de.markusrother.pned.gui.components.NodeStyleModel;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
+import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
+import de.markusrother.pned.gui.layout.style.NodeStyle;
 import de.markusrother.pned.util.PetriNetGuiEventAdapter;
 
 public class GuiState extends PetriNetGuiEventAdapter {
@@ -36,6 +40,8 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		return selectedNodeIds;
 	}
 
+	protected final NodeStyleModel placeStyle;
+	protected final NodeStyleModel transitionStyle;
 	protected final Set<String> selectedNodeIds;
 	protected final Map<String, String> incomingEdgesMap;
 	protected final Map<String, String> outgoingEdgesMap;
@@ -45,11 +51,18 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	protected NodeCreationMode nodeCreationMode;
 
 	public GuiState(final GuiEventBus eventBus) {
+		this.placeStyle = NodeStyle.newDefault();
+		this.transitionStyle = NodeStyle.newDefault();
 		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
 		this.selectedNodeIds = new HashSet<>();
 		this.incomingEdgesMap = new HashMap<>();
 		this.outgoingEdgesMap = new HashMap<>();
 		setEventBus(eventBus);
+	}
+
+	@Override
+	protected void process(final EventObject e) {
+		// IGNORE
 	}
 
 	/** {@inheritDoc} */
@@ -195,9 +208,26 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		outgoingEdgesMap.remove(edgeId);
 	}
 
+	/** {@inheritDoc} */
 	@Override
-	protected void process(final EventObject e) {
-		// IGNORE
+	public void setSize(final PlaceLayoutCommand cmd) {
+		final int size = cmd.getSize();
+		placeStyle.setSize(size);
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void setSize(final TransitionLayoutCommand cmd) {
+		final int size = cmd.getSize();
+		transitionStyle.setSize(size);
+	}
+
+	public NodeStyleModel getPlaceStyle() {
+		return placeStyle;
+	}
+
+	public NodeStyleModel getTransitionStyle() {
+		return transitionStyle;
 	}
 
 }
