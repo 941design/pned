@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
 
 import org.junit.Test;
 
-import de.markusrother.pned.gui.layout.style.NodeStyle;
+import de.markusrother.pned.gui.style.NodeStyle;
 
 public class TransitionTest extends AbstractNodeTest<Transition> {
 

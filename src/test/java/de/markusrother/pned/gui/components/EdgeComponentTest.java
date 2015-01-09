@@ -2,10 +2,10 @@ package de.markusrother.pned.gui.components;
 
 import org.mockito.Mockito;
 
-import de.markusrother.pned.gui.layout.style.EdgeStyle;
-import de.markusrother.pned.gui.layout.style.NodeStyle;
 import de.markusrother.pned.gui.listeners.MarkingEditor;
 import de.markusrother.pned.gui.model.MarkingStyleModel;
+import de.markusrother.pned.gui.style.EdgeStyle;
+import de.markusrother.pned.gui.style.NodeStyle;
 
 public class EdgeComponentTest extends AbstractComponentTest<EdgeComponent> {
 

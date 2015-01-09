@@ -24,12 +24,12 @@ import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.layout.style.EdgeStyle;
-import de.markusrother.pned.gui.layout.style.MarkingStyle;
-import de.markusrother.pned.gui.layout.style.NodeStyle;
 import de.markusrother.pned.gui.model.EdgeStyleModel;
 import de.markusrother.pned.gui.model.MarkingStyleModel;
 import de.markusrother.pned.gui.model.NodeStyleModel;
+import de.markusrother.pned.gui.style.EdgeStyle;
+import de.markusrother.pned.gui.style.MarkingStyle;
+import de.markusrother.pned.gui.style.NodeStyle;
 import de.markusrother.pned.util.PnEventAdapter;
 
 /**

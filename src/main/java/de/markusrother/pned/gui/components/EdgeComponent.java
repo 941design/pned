@@ -28,10 +28,10 @@ import de.markusrother.pned.gui.commands.TransitionLayoutListener;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.EdgeEditListener;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.layout.style.Stylable;
 import de.markusrother.pned.gui.listeners.EdgeHoverListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.model.EdgeStyleModel;
+import de.markusrother.pned.gui.style.Stylable;
 import de.markusrother.swing.HoverListener;
 
 /**

@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui.layout.style;
+package de.markusrother.pned.gui.style;
 
 import java.awt.Color;
 
@@ -24,7 +24,7 @@ public class NodeStyle extends AbstractStyle
 	 * newDefault.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.layout.style.NodeStyle} object.
+	 * @return a {@link de.markusrother.pned.gui.style.NodeStyle} object.
 	 */
 	public static NodeStyle newDefault() {
 		final NodeStyle style = new NodeStyle();

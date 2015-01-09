@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 
 import de.markusrother.pned.control.EventBus;
-import de.markusrother.pned.gui.layout.style.Stylable;
 import de.markusrother.pned.gui.model.MarkingStyleModel;
+import de.markusrother.pned.gui.style.Stylable;
 
 /**
  * <p>
