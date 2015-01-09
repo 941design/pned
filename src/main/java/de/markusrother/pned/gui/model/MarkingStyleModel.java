@@ -8,7 +8,7 @@ import de.markusrother.swing.ChangeEventSource;
  * </p>
  *
  */
-public interface MarkingModel
+public interface MarkingStyleModel
 	extends
 		ChangeEventSource,
 		FontModel,

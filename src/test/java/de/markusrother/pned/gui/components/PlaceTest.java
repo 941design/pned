@@ -23,6 +23,7 @@ public class PlaceTest extends AbstractNodeTest<Place> {
 		style.setSize(extent);
 		place = new Place(eventMulticastMock, //
 				NO_ID, //
+				Mockito.mock(Marking.class), //
 				Mockito.mock(MarkingEditor.class), //
 				style);
 	}
@@ -66,8 +67,9 @@ public class PlaceTest extends AbstractNodeTest<Place> {
 	protected Place getComponent() {
 		return new Place(eventMulticastMock, //
 				NO_ID, //
+				Mockito.mock(Marking.class), //
 				Mockito.mock(MarkingEditor.class), //
-				NodeStyle.DEFAULT);
+				NodeStyle.newDefault());
 	}
 
 }

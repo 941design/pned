@@ -83,6 +83,6 @@ public class TransitionTest extends AbstractNodeTest<Transition> {
 	protected Transition getComponent() {
 		return new Transition(eventMulticastMock, //
 				NO_ID, //
-				NodeStyle.DEFAULT);
+				NodeStyle.newDefault());
 	}
 }

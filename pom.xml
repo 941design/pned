@@ -22,6 +22,7 @@
     <qdox.version>2.0-M3</qdox.version>
     <maven.compiler.plugin.version>3.2</maven.compiler.plugin.version>
     <maven.javadoc.plugin.version>2.10.1</maven.javadoc.plugin.version>
+    <maven.jar.plugin.version>2.5</maven.jar.plugin.version>
     <level>private</level><!-- maven-javadoc-plugin goal:fix -->
     <defaultAuthor>Markus Rother</defaultAuthor><!-- maven-javadoc-plugin -->
     <defaultVersion>1.0</defaultVersion><!-- maven-javadoc-plugin -->
@@ -105,6 +106,7 @@
       <plugin>
 	<groupId>org.apache.maven.plugins</groupId>
 	<artifactId>maven-jar-plugin</artifactId>
+        <version>${maven.jar.plugin.version}</version>
 	<configuration>
 	  <archive>
 	    <manifest>

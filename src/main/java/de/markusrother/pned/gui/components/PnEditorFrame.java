@@ -116,9 +116,12 @@ public class PnEditorFrame extends JFrame
 	}
 
 	/**
-	 * <p>installListeners.</p>
+	 * <p>
+	 * installListeners.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
 	 */
 	private void installListeners(final GuiEventBus eventBus) {
 		eventBus.addListener(PetriNetListener.class, this);
@@ -166,7 +169,9 @@ public class PnEditorFrame extends JFrame
 	}
 
 	/**
-	 * <p>removeComponents.</p>
+	 * <p>
+	 * removeComponents.
+	 * </p>
 	 */
 	private void removeComponents() {
 		remove(grid);
@@ -174,11 +179,15 @@ public class PnEditorFrame extends JFrame
 	}
 
 	/**
-	 * <p>createComponents.</p>
+	 * <p>
+	 * createComponents.
+	 * </p>
 	 */
 	private void createComponents() {
 		final GuiEventBus eventBus = state.getEventBus();
-		this.grid = new PnGridPanel(eventBus, menuFactory, new NodeFactoryImpl(state));
+		this.grid = new PnGridPanel(eventBus, //
+				menuFactory, //
+				new NodeFactoryImpl(state));
 		this.grid.setPreferredSize(gridSize);
 		this.pnedMenuBar = new PnedMenuBar(menuFactory);
 		this.scrollPane = createAutoResizableScrollPane(grid);
@@ -190,7 +199,9 @@ public class PnEditorFrame extends JFrame
 	}
 
 	/**
-	 * <p>disposeCurrentContext.</p>
+	 * <p>
+	 * disposeCurrentContext.
+	 * </p>
 	 */
 	private void disposeCurrentContext() {
 		// Assuming GC takes care of rest.
@@ -199,7 +210,9 @@ public class PnEditorFrame extends JFrame
 	}
 
 	/**
-	 * <p>suspendListeners.</p>
+	 * <p>
+	 * suspendListeners.
+	 * </p>
 	 */
 	private void suspendListeners() {
 		final GuiEventBus eventBus = state.getEventBus();

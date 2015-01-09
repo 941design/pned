@@ -6,7 +6,7 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 
-import de.markusrother.pned.gui.model.MarkingModel;
+import de.markusrother.pned.gui.model.MarkingStyleModel;
 
 /**
  * <p>
@@ -18,17 +18,16 @@ import de.markusrother.pned.gui.model.MarkingModel;
  */
 public class MarkingStyle extends AbstractStyle
 	implements
-		MarkingModel {
+		MarkingStyleModel {
 
-	/** Constant <code>DEFAULT</code> */
-	public static final MarkingStyle DEFAULT;
-	static {
-		DEFAULT = new MarkingStyle();
-		DEFAULT.setColor(Color.BLACK);
-		DEFAULT.setShape(new Ellipse2D.Double(0, 0, 1, 1));
-		DEFAULT.setSize(10);
-		DEFAULT.setFontName(Font.SANS_SERIF);
-		DEFAULT.setFontStyle(Font.BOLD);
+	public static MarkingStyleModel newDefault() {
+		final MarkingStyleModel markingStyle = new MarkingStyle();
+		markingStyle.setColor(Color.BLACK);
+		markingStyle.setShape(new Ellipse2D.Double(0, 0, 1, 1));
+		markingStyle.setSize(10);
+		markingStyle.setFontName(Font.SANS_SERIF);
+		markingStyle.setFontStyle(Font.BOLD);
+		return markingStyle;
 	}
 
 	private int size;

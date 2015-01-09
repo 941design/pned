@@ -45,16 +45,20 @@ public class Place extends AbstractNode
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
-	 * @param placeId a {@link java.lang.String} object.
+	 * @param placeId
+	 *            a {@link java.lang.String} object.
+	 * @param marking
 	 * @param markingEditor
 	 *            a {@link de.markusrother.pned.gui.listeners.MarkingEditor}
 	 *            object.
-	 * @param style a {@link de.markusrother.pned.gui.model.NodeStyleModel} object.
+	 * @param style
+	 *            a {@link de.markusrother.pned.gui.model.NodeStyleModel}
+	 *            object.
 	 */
-	public Place(final EventBus eventBus, final String placeId, final MarkingEditor markingEditor,
-			final NodeStyleModel style) {
+	public Place(final EventBus eventBus, final String placeId, final Marking marking,
+			final MarkingEditor markingEditor, final NodeStyleModel style) {
 		super(eventBus, placeId, new PlaceLayout(), style);
-		this.marking = new Marking(eventBus);
+		this.marking = marking;
 		this.markingEditor = markingEditor;
 
 		markingEditor.addToComponent(this);
@@ -166,6 +170,7 @@ public class Place extends AbstractNode
 	public void stateChanged(final ChangeEvent e) {
 		if (e.getSource() == this.style) {
 			setBounds(new Rectangle(getLocation(), getPreferredSize()));
+			doLayout();
 		} else {
 			throw new RuntimeException("Unexpected event source " + e.getSource());
 		}

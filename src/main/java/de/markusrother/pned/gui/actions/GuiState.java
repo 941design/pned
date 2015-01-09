@@ -20,49 +20,28 @@ import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
+import de.markusrother.pned.gui.layout.style.MarkingStyle;
 import de.markusrother.pned.gui.layout.style.NodeStyle;
+import de.markusrother.pned.gui.model.MarkingStyleModel;
 import de.markusrother.pned.gui.model.NodeStyleModel;
 import de.markusrother.pned.util.PetriNetGuiEventAdapter;
 
 /**
- * <p>GuiState class.</p>
+ * <p>
+ * GuiState class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
 public class GuiState extends PetriNetGuiEventAdapter {
 
-	/**
-	 * <p>Getter for the field <code>nodeCreationMode</code>.</p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.NodeCreationMode} object.
-	 */
-	public NodeCreationMode getNodeCreationMode() {
-		return nodeCreationMode;
-	}
-
-	/**
-	 * <p>Setter for the field <code>nodeCreationMode</code>.</p>
-	 *
-	 * @param nodeCreationMode a {@link de.markusrother.pned.gui.NodeCreationMode} object.
-	 */
-	public void setNodeCreationMode(final NodeCreationMode nodeCreationMode) {
-		this.nodeCreationMode = nodeCreationMode;
-	}
-
-	/**
-	 * <p>Getter for the field <code>selectedNodeIds</code>.</p>
-	 *
-	 * @return a {@link java.util.Set} object.
-	 */
-	public Set<String> getSelectedNodeIds() {
-		return selectedNodeIds;
-	}
-
 	protected final NodeStyleModel placeStyle;
 	protected final NodeStyleModel transitionStyle;
+	protected final MarkingStyleModel markingStyle;
 	protected final Set<String> selectedNodeIds;
 	protected final Map<String, String> incomingEdgesMap;
 	protected final Map<String, String> outgoingEdgesMap;
@@ -72,13 +51,17 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	protected NodeCreationMode nodeCreationMode;
 
 	/**
-	 * <p>Constructor for GuiState.</p>
+	 * <p>
+	 * Constructor for GuiState.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
 	 */
 	public GuiState(final GuiEventBus eventBus) {
 		this.placeStyle = NodeStyle.newDefault();
 		this.transitionStyle = NodeStyle.newDefault();
+		this.markingStyle = MarkingStyle.newDefault();
 		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
 		this.selectedNodeIds = new HashSet<>();
 		this.incomingEdgesMap = new HashMap<>();
@@ -129,9 +112,46 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	}
 
 	/**
-	 * <p>filterTargetNodes.</p>
+	 * <p>
+	 * Getter for the field <code>nodeCreationMode</code>.
+	 * </p>
 	 *
-	 * @param nodeIds a {@link java.util.Set} object.
+	 * @return a {@link de.markusrother.pned.gui.NodeCreationMode} object.
+	 */
+	public NodeCreationMode getNodeCreationMode() {
+		return nodeCreationMode;
+	}
+
+	/**
+	 * <p>
+	 * Setter for the field <code>nodeCreationMode</code>.
+	 * </p>
+	 *
+	 * @param nodeCreationMode
+	 *            a {@link de.markusrother.pned.gui.NodeCreationMode} object.
+	 */
+	public void setNodeCreationMode(final NodeCreationMode nodeCreationMode) {
+		this.nodeCreationMode = nodeCreationMode;
+	}
+
+	/**
+	 * <p>
+	 * Getter for the field <code>selectedNodeIds</code>.
+	 * </p>
+	 *
+	 * @return a {@link java.util.Set} object.
+	 */
+	public Set<String> getSelectedNodeIds() {
+		return selectedNodeIds;
+	}
+
+	/**
+	 * <p>
+	 * filterTargetNodes.
+	 * </p>
+	 *
+	 * @param nodeIds
+	 *            a {@link java.util.Set} object.
 	 * @return a {@link java.util.Collection} object.
 	 */
 	private Collection<String> filterTargetNodes(final Set<String> nodeIds) {
@@ -145,9 +165,12 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	}
 
 	/**
-	 * <p>filterSourceNodes.</p>
+	 * <p>
+	 * filterSourceNodes.
+	 * </p>
 	 *
-	 * @param nodeIds a {@link java.util.Set} object.
+	 * @param nodeIds
+	 *            a {@link java.util.Set} object.
 	 * @return a {@link java.util.Collection} object.
 	 */
 	private Collection<String> filterSourceNodes(final Set<String> nodeIds) {
@@ -161,9 +184,12 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	}
 
 	/**
-	 * <p>filterIncomingEdges.</p>
+	 * <p>
+	 * filterIncomingEdges.
+	 * </p>
 	 *
-	 * @param nodeIds a {@link java.util.Set} object.
+	 * @param nodeIds
+	 *            a {@link java.util.Set} object.
 	 * @return a {@link java.util.Collection} object.
 	 */
 	protected Collection<String> filterIncomingEdges(final Set<String> nodeIds) {
@@ -179,9 +205,12 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	}
 
 	/**
-	 * <p>filterOutgoingEdges.</p>
+	 * <p>
+	 * filterOutgoingEdges.
+	 * </p>
 	 *
-	 * @param nodeIds a {@link java.util.Set} object.
+	 * @param nodeIds
+	 *            a {@link java.util.Set} object.
 	 * @return a {@link java.util.Collection} object.
 	 */
 	protected Collection<String> filterOutgoingEdges(final Set<String> nodeIds) {
@@ -197,7 +226,9 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	}
 
 	/**
-	 * <p>areNodesSelected.</p>
+	 * <p>
+	 * areNodesSelected.
+	 * </p>
 	 *
 	 * @return a boolean.
 	 */
@@ -206,7 +237,9 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	}
 
 	/**
-	 * <p>getSelectedTargetNodeIds.</p>
+	 * <p>
+	 * getSelectedTargetNodeIds.
+	 * </p>
 	 *
 	 * @return a {@link java.util.Collection} object.
 	 */
@@ -215,7 +248,9 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	}
 
 	/**
-	 * <p>getSelectedSourceNodeIds.</p>
+	 * <p>
+	 * getSelectedSourceNodeIds.
+	 * </p>
 	 *
 	 * @return a {@link java.util.Collection} object.
 	 */
@@ -224,7 +259,9 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	}
 
 	/**
-	 * <p>getSelectedIncomingEdgeIds.</p>
+	 * <p>
+	 * getSelectedIncomingEdgeIds.
+	 * </p>
 	 *
 	 * @return a {@link java.util.Collection} object.
 	 */
@@ -233,7 +270,9 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	}
 
 	/**
-	 * <p>getSelectedOutgoingEdgeIds.</p>
+	 * <p>
+	 * getSelectedOutgoingEdgeIds.
+	 * </p>
 	 *
 	 * @return a {@link java.util.Collection} object.
 	 */
@@ -242,7 +281,9 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	}
 
 	/**
-	 * <p>getEventBus.</p>
+	 * <p>
+	 * getEventBus.
+	 * </p>
 	 *
 	 * @return a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
 	 */
@@ -257,7 +298,9 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	}
 
 	/**
-	 * <p>Getter for the field <code>currentDirectory</code>.</p>
+	 * <p>
+	 * Getter for the field <code>currentDirectory</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.io.File} object.
 	 */
@@ -266,7 +309,9 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	}
 
 	/**
-	 * <p>areSourceNodesSelected.</p>
+	 * <p>
+	 * areSourceNodesSelected.
+	 * </p>
 	 *
 	 * @return a boolean.
 	 */
@@ -275,7 +320,9 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	}
 
 	/**
-	 * <p>areTargetNodesSelected.</p>
+	 * <p>
+	 * areTargetNodesSelected.
+	 * </p>
 	 *
 	 * @return a boolean.
 	 */
@@ -322,8 +369,21 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		transitionStyle.setSize(size);
 	}
 
+	/** {@inheritDoc} */
+	@Override
+	public void setSize(final MarkingLayoutCommand cmd) {
+		final int size = cmd.getSize();
+		markingStyle.setSize(size);
+	}
+
+	public MarkingStyleModel getMarkingStyle() {
+		return markingStyle;
+	}
+
 	/**
-	 * <p>Getter for the field <code>placeStyle</code>.</p>
+	 * <p>
+	 * Getter for the field <code>placeStyle</code>.
+	 * </p>
 	 *
 	 * @return a {@link de.markusrother.pned.gui.model.NodeStyleModel} object.
 	 */
@@ -332,7 +392,9 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	}
 
 	/**
-	 * <p>Getter for the field <code>transitionStyle</code>.</p>
+	 * <p>
+	 * Getter for the field <code>transitionStyle</code>.
+	 * </p>
 	 *
 	 * @return a {@link de.markusrother.pned.gui.model.NodeStyleModel} object.
 	 */

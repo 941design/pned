@@ -5,7 +5,9 @@ import java.util.EventListener;
 import de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand;
 
 /**
- * <p>MarkingLayoutListener interface.</p>
+ * <p>
+ * MarkingLayoutListener interface.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -15,9 +17,14 @@ public interface MarkingLayoutListener
 		EventListener {
 
 	/**
-	 * <p>setSize.</p>
+	 * <p>
+	 * setSize.
+	 * </p>
 	 *
-	 * @param cmd a {@link de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand} object.
+	 * @param cmd
+	 *            a
+	 *            {@link de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand}
+	 *            object.
 	 */
 	void setSize(MarkingLayoutCommand cmd);
 

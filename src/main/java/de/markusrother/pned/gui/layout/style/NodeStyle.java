@@ -19,9 +19,6 @@ public class NodeStyle extends AbstractStyle
 	implements
 		NodeStyleModel {
 
-	/** Constant <code>DEFAULT</code> */
-	public static final NodeStyle DEFAULT = newDefault();
-
 	/**
 	 * <p>
 	 * newDefault.

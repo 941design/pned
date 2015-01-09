@@ -6,44 +6,51 @@ import java.awt.Graphics2D;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.event.ChangeEvent;
 
 import de.markusrother.pned.core.control.EventBus;
-import de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand;
-import de.markusrother.pned.gui.layout.listeners.MarkingLayoutListener;
-import de.markusrother.pned.gui.layout.style.MarkingStyle;
+import de.markusrother.pned.gui.layout.style.Stylable;
+import de.markusrother.pned.gui.model.MarkingStyleModel;
 
 /**
- * <p>Marking class.</p>
+ * <p>
+ * Marking class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
 public class Marking extends JPanel
 	implements
-		MarkingLayoutListener {
+		Stylable<MarkingStyleModel> {
 
-	private final MarkingStyle style;
-	private int value;
 	private final JLabel label;
 
+	protected MarkingStyleModel style;
+	protected int value;
+
 	/**
-	 * <p>Constructor for Marking.</p>
+	 * <p>
+	 * Constructor for Marking.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param markingStyleModel
 	 */
-	Marking(final EventBus eventBus) {
-		this.style = MarkingStyle.DEFAULT;
+	Marking(final EventBus eventBus, final MarkingStyleModel style) {
 		this.label = new JLabel();
+		label.setFont(style.getFont());
+
 		add(label);
 		setOpaque(false);
-		// FIXME - remove on dispose!
-		eventBus.addListener(MarkingLayoutListener.class, this);
+
+		setStyle(style);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	protected void paintComponent(final Graphics g) {
-		// TODO - final int value = model.getValue();
 		label.setVisible(value > 1);
 		g.setColor(style.getColor());
 		super.paintComponent(g);
@@ -54,7 +61,9 @@ public class Marking extends JPanel
 	}
 
 	/**
-	 * <p>Getter for the field <code>value</code>.</p>
+	 * <p>
+	 * Getter for the field <code>value</code>.
+	 * </p>
 	 *
 	 * @return a int.
 	 */
@@ -63,30 +72,42 @@ public class Marking extends JPanel
 	}
 
 	/**
-	 * <p>Setter for the field <code>value</code>.</p>
+	 * <p>
+	 * Setter for the field <code>value</code>.
+	 * </p>
 	 *
-	 * @param value a int.
+	 * @param value
+	 *            a int.
 	 */
 	public void setValue(final int value) {
 		if (this.value != value) {
 			this.value = value;
 			label.setText(String.valueOf(value));
+			doLayout();
 			repaint();
 		}
 	}
 
-	/** {@inheritDoc} */
 	@Override
-	public void setSize(final MarkingLayoutCommand cmd) {
-		final int extent = cmd.getSize();
-		style.setSize(extent);
-		label.setFont(style.getFont());
-		setPreferredSize(new Dimension(extent, extent));
-		// TODO - There may be a problem concering the order of queued events.
-		// During sliding change events are fired constantly. Maybe(?) that is
-		// why the parent is not redrawn.
-		invalidate();
-		repaint();
+	public void setStyle(final MarkingStyleModel style) {
+		if (this.style != null) {
+			this.style.removeChangeListener(this);
+		}
+		this.style = style;
+		this.style.addChangeListener(this);
+	}
+
+	@Override
+	public void stateChanged(final ChangeEvent e) {
+		if (e.getSource() == this.style) {
+			final int extent = style.getSize();
+			label.setFont(style.getFont());
+			setPreferredSize(new Dimension(extent, extent));
+			invalidate();
+			repaint();
+		} else {
+			throw new RuntimeException("Unexpected event source " + e.getSource());
+		}
 	}
 
 }
