@@ -12,7 +12,7 @@ import de.markusrother.pned.gui.control.PnEventBus;
  * @author Markus Rother
  * @version 1.0
  */
-public class PetriNetGuiEventLogger extends PetriNetGuiEventAdapter {
+public class PnEventLogger extends PnEventAdapter {
 
 	/**
 	 * <p>
@@ -23,7 +23,7 @@ public class PetriNetGuiEventLogger extends PetriNetGuiEventAdapter {
 	 *            a {@link de.markusrother.pned.gui.control.PnEventBus} object.
 	 */
 	public static void log(final PnEventBus eventBus) {
-		final PetriNetGuiEventLogger logger = new PetriNetGuiEventLogger();
+		final PnEventLogger logger = new PnEventLogger();
 		logger.setEventBus(eventBus);
 	}
 

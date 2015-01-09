@@ -34,7 +34,7 @@ import de.markusrother.pned.core.model.PlaceModel;
 import de.markusrother.pned.core.model.TransitionModel;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
-import de.markusrother.pned.util.PetriNetEventAdapter;
+import de.markusrother.pned.util.EventAdapter;
 
 public abstract class AbstractPetriNetTest
 	implements
@@ -79,7 +79,7 @@ public abstract class AbstractPetriNetTest
 		this.eventBus = new EventBus();
 		this.events = new LinkedList<>();
 		this.net = new EventAwarePetriNet(eventBus);
-		final PetriNetEventAdapter eventAdapter = new PetriNetEventAdapter() {
+		final EventAdapter eventAdapter = new EventAdapter() {
 			@Override
 			protected void process(final EventObject e) {
 				events.add(e);

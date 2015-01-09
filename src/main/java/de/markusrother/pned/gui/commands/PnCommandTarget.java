@@ -10,7 +10,7 @@ import de.markusrother.pned.control.commands.CommandTarget;
  * @author Markus Rother
  * @version 1.0
  */
-public interface GuiCommandTarget
+public interface PnCommandTarget
 	extends
 		CommandTarget,
 		LayoutCommandTarget,

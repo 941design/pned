@@ -30,7 +30,7 @@ import de.markusrother.pned.gui.layout.style.NodeStyle;
 import de.markusrother.pned.gui.model.EdgeStyleModel;
 import de.markusrother.pned.gui.model.MarkingStyleModel;
 import de.markusrother.pned.gui.model.NodeStyleModel;
-import de.markusrother.pned.util.PetriNetGuiEventAdapter;
+import de.markusrother.pned.util.PnEventAdapter;
 
 /**
  * <p>
@@ -40,7 +40,7 @@ import de.markusrother.pned.util.PetriNetGuiEventAdapter;
  * @author Markus Rother
  * @version 1.0
  */
-public class PnState extends PetriNetGuiEventAdapter {
+public class PnState extends PnEventAdapter {
 
 	protected final NodeStyleModel placeStyle;
 	protected final NodeStyleModel transitionStyle;

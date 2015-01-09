@@ -27,7 +27,7 @@ import de.markusrother.pned.control.requests.IdRequestListener;
 import de.markusrother.pned.gui.commands.EdgeLayoutCommand;
 import de.markusrother.pned.gui.commands.EdgeLayoutListener;
 import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
-import de.markusrother.pned.gui.commands.GuiCommandTarget;
+import de.markusrother.pned.gui.commands.PnCommandTarget;
 import de.markusrother.pned.gui.commands.MarkingLayoutCommand;
 import de.markusrother.pned.gui.commands.MarkingLayoutListener;
 import de.markusrother.pned.gui.commands.NodeListener;
@@ -41,12 +41,12 @@ import de.markusrother.pned.gui.commands.TransitionLayoutListener;
 import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.EdgeEditListener;
-import de.markusrother.pned.gui.events.GuiEventTarget;
+import de.markusrother.pned.gui.events.PnEventTarget;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.NodeSelectionListener;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
-import de.markusrother.pned.gui.requests.GuiRequestTarget;
+import de.markusrother.pned.gui.requests.PnRequestTarget;
 import de.markusrother.pned.gui.requests.NodeRequest;
 import de.markusrother.pned.gui.requests.NodeRequestListener;
 
@@ -60,11 +60,11 @@ import de.markusrother.pned.gui.requests.NodeRequestListener;
  * @author Markus Rother
  * @version 1.0
  */
-public abstract class PetriNetGuiEventAdapter
+public abstract class PnEventAdapter
 	implements
-		GuiCommandTarget,
-		GuiEventTarget,
-		GuiRequestTarget {
+		PnCommandTarget,
+		PnEventTarget,
+		PnRequestTarget {
 
 	/**
 	 * The event target which is listened to.

@@ -3,7 +3,7 @@ package de.markusrother.pned.gui.actions;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import de.markusrother.pned.gui.commands.GuiCommandTarget;
+import de.markusrother.pned.gui.commands.PnCommandTarget;
 
 /**
  * <p>
@@ -19,7 +19,7 @@ public abstract class AbstractOpenDialogAction extends AbstractAction {
 	/**
 	 * The event target to which events are posted to.
 	 */
-	protected final GuiCommandTarget commandTarget;
+	protected final PnCommandTarget commandTarget;
 
 	/**
 	 * <p>
@@ -28,7 +28,7 @@ public abstract class AbstractOpenDialogAction extends AbstractAction {
 	 *
 	 * @param commandTarget
 	 *            an
-	 *            {@link de.markusrother.pned.gui.commands.GuiCommandTarget}
+	 *            {@link de.markusrother.pned.gui.commands.PnCommandTarget}
 	 *            to be posted to.
 	 * @param label
 	 *            a {@link java.lang.String} - this action's textual
@@ -36,7 +36,7 @@ public abstract class AbstractOpenDialogAction extends AbstractAction {
 	 * @param mnemonic
 	 *            an int.
 	 */
-	protected AbstractOpenDialogAction(final GuiCommandTarget commandTarget, final String label, final int mnemonic) {
+	protected AbstractOpenDialogAction(final PnCommandTarget commandTarget, final String label, final int mnemonic) {
 		super(label);
 		putValue(Action.MNEMONIC_KEY, mnemonic);
 		this.commandTarget = commandTarget;

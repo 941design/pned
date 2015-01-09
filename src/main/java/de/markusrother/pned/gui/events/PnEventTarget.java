@@ -10,7 +10,7 @@ import de.markusrother.pned.control.events.EventTarget;
  * @author Markus Rother
  * @version 1.0
  */
-public interface GuiEventTarget
+public interface PnEventTarget
 	extends
 		EventTarget,
 		NodeSelectionListener,

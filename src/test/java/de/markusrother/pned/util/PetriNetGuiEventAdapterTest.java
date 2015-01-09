@@ -15,7 +15,7 @@ public class PetriNetGuiEventAdapterTest {
 	@Test
 	public void testComponentAddsItselfToListeners() {
 		final PnEventBus eventBus = Mockito.mock(PnEventBus.class);
-		final PetriNetGuiEventAdapter adapter = new PetriNetGuiEventAdapter() {
+		final PnEventAdapter adapter = new PnEventAdapter() {
 			@Override
 			protected void process(final EventObject e) {
 				// IGNORE

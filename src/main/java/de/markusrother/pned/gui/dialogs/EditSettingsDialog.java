@@ -13,7 +13,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import de.markusrother.pned.gui.commands.EdgeLayoutCommand;
-import de.markusrother.pned.gui.commands.GuiCommandTarget;
+import de.markusrother.pned.gui.commands.PnCommandTarget;
 import de.markusrother.pned.gui.commands.MarkingLayoutCommand;
 import de.markusrother.pned.gui.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.commands.TransitionLayoutCommand;
@@ -24,7 +24,7 @@ import de.markusrother.swing.ScaleGroup;
  * <p>
  * Dialog for adjusting Petri net element sizes. Size changes are posted as
  * {@link java.util.EventObject}s to the provided
- * {@link de.markusrother.pned.gui.commands.GuiCommandTarget}.
+ * {@link de.markusrother.pned.gui.commands.PnCommandTarget}.
  * </p>
  *
  * @author Markus Rother
@@ -48,10 +48,10 @@ public class EditSettingsDialog extends AbstractDialog {
 	 *
 	 * @param commandTarget
 	 *            an
-	 *            {@link de.markusrother.pned.gui.commands.GuiCommandTarget}
+	 *            {@link de.markusrother.pned.gui.commands.PnCommandTarget}
 	 *            to be posted to.
 	 */
-	public static void open(final GuiCommandTarget commandTarget) {
+	public static void open(final PnCommandTarget commandTarget) {
 		// TODO - take parent component and model
 		final EditSettingsDialog editSettingsDialog = new EditSettingsDialog(commandTarget);
 		editSettingsDialog.pack();
@@ -65,10 +65,10 @@ public class EditSettingsDialog extends AbstractDialog {
 	 *
 	 * @param commandTarget
 	 *            an
-	 *            {@link de.markusrother.pned.gui.commands.GuiCommandTarget}
+	 *            {@link de.markusrother.pned.gui.commands.PnCommandTarget}
 	 *            to be posted to.
 	 */
-	private EditSettingsDialog(final GuiCommandTarget commandTarget) {
+	private EditSettingsDialog(final PnCommandTarget commandTarget) {
 		super(commandTarget, title);
 
 		setPreferredSize(preferredSize);

@@ -10,7 +10,7 @@ import de.markusrother.pned.control.requests.RequestTarget;
  * @author Markus Rother
  * @version 1.0
  */
-public interface GuiRequestTarget
+public interface PnRequestTarget
 	extends
 		RequestTarget,
 		NodeRequestListener {

@@ -24,7 +24,7 @@ import de.markusrother.pned.gui.core.PnState;
 import de.markusrother.pned.gui.menus.PnMenuBar;
 import de.markusrother.pned.gui.menus.PnMenuFactory;
 import de.markusrother.pned.io.PNMLParser;
-import de.markusrother.pned.util.PetriNetGuiEventLogger;
+import de.markusrother.pned.util.PnEventLogger;
 import de.markusrother.swing.CustomScrollPaneUI;
 
 /**
@@ -105,7 +105,7 @@ public class PnFrame extends JFrame
 	 */
 	private void createNewContext() {
 		final PnEventBus eventBus = new PnEventBus();
-		PetriNetGuiEventLogger.log(eventBus);
+		PnEventLogger.log(eventBus);
 
 		this.state = new PnState(eventBus);
 		this.menuFactory = new PnMenuFactory(state);

@@ -14,7 +14,7 @@ import de.markusrother.pned.control.EventBus;
  * @author Markus Rother
  * @version 1.0
  */
-public class PetriNetEventLogger extends PetriNetEventAdapter {
+public class EventLogger extends EventAdapter {
 
 	/**
 	 * <p>log.</p>
@@ -22,7 +22,7 @@ public class PetriNetEventLogger extends PetriNetEventAdapter {
 	 * @param eventBus a {@link de.markusrother.pned.control.EventBus} object.
 	 */
 	public static void log(final EventBus eventBus) {
-		final PetriNetEventLogger logger = new PetriNetEventLogger();
+		final EventLogger logger = new EventLogger();
 		logger.setEventBus(eventBus);
 	}
 

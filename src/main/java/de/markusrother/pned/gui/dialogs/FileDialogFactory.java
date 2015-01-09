@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui.dialogs;
 
-import de.markusrother.pned.gui.commands.GuiCommandTarget;
+import de.markusrother.pned.gui.commands.PnCommandTarget;
 import de.markusrother.pned.gui.core.PnState;
 
 /**
@@ -47,9 +47,9 @@ public class FileDialogFactory {
 	/**
 	 * <p>getCommandTarget.</p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.commands.GuiCommandTarget} object.
+	 * @return a {@link de.markusrother.pned.gui.commands.PnCommandTarget} object.
 	 */
-	public GuiCommandTarget getCommandTarget() {
+	public PnCommandTarget getCommandTarget() {
 		return state.getEventBus();
 	}
 

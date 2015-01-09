@@ -7,13 +7,13 @@ import javax.swing.JFileChooser;
 
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand.Type;
-import de.markusrother.pned.gui.commands.GuiCommandTarget;
+import de.markusrother.pned.gui.commands.PnCommandTarget;
 
 /**
  * <p>
  * File dialog for saving Petri nets to pnml (xml). Successful file selection
  * posts a {@link de.markusrother.pned.control.commands.PetriNetIOCommand} to the
- * provided {@link de.markusrother.pned.gui.commands.GuiCommandTarget}.
+ * provided {@link de.markusrother.pned.gui.commands.PnCommandTarget}.
  * </p>
  *
  * @author Markus Rother
@@ -32,12 +32,12 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * </p>
 	 *
 	 * @param commandTarget
-	 *            an {@link de.markusrother.pned.gui.commands.GuiCommandTarget}
+	 *            an {@link de.markusrother.pned.gui.commands.PnCommandTarget}
 	 *            to be posted to.
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
 	 */
-	public static void open(final GuiCommandTarget commandTarget, final File dir) {
+	public static void open(final PnCommandTarget commandTarget, final File dir) {
 		final SaveFileDialog dialog = new SaveFileDialog(commandTarget, dir);
 		dialog.showDialogAndProcessResult();
 	}
@@ -48,12 +48,12 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * </p>
 	 *
 	 * @param commandTarget
-	 *            an {@link de.markusrother.pned.gui.commands.GuiCommandTarget}
+	 *            an {@link de.markusrother.pned.gui.commands.PnCommandTarget}
 	 *            to be posted to.
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
 	 */
-	private SaveFileDialog(final GuiCommandTarget commandTarget, final File dir) {
+	private SaveFileDialog(final PnCommandTarget commandTarget, final File dir) {
 		super(commandTarget, title, dir, approveButtonLabel);
 		setDialogType(JFileChooser.SAVE_DIALOG);
 	}

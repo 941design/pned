@@ -40,7 +40,7 @@ import de.markusrother.pned.gui.listeners.NodeRemovalListener;
  * @author Markus Rother
  * @version 1.0
  */
-public abstract class PetriNetEventAdapter
+public abstract class EventAdapter
 	implements
 		CommandTarget,
 		EventTarget,

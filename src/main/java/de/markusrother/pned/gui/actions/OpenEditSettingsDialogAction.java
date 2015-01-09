@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
-import de.markusrother.pned.gui.commands.GuiCommandTarget;
+import de.markusrother.pned.gui.commands.PnCommandTarget;
 import de.markusrother.pned.gui.dialogs.EditSettingsDialog;
 
 /**
@@ -33,11 +33,11 @@ public class OpenEditSettingsDialogAction extends AbstractOpenDialogAction {
 	 *
 	 * @param commandTarget
 	 *            a
-	 *            {@link de.markusrother.pned.gui.commands.GuiCommandTarget}
+	 *            {@link de.markusrother.pned.gui.commands.PnCommandTarget}
 	 *            to be posted to.
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
 	 */
-	public static JMenuItem newMenuItem(final GuiCommandTarget commandTarget) {
+	public static JMenuItem newMenuItem(final PnCommandTarget commandTarget) {
 		final Action action = new OpenEditSettingsDialogAction(commandTarget);
 		return new JMenuItem(action);
 	}
@@ -49,10 +49,10 @@ public class OpenEditSettingsDialogAction extends AbstractOpenDialogAction {
 	 *
 	 * @param commandTarget
 	 *            a
-	 *            {@link de.markusrother.pned.gui.commands.GuiCommandTarget}
+	 *            {@link de.markusrother.pned.gui.commands.PnCommandTarget}
 	 *            to be posted to.
 	 */
-	public OpenEditSettingsDialogAction(final GuiCommandTarget commandTarget) {
+	public OpenEditSettingsDialogAction(final PnCommandTarget commandTarget) {
 		super(commandTarget, label, mnemonic);
 	}
 
