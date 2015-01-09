@@ -18,10 +18,10 @@ import de.markusrother.util.JsonSerializable;
  * {@link de.markusrother.pned.core.model.NodeModel}.
  * </p>
  *
- * TODO
+ * <b>TODO</b>
  * <ul>
- * <li>Move xml related annotations to an .xml configuration file to decouple
- * this class from the de.markusrother.core.io package</li>
+ * <li>Move XML related annotations to a configuration file to decouple this
+ * class from the .core.io package</li>
  * </ul>
  *
  * @author Markus Rother
@@ -32,13 +32,16 @@ public abstract class AbstractDefaultNode
 		NodeModel,
 		JsonSerializable {
 
-	private final String id;
-	private String label;
-	private Point position;
+	/** This nodes's unique identifier. */
+	protected final String id;
+	/** This node's current label. */
+	protected String label;
+	/** This node's current position. */
+	protected Point position;
 
 	/**
 	 * <p>
-	 * Default constructor needed by XmlMarshaller!
+	 * Default constructor needed by XmlMarshaller.
 	 * </p>
 	 */
 	protected AbstractDefaultNode() {
@@ -48,7 +51,7 @@ public abstract class AbstractDefaultNode
 
 	/**
 	 * <p>
-	 * Constructor for NodeImpl.
+	 * Instantiates a valid {@link NodeModel}.
 	 * </p>
 	 *
 	 * @param nodeId
@@ -124,7 +127,7 @@ public abstract class AbstractDefaultNode
 
 	/**
 	 * <p>
-	 * Writes attributes to given json builder.
+	 * Writes attributes to a given {@link de.markusrother.util.JsonBuilder}.
 	 * </p>
 	 *
 	 * @param jb

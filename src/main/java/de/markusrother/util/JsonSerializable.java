@@ -1,7 +1,10 @@
 package de.markusrother.util;
 
 /**
- * <p>JsonBuildable interface.</p>
+ * <p>
+ * Implementors of this interface can be serialized to JSON by a call to
+ * {@link JsonSerializable#toJson()}, which returns a String.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -9,9 +12,12 @@ package de.markusrother.util;
 public interface JsonSerializable {
 
 	/**
-	 * <p>toJson.</p>
+	 * <p>
+	 * Returns a JSON representation of this object.
+	 * </p>
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} - the JSON String.
 	 */
 	String toJson();
+
 }

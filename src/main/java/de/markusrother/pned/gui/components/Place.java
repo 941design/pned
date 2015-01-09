@@ -48,6 +48,7 @@ public class Place extends AbstractNode
 	 * @param placeId
 	 *            a {@link java.lang.String} object.
 	 * @param marking
+	 *            a {@link Marking} object.
 	 * @param markingEditor
 	 *            a {@link de.markusrother.pned.gui.listeners.MarkingEditor}
 	 *            object.

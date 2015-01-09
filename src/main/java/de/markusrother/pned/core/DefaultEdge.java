@@ -4,8 +4,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import de.markusrother.pned.core.model.EdgeModel;
-import de.markusrother.util.JsonSerializable;
 import de.markusrother.util.JsonBuilder;
+import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
@@ -31,7 +31,7 @@ public class DefaultEdge
 
 	/**
 	 * <p>
-	 * Default constructor needed by XmlMarshaller!
+	 * Default constructor needed by XmlMarshaller.
 	 * </p>
 	 */
 	private @SuppressWarnings("unused") DefaultEdge() {
@@ -41,7 +41,7 @@ public class DefaultEdge
 
 	/**
 	 * <p>
-	 * Constructor for EdgeImpl.
+	 * Instantiates a valid {@link EdgeModel}.
 	 * </p>
 	 *
 	 * @param edgeId

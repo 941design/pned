@@ -422,7 +422,8 @@ public class EventAwarePetriNet extends DefaultPetriNet
 
 			final Collection<TransitionModel> activeBefore = getActiveTransitions();
 
-			fireTransition(transitionId);
+			final TransitionModel transition = getTransition(transitionId);
+			fireTransition(transition);
 
 			final Collection<TransitionModel> activeAfter = getActiveTransitions();
 
@@ -436,9 +437,6 @@ public class EventAwarePetriNet extends DefaultPetriNet
 
 			fireTransitionAcivationEvents(events);
 
-		} catch (final NoSuchNodeException e) {
-			// FIXME - throw some generic exception
-			throw new RuntimeException("TODO");
 		} catch (final TransitionInactiveException e) {
 			// FIXME - throw some generic exception
 			throw new RuntimeException("TODO - Trying to fire inactive transition");

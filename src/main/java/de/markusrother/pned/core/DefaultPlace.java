@@ -35,7 +35,7 @@ public class DefaultPlace extends AbstractDefaultNode
 
 	/**
 	 * <p>
-	 * Constructor for PlaceImpl.
+	 * Instantiates a valid {@link PlaceModel}.
 	 * </p>
 	 *
 	 * @param nodeId

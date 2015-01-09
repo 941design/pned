@@ -2,13 +2,14 @@ package de.markusrother.pned.core;
 
 /**
  * <p>
- * PetriNetInconsistencyException class.
+ * Abstract superclass for exceptional circumstances that occur in operations on
+ * {@link de.markusrother.pned.core.model.PetriNetModel}s.
  * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
-public class PetriNetException extends Exception {
+public abstract class PetriNetException extends Exception {
 
 	/**
 	 * <p>
@@ -16,7 +17,7 @@ public class PetriNetException extends Exception {
 	 * </p>
 	 *
 	 * @param message
-	 *            a {@link java.lang.String} object.
+	 *            a {@link java.lang.String} - the detail message.
 	 */
 	public PetriNetException(final String message) {
 		super(message);

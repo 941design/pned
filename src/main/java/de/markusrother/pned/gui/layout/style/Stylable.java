@@ -8,6 +8,7 @@ import de.markusrother.swing.ChangeEventSource;
  * Components that can be styled and listen to changes in that style model.
  *
  * @param <T>
+ *            the Style
  * @author Markus Rother
  * @version 1.0
  */
@@ -22,10 +23,6 @@ public interface Stylable<T extends ChangeEventSource>
 	 *
 	 * @param style
 	 *            a T object.
-	 * 
-	 * @param <T>
-	 *            T a t object
-	 * 
 	 */
 	void setStyle(T style);
 

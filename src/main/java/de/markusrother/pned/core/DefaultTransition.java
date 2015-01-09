@@ -8,7 +8,8 @@ import de.markusrother.pned.core.model.TransitionModel;
 
 /**
  * <p>
- * Default implementation of {@link de.markusrother.pned.core.model.TransitionModel}.
+ * Default implementation of
+ * {@link de.markusrother.pned.core.model.TransitionModel}.
  * </p>
  *
  * @author Markus Rother
@@ -30,7 +31,7 @@ public class DefaultTransition extends AbstractDefaultNode
 
 	/**
 	 * <p>
-	 * Constructor for TransitionImpl.
+	 * Instantiates a valid {@link TransitionModel}
 	 * </p>
 	 *
 	 * @param nodeId

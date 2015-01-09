@@ -37,8 +37,8 @@ public interface PetriNetModel {
 	 * </p>
 	 *
 	 * @return a {@link java.util.Collection} of
-	 *         {@link de.markusrother.pned.core.model.TransitionModel} - all current
-	 *         transitions.
+	 *         {@link de.markusrother.pned.core.model.TransitionModel} - all
+	 *         current transitions.
 	 */
 	Collection<TransitionModel> getTransitions();
 
@@ -48,7 +48,8 @@ public interface PetriNetModel {
 	 * </p>
 	 *
 	 * @return a {@link java.util.Collection} of
-	 *         {@link de.markusrother.pned.core.model.EdgeModel} - all current edges.
+	 *         {@link de.markusrother.pned.core.model.EdgeModel} - all current
+	 *         edges.
 	 */
 	Collection<EdgeModel> getEdges();
 
@@ -59,8 +60,8 @@ public interface PetriNetModel {
 	 *
 	 * @param placeId
 	 *            a {@link java.lang.String} - the requested unique id.
-	 * @return a {@link de.markusrother.pned.core.model.PlaceModel} - the requested
-	 *         place or {@code null} if none exists with the given id.
+	 * @return a {@link de.markusrother.pned.core.model.PlaceModel} - the
+	 *         requested place or {@code null} if none exists with the given id.
 	 */
 	PlaceModel getPlace(String placeId);
 
@@ -78,9 +79,12 @@ public interface PetriNetModel {
 	TransitionModel getTransition(String transitionId);
 
 	/**
-	 * <p>getEdge.</p>
+	 * <p>
+	 * getEdge.
+	 * </p>
 	 *
-	 * @param edgeId a {@link java.lang.String} object.
+	 * @param edgeId
+	 *            a {@link java.lang.String} object.
 	 * @return a {@link de.markusrother.pned.core.model.EdgeModel} object.
 	 */
 	EdgeModel getEdge(String edgeId);
@@ -93,8 +97,8 @@ public interface PetriNetModel {
 	 * </p>
 	 *
 	 * @return a {@link java.util.Collection} of
-	 *         {@link de.markusrother.pned.core.model.TransitionModel} - the active
-	 *         transitions.
+	 *         {@link de.markusrother.pned.core.model.TransitionModel} - the
+	 *         active transitions.
 	 */
 	Collection<TransitionModel> getActiveTransitions();
 
@@ -134,8 +138,8 @@ public interface PetriNetModel {
 	 *
 	 * @param point
 	 *            a {@link java.awt.Point} - the new transition's coordinates.
-	 * @return a {@link de.markusrother.pned.core.model.TransitionModel} - the newly
-	 *         created transition.
+	 * @return a {@link de.markusrother.pned.core.model.TransitionModel} - the
+	 *         newly created transition.
 	 */
 	TransitionModel createTransition(Point point);
 
@@ -149,8 +153,8 @@ public interface PetriNetModel {
 	 *            a {@link java.lang.String} - the unique id.
 	 * @param point
 	 *            a {@link java.awt.Point} - the new transition's coordinates.
-	 * @return a {@link de.markusrother.pned.core.model.TransitionModel} - the newly
-	 *         created transition.
+	 * @return a {@link de.markusrother.pned.core.model.TransitionModel} - the
+	 *         newly created transition.
 	 * @throws de.markusrother.pned.core.UnavailableIdException
 	 *             if the requested id is no longer available.
 	 */
@@ -169,8 +173,8 @@ public interface PetriNetModel {
 	 * @return an {@link de.markusrother.pned.core.model.EdgeModel} - the newly
 	 *         created edge.
 	 * @throws de.markusrother.pned.core.NoSuchNodeException
-	 *             if no {@link de.markusrother.pned.core.model.NodeModel} exists for
-	 *             either source or target identifier.
+	 *             if no {@link de.markusrother.pned.core.model.NodeModel}
+	 *             exists for either source or target identifier.
 	 */
 	EdgeModel createEdge(String sourceId, String targetId) throws NoSuchNodeException;
 
@@ -191,8 +195,8 @@ public interface PetriNetModel {
 	 * @throws de.markusrother.pned.core.UnavailableIdException
 	 *             if the requested edge id is no longer available.
 	 * @throws de.markusrother.pned.core.NoSuchNodeException
-	 *             if no {@link de.markusrother.pned.core.model.NodeModel} exists for
-	 *             either source or target identifier.
+	 *             if no {@link de.markusrother.pned.core.model.NodeModel}
+	 *             exists for either source or target identifier.
 	 */
 	EdgeModel createEdge(String edgeId, String sourceId, String targetId) throws NoSuchNodeException,
 			UnavailableIdException;
@@ -207,8 +211,8 @@ public interface PetriNetModel {
 	 * @param label
 	 *            a {@link java.lang.String} - the node's new label.
 	 * @throws de.markusrother.pned.core.NoSuchNodeException
-	 *             if no {@link de.markusrother.pned.core.model.NodeModel} exists for
-	 *             the given identifier.
+	 *             if no {@link de.markusrother.pned.core.model.NodeModel}
+	 *             exists for the given identifier.
 	 */
 	void setLabel(String nodeId, String label) throws NoSuchNodeException;
 
@@ -222,8 +226,8 @@ public interface PetriNetModel {
 	 * @param marking
 	 *            a int - the place's new marking.
 	 * @throws de.markusrother.pned.core.NoSuchNodeException
-	 *             if no {@link de.markusrother.pned.core.model.PlaceModel} exists for
-	 *             the given identifier.
+	 *             if no {@link de.markusrother.pned.core.model.PlaceModel}
+	 *             exists for the given identifier.
 	 */
 	void setMarking(String placeId, int marking) throws NoSuchNodeException;
 
@@ -233,8 +237,8 @@ public interface PetriNetModel {
 	 * </p>
 	 *
 	 * @param place
-	 *            a {@link de.markusrother.pned.core.model.PlaceModel} - the place to
-	 *            be removed.
+	 *            a {@link de.markusrother.pned.core.model.PlaceModel} - the
+	 *            place to be removed.
 	 */
 	void removePlace(PlaceModel place);
 
@@ -244,8 +248,8 @@ public interface PetriNetModel {
 	 * </p>
 	 *
 	 * @param transition
-	 *            a {@link de.markusrother.pned.core.model.TransitionModel} - the
-	 *            transition to be removed.
+	 *            a {@link de.markusrother.pned.core.model.TransitionModel} -
+	 *            the transition to be removed.
 	 */
 	void removeTransition(TransitionModel transition);
 
@@ -255,22 +259,21 @@ public interface PetriNetModel {
 	 * </p>
 	 *
 	 * @param edge
-	 *            an {@link de.markusrother.pned.core.model.EdgeModel} - the edge to
-	 *            be removed.
+	 *            an {@link de.markusrother.pned.core.model.EdgeModel} - the
+	 *            edge to be removed.
 	 */
 	void removeEdge(EdgeModel edge);
 
 	/**
 	 * <p>
-	 * fireTransition.
+	 * Executes a given transition.
 	 * </p>
-	 *
-	 * @param transitionId
-	 *            a {@link java.lang.String} object.
-	 * @throws de.markusrother.pned.core.NoSuchNodeException
-	 *             if any.
-	 * @throws de.markusrother.pned.core.TransitionInactiveException if any.
+	 * 
+	 * @param transition
+	 *            the transition to be fired.
+	 * @throws de.markusrother.pned.core.TransitionInactiveException
+	 *             if the given transition was not active.
 	 */
-	void fireTransition(String transitionId) throws NoSuchNodeException, TransitionInactiveException;
+	void fireTransition(TransitionModel transition) throws TransitionInactiveException;
 
 }

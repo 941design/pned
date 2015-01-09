@@ -2,7 +2,8 @@ package de.markusrother.pned.core;
 
 /**
  * <p>
- * UnavailableIdException class.
+ * Exception for circumstances in which a unique identifier is assigned to a
+ * newly created node or edge, but is already used for an existing element!
  * </p>
  *
  * @author Markus Rother
@@ -16,7 +17,8 @@ public class UnavailableIdException extends PetriNetException {
 	 * </p>
 	 *
 	 * @param elementId
-	 *            a {@link java.lang.String} object.
+	 *            a {@link java.lang.String} - the identifier that is no longer
+	 *            available.
 	 */
 	public UnavailableIdException(final String elementId) {
 		super("The id: " + elementId + " is not available");

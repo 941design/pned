@@ -1,8 +1,12 @@
 package de.markusrother.pned.core;
 
+import de.markusrother.pned.core.model.TransitionModel;
 
 /**
- * <p>TransitionInactiveException class.</p>
+ * <p>
+ * Exception for circumstances in which a
+ * {@link de.markusrother.pned.core.model.TransitionModel} is thought to be
+ * activated, wheras it isn't.
  *
  * @author Markus Rother
  * @version 1.0
@@ -10,12 +14,16 @@ package de.markusrother.pned.core;
 public class TransitionInactiveException extends PetriNetException {
 
 	/**
-	 * <p>Constructor for TransitionInactiveException.</p>
+	 * <p>
+	 * Constructor for TransitionInactiveException.
+	 * </p>
 	 *
-	 * @param transitionId a {@link java.lang.String} object.
+	 * @param transition
+	 *            a {@link de.markusrother.pned.core.model.TransitionModel} -
+	 *            the transition that cannot be executed.
 	 */
-	public TransitionInactiveException(final String transitionId) {
-		super("Transition is not active: " + transitionId);
+	public TransitionInactiveException(final TransitionModel transition) {
+		super("Transition is not active: " + transition.getId());
 	}
 
 }
