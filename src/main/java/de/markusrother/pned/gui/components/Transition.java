@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui.components;
 
-import static de.markusrother.util.TrigUtils.modPi;
+import static de.markusrother.util.MathUtils.moduloPi;
 import static java.lang.Math.PI;
 
 import java.awt.Color;
@@ -105,7 +105,7 @@ public class Transition extends AbstractNode
 	/** {@inheritDoc} */
 	@Override
 	public Point2D getBoundaryPoint(final double theta) {
-		final double t = modPi(theta); // -PI <= t <= PI
+		final double t = moduloPi(theta); // -PI <= t <= PI
 		// TODO - Assumes that rectangle origin is 0,0!
 		final Rectangle r = getRectangle();
 		final double absTheta = Math.abs(t);

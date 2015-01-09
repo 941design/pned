@@ -1,7 +1,7 @@
 package de.markusrother.pned.gui.components;
 
 import static de.markusrother.swing.SwingUtils.getCenter;
-import static de.markusrother.util.TrigUtils.getRadiansOfDelta;
+import static de.markusrother.util.MathUtils.getRadiansOfDelta;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -161,7 +161,8 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * @param targetComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
 	 *            object.
-	 * @param id a {@link java.lang.String} object.
+	 * @param id
+	 *            a {@link java.lang.String} object.
 	 */
 	public EdgeComponent(final EventBus eventBus, final String id, final AbstractNode sourceComponent,
 			final AbstractNode targetComponent) {
@@ -192,7 +193,8 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *            object.
 	 * @param target
 	 *            a {@link java.awt.Point} object.
-	 * @param id a {@link java.lang.String} object.
+	 * @param id
+	 *            a {@link java.lang.String} object.
 	 */
 	private EdgeComponent(final EventBus eventBus, final String id, final AbstractNode sourceComponent,
 			final AbstractNode targetComponent, final Point source, final Point target) {

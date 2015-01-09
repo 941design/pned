@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import de.markusrother.util.TrigUtils;
+import de.markusrother.util.MathUtils;
 
 public class TrigUtilsTest {
 
@@ -39,7 +39,7 @@ public class TrigUtilsTest {
 	}
 
 	private double floorModPi(final double theta) {
-		return TrigUtils.modPi(theta);
+		return MathUtils.moduloPi(theta);
 	}
 
 }

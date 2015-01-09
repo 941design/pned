@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui.components;
 
-import static de.markusrother.util.TrigUtils.getRadiansOfDelta;
+import static de.markusrother.util.MathUtils.getRadiansOfDelta;
 
 import java.awt.Component;
 import java.awt.Point;
