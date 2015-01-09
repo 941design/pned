@@ -63,7 +63,7 @@ public class RemoveSelectedNodesAction extends AbstractGuiAction
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		state.removeSelectedNodes(new RemoveSelectedNodesEvent(source));
+		getEventBus().removeSelectedNodes(new RemoveSelectedNodesEvent(source));
 		setEnabled(false);
 	}
 

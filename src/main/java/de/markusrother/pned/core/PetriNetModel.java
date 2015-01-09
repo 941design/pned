@@ -3,10 +3,6 @@ package de.markusrother.pned.core;
 import java.awt.Point;
 import java.util.Collection;
 
-import de.markusrother.pned.core.exceptions.NoSuchNodeException;
-import de.markusrother.pned.core.exceptions.TransitionInactiveException;
-import de.markusrother.pned.core.exceptions.UnavailableIdException;
-
 /**
  * <p>
  * Mutable model for Petri nets. Petri nets consist of collections of
@@ -122,7 +118,7 @@ public interface PetriNetModel {
 	 *            a {@link java.awt.Point} - the new place's coordinates.
 	 * @return a {@link de.markusrother.pned.core.PlaceModel} - the newly
 	 *         created place.
-	 * @throws de.markusrother.pned.core.exceptions.UnavailableIdException
+	 * @throws de.markusrother.pned.core.UnavailableIdException
 	 *             if the requested id is no longer available.
 	 */
 	PlaceModel createPlace(String placeId, Point point) throws UnavailableIdException;
@@ -151,7 +147,7 @@ public interface PetriNetModel {
 	 *            a {@link java.awt.Point} - the new transition's coordinates.
 	 * @return a {@link de.markusrother.pned.core.TransitionModel} - the newly
 	 *         created transition.
-	 * @throws de.markusrother.pned.core.exceptions.UnavailableIdException
+	 * @throws de.markusrother.pned.core.UnavailableIdException
 	 *             if the requested id is no longer available.
 	 */
 	TransitionModel createTransition(String transitionId, Point point) throws UnavailableIdException;
@@ -168,7 +164,7 @@ public interface PetriNetModel {
 	 *            a {@link java.lang.String} - the target node's id.
 	 * @return an {@link de.markusrother.pned.core.EdgeModel} - the newly
 	 *         created edge.
-	 * @throws de.markusrother.pned.core.exceptions.NoSuchNodeException
+	 * @throws de.markusrother.pned.core.NoSuchNodeException
 	 *             if no {@link de.markusrother.pned.core.NodeModel} exists for
 	 *             either source or target identifier.
 	 */
@@ -188,9 +184,9 @@ public interface PetriNetModel {
 	 *            a {@link java.lang.String} - the target node's id.
 	 * @return an {@link de.markusrother.pned.core.EdgeModel} - the newly
 	 *         created edge.
-	 * @throws de.markusrother.pned.core.exceptions.UnavailableIdException
+	 * @throws de.markusrother.pned.core.UnavailableIdException
 	 *             if the requested edge id is no longer available.
-	 * @throws de.markusrother.pned.core.exceptions.NoSuchNodeException
+	 * @throws de.markusrother.pned.core.NoSuchNodeException
 	 *             if no {@link de.markusrother.pned.core.NodeModel} exists for
 	 *             either source or target identifier.
 	 */
@@ -206,7 +202,7 @@ public interface PetriNetModel {
 	 *            a {@link java.lang.String} - the node's id.
 	 * @param label
 	 *            a {@link java.lang.String} - the node's new label.
-	 * @throws de.markusrother.pned.core.exceptions.NoSuchNodeException
+	 * @throws de.markusrother.pned.core.NoSuchNodeException
 	 *             if no {@link de.markusrother.pned.core.NodeModel} exists for
 	 *             the given identifier.
 	 */
@@ -221,7 +217,7 @@ public interface PetriNetModel {
 	 *            a {@link java.lang.String} - the place's id.
 	 * @param marking
 	 *            a int - the place's new marking.
-	 * @throws de.markusrother.pned.core.exceptions.NoSuchNodeException
+	 * @throws de.markusrother.pned.core.NoSuchNodeException
 	 *             if no {@link de.markusrother.pned.core.PlaceModel} exists for
 	 *             the given identifier.
 	 */
@@ -267,9 +263,9 @@ public interface PetriNetModel {
 	 *
 	 * @param transitionId
 	 *            a {@link java.lang.String} object.
-	 * @throws de.markusrother.pned.core.exceptions.NoSuchNodeException
+	 * @throws de.markusrother.pned.core.NoSuchNodeException
 	 *             if any.
-	 * @throws de.markusrother.pned.core.exceptions.TransitionInactiveException if any.
+	 * @throws de.markusrother.pned.core.TransitionInactiveException if any.
 	 */
 	void fireTransition(String transitionId) throws NoSuchNodeException, TransitionInactiveException;
 

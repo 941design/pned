@@ -7,7 +7,9 @@ import java.util.concurrent.Future;
 import java.util.concurrent.RejectedExecutionException;
 
 /**
- * <p>Promise class.</p>
+ * <p>
+ * Promise class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -15,14 +17,18 @@ import java.util.concurrent.RejectedExecutionException;
 public class Promise<T> {
 
 	/**
-	 * <p>fulfilled.</p>
+	 * <p>
+	 * fulfilled.
+	 * </p>
 	 *
-	 * @param value a U object.
-	 * @param <U> a U object.
+	 * @param value
+	 *            a T object.
+	 * @param <T>
+	 *            a T object.
 	 * @return a {@link de.markusrother.concurrent.Promise} object.
 	 */
-	public static <U> Promise<U> fulfilled(final U value) {
-		final Promise<U> promise = new Promise<>();
+	public static <T> Promise<T> fulfilled(final T value) {
+		final Promise<T> promise = new Promise<>();
 		promise.fulfill(value);
 		return promise;
 	}
@@ -33,7 +39,9 @@ public class Promise<T> {
 	private final ExecutorService executor = Executors.newCachedThreadPool();
 
 	/**
-	 * <p>ask.</p>
+	 * <p>
+	 * ask.
+	 * </p>
 	 *
 	 * @return a {@link java.util.concurrent.Future} object.
 	 */
@@ -59,7 +67,9 @@ public class Promise<T> {
 	}
 
 	/**
-	 * <p>Getter for the field <code>executor</code>.</p>
+	 * <p>
+	 * Getter for the field <code>executor</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.util.concurrent.ExecutorService} object.
 	 */
@@ -68,9 +78,12 @@ public class Promise<T> {
 	}
 
 	/**
-	 * <p>fulfill.</p>
+	 * <p>
+	 * fulfill.
+	 * </p>
 	 *
-	 * @param value a T object.
+	 * @param value
+	 *            a T object.
 	 */
 	public synchronized void fulfill(final T value) {
 		if (this.isFulfilled) {
@@ -82,7 +95,9 @@ public class Promise<T> {
 	}
 
 	/**
-	 * <p>isFulfilled.</p>
+	 * <p>
+	 * isFulfilled.
+	 * </p>
 	 *
 	 * @return a boolean.
 	 */

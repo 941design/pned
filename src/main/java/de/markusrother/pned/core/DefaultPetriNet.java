@@ -11,9 +11,6 @@ import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import de.markusrother.pned.core.exceptions.NoSuchNodeException;
-import de.markusrother.pned.core.exceptions.TransitionInactiveException;
-import de.markusrother.pned.core.exceptions.UnavailableIdException;
 import de.markusrother.util.JsonBuilder;
 import de.markusrother.util.JsonSerializable;
 

@@ -109,8 +109,12 @@ public class PnGridPanel extends JLayeredPane
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
-	 * @param menuFactory a {@link de.markusrother.pned.gui.menus.PnEditorMenuFactory} object.
-	 * @param nodeFactory a {@link de.markusrother.pned.gui.components.NodeFactory} object.
+	 * @param menuFactory
+	 *            a {@link de.markusrother.pned.gui.menus.PnEditorMenuFactory}
+	 *            object.
+	 * @param nodeFactory
+	 *            a {@link de.markusrother.pned.gui.components.NodeFactory}
+	 *            object.
 	 */
 	public PnGridPanel(final GuiEventBus eventBus, final PnEditorMenuFactory menuFactory, final NodeFactory nodeFactory) {
 
@@ -204,6 +208,8 @@ public class PnGridPanel extends JLayeredPane
 	 * </p>
 	 */
 	public void removeSelectedNodes() {
+		// FIXME - create a currentSelection object which listens to this event.
+		// Use the RemoveSelectedNodesAction for this.
 		// TODO - instead we could trigger the event below!
 		for (final AbstractNode node : currentSelection) {
 			eventBus.nodeRemoved(new NodeRemovalCommand(this, node.getId()));
@@ -478,7 +484,9 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>suspendListeners.</p>
+	 * <p>
+	 * suspendListeners.
+	 * </p>
 	 */
 	protected void suspendListeners() {
 		nodeCreator.removeFromComponent(nodeLayer);
@@ -486,7 +494,9 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>installListeners.</p>
+	 * <p>
+	 * installListeners.
+	 * </p>
 	 */
 	protected void installListeners() {
 		nodeCreator.addToComponent(nodeLayer);

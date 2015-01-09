@@ -1,4 +1,5 @@
-package de.markusrother.pned.core.exceptions;
+package de.markusrother.pned.core;
+
 
 /**
  * <p>NoSuchNodeException class.</p>
