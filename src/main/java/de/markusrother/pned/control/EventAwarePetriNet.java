@@ -19,8 +19,8 @@ import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
-import de.markusrother.pned.control.events.PlaceChangeEvent;
-import de.markusrother.pned.control.events.PlaceEventObject;
+import de.markusrother.pned.control.events.MarkingChangeEvent;
+import de.markusrother.pned.control.events.MarkingEventObject;
 import de.markusrother.pned.control.events.TransitionActivationEvent;
 import de.markusrother.pned.control.events.TransitionActivationEvent.Type;
 import de.markusrother.pned.control.listeners.CommandTarget;
@@ -93,7 +93,9 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	}
 
 	/**
-	 * <p>installEventListeners.</p>
+	 * <p>
+	 * installEventListeners.
+	 * </p>
 	 */
 	private void installEventListeners() {
 		eventBus.addListener(IdRequestListener.class, this);
@@ -253,7 +255,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final PlaceEventObject e) {
+	public void setMarking(final MarkingEventObject e) {
 		if (e.getSource() == this) {
 			return;
 		}
@@ -293,9 +295,10 @@ public class EventAwarePetriNet extends DefaultPetriNet
 
 	/**
 	 * <p>
-	 * Possibly fires {@link de.markusrother.pned.control.events.TransitionActivationEvent}s if the change executed
-	 * by the given {@link java.lang.Runnable}, changes the activation state of one or
-	 * more transitions.
+	 * Possibly fires
+	 * {@link de.markusrother.pned.control.events.TransitionActivationEvent}s if
+	 * the change executed by the given {@link java.lang.Runnable}, changes the
+	 * activation state of one or more transitions.
 	 * </p>
 	 *
 	 * @param runnable
@@ -329,7 +332,8 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	 *
 	 * @param events
 	 *            a {@link java.util.Collection} of
-	 *            {@link de.markusrother.pned.control.events.TransitionActivationEvent} - the changing events.
+	 *            {@link de.markusrother.pned.control.events.TransitionActivationEvent}
+	 *            - the changing events.
 	 */
 	private void fireTransitionAcivationEvents(final Collection<TransitionActivationEvent> events) {
 		for (final TransitionActivationEvent evt : events) {
@@ -372,7 +376,8 @@ public class EventAwarePetriNet extends DefaultPetriNet
 
 	/**
 	 * <p>
-	 * Returns activation events, one for each provided {@link de.markusrother.pned.core.model.TransitionModel}.
+	 * Returns activation events, one for each provided
+	 * {@link de.markusrother.pned.core.model.TransitionModel}.
 	 * </p>
 	 *
 	 * @param activated
@@ -428,8 +433,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	@Override
 	protected void decrementInputPlaceMarking(final PlaceModel place) {
 		super.decrementInputPlaceMarking(place);
-		final PlaceChangeEvent evt = new PlaceChangeEvent(this, //
-				PlaceEventObject.Type.SET_MARKING, //
+		final MarkingChangeEvent evt = new MarkingChangeEvent(this, //
 				place.getId(), //
 				place.getMarking()); // The new marking
 		eventBus.setMarking(evt);
@@ -439,8 +443,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	@Override
 	protected void incrementOutputPlaceMarking(final PlaceModel place) {
 		super.incrementOutputPlaceMarking(place);
-		final PlaceChangeEvent evt = new PlaceChangeEvent(this, //
-				PlaceEventObject.Type.SET_MARKING, //
+		final MarkingChangeEvent evt = new MarkingChangeEvent(this, //
 				place.getId(), //
 				place.getMarking()); // The new marking
 		eventBus.setMarking(evt);

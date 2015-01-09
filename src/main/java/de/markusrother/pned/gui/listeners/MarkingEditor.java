@@ -5,8 +5,8 @@ import java.awt.event.MouseEvent;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
+import de.markusrother.pned.control.commands.MarkingEditCommand;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
-import de.markusrother.pned.control.commands.PlaceEditCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.components.AbstractNode;
@@ -74,8 +74,7 @@ public class MarkingEditor extends RightClickTextFieldEdit<Place>
 	/** {@inheritDoc} */
 	@Override
 	public void finishEdit(final Place place, final String text) {
-		eventBus.setMarking(new PlaceEditCommand(this, //
-				PlaceEditCommand.Type.SET_MARKING, //
+		eventBus.setMarking(new MarkingEditCommand(this, //
 				place.getId(), //
 				Integer.valueOf(text))); // Validated by markingPattern!
 	}

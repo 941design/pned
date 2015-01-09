@@ -16,12 +16,12 @@ import de.markusrother.pned.control.EventAwarePetriNet;
 import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.LabelEditCommand;
+import de.markusrother.pned.control.commands.MarkingEditCommand;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
-import de.markusrother.pned.control.commands.PlaceEditCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
-import de.markusrother.pned.control.events.PlaceChangeEvent;
+import de.markusrother.pned.control.events.MarkingChangeEvent;
 import de.markusrother.pned.control.events.TransitionActivationEvent;
 import de.markusrother.pned.control.events.TransitionActivationEvent.Type;
 import de.markusrother.pned.control.listeners.EdgeCreationListener;
@@ -125,7 +125,7 @@ public abstract class AbstractPetriNetTest
 	}
 
 	protected void setLabel(final String placeId, final String label) {
-		final LabelEditCommand cmd = new LabelEditCommand(source, LabelEditCommand.Type.SET_LABEL, placeId, label);
+		final LabelEditCommand cmd = new LabelEditCommand(source, placeId, label);
 		setLabel(cmd);
 	}
 
@@ -137,7 +137,7 @@ public abstract class AbstractPetriNetTest
 	}
 
 	protected void setMarking(final String placeId, final int marking) {
-		final PlaceEditCommand cmd = new PlaceEditCommand(source, PlaceEditCommand.Type.SET_MARKING, placeId, marking);
+		final MarkingEditCommand cmd = new MarkingEditCommand(source, placeId, marking);
 		for (final PlaceListener l : getListeners(PlaceListener.class)) {
 			l.setMarking(cmd);
 		}
@@ -270,7 +270,7 @@ public abstract class AbstractPetriNetTest
 	}
 
 	protected void assertMarkingWasSet(final String placeId, final int marking) {
-		for (final PlaceChangeEvent e : getEvents(PlaceChangeEvent.class)) {
+		for (final MarkingChangeEvent e : getEvents(MarkingChangeEvent.class)) {
 			if (placeId.equals(e.getPlaceId()) && marking == e.getMarking()) {
 				Assert.assertTrue(true);
 				return;

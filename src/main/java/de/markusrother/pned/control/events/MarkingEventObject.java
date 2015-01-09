@@ -7,23 +7,21 @@ import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
- * PlaceEditEvent class.
+ * Abstract superclass for occurrences that indicate a change in a
+ * {@link de.markusrother.pned.core.model.PlaceModel}s marking.
  * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
-public class PlaceEventObject extends EventObject
+public abstract class MarkingEventObject extends EventObject
 	implements
 		JsonSerializable {
 
-	public enum Type {
-		SET_MARKING
-	}
-
+	/** The unique identifier of the place, whose marking is to be changed. */
 	private final String placeId;
+	/** The new marking. */
 	private final int marking;
-	private final Type type;
 
 	/**
 	 * <p>
@@ -31,19 +29,15 @@ public class PlaceEventObject extends EventObject
 	 * </p>
 	 *
 	 * @param source
-	 *            a {@link java.lang.Object} object.
+	 *            a {@link java.lang.Object} - this event's source.
 	 * @param placeId
-	 *            a {@link java.lang.String} object.
+	 *            a {@link java.lang.String} - the unique identifier of the
+	 *            place, whose marking is to be changed.
 	 * @param marking
-	 *            a int.
-	 * @param type
-	 *            a
-	 *            {@link de.markusrother.pned.control.commands.PlaceEditCommand.Type}
-	 *            object.
+	 *            a int - the new marking.
 	 */
-	public PlaceEventObject(final Object source, final Type type, final String placeId, final int marking) {
+	public MarkingEventObject(final Object source, final String placeId, final int marking) {
 		super(source);
-		this.type = type;
 		this.placeId = placeId;
 		this.marking = marking;
 	}
@@ -53,7 +47,8 @@ public class PlaceEventObject extends EventObject
 	 * Getter for the field <code>placeId</code>.
 	 * </p>
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} - the unique identifier of the place,
+	 *         whose marking is to be changed.
 	 */
 	public String getPlaceId() {
 		return placeId;
@@ -64,7 +59,7 @@ public class PlaceEventObject extends EventObject
 	 * Getter for the field <code>marking</code>.
 	 * </p>
 	 *
-	 * @return a int.
+	 * @return a int - the new marking.
 	 */
 	public int getMarking() {
 		return marking;
@@ -81,7 +76,6 @@ public class PlaceEventObject extends EventObject
 	public String toJson() {
 		final JsonBuilder builder = new JsonBuilder();
 		return builder.append("placeId", placeId) //
-				.append("type", type.name()) //
 				.append("marking", marking) //
 				.toString();
 	}

@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
 import javax.swing.event.ChangeEvent;
 
 import de.markusrother.pned.control.EventBus;
-import de.markusrother.pned.control.events.PlaceEventObject;
+import de.markusrother.pned.control.events.MarkingEventObject;
 import de.markusrother.pned.control.listeners.PlaceListener;
 import de.markusrother.pned.gui.PlaceLayout;
 import de.markusrother.pned.gui.listeners.MarkingEditor;
@@ -132,7 +132,7 @@ public class Place extends AbstractNode
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final PlaceEventObject evt) {
+	public void setMarking(final MarkingEventObject evt) {
 		final String myId = getId();
 		final String placeId = evt.getPlaceId();
 		if (myId.equals(placeId)) {

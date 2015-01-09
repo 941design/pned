@@ -1,5 +1,5 @@
 /**
- * Package for concurrency related classes.
+ * Concurrency related classes.
  */
 package de.markusrother.concurrent;
 

@@ -7,7 +7,9 @@ import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
- * TransitionActivationEvent class.
+ * Event that occurs when a
+ * {@link de.markusrother.pned.core.model.TransitionModel} is activated due to
+ * previous change in the {@link de.markusrother.pned.core.model.PetriNetModel}.
  * </p>
  *
  * @author Markus Rother
@@ -17,12 +19,20 @@ public class TransitionActivationEvent extends EventObject
 	implements
 		JsonSerializable {
 
+	/**
+	 * The type of
+	 * {@link de.markusrother.pned.control.events.TransitionActivationEvent}.
+	 */
 	public enum Type {
+		/** Indicates activation of a transition. */
 		ACTIVATION,
+		/** Indicates deactivation of a transition. */
 		DEACTIVATION
 	}
 
+	/** The type of change. */
 	private final Type type;
+	/** The unique identifier of the transition that changed. */
 	private final String transitionId;
 
 	/**
@@ -33,11 +43,12 @@ public class TransitionActivationEvent extends EventObject
 	 * @param type
 	 *            a
 	 *            {@link de.markusrother.pned.control.events.TransitionActivationEvent.Type}
-	 *            object.
+	 *            - the type of change.
 	 * @param source
-	 *            a {@link java.lang.Object} object.
+	 *            a {@link java.lang.Object} - this event's source.
 	 * @param transitionId
-	 *            a {@link java.lang.String} object.
+	 *            a {@link java.lang.String} - the unique identifier of the
+	 *            transition that changed.
 	 */
 	public TransitionActivationEvent(final Object source, final Type type, final String transitionId) {
 		super(source);
@@ -52,7 +63,7 @@ public class TransitionActivationEvent extends EventObject
 	 *
 	 * @return a
 	 *         {@link de.markusrother.pned.control.events.TransitionActivationEvent.Type}
-	 *         object.
+	 *         - the type of change.
 	 */
 	public Type getType() {
 		return type;
@@ -63,7 +74,8 @@ public class TransitionActivationEvent extends EventObject
 	 * Getter for the field <code>transitionId</code>.
 	 * </p>
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} - the unique identifier of the
+	 *         transition that changed.
 	 */
 	public String getTransitionId() {
 		return transitionId;

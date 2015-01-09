@@ -1,6 +1,7 @@
 package de.markusrother.pned.control.commands;
 
-import de.markusrother.pned.control.events.PlaceEventObject;
+import de.markusrother.pned.control.events.MarkingChangeEvent;
+import de.markusrother.pned.control.events.MarkingEventObject;
 
 /**
  * <p>
@@ -10,26 +11,25 @@ import de.markusrother.pned.control.events.PlaceEventObject;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see MarkingChangeEvent
  */
-public class PlaceEditCommand extends PlaceEventObject {
+public class MarkingEditCommand extends MarkingEventObject {
 
 	/**
 	 * <p>
-	 * Constructor for PlaceEditCommand.
+	 * Constructor for MarkingEditCommand.
 	 * </p>
 	 *
 	 * @param source
 	 *            a {@link java.lang.Object} - this event's source.
-	 * @param type
-	 *            a {@link Type} - the type of manipulation.
 	 * @param placeId
 	 *            a {@link java.lang.String} - the unique identifier of the
 	 *            place to be edited.
 	 * @param marking
 	 *            a int - the edited place's new marking.
 	 */
-	public PlaceEditCommand(final Object source, final Type type, final String placeId, final int marking) {
-		super(source, type, placeId, marking);
+	public MarkingEditCommand(final Object source, final String placeId, final int marking) {
+		super(source, placeId, marking);
 	}
 
 }

@@ -6,13 +6,12 @@ import java.util.regex.Pattern;
 import de.markusrother.pned.control.commands.LabelEditCommand;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
-import de.markusrother.pned.control.commands.LabelEditCommand.Type;
 import de.markusrother.pned.control.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.components.NodeLabel;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
-import de.markusrother.swing.RightClickTextFieldEdit;
 import de.markusrother.swing.CheckedTextField;
+import de.markusrother.swing.RightClickTextFieldEdit;
 
 /**
  * <p>
@@ -72,7 +71,6 @@ public class NodeLabelEditor extends RightClickTextFieldEdit<NodeLabel>
 	@Override
 	public void finishEdit(final NodeLabel nodeLabel, final String text) {
 		eventBus.setLabel(new LabelEditCommand(this, //
-				Type.SET_LABEL, //
 				nodeLabel.getNodeId(), //
 				text));
 		nodeLabel.setVisible(true);

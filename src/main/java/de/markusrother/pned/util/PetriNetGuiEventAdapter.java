@@ -10,7 +10,7 @@ import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
-import de.markusrother.pned.control.events.PlaceEventObject;
+import de.markusrother.pned.control.events.MarkingEventObject;
 import de.markusrother.pned.control.events.TransitionActivationEvent;
 import de.markusrother.pned.control.listeners.EdgeCreationListener;
 import de.markusrother.pned.control.listeners.IdRequestListener;
@@ -272,7 +272,7 @@ public abstract class PetriNetGuiEventAdapter
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final PlaceEventObject evt) {
+	public void setMarking(final MarkingEventObject evt) {
 		process(evt);
 	}
 

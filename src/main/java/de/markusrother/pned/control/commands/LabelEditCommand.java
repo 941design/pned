@@ -18,16 +18,6 @@ public class LabelEditCommand extends EventObject
 	implements
 		JsonSerializable {
 
-	/**
-	 * The type of {@link LabelEditCommand}.
-	 */
-	public enum Type {
-		/** Assigns a new label */
-		SET_LABEL
-	}
-
-	/** The type of label manipulation. */
-	private final Type type;
 	/** The associated element's unique identifier. */
 	private final String elementId;
 	/** The newly assigned label */
@@ -45,14 +35,9 @@ public class LabelEditCommand extends EventObject
 	 *            identifier.
 	 * @param label
 	 *            a {@link java.lang.String} - the newly assigned label.
-	 * @param type
-	 *            a
-	 *            {@link de.markusrother.pned.control.commands.LabelEditCommand.Type}
-	 *            - the type of label manipulation.
 	 */
-	public LabelEditCommand(final Object source, final Type type, final String elementId, final String label) {
+	public LabelEditCommand(final Object source, final String elementId, final String label) {
 		super(source);
-		this.type = type;
 		this.elementId = elementId;
 		this.label = label;
 	}
@@ -91,7 +76,6 @@ public class LabelEditCommand extends EventObject
 	public String toJson() {
 		final JsonBuilder builder = new JsonBuilder();
 		return builder.append("elementId", elementId) //
-				.append("type", type.name()) //
 				.append("label", label) //
 				.toString();
 	}

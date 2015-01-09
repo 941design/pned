@@ -15,7 +15,7 @@ import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
-import de.markusrother.pned.control.events.PlaceEventObject;
+import de.markusrother.pned.control.events.MarkingEventObject;
 import de.markusrother.pned.control.events.TransitionActivationEvent;
 import de.markusrother.pned.control.listeners.CommandTarget;
 import de.markusrother.pned.control.listeners.EdgeCreationListener;
@@ -157,7 +157,7 @@ public class EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final PlaceEventObject evt) {
+	public void setMarking(final MarkingEventObject evt) {
 		for (final PlaceListener l : getListeners(PlaceListener.class)) {
 			l.setMarking(evt);
 		}

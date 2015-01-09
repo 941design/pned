@@ -2,7 +2,7 @@ package de.markusrother.pned.control.listeners;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.control.events.PlaceEventObject;
+import de.markusrother.pned.control.events.MarkingEventObject;
 
 /**
  * <p>
@@ -21,8 +21,8 @@ public interface PlaceListener
 	 * setMarking.
 	 * </p>
 	 *
-	 * @param evt a {@link de.markusrother.pned.control.events.PlaceEventObject} object.
+	 * @param evt a {@link de.markusrother.pned.control.events.MarkingEventObject} object.
 	 */
-	void setMarking(PlaceEventObject evt);
+	void setMarking(MarkingEventObject evt);
 
 }
