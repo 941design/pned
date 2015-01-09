@@ -79,4 +79,16 @@ public class RemoveSelectedNodesAction extends AbstractGuiAction
 		setEnabled(false);
 	}
 
+	/** {@inheritDoc} */
+	@Override
+	public void nodesSelected(final NodeMultiSelectionEvent e) {
+		// IGNORE
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void nodesUnselected(final NodeMultiSelectionEvent e) {
+		// IGNORE
+	}
+
 }

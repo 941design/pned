@@ -6,7 +6,6 @@ import java.awt.event.ItemListener;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import de.markusrother.pned.core.control.EventBus;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.listeners.NodeListener;
 
@@ -14,16 +13,17 @@ import de.markusrother.pned.gui.listeners.NodeListener;
  * <p>
  * Abstract superclass for compound node actions: default node type selection
  * <b>and</b> node creation. This action combines an
- * {@link java.awt.event.ActionListener} with an {@link java.awt.event.ItemListener} for
- * selectable items. It can be used for e.g.
- * {@link javax.swing.JRadioButtonMenuItem}s where toggle and selection trigger
- * separate {@link java.awt.event.ActionEvent}s.
+ * {@link java.awt.event.ActionListener} with an
+ * {@link java.awt.event.ItemListener} for selectable items. It can be used for
+ * e.g. {@link javax.swing.JRadioButtonMenuItem}s where toggle and selection
+ * trigger separate {@link java.awt.event.ActionEvent}s.
  * </p>
  * <p>
  * Setting the default node type posts a
  * {@link de.markusrother.pned.gui.commands.SetNodeTypeCommand} on the provided
- * {@link de.markusrother.pned.core.control.EventBus}. This is done without performing other actions. The actual
- * {@link java.awt.event.ActionListener} is implemented by subclasses.
+ * {@link de.markusrother.pned.core.control.EventBus}. This is done without
+ * performing other actions. The actual {@link java.awt.event.ActionListener} is
+ * implemented by subclasses.
  * </p>
  *
  * <p>
