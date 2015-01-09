@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.actions;
 
 import javax.swing.AbstractAction;
 
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.core.GuiState;
 
 /**
@@ -41,9 +41,9 @@ public abstract class AbstractGuiAction extends AbstractAction {
 	 * getEventBus.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
+	 * @return a {@link de.markusrother.pned.gui.control.PnEventBus} object.
 	 */
-	protected GuiEventBus getEventBus() {
+	protected PnEventBus getEventBus() {
 		return state.getEventBus();
 	}
 

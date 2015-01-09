@@ -38,7 +38,7 @@ import de.markusrother.pned.gui.commands.PlaceLayoutListener;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.commands.TransitionLayoutCommand;
 import de.markusrother.pned.gui.commands.TransitionLayoutListener;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.EdgeEditListener;
 import de.markusrother.pned.gui.events.GuiEventTarget;
@@ -69,7 +69,7 @@ public abstract class PetriNetGuiEventAdapter
 	/**
 	 * The event target which is listened to.
 	 */
-	protected GuiEventBus eventBus;
+	protected PnEventBus eventBus;
 
 	/**
 	 * <p>
@@ -77,11 +77,11 @@ public abstract class PetriNetGuiEventAdapter
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} to
+	 *            a {@link de.markusrother.pned.gui.control.PnEventBus} to
 	 *            which resulting events are posted to and to which is listened
 	 *            to for state changes.
 	 */
-	public void setEventBus(final GuiEventBus eventBus) {
+	public void setEventBus(final PnEventBus eventBus) {
 		if (this.eventBus != null) {
 			suspendListeners();
 		}

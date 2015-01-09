@@ -7,7 +7,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import de.markusrother.pned.gui.commands.NodeListener;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 
 /**
  * <p>
@@ -61,7 +61,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 * The event target to which events are posted to, and from which new node
 	 * ids are requested from.
 	 */
-	protected final GuiEventBus eventBus;
+	protected final PnEventBus eventBus;
 
 	/**
 	 * <p>
@@ -69,7 +69,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            an {@link de.markusrother.pned.gui.control.GuiEventBus} to be
+	 *            an {@link de.markusrother.pned.gui.control.PnEventBus} to be
 	 *            posted to.
 	 * @param source
 	 *            an {@link java.lang.Object} - the posted
@@ -83,7 +83,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 *            a {@link java.lang.String} - this action's textual
 	 *            representation.
 	 */
-	protected AbstractCreateNodeAction(final GuiEventBus eventBus, final Object source,
+	protected AbstractCreateNodeAction(final PnEventBus eventBus, final Object source,
 			final LocationProvider locationProvider, final int mnemonic, final String label) {
 		super(label);
 		this.eventBus = eventBus;

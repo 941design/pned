@@ -8,7 +8,7 @@ import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.gui.components.NodeLabel;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.NodeSelectionListener;
 import de.markusrother.swing.CheckedTextField;
@@ -30,7 +30,7 @@ public class NodeLabelEditor extends RightClickTextFieldEdit<NodeLabel>
 	/** Constant <code>labelPattern</code> */
 	public final static Pattern labelPattern = Pattern.compile("[\\w\\s\\d]*");
 
-	private final GuiEventBus eventBus;
+	private final PnEventBus eventBus;
 
 	/**
 	 * <p>
@@ -38,9 +38,9 @@ public class NodeLabelEditor extends RightClickTextFieldEdit<NodeLabel>
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
+	 *            a {@link de.markusrother.pned.gui.control.PnEventBus} object.
 	 */
-	public NodeLabelEditor(final GuiEventBus eventBus) {
+	public NodeLabelEditor(final PnEventBus eventBus) {
 		super(NodeLabel.class, labelPattern);
 
 		this.eventBus = eventBus;

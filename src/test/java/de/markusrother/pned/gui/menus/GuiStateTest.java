@@ -7,14 +7,14 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import de.markusrother.pned.gui.components.AbstractComponentTest;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.core.GuiState;
 
 public class GuiStateTest {
 
 	@Test
 	public void testAllListenersAdded() {
-		final GuiEventBus eventBus = Mockito.mock(GuiEventBus.class);
+		final PnEventBus eventBus = Mockito.mock(PnEventBus.class);
 		final GuiState state = new GuiState(eventBus);
 		final List<Class<EventListener>> listenerClasses = AbstractComponentTest.getEventListenerClasses(state
 				.getClass());

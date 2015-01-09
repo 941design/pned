@@ -35,7 +35,7 @@ import de.markusrother.pned.gui.requests.NodeRequestListener;
  * @author Markus Rother
  * @version 1.0
  */
-public class GuiEventBus extends EventBus
+public class PnEventBus extends EventBus
 	implements
 		GuiCommandTarget,
 		GuiEventTarget,

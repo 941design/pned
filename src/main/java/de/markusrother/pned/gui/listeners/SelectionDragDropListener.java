@@ -7,7 +7,7 @@ import java.util.Collection;
 
 import de.markusrother.pned.control.commands.NodeMotionCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.swing.DragDropListener;
 
@@ -21,7 +21,7 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 
 	private final Collection<AbstractNode> nodes;
 	// FIXME - GuiCommandTarget should suffice
-	private final GuiEventBus eventBus;
+	private final PnEventBus eventBus;
 
 	/**
 	 * <p>
@@ -33,7 +33,7 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 	 * @param nodes
 	 *            a {@link java.util.Collection} object.
 	 */
-	public SelectionDragDropListener(final GuiEventBus eventBus, final Collection<AbstractNode> nodes) {
+	public SelectionDragDropListener(final PnEventBus eventBus, final Collection<AbstractNode> nodes) {
 		super(AbstractNode.class);
 		this.eventBus = eventBus;
 		this.nodes = nodes;

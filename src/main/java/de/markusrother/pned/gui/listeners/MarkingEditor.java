@@ -12,7 +12,7 @@ import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.components.Place;
 import de.markusrother.pned.gui.components.Transition;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.NodeSelectionListener;
 import de.markusrother.swing.CheckedTextField;
@@ -34,7 +34,7 @@ public class MarkingEditor extends RightClickTextFieldEdit<Place>
 	/** Constant <code>intPattern</code> */
 	public static final Pattern markingPattern = Pattern.compile("0|[1-9][0-9]*");
 
-	private final GuiEventBus eventBus;
+	private final PnEventBus eventBus;
 
 	/**
 	 * <p>
@@ -44,7 +44,7 @@ public class MarkingEditor extends RightClickTextFieldEdit<Place>
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 */
-	public MarkingEditor(final GuiEventBus eventBus) {
+	public MarkingEditor(final PnEventBus eventBus) {
 		super(Place.class, markingPattern);
 
 		this.eventBus = eventBus;

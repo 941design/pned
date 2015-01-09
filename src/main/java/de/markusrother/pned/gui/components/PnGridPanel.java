@@ -22,7 +22,7 @@ import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.EdgeEditListener;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
@@ -69,7 +69,7 @@ public class PnGridPanel extends JLayeredPane
 	/** Constant <code>labelHeight=20</code> */
 	private static final int labelHeight = 20;
 
-	private final GuiEventBus eventBus;
+	private final PnEventBus eventBus;
 
 	private final JComponent nodeLayer;
 	private final JComponent edgeLayer;
@@ -118,7 +118,7 @@ public class PnGridPanel extends JLayeredPane
 	 *            object.
 	 * @param edgeFactory a {@link de.markusrother.pned.gui.components.EdgeFactory} object.
 	 */
-	public PnGridPanel(final GuiEventBus eventBus, final PnMenuFactory menuFactory,
+	public PnGridPanel(final PnEventBus eventBus, final PnMenuFactory menuFactory,
 			final NodeFactory nodeFactory, final EdgeFactory edgeFactory) {
 
 		this.eventBus = eventBus;

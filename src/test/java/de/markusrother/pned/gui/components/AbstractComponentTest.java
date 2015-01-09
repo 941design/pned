@@ -24,7 +24,7 @@ import de.markusrother.pned.gui.commands.NodeListener;
 import de.markusrother.pned.gui.commands.PetriNetListener;
 import de.markusrother.pned.gui.commands.PlaceLayoutListener;
 import de.markusrother.pned.gui.commands.TransitionLayoutListener;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.events.EdgeEditListener;
 import de.markusrother.pned.gui.events.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
@@ -37,11 +37,11 @@ public abstract class AbstractComponentTest<T> {
 		excludedEventListenerInterfaces.add(ChangeListener.class);
 	}
 
-	protected GuiEventBus eventMulticastMock;
+	protected PnEventBus eventMulticastMock;
 
 	@Before
 	public void setUp() {
-		this.eventMulticastMock = Mockito.mock(GuiEventBus.class);
+		this.eventMulticastMock = Mockito.mock(PnEventBus.class);
 	}
 
 	protected abstract T getComponent();

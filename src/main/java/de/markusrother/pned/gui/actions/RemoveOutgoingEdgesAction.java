@@ -6,7 +6,7 @@ import java.util.Collection;
 import javax.swing.JMenuItem;
 
 import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.core.GuiState;
 
 /**
@@ -52,7 +52,7 @@ public class RemoveOutgoingEdgesAction extends AbstractGuiAction {
 	public void actionPerformed(final ActionEvent e) {
 		// directly!?
 		final Collection<String> edgeIds = state.getSelectedOutgoingEdgeIds();
-		final GuiEventBus eventBus = getEventBus();
+		final PnEventBus eventBus = getEventBus();
 		for (final String edgeId : edgeIds) {
 			eventBus.removeEdge(new EdgeRemoveCommand(source, edgeId));
 		}

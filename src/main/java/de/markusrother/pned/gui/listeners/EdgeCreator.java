@@ -17,7 +17,7 @@ import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.components.EdgeComponent;
 import de.markusrother.pned.gui.components.EdgeFactory;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.swing.MultiClickListener;
 
@@ -33,7 +33,7 @@ import de.markusrother.swing.MultiClickListener;
  */
 public class EdgeCreator extends MultiClickListener {
 
-	private final GuiEventBus eventBus;
+	private final PnEventBus eventBus;
 	private final EdgeFactory edgeFactory;
 	private final Container container;
 
@@ -82,7 +82,7 @@ public class EdgeCreator extends MultiClickListener {
 	 *            a {@link java.awt.Container} object.
 	 * @param edgeFactory a {@link de.markusrother.pned.gui.components.EdgeFactory} object.
 	 */
-	public EdgeCreator(final GuiEventBus eventBus, final EdgeFactory edgeFactory, final Container container) {
+	public EdgeCreator(final PnEventBus eventBus, final EdgeFactory edgeFactory, final Container container) {
 		this.eventBus = eventBus;
 		this.edgeFactory = edgeFactory;
 		this.container = container;

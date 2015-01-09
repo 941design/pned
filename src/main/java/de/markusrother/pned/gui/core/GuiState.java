@@ -21,7 +21,7 @@ import de.markusrother.pned.gui.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.commands.TransitionLayoutCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.layout.style.EdgeStyle;
@@ -60,9 +60,9 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
+	 *            a {@link de.markusrother.pned.gui.control.PnEventBus} object.
 	 */
-	public GuiState(final GuiEventBus eventBus) {
+	public GuiState(final PnEventBus eventBus) {
 		this.placeStyle = NodeStyle.newDefault();
 		this.transitionStyle = NodeStyle.newDefault();
 		this.markingStyle = MarkingStyle.newDefault();
@@ -290,9 +290,9 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	 * getEventBus.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
+	 * @return a {@link de.markusrother.pned.gui.control.PnEventBus} object.
 	 */
-	public GuiEventBus getEventBus() {
+	public PnEventBus getEventBus() {
 		return eventBus;
 	}
 

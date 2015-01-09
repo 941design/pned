@@ -13,7 +13,7 @@ import de.markusrother.pned.control.commands.NodeMotionCommand;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.gui.Disposable;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.EdgeEditListener;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
@@ -55,7 +55,7 @@ public class NodeLabel extends JLabel
 
 	private final DragDropListener<NodeLabel> dragDropListener;
 	private final String nodeId;
-	private final GuiEventBus eventBus;
+	private final PnEventBus eventBus;
 	private final NodeLabelEditor labelEditor;
 	private final LabelHoverListener hoverListener;
 
@@ -74,7 +74,7 @@ public class NodeLabel extends JLabel
 	 *            a {@link de.markusrother.pned.gui.listeners.NodeLabelEditor}
 	 *            object.
 	 */
-	public NodeLabel(final GuiEventBus eventBus, final NodeLabelEditor labelEditor, final String nodeId) {
+	public NodeLabel(final PnEventBus eventBus, final NodeLabelEditor labelEditor, final String nodeId) {
 		this(eventBus, nodeId, labelEditor, nodeId);
 	}
 
@@ -93,7 +93,7 @@ public class NodeLabel extends JLabel
 	 *            a {@link de.markusrother.pned.gui.listeners.NodeLabelEditor}
 	 *            object.
 	 */
-	public NodeLabel(final GuiEventBus eventBus, final String nodeId, final NodeLabelEditor labelEditor,
+	public NodeLabel(final PnEventBus eventBus, final String nodeId, final NodeLabelEditor labelEditor,
 			final String nodeLabel) {
 		// TODO - Use setters for NOdeLabelEditor and EventBus!
 		super(nodeLabel);

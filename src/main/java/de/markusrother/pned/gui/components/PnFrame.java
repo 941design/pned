@@ -19,7 +19,7 @@ import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.commands.PetriNetEditCommand;
 import de.markusrother.pned.gui.commands.PetriNetListener;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.core.GuiState;
 import de.markusrother.pned.gui.menus.PnMenuBar;
 import de.markusrother.pned.gui.menus.PnMenuFactory;
@@ -71,7 +71,7 @@ public class PnFrame extends JFrame
 
 		setVisible(true);
 
-		final GuiEventBus eventBus = state.getEventBus();
+		final PnEventBus eventBus = state.getEventBus();
 		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, NodeCreationMode.PLACE));
 		eventBus.setCurrentDirectory(new PetriNetIOCommand(this, PetriNetIOCommand.Type.CWD, currentPath));
 	}
@@ -104,7 +104,7 @@ public class PnFrame extends JFrame
 	 * </p>
 	 */
 	private void createNewContext() {
-		final GuiEventBus eventBus = new GuiEventBus();
+		final PnEventBus eventBus = new PnEventBus();
 		PetriNetGuiEventLogger.log(eventBus);
 
 		this.state = new GuiState(eventBus);
@@ -121,9 +121,9 @@ public class PnFrame extends JFrame
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
+	 *            a {@link de.markusrother.pned.gui.control.PnEventBus} object.
 	 */
-	private void installListeners(final GuiEventBus eventBus) {
+	private void installListeners(final PnEventBus eventBus) {
 		eventBus.addListener(PetriNetListener.class, this);
 		eventBus.addListener(PetriNetIOListener.class, this);
 	}
@@ -166,7 +166,7 @@ public class PnFrame extends JFrame
 	 * </p>
 	 */
 	private void createComponents() {
-		final GuiEventBus eventBus = state.getEventBus();
+		final PnEventBus eventBus = state.getEventBus();
 		final NodeFactoryImpl factory = new NodeFactoryImpl(state);
 		this.grid = new PnGridPanel(eventBus, //
 				menuFactory, //
@@ -199,7 +199,7 @@ public class PnFrame extends JFrame
 	 * </p>
 	 */
 	private void suspendListeners() {
-		final GuiEventBus eventBus = state.getEventBus();
+		final PnEventBus eventBus = state.getEventBus();
 		eventBus.removeListener(PetriNetListener.class, this);
 		eventBus.removeListener(PetriNetIOListener.class, this);
 	}

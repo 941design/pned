@@ -8,13 +8,13 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import de.markusrother.pned.gui.components.AbstractComponentTest;
-import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.control.PnEventBus;
 
 public class PetriNetGuiEventAdapterTest {
 
 	@Test
 	public void testComponentAddsItselfToListeners() {
-		final GuiEventBus eventBus = Mockito.mock(GuiEventBus.class);
+		final PnEventBus eventBus = Mockito.mock(PnEventBus.class);
 		final PetriNetGuiEventAdapter adapter = new PetriNetGuiEventAdapter() {
 			@Override
 			protected void process(final EventObject e) {
