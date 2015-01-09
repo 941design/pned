@@ -51,6 +51,9 @@ public class Place extends AbstractNode
 	 * @param markingEditor
 	 *            a {@link de.markusrother.pned.gui.listeners.MarkingEditor}
 	 *            object.
+	 * @param markingEditor
+	 *            a {@link de.markusrother.pned.gui.listeners.MarkingEditor}
+	 *            object.
 	 * @param style
 	 *            a {@link de.markusrother.pned.gui.model.NodeStyleModel}
 	 *            object.

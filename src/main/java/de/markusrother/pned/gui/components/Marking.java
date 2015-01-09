@@ -36,7 +36,7 @@ public class Marking extends JPanel
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
-	 * @param markingStyleModel
+	 * @param style a {@link de.markusrother.pned.gui.model.MarkingStyleModel} object.
 	 */
 	Marking(final EventBus eventBus, final MarkingStyleModel style) {
 		this.label = new JLabel();
@@ -88,6 +88,7 @@ public class Marking extends JPanel
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setStyle(final MarkingStyleModel style) {
 		if (this.style != null) {
@@ -97,6 +98,7 @@ public class Marking extends JPanel
 		this.style.addChangeListener(this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void stateChanged(final ChangeEvent e) {
 		if (e.getSource() == this.style) {

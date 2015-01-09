@@ -2,6 +2,12 @@ package de.markusrother.swing;
 
 import javax.swing.event.ChangeListener;
 
+/**
+ * <p>ChangeEventSource interface.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public interface ChangeEventSource {
 
 	/**

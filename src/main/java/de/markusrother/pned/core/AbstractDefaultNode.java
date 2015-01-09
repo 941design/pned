@@ -17,7 +17,7 @@ import de.markusrother.util.JsonSerializable;
  * Abstract default implementation of
  * {@link de.markusrother.pned.core.model.NodeModel}.
  * </p>
- * 
+ *
  * <h4>TODO</h4>
  * <ul>
  * <li>Move xml related annotations to an .xml configuration file to decouple

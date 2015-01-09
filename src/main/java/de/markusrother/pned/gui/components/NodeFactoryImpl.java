@@ -61,6 +61,7 @@ public class NodeFactoryImpl
 		return transition;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Marking newMarking() {
 		final Marking marking = new Marking(state.getEventBus(), //
@@ -81,12 +82,14 @@ public class NodeFactoryImpl
 		node.setSingleNodeSelector(singleNodeSelector);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public EdgeComponent newEdge(final String edgeId, final String sourceId, final String targetId) {
 		// TODO
 		throw new RuntimeException("TODO");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public EdgeStyleModel getEdgeStyle() {
 		return state.getEdgeStyle();

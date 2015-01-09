@@ -50,6 +50,12 @@ public class MathUtils {
 		return getRadiansOfCoordinate(loc);
 	}
 
+	/**
+	 * <p>getRadiansOfCoordinate.</p>
+	 *
+	 * @param point a {@link java.awt.Point} object.
+	 * @return a double.
+	 */
 	public static double getRadiansOfCoordinate(final Point point) {
 		return Math.atan2(point.y, point.x);
 	}

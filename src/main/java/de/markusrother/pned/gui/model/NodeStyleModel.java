@@ -10,7 +10,7 @@ import de.markusrother.swing.ChangeEventSource;
  * <p>
  * NodeStyleModel interface.
  * </p>
- * 
+ *
  * FIXME - rename to StyleModel
  *
  * @author Markus Rother

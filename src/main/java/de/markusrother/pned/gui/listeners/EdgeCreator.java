@@ -80,6 +80,7 @@ public class EdgeCreator extends MultiClickListener {
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param container
 	 *            a {@link java.awt.Container} object.
+	 * @param edgeFactory a {@link de.markusrother.pned.gui.components.EdgeFactory} object.
 	 */
 	public EdgeCreator(final GuiEventBus eventBus, final EdgeFactory edgeFactory, final Container container) {
 		this.eventBus = eventBus;

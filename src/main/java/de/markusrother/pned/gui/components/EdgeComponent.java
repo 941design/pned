@@ -122,6 +122,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param style a {@link de.markusrother.pned.gui.model.EdgeStyleModel} object.
 	 * @param sourceComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
 	 *            object.
@@ -153,6 +154,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *            object.
 	 * @param id
 	 *            a {@link java.lang.String} object.
+	 * @param style a {@link de.markusrother.pned.gui.model.EdgeStyleModel} object.
 	 */
 	public EdgeComponent(final EventBus eventBus, final String id, final EdgeStyleModel style,
 			final AbstractNode sourceComponent, final AbstractNode targetComponent) {
@@ -168,6 +170,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param style a {@link de.markusrother.pned.gui.model.EdgeStyleModel} object.
 	 * @param sourceComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
 	 *            object.
@@ -458,6 +461,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void stateChanged(final ChangeEvent e) {
 		if (e.getSource() == this.style) {
@@ -468,6 +472,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setStyle(final EdgeStyleModel style) {
 		if (this.style != null) {

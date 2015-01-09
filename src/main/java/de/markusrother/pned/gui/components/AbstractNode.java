@@ -513,6 +513,7 @@ public abstract class AbstractNode extends JPanel
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setStyle(final NodeStyleModel style) {
 		if (this.style != null) {

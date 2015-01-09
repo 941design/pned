@@ -7,6 +7,8 @@ import de.markusrother.swing.ChangeEventSource;
  * Aggregate interface
  * </p>
  *
+ * @author Markus Rother
+ * @version 1.0
  */
 public interface MarkingStyleModel
 	extends

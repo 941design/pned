@@ -116,6 +116,7 @@ public class PnGridPanel extends JLayeredPane
 	 * @param nodeFactory
 	 *            a {@link de.markusrother.pned.gui.components.NodeFactory}
 	 *            object.
+	 * @param edgeFactory a {@link de.markusrother.pned.gui.components.EdgeFactory} object.
 	 */
 	public PnGridPanel(final GuiEventBus eventBus, final PnMenuFactory menuFactory,
 			final NodeFactory nodeFactory, final EdgeFactory edgeFactory) {

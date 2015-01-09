@@ -410,10 +410,20 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		return transitionStyle;
 	}
 
+	/**
+	 * <p>Getter for the field <code>edgeStyle</code>.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.model.EdgeStyleModel} object.
+	 */
 	public EdgeStyleModel getEdgeStyle() {
 		return edgeStyle;
 	}
 
+	/**
+	 * <p>Getter for the field <code>markingStyle</code>.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.model.MarkingStyleModel} object.
+	 */
 	public MarkingStyleModel getMarkingStyle() {
 		return markingStyle;
 	}

@@ -6,7 +6,7 @@ import java.awt.Component;
  * <p>
  * Style interface.
  * </p>
- * 
+ *
  * FIXME OBSOLETE
  *
  * @author Markus Rother

@@ -36,6 +36,11 @@ public class EdgeStyle extends AbstractStyle
 		}
 	}
 
+	/**
+	 * <p>newDefault.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.model.EdgeStyleModel} object.
+	 */
 	public static EdgeStyleModel newDefault() {
 		final EdgeStyleModel style = new EdgeStyle();
 		style.setShape(DEFAULT_TIP);
@@ -56,72 +61,85 @@ public class EdgeStyle extends AbstractStyle
 	private Shape tip;
 	private int tipSize;
 
+	/** {@inheritDoc} */
 	@Override
 	public Color getDefaultColor() {
 		return defaultColor;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setDefaultColor(final Color defaultColor) {
 		this.defaultColor = defaultColor;
 		fireChangeEvent();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Color getHoverColor() {
 		return hoverColor;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setHoverColor(final Color hoverColor) {
 		this.hoverColor = hoverColor;
 		fireChangeEvent();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Color getValidColor() {
 		return validColor;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setValidColor(final Color validColor) {
 		this.validColor = validColor;
 		fireChangeEvent();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Color getInvalidColor() {
 		return invalidColor;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setInvalidColor(final Color invalidColor) {
 		this.invalidColor = invalidColor;
 		fireChangeEvent();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Stroke getStroke() {
 		return lineStroke;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setStroke(final Stroke lineStroke) {
 		this.lineStroke = lineStroke;
 		fireChangeEvent();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public int getSize() {
 		return tipSize;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSize(final int size) {
 		this.tipSize = size;
 		fireChangeEvent();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Shape getShape() {
 		final double scaleFactor = tipSize / 10.0;
@@ -129,6 +147,7 @@ public class EdgeStyle extends AbstractStyle
 		return transform.createTransformedShape(tip);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setShape(final Shape shape) {
 		tip = shape;
