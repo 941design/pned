@@ -56,7 +56,7 @@ import de.markusrother.util.EventSource;
  * </pre>
  * 
  * <p>
- * The following example illustrates event tapping to a logger:
+ * The following example illustrates event tapping by a logger:
  * </p>
  * 
  * <pre>

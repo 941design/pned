@@ -64,7 +64,7 @@ public class SaveFileDialog extends AbstractFileDialog {
 		// TODO - prompt for overwrite!
 		try {
 			final String path = file.getAbsolutePath();
-			commandTarget.setCurrentDirectory(new PetriNetIOCommand(this, Type.STAT, new File(path)));
+			commandTarget.setCurrentDirectory(new PetriNetIOCommand(this, Type.CWD, new File(path)));
 			commandTarget.exportPnml(new PetriNetIOCommand(this, Type.SAVE, file));
 		} catch (final IOException e) {
 			// TODO

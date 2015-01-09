@@ -66,7 +66,7 @@ public class OpenFileDialog extends AbstractFileDialog {
 		// If current net is to be purged send appropriate command
 		try {
 			final String path = file.getAbsolutePath();
-			commandTarget.setCurrentDirectory(new PetriNetIOCommand(this, Type.STAT, new File(path)));
+			commandTarget.setCurrentDirectory(new PetriNetIOCommand(this, Type.CWD, new File(path)));
 			commandTarget.importPnml(new PetriNetIOCommand(this, Type.OPEN, file));
 		} catch (final IOException e1) {
 			// TODO

@@ -73,7 +73,7 @@ public class PnFrame extends JFrame
 
 		final GuiEventBus eventBus = state.getEventBus();
 		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, NodeCreationMode.PLACE));
-		eventBus.setCurrentDirectory(new PetriNetIOCommand(this, PetriNetIOCommand.Type.STAT, currentPath));
+		eventBus.setCurrentDirectory(new PetriNetIOCommand(this, PetriNetIOCommand.Type.CWD, currentPath));
 	}
 
 	/**

@@ -8,7 +8,8 @@ import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
- * Abstract AbstractNodeCreationCommand class.
+ * Abstract superclass for commands that trigger creation of
+ * {@link de.markusrother.pned.core.model.NodeModel}s.
  * </p>
  *
  * @author Markus Rother
@@ -18,8 +19,10 @@ public abstract class AbstractNodeCreationCommand extends EventObject
 	implements
 		JsonSerializable {
 
-	private final Point point;
-	private final String nodeId;
+	/** The new node's unique identifier. */
+	protected final String nodeId;
+	/** The location at which the new node is to be created. */
+	protected final Point point;
 
 	/**
 	 * <p>
@@ -27,11 +30,11 @@ public abstract class AbstractNodeCreationCommand extends EventObject
 	 * </p>
 	 *
 	 * @param source
-	 *            a {@link java.lang.Object} object.
+	 *            a {@link java.lang.Object} - this event's source.
 	 * @param nodeId
-	 *            a {@link java.lang.String} object.
+	 *            a {@link java.lang.String} - the new node's unique identifier.
 	 * @param point
-	 *            a {@link java.awt.Point} object.
+	 *            a {@link java.awt.Point} - the new node's location.
 	 */
 	public AbstractNodeCreationCommand(final Object source, final String nodeId, final Point point) {
 		super(source);
@@ -44,7 +47,7 @@ public abstract class AbstractNodeCreationCommand extends EventObject
 	 * Getter for the field <code>nodeId</code>.
 	 * </p>
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} - the new node's unique identifier.
 	 */
 	public String getNodeId() {
 		return nodeId;
@@ -55,7 +58,7 @@ public abstract class AbstractNodeCreationCommand extends EventObject
 	 * Getter for the field <code>point</code>.
 	 * </p>
 	 *
-	 * @return a {@link java.awt.Point} object.
+	 * @return a {@link java.awt.Point} - the new node's location.
 	 */
 	public Point getPoint() {
 		return point.getLocation();

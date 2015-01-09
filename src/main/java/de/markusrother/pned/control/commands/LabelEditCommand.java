@@ -7,7 +7,8 @@ import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
- * LabelEditEvent class.
+ * Instances of this class trigger
+ * {@link de.markusrother.pned.core.model.NodeModel} label manipulation.
  * </p>
  *
  * @author Markus Rother
@@ -17,13 +18,20 @@ public class LabelEditCommand extends EventObject
 	implements
 		JsonSerializable {
 
+	/**
+	 * The type of {@link LabelEditCommand}.
+	 */
 	public enum Type {
+		/** Assigns a new label */
 		SET_LABEL
 	}
 
-	private final String elementId;
-	private final String label;
+	/** The type of label manipulation. */
 	private final Type type;
+	/** The associated element's unique identifier. */
+	private final String elementId;
+	/** The newly assigned label */
+	private final String label;
 
 	/**
 	 * <p>
@@ -31,15 +39,16 @@ public class LabelEditCommand extends EventObject
 	 * </p>
 	 *
 	 * @param source
-	 *            a {@link java.lang.Object} object.
+	 *            a {@link java.lang.Object} - this event's source.
 	 * @param elementId
-	 *            a {@link java.lang.String} object.
+	 *            a {@link java.lang.String} - the associated element's unique
+	 *            identifier.
 	 * @param label
-	 *            a {@link java.lang.String} object.
+	 *            a {@link java.lang.String} - the newly assigned label.
 	 * @param type
 	 *            a
 	 *            {@link de.markusrother.pned.control.commands.LabelEditCommand.Type}
-	 *            object.
+	 *            - the type of label manipulation.
 	 */
 	public LabelEditCommand(final Object source, final Type type, final String elementId, final String label) {
 		super(source);
@@ -53,7 +62,8 @@ public class LabelEditCommand extends EventObject
 	 * Getter for the field <code>elementId</code>.
 	 * </p>
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} - the associated element's unique
+	 *         identifier.
 	 */
 	public String getElementId() {
 		return elementId;
@@ -64,7 +74,7 @@ public class LabelEditCommand extends EventObject
 	 * Getter for the field <code>label</code>.
 	 * </p>
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} - the newly assigned label.
 	 */
 	public String getLabel() {
 		return label;

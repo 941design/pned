@@ -4,7 +4,8 @@ import java.awt.Point;
 
 /**
  * <p>
- * TransitionCreationCommand class.
+ * Instances of this class trigger creation of new
+ * {@link de.markusrother.pned.core.model.TransitionModel}s.
  * </p>
  *
  * @author Markus Rother
@@ -18,11 +19,13 @@ public class TransitionCreationCommand extends AbstractNodeCreationCommand {
 	 * </p>
 	 *
 	 * @param source
-	 *            a {@link java.lang.Object} object.
+	 *            a {@link java.lang.Object} - this event's source.
 	 * @param nodeId
-	 *            a {@link java.lang.String} object.
+	 *            a {@link java.lang.String} - the unique identifier of the
+	 *            transition.
 	 * @param point
-	 *            a {@link java.awt.Point} object.
+	 *            a {@link java.awt.Point} - the location at which to create the
+	 *            new transition.
 	 */
 	public TransitionCreationCommand(final Object source, final String nodeId, final Point point) {
 		super(source, nodeId, point);

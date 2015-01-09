@@ -7,7 +7,8 @@ import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
- * NodeRemovalEvent class.
+ * Instances of this class cause removal of
+ * {@link de.markusrother.pned.core.model.NodeModel}s.
  * </p>
  *
  * @author Markus Rother
@@ -25,9 +26,10 @@ public class NodeRemovalCommand extends EventObject
 	 * </p>
 	 *
 	 * @param source
-	 *            a {@link java.lang.Object} object.
+	 *            a {@link java.lang.Object} - this event's source.
 	 * @param nodeId
-	 *            a {@link java.lang.String} object.
+	 *            a {@link java.lang.String} - the unique identifier of the node
+	 *            to be removed.
 	 */
 	public NodeRemovalCommand(final Object source, final String nodeId) {
 		super(source);
@@ -39,7 +41,8 @@ public class NodeRemovalCommand extends EventObject
 	 * Getter for the field <code>nodeId</code>.
 	 * </p>
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} - the unique identifier of the node to
+	 *         be removed.
 	 */
 	public String getNodeId() {
 		return nodeId;

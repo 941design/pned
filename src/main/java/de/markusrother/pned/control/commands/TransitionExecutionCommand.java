@@ -7,7 +7,8 @@ import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
- * TransitionExecutionCommand class.
+ * Instances of this class trigger execution of an active
+ * {@link de.markusrother.pned.core.model.TransitionModel}.
  * </p>
  *
  * @author Markus Rother
@@ -25,9 +26,10 @@ public class TransitionExecutionCommand extends EventObject
 	 * </p>
 	 *
 	 * @param source
-	 *            a {@link java.lang.Object} object.
+	 *            a {@link java.lang.Object} - this event's source.
 	 * @param transitionId
-	 *            a {@link java.lang.String} object.
+	 *            a {@link java.lang.String} - the unique identifier of the
+	 *            transition to be fired.
 	 */
 	public TransitionExecutionCommand(final Object source, final String transitionId) {
 		super(source);
@@ -39,7 +41,8 @@ public class TransitionExecutionCommand extends EventObject
 	 * Getter for the field <code>transitionId</code>.
 	 * </p>
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} - the unique identifier of the
+	 *         transition to be fired.
 	 */
 	public String getTransitionId() {
 		return transitionId;

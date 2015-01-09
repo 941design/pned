@@ -270,7 +270,8 @@ public interface PetriNetModel {
 	 * </p>
 	 *
 	 * @param transition
-	 *            the transition to be fired.
+	 *            the {@link de.markusrother.pned.core.model.TransitionModel}
+	 *            transition to be fired.
 	 * @throws de.markusrother.pned.core.TransitionInactiveException
 	 *             if the given transition was not active.
 	 */

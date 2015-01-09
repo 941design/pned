@@ -7,7 +7,8 @@ import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
- * EdgeCreationCommand class.
+ * Class that triggers creation of an
+ * {@link de.markusrother.pned.core.model.EdgeModel}.
  * </p>
  *
  * @author Markus Rother
@@ -17,8 +18,11 @@ public class EdgeCreationCommand extends EventObject
 	implements
 		JsonSerializable {
 
+	/** The new edge's unique identifier. */
 	private final String edgeId;
+	/** The new edge's source node's unique identifier. */
 	private final String sourceId;
+	/** The new edge's target node's unique identifier. */
 	private final String targetId;
 
 	/**
@@ -27,13 +31,15 @@ public class EdgeCreationCommand extends EventObject
 	 * </p>
 	 *
 	 * @param source
-	 *            a {@link java.lang.Object} object.
-	 * @param sourceId
-	 *            a {@link java.lang.String} object.
+	 *            a {@link java.lang.Object} - this event's source.
 	 * @param edgeId
-	 *            a {@link java.lang.String} object.
+	 *            a {@link java.lang.String} - the new edge's unique identifier.
+	 * @param sourceId
+	 *            a {@link java.lang.String} - the new edge's source node's
+	 *            unique identifier.
 	 * @param targetId
-	 *            a {@link java.lang.String} object.
+	 *            a {@link java.lang.String} -the new edge's target node's
+	 *            unique identifier.
 	 */
 	public EdgeCreationCommand(final Object source, final String edgeId, final String sourceId, final String targetId) {
 		super(source);
@@ -47,7 +53,7 @@ public class EdgeCreationCommand extends EventObject
 	 * Getter for the field <code>edgeId</code>.
 	 * </p>
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} - the new edge's unique identifier.
 	 */
 	public String getEdgeId() {
 		return edgeId;
@@ -58,7 +64,8 @@ public class EdgeCreationCommand extends EventObject
 	 * Getter for the field <code>sourceId</code>.
 	 * </p>
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} - the new edge's source node's unique
+	 *         identifier.
 	 */
 	public String getSourceId() {
 		return sourceId;
@@ -69,7 +76,8 @@ public class EdgeCreationCommand extends EventObject
 	 * Getter for the field <code>targetId</code>.
 	 * </p>
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} - the new edge's source node's unique
+	 *         identifier..
 	 */
 	public String getTargetId() {
 		return targetId;
