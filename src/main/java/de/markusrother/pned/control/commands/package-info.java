@@ -1,6 +1,5 @@
 /**
- * Events that represent Petri net manipulations. Classes in this package should 
- * only depend on {@link de.markusrother.pned.core}. 
+ * Events that trigger Petri net manipulations. 
  */
 package de.markusrother.pned.control.commands;
 
