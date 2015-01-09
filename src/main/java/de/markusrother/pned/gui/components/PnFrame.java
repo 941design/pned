@@ -21,8 +21,8 @@ import de.markusrother.pned.gui.commands.PetriNetListener;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.core.GuiState;
-import de.markusrother.pned.gui.menus.PnMenuFactory;
 import de.markusrother.pned.gui.menus.PnMenuBar;
+import de.markusrother.pned.gui.menus.PnMenuFactory;
 import de.markusrother.pned.io.PNMLParser;
 import de.markusrother.pned.util.PetriNetGuiEventLogger;
 import de.markusrother.swing.CustomScrollPaneUI;
@@ -138,24 +138,6 @@ public class PnFrame extends JFrame
 	 */
 	private void createPetriNetModel(final EventBus eventMulticaster) {
 		EventAwarePetriNet.create(eventMulticaster);
-	}
-
-	/**
-	 * <p>
-	 * main.
-	 * </p>
-	 *
-	 * @param args
-	 *            a {@link java.lang.String} object.
-	 */
-	public static void main(final String... args) {
-
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				final @SuppressWarnings("unused") PnFrame editorFrame = new PnFrame("foobar");
-			}
-		});
 	}
 
 	/** {@inheritDoc} */
