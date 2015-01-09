@@ -6,13 +6,14 @@ import de.markusrother.pned.gui.actions.LocationProvider;
 
 /**
  * <p>
- * Default, singleton implementation of {@link de.markusrother.pned.gui.actions.LocationProvider}.
+ * Default, singleton implementation of
+ * {@link de.markusrother.pned.gui.actions.LocationProvider}.
  * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
-public class DefaultNodeLocationProvider
+class DefaultNodeLocationProvider
 	implements
 		LocationProvider {
 

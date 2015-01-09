@@ -16,7 +16,6 @@ import de.markusrother.pned.control.commands.PlaceCommandListener;
 import de.markusrother.pned.control.events.MarkingChangeEvent;
 import de.markusrother.pned.control.events.MarkingEventObject;
 import de.markusrother.pned.control.events.PlaceEventListener;
-import de.markusrother.pned.gui.PlaceLayout;
 import de.markusrother.pned.gui.listeners.MarkingEditor;
 import de.markusrother.pned.gui.model.NodeStyleModel;
 import de.markusrother.util.JsonBuilder;

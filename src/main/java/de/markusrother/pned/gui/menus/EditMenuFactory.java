@@ -1,7 +1,7 @@
-package de.markusrother.pned.gui.actions;
+package de.markusrother.pned.gui.menus;
 
-import static de.markusrother.pned.gui.NodeCreationMode.PLACE;
-import static de.markusrother.pned.gui.NodeCreationMode.TRANSITION;
+import static de.markusrother.pned.gui.core.NodeCreationMode.PLACE;
+import static de.markusrother.pned.gui.core.NodeCreationMode.TRANSITION;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -15,8 +15,13 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import de.markusrother.pned.gui.actions.CreatePlaceAction;
+import de.markusrother.pned.gui.actions.CreateTransitionAction;
+import de.markusrother.pned.gui.actions.LocationProvider;
+import de.markusrother.pned.gui.actions.RemoveIncomingEdgesAction;
+import de.markusrother.pned.gui.actions.RemoveOutgoingEdgesAction;
+import de.markusrother.pned.gui.actions.RemoveSelectedNodesAction;
 import de.markusrother.pned.gui.core.PnState;
-import de.markusrother.pned.gui.menus.DefaultNodeLocationProvider;
 
 /**
  * <p>EditMenuFactory class.</p>

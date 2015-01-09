@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui;
+package de.markusrother.pned.gui.components;
 
 import java.awt.geom.Point2D;
 
@@ -8,7 +8,7 @@ import java.awt.geom.Point2D;
  * @author Markus Rother
  * @version 1.0
  */
-public interface DefinitelyBounded {
+interface DefinitelyBounded {
 
 	/**
 	 * TODO - This could become a PathIterator to walk the entire boundary at a

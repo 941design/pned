@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui;
+package de.markusrother.pned.gui.components;
 
 import java.awt.Component;
 import java.awt.Container;

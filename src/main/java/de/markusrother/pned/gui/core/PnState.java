@@ -13,7 +13,6 @@ import java.util.Set;
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
-import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.commands.EdgeLayoutCommand;
 import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.commands.MarkingLayoutCommand;
@@ -121,7 +120,7 @@ public class PnState extends PnEventAdapter {
 	 * Getter for the field <code>nodeCreationMode</code>.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.NodeCreationMode} object.
+	 * @return a {@link de.markusrother.pned.gui.core.NodeCreationMode} object.
 	 */
 	public NodeCreationMode getNodeCreationMode() {
 		return nodeCreationMode;
@@ -133,7 +132,7 @@ public class PnState extends PnEventAdapter {
 	 * </p>
 	 *
 	 * @param nodeCreationMode
-	 *            a {@link de.markusrother.pned.gui.NodeCreationMode} object.
+	 *            a {@link de.markusrother.pned.gui.core.NodeCreationMode} object.
 	 */
 	public void setNodeCreationMode(final NodeCreationMode nodeCreationMode) {
 		this.nodeCreationMode = nodeCreationMode;

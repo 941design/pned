@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.commands;
 
 import java.util.EventObject;
 
-import de.markusrother.pned.gui.NodeCreationMode;
+import de.markusrother.pned.gui.core.NodeCreationMode;
 import de.markusrother.util.JsonBuilder;
 import de.markusrother.util.JsonSerializable;
 
@@ -30,7 +30,7 @@ public class SetNodeTypeCommand extends EventObject
 	 * @param source
 	 *            a {@link java.lang.Object} object.
 	 * @param mode
-	 *            a {@link de.markusrother.pned.gui.NodeCreationMode} object.
+	 *            a {@link de.markusrother.pned.gui.core.NodeCreationMode} object.
 	 */
 	public SetNodeTypeCommand(final Object source, final NodeCreationMode mode) {
 		super(source);
@@ -42,7 +42,7 @@ public class SetNodeTypeCommand extends EventObject
 	 * Getter for the field <code>mode</code>.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.NodeCreationMode} object.
+	 * @return a {@link de.markusrother.pned.gui.core.NodeCreationMode} object.
 	 */
 	public NodeCreationMode getMode() {
 		return mode;

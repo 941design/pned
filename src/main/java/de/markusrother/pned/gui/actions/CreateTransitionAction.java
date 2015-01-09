@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui.actions;
 
-import static de.markusrother.pned.gui.NodeCreationMode.TRANSITION;
+import static de.markusrother.pned.gui.core.NodeCreationMode.TRANSITION;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

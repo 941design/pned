@@ -8,8 +8,6 @@ import java.awt.geom.Point2D;
 
 import javax.swing.JComponent;
 
-import de.markusrother.pned.gui.DefinitelyBounded;
-
 /**
  * TODO - does this require source and target to have the same parent?
  *

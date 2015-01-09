@@ -5,9 +5,9 @@ import java.awt.event.MouseEvent;
 import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
-import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.commands.NodeListener;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
+import de.markusrother.pned.gui.core.NodeCreationMode;
 import de.markusrother.swing.LeftClickListener;
 
 /**

@@ -16,6 +16,7 @@ import de.markusrother.pned.gui.components.NodeLabel;
  * @author Markus Rother
  * @version 1.0
  */
+@Deprecated
 public class NodeLabelStyle
 	implements
 		Style<NodeLabel> {

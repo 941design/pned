@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui;
+package de.markusrother.pned.gui.components;
 
 /**
  * Interface for self removing components.
@@ -6,10 +6,12 @@ package de.markusrother.pned.gui;
  * @author Markus Rother
  * @version 1.0
  */
-public interface Disposable {
+interface Disposable {
 
 	/**
-	 * <p>dispose.</p>
+	 * <p>
+	 * dispose.
+	 * </p>
 	 */
 	void dispose();
 

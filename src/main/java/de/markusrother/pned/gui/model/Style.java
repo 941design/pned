@@ -12,6 +12,7 @@ import java.awt.Component;
  * @author Markus Rother
  * @version 1.0
  */
+@Deprecated
 public interface Style<T extends Component> {
 
 	/**

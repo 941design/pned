@@ -13,7 +13,7 @@ import de.markusrother.pned.gui.core.PnState;
  * @author Markus Rother
  * @version 1.0
  */
-public abstract class AbstractGuiAction extends AbstractAction {
+abstract class AbstractGuiAction extends AbstractAction {
 
 	protected final Object source;
 	protected final PnState state;

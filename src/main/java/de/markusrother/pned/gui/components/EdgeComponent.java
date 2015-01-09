@@ -19,7 +19,6 @@ import de.markusrother.pned.control.commands.EdgeCreationListener;
 import de.markusrother.pned.control.commands.NodeMotionCommand;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
-import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.commands.PlaceLayoutListener;

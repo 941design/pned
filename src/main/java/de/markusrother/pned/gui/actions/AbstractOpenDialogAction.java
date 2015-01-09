@@ -14,7 +14,7 @@ import de.markusrother.pned.gui.commands.PnCommandTarget;
  * @author Markus Rother
  * @version 1.0
  */
-public abstract class AbstractOpenDialogAction extends AbstractAction {
+abstract class AbstractOpenDialogAction extends AbstractAction {
 
 	/**
 	 * The event target to which events are posted to.
@@ -27,8 +27,7 @@ public abstract class AbstractOpenDialogAction extends AbstractAction {
 	 * </p>
 	 *
 	 * @param commandTarget
-	 *            an
-	 *            {@link de.markusrother.pned.gui.commands.PnCommandTarget}
+	 *            an {@link de.markusrother.pned.gui.commands.PnCommandTarget}
 	 *            to be posted to.
 	 * @param label
 	 *            a {@link java.lang.String} - this action's textual

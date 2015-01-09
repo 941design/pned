@@ -5,7 +5,6 @@ import java.awt.Point;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
-import de.markusrother.pned.gui.actions.EditMenuFactory;
 import de.markusrother.pned.gui.core.PnState;
 import de.markusrother.pned.gui.dialogs.FileDialogFactory;
 

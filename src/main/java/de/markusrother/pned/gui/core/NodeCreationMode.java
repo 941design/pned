@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui;
+package de.markusrother.pned.gui.core;
 
 /**
  * <p>NodeCreationMode class.</p>
@@ -17,7 +17,7 @@ public enum NodeCreationMode {
 	/**
 	 * <p>inverse.</p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.NodeCreationMode} object.
+	 * @return a {@link de.markusrother.pned.gui.core.NodeCreationMode} object.
 	 */
 	public NodeCreationMode inverse() {
 		switch (this) {
