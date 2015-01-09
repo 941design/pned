@@ -50,7 +50,7 @@ import de.markusrother.pned.io.PetriNetMarshaller;
 /**
  * <p>
  * Petri net implementation that can be maintained by sending and receiving
- * events via an {@link EventBus}.
+ * events via an {@link de.markusrother.pned.control.EventBus}.
  * </p>
  *
  * @author Markus Rother
@@ -92,6 +92,9 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		installEventListeners();
 	}
 
+	/**
+	 * <p>installEventListeners.</p>
+	 */
 	private void installEventListeners() {
 		eventBus.addListener(IdRequestListener.class, this);
 		eventBus.addListener(NodeCreationListener.class, this);
@@ -290,8 +293,8 @@ public class EventAwarePetriNet extends DefaultPetriNet
 
 	/**
 	 * <p>
-	 * Possibly fires {@link TransitionActivationEvent}s if the change executed
-	 * by the given {@link Runnable}, changes the activation state of one or
+	 * Possibly fires {@link de.markusrother.pned.control.events.TransitionActivationEvent}s if the change executed
+	 * by the given {@link java.lang.Runnable}, changes the activation state of one or
 	 * more transitions.
 	 * </p>
 	 *
@@ -326,7 +329,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	 *
 	 * @param events
 	 *            a {@link java.util.Collection} of
-	 *            {@link TransitionActivationEvent} - the changing events.
+	 *            {@link de.markusrother.pned.control.events.TransitionActivationEvent} - the changing events.
 	 */
 	private void fireTransitionAcivationEvents(final Collection<TransitionActivationEvent> events) {
 		for (final TransitionActivationEvent evt : events) {
@@ -346,7 +349,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	/**
 	 * <p>
 	 * Returns deactivation events, one for each provided
-	 * {@link TransitionModel}.
+	 * {@link de.markusrother.pned.core.model.TransitionModel}.
 	 * </p>
 	 *
 	 * @param deactivated
@@ -369,7 +372,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 
 	/**
 	 * <p>
-	 * Returns activation events, one for each provided {@link TransitionModel}.
+	 * Returns activation events, one for each provided {@link de.markusrother.pned.core.model.TransitionModel}.
 	 * </p>
 	 *
 	 * @param activated

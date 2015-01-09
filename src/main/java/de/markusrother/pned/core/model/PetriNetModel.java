@@ -268,7 +268,7 @@ public interface PetriNetModel {
 	 * <p>
 	 * Executes a given transition.
 	 * </p>
-	 * 
+	 *
 	 * @param transition
 	 *            the transition to be fired.
 	 * @throws de.markusrother.pned.core.TransitionInactiveException

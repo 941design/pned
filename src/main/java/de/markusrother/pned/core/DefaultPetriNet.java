@@ -47,7 +47,7 @@ public class DefaultPetriNet
 
 	/**
 	 * <p>
-	 * Instantiates a valid, empty {@link PetriNetModel}.
+	 * Instantiates a valid, empty {@link de.markusrother.pned.core.model.PetriNetModel}.
 	 * </p>
 	 */
 	public DefaultPetriNet() {
@@ -450,8 +450,8 @@ public class DefaultPetriNet
 
 	/**
 	 * <p>
-	 * Decrements the markings of all input {@link PlaceModel}s by one. Called
-	 * after the given {@link TransitionModel} has been fired.
+	 * Decrements the markings of all input {@link de.markusrother.pned.core.model.PlaceModel}s by one. Called
+	 * after the given {@link de.markusrother.pned.core.model.TransitionModel} has been fired.
 	 * </p>
 	 *
 	 * @param transition
@@ -467,7 +467,7 @@ public class DefaultPetriNet
 
 	/**
 	 * <p>
-	 * Decrements the given {@link PlaceModel}s marking by one.
+	 * Decrements the given {@link de.markusrother.pned.core.model.PlaceModel}s marking by one.
 	 * </p>
 	 *
 	 * @param place
@@ -480,9 +480,9 @@ public class DefaultPetriNet
 
 	/**
 	 * <p>
-	 * Increments the markings of all output {@link PlaceModel}s by one. Called
-	 * after the given {@link TransitionModel} has been fired.
-	 * 
+	 * Increments the markings of all output {@link de.markusrother.pned.core.model.PlaceModel}s by one. Called
+	 * after the given {@link de.markusrother.pned.core.model.TransitionModel} has been fired.
+	 *
 	 * </p>
 	 *
 	 * @param transition
@@ -498,7 +498,7 @@ public class DefaultPetriNet
 
 	/**
 	 * <p>
-	 * Increments the given {@link PlaceModel}s marking by one.
+	 * Increments the given {@link de.markusrother.pned.core.model.PlaceModel}s marking by one.
 	 * </p>
 	 *
 	 * @param place
@@ -511,13 +511,13 @@ public class DefaultPetriNet
 
 	/**
 	 * <p>
-	 * Returns the {@link PlaceModel}s preceding input edges.
+	 * Returns the {@link de.markusrother.pned.core.model.PlaceModel}s preceding input edges.
 	 * </p>
 	 *
 	 * @param transition
 	 *            a {@link de.markusrother.pned.core.model.TransitionModel} -
 	 *            the transition whose input places are to be returned.
-	 * @return a {@link java.util.Collection} of {@link PlaceModel} - the input
+	 * @return a {@link java.util.Collection} of {@link de.markusrother.pned.core.model.PlaceModel} - the input
 	 *         places.
 	 */
 	private Collection<PlaceModel> getInputPlaces(final TransitionModel transition) {
@@ -527,13 +527,13 @@ public class DefaultPetriNet
 
 	/**
 	 * <p>
-	 * Returns the {@link PlaceModel}s succeeding output edges.
+	 * Returns the {@link de.markusrother.pned.core.model.PlaceModel}s succeeding output edges.
 	 * </p>
 	 *
 	 * @param transition
 	 *            a {@link de.markusrother.pned.core.model.TransitionModel} -
 	 *            the transition whose output places are to be returned.
-	 * @return a {@link java.util.Collection} of {@link PlaceModel} - the output
+	 * @return a {@link java.util.Collection} of {@link de.markusrother.pned.core.model.PlaceModel} - the output
 	 *         places.
 	 */
 	private Collection<PlaceModel> getOutputPlaces(final TransitionModel transition) {
@@ -546,7 +546,7 @@ public class DefaultPetriNet
 	 * Returns {@link de.markusrother.pned.core.model.PlaceModel}s identified by
 	 * the given {@link java.lang.String}s.
 	 * </p>
-	 * 
+	 *
 	 * <b>NOTE - If this method is made public:</b>
 	 * <ul>
 	 * <li>Check for duplicate entries</li>
@@ -556,7 +556,7 @@ public class DefaultPetriNet
 	 * @param placeIds
 	 *            a {@link java.util.Collection} - the unique identifiers of
 	 *            places to be retrieved.
-	 * @return a {@link java.util.Collection} of {@link PlaceModel} - the
+	 * @return a {@link java.util.Collection} of {@link de.markusrother.pned.core.model.PlaceModel} - the
 	 *         collected places.
 	 */
 	private Collection<PlaceModel> getPlaces(final Collection<String> placeIds) {

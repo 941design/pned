@@ -51,7 +51,7 @@ public abstract class AbstractDefaultNode
 
 	/**
 	 * <p>
-	 * Instantiates a valid {@link NodeModel}.
+	 * Instantiates a valid {@link de.markusrother.pned.core.model.NodeModel}.
 	 * </p>
 	 *
 	 * @param nodeId

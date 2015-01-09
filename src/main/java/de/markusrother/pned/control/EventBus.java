@@ -36,10 +36,15 @@ import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.util.EventSource;
 
 /**
- * Channel of communication between <b>a single<b> {@link EventAwarePetriNet}
- * and other interested parties.
+ * <p>
+ * Channel of communication between <b>a single</b>
+ * {@link de.markusrother.pned.control.EventAwarePetriNet} and other interested
+ * parties.
+ * </p>
  * 
+ * <p>
  * The following example illustrates event forwarding to the Petri net:
+ * </p>
  * 
  * <pre>
  * EventBus eventBus = new EventBus();
@@ -50,7 +55,9 @@ import de.markusrother.util.EventSource;
  * eventBus.createEdge(...);
  * </pre>
  * 
+ * <p>
  * The following example illustrates event tapping to a logger:
+ * </p>
  * 
  * <pre>
  * EventBus eventBus = new EventBus();
@@ -58,7 +65,6 @@ import de.markusrother.util.EventSource;
  * PetriNetEventLogger logger = new PetriNetEventLogger(eventBus);
  * ...
  * </pre>
- * 
  *
  * @author Markus Rother
  * @version 1.0

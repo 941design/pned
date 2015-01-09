@@ -31,7 +31,7 @@ public class DefaultTransition extends AbstractDefaultNode
 
 	/**
 	 * <p>
-	 * Instantiates a valid {@link TransitionModel}
+	 * Instantiates a valid {@link de.markusrother.pned.core.model.TransitionModel}
 	 * </p>
 	 *
 	 * @param nodeId

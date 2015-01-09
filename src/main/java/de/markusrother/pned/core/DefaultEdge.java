@@ -41,7 +41,7 @@ public class DefaultEdge
 
 	/**
 	 * <p>
-	 * Instantiates a valid {@link EdgeModel}.
+	 * Instantiates a valid {@link de.markusrother.pned.core.model.EdgeModel}.
 	 * </p>
 	 *
 	 * @param edgeId

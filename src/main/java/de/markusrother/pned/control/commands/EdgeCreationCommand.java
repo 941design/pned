@@ -28,9 +28,9 @@ public class EdgeCreationCommand extends EventObject
 	 *
 	 * @param source
 	 *            a {@link java.lang.Object} object.
-	 * @param edgeId
-	 *            a {@link java.lang.String} object.
 	 * @param sourceId
+	 *            a {@link java.lang.String} object.
+	 * @param edgeId
 	 *            a {@link java.lang.String} object.
 	 * @param targetId
 	 *            a {@link java.lang.String} object.

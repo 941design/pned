@@ -35,7 +35,7 @@ public class DefaultPlace extends AbstractDefaultNode
 
 	/**
 	 * <p>
-	 * Instantiates a valid {@link PlaceModel}.
+	 * Instantiates a valid {@link de.markusrother.pned.core.model.PlaceModel}.
 	 * </p>
 	 *
 	 * @param nodeId
