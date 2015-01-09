@@ -8,13 +8,19 @@ import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
+import de.markusrother.pned.gui.model.EdgeStyleModel;
+
 /**
- * <p>EdgeStyle class.</p>
+ * <p>
+ * EdgeStyle class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
-public class EdgeStyle {
+public class EdgeStyle extends AbstractStyle
+	implements
+		EdgeStyleModel {
 
 	/** Constant <code>DEFAULT_TIP</code> */
 	public static final Polygon DEFAULT_TIP;
@@ -30,17 +36,16 @@ public class EdgeStyle {
 		}
 	}
 
-	/** Constant <code>DEFAULT</code> */
-	public static final EdgeStyle DEFAULT;
-	static {
-		DEFAULT = new EdgeStyle();
-		DEFAULT.setTip(DEFAULT_TIP);
-		DEFAULT.setTipSize(10);
-		DEFAULT.setLineStroke(new BasicStroke(2));
-		DEFAULT.setDefaultColor(Color.BLACK);
-		DEFAULT.setHoverColor(Color.BLUE);
-		DEFAULT.setValidColor(Color.GREEN);
-		DEFAULT.setInvalidColor(Color.RED);
+	public static EdgeStyleModel newDefault() {
+		final EdgeStyleModel style = new EdgeStyle();
+		style.setShape(DEFAULT_TIP);
+		style.setSize(10);
+		style.setStroke(new BasicStroke(2));
+		style.setDefaultColor(Color.BLACK);
+		style.setHoverColor(Color.BLUE);
+		style.setValidColor(Color.GREEN);
+		style.setInvalidColor(Color.RED);
+		return style;
 	}
 
 	private Color defaultColor;
@@ -51,131 +56,83 @@ public class EdgeStyle {
 	private Shape tip;
 	private int tipSize;
 
-	/**
-	 * <p>Getter for the field <code>defaultColor</code>.</p>
-	 *
-	 * @return a {@link java.awt.Color} object.
-	 */
+	@Override
 	public Color getDefaultColor() {
 		return defaultColor;
 	}
 
-	/**
-	 * <p>Setter for the field <code>defaultColor</code>.</p>
-	 *
-	 * @param defaultColor a {@link java.awt.Color} object.
-	 */
+	@Override
 	public void setDefaultColor(final Color defaultColor) {
 		this.defaultColor = defaultColor;
+		fireChangeEvent();
 	}
 
-	/**
-	 * <p>Getter for the field <code>hoverColor</code>.</p>
-	 *
-	 * @return a {@link java.awt.Color} object.
-	 */
+	@Override
 	public Color getHoverColor() {
 		return hoverColor;
 	}
 
-	/**
-	 * <p>Setter for the field <code>hoverColor</code>.</p>
-	 *
-	 * @param hoverColor a {@link java.awt.Color} object.
-	 */
+	@Override
 	public void setHoverColor(final Color hoverColor) {
 		this.hoverColor = hoverColor;
+		fireChangeEvent();
 	}
 
-	/**
-	 * <p>Getter for the field <code>validColor</code>.</p>
-	 *
-	 * @return a {@link java.awt.Color} object.
-	 */
+	@Override
 	public Color getValidColor() {
 		return validColor;
 	}
 
-	/**
-	 * <p>Setter for the field <code>validColor</code>.</p>
-	 *
-	 * @param validColor a {@link java.awt.Color} object.
-	 */
+	@Override
 	public void setValidColor(final Color validColor) {
 		this.validColor = validColor;
+		fireChangeEvent();
 	}
 
-	/**
-	 * <p>Getter for the field <code>invalidColor</code>.</p>
-	 *
-	 * @return a {@link java.awt.Color} object.
-	 */
+	@Override
 	public Color getInvalidColor() {
 		return invalidColor;
 	}
 
-	/**
-	 * <p>Setter for the field <code>invalidColor</code>.</p>
-	 *
-	 * @param invalidColor a {@link java.awt.Color} object.
-	 */
+	@Override
 	public void setInvalidColor(final Color invalidColor) {
 		this.invalidColor = invalidColor;
+		fireChangeEvent();
 	}
 
-	/**
-	 * <p>Getter for the field <code>lineStroke</code>.</p>
-	 *
-	 * @return a {@link java.awt.Stroke} object.
-	 */
-	public Stroke getLineStroke() {
+	@Override
+	public Stroke getStroke() {
 		return lineStroke;
 	}
 
-	/**
-	 * <p>Setter for the field <code>lineStroke</code>.</p>
-	 *
-	 * @param lineStroke a {@link java.awt.Stroke} object.
-	 */
-	public void setLineStroke(final Stroke lineStroke) {
+	@Override
+	public void setStroke(final Stroke lineStroke) {
 		this.lineStroke = lineStroke;
+		fireChangeEvent();
 	}
 
-	/**
-	 * <p>Getter for the field <code>tipSize</code>.</p>
-	 *
-	 * @return a int.
-	 */
-	public int getTipSize() {
+	@Override
+	public int getSize() {
 		return tipSize;
 	}
 
-	/**
-	 * <p>Setter for the field <code>tipSize</code>.</p>
-	 *
-	 * @param tipSize a int.
-	 */
-	public void setTipSize(final int tipSize) {
-		this.tipSize = tipSize;
+	@Override
+	public void setSize(final int size) {
+		this.tipSize = size;
+		fireChangeEvent();
 	}
 
-	/**
-	 * <p>Getter for the field <code>tip</code>.</p>
-	 *
-	 * @return a {@link java.awt.Shape} object.
-	 */
-	public Shape getTip() {
+	@Override
+	public Shape getShape() {
 		final double scaleFactor = tipSize / 10.0;
 		final AffineTransform transform = AffineTransform.getScaleInstance(scaleFactor, scaleFactor);
 		return transform.createTransformedShape(tip);
 	}
 
-	/**
-	 * <p>Setter for the field <code>tip</code>.</p>
-	 *
-	 * @param tip a {@link java.awt.Shape} object.
-	 */
-	private void setTip(final Shape tip) {
-		this.tip = tip;
+	@Override
+	public void setShape(final Shape shape) {
+		tip = shape;
+		fireChangeEvent();
 	}
+
 }

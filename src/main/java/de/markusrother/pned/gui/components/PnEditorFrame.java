@@ -185,9 +185,11 @@ public class PnEditorFrame extends JFrame
 	 */
 	private void createComponents() {
 		final GuiEventBus eventBus = state.getEventBus();
+		final NodeFactoryImpl factory = new NodeFactoryImpl(state);
 		this.grid = new PnGridPanel(eventBus, //
 				menuFactory, //
-				new NodeFactoryImpl(state));
+				factory, //
+				factory);
 		this.grid.setPreferredSize(gridSize);
 		this.pnedMenuBar = new PnedMenuBar(menuFactory);
 		this.scrollPane = createAutoResizableScrollPane(grid);

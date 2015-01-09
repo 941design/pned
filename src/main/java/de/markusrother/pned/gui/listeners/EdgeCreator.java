@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 import de.markusrother.pned.core.commands.EdgeCreationCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.components.EdgeComponent;
+import de.markusrother.pned.gui.components.EdgeFactory;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.swing.MultiClickListener;
@@ -33,6 +34,7 @@ import de.markusrother.swing.MultiClickListener;
 public class EdgeCreator extends MultiClickListener {
 
 	private final GuiEventBus eventBus;
+	private final EdgeFactory edgeFactory;
 	private final Container container;
 
 	private EdgeComponent edge;
@@ -79,8 +81,9 @@ public class EdgeCreator extends MultiClickListener {
 	 * @param container
 	 *            a {@link java.awt.Container} object.
 	 */
-	public EdgeCreator(final GuiEventBus eventBus, final Container container) {
+	public EdgeCreator(final GuiEventBus eventBus, final EdgeFactory edgeFactory, final Container container) {
 		this.eventBus = eventBus;
+		this.edgeFactory = edgeFactory;
 		this.container = container;
 	}
 
@@ -202,7 +205,11 @@ public class EdgeCreator extends MultiClickListener {
 		target.translate(origin.x, origin.y);
 		final Point source = getCenter(sourceNode);
 		// TODO - Constructor should require center(source) and target points.
-		edge = new EdgeComponent(eventBus, sourceNode, source, target);
+		edge = new EdgeComponent(eventBus, //
+				edgeFactory.getEdgeStyle(), //
+				sourceNode,//
+				source,//
+				target);
 		edge.setBounds(container.getBounds());
 		container.add(edge);
 		container.repaint();

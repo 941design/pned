@@ -20,11 +20,14 @@ import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.layout.commands.EdgeLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
+import de.markusrother.pned.gui.layout.style.EdgeStyle;
 import de.markusrother.pned.gui.layout.style.MarkingStyle;
 import de.markusrother.pned.gui.layout.style.NodeStyle;
+import de.markusrother.pned.gui.model.EdgeStyleModel;
 import de.markusrother.pned.gui.model.MarkingStyleModel;
 import de.markusrother.pned.gui.model.NodeStyleModel;
 import de.markusrother.pned.util.PetriNetGuiEventAdapter;
@@ -42,6 +45,7 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	protected final NodeStyleModel placeStyle;
 	protected final NodeStyleModel transitionStyle;
 	protected final MarkingStyleModel markingStyle;
+	protected final EdgeStyleModel edgeStyle;
 	protected final Set<String> selectedNodeIds;
 	protected final Map<String, String> incomingEdgesMap;
 	protected final Map<String, String> outgoingEdgesMap;
@@ -62,6 +66,7 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		this.placeStyle = NodeStyle.newDefault();
 		this.transitionStyle = NodeStyle.newDefault();
 		this.markingStyle = MarkingStyle.newDefault();
+		this.edgeStyle = EdgeStyle.newDefault();
 		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
 		this.selectedNodeIds = new HashSet<>();
 		this.incomingEdgesMap = new HashMap<>();
@@ -376,8 +381,11 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		markingStyle.setSize(size);
 	}
 
-	public MarkingStyleModel getMarkingStyle() {
-		return markingStyle;
+	/** {@inheritDoc} */
+	@Override
+	public void setSize(final EdgeLayoutCommand cmd) {
+		final int size = cmd.getSize();
+		edgeStyle.setSize(size);
 	}
 
 	/**
@@ -400,6 +408,14 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	 */
 	public NodeStyleModel getTransitionStyle() {
 		return transitionStyle;
+	}
+
+	public EdgeStyleModel getEdgeStyle() {
+		return edgeStyle;
+	}
+
+	public MarkingStyleModel getMarkingStyle() {
+		return markingStyle;
 	}
 
 }

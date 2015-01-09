@@ -87,6 +87,7 @@ public class PnGridPanel extends JLayeredPane
 
 	private final Set<AbstractNode> currentSelection;
 	private final NodeFactory nodeFactory;
+	private final EdgeFactory edgeFactory;
 
 	/**
 	 * <p>
@@ -116,10 +117,12 @@ public class PnGridPanel extends JLayeredPane
 	 *            a {@link de.markusrother.pned.gui.components.NodeFactory}
 	 *            object.
 	 */
-	public PnGridPanel(final GuiEventBus eventBus, final PnEditorMenuFactory menuFactory, final NodeFactory nodeFactory) {
+	public PnGridPanel(final GuiEventBus eventBus, final PnEditorMenuFactory menuFactory,
+			final NodeFactory nodeFactory, final EdgeFactory edgeFactory) {
 
 		this.eventBus = eventBus;
 		this.nodeFactory = nodeFactory;
+		this.edgeFactory = edgeFactory;
 		this.currentSelection = new HashSet<>();
 
 		setPreferredSize(preferredSize);
@@ -137,7 +140,7 @@ public class PnGridPanel extends JLayeredPane
 		labelLayer = createLayer(10);
 
 		// Listeners that are needed by children, are kept here:
-		this.edgeCreator = new EdgeCreator(eventBus, edgeLayer);
+		this.edgeCreator = new EdgeCreator(eventBus, edgeFactory, edgeLayer);
 		this.nodeCreator = new NodeCreator(eventBus);
 		this.multipleNodeSelector = new NodeSelector(eventBus);
 		this.popupCreator = new PnGridPopupListener(menuFactory);
@@ -322,6 +325,7 @@ public class PnGridPanel extends JLayeredPane
 		final AbstractNode targetNode = requestNode(cmd.getTargetId());
 		final EdgeComponent edge = new EdgeComponent(eventBus, //
 				edgeId, //
+				edgeFactory.getEdgeStyle(), //
 				sourceNode, //
 				targetNode);
 		addEdgeComponent(edge);

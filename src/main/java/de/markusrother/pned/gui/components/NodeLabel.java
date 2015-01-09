@@ -20,7 +20,7 @@ import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.LabelHoverListener;
 import de.markusrother.pned.gui.listeners.NodeLabelEditor;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
-import de.markusrother.pned.gui.styles.NodeLabelStyle;
+import de.markusrother.pned.gui.model.NodeLabelStyle;
 import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
 

@@ -19,7 +19,11 @@ public class EdgeComponentTest extends AbstractComponentTest<EdgeComponent> {
 		final AbstractNode targetComponent = new Transition(eventMulticastMock, //
 				NO_ID, //
 				NodeStyle.newDefault());
-		return new EdgeComponent(eventMulticastMock, NO_ID, sourceComponent, targetComponent);
+		return new EdgeComponent(eventMulticastMock, //
+				NO_ID, //
+				null, //
+				sourceComponent, //
+				targetComponent);
 	}
 
 }

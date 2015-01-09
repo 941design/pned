@@ -10,7 +10,8 @@ public class PnGridPanelTest extends AbstractComponentTest<PnGridPanel> {
 	protected PnGridPanel getComponent() {
 		return new PnGridPanel(eventMulticastMock, //
 				Mockito.mock(PnEditorMenuFactory.class), //
-				Mockito.mock(NodeFactory.class));
+				Mockito.mock(NodeFactory.class), //
+				Mockito.mock(EdgeFactory.class));
 	}
 
 }

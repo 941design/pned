@@ -11,6 +11,8 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 
+import javax.swing.event.ChangeEvent;
+
 import de.markusrother.pned.core.commands.EdgeCreationCommand;
 import de.markusrother.pned.core.commands.NodeMotionCommand;
 import de.markusrother.pned.core.commands.NodeRemovalCommand;
@@ -21,16 +23,15 @@ import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.layout.commands.EdgeLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
-import de.markusrother.pned.gui.layout.listeners.EdgeLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.PlaceLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.TransitionLayoutListener;
-import de.markusrother.pned.gui.layout.style.EdgeStyle;
+import de.markusrother.pned.gui.layout.style.Stylable;
 import de.markusrother.pned.gui.listeners.EdgeEditListener;
 import de.markusrother.pned.gui.listeners.EdgeHoverListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.model.EdgeStyleModel;
 import de.markusrother.swing.HoverListener;
 
 /**
@@ -49,26 +50,15 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		NodeMotionListener,
 		EdgeCreationListener,
 		EdgeEditListener,
-		EdgeLayoutListener,
 		PlaceLayoutListener,
 		TransitionLayoutListener,
+		Stylable<EdgeStyleModel>,
 		Disposable {
 
 	/** Constant <code>NO_TARGET_COMPONENT</code> */
 	private static final AbstractNode NO_TARGET_COMPONENT = null;
 	/** Constant <code>NO_ID=""</code> */
 	private static final String NO_ID = "";
-
-	/**
-	 * <p>
-	 * Getter for the field <code>style</code>.
-	 * </p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.layout.style.EdgeStyle} object.
-	 */
-	public EdgeStyle getStyle() {
-		return style;
-	}
 
 	/**
 	 * <p>
@@ -122,7 +112,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	}
 
 	private final EventBus eventBus;
-	private final EdgeStyle style;
+	private EdgeStyleModel style;
 	private final String id;
 
 	/**
@@ -143,9 +133,9 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * @param target
 	 *            a {@link java.awt.Point} object.
 	 */
-	public EdgeComponent(final EventBus eventBus, final AbstractNode sourceComponent, final Point source,
-			final Point target) {
-		this(eventBus, NO_ID, sourceComponent, NO_TARGET_COMPONENT, source, target);
+	public EdgeComponent(final EventBus eventBus, final EdgeStyleModel style, final AbstractNode sourceComponent,
+			final Point source, final Point target) {
+		this(eventBus, NO_ID, style, sourceComponent, NO_TARGET_COMPONENT, source, target);
 	}
 
 	/**
@@ -164,9 +154,10 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * @param id
 	 *            a {@link java.lang.String} object.
 	 */
-	public EdgeComponent(final EventBus eventBus, final String id, final AbstractNode sourceComponent,
-			final AbstractNode targetComponent) {
-		this(eventBus, id, sourceComponent, targetComponent, getCenter(sourceComponent), getCenter(targetComponent));
+	public EdgeComponent(final EventBus eventBus, final String id, final EdgeStyleModel style,
+			final AbstractNode sourceComponent, final AbstractNode targetComponent) {
+		this(eventBus, id, style, sourceComponent, targetComponent, getCenter(sourceComponent),
+				getCenter(targetComponent));
 		reconnect();
 	}
 
@@ -196,17 +187,20 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * @param id
 	 *            a {@link java.lang.String} object.
 	 */
-	private EdgeComponent(final EventBus eventBus, final String id, final AbstractNode sourceComponent,
-			final AbstractNode targetComponent, final Point source, final Point target) {
+	private EdgeComponent(final EventBus eventBus, final String id, final EdgeStyleModel style,
+			final AbstractNode sourceComponent, final AbstractNode targetComponent, final Point source,
+			final Point target) {
 		super(sourceComponent, targetComponent, source, target);
+
 		this.eventBus = eventBus;
 		this.id = id;
-		this.style = EdgeStyle.DEFAULT;
+
+		setStyle(style);
 		setState(ComponentState.DEFAULT);
+
 		eventBus.addListener(EdgeCreationListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeMotionListener.class, this);
-		eventBus.addListener(EdgeLayoutListener.class, this);
 		eventBus.addListener(PlaceLayoutListener.class, this);
 		eventBus.addListener(TransitionLayoutListener.class, this);
 		eventBus.addListener(EdgeEditListener.class, this);
@@ -238,14 +232,14 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		final Graphics2D g2 = (Graphics2D) g;
 
 		// Draw line:
-		g2.setStroke(style.getLineStroke());
+		g2.setStroke(style.getStroke());
 		line = new Line2D.Double(source, target);
 		g2.draw(line);
 
 		// Draw tip:
 		g2.translate(target.x, target.y);
 		g2.rotate(getRadiansOfDelta(source, target));
-		g2.fill(style.getTip());
+		g2.fill(style.getShape());
 
 		// TODO - Currently the edge component is as large as the entire grid!
 		// We could optimize a little, here.
@@ -392,7 +386,6 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		eventBus.removeListener(EdgeCreationListener.class, this);
 		eventBus.removeListener(NodeRemovalListener.class, this);
 		eventBus.removeListener(NodeMotionListener.class, this);
-		eventBus.removeListener(EdgeLayoutListener.class, this);
 		eventBus.removeListener(PlaceLayoutListener.class, this);
 		eventBus.removeListener(TransitionLayoutListener.class, this);
 		eventBus.removeListener(EdgeEditListener.class, this);
@@ -452,14 +445,6 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 	/** {@inheritDoc} */
 	@Override
-	public void setSize(final EdgeLayoutCommand cmd) {
-		final int extent = cmd.getSize();
-		style.setTipSize(extent);
-		repaint();
-	}
-
-	/** {@inheritDoc} */
-	@Override
 	public void createEdge(final EdgeCreationCommand cmd) {
 		// IGNORE
 	}
@@ -471,6 +456,25 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		if (this.id.equals(edgeId)) {
 			dispose();
 		}
+	}
+
+	@Override
+	public void stateChanged(final ChangeEvent e) {
+		if (e.getSource() == this.style) {
+			invalidate();
+			repaint();
+		} else {
+			throw new RuntimeException("Unexpected event source " + e.getSource());
+		}
+	}
+
+	@Override
+	public void setStyle(final EdgeStyleModel style) {
+		if (this.style != null) {
+			this.style.removeChangeListener(this);
+		}
+		this.style = style;
+		this.style.addChangeListener(this);
 	}
 
 }

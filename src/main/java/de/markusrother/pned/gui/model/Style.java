@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui.styles;
+package de.markusrother.pned.gui.model;
 
 import java.awt.Component;
 

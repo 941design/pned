@@ -3,6 +3,7 @@ package de.markusrother.pned.gui.components;
 import de.markusrother.pned.gui.actions.GuiState;
 import de.markusrother.pned.gui.listeners.MarkingEditor;
 import de.markusrother.pned.gui.listeners.SingleNodeSelector;
+import de.markusrother.pned.gui.model.EdgeStyleModel;
 
 /**
  * <p>
@@ -15,6 +16,7 @@ import de.markusrother.pned.gui.listeners.SingleNodeSelector;
 public class NodeFactoryImpl
 	implements
 		NodeFactory,
+		EdgeFactory,
 		MarkingFactory {
 
 	private final MarkingEditor markingEditor;
@@ -77,6 +79,17 @@ public class NodeFactoryImpl
 	 */
 	private void addListenersToNode(final AbstractNode node) {
 		node.setSingleNodeSelector(singleNodeSelector);
+	}
+
+	@Override
+	public EdgeComponent newEdge(final String edgeId, final String sourceId, final String targetId) {
+		// TODO
+		throw new RuntimeException("TODO");
+	}
+
+	@Override
+	public EdgeStyleModel getEdgeStyle() {
+		return state.getEdgeStyle();
 	}
 
 }
