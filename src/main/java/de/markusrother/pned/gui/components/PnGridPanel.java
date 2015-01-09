@@ -15,12 +15,12 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
-import de.markusrother.pned.core.commands.EdgeCreationCommand;
-import de.markusrother.pned.core.commands.NodeRemovalCommand;
-import de.markusrother.pned.core.commands.PlaceCreationCommand;
-import de.markusrother.pned.core.commands.TransitionCreationCommand;
-import de.markusrother.pned.core.listeners.EdgeCreationListener;
-import de.markusrother.pned.core.listeners.NodeCreationListener;
+import de.markusrother.pned.control.commands.EdgeCreationCommand;
+import de.markusrother.pned.control.commands.NodeRemovalCommand;
+import de.markusrother.pned.control.commands.PlaceCreationCommand;
+import de.markusrother.pned.control.commands.TransitionCreationCommand;
+import de.markusrother.pned.control.listeners.EdgeCreationListener;
+import de.markusrother.pned.control.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
@@ -109,7 +109,7 @@ public class PnGridPanel extends JLayeredPane
 	 * while this is not fully initialized!
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param menuFactory
 	 *            a {@link de.markusrother.pned.gui.menus.PnMenuFactory}
 	 *            object.

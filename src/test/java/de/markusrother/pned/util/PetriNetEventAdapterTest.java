@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import de.markusrother.pned.core.control.EventBus;
+import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.gui.components.AbstractComponentTest;
 
 public class PetriNetEventAdapterTest {

@@ -10,9 +10,9 @@ import java.awt.geom.Point2D;
 
 import javax.swing.event.ChangeEvent;
 
-import de.markusrother.pned.core.control.EventBus;
-import de.markusrother.pned.core.events.PlaceEventObject;
-import de.markusrother.pned.core.listeners.PlaceListener;
+import de.markusrother.pned.control.EventBus;
+import de.markusrother.pned.control.events.PlaceEventObject;
+import de.markusrother.pned.control.listeners.PlaceListener;
 import de.markusrother.pned.gui.PlaceLayout;
 import de.markusrother.pned.gui.listeners.MarkingEditor;
 import de.markusrother.pned.gui.model.NodeStyleModel;
@@ -44,7 +44,7 @@ public class Place extends AbstractNode
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param placeId
 	 *            a {@link java.lang.String} object.
 	 * @param marking

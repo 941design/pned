@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 
-import de.markusrother.pned.core.control.EventBus;
+import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.gui.layout.style.Stylable;
 import de.markusrother.pned.gui.model.MarkingStyleModel;
 
@@ -35,7 +35,7 @@ public class Marking extends JPanel
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param style a {@link de.markusrother.pned.gui.model.MarkingStyleModel} object.
 	 */
 	Marking(final EventBus eventBus, final MarkingStyleModel style) {

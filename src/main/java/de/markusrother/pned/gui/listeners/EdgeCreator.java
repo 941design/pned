@@ -13,7 +13,7 @@ import java.awt.Container;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
-import de.markusrother.pned.core.commands.EdgeCreationCommand;
+import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.components.EdgeComponent;
 import de.markusrother.pned.gui.components.EdgeFactory;
@@ -77,7 +77,7 @@ public class EdgeCreator extends MultiClickListener {
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param container
 	 *            a {@link java.awt.Container} object.
 	 * @param edgeFactory a {@link de.markusrother.pned.gui.components.EdgeFactory} object.

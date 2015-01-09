@@ -5,7 +5,7 @@ import static de.markusrother.pned.gui.events.NodeMultiSelectionEvent.Type.CANCE
 import java.awt.Point;
 import java.util.Collection;
 
-import de.markusrother.pned.core.commands.NodeMotionCommand;
+import de.markusrother.pned.control.commands.NodeMotionCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
@@ -29,7 +29,7 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param nodes
 	 *            a {@link java.util.Collection} object.
 	 */

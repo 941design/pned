@@ -2,9 +2,9 @@ package de.markusrother.pned.gui.listeners;
 
 import java.awt.event.MouseEvent;
 
-import de.markusrother.pned.core.commands.PlaceCreationCommand;
-import de.markusrother.pned.core.commands.TransitionCreationCommand;
-import de.markusrother.pned.core.control.EventBus;
+import de.markusrother.pned.control.EventBus;
+import de.markusrother.pned.control.commands.PlaceCreationCommand;
+import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.swing.LeftClickListener;
@@ -30,7 +30,7 @@ public class NodeCreator extends LeftClickListener
 	 * TODO - take NodeCreationAction as param.
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 */
 	public NodeCreator(final EventBus eventBus) {
 		this.eventBus = eventBus;

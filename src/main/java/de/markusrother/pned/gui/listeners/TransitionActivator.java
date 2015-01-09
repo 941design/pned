@@ -2,8 +2,8 @@ package de.markusrother.pned.gui.listeners;
 
 import java.awt.event.MouseEvent;
 
-import de.markusrother.pned.core.commands.TransitionExecutionCommand;
-import de.markusrother.pned.core.control.EventBus;
+import de.markusrother.pned.control.EventBus;
+import de.markusrother.pned.control.commands.TransitionExecutionCommand;
 import de.markusrother.pned.gui.components.Transition;
 import de.markusrother.swing.RightClickListener;
 
@@ -27,7 +27,7 @@ public class TransitionActivator extends RightClickListener {
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 */
 	public TransitionActivator(final EventBus eventBus) {
 		this.eventBus = eventBus;

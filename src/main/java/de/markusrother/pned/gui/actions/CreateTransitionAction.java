@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.JRadioButtonMenuItem;
 
-import de.markusrother.pned.core.commands.TransitionCreationCommand;
+import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.swing.CustomRadioButtonMenuItem;

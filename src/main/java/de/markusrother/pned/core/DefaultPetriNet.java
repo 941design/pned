@@ -543,7 +543,8 @@ public class DefaultPetriNet
 
 	/**
 	 * <p>
-	 * Returns {@link PlaceModels} identified by the given {@link String}s.
+	 * Returns {@link de.markusrother.pned.core.model.PlaceModel}s identified by
+	 * the given {@link java.lang.String}s.
 	 * </p>
 	 * 
 	 * <b>NOTE - If this method is made public:</b>

@@ -5,14 +5,14 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
-import de.markusrother.pned.core.commands.PetriNetIOCommand;
-import de.markusrother.pned.core.commands.PetriNetIOCommand.Type;
+import de.markusrother.pned.control.commands.PetriNetIOCommand;
+import de.markusrother.pned.control.commands.PetriNetIOCommand.Type;
 import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 
 /**
  * <p>
  * File dialog for saving Petri nets to pnml (xml). Successful file selection
- * posts a {@link de.markusrother.pned.core.commands.PetriNetIOCommand} to the
+ * posts a {@link de.markusrother.pned.control.commands.PetriNetIOCommand} to the
  * provided {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}.
  * </p>
  *

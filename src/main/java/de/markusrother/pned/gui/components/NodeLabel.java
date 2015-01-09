@@ -6,12 +6,12 @@ import java.awt.Rectangle;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
-import de.markusrother.pned.core.commands.LabelEditCommand;
-import de.markusrother.pned.core.commands.NodeMotionCommand;
-import de.markusrother.pned.core.commands.NodeRemovalCommand;
-import de.markusrother.pned.core.control.EventBus;
-import de.markusrother.pned.core.listeners.LabelEditListener;
-import de.markusrother.pned.core.listeners.NodeMotionListener;
+import de.markusrother.pned.control.EventBus;
+import de.markusrother.pned.control.commands.LabelEditCommand;
+import de.markusrother.pned.control.commands.NodeMotionCommand;
+import de.markusrother.pned.control.commands.NodeRemovalCommand;
+import de.markusrother.pned.control.listeners.LabelEditListener;
+import de.markusrother.pned.control.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
@@ -67,7 +67,7 @@ public class NodeLabel extends JLabel
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param nodeId
 	 *            a {@link java.lang.String} object.
 	 * @param labelEditor
@@ -84,7 +84,7 @@ public class NodeLabel extends JLabel
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param nodeId
 	 *            a {@link java.lang.String} object.
 	 * @param nodeLabel
@@ -147,7 +147,7 @@ public class NodeLabel extends JLabel
 	 * Getter for the field <code>eventBus</code>.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @return a {@link de.markusrother.pned.control.EventBus} object.
 	 */
 	public EventBus getEventBus() {
 		return eventBus;

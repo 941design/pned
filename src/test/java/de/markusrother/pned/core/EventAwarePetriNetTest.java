@@ -4,15 +4,15 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import de.markusrother.pned.core.control.EventAwarePetriNet;
-import de.markusrother.pned.core.control.EventBus;
-import de.markusrother.pned.core.listeners.EdgeCreationListener;
-import de.markusrother.pned.core.listeners.IdRequestListener;
-import de.markusrother.pned.core.listeners.LabelEditListener;
-import de.markusrother.pned.core.listeners.NodeCreationListener;
-import de.markusrother.pned.core.listeners.NodeMotionListener;
-import de.markusrother.pned.core.listeners.PetriNetIOListener;
-import de.markusrother.pned.core.listeners.PlaceListener;
+import de.markusrother.pned.control.EventAwarePetriNet;
+import de.markusrother.pned.control.EventBus;
+import de.markusrother.pned.control.listeners.EdgeCreationListener;
+import de.markusrother.pned.control.listeners.IdRequestListener;
+import de.markusrother.pned.control.listeners.LabelEditListener;
+import de.markusrother.pned.control.listeners.NodeCreationListener;
+import de.markusrother.pned.control.listeners.NodeMotionListener;
+import de.markusrother.pned.control.listeners.PetriNetIOListener;
+import de.markusrother.pned.control.listeners.PlaceListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 
 /**

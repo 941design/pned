@@ -13,12 +13,12 @@ import java.awt.geom.Line2D;
 
 import javax.swing.event.ChangeEvent;
 
-import de.markusrother.pned.core.commands.EdgeCreationCommand;
-import de.markusrother.pned.core.commands.NodeMotionCommand;
-import de.markusrother.pned.core.commands.NodeRemovalCommand;
-import de.markusrother.pned.core.control.EventBus;
-import de.markusrother.pned.core.listeners.EdgeCreationListener;
-import de.markusrother.pned.core.listeners.NodeMotionListener;
+import de.markusrother.pned.control.EventBus;
+import de.markusrother.pned.control.commands.EdgeCreationCommand;
+import de.markusrother.pned.control.commands.NodeMotionCommand;
+import de.markusrother.pned.control.commands.NodeRemovalCommand;
+import de.markusrother.pned.control.listeners.EdgeCreationListener;
+import de.markusrother.pned.control.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.events.EdgeEditEvent;
@@ -121,7 +121,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param style a {@link de.markusrother.pned.gui.model.EdgeStyleModel} object.
 	 * @param sourceComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
@@ -145,7 +145,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param sourceComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
 	 *            object.
@@ -169,7 +169,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param style a {@link de.markusrother.pned.gui.model.EdgeStyleModel} object.
 	 * @param sourceComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}

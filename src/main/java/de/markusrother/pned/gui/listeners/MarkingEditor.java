@@ -5,10 +5,10 @@ import java.awt.event.MouseEvent;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
-import de.markusrother.pned.core.commands.PlaceCreationCommand;
-import de.markusrother.pned.core.commands.PlaceEditCommand;
-import de.markusrother.pned.core.commands.TransitionCreationCommand;
-import de.markusrother.pned.core.listeners.NodeCreationListener;
+import de.markusrother.pned.control.commands.PlaceCreationCommand;
+import de.markusrother.pned.control.commands.PlaceEditCommand;
+import de.markusrother.pned.control.commands.TransitionCreationCommand;
+import de.markusrother.pned.control.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.components.Place;
 import de.markusrother.pned.gui.components.Transition;
@@ -41,7 +41,7 @@ public class MarkingEditor extends RightClickTextFieldEdit<Place>
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 */
 	public MarkingEditor(final GuiEventBus eventBus) {
 		super(Place.class, markingPattern);

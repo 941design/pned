@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui.listeners;
 
-import de.markusrother.pned.core.control.EventTarget;
+import de.markusrother.pned.control.listeners.EventTarget;
 
 /**
  * <p>

@@ -4,7 +4,7 @@ import java.util.concurrent.TimeoutException;
 
 import javax.swing.SwingWorker;
 
-import de.markusrother.pned.core.requests.Request;
+import de.markusrother.pned.control.requests.Request;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.listeners.NodeRequestListener;
 import de.markusrother.util.JsonBuilder;

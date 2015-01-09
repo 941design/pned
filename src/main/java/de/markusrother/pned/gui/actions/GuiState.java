@@ -10,9 +10,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import de.markusrother.pned.core.commands.EdgeCreationCommand;
-import de.markusrother.pned.core.commands.NodeRemovalCommand;
-import de.markusrother.pned.core.commands.PetriNetIOCommand;
+import de.markusrother.pned.control.commands.EdgeCreationCommand;
+import de.markusrother.pned.control.commands.NodeRemovalCommand;
+import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;

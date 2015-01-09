@@ -12,12 +12,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import de.markusrother.pned.core.listeners.EdgeCreationListener;
-import de.markusrother.pned.core.listeners.LabelEditListener;
-import de.markusrother.pned.core.listeners.NodeCreationListener;
-import de.markusrother.pned.core.listeners.NodeMotionListener;
-import de.markusrother.pned.core.listeners.PlaceListener;
-import de.markusrother.pned.core.listeners.TransitionActivationListener;
+import de.markusrother.pned.control.listeners.EdgeCreationListener;
+import de.markusrother.pned.control.listeners.LabelEditListener;
+import de.markusrother.pned.control.listeners.NodeCreationListener;
+import de.markusrother.pned.control.listeners.NodeMotionListener;
+import de.markusrother.pned.control.listeners.PlaceListener;
+import de.markusrother.pned.control.listeners.TransitionActivationListener;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.layout.listeners.EdgeLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.MarkingLayoutListener;

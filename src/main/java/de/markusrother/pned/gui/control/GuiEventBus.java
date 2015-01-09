@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 
 import javax.swing.SwingWorker;
 
-import de.markusrother.pned.core.control.EventBus;
+import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.gui.commands.PetriNetEditCommand;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.components.AbstractNode;

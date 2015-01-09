@@ -60,7 +60,7 @@ public class NodeSelector extends Selector<AbstractNode> {
 	 * </p>
 	 *
 	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 */
 	public NodeSelector(final GuiEventTarget eventTarget) {
 		super(AbstractNode.class);

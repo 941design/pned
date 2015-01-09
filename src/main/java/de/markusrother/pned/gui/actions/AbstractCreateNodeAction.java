@@ -21,7 +21,7 @@ import de.markusrother.pned.gui.listeners.NodeListener;
  * <p>
  * Setting the default node type posts a
  * {@link de.markusrother.pned.gui.commands.SetNodeTypeCommand} on the provided
- * {@link de.markusrother.pned.core.control.EventBus}. This is done without
+ * {@link de.markusrother.pned.control.EventBus}. This is done without
  * performing other actions. The actual {@link java.awt.event.ActionListener} is
  * implemented by subclasses.
  * </p>
@@ -111,7 +111,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	/**
 	 * <p>
 	 * Posts {@link de.markusrother.pned.gui.commands.SetNodeTypeCommand} on
-	 * {@link de.markusrother.pned.core.control.EventBus}.
+	 * {@link de.markusrother.pned.control.EventBus}.
 	 * </p>
 	 */
 	protected abstract void fireSetNodeTypeCommand();
