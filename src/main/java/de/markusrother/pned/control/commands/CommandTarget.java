@@ -20,7 +20,7 @@ public interface CommandTarget
 		EdgeCreationListener,
 		NodeMotionListener,
 		NodeRemovalListener,
-		PlaceCommandListener,
+		MarkingEditListener,
 		LabelEditListener,
 		TransitionListener {
 

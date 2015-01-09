@@ -12,10 +12,10 @@ import javax.swing.event.ChangeEvent;
 
 import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.MarkingEditCommand;
-import de.markusrother.pned.control.commands.PlaceCommandListener;
+import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.events.MarkingChangeEvent;
 import de.markusrother.pned.control.events.MarkingEventObject;
-import de.markusrother.pned.control.events.PlaceEventListener;
+import de.markusrother.pned.control.events.MarkingEventListener;
 import de.markusrother.pned.gui.components.listeners.MarkingEditor;
 import de.markusrother.pned.gui.core.model.NodeStyleModel;
 import de.markusrother.util.JsonBuilder;
@@ -35,8 +35,8 @@ import de.markusrother.util.JsonBuilder;
  */
 public class Place extends AbstractNode
 	implements
-		PlaceCommandListener,
-		PlaceEventListener {
+		MarkingEditListener,
+		MarkingEventListener {
 
 	private final Marking marking;
 	private final MarkingEditor markingEditor;
@@ -71,8 +71,8 @@ public class Place extends AbstractNode
 		markingEditor.addToComponent(this);
 
 		// TODO - dispose!
-		eventBus.addListener(PlaceCommandListener.class, this);
-		eventBus.addListener(PlaceEventListener.class, this);
+		eventBus.addListener(MarkingEditListener.class, this);
+		eventBus.addListener(MarkingEventListener.class, this);
 
 		add(this.marking, PlaceLayout.CENTER);
 		setOpaque(false);

@@ -23,7 +23,7 @@ import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PetriNetIOListener;
-import de.markusrother.pned.control.commands.PlaceCommandListener;
+import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
@@ -104,7 +104,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		eventBus.addListener(EdgeCreationListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeMotionListener.class, this);
-		eventBus.addListener(PlaceCommandListener.class, this);
+		eventBus.addListener(MarkingEditListener.class, this);
 		eventBus.addListener(LabelEditListener.class, this);
 		eventBus.addListener(PetriNetIOListener.class, this);
 		eventBus.addListener(TransitionListener.class, this);

@@ -2,7 +2,7 @@ package de.markusrother.pned.control.events;
 
 import java.util.EventListener;
 
-public interface PlaceEventListener
+public interface MarkingEventListener
 	extends
 		EventListener {
 

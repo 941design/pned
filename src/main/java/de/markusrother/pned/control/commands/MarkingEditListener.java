@@ -13,7 +13,7 @@ import de.markusrother.pned.control.events.MarkingEventObject;
  * @version 1.0
  * @see de.markusrother.pned.control.EventBus
  */
-public interface PlaceCommandListener
+public interface MarkingEditListener
 	extends
 		EventListener {
 
