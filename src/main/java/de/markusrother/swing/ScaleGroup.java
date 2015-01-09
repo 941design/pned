@@ -1,10 +1,9 @@
 package de.markusrother.swing;
 
-import static de.markusrother.util.Patterns.intPattern;
-
 import java.awt.AWTEvent;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.util.regex.Pattern;
 
 import javax.swing.BoundedRangeModel;
 import javax.swing.BoxLayout;
@@ -38,6 +37,10 @@ public class ScaleGroup extends JPanel
 			this.boxLayoutConstant = boxLayoutConstant;
 		}
 	}
+
+	// TODO - Limit to Integer.MAX_VALUE
+	/** Constant <code>intPattern</code> */
+	public static final Pattern intPattern = Pattern.compile("0|([1-9][0-9]*)");
 
 	private final JLabel jLabel;
 	private final JSlider jSlider;
