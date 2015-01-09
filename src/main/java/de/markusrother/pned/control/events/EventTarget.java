@@ -11,6 +11,7 @@ import de.markusrother.pned.control.commands.TransitionActivationListener;
  * @author Markus Rother
  * @version 1.0
  * @see de.markusrother.pned.control.EventBus
+ * @see de.markusrother.pned.control.EventAwarePetriNet
  */
 public interface EventTarget
 	extends

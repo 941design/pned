@@ -27,11 +27,12 @@ import de.markusrother.swing.CustomRadioButtonMenuItem;
  * @author Markus Rother
  * @version 1.0
  * @see CustomRadioButtonMenuItem
+ * @see de.markusrother.pned.gui.control.PnEventBus
  */
 public class CreateTransitionAction extends AbstractCreateNodeAction {
 
 	/** Constant <code>label="Create transition"</code> */
-	private static final String label = "Create transition";
+	private static final String name = "Create transition";
 	/** Constant <code>mnemonic=KeyEvent.VK_T</code> */
 	private static final int mnemonic = KeyEvent.VK_T;
 
@@ -72,7 +73,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	 *            provide coordinates for newly created nodes.
 	 */
 	private CreateTransitionAction(final PnEventBus eventBus, final LocationProvider locationProvider) {
-		super(eventBus, locationProvider, mnemonic, label);
+		super(eventBus, locationProvider, mnemonic, name);
 	}
 
 	/** {@inheritDoc} */
@@ -91,7 +92,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	/** {@inheritDoc} */
 	@Override
 	public void setSelected(final boolean selected) {
-		putValue(Action.NAME, label + (selected ? " (default)" : ""));
+		putValue(Action.NAME, name + (selected ? " (default)" : ""));
 	}
 
 	/** {@inheritDoc} */

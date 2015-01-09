@@ -27,6 +27,7 @@ import de.markusrother.swing.CustomRadioButtonMenuItem;
  * @author Markus Rother
  * @version 1.0
  * @see CustomRadioButtonMenuItem
+ * @see de.markusrother.pned.gui.control.PnEventBus
  */
 public class CreatePlaceAction extends AbstractCreateNodeAction {
 

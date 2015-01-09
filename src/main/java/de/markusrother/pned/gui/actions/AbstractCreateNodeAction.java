@@ -41,12 +41,12 @@ import de.markusrother.pned.gui.control.commands.NodeListener;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.gui.control.PnEventBus
  */
 abstract class AbstractCreateNodeAction extends AbstractAction
 	implements
 		ItemListener,
 		NodeListener {
-
 
 	/**
 	 * A provider of coordinates for newly created nodes.
@@ -72,13 +72,13 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 *            provide coordinates for newly created nodes.
 	 * @param mnemonic
 	 *            an int.
-	 * @param label
+	 * @param name
 	 *            a {@link java.lang.String} - this action's textual
 	 *            representation.
 	 */
 	protected AbstractCreateNodeAction(final PnEventBus eventBus, final LocationProvider locationProvider,
-			final int mnemonic, final String label) {
-		super(label);
+			final int mnemonic, final String name) {
+		super(name);
 		this.eventBus = eventBus;
 		this.locationProvider = locationProvider;
 		putValue(Action.MNEMONIC_KEY, mnemonic);

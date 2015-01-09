@@ -4,13 +4,13 @@ import de.markusrother.pned.gui.components.dialogs.FileDialogFactory;
 
 /**
  * <p>
- * Abstract AbstractOpenFileDialogAction class.
+ * Abstract superclass for actions opening file dialogs upon performing.
  * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
-abstract class AbstractOpenFileDialogAction extends AbstractOpenDialogAction {
+abstract class AbstractOpenFileDialogAction extends AbstractStatelessAction {
 
 	protected final FileDialogFactory fileDialogFactory;
 
@@ -20,16 +20,19 @@ abstract class AbstractOpenFileDialogAction extends AbstractOpenDialogAction {
 	 * </p>
 	 *
 	 * @param fileDialogFactory
-	 *            a {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
-	 *            object.
-	 * @param label
-	 *            a {@link java.lang.String} object.
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
+	 *            - a creator of file dialogs.
+	 * @param name
+	 *            a {@link java.lang.String} - a textual representation of this
+	 *            action.
 	 * @param mnemonic
 	 *            a int.
 	 */
-	protected AbstractOpenFileDialogAction(final FileDialogFactory fileDialogFactory, final String label,
+	protected AbstractOpenFileDialogAction(final FileDialogFactory fileDialogFactory, final String name,
 			final int mnemonic) {
-		super(fileDialogFactory.getCommandTarget(), label, mnemonic);
+		// TODO - The factory could be retrieved from PnState.
+		super(fileDialogFactory.getCommandTarget(), name, mnemonic);
 		this.fileDialogFactory = fileDialogFactory;
 	}
 

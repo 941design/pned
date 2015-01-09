@@ -10,7 +10,9 @@ import de.markusrother.pned.gui.components.dialogs.FileDialogFactory;
 
 /**
  * <p>
- * Action that opens an ExportDialog (FIXME) upon performing.
+ * Action that opens an
+ * {@link de.markusrother.pned.gui.components.dialogs.SaveFileDialog} upon
+ * performing.
  * </p>
  *
  * @author Markus Rother
@@ -19,18 +21,20 @@ import de.markusrother.pned.gui.components.dialogs.FileDialogFactory;
 public class OpenExportDialogAction extends AbstractOpenFileDialogAction {
 
 	/** Constant <code>menuLabel="Export"</code> */
-	private static final String menuLabel = "Export";
+	private static final String name = "Export";
 	/** Constant <code>actionMnemonic=KeyEvent.VK_E</code> */
 	private static final int actionMnemonic = KeyEvent.VK_E;
 
 	/**
 	 * <p>
-	 * Creates and returns a {@link javax.swing.JMenuItem} where selection opens a
-	 * ExportDialog. (FIXME)
+	 * Creates and returns a {@link javax.swing.JMenuItem} where selection opens
+	 * a {@link de.markusrother.pned.gui.components.dialogs.SaveFileDialog}.
 	 * </p>
 	 *
 	 * @param fileDialogFactory
-	 *            a {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}.
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
+	 *            - to instantiate the dialog.
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
 	 */
 	public static JMenuItem newMenuItem(final FileDialogFactory fileDialogFactory) {
@@ -44,10 +48,12 @@ public class OpenExportDialogAction extends AbstractOpenFileDialogAction {
 	 * </p>
 	 *
 	 * @param fileDialogFactory
-	 *            a {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}.
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
+	 *            - to instantiate the dialog.
 	 */
 	private OpenExportDialogAction(final FileDialogFactory fileDialogFactory) {
-		super(fileDialogFactory, menuLabel, actionMnemonic);
+		super(fileDialogFactory, name, actionMnemonic);
 	}
 
 	/** {@inheritDoc} */

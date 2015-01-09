@@ -13,29 +13,36 @@ import de.markusrother.pned.gui.core.PnState;
 
 /**
  * <p>
- * RemoveSelectedNodesAction class.
+ * Action that triggers removal of selected nodes.
+ * </p>
+ * <p>
+ * The selection state can be retrieved from
+ * {@link de.markusrother.pned.gui.core.PnState}.
  * </p>
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.gui.control.PnEventBus
  */
 public class RemoveSelectedNodesAction extends AbstractStatefulAction
 	implements
 		NodeSelectionListener {
 
 	/** Constant <code>label="Remove selected nodes"</code> */
-	private static final String label = "Remove selected nodes";
+	private static final String name = "Remove selected nodes";
 	/** Constant <code>mnemonic=KeyEvent.VK_R</code> */
 	private static final int mnemonic = KeyEvent.VK_R;
 
 	/**
 	 * <p>
-	 * newMenuItem.
+	 * Creates and returns a {@link javax.swing.JMenuItem} where selection
+	 * triggers removal of currently selected nodes.
 	 * </p>
 	 *
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
-	 * @return a {@link javax.swing.JMenuItem} object.
+	 *            a {@link de.markusrother.pned.gui.core.PnState} - the current
+	 *            state.
+	 * @return a {@link javax.swing.JMenuItem} - the created menu item.
 	 */
 	public static JMenuItem newMenuItem(final PnState state) {
 		return new JMenuItem(new RemoveSelectedNodesAction(state));
@@ -47,19 +54,23 @@ public class RemoveSelectedNodesAction extends AbstractStatefulAction
 	 * </p>
 	 *
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
+	 *            a {@link de.markusrother.pned.gui.core.PnState} - the current
+	 *            state.
 	 */
 	public RemoveSelectedNodesAction(final PnState state) {
-		super(label, state);
+		super(name, state);
 
 		putValue(Action.MNEMONIC_KEY, mnemonic);
-		final boolean areNodesSelected = state.areNodesSelected();
-		setEnabled(areNodesSelected);
+		setEnabled(state.areNodesSelected());
+
+		// TODO - Currently, this is not registered as a listener to the event
+		// bus. Instead actions are instantiated again when needed!
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
+		// TODO - iterate over selection and post one event each!
 		getEventBus().removeSelectedNodes(new RemoveSelectedNodesEvent(this));
 		setEnabled(false);
 	}

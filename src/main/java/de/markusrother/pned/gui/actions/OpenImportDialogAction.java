@@ -10,18 +10,9 @@ import de.markusrother.pned.gui.components.dialogs.FileDialogFactory;
 
 /**
  * <p>
- * Action that opens an ImportDialog (FIXME) upon performing.
+ * * Action that opens an
+ * {@link de.markusrother.pned.gui.components.dialogs.OpenFileDialog} upon
  * </p>
- *
- * TODO
- *
- * By using the same file chooser instance to display its open and save dialogs,
- * the program reaps the following benefits:
- *
- * The chooser remembers the current directory between uses, so the open and
- * save versions automatically share the same current directory. You have to
- * customize only one file chooser, and the customizations apply to both the
- * open and save versions.
  *
  * @author Markus Rother
  * @version 1.0
@@ -29,20 +20,21 @@ import de.markusrother.pned.gui.components.dialogs.FileDialogFactory;
 public class OpenImportDialogAction extends AbstractOpenFileDialogAction {
 
 	/** Constant <code>menuLabel="Import"</code> */
-	private static final String menuLabel = "Import";
+	private static final String name = "Import";
 	/** Constant <code>actionMnemonic=KeyEvent.VK_I</code> */
 	private static final int actionMnemonic = KeyEvent.VK_I;
 
 	/**
 	 * <p>
 	 * Creates and returns a {@link javax.swing.JMenuItem} where selection opens
-	 * a ImportDialog. (FIXME)
+	 * an {@link de.markusrother.pned.gui.components.dialogs.OpenFileDialog}.
 	 * </p>
 	 *
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
 	 * @param fileDialogFactory
-	 *            a {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
-	 *            object.
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
+	 *            - to instantiate the dialog.
 	 */
 	public static JMenuItem newMenuItem(final FileDialogFactory fileDialogFactory) {
 		final Action action = new OpenImportDialogAction(fileDialogFactory);
@@ -55,11 +47,12 @@ public class OpenImportDialogAction extends AbstractOpenFileDialogAction {
 	 * </p>
 	 *
 	 * @param fileDialogFactory
-	 *            an {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
-	 *            FIXME.
+	 *            an
+	 *            {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
+	 *            - to instantiate the dialog.
 	 */
 	private OpenImportDialogAction(final FileDialogFactory fileDialogFactory) {
-		super(fileDialogFactory, menuLabel, actionMnemonic);
+		super(fileDialogFactory, name, actionMnemonic);
 	}
 
 	/** {@inheritDoc} */

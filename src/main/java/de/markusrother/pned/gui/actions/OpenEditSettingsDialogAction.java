@@ -12,23 +12,25 @@ import de.markusrother.pned.gui.control.commands.PnCommandTarget;
 /**
  * <p>
  * Action that opens an
- * {@link de.markusrother.pned.gui.components.dialogs.EditSettingsDialog} upon performing.
+ * {@link de.markusrother.pned.gui.components.dialogs.EditSettingsDialog} upon
+ * performing.
  * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
-public class OpenEditSettingsDialogAction extends AbstractOpenDialogAction {
+public class OpenEditSettingsDialogAction extends AbstractStatelessAction {
 
 	/** Constant <code>label="Settings"</code> */
-	private static final String label = "Settings";
+	private static final String name = "Settings";
 	/** Constant <code>mnemonic=KeyEvent.VK_S</code> */
 	private static final int mnemonic = KeyEvent.VK_S;
 
 	/**
 	 * <p>
 	 * Creates and returns a {@link javax.swing.JMenuItem} where selection opens
-	 * an {@link de.markusrother.pned.gui.components.dialogs.EditSettingsDialog}.
+	 * an {@link de.markusrother.pned.gui.components.dialogs.EditSettingsDialog}
+	 * .
 	 * </p>
 	 *
 	 * @param commandTarget
@@ -53,7 +55,7 @@ public class OpenEditSettingsDialogAction extends AbstractOpenDialogAction {
 	 *            to be posted to.
 	 */
 	public OpenEditSettingsDialogAction(final PnCommandTarget commandTarget) {
-		super(commandTarget, label, mnemonic);
+		super(commandTarget, name, mnemonic);
 	}
 
 	/** {@inheritDoc} */

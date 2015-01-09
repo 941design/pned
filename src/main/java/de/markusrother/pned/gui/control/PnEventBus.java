@@ -34,6 +34,8 @@ import de.markusrother.pned.gui.control.requests.PnRequestTarget;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.gui.control.PnEventBus
+ * @see de.markusrother.pned.control.EventAwarePetriNet
  */
 public class PnEventBus extends EventBus
 	implements
