@@ -38,7 +38,7 @@ public abstract class HoverListener extends MouseAdapter {
 	 * @param component
 	 *            a {@link java.awt.Component} object.
 	 * @param listener
-	 *            a {@link de.markusrother.pned.gui.listeners.NodeHoverListener}
+	 *            a {@link de.markusrother.pned.gui.components.listeners.NodeHoverListener}
 	 *            object.
 	 */
 	public static void removeFromComponent(final Component component, final HoverListener listener) {

@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui.components;
 
-import de.markusrother.pned.gui.model.EdgeStyleModel;
+import de.markusrother.pned.gui.core.model.EdgeStyleModel;
 
 /**
  * <p>EdgeFactory interface.</p>
@@ -23,7 +23,7 @@ public interface EdgeFactory {
 	/**
 	 * <p>getEdgeStyle.</p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.model.EdgeStyleModel} object.
+	 * @return a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel} object.
 	 */
 	EdgeStyleModel getEdgeStyle();
 

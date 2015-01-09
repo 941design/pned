@@ -13,7 +13,7 @@ import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.PetriNetIOListener;
 import de.markusrother.pned.control.commands.PlaceCommandListener;
 import de.markusrother.pned.control.requests.IdRequestListener;
-import de.markusrother.pned.gui.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
 
 /**
  * TODO

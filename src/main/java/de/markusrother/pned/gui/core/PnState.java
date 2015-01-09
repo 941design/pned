@@ -13,22 +13,20 @@ import java.util.Set;
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
-import de.markusrother.pned.gui.commands.EdgeLayoutCommand;
-import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
-import de.markusrother.pned.gui.commands.MarkingLayoutCommand;
-import de.markusrother.pned.gui.commands.PlaceLayoutCommand;
-import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
-import de.markusrother.pned.gui.commands.TransitionLayoutCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.control.PnEventBus;
-import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
-import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.model.EdgeStyleModel;
-import de.markusrother.pned.gui.model.MarkingStyleModel;
-import de.markusrother.pned.gui.model.NodeStyleModel;
-import de.markusrother.pned.gui.style.EdgeStyle;
-import de.markusrother.pned.gui.style.MarkingStyle;
-import de.markusrother.pned.gui.style.NodeStyle;
+import de.markusrother.pned.gui.control.commands.EdgeLayoutCommand;
+import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
+import de.markusrother.pned.gui.control.commands.MarkingLayoutCommand;
+import de.markusrother.pned.gui.control.commands.PlaceLayoutCommand;
+import de.markusrother.pned.gui.control.commands.SetNodeTypeCommand;
+import de.markusrother.pned.gui.control.commands.TransitionLayoutCommand;
+import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
+import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.core.model.EdgeStyleModel;
+import de.markusrother.pned.gui.core.model.MarkingStyleModel;
+import de.markusrother.pned.gui.core.model.NodeStyleModel;
+import de.markusrother.pned.gui.core.model.PnStateModel;
 import de.markusrother.pned.util.PnEventAdapter;
 
 /**
@@ -39,7 +37,9 @@ import de.markusrother.pned.util.PnEventAdapter;
  * @author Markus Rother
  * @version 1.0
  */
-public class PnState extends PnEventAdapter {
+public class PnState extends PnEventAdapter
+	implements
+		PnStateModel {
 
 	protected final NodeStyleModel placeStyle;
 	protected final NodeStyleModel transitionStyle;
@@ -132,7 +132,8 @@ public class PnState extends PnEventAdapter {
 	 * </p>
 	 *
 	 * @param nodeCreationMode
-	 *            a {@link de.markusrother.pned.gui.core.NodeCreationMode} object.
+	 *            a {@link de.markusrother.pned.gui.core.NodeCreationMode}
+	 *            object.
 	 */
 	public void setNodeCreationMode(final NodeCreationMode nodeCreationMode) {
 		this.nodeCreationMode = nodeCreationMode;
@@ -392,7 +393,8 @@ public class PnState extends PnEventAdapter {
 	 * Getter for the field <code>placeStyle</code>.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.model.NodeStyleModel} object.
+	 * @return a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
+	 *         object.
 	 */
 	public NodeStyleModel getPlaceStyle() {
 		return placeStyle;
@@ -403,25 +405,32 @@ public class PnState extends PnEventAdapter {
 	 * Getter for the field <code>transitionStyle</code>.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.model.NodeStyleModel} object.
+	 * @return a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
+	 *         object.
 	 */
 	public NodeStyleModel getTransitionStyle() {
 		return transitionStyle;
 	}
 
 	/**
-	 * <p>Getter for the field <code>edgeStyle</code>.</p>
+	 * <p>
+	 * Getter for the field <code>edgeStyle</code>.
+	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.model.EdgeStyleModel} object.
+	 * @return a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
+	 *         object.
 	 */
 	public EdgeStyleModel getEdgeStyle() {
 		return edgeStyle;
 	}
 
 	/**
-	 * <p>Getter for the field <code>markingStyle</code>.</p>
+	 * <p>
+	 * Getter for the field <code>markingStyle</code>.
+	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.model.MarkingStyleModel} object.
+	 * @return a {@link de.markusrother.pned.gui.core.model.MarkingStyleModel}
+	 *         object.
 	 */
 	public MarkingStyleModel getMarkingStyle() {
 		return markingStyle;

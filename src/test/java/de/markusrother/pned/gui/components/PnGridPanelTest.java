@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.components;
 
 import org.mockito.Mockito;
 
-import de.markusrother.pned.gui.menus.PnMenuFactory;
+import de.markusrother.pned.gui.components.menus.PnMenuFactory;
 
 public class PnGridPanelTest extends AbstractComponentTest<PnGridPanel> {
 

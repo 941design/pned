@@ -1,9 +1,9 @@
 package de.markusrother.pned.gui.components;
 
+import de.markusrother.pned.gui.components.listeners.MarkingEditor;
+import de.markusrother.pned.gui.components.listeners.SingleNodeSelector;
 import de.markusrother.pned.gui.core.PnState;
-import de.markusrother.pned.gui.listeners.MarkingEditor;
-import de.markusrother.pned.gui.listeners.SingleNodeSelector;
-import de.markusrother.pned.gui.model.EdgeStyleModel;
+import de.markusrother.pned.gui.core.model.EdgeStyleModel;
 
 /**
  * <p>

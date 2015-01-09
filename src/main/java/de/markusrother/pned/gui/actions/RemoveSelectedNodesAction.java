@@ -6,10 +6,10 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
+import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
+import de.markusrother.pned.gui.control.events.NodeSelectionListener;
+import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.core.PnState;
-import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
-import de.markusrother.pned.gui.events.NodeSelectionListener;
-import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 
 /**
  * <p>

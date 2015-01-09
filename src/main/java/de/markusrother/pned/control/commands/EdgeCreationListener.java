@@ -2,7 +2,7 @@ package de.markusrother.pned.control.commands;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
+import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
 
 /**
  * <p>
@@ -37,7 +37,7 @@ public interface EdgeCreationListener
 	 * </p>
 	 *
 	 * @param cmd
-	 *            a {@link de.markusrother.pned.gui.commands.EdgeRemoveCommand}
+	 *            a {@link de.markusrother.pned.gui.control.commands.EdgeRemoveCommand}
 	 *            object.
 	 */
 	void removeEdge(EdgeRemoveCommand cmd);

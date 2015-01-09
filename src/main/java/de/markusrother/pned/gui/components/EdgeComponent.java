@@ -19,18 +19,18 @@ import de.markusrother.pned.control.commands.EdgeCreationListener;
 import de.markusrother.pned.control.commands.NodeMotionCommand;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
-import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
-import de.markusrother.pned.gui.commands.PlaceLayoutCommand;
-import de.markusrother.pned.gui.commands.PlaceLayoutListener;
-import de.markusrother.pned.gui.commands.TransitionLayoutCommand;
-import de.markusrother.pned.gui.commands.TransitionLayoutListener;
-import de.markusrother.pned.gui.events.EdgeEditEvent;
-import de.markusrother.pned.gui.events.EdgeEditListener;
-import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.listeners.EdgeHoverListener;
-import de.markusrother.pned.gui.listeners.NodeRemovalListener;
-import de.markusrother.pned.gui.model.EdgeStyleModel;
-import de.markusrother.pned.gui.style.Stylable;
+import de.markusrother.pned.gui.components.listeners.EdgeHoverListener;
+import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
+import de.markusrother.pned.gui.control.commands.PlaceLayoutCommand;
+import de.markusrother.pned.gui.control.commands.PlaceLayoutListener;
+import de.markusrother.pned.gui.control.commands.TransitionLayoutCommand;
+import de.markusrother.pned.gui.control.commands.TransitionLayoutListener;
+import de.markusrother.pned.gui.control.events.EdgeEditEvent;
+import de.markusrother.pned.gui.control.events.EdgeEditListener;
+import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.core.Stylable;
+import de.markusrother.pned.gui.core.model.EdgeStyleModel;
 import de.markusrother.swing.HoverListener;
 
 /**
@@ -121,7 +121,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
-	 * @param style a {@link de.markusrother.pned.gui.model.EdgeStyleModel} object.
+	 * @param style a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel} object.
 	 * @param sourceComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
 	 *            object.
@@ -153,7 +153,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *            object.
 	 * @param id
 	 *            a {@link java.lang.String} object.
-	 * @param style a {@link de.markusrother.pned.gui.model.EdgeStyleModel} object.
+	 * @param style a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel} object.
 	 */
 	public EdgeComponent(final EventBus eventBus, final String id, final EdgeStyleModel style,
 			final AbstractNode sourceComponent, final AbstractNode targetComponent) {
@@ -169,7 +169,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
-	 * @param style a {@link de.markusrother.pned.gui.model.EdgeStyleModel} object.
+	 * @param style a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel} object.
 	 * @param sourceComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
 	 *            object.

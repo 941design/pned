@@ -5,8 +5,8 @@ import java.util.Collection;
 
 import javax.swing.JMenuItem;
 
-import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.control.PnEventBus;
+import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.core.PnState;
 
 /**

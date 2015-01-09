@@ -12,20 +12,20 @@ import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.NodeMotionCommand;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
-import de.markusrother.pned.gui.events.EdgeEditEvent;
-import de.markusrother.pned.gui.events.EdgeEditListener;
-import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
-import de.markusrother.pned.gui.events.NodeSelectionListener;
-import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.listeners.EdgeCreator;
-import de.markusrother.pned.gui.listeners.NodeHoverListener;
-import de.markusrother.pned.gui.listeners.NodeRemovalListener;
-import de.markusrother.pned.gui.listeners.SelectionDragDropListener;
-import de.markusrother.pned.gui.listeners.SingleNodeSelector;
-import de.markusrother.pned.gui.model.NodeStyleModel;
-import de.markusrother.pned.gui.requests.NodeRequest;
-import de.markusrother.pned.gui.requests.NodeRequestListener;
-import de.markusrother.pned.gui.style.Stylable;
+import de.markusrother.pned.gui.components.listeners.EdgeCreator;
+import de.markusrother.pned.gui.components.listeners.NodeHoverListener;
+import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.components.listeners.SelectionDragDropListener;
+import de.markusrother.pned.gui.components.listeners.SingleNodeSelector;
+import de.markusrother.pned.gui.control.events.EdgeEditEvent;
+import de.markusrother.pned.gui.control.events.EdgeEditListener;
+import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
+import de.markusrother.pned.gui.control.events.NodeSelectionListener;
+import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.control.requests.NodeRequest;
+import de.markusrother.pned.gui.control.requests.NodeRequestListener;
+import de.markusrother.pned.gui.core.Stylable;
+import de.markusrother.pned.gui.core.model.NodeStyleModel;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.HoverListener;
 import de.markusrother.swing.Selectable;
@@ -78,7 +78,7 @@ public abstract class AbstractNode extends JPanel
 	 * @param id
 	 *            a {@link java.lang.String} object.
 	 * @param style
-	 *            a {@link de.markusrother.pned.gui.model.NodeStyleModel}
+	 *            a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
 	 *            object.
 	 */
 	public AbstractNode(final EventBus eventBus, final String id, final LayoutManager layoutManager,
@@ -112,7 +112,7 @@ public abstract class AbstractNode extends JPanel
 	 * @param id
 	 *            a {@link java.lang.String} object.
 	 * @param style
-	 *            a {@link de.markusrother.pned.gui.model.NodeStyleModel}
+	 *            a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
 	 *            object.
 	 */
 	public AbstractNode(final EventBus eventBus, final String id, final NodeStyleModel style) {
@@ -208,7 +208,7 @@ public abstract class AbstractNode extends JPanel
 	 *
 	 * @param listener
 	 *            a
-	 *            {@link de.markusrother.pned.gui.listeners.SingleNodeSelector}
+	 *            {@link de.markusrother.pned.gui.components.listeners.SingleNodeSelector}
 	 *            object.
 	 */
 	void setSingleNodeSelector(final SingleNodeSelector listener) {
@@ -226,7 +226,7 @@ public abstract class AbstractNode extends JPanel
 	 *
 	 * @param listener
 	 *            a
-	 *            {@link de.markusrother.pned.gui.listeners.SelectionDragDropListener}
+	 *            {@link de.markusrother.pned.gui.components.listeners.SelectionDragDropListener}
 	 *            object.
 	 */
 	void setDragDropListener(final SelectionDragDropListener listener) {
@@ -243,7 +243,7 @@ public abstract class AbstractNode extends JPanel
 	 * </p>
 	 *
 	 * @param listener
-	 *            a {@link de.markusrother.pned.gui.listeners.EdgeCreator}
+	 *            a {@link de.markusrother.pned.gui.components.listeners.EdgeCreator}
 	 *            object.
 	 */
 	void setEdgeCreationListener(final EdgeCreator listener) {

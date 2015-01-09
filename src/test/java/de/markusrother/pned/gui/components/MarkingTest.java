@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui.components;
 
-import de.markusrother.pned.gui.style.MarkingStyle;
+import de.markusrother.pned.gui.core.MarkingStyle;
 
 public class MarkingTest extends AbstractComponentTest<Marking> {
 

@@ -32,9 +32,9 @@ import de.markusrother.pned.control.events.TransitionActivationEvent;
 import de.markusrother.pned.control.requests.IdRequest;
 import de.markusrother.pned.control.requests.IdRequestListener;
 import de.markusrother.pned.control.requests.RequestTarget;
-import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
-import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
+import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
 import de.markusrother.util.EventSource;
 
 /**

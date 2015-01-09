@@ -12,14 +12,14 @@ import de.markusrother.pned.control.commands.LabelEditListener;
 import de.markusrother.pned.control.commands.NodeMotionCommand;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
+import de.markusrother.pned.gui.components.listeners.LabelHoverListener;
+import de.markusrother.pned.gui.components.listeners.NodeLabelEditor;
+import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.control.PnEventBus;
-import de.markusrother.pned.gui.events.EdgeEditEvent;
-import de.markusrother.pned.gui.events.EdgeEditListener;
-import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.listeners.LabelHoverListener;
-import de.markusrother.pned.gui.listeners.NodeLabelEditor;
-import de.markusrother.pned.gui.listeners.NodeRemovalListener;
-import de.markusrother.pned.gui.model.NodeLabelStyle;
+import de.markusrother.pned.gui.control.events.EdgeEditEvent;
+import de.markusrother.pned.gui.control.events.EdgeEditListener;
+import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.core.model.NodeLabelStyle;
 import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
 
@@ -70,7 +70,7 @@ public class NodeLabel extends JLabel
 	 * @param nodeId
 	 *            a {@link java.lang.String} object.
 	 * @param labelEditor
-	 *            a {@link de.markusrother.pned.gui.listeners.NodeLabelEditor}
+	 *            a {@link de.markusrother.pned.gui.components.listeners.NodeLabelEditor}
 	 *            object.
 	 */
 	public NodeLabel(final PnEventBus eventBus, final NodeLabelEditor labelEditor, final String nodeId) {
@@ -89,7 +89,7 @@ public class NodeLabel extends JLabel
 	 * @param nodeLabel
 	 *            a {@link java.lang.String} object.
 	 * @param labelEditor
-	 *            a {@link de.markusrother.pned.gui.listeners.NodeLabelEditor}
+	 *            a {@link de.markusrother.pned.gui.components.listeners.NodeLabelEditor}
 	 *            object.
 	 */
 	public NodeLabel(final PnEventBus eventBus, final String nodeId, final NodeLabelEditor labelEditor,

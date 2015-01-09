@@ -42,9 +42,9 @@ import de.markusrother.pned.core.model.EdgeModel;
 import de.markusrother.pned.core.model.NodeModel;
 import de.markusrother.pned.core.model.PlaceModel;
 import de.markusrother.pned.core.model.TransitionModel;
-import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
-import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
+import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.io.PetriNetMarshaller;
 
 /**

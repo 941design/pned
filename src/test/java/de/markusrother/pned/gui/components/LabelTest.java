@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.components;
 
 import org.mockito.Mockito;
 
-import de.markusrother.pned.gui.listeners.NodeLabelEditor;
+import de.markusrother.pned.gui.components.listeners.NodeLabelEditor;
 
 public class LabelTest extends AbstractComponentTest<NodeLabel> {
 

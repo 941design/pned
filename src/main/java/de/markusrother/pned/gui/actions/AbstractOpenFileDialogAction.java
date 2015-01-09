@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui.actions;
 
-import de.markusrother.pned.gui.dialogs.FileDialogFactory;
+import de.markusrother.pned.gui.components.dialogs.FileDialogFactory;
 
 /**
  * <p>
@@ -20,7 +20,7 @@ abstract class AbstractOpenFileDialogAction extends AbstractOpenDialogAction {
 	 * </p>
 	 *
 	 * @param fileDialogFactory
-	 *            a {@link de.markusrother.pned.gui.dialogs.FileDialogFactory}
+	 *            a {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
 	 *            object.
 	 * @param label
 	 *            a {@link java.lang.String} object.

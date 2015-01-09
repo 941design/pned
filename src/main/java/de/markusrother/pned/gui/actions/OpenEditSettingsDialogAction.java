@@ -6,13 +6,13 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
-import de.markusrother.pned.gui.commands.PnCommandTarget;
-import de.markusrother.pned.gui.dialogs.EditSettingsDialog;
+import de.markusrother.pned.gui.components.dialogs.EditSettingsDialog;
+import de.markusrother.pned.gui.control.commands.PnCommandTarget;
 
 /**
  * <p>
  * Action that opens an
- * {@link de.markusrother.pned.gui.dialogs.EditSettingsDialog} upon performing.
+ * {@link de.markusrother.pned.gui.components.dialogs.EditSettingsDialog} upon performing.
  * </p>
  *
  * @author Markus Rother
@@ -28,12 +28,12 @@ public class OpenEditSettingsDialogAction extends AbstractOpenDialogAction {
 	/**
 	 * <p>
 	 * Creates and returns a {@link javax.swing.JMenuItem} where selection opens
-	 * an {@link de.markusrother.pned.gui.dialogs.EditSettingsDialog}.
+	 * an {@link de.markusrother.pned.gui.components.dialogs.EditSettingsDialog}.
 	 * </p>
 	 *
 	 * @param commandTarget
 	 *            a
-	 *            {@link de.markusrother.pned.gui.commands.PnCommandTarget}
+	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
 	 */
@@ -49,7 +49,7 @@ public class OpenEditSettingsDialogAction extends AbstractOpenDialogAction {
 	 *
 	 * @param commandTarget
 	 *            a
-	 *            {@link de.markusrother.pned.gui.commands.PnCommandTarget}
+	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
 	 */
 	public OpenEditSettingsDialogAction(final PnCommandTarget commandTarget) {

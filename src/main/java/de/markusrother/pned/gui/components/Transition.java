@@ -16,8 +16,8 @@ import javax.swing.event.ChangeEvent;
 import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.TransitionActivationListener;
 import de.markusrother.pned.control.events.TransitionActivationEvent;
-import de.markusrother.pned.gui.listeners.TransitionActivator;
-import de.markusrother.pned.gui.model.NodeStyleModel;
+import de.markusrother.pned.gui.components.listeners.TransitionActivator;
+import de.markusrother.pned.gui.core.model.NodeStyleModel;
 import de.markusrother.util.JsonBuilder;
 
 /**
@@ -50,7 +50,7 @@ public class Transition extends AbstractNode
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param transitionId a {@link java.lang.String} object.
-	 * @param style a {@link de.markusrother.pned.gui.model.NodeStyleModel} object.
+	 * @param style a {@link de.markusrother.pned.gui.core.model.NodeStyleModel} object.
 	 */
 	public Transition(final EventBus eventBus, final String transitionId, final NodeStyleModel style) {
 		super(eventBus, transitionId, style);

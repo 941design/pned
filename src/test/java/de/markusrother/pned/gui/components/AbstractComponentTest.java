@@ -18,16 +18,16 @@ import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.PlaceCommandListener;
 import de.markusrother.pned.control.commands.TransitionActivationListener;
-import de.markusrother.pned.gui.commands.EdgeLayoutListener;
-import de.markusrother.pned.gui.commands.MarkingLayoutListener;
-import de.markusrother.pned.gui.commands.NodeListener;
-import de.markusrother.pned.gui.commands.PetriNetListener;
-import de.markusrother.pned.gui.commands.PlaceLayoutListener;
-import de.markusrother.pned.gui.commands.TransitionLayoutListener;
+import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.control.PnEventBus;
-import de.markusrother.pned.gui.events.EdgeEditListener;
-import de.markusrother.pned.gui.events.NodeSelectionListener;
-import de.markusrother.pned.gui.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.control.commands.EdgeLayoutListener;
+import de.markusrother.pned.gui.control.commands.MarkingLayoutListener;
+import de.markusrother.pned.gui.control.commands.NodeListener;
+import de.markusrother.pned.gui.control.commands.PetriNetListener;
+import de.markusrother.pned.gui.control.commands.PlaceLayoutListener;
+import de.markusrother.pned.gui.control.commands.TransitionLayoutListener;
+import de.markusrother.pned.gui.control.events.EdgeEditListener;
+import de.markusrother.pned.gui.control.events.NodeSelectionListener;
 
 // TODO - Maybe rename to AbstractListenerTest
 public abstract class AbstractComponentTest<T> {

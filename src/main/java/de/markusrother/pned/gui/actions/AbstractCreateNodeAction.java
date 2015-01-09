@@ -6,8 +6,8 @@ import java.awt.event.ItemListener;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import de.markusrother.pned.gui.commands.NodeListener;
 import de.markusrother.pned.gui.control.PnEventBus;
+import de.markusrother.pned.gui.control.commands.NodeListener;
 
 /**
  * <p>
@@ -20,7 +20,7 @@ import de.markusrother.pned.gui.control.PnEventBus;
  * </p>
  * <p>
  * Setting the default node type posts a
- * {@link de.markusrother.pned.gui.commands.SetNodeTypeCommand} on the provided
+ * {@link de.markusrother.pned.gui.control.commands.SetNodeTypeCommand} on the provided
  * {@link de.markusrother.pned.control.EventBus}. This is done without
  * performing other actions. The actual {@link java.awt.event.ActionListener} is
  * implemented by subclasses.
@@ -110,7 +110,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 
 	/**
 	 * <p>
-	 * Posts {@link de.markusrother.pned.gui.commands.SetNodeTypeCommand} on
+	 * Posts {@link de.markusrother.pned.gui.control.commands.SetNodeTypeCommand} on
 	 * {@link de.markusrother.pned.control.EventBus}.
 	 * </p>
 	 */

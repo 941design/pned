@@ -9,9 +9,9 @@ import java.awt.geom.Point2D;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import de.markusrother.pned.gui.listeners.MarkingEditor;
-import de.markusrother.pned.gui.model.MarkingStyleModel;
-import de.markusrother.pned.gui.style.NodeStyle;
+import de.markusrother.pned.gui.components.listeners.MarkingEditor;
+import de.markusrother.pned.gui.core.NodeStyle;
+import de.markusrother.pned.gui.core.model.MarkingStyleModel;
 
 public class PlaceTest extends AbstractNodeTest<Place> {
 

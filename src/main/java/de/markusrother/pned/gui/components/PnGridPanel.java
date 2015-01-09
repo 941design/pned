@@ -21,22 +21,22 @@ import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
-import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
+import de.markusrother.pned.gui.components.listeners.EdgeCreator;
+import de.markusrother.pned.gui.components.listeners.NodeCreator;
+import de.markusrother.pned.gui.components.listeners.NodeLabelEditor;
+import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.components.listeners.NodeSelector;
+import de.markusrother.pned.gui.components.listeners.PnPopupListener;
+import de.markusrother.pned.gui.components.listeners.SelectionDragDropListener;
+import de.markusrother.pned.gui.components.menus.PnMenuFactory;
 import de.markusrother.pned.gui.control.PnEventBus;
-import de.markusrother.pned.gui.events.EdgeEditEvent;
-import de.markusrother.pned.gui.events.EdgeEditListener;
-import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
-import de.markusrother.pned.gui.events.NodeSelectionListener;
-import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.listeners.EdgeCreator;
-import de.markusrother.pned.gui.listeners.NodeCreator;
-import de.markusrother.pned.gui.listeners.NodeLabelEditor;
-import de.markusrother.pned.gui.listeners.NodeRemovalListener;
-import de.markusrother.pned.gui.listeners.NodeSelector;
-import de.markusrother.pned.gui.listeners.PnPopupListener;
-import de.markusrother.pned.gui.listeners.SelectionDragDropListener;
-import de.markusrother.pned.gui.menus.PnMenuFactory;
-import de.markusrother.pned.gui.requests.NodeRequest;
+import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
+import de.markusrother.pned.gui.control.events.EdgeEditEvent;
+import de.markusrother.pned.gui.control.events.EdgeEditListener;
+import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
+import de.markusrother.pned.gui.control.events.NodeSelectionListener;
+import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.control.requests.NodeRequest;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.GridComponent;
 
@@ -111,7 +111,7 @@ public class PnGridPanel extends JLayeredPane
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param menuFactory
-	 *            a {@link de.markusrother.pned.gui.menus.PnMenuFactory}
+	 *            a {@link de.markusrother.pned.gui.components.menus.PnMenuFactory}
 	 *            object.
 	 * @param nodeFactory
 	 *            a {@link de.markusrother.pned.gui.components.NodeFactory}

@@ -1,6 +1,6 @@
 package de.markusrother.pned.control.commands;
 
-import de.markusrother.pned.gui.listeners.NodeRemovalListener;
+import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
 
 /**
  * <p>

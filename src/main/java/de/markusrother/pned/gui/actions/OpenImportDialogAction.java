@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
-import de.markusrother.pned.gui.dialogs.FileDialogFactory;
+import de.markusrother.pned.gui.components.dialogs.FileDialogFactory;
 
 /**
  * <p>
@@ -41,7 +41,7 @@ public class OpenImportDialogAction extends AbstractOpenFileDialogAction {
 	 *
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
 	 * @param fileDialogFactory
-	 *            a {@link de.markusrother.pned.gui.dialogs.FileDialogFactory}
+	 *            a {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
 	 *            object.
 	 */
 	public static JMenuItem newMenuItem(final FileDialogFactory fileDialogFactory) {
@@ -55,7 +55,7 @@ public class OpenImportDialogAction extends AbstractOpenFileDialogAction {
 	 * </p>
 	 *
 	 * @param fileDialogFactory
-	 *            an {@link de.markusrother.pned.gui.dialogs.FileDialogFactory}
+	 *            an {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
 	 *            FIXME.
 	 */
 	private OpenImportDialogAction(final FileDialogFactory fileDialogFactory) {
