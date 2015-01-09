@@ -12,20 +12,22 @@ import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.EdgeCreationListener;
 import de.markusrother.pned.control.commands.LabelEditCommand;
 import de.markusrother.pned.control.commands.LabelEditListener;
+import de.markusrother.pned.control.commands.MarkingEditCommand;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeMotionCommand;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PetriNetIOListener;
+import de.markusrother.pned.control.commands.PlaceCommandListener;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionActivationListener;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
 import de.markusrother.pned.control.commands.TransitionListener;
 import de.markusrother.pned.control.events.EventTarget;
-import de.markusrother.pned.control.events.MarkingEventObject;
-import de.markusrother.pned.control.events.PlaceListener;
+import de.markusrother.pned.control.events.MarkingChangeEvent;
+import de.markusrother.pned.control.events.PlaceEventListener;
 import de.markusrother.pned.control.events.TransitionActivationEvent;
 import de.markusrother.pned.control.requests.IdRequest;
 import de.markusrother.pned.control.requests.IdRequestListener;
@@ -157,8 +159,16 @@ public class EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final MarkingEventObject evt) {
-		for (final PlaceListener l : getListeners(PlaceListener.class)) {
+	public void setMarking(final MarkingEditCommand cmd) {
+		for (final PlaceCommandListener l : getListeners(PlaceCommandListener.class)) {
+			l.setMarking(cmd);
+		}
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void setMarking(final MarkingChangeEvent evt) {
+		for (final PlaceEventListener l : getListeners(PlaceEventListener.class)) {
 			l.setMarking(evt);
 		}
 	}

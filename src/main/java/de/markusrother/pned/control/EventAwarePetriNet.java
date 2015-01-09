@@ -16,19 +16,19 @@ import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.EdgeCreationListener;
 import de.markusrother.pned.control.commands.LabelEditCommand;
 import de.markusrother.pned.control.commands.LabelEditListener;
+import de.markusrother.pned.control.commands.MarkingEditCommand;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeMotionCommand;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PetriNetIOListener;
+import de.markusrother.pned.control.commands.PlaceCommandListener;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
 import de.markusrother.pned.control.commands.TransitionListener;
 import de.markusrother.pned.control.events.MarkingChangeEvent;
-import de.markusrother.pned.control.events.MarkingEventObject;
-import de.markusrother.pned.control.events.PlaceListener;
 import de.markusrother.pned.control.events.TransitionActivationEvent;
 import de.markusrother.pned.control.events.TransitionActivationEvent.Type;
 import de.markusrother.pned.control.requests.IdRequest;
@@ -104,7 +104,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		eventBus.addListener(EdgeCreationListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeMotionListener.class, this);
-		eventBus.addListener(PlaceListener.class, this);
+		eventBus.addListener(PlaceCommandListener.class, this);
 		eventBus.addListener(LabelEditListener.class, this);
 		eventBus.addListener(PetriNetIOListener.class, this);
 		eventBus.addListener(TransitionListener.class, this);
@@ -256,7 +256,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final MarkingEventObject e) {
+	public void setMarking(final MarkingEditCommand e) {
 		if (e.getSource() == this) {
 			return;
 		}

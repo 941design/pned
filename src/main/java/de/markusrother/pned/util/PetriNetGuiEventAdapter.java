@@ -6,19 +6,21 @@ import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.EdgeCreationListener;
 import de.markusrother.pned.control.commands.LabelEditCommand;
 import de.markusrother.pned.control.commands.LabelEditListener;
+import de.markusrother.pned.control.commands.MarkingEditCommand;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeMotionCommand;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PetriNetIOListener;
+import de.markusrother.pned.control.commands.PlaceCommandListener;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionActivationListener;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
 import de.markusrother.pned.control.commands.TransitionListener;
-import de.markusrother.pned.control.events.MarkingEventObject;
-import de.markusrother.pned.control.events.PlaceListener;
+import de.markusrother.pned.control.events.MarkingChangeEvent;
+import de.markusrother.pned.control.events.PlaceEventListener;
 import de.markusrother.pned.control.events.TransitionActivationEvent;
 import de.markusrother.pned.control.requests.IdRequest;
 import de.markusrother.pned.control.requests.IdRequestListener;
@@ -88,7 +90,9 @@ public abstract class PetriNetGuiEventAdapter
 	}
 
 	/**
-	 * <p>installListeners.</p>
+	 * <p>
+	 * installListeners.
+	 * </p>
 	 */
 	protected void installListeners() {
 		eventBus.addListener(PetriNetIOListener.class, this);
@@ -97,7 +101,8 @@ public abstract class PetriNetGuiEventAdapter
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeCreationListener.class, this);
 		eventBus.addListener(NodeMotionListener.class, this);
-		eventBus.addListener(PlaceListener.class, this);
+		eventBus.addListener(PlaceCommandListener.class, this);
+		eventBus.addListener(PlaceEventListener.class, this);
 		eventBus.addListener(EdgeEditListener.class, this);
 		eventBus.addListener(NodeRequestListener.class, this);
 		eventBus.addListener(PlaceLayoutListener.class, this);
@@ -113,7 +118,9 @@ public abstract class PetriNetGuiEventAdapter
 	}
 
 	/**
-	 * <p>suspendListeners.</p>
+	 * <p>
+	 * suspendListeners.
+	 * </p>
 	 */
 	protected void suspendListeners() {
 		// TODO
@@ -272,7 +279,13 @@ public abstract class PetriNetGuiEventAdapter
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final MarkingEventObject evt) {
+	public void setMarking(final MarkingChangeEvent evt) {
+		process(evt);
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void setMarking(final MarkingEditCommand evt) {
 		process(evt);
 	}
 

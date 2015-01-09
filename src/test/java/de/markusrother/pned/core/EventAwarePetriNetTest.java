@@ -11,7 +11,7 @@ import de.markusrother.pned.control.commands.LabelEditListener;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.PetriNetIOListener;
-import de.markusrother.pned.control.events.PlaceListener;
+import de.markusrother.pned.control.commands.PlaceCommandListener;
 import de.markusrother.pned.control.requests.IdRequestListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 
@@ -39,7 +39,7 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
 		assertEquals(net, eventBus.getListeners(EdgeCreationListener.class)[0]);
 		assertEquals(net, eventBus.getListeners(NodeRemovalListener.class)[0]);
 		assertEquals(net, eventBus.getListeners(NodeMotionListener.class)[0]);
-		assertEquals(net, eventBus.getListeners(PlaceListener.class)[0]);
+		assertEquals(net, eventBus.getListeners(PlaceCommandListener.class)[0]);
 		assertEquals(net, eventBus.getListeners(LabelEditListener.class)[0]);
 	}
 

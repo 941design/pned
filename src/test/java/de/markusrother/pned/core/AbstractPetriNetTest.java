@@ -21,12 +21,12 @@ import de.markusrother.pned.control.commands.LabelEditListener;
 import de.markusrother.pned.control.commands.MarkingEditCommand;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
+import de.markusrother.pned.control.commands.PlaceCommandListener;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
 import de.markusrother.pned.control.commands.TransitionListener;
 import de.markusrother.pned.control.events.MarkingChangeEvent;
-import de.markusrother.pned.control.events.PlaceListener;
 import de.markusrother.pned.control.events.TransitionActivationEvent;
 import de.markusrother.pned.control.events.TransitionActivationEvent.Type;
 import de.markusrother.pned.core.model.NodeModel;
@@ -138,7 +138,7 @@ public abstract class AbstractPetriNetTest
 
 	protected void setMarking(final String placeId, final int marking) {
 		final MarkingEditCommand cmd = new MarkingEditCommand(source, placeId, marking);
-		for (final PlaceListener l : getListeners(PlaceListener.class)) {
+		for (final PlaceCommandListener l : getListeners(PlaceCommandListener.class)) {
 			l.setMarking(cmd);
 		}
 	}

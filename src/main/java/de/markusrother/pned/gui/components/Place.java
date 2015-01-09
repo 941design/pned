@@ -11,8 +11,11 @@ import java.awt.geom.Point2D;
 import javax.swing.event.ChangeEvent;
 
 import de.markusrother.pned.control.EventBus;
+import de.markusrother.pned.control.commands.MarkingEditCommand;
+import de.markusrother.pned.control.commands.PlaceCommandListener;
+import de.markusrother.pned.control.events.MarkingChangeEvent;
 import de.markusrother.pned.control.events.MarkingEventObject;
-import de.markusrother.pned.control.events.PlaceListener;
+import de.markusrother.pned.control.events.PlaceEventListener;
 import de.markusrother.pned.gui.PlaceLayout;
 import de.markusrother.pned.gui.listeners.MarkingEditor;
 import de.markusrother.pned.gui.model.NodeStyleModel;
@@ -33,7 +36,8 @@ import de.markusrother.util.JsonBuilder;
  */
 public class Place extends AbstractNode
 	implements
-		PlaceListener {
+		PlaceCommandListener,
+		PlaceEventListener {
 
 	private final Marking marking;
 	private final MarkingEditor markingEditor;
@@ -67,8 +71,9 @@ public class Place extends AbstractNode
 
 		markingEditor.addToComponent(this);
 
-		// FIXME - dispose!
-		eventBus.addListener(PlaceListener.class, this);
+		// TODO - dispose!
+		eventBus.addListener(PlaceCommandListener.class, this);
+		eventBus.addListener(PlaceEventListener.class, this);
 
 		add(this.marking, PlaceLayout.CENTER);
 		setOpaque(false);
@@ -132,7 +137,17 @@ public class Place extends AbstractNode
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final MarkingEventObject evt) {
+	public void setMarking(final MarkingEditCommand evt) {
+		delegateSetMarking(evt);
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void setMarking(final MarkingChangeEvent evt) {
+		delegateSetMarking(evt);
+	}
+
+	private void delegateSetMarking(final MarkingEventObject evt) {
 		final String myId = getId();
 		final String placeId = evt.getPlaceId();
 		if (myId.equals(placeId)) {

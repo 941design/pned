@@ -1,6 +1,5 @@
 package de.markusrother.pned.control.commands;
 
-import de.markusrother.pned.control.events.PlaceListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 
 /**
@@ -20,7 +19,7 @@ public interface CommandTarget
 		EdgeCreationListener,
 		NodeMotionListener,
 		NodeRemovalListener,
-		PlaceListener,
+		PlaceCommandListener,
 		LabelEditListener,
 		TransitionListener {
 

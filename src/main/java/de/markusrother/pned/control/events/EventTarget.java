@@ -14,6 +14,7 @@ import de.markusrother.pned.control.commands.TransitionActivationListener;
  */
 public interface EventTarget
 	extends
+		PlaceEventListener,
 		TransitionActivationListener {
 
 	// NOTHING

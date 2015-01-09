@@ -16,8 +16,8 @@ import de.markusrother.pned.control.commands.EdgeCreationListener;
 import de.markusrother.pned.control.commands.LabelEditListener;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeMotionListener;
+import de.markusrother.pned.control.commands.PlaceCommandListener;
 import de.markusrother.pned.control.commands.TransitionActivationListener;
-import de.markusrother.pned.control.events.PlaceListener;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.layout.listeners.EdgeLayoutListener;
 import de.markusrother.pned.gui.layout.listeners.MarkingLayoutListener;
@@ -138,8 +138,8 @@ public abstract class AbstractComponentTest<T> {
 	@Test
 	public void testComponentListensToPlaceEdit() {
 		final T component = getComponent();
-		if (component instanceof PlaceListener) {
-			Mockito.verify(eventMulticastMock).addListener(PlaceListener.class, (PlaceListener) component);
+		if (component instanceof PlaceCommandListener) {
+			Mockito.verify(eventMulticastMock).addListener(PlaceCommandListener.class, (PlaceCommandListener) component);
 		}
 	}
 
