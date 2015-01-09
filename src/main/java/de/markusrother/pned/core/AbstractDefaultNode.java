@@ -18,7 +18,7 @@ import de.markusrother.util.JsonSerializable;
  * {@link de.markusrother.pned.core.model.NodeModel}.
  * </p>
  *
- * <h4>TODO</h4>
+ * TODO
  * <ul>
  * <li>Move xml related annotations to an .xml configuration file to decouple
  * this class from the de.markusrother.core.io package</li>

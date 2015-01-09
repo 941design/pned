@@ -16,9 +16,16 @@ public interface Stylable<T extends ChangeEventSource>
 		ChangeListener {
 
 	/**
-	 * <p>setStyle.</p>
+	 * <p>
+	 * setStyle.
+	 * </p>
 	 *
-	 * @param style a T object.
+	 * @param style
+	 *            a T object.
+	 * 
+	 * @param <T>
+	 *            T a t object
+	 * 
 	 */
 	void setStyle(T style);
 
