@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import javax.swing.event.EventListenerList;
 import javax.xml.bind.JAXBException;
 
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
@@ -33,7 +32,6 @@ import de.markusrother.pned.control.listeners.NodeMotionListener;
 import de.markusrother.pned.control.listeners.PetriNetIOListener;
 import de.markusrother.pned.control.listeners.PlaceListener;
 import de.markusrother.pned.control.listeners.RequestTarget;
-import de.markusrother.pned.control.listeners.TransitionActivationListener;
 import de.markusrother.pned.control.listeners.TransitionListener;
 import de.markusrother.pned.control.requests.IdRequest;
 import de.markusrother.pned.core.DefaultPetriNet;
@@ -51,10 +49,9 @@ import de.markusrother.pned.io.PetriNetMarshaller;
 
 /**
  * <p>
- * EventAwarePetriNet class.
+ * Petri net implementation that can be maintained by sending and receiving
+ * events via an {@link EventBus}.
  * </p>
- *
- * FIXME - should not reside in core unless events are not in gui package.
  *
  * @author Markus Rother
  * @version 1.0
@@ -64,8 +61,8 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		CommandTarget,
 		RequestTarget {
 
-	private final EventBus eventBus;
-	private final EventListenerList listeners;
+	/** The channel of event communication. */
+	protected final EventBus eventBus;
 
 	/**
 	 * <p>
@@ -74,8 +71,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
-	 * @return a {@link de.markusrother.pned.control.EventAwarePetriNet}
-	 *         object.
+	 * @return a {@link de.markusrother.pned.control.EventAwarePetriNet} object.
 	 */
 	public static EventAwarePetriNet create(final EventBus eventBus) {
 		return new EventAwarePetriNet(eventBus);
@@ -83,16 +79,20 @@ public class EventAwarePetriNet extends DefaultPetriNet
 
 	/**
 	 * <p>
-	 * Constructor for EventAwarePetriNet.
+	 * Instantiates a {@link de.markusrother.pned.core.model.PetriNetModel}
+	 * which can be manipulated by sending events.
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.control.EventBus} object.
+	 *            a {@link de.markusrother.pned.control.EventBus} - the channel
+	 *            of event communication.
 	 */
 	public EventAwarePetriNet(final EventBus eventBus) {
 		this.eventBus = eventBus;
-		this.listeners = new EventListenerList();
+		installEventListeners();
+	}
 
+	private void installEventListeners() {
 		eventBus.addListener(IdRequestListener.class, this);
 		eventBus.addListener(NodeCreationListener.class, this);
 		eventBus.addListener(EdgeCreationListener.class, this);
@@ -102,36 +102,6 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		eventBus.addListener(LabelEditListener.class, this);
 		eventBus.addListener(PetriNetIOListener.class, this);
 		eventBus.addListener(TransitionListener.class, this);
-
-		this.addTransitionActivationListener(eventBus);
-	}
-
-	/**
-	 * <p>
-	 * addTransitionActivationListener.
-	 * </p>
-	 *
-	 * @param l
-	 *            a
-	 *            {@link de.markusrother.pned.control.listeners.TransitionActivationListener}
-	 *            object.
-	 */
-	public void addTransitionActivationListener(final TransitionActivationListener l) {
-		listeners.add(TransitionActivationListener.class, l);
-	}
-
-	/**
-	 * <p>
-	 * removeTransitionActivationListener.
-	 * </p>
-	 *
-	 * @param l
-	 *            a
-	 *            {@link de.markusrother.pned.control.listeners.TransitionActivationListener}
-	 *            object.
-	 */
-	public void removeTransitionActivationListener(final TransitionActivationListener l) {
-		listeners.remove(TransitionActivationListener.class, l);
 	}
 
 	/** {@inheritDoc} */
@@ -320,28 +290,16 @@ public class EventAwarePetriNet extends DefaultPetriNet
 
 	/**
 	 * <p>
-	 * maybeFireTransitionActivationEvent.
+	 * Possibly fires {@link TransitionActivationEvent}s if the change executed
+	 * by the given {@link Runnable}, changes the activation state of one or
+	 * more transitions.
 	 * </p>
 	 *
 	 * @param runnable
-	 *            a {@link java.lang.Runnable} object.
+	 *            a {@link java.lang.Runnable} - a change inducing closure to be
+	 *            evaluated.
 	 */
 	private void maybeFireTransitionActivationEvents(final Runnable runnable) {
-		final Collection<TransitionActivationEvent> events = maybeGetTransitionActivationEvents(runnable);
-		fireTransitionAcivationEvents(events);
-	}
-
-	/**
-	 * <p>
-	 * maybeGetTransitionActivationEvents.
-	 * </p>
-	 *
-	 * @param runnable
-	 *            a {@link java.lang.Runnable} object.
-	 * @return a {@link java.util.Collection} object.
-	 */
-	private Collection<TransitionActivationEvent> maybeGetTransitionActivationEvents(final Runnable runnable) {
-
 		final Collection<TransitionActivationEvent> events = new LinkedList<>();
 
 		final Collection<TransitionModel> activeBefore = getActiveTransitions();
@@ -358,43 +316,44 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		activated.removeAll(activeBefore);
 		events.addAll(createTransitionActivationEvent(activated));
 
-		return events;
+		fireTransitionAcivationEvents(events);
 	}
 
 	/**
 	 * <p>
-	 * fireTransitionAcivationEvents.
+	 * Fires the provided events, one for each toggled transition state.
 	 * </p>
 	 *
 	 * @param events
-	 *            a {@link java.util.Collection} object.
+	 *            a {@link java.util.Collection} of
+	 *            {@link TransitionActivationEvent} - the changing events.
 	 */
 	private void fireTransitionAcivationEvents(final Collection<TransitionActivationEvent> events) {
 		for (final TransitionActivationEvent evt : events) {
-			for (final TransitionActivationListener listener : listeners
-					.getListeners(TransitionActivationListener.class)) {
-				switch (evt.getType()) {
-				case ACTIVATION:
-					listener.transitionActivated(evt);
-					break;
-				case DEACTIVATION:
-					listener.transitionDeactivated(evt);
-					break;
-				default:
-					throw new IllegalStateException();
-				}
+			switch (evt.getType()) {
+			case ACTIVATION:
+				eventBus.transitionActivated(evt);
+				break;
+			case DEACTIVATION:
+				eventBus.transitionDeactivated(evt);
+				break;
+			default:
+				throw new IllegalStateException();
 			}
 		}
 	}
 
 	/**
 	 * <p>
-	 * createTransitionDeactivationEvents.
+	 * Returns deactivation events, one for each provided
+	 * {@link TransitionModel}.
 	 * </p>
 	 *
 	 * @param deactivated
-	 *            a {@link java.util.Collection} object.
-	 * @return a {@link java.util.Collection} object.
+	 *            a {@link java.util.Collection} - the transitions to be
+	 *            deactivated.
+	 * @return a {@link java.util.Collection} - the events resulting from
+	 *         deactivation.
 	 */
 	private Collection<TransitionActivationEvent> createTransitionDeactivationEvents(
 			final Collection<TransitionModel> deactivated) {
@@ -410,12 +369,14 @@ public class EventAwarePetriNet extends DefaultPetriNet
 
 	/**
 	 * <p>
-	 * createTransitionActivationEvent.
+	 * Returns activation events, one for each provided {@link TransitionModel}.
 	 * </p>
 	 *
 	 * @param activated
-	 *            a {@link java.util.Collection} object.
-	 * @return a {@link java.util.Collection} object.
+	 *            a {@link java.util.Collection} - the transitions to be
+	 *            activated.
+	 * @return a {@link java.util.Collection} - the events resulting from
+	 *         activation.
 	 */
 	private Collection<TransitionActivationEvent> createTransitionActivationEvent(
 			final Collection<TransitionModel> activated) {

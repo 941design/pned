@@ -33,12 +33,32 @@ import de.markusrother.pned.control.requests.IdRequest;
 import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
-import de.markusrother.pned.util.EventSource;
+import de.markusrother.util.EventSource;
 
 /**
- * TODO - We could distinguish Two sources GUI and MODEL. GUI could be anything
- * static that can be compared against, to distinguish where a creation event
- * came from.
+ * Channel of communication between <b>a single<b> {@link EventAwarePetriNet}
+ * and other interested parties.
+ * 
+ * The following example illustrates event forwarding to the Petri net:
+ * 
+ * <pre>
+ * EventBus eventBus = new EventBus();
+ * PetriNetModel net = new EventAwarePetriNet(eventBus);
+ * eventBus.createPlace(...);
+ * eventBus.createPlace(...);
+ * eventBus.createPlace(...);
+ * eventBus.createEdge(...);
+ * </pre>
+ * 
+ * The following example illustrates event tapping to a logger:
+ * 
+ * <pre>
+ * EventBus eventBus = new EventBus();
+ * PetriNetModel net = new EventAwarePetriNet(eventBus);
+ * PetriNetEventLogger logger = new PetriNetEventLogger(eventBus);
+ * ...
+ * </pre>
+ * 
  *
  * @author Markus Rother
  * @version 1.0
@@ -50,8 +70,7 @@ public class EventBus
 		EventTarget,
 		RequestTarget {
 
-	// FIXME - create three collections commandListeners, requestListeners,
-	// eventListeners!
+	/** Collection of all listeners. */
 	private final EventListenerList listeners = new EventListenerList();
 
 	/** {@inheritDoc} */
@@ -196,9 +215,9 @@ public class EventBus
 
 	/**
 	 * <p>
-	 * Posts {@link de.markusrother.pned.control.requests.IdRequest} on
-	 * {@link de.markusrother.pned.control.EventBus} and returns requested
-	 * id.
+	 * Convenience method. Posts
+	 * {@link de.markusrother.pned.control.requests.IdRequest} and returns
+	 * requested id.
 	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.
@@ -207,9 +226,9 @@ public class EventBus
 		try {
 			final IdRequest req = new IdRequest(this);
 			requestId(req);
-			return req.get(); // FIXME - insert timeout here!
+			return req.get(); // TODO - insert timeout here!
 		} catch (final TimeoutException e) {
-			// FIXME - create custom Exception
+			// TODO - create custom Exception
 			throw new RuntimeException("TODO");
 		}
 	}

@@ -1,4 +1,4 @@
-package de.markusrother.pned.util;
+package de.markusrother.util;
 
 import java.util.EventListener;
 
