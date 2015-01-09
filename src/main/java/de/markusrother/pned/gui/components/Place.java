@@ -15,6 +15,7 @@ import de.markusrother.pned.core.events.PlaceEventObject;
 import de.markusrother.pned.core.listeners.PlaceListener;
 import de.markusrother.pned.gui.PlaceLayout;
 import de.markusrother.pned.gui.listeners.MarkingEditor;
+import de.markusrother.pned.gui.model.NodeStyleModel;
 import de.markusrother.util.JsonBuilder;
 
 /**
@@ -48,7 +49,7 @@ public class Place extends AbstractNode
 	 * @param markingEditor
 	 *            a {@link de.markusrother.pned.gui.listeners.MarkingEditor}
 	 *            object.
-	 * @param style a {@link de.markusrother.pned.gui.components.NodeStyleModel} object.
+	 * @param style a {@link de.markusrother.pned.gui.model.NodeStyleModel} object.
 	 */
 	public Place(final EventBus eventBus, final String placeId, final MarkingEditor markingEditor,
 			final NodeStyleModel style) {

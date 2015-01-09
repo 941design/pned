@@ -4,11 +4,8 @@ import java.awt.Color;
 
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.EventListenerList;
 
-import de.markusrother.pned.gui.components.NodeStyleModel;
+import de.markusrother.pned.gui.model.NodeStyleModel;
 
 /**
  * <p>
@@ -18,7 +15,7 @@ import de.markusrother.pned.gui.components.NodeStyleModel;
  * @author Markus Rother
  * @version 1.0
  */
-public class NodeStyle
+public class NodeStyle extends AbstractStyle
 	implements
 		NodeStyleModel {
 
@@ -52,17 +49,6 @@ public class NodeStyle
 	private Border selectionBorder;
 	private Border hoverBorder;
 
-	private final EventListenerList listeners;
-
-	/**
-	 * <p>
-	 * Constructor for NodeStyle.
-	 * </p>
-	 */
-	public NodeStyle() {
-		listeners = new EventListenerList();
-	}
-
 	/** {@inheritDoc} */
 	@Override
 	public int getSize() {
@@ -74,18 +60,6 @@ public class NodeStyle
 	public void setSize(final int size) {
 		this.size = size;
 		fireChangeEvent();
-	}
-
-	/**
-	 * <p>
-	 * fireChangeEvent.
-	 * </p>
-	 */
-	private void fireChangeEvent() {
-		final ChangeEvent evt = new ChangeEvent(this);
-		for (final ChangeListener l : listeners.getListeners(ChangeListener.class)) {
-			l.stateChanged(evt);
-		}
 	}
 
 	/** {@inheritDoc} */
@@ -194,18 +168,6 @@ public class NodeStyle
 	 */
 	public void setHoverBorder(final Border hoverBorder) {
 		this.hoverBorder = hoverBorder;
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void addChangeListener(final ChangeListener l) {
-		listeners.add(ChangeListener.class, l);
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void removeChangeListener(final ChangeListener l) {
-		listeners.remove(ChangeListener.class, l);
 	}
 
 }

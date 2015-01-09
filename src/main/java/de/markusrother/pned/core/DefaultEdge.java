@@ -3,12 +3,13 @@ package de.markusrother.pned.core;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import de.markusrother.pned.core.model.EdgeModel;
 import de.markusrother.util.JsonSerializable;
 import de.markusrother.util.JsonBuilder;
 
 /**
  * <p>
- * Default implementation of {@link de.markusrother.pned.core.EdgeModel}.
+ * Default implementation of {@link de.markusrother.pned.core.model.EdgeModel}.
  * </p>
  *
  * @author Markus Rother

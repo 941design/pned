@@ -4,9 +4,11 @@ import java.awt.Point;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import de.markusrother.pned.core.model.TransitionModel;
+
 /**
  * <p>
- * Default implementation of {@link de.markusrother.pned.core.TransitionModel}.
+ * Default implementation of {@link de.markusrother.pned.core.model.TransitionModel}.
  * </p>
  *
  * @author Markus Rother

@@ -20,7 +20,7 @@ import de.markusrother.pned.core.DefaultTransition;
  *
  * <p>
  * TODO - The marshaller should be able to convert the
- * {@link de.markusrother.pned.core.PetriNetModel} interface instead of the
+ * {@link de.markusrother.pned.core.model.PetriNetModel} interface instead of the
  * implementation, only.
  * </p>
  *

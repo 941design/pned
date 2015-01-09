@@ -6,13 +6,19 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 
+import de.markusrother.pned.gui.model.MarkingModel;
+
 /**
- * <p>MarkingStyle class.</p>
+ * <p>
+ * MarkingStyle class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
-public class MarkingStyle {
+public class MarkingStyle extends AbstractStyle
+	implements
+		MarkingModel {
 
 	/** Constant <code>DEFAULT</code> */
 	public static final MarkingStyle DEFAULT;
@@ -31,102 +37,63 @@ public class MarkingStyle {
 	private String fontName;
 	private int fontStyle;
 
-	/**
-	 * <p>Getter for the field <code>size</code>.</p>
-	 *
-	 * @return a int.
-	 */
+	@Override
 	public int getSize() {
 		return size;
 	}
 
-	/**
-	 * <p>Setter for the field <code>size</code>.</p>
-	 *
-	 * @param size a int.
-	 */
+	@Override
 	public void setSize(final int size) {
 		this.size = size;
+		fireChangeEvent();
 	}
 
-	/**
-	 * <p>Getter for the field <code>shape</code>.</p>
-	 *
-	 * @return a {@link java.awt.Shape} object.
-	 */
+	@Override
 	public Shape getShape() {
 		final AffineTransform transform = AffineTransform.getScaleInstance(size, size);
 		return transform.createTransformedShape(shape);
 	}
 
-	/**
-	 * <p>Setter for the field <code>shape</code>.</p>
-	 *
-	 * @param shape a {@link java.awt.Shape} object.
-	 */
+	@Override
 	public void setShape(final Shape shape) {
 		this.shape = shape;
+		fireChangeEvent();
 	}
 
-	/**
-	 * <p>Getter for the field <code>color</code>.</p>
-	 *
-	 * @return a {@link java.awt.Color} object.
-	 */
+	@Override
 	public Color getColor() {
 		return color;
 	}
 
-	/**
-	 * <p>Setter for the field <code>color</code>.</p>
-	 *
-	 * @param color a {@link java.awt.Color} object.
-	 */
+	@Override
 	public void setColor(final Color color) {
 		this.color = color;
+		fireChangeEvent();
 	}
 
-	/**
-	 * <p>Getter for the field <code>fontName</code>.</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
+	@Override
 	public String getFontName() {
 		return fontName;
 	}
 
-	/**
-	 * <p>Setter for the field <code>fontName</code>.</p>
-	 *
-	 * @param fontName a {@link java.lang.String} object.
-	 */
+	@Override
 	public void setFontName(final String fontName) {
 		this.fontName = fontName;
+		fireChangeEvent();
 	}
 
-	/**
-	 * <p>Getter for the field <code>fontStyle</code>.</p>
-	 *
-	 * @return a int.
-	 */
+	@Override
 	public int getFontStyle() {
 		return fontStyle;
 	}
 
-	/**
-	 * <p>Setter for the field <code>fontStyle</code>.</p>
-	 *
-	 * @param fontStyle a int.
-	 */
+	@Override
 	public void setFontStyle(final int fontStyle) {
 		this.fontStyle = fontStyle;
+		fireChangeEvent();
 	}
 
-	/**
-	 * <p>getFont.</p>
-	 *
-	 * @return a {@link java.awt.Font} object.
-	 */
+	@Override
 	public Font getFont() {
 		return new Font(fontName, fontStyle, (int) (size / 1.2 + 0.5));
 	}

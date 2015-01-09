@@ -7,7 +7,11 @@ import javax.swing.border.Border;
 import de.markusrother.pned.gui.components.NodeLabel;
 
 /**
- * <p>NodeLabelStyle class.</p>
+ * <p>
+ * NodeLabelStyle class.
+ * </p>
+ * 
+ * FIXME OBSOLETE by NodeStyleModel merge apply into label
  *
  * @author Markus Rother
  * @version 1.0
@@ -27,7 +31,9 @@ public class NodeLabelStyle
 	private boolean hoverOpacity;
 
 	/**
-	 * <p>Getter for the field <code>defaultFg</code>.</p>
+	 * <p>
+	 * Getter for the field <code>defaultFg</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.awt.Color} object.
 	 */
@@ -36,16 +42,21 @@ public class NodeLabelStyle
 	}
 
 	/**
-	 * <p>Setter for the field <code>defaultFg</code>.</p>
+	 * <p>
+	 * Setter for the field <code>defaultFg</code>.
+	 * </p>
 	 *
-	 * @param defaultFg a {@link java.awt.Color} object.
+	 * @param defaultFg
+	 *            a {@link java.awt.Color} object.
 	 */
 	public void setDefaultFg(final Color defaultFg) {
 		this.defaultFg = defaultFg;
 	}
 
 	/**
-	 * <p>Getter for the field <code>defaultBg</code>.</p>
+	 * <p>
+	 * Getter for the field <code>defaultBg</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.awt.Color} object.
 	 */
@@ -54,16 +65,21 @@ public class NodeLabelStyle
 	}
 
 	/**
-	 * <p>Setter for the field <code>defaultBg</code>.</p>
+	 * <p>
+	 * Setter for the field <code>defaultBg</code>.
+	 * </p>
 	 *
-	 * @param defaultBg a {@link java.awt.Color} object.
+	 * @param defaultBg
+	 *            a {@link java.awt.Color} object.
 	 */
 	public void setDefaultBg(final Color defaultBg) {
 		this.defaultBg = defaultBg;
 	}
 
 	/**
-	 * <p>Getter for the field <code>defaultBorder</code>.</p>
+	 * <p>
+	 * Getter for the field <code>defaultBorder</code>.
+	 * </p>
 	 *
 	 * @return a {@link javax.swing.border.Border} object.
 	 */
@@ -72,16 +88,21 @@ public class NodeLabelStyle
 	}
 
 	/**
-	 * <p>Setter for the field <code>defaultBorder</code>.</p>
+	 * <p>
+	 * Setter for the field <code>defaultBorder</code>.
+	 * </p>
 	 *
-	 * @param defaultBorder a {@link javax.swing.border.Border} object.
+	 * @param defaultBorder
+	 *            a {@link javax.swing.border.Border} object.
 	 */
 	public void setDefaultBorder(final Border defaultBorder) {
 		this.defaultBorder = defaultBorder;
 	}
 
 	/**
-	 * <p>isDefaultOpacity.</p>
+	 * <p>
+	 * isDefaultOpacity.
+	 * </p>
 	 *
 	 * @return a boolean.
 	 */
@@ -90,16 +111,21 @@ public class NodeLabelStyle
 	}
 
 	/**
-	 * <p>Setter for the field <code>defaultOpacity</code>.</p>
+	 * <p>
+	 * Setter for the field <code>defaultOpacity</code>.
+	 * </p>
 	 *
-	 * @param defaultOpacity a boolean.
+	 * @param defaultOpacity
+	 *            a boolean.
 	 */
 	public void setDefaultOpacity(final boolean defaultOpacity) {
 		this.defaultOpacity = defaultOpacity;
 	}
 
 	/**
-	 * <p>Getter for the field <code>hoverFg</code>.</p>
+	 * <p>
+	 * Getter for the field <code>hoverFg</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.awt.Color} object.
 	 */
@@ -108,16 +134,21 @@ public class NodeLabelStyle
 	}
 
 	/**
-	 * <p>Setter for the field <code>hoverFg</code>.</p>
+	 * <p>
+	 * Setter for the field <code>hoverFg</code>.
+	 * </p>
 	 *
-	 * @param hoverFg a {@link java.awt.Color} object.
+	 * @param hoverFg
+	 *            a {@link java.awt.Color} object.
 	 */
 	public void setHoverFg(final Color hoverFg) {
 		this.hoverFg = hoverFg;
 	}
 
 	/**
-	 * <p>Getter for the field <code>hoverBg</code>.</p>
+	 * <p>
+	 * Getter for the field <code>hoverBg</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.awt.Color} object.
 	 */
@@ -126,16 +157,21 @@ public class NodeLabelStyle
 	}
 
 	/**
-	 * <p>Setter for the field <code>hoverBg</code>.</p>
+	 * <p>
+	 * Setter for the field <code>hoverBg</code>.
+	 * </p>
 	 *
-	 * @param hoverBg a {@link java.awt.Color} object.
+	 * @param hoverBg
+	 *            a {@link java.awt.Color} object.
 	 */
 	public void setHoverBg(final Color hoverBg) {
 		this.hoverBg = hoverBg;
 	}
 
 	/**
-	 * <p>Getter for the field <code>hoverBorder</code>.</p>
+	 * <p>
+	 * Getter for the field <code>hoverBorder</code>.
+	 * </p>
 	 *
 	 * @return a {@link javax.swing.border.Border} object.
 	 */
@@ -144,16 +180,21 @@ public class NodeLabelStyle
 	}
 
 	/**
-	 * <p>Setter for the field <code>hoverBorder</code>.</p>
+	 * <p>
+	 * Setter for the field <code>hoverBorder</code>.
+	 * </p>
 	 *
-	 * @param hoverBorder a {@link javax.swing.border.Border} object.
+	 * @param hoverBorder
+	 *            a {@link javax.swing.border.Border} object.
 	 */
 	public void setHoverBorder(final Border hoverBorder) {
 		this.hoverBorder = hoverBorder;
 	}
 
 	/**
-	 * <p>isHoverOpacity.</p>
+	 * <p>
+	 * isHoverOpacity.
+	 * </p>
 	 *
 	 * @return a boolean.
 	 */
@@ -162,9 +203,12 @@ public class NodeLabelStyle
 	}
 
 	/**
-	 * <p>Setter for the field <code>hoverOpacity</code>.</p>
+	 * <p>
+	 * Setter for the field <code>hoverOpacity</code>.
+	 * </p>
 	 *
-	 * @param hoverOpacity a boolean.
+	 * @param hoverOpacity
+	 *            a boolean.
 	 */
 	public void setHoverOpacity(final boolean hoverOpacity) {
 		this.hoverOpacity = hoverOpacity;

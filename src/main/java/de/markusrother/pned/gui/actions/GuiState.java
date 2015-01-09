@@ -17,13 +17,13 @@ import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.components.NodeStyleModel;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
 import de.markusrother.pned.gui.layout.style.NodeStyle;
+import de.markusrother.pned.gui.model.NodeStyleModel;
 import de.markusrother.pned.util.PetriNetGuiEventAdapter;
 
 /**
@@ -325,7 +325,7 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	/**
 	 * <p>Getter for the field <code>placeStyle</code>.</p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.components.NodeStyleModel} object.
+	 * @return a {@link de.markusrother.pned.gui.model.NodeStyleModel} object.
 	 */
 	public NodeStyleModel getPlaceStyle() {
 		return placeStyle;
@@ -334,7 +334,7 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	/**
 	 * <p>Getter for the field <code>transitionStyle</code>.</p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.components.NodeStyleModel} object.
+	 * @return a {@link de.markusrother.pned.gui.model.NodeStyleModel} object.
 	 */
 	public NodeStyleModel getTransitionStyle() {
 		return transitionStyle;

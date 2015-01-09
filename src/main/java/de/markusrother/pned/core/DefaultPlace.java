@@ -5,11 +5,12 @@ import java.awt.Point;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import de.markusrother.pned.core.model.PlaceModel;
 import de.markusrother.util.JsonBuilder;
 
 /**
  * <p>
- * Default implementation of {@link de.markusrother.pned.core.PlaceModel}.
+ * Default implementation of {@link de.markusrother.pned.core.model.PlaceModel}.
  * </p>
  *
  * @author Markus Rother

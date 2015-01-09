@@ -6,15 +6,23 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.markusrother.pned.core.model.NodeModel;
 import de.markusrother.pned.io.AbsolutePositionMarshaller;
 import de.markusrother.pned.io.LabelMarshaller;
-import de.markusrother.util.JsonSerializable;
 import de.markusrother.util.JsonBuilder;
+import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
- * Abstract default implementation of {@link de.markusrother.pned.core.NodeModel}.
+ * Abstract default implementation of
+ * {@link de.markusrother.pned.core.model.NodeModel}.
  * </p>
+ * 
+ * <h4>TODO</h4>
+ * <ul>
+ * <li>Move xml related annotations to an .xml configuration file to decouple
+ * this class from the de.markusrother.core.io package</li>
+ * </ul>
  *
  * @author Markus Rother
  * @version 1.0

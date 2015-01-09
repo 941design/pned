@@ -3,7 +3,11 @@ package de.markusrother.pned.gui.styles;
 import java.awt.Component;
 
 /**
- * <p>Style interface.</p>
+ * <p>
+ * Style interface.
+ * </p>
+ * 
+ * FIXME OBSOLETE
  *
  * @author Markus Rother
  * @version 1.0
@@ -11,9 +15,12 @@ import java.awt.Component;
 public interface Style<T extends Component> {
 
 	/**
-	 * <p>apply.</p>
+	 * <p>
+	 * apply.
+	 * </p>
 	 *
-	 * @param t a T object.
+	 * @param t
+	 *            a T object.
 	 */
 	void apply(T t);
 }
