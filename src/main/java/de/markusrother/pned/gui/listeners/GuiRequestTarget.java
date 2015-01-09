@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui.listeners;
 
-import de.markusrother.pned.control.listeners.RequestTarget;
+import de.markusrother.pned.control.requests.RequestTarget;
 
 /**
  * <p>

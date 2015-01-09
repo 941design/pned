@@ -5,12 +5,10 @@ import java.util.concurrent.TimeoutException;
 
 import javax.swing.SwingWorker;
 
-import de.markusrother.pned.control.listeners.IdRequestListener;
-
 /**
  * <p>
  * A closure executing an {@link IdRequest} for a given
- * {@link de.markusrother.pned.control.listeners.IdRequestListener}.
+ * {@link de.markusrother.pned.control.requests.IdRequestListener}.
  * </p>
  *
  * @author Markus Rother
@@ -33,7 +31,7 @@ class IdRequestWorker extends SwingWorker<String, Object> {
 	 *            the request to work on.
 	 * @param listener
 	 *            a
-	 *            {@link de.markusrother.pned.control.listeners.IdRequestListener}
+	 *            {@link de.markusrother.pned.control.requests.IdRequestListener}
 	 *            - the listener doing the work.
 	 */
 	public IdRequestWorker(final IdRequest request, final IdRequestListener listener) {

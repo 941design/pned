@@ -5,7 +5,6 @@ import java.util.concurrent.TimeoutException;
 import javax.swing.SwingWorker;
 
 import de.markusrother.pned.control.EventBus;
-import de.markusrother.pned.control.listeners.IdRequestListener;
 import de.markusrother.util.JsonBuilder;
 import de.markusrother.util.JsonSerializable;
 
@@ -43,7 +42,7 @@ public class IdRequest extends Request<String>
 	 *
 	 * @param l
 	 *            a
-	 *            {@link de.markusrother.pned.control.listeners.IdRequestListener}
+	 *            {@link de.markusrother.pned.control.requests.IdRequestListener}
 	 *            - a listener which may or may not fulfill this request.
 	 * @return a {@link javax.swing.SwingWorker} - to execute this request.
 	 */

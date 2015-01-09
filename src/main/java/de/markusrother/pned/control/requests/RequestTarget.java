@@ -1,5 +1,6 @@
-package de.markusrother.pned.control.listeners;
+package de.markusrother.pned.control.requests;
 
+import de.markusrother.pned.control.EventBus;
 
 /**
  * <p>
@@ -9,6 +10,7 @@ package de.markusrother.pned.control.listeners;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see EventBus
  */
 public interface RequestTarget
 	extends
