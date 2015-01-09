@@ -21,8 +21,8 @@ import de.markusrother.pned.gui.commands.PetriNetEditCommand;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.listeners.PetriNetListener;
-import de.markusrother.pned.gui.menus.PnEditorMenuFactory;
-import de.markusrother.pned.gui.menus.PnedMenuBar;
+import de.markusrother.pned.gui.menus.PnMenuFactory;
+import de.markusrother.pned.gui.menus.PnMenuBar;
 import de.markusrother.pned.io.PNMLParser;
 import de.markusrother.pned.util.PetriNetGuiEventLogger;
 import de.markusrother.swing.CustomScrollPaneUI;
@@ -35,7 +35,7 @@ import de.markusrother.swing.CustomScrollPaneUI;
  * @author Markus Rother
  * @version 1.0
  */
-public class PnEditorFrame extends JFrame
+public class PnFrame extends JFrame
 	implements
 		PetriNetListener,
 		PetriNetIOListener {
@@ -45,9 +45,9 @@ public class PnEditorFrame extends JFrame
 	/** Constant <code>gridSize</code> */
 	private static final Dimension gridSize = new Dimension(2000, 2000);
 
-	private PnEditorMenuFactory menuFactory;
+	private PnMenuFactory menuFactory;
 	private PnGridPanel grid;
-	private PnedMenuBar pnedMenuBar;
+	private PnMenuBar pnedMenuBar;
 
 	private File currentPath;
 
@@ -62,7 +62,7 @@ public class PnEditorFrame extends JFrame
 	 * @param title
 	 *            a {@link java.lang.String} object.
 	 */
-	public PnEditorFrame(final String title) {
+	public PnFrame(final String title) {
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -108,7 +108,7 @@ public class PnEditorFrame extends JFrame
 		PetriNetGuiEventLogger.log(eventBus);
 
 		this.state = new GuiState(eventBus);
-		this.menuFactory = new PnEditorMenuFactory(state);
+		this.menuFactory = new PnMenuFactory(state);
 
 		createPetriNetModel(eventBus);
 
@@ -153,7 +153,7 @@ public class PnEditorFrame extends JFrame
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				final @SuppressWarnings("unused") PnEditorFrame editorFrame = new PnEditorFrame("foobar");
+				final @SuppressWarnings("unused") PnFrame editorFrame = new PnFrame("foobar");
 			}
 		});
 	}
@@ -191,7 +191,7 @@ public class PnEditorFrame extends JFrame
 				factory, //
 				factory);
 		this.grid.setPreferredSize(gridSize);
-		this.pnedMenuBar = new PnedMenuBar(menuFactory);
+		this.pnedMenuBar = new PnMenuBar(menuFactory);
 		this.scrollPane = createAutoResizableScrollPane(grid);
 
 		add(scrollPane, BorderLayout.CENTER);

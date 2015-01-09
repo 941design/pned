@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPopupMenu;
 
-import de.markusrother.pned.gui.menus.PnEditorMenuFactory;
+import de.markusrother.pned.gui.menus.PnMenuFactory;
 import de.markusrother.swing.PopupListener;
 
 /**
@@ -17,9 +17,9 @@ import de.markusrother.swing.PopupListener;
  * @author Markus Rother
  * @version 1.0
  */
-public class PnGridPopupListener extends PopupListener {
+public class PnPopupListener extends PopupListener {
 
-	private final PnEditorMenuFactory menuFactory;
+	private final PnMenuFactory menuFactory;
 
 	/**
 	 * <p>
@@ -30,7 +30,7 @@ public class PnGridPopupListener extends PopupListener {
 	 *            a {@link de.markusrother.pned.gui.components.PnGridPanel}
 	 *            object.
 	 */
-	public PnGridPopupListener(final PnEditorMenuFactory menuFactory) {
+	public PnPopupListener(final PnMenuFactory menuFactory) {
 		this.menuFactory = menuFactory;
 	}
 

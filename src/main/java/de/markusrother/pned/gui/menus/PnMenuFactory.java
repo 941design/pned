@@ -26,7 +26,7 @@ import de.markusrother.pned.gui.dialogs.FileDialogFactory;
  * @author Markus Rother
  * @version 1.0
  */
-public class PnEditorMenuFactory {
+public class PnMenuFactory {
 
 	private final FileDialogFactory fileDialogFactory;
 	private final EditMenuFactory editMenuFactory;
@@ -40,7 +40,7 @@ public class PnEditorMenuFactory {
 	 *
 	 * @param state a {@link de.markusrother.pned.gui.actions.GuiState} object.
 	 */
-	public PnEditorMenuFactory(final GuiState state) {
+	public PnMenuFactory(final GuiState state) {
 		this.state = state;
 		this.fileDialogFactory = new FileDialogFactory(state);
 		this.editMenuFactory = new EditMenuFactory(state);
@@ -76,7 +76,7 @@ public class PnEditorMenuFactory {
 	 * @return a {@link javax.swing.JMenu} object.
 	 */
 	public JMenu newFileMenu() {
-		return new PnedFileMenu(state.getEventBus(), fileDialogFactory);
+		return new PnFileMenu(state.getEventBus(), fileDialogFactory);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class PnEditorMenuFactory {
 	 * @return a {@link javax.swing.JMenu} object.
 	 */
 	public JMenu newPreferencesMenu() {
-		return new PnedPreferencesMenu(state.getEventBus());
+		return new PnPreferencesMenu(state.getEventBus());
 	}
 
 	/**

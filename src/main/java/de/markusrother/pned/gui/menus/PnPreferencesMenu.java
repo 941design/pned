@@ -15,7 +15,7 @@ import de.markusrother.pned.gui.listeners.GuiCommandTarget;
  * @author Markus Rother
  * @version 1.0
  */
-public class PnedPreferencesMenu extends JMenu {
+public class PnPreferencesMenu extends JMenu {
 
 	/** Constant <code>label="Preferences"</code> */
 	private static final String label = "Preferences";
@@ -30,7 +30,7 @@ public class PnedPreferencesMenu extends JMenu {
 	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
 	 *            object.
 	 */
-	PnedPreferencesMenu(final GuiCommandTarget commandTarget) {
+	PnPreferencesMenu(final GuiCommandTarget commandTarget) {
 		super(label);
 		setMnemonic(KeyEvent.VK_P);
 		add(OpenEditSettingsDialogAction.newMenuItem(commandTarget));

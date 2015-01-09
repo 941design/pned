@@ -3,7 +3,7 @@ package de.markusrother.pned.gui;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import de.markusrother.pned.gui.components.PnEditorFrame;
+import de.markusrother.pned.gui.components.PnFrame;
 
 /**
  * <p>
@@ -50,6 +50,6 @@ public class Main {
 		}
 
 		// TODO - call show() from here
-		final @SuppressWarnings("unused") PnEditorFrame pnEditorFrame = new PnEditorFrame(TITLE);
+		final @SuppressWarnings("unused") PnFrame pnEditorFrame = new PnFrame(TITLE);
 	}
 }

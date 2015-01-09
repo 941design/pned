@@ -18,7 +18,7 @@ import de.markusrother.pned.gui.listeners.GuiCommandTarget;
  * @author Markus Rother
  * @version 1.0
  */
-public class PnedFileMenu extends JMenu {
+public class PnFileMenu extends JMenu {
 
 	/** Constant <code>label="File"</code> */
 	private static final String label = "File";
@@ -35,7 +35,7 @@ public class PnedFileMenu extends JMenu {
 	 * @param fileDialogFactory
 	 *            a {@link de.markusrother.pned.gui.dialogs.FileDialogFactory}.
 	 */
-	PnedFileMenu(final GuiCommandTarget commandTarget, final FileDialogFactory fileDialogFactory) {
+	PnFileMenu(final GuiCommandTarget commandTarget, final FileDialogFactory fileDialogFactory) {
 		super(label);
 		setMnemonic(KeyEvent.VK_F);
 		add(CreatePetriNetAction.newMenuItem(commandTarget));

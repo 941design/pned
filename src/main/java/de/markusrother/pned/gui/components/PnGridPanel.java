@@ -33,9 +33,9 @@ import de.markusrother.pned.gui.listeners.NodeLabelEditor;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 import de.markusrother.pned.gui.listeners.NodeSelector;
-import de.markusrother.pned.gui.listeners.PnGridPopupListener;
+import de.markusrother.pned.gui.listeners.PnPopupListener;
 import de.markusrother.pned.gui.listeners.SelectionDragDropListener;
-import de.markusrother.pned.gui.menus.PnEditorMenuFactory;
+import de.markusrother.pned.gui.menus.PnMenuFactory;
 import de.markusrother.pned.gui.requests.NodeRequest;
 import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.GridComponent;
@@ -79,7 +79,7 @@ public class PnGridPanel extends JLayeredPane
 	private final NodeCreator nodeCreator;
 	private final NodeSelector multipleNodeSelector;
 
-	private final PnGridPopupListener popupCreator;
+	private final PnPopupListener popupCreator;
 	private final NodeLabelEditor nodeLabelEditor;
 
 	// Stateful/Throwaway listeners:
@@ -111,13 +111,13 @@ public class PnGridPanel extends JLayeredPane
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param menuFactory
-	 *            a {@link de.markusrother.pned.gui.menus.PnEditorMenuFactory}
+	 *            a {@link de.markusrother.pned.gui.menus.PnMenuFactory}
 	 *            object.
 	 * @param nodeFactory
 	 *            a {@link de.markusrother.pned.gui.components.NodeFactory}
 	 *            object.
 	 */
-	public PnGridPanel(final GuiEventBus eventBus, final PnEditorMenuFactory menuFactory,
+	public PnGridPanel(final GuiEventBus eventBus, final PnMenuFactory menuFactory,
 			final NodeFactory nodeFactory, final EdgeFactory edgeFactory) {
 
 		this.eventBus = eventBus;
@@ -143,7 +143,7 @@ public class PnGridPanel extends JLayeredPane
 		this.edgeCreator = new EdgeCreator(eventBus, edgeFactory, edgeLayer);
 		this.nodeCreator = new NodeCreator(eventBus);
 		this.multipleNodeSelector = new NodeSelector(eventBus);
-		this.popupCreator = new PnGridPopupListener(menuFactory);
+		this.popupCreator = new PnPopupListener(menuFactory);
 		this.nodeLabelEditor = new NodeLabelEditor(eventBus);
 
 		add(nodeLayer, new Integer(1));

@@ -8,14 +8,14 @@ import javax.swing.JMenuBar;
  * @author Markus Rother
  * @version 1.0
  */
-public class PnedMenuBar extends JMenuBar {
+public class PnMenuBar extends JMenuBar {
 
 	/**
 	 * <p>Constructor for PnedMenuBar.</p>
 	 *
-	 * @param menuFactory a {@link de.markusrother.pned.gui.menus.PnEditorMenuFactory} object.
+	 * @param menuFactory a {@link de.markusrother.pned.gui.menus.PnMenuFactory} object.
 	 */
-	public PnedMenuBar(final PnEditorMenuFactory menuFactory) {
+	public PnMenuBar(final PnMenuFactory menuFactory) {
 		add(menuFactory.newFileMenu());
 		add(menuFactory.newEditMenu());
 		add(menuFactory.newPreferencesMenu());
