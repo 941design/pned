@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.layout.listeners;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
+import de.markusrother.pned.gui.commands.PlaceLayoutCommand;
 
 /**
  * <p>
@@ -25,7 +25,7 @@ public interface PlaceLayoutListener
 	 *
 	 * @param cmd
 	 *            a
-	 *            {@link de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand}
+	 *            {@link de.markusrother.pned.gui.commands.PlaceLayoutCommand}
 	 *            object.
 	 */
 	void setSize(PlaceLayoutCommand cmd);

@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.layout.listeners;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand;
+import de.markusrother.pned.gui.commands.MarkingLayoutCommand;
 
 /**
  * <p>
@@ -23,7 +23,7 @@ public interface MarkingLayoutListener
 	 *
 	 * @param cmd
 	 *            a
-	 *            {@link de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand}
+	 *            {@link de.markusrother.pned.gui.commands.MarkingLayoutCommand}
 	 *            object.
 	 */
 	void setSize(MarkingLayoutCommand cmd);

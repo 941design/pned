@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui.layout.commands;
+package de.markusrother.pned.gui.commands;
 
 import java.awt.Color;
 import java.util.EventObject;
@@ -38,7 +38,7 @@ public abstract class LayoutCommand extends EventObject {
 	 * <p>Constructor for LayoutCommand.</p>
 	 *
 	 * @param source a {@link java.lang.Object} object.
-	 * @param type a {@link de.markusrother.pned.gui.layout.commands.LayoutCommand.ChangeType} object.
+	 * @param type a {@link de.markusrother.pned.gui.commands.LayoutCommand.ChangeType} object.
 	 * @param size a int.
 	 * @param color a {@link java.awt.Color} object.
 	 */
@@ -52,7 +52,7 @@ public abstract class LayoutCommand extends EventObject {
 	/**
 	 * <p>Getter for the field <code>type</code>.</p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.layout.commands.LayoutCommand.ChangeType} object.
+	 * @return a {@link de.markusrother.pned.gui.commands.LayoutCommand.ChangeType} object.
 	 */
 	public ChangeType getType() {
 		return type;

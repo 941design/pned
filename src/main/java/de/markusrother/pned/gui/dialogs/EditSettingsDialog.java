@@ -12,11 +12,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import de.markusrother.pned.gui.layout.commands.EdgeLayoutCommand;
-import de.markusrother.pned.gui.layout.commands.LayoutCommand.ChangeType;
-import de.markusrother.pned.gui.layout.commands.MarkingLayoutCommand;
-import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
-import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
+import de.markusrother.pned.gui.commands.EdgeLayoutCommand;
+import de.markusrother.pned.gui.commands.MarkingLayoutCommand;
+import de.markusrother.pned.gui.commands.PlaceLayoutCommand;
+import de.markusrother.pned.gui.commands.TransitionLayoutCommand;
+import de.markusrother.pned.gui.commands.LayoutCommand.ChangeType;
 import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 import de.markusrother.swing.ScaleGroup;
 

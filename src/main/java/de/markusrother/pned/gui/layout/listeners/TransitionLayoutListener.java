@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.layout.listeners;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
+import de.markusrother.pned.gui.commands.TransitionLayoutCommand;
 
 /**
  * <p>TransitionLayoutListener interface.</p>
@@ -17,7 +17,7 @@ public interface TransitionLayoutListener
 	/**
 	 * <p>setSize.</p>
 	 *
-	 * @param cmd a {@link de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand} object.
+	 * @param cmd a {@link de.markusrother.pned.gui.commands.TransitionLayoutCommand} object.
 	 */
 	void setSize(TransitionLayoutCommand cmd);
 }
