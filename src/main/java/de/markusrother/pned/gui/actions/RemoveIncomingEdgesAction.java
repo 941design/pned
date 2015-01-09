@@ -15,7 +15,7 @@ import de.markusrother.pned.gui.core.PnState;
  * @author Markus Rother
  * @version 1.0
  */
-public class RemoveIncomingEdgesAction extends AbstractGuiAction {
+public class RemoveIncomingEdgesAction extends AbstractStatefulAction {
 
 	/** Constant <code>label="Remove selected nodes"</code> */
 	private static final String label = "Remove incoming edges";

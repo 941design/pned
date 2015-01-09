@@ -19,7 +19,7 @@ import de.markusrother.pned.gui.core.PnState;
  * @author Markus Rother
  * @version 1.0
  */
-public class RemoveSelectedNodesAction extends AbstractGuiAction
+public class RemoveSelectedNodesAction extends AbstractStatefulAction
 	implements
 		NodeSelectionListener {
 

@@ -69,8 +69,6 @@ public class PnFrame extends JFrame
 		createNewContext();
 		createComponents();
 
-		setVisible(true);
-
 		final PnEventBus eventBus = state.getEventBus();
 		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, NodeCreationMode.PLACE));
 		eventBus.setCurrentDirectory(new PetriNetIOCommand(this, PetriNetIOCommand.Type.CWD, currentPath));
@@ -179,7 +177,6 @@ public class PnFrame extends JFrame
 		add(scrollPane, BorderLayout.CENTER);
 		setJMenuBar(pnedMenuBar);
 		setPreferredSize(preferredSize);
-		pack();
 	}
 
 	/**

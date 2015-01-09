@@ -7,7 +7,7 @@ import de.markusrother.pned.gui.components.PnFrame;
 
 /**
  * <p>
- * Main class.
+ * Main class. Opens Petri net editor: {@link PnFrame}.
  * </p>
  *
  * @author Markus Rother
@@ -28,28 +28,15 @@ public class Main {
 	 */
 	public static void main(final String[] args) {
 		try {
-			/**
-			 * 
-			 * http://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.
-			 * html TODO
-			 * 
-			 * You can specify the L&F at the command line by using the -D flag
-			 * to set the swing.defaultlaf property. For example:
-			 * 
-			 * java
-			 * -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel
-			 * MyApp
-			 */
-			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-			// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			// UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.exit(1);
 		}
 
-		// TODO - call show() from here
-		final @SuppressWarnings("unused") PnFrame pnEditorFrame = new PnFrame(TITLE);
+		final PnFrame frame = new PnFrame(TITLE);
+		frame.pack();
+		frame.setVisible(true);
 	}
+
 }

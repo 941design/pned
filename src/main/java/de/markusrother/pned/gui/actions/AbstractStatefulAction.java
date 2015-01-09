@@ -13,7 +13,7 @@ import de.markusrother.pned.gui.core.PnState;
  * @author Markus Rother
  * @version 1.0
  */
-abstract class AbstractGuiAction extends AbstractAction {
+abstract class AbstractStatefulAction extends AbstractAction {
 
 	protected final Object source;
 	protected final PnState state;
@@ -30,7 +30,7 @@ abstract class AbstractGuiAction extends AbstractAction {
 	 * @param state
 	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
 	 */
-	public AbstractGuiAction(final String label, final Object source, final PnState state) {
+	public AbstractStatefulAction(final String label, final Object source, final PnState state) {
 		super(label);
 		this.source = source;
 		this.state = state;
