@@ -6,7 +6,7 @@ import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
 import de.markusrother.pned.gui.actions.EditMenuFactory;
-import de.markusrother.pned.gui.actions.GuiState;
+import de.markusrother.pned.gui.core.GuiState;
 import de.markusrother.pned.gui.dialogs.FileDialogFactory;
 
 /**
@@ -38,7 +38,7 @@ public class PnMenuFactory {
 	 * Constructor for PnEditorMenuFactory.
 	 * </p>
 	 *
-	 * @param state a {@link de.markusrother.pned.gui.actions.GuiState} object.
+	 * @param state a {@link de.markusrother.pned.gui.core.GuiState} object.
 	 */
 	public PnMenuFactory(final GuiState state) {
 		this.state = state;

@@ -3,6 +3,7 @@ package de.markusrother.pned.gui.actions;
 import javax.swing.AbstractAction;
 
 import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.core.GuiState;
 
 /**
  * <p>
@@ -27,7 +28,7 @@ public abstract class AbstractGuiAction extends AbstractAction {
 	 * @param source
 	 *            a {@link java.lang.Object} object.
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.actions.GuiState} object.
+	 *            a {@link de.markusrother.pned.gui.core.GuiState} object.
 	 */
 	public AbstractGuiAction(final String label, final Object source, final GuiState state) {
 		super(label);

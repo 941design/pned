@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui.actions;
+package de.markusrother.pned.gui.core;
 
 import java.io.File;
 import java.util.Collection;

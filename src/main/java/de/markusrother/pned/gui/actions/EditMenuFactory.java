@@ -15,6 +15,7 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import de.markusrother.pned.gui.core.GuiState;
 import de.markusrother.pned.gui.menus.DefaultNodeLocationProvider;
 
 /**
@@ -37,7 +38,7 @@ public class EditMenuFactory
 	/**
 	 * <p>Constructor for EditMenuFactory.</p>
 	 *
-	 * @param state a {@link de.markusrother.pned.gui.actions.GuiState} object.
+	 * @param state a {@link de.markusrother.pned.gui.core.GuiState} object.
 	 */
 	public EditMenuFactory(final GuiState state) {
 		this.state = state;

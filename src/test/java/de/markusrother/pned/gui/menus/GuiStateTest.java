@@ -6,9 +6,9 @@ import java.util.List;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import de.markusrother.pned.gui.actions.GuiState;
 import de.markusrother.pned.gui.components.AbstractComponentTest;
 import de.markusrother.pned.gui.control.GuiEventBus;
+import de.markusrother.pned.gui.core.GuiState;
 
 public class GuiStateTest {
 
