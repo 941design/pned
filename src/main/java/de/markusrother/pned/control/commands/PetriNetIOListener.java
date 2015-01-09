@@ -1,9 +1,7 @@
-package de.markusrother.pned.control.listeners;
+package de.markusrother.pned.control.commands;
 
 import java.io.IOException;
 import java.util.EventListener;
-
-import de.markusrother.pned.control.commands.PetriNetIOCommand;
 
 /**
  * <p>

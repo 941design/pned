@@ -1,8 +1,7 @@
-package de.markusrother.pned.control.listeners;
+package de.markusrother.pned.control.commands;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 
 /**

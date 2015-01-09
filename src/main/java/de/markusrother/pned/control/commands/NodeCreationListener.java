@@ -1,9 +1,6 @@
-package de.markusrother.pned.control.listeners;
+package de.markusrother.pned.control.commands;
 
 import java.util.EventListener;
-
-import de.markusrother.pned.control.commands.PlaceCreationCommand;
-import de.markusrother.pned.control.commands.TransitionCreationCommand;
 
 /**
  * <p>

@@ -1,5 +1,6 @@
-package de.markusrother.pned.control.listeners;
+package de.markusrother.pned.control.commands;
 
+import de.markusrother.pned.control.events.PlaceListener;
 import de.markusrother.pned.gui.listeners.NodeRemovalListener;
 
 /**

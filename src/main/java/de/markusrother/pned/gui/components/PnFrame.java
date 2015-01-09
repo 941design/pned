@@ -14,7 +14,7 @@ import javax.xml.stream.XMLStreamException;
 import de.markusrother.pned.control.EventAwarePetriNet;
 import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
-import de.markusrother.pned.control.listeners.PetriNetIOListener;
+import de.markusrother.pned.control.commands.PetriNetIOListener;
 import de.markusrother.pned.gui.NodeCreationMode;
 import de.markusrother.pned.gui.actions.GuiState;
 import de.markusrother.pned.gui.commands.PetriNetEditCommand;

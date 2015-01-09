@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui.listeners;
 
-import de.markusrother.pned.control.listeners.CommandTarget;
+import de.markusrother.pned.control.commands.CommandTarget;
 import de.markusrother.pned.gui.layout.listeners.LayoutCommandTarget;
 
 /**

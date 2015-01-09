@@ -8,10 +8,10 @@ import javax.swing.border.LineBorder;
 
 import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.LabelEditCommand;
+import de.markusrother.pned.control.commands.LabelEditListener;
 import de.markusrother.pned.control.commands.NodeMotionCommand;
+import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
-import de.markusrother.pned.control.listeners.LabelEditListener;
-import de.markusrother.pned.control.listeners.NodeMotionListener;
 import de.markusrother.pned.gui.Disposable;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.EdgeEditEvent;

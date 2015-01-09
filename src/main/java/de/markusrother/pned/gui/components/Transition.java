@@ -14,8 +14,8 @@ import java.awt.geom.Point2D;
 import javax.swing.event.ChangeEvent;
 
 import de.markusrother.pned.control.EventBus;
+import de.markusrother.pned.control.commands.TransitionActivationListener;
 import de.markusrother.pned.control.events.TransitionActivationEvent;
-import de.markusrother.pned.control.listeners.TransitionActivationListener;
 import de.markusrother.pned.gui.listeners.TransitionActivator;
 import de.markusrother.pned.gui.model.NodeStyleModel;
 import de.markusrother.util.JsonBuilder;

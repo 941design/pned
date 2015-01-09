@@ -6,9 +6,9 @@ import java.util.Collection;
 import java.util.regex.Pattern;
 
 import de.markusrother.pned.control.commands.MarkingEditCommand;
+import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
-import de.markusrother.pned.control.listeners.NodeCreationListener;
 import de.markusrother.pned.gui.components.AbstractNode;
 import de.markusrother.pned.gui.components.Place;
 import de.markusrother.pned.gui.components.Transition;

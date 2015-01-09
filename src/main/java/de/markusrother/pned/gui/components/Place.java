@@ -12,7 +12,7 @@ import javax.swing.event.ChangeEvent;
 
 import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.events.MarkingEventObject;
-import de.markusrother.pned.control.listeners.PlaceListener;
+import de.markusrother.pned.control.events.PlaceListener;
 import de.markusrother.pned.gui.PlaceLayout;
 import de.markusrother.pned.gui.listeners.MarkingEditor;
 import de.markusrother.pned.gui.model.NodeStyleModel;
