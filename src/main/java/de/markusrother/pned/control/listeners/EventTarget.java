@@ -1,6 +1,5 @@
 package de.markusrother.pned.control.listeners;
 
-
 /**
  * <p>
  * Aggregate interface for event listeners. This combines all listeners
@@ -9,6 +8,7 @@ package de.markusrother.pned.control.listeners;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.control.EventBus
  */
 public interface EventTarget
 	extends

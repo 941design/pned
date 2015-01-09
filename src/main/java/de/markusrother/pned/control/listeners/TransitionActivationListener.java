@@ -15,6 +15,7 @@ import de.markusrother.pned.control.events.TransitionActivationEvent;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.control.EventBus
  */
 public interface TransitionActivationListener
 	extends

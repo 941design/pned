@@ -4,7 +4,6 @@ import java.util.concurrent.TimeoutException;
 
 import javax.swing.SwingWorker;
 
-import de.markusrother.pned.control.EventBus;
 import de.markusrother.util.JsonBuilder;
 import de.markusrother.util.JsonSerializable;
 
@@ -17,7 +16,7 @@ import de.markusrother.util.JsonSerializable;
  *
  * @author Markus Rother
  * @version 1.0
- * @see EventBus
+ * @see de.markusrother.pned.control.EventBus
  */
 public class IdRequest extends Request<String>
 	implements

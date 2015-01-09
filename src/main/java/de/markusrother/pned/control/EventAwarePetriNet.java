@@ -55,6 +55,7 @@ import de.markusrother.pned.io.PetriNetMarshaller;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.control.EventBus
  */
 public class EventAwarePetriNet extends DefaultPetriNet
 	implements

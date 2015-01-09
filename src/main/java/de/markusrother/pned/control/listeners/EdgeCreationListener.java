@@ -14,6 +14,7 @@ import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.control.EventBus
  */
 public interface EdgeCreationListener
 	extends
@@ -32,9 +33,13 @@ public interface EdgeCreationListener
 	void createEdge(EdgeCreationCommand cmd);
 
 	/**
-	 * <p>removeEdge.</p>
+	 * <p>
+	 * removeEdge.
+	 * </p>
 	 *
-	 * @param cmd a {@link de.markusrother.pned.gui.commands.EdgeRemoveCommand} object.
+	 * @param cmd
+	 *            a {@link de.markusrother.pned.gui.commands.EdgeRemoveCommand}
+	 *            object.
 	 */
 	void removeEdge(EdgeRemoveCommand cmd);
 

@@ -1,7 +1,5 @@
 package de.markusrother.pned.control.events;
 
-import de.markusrother.pned.control.commands.MarkingEditCommand;
-
 /**
  * <p>
  * Event that occurs, when a {@link de.markusrother.pned.core.model.PlaceModel}s
@@ -10,7 +8,8 @@ import de.markusrother.pned.control.commands.MarkingEditCommand;
  *
  * @author Markus Rother
  * @version 1.0
- * @see MarkingEditCommand
+ * @see de.markusrother.pned.control.commands.MarkingEditCommand
+ * @see de.markusrother.pned.control.EventBus
  */
 public class MarkingChangeEvent extends MarkingEventObject {
 

@@ -10,6 +10,7 @@ import de.markusrother.pned.gui.listeners.NodeRemovalListener;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.control.EventBus
  */
 public interface CommandTarget
 	extends

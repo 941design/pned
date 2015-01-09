@@ -11,6 +11,7 @@ import de.markusrother.pned.control.commands.LabelEditCommand;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.control.EventBus
  */
 public interface LabelEditListener
 	extends
@@ -22,7 +23,8 @@ public interface LabelEditListener
 	 * </p>
 	 *
 	 * @param cmd
-	 *            a {@link de.markusrother.pned.control.commands.LabelEditCommand}
+	 *            a
+	 *            {@link de.markusrother.pned.control.commands.LabelEditCommand}
 	 *            object.
 	 */
 	void setLabel(LabelEditCommand cmd);

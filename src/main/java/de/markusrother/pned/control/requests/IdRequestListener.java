@@ -2,8 +2,6 @@ package de.markusrother.pned.control.requests;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.control.EventBus;
-
 /**
  * <p>
  * IdRequestListener interface.
@@ -11,7 +9,7 @@ import de.markusrother.pned.control.EventBus;
  *
  * @author Markus Rother
  * @version 1.0
- * @see EventBus
+ * @see de.markusrother.pned.control.EventBus
  */
 public interface IdRequestListener
 	extends

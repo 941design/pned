@@ -13,6 +13,7 @@ import javax.swing.SwingWorker;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.control.EventBus
  */
 class IdRequestWorker extends SwingWorker<String, Object> {
 

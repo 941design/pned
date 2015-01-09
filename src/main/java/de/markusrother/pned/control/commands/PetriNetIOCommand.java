@@ -14,6 +14,7 @@ import de.markusrother.util.JsonSerializable;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.control.EventBus
  */
 public class PetriNetIOCommand extends EventObject
 	implements

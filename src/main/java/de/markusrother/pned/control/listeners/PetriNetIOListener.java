@@ -12,6 +12,7 @@ import de.markusrother.pned.control.commands.PetriNetIOCommand;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.control.EventBus
  */
 public interface PetriNetIOListener
 	extends
@@ -23,7 +24,8 @@ public interface PetriNetIOListener
 	 * </p>
 	 *
 	 * @param cmd
-	 *            a {@link de.markusrother.pned.control.commands.PetriNetIOCommand}
+	 *            a
+	 *            {@link de.markusrother.pned.control.commands.PetriNetIOCommand}
 	 *            object.
 	 */
 	void setCurrentDirectory(PetriNetIOCommand cmd);
@@ -34,7 +36,8 @@ public interface PetriNetIOListener
 	 * </p>
 	 *
 	 * @param cmd
-	 *            a {@link de.markusrother.pned.control.commands.PetriNetIOCommand}
+	 *            a
+	 *            {@link de.markusrother.pned.control.commands.PetriNetIOCommand}
 	 *            object.
 	 * @throws java.io.IOException
 	 *             if any.
@@ -47,7 +50,8 @@ public interface PetriNetIOListener
 	 * </p>
 	 *
 	 * @param cmd
-	 *            a {@link de.markusrother.pned.control.commands.PetriNetIOCommand}
+	 *            a
+	 *            {@link de.markusrother.pned.control.commands.PetriNetIOCommand}
 	 *            object.
 	 * @throws java.io.IOException
 	 *             if any.

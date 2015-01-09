@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import de.markusrother.concurrent.Promise;
-import de.markusrother.pned.control.EventBus;
 
 /**
  * <p>
@@ -37,7 +36,7 @@ import de.markusrother.pned.control.EventBus;
  *
  * @author Markus Rother
  * @version 1.0
- * @see EventBus
+ * @see de.markusrother.pned.control.EventBus
  */
 public class Request<T> extends EventObject {
 

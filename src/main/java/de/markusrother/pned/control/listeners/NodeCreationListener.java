@@ -6,26 +6,39 @@ import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 
 /**
- * <p>NodeCreationListener interface.</p>
+ * <p>
+ * NodeCreationListener interface.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.control.EventBus
  */
 public interface NodeCreationListener
 	extends
 		EventListener {
 
 	/**
-	 * <p>createPlace.</p>
+	 * <p>
+	 * createPlace.
+	 * </p>
 	 *
-	 * @param cmd a {@link de.markusrother.pned.control.commands.PlaceCreationCommand} object.
+	 * @param cmd
+	 *            a
+	 *            {@link de.markusrother.pned.control.commands.PlaceCreationCommand}
+	 *            object.
 	 */
 	void createPlace(PlaceCreationCommand cmd);
 
 	/**
-	 * <p>createTransition.</p>
+	 * <p>
+	 * createTransition.
+	 * </p>
 	 *
-	 * @param cmd a {@link de.markusrother.pned.control.commands.TransitionCreationCommand} object.
+	 * @param cmd
+	 *            a
+	 *            {@link de.markusrother.pned.control.commands.TransitionCreationCommand}
+	 *            object.
 	 */
 	void createTransition(TransitionCreationCommand cmd);
 
