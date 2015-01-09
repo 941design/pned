@@ -14,6 +14,7 @@ import de.markusrother.pned.gui.components.Place;
 import de.markusrother.pned.gui.components.Transition;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
+import de.markusrother.pned.gui.events.NodeSelectionListener;
 import de.markusrother.swing.CheckedTextField;
 import de.markusrother.swing.RightClickTextFieldEdit;
 

@@ -1,8 +1,6 @@
-package de.markusrother.pned.gui.layout.listeners;
+package de.markusrother.pned.gui.commands;
 
 import java.util.EventListener;
-
-import de.markusrother.pned.gui.commands.PlaceLayoutCommand;
 
 /**
  * <p>

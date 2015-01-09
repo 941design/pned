@@ -6,8 +6,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
+import de.markusrother.pned.gui.commands.GuiCommandTarget;
 import de.markusrother.pned.gui.dialogs.EditSettingsDialog;
-import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 
 /**
  * <p>
@@ -33,7 +33,7 @@ public class OpenEditSettingsDialogAction extends AbstractOpenDialogAction {
 	 *
 	 * @param commandTarget
 	 *            a
-	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            {@link de.markusrother.pned.gui.commands.GuiCommandTarget}
 	 *            to be posted to.
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
 	 */
@@ -49,7 +49,7 @@ public class OpenEditSettingsDialogAction extends AbstractOpenDialogAction {
 	 *
 	 * @param commandTarget
 	 *            a
-	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            {@link de.markusrother.pned.gui.commands.GuiCommandTarget}
 	 *            to be posted to.
 	 */
 	public OpenEditSettingsDialogAction(final GuiCommandTarget commandTarget) {

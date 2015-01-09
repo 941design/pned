@@ -3,7 +3,7 @@ package de.markusrother.pned.gui.actions;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import de.markusrother.pned.gui.listeners.GuiCommandTarget;
+import de.markusrother.pned.gui.commands.GuiCommandTarget;
 
 /**
  * <p>
@@ -28,7 +28,7 @@ public abstract class AbstractOpenDialogAction extends AbstractAction {
 	 *
 	 * @param commandTarget
 	 *            an
-	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            {@link de.markusrother.pned.gui.commands.GuiCommandTarget}
 	 *            to be posted to.
 	 * @param label
 	 *            a {@link java.lang.String} - this action's textual

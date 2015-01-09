@@ -7,8 +7,8 @@ import javax.swing.JMenu;
 import de.markusrother.pned.gui.actions.CreatePetriNetAction;
 import de.markusrother.pned.gui.actions.OpenExportDialogAction;
 import de.markusrother.pned.gui.actions.OpenImportDialogAction;
+import de.markusrother.pned.gui.commands.GuiCommandTarget;
 import de.markusrother.pned.gui.dialogs.FileDialogFactory;
-import de.markusrother.pned.gui.listeners.GuiCommandTarget;
 
 /**
  * <p>
@@ -30,7 +30,7 @@ public class PnFileMenu extends JMenu {
 	 *
 	 * @param commandTarget
 	 *            a
-	 *            {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            {@link de.markusrother.pned.gui.commands.GuiCommandTarget}
 	 *            object.
 	 * @param fileDialogFactory
 	 *            a {@link de.markusrother.pned.gui.dialogs.FileDialogFactory}.

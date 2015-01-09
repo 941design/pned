@@ -1,8 +1,6 @@
-package de.markusrother.pned.gui.listeners;
+package de.markusrother.pned.gui.commands;
 
 import java.util.EventListener;
-
-import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 
 /**
  * <p>NodeListener interface.</p>

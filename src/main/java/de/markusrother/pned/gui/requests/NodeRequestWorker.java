@@ -5,7 +5,6 @@ import java.util.concurrent.TimeoutException;
 import javax.swing.SwingWorker;
 
 import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.listeners.NodeRequestListener;
 
 /**
  * <p>
@@ -30,7 +29,7 @@ class NodeRequestWorker extends SwingWorker<AbstractNode, Object> {
 	 *            object.
 	 * @param listener
 	 *            a
-	 *            {@link de.markusrother.pned.gui.listeners.NodeRequestListener}
+	 *            {@link de.markusrother.pned.gui.requests.NodeRequestListener}
 	 *            object.
 	 */
 	public NodeRequestWorker(final NodeRequest request, final NodeRequestListener listener) {

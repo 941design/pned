@@ -1,8 +1,6 @@
-package de.markusrother.pned.gui.listeners;
+package de.markusrother.pned.gui.requests;
 
 import java.util.EventListener;
-
-import de.markusrother.pned.gui.requests.NodeRequest;
 
 /**
  * <p>

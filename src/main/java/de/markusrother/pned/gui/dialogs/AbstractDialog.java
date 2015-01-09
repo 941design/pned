@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.dialogs;
 
 import javax.swing.JDialog;
 
-import de.markusrother.pned.gui.listeners.GuiCommandTarget;
+import de.markusrother.pned.gui.commands.GuiCommandTarget;
 
 /**
  * <p>
@@ -24,7 +24,7 @@ public class AbstractDialog extends JDialog {
 	 *
 	 * @param title
 	 *            a {@link java.lang.String} - this dialogs title.
-	 * @param commandTarget a {@link de.markusrother.pned.gui.listeners.GuiCommandTarget} object.
+	 * @param commandTarget a {@link de.markusrother.pned.gui.commands.GuiCommandTarget} object.
 	 */
 	protected AbstractDialog(final GuiCommandTarget commandTarget, final String title) {
 		this.commandTarget = commandTarget;

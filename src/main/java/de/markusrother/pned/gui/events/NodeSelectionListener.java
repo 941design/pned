@@ -1,8 +1,6 @@
-package de.markusrother.pned.gui.listeners;
+package de.markusrother.pned.gui.events;
 
 import java.util.EventListener;
-
-import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 
 /**
  * Listener to observe node selection events

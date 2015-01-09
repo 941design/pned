@@ -6,8 +6,8 @@ import java.awt.event.ItemListener;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
+import de.markusrother.pned.gui.commands.NodeListener;
 import de.markusrother.pned.gui.control.GuiEventBus;
-import de.markusrother.pned.gui.listeners.NodeListener;
 
 /**
  * <p>

@@ -10,6 +10,7 @@ import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.gui.components.NodeLabel;
 import de.markusrother.pned.gui.control.GuiEventBus;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
+import de.markusrother.pned.gui.events.NodeSelectionListener;
 import de.markusrother.swing.CheckedTextField;
 import de.markusrother.swing.RightClickTextFieldEdit;
 

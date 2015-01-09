@@ -8,6 +8,7 @@ import static de.markusrother.pned.gui.events.NodeMultiSelectionEvent.Type.SELEC
 import java.util.Collection;
 
 import de.markusrother.pned.gui.components.AbstractNode;
+import de.markusrother.pned.gui.events.GuiEventTarget;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.swing.Selector;
 

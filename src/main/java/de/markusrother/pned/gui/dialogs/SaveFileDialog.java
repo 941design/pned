@@ -7,13 +7,13 @@ import javax.swing.JFileChooser;
 
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand.Type;
-import de.markusrother.pned.gui.listeners.GuiCommandTarget;
+import de.markusrother.pned.gui.commands.GuiCommandTarget;
 
 /**
  * <p>
  * File dialog for saving Petri nets to pnml (xml). Successful file selection
  * posts a {@link de.markusrother.pned.control.commands.PetriNetIOCommand} to the
- * provided {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}.
+ * provided {@link de.markusrother.pned.gui.commands.GuiCommandTarget}.
  * </p>
  *
  * @author Markus Rother
@@ -32,7 +32,7 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * </p>
 	 *
 	 * @param commandTarget
-	 *            an {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            an {@link de.markusrother.pned.gui.commands.GuiCommandTarget}
 	 *            to be posted to.
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
@@ -48,7 +48,7 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * </p>
 	 *
 	 * @param commandTarget
-	 *            an {@link de.markusrother.pned.gui.listeners.GuiCommandTarget}
+	 *            an {@link de.markusrother.pned.gui.commands.GuiCommandTarget}
 	 *            to be posted to.
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.

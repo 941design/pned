@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui.listeners;
+package de.markusrother.pned.gui.events;
 
 import de.markusrother.pned.control.events.EventTarget;
 

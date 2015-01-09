@@ -6,7 +6,6 @@ import javax.swing.SwingWorker;
 
 import de.markusrother.pned.control.requests.Request;
 import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.listeners.NodeRequestListener;
 import de.markusrother.util.JsonBuilder;
 import de.markusrother.util.JsonSerializable;
 
@@ -57,7 +56,7 @@ public class NodeRequest extends Request<AbstractNode>
 	 *
 	 * @param l
 	 *            a
-	 *            {@link de.markusrother.pned.gui.listeners.NodeRequestListener}
+	 *            {@link de.markusrother.pned.gui.requests.NodeRequestListener}
 	 *            object.
 	 * @return a {@link javax.swing.SwingWorker} object.
 	 */

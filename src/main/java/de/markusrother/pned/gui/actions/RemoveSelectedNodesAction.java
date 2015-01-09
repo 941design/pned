@@ -7,8 +7,8 @@ import javax.swing.Action;
 import javax.swing.JMenuItem;
 
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
+import de.markusrother.pned.gui.events.NodeSelectionListener;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.listeners.NodeSelectionListener;
 
 /**
  * <p>
