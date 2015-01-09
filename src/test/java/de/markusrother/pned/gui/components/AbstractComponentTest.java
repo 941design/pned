@@ -6,6 +6,8 @@ import java.util.EventListener;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.event.ChangeListener;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -30,6 +32,11 @@ import de.markusrother.pned.gui.listeners.PetriNetListener;
 // TODO - Maybe rename to AbstractListenerTest
 public abstract class AbstractComponentTest<T> {
 
+	private static final Collection<Class<? extends EventListener>> excludedEventListenerInterfaces = new LinkedList<>();
+	static {
+		excludedEventListenerInterfaces.add(ChangeListener.class);
+	}
+
 	protected GuiEventBus eventMulticastMock;
 
 	@Before
@@ -43,7 +50,8 @@ public abstract class AbstractComponentTest<T> {
 		final Collection<Class<?>> interfaces = getInterfaces(clazz);
 		final List<Class<EventListener>> listenerInterfaces = new LinkedList<>();
 		for (final Class<?> iface : interfaces) {
-			if (EventListener.class.isAssignableFrom(iface) //
+			if (!excludedEventListenerInterfaces.contains(iface) //
+					&& EventListener.class.isAssignableFrom(iface) //
 					&& iface != EventListener.class //
 					&& Arrays.asList(iface.getInterfaces()).contains(EventListener.class)) {
 				final @SuppressWarnings("unchecked") Class<EventListener> listenerClass = (Class<EventListener>) iface;

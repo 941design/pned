@@ -2,7 +2,6 @@ package de.markusrother.pned.gui.components;
 
 import static org.junit.Assert.assertEquals;
 
-import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -19,11 +18,13 @@ public class PlaceTest extends AbstractNodeTest<Place> {
 
 	private Place place;
 
-	private void createPlace(final Dimension dimension) {
+	private void createPlace(final int extent) {
+		final NodeStyle style = NodeStyle.newDefault();
+		style.setSize(extent);
 		place = new Place(eventMulticastMock, //
 				NO_ID, //
 				Mockito.mock(MarkingEditor.class), //
-				NodeStyle.DEFAULT);
+				style);
 	}
 
 	private void assertAngleIntersectsAt(final double theta, final Point2D expected) {
@@ -32,22 +33,23 @@ public class PlaceTest extends AbstractNodeTest<Place> {
 
 	@Test
 	public void testDimensions() {
-		final Dimension dimension = new Dimension(100, 100);
-		createPlace(dimension);
-		assertEquals(dimension, place.getPreferredSize());
+		final int extent = 100;
+		createPlace(extent);
+		assertEquals(extent, place.getPreferredSize().width);
+		assertEquals(extent, place.getPreferredSize().height);
 	}
 
 	@Test
 	public void testShape() {
-		final Dimension dimension = new Dimension(100, 100);
-		createPlace(dimension);
+		final int extent = 100;
+		createPlace(extent);
 		assertEquals(new Ellipse2D.Double(0, 0, 100, 100), place.getShape());
 	}
 
 	@Test
 	public void testGetIntersectionWithBounds() {
-		final Dimension dimension = new Dimension(100, 100);
-		createPlace(dimension);
+		final int extent = 100;
+		createPlace(extent);
 		// 0 degrees
 		assertAngleIntersectsAt(0, new Point(100, 50));
 		// 180 degrees

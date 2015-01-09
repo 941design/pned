@@ -4,7 +4,6 @@ import static de.markusrother.pned.gui.TrigUtilsTest.precision;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
@@ -19,10 +18,12 @@ public class TransitionTest extends AbstractNodeTest<Transition> {
 
 	private Transition transition;
 
-	private void createTransition(final Dimension dimension) {
+	private void createTransition(final int extent) {
+		final NodeStyle style = NodeStyle.newDefault();
+		style.setSize(extent);
 		transition = new Transition(eventMulticastMock, //
 				NO_ID, //
-				NodeStyle.DEFAULT);
+				style);
 	}
 
 	private void assertAngleIntersectsAt(final double theta, final Point2D expected) {
@@ -30,23 +31,24 @@ public class TransitionTest extends AbstractNodeTest<Transition> {
 	}
 
 	@Test
-	public void testDimensions() {
-		final Dimension dimension = new Dimension(100, 100);
-		createTransition(dimension);
-		assertEquals(dimension, transition.getPreferredSize());
+	public void testExtent() {
+		final int extent = 100;
+		createTransition(extent);
+		assertEquals(extent, transition.getPreferredSize().height);
+		assertEquals(extent, transition.getPreferredSize().width);
 	}
 
 	@Test
 	public void testShape() {
-		final Dimension dimension = new Dimension(100, 100);
-		createTransition(dimension);
+		final int extent = 100;
+		createTransition(extent);
 		assertEquals(new Rectangle(0, 0, 100, 100), transition.getShape());
 	}
 
 	@Test
 	public void testGetIntersectionWithBounds() {
-		final Dimension dimension = new Dimension(100, 100);
-		createTransition(dimension);
+		final int extent = 100;
+		createTransition(extent);
 
 		// Centers:
 		// 0 degrees
