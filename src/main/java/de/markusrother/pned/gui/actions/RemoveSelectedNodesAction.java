@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
-import de.markusrother.pned.gui.core.GuiState;
+import de.markusrother.pned.gui.core.PnState;
 import de.markusrother.pned.gui.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.events.NodeSelectionListener;
 import de.markusrother.pned.gui.events.RemoveSelectedNodesEvent;
@@ -36,10 +36,10 @@ public class RemoveSelectedNodesAction extends AbstractGuiAction
 	 * @param source
 	 *            a {@link java.lang.Object} object.
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.core.GuiState} object.
+	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
 	 * @return a {@link javax.swing.JMenuItem} object.
 	 */
-	public static JMenuItem newMenuItem(final Object source, final GuiState state) {
+	public static JMenuItem newMenuItem(final Object source, final PnState state) {
 		return new JMenuItem(new RemoveSelectedNodesAction(source, state));
 	}
 
@@ -51,9 +51,9 @@ public class RemoveSelectedNodesAction extends AbstractGuiAction
 	 * @param source
 	 *            a {@link java.lang.Object} object.
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.core.GuiState} object.
+	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
 	 */
-	public RemoveSelectedNodesAction(final Object source, final GuiState state) {
+	public RemoveSelectedNodesAction(final Object source, final PnState state) {
 		super(label, source, state);
 
 		putValue(Action.MNEMONIC_KEY, mnemonic);

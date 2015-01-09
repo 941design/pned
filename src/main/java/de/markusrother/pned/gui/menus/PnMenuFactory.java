@@ -6,7 +6,7 @@ import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
 import de.markusrother.pned.gui.actions.EditMenuFactory;
-import de.markusrother.pned.gui.core.GuiState;
+import de.markusrother.pned.gui.core.PnState;
 import de.markusrother.pned.gui.dialogs.FileDialogFactory;
 
 /**
@@ -31,16 +31,16 @@ public class PnMenuFactory {
 	private final FileDialogFactory fileDialogFactory;
 	private final EditMenuFactory editMenuFactory;
 
-	private final GuiState state;
+	private final PnState state;
 
 	/**
 	 * <p>
 	 * Constructor for PnEditorMenuFactory.
 	 * </p>
 	 *
-	 * @param state a {@link de.markusrother.pned.gui.core.GuiState} object.
+	 * @param state a {@link de.markusrother.pned.gui.core.PnState} object.
 	 */
-	public PnMenuFactory(final GuiState state) {
+	public PnMenuFactory(final PnState state) {
 		this.state = state;
 		this.fileDialogFactory = new FileDialogFactory(state);
 		this.editMenuFactory = new EditMenuFactory(state);

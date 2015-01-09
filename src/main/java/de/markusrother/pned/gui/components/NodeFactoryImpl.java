@@ -1,6 +1,6 @@
 package de.markusrother.pned.gui.components;
 
-import de.markusrother.pned.gui.core.GuiState;
+import de.markusrother.pned.gui.core.PnState;
 import de.markusrother.pned.gui.listeners.MarkingEditor;
 import de.markusrother.pned.gui.listeners.SingleNodeSelector;
 import de.markusrother.pned.gui.model.EdgeStyleModel;
@@ -21,7 +21,7 @@ public class NodeFactoryImpl
 
 	private final MarkingEditor markingEditor;
 	private final SingleNodeSelector singleNodeSelector;
-	private final GuiState state;
+	private final PnState state;
 
 	/**
 	 * <p>
@@ -29,9 +29,9 @@ public class NodeFactoryImpl
 	 * </p>
 	 *
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.core.GuiState} object.
+	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
 	 */
-	public NodeFactoryImpl(final GuiState state) {
+	public NodeFactoryImpl(final PnState state) {
 		this.state = state;
 		this.markingEditor = new MarkingEditor(state.getEventBus());
 		this.singleNodeSelector = new SingleNodeSelector(state.getEventBus());

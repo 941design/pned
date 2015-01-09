@@ -3,7 +3,7 @@ package de.markusrother.pned.gui.actions;
 import javax.swing.AbstractAction;
 
 import de.markusrother.pned.gui.control.PnEventBus;
-import de.markusrother.pned.gui.core.GuiState;
+import de.markusrother.pned.gui.core.PnState;
 
 /**
  * <p>
@@ -16,7 +16,7 @@ import de.markusrother.pned.gui.core.GuiState;
 public abstract class AbstractGuiAction extends AbstractAction {
 
 	protected final Object source;
-	protected final GuiState state;
+	protected final PnState state;
 
 	/**
 	 * <p>
@@ -28,9 +28,9 @@ public abstract class AbstractGuiAction extends AbstractAction {
 	 * @param source
 	 *            a {@link java.lang.Object} object.
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.core.GuiState} object.
+	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
 	 */
-	public AbstractGuiAction(final String label, final Object source, final GuiState state) {
+	public AbstractGuiAction(final String label, final Object source, final PnState state) {
 		super(label);
 		this.source = source;
 		this.state = state;

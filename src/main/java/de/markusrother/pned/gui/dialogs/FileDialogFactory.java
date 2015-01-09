@@ -1,7 +1,7 @@
 package de.markusrother.pned.gui.dialogs;
 
 import de.markusrother.pned.gui.commands.GuiCommandTarget;
-import de.markusrother.pned.gui.core.GuiState;
+import de.markusrother.pned.gui.core.PnState;
 
 /**
  * <p>
@@ -13,16 +13,16 @@ import de.markusrother.pned.gui.core.GuiState;
  */
 public class FileDialogFactory {
 
-	private final GuiState state;
+	private final PnState state;
 
 	/**
 	 * <p>
 	 * Constructor for FileDialogFactory.
 	 * </p>
 	 *
-	 * @param state a {@link de.markusrother.pned.gui.core.GuiState} object.
+	 * @param state a {@link de.markusrother.pned.gui.core.PnState} object.
 	 */
-	public FileDialogFactory(final GuiState state) {
+	public FileDialogFactory(final PnState state) {
 		this.state = state;
 	}
 

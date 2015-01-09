@@ -20,7 +20,7 @@ import de.markusrother.pned.gui.commands.PetriNetEditCommand;
 import de.markusrother.pned.gui.commands.PetriNetListener;
 import de.markusrother.pned.gui.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.control.PnEventBus;
-import de.markusrother.pned.gui.core.GuiState;
+import de.markusrother.pned.gui.core.PnState;
 import de.markusrother.pned.gui.menus.PnMenuBar;
 import de.markusrother.pned.gui.menus.PnMenuFactory;
 import de.markusrother.pned.io.PNMLParser;
@@ -51,7 +51,7 @@ public class PnFrame extends JFrame
 
 	private File currentPath;
 
-	private GuiState state;
+	private PnState state;
 	private JScrollPane scrollPane;
 
 	/**
@@ -107,7 +107,7 @@ public class PnFrame extends JFrame
 		final PnEventBus eventBus = new PnEventBus();
 		PetriNetGuiEventLogger.log(eventBus);
 
-		this.state = new GuiState(eventBus);
+		this.state = new PnState(eventBus);
 		this.menuFactory = new PnMenuFactory(state);
 
 		createPetriNetModel(eventBus);

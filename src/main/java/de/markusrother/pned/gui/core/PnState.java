@@ -40,7 +40,7 @@ import de.markusrother.pned.util.PetriNetGuiEventAdapter;
  * @author Markus Rother
  * @version 1.0
  */
-public class GuiState extends PetriNetGuiEventAdapter {
+public class PnState extends PetriNetGuiEventAdapter {
 
 	protected final NodeStyleModel placeStyle;
 	protected final NodeStyleModel transitionStyle;
@@ -62,7 +62,7 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.gui.control.PnEventBus} object.
 	 */
-	public GuiState(final PnEventBus eventBus) {
+	public PnState(final PnEventBus eventBus) {
 		this.placeStyle = NodeStyle.newDefault();
 		this.transitionStyle = NodeStyle.newDefault();
 		this.markingStyle = MarkingStyle.newDefault();

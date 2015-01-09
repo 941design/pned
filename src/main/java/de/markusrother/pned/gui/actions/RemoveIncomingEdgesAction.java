@@ -7,7 +7,7 @@ import javax.swing.JMenuItem;
 
 import de.markusrother.pned.gui.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.control.PnEventBus;
-import de.markusrother.pned.gui.core.GuiState;
+import de.markusrother.pned.gui.core.PnState;
 
 /**
  * TODO - disable when selection cancelled.
@@ -24,9 +24,9 @@ public class RemoveIncomingEdgesAction extends AbstractGuiAction {
 	 * <p>Constructor for RemoveIncomingEdgesAction.</p>
 	 *
 	 * @param source a {@link java.lang.Object} object.
-	 * @param state a {@link de.markusrother.pned.gui.core.GuiState} object.
+	 * @param state a {@link de.markusrother.pned.gui.core.PnState} object.
 	 */
-	public RemoveIncomingEdgesAction(final Object source, final GuiState state) {
+	public RemoveIncomingEdgesAction(final Object source, final PnState state) {
 		super(label, source, state);
 		setEnabled(state.areTargetNodesSelected());
 	}
@@ -35,10 +35,10 @@ public class RemoveIncomingEdgesAction extends AbstractGuiAction {
 	 * <p>newMenuItem.</p>
 	 *
 	 * @param source a {@link java.lang.Object} object.
-	 * @param state a {@link de.markusrother.pned.gui.core.GuiState} object.
+	 * @param state a {@link de.markusrother.pned.gui.core.PnState} object.
 	 * @return a {@link javax.swing.JMenuItem} object.
 	 */
-	public static JMenuItem newMenuItem(final Object source, final GuiState state) {
+	public static JMenuItem newMenuItem(final Object source, final PnState state) {
 		return new JMenuItem(new RemoveIncomingEdgesAction(source, state));
 	}
 
