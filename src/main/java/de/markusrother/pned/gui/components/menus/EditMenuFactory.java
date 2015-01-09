@@ -24,7 +24,9 @@ import de.markusrother.pned.gui.actions.RemoveSelectedNodesAction;
 import de.markusrother.pned.gui.core.PnState;
 
 /**
- * <p>EditMenuFactory class.</p>
+ * <p>
+ * EditMenuFactory class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -41,16 +43,21 @@ public class EditMenuFactory
 	private final PnState state;
 
 	/**
-	 * <p>Constructor for EditMenuFactory.</p>
+	 * <p>
+	 * Constructor for EditMenuFactory.
+	 * </p>
 	 *
-	 * @param state a {@link de.markusrother.pned.gui.core.PnState} object.
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
 	 */
 	public EditMenuFactory(final PnState state) {
 		this.state = state;
 	}
 
 	/**
-	 * <p>newMenu.</p>
+	 * <p>
+	 * newMenu.
+	 * </p>
 	 *
 	 * @return a {@link javax.swing.JMenu} object.
 	 */
@@ -63,9 +70,12 @@ public class EditMenuFactory
 	}
 
 	/**
-	 * <p>newPopupMenu.</p>
+	 * <p>
+	 * newPopupMenu.
+	 * </p>
 	 *
-	 * @param point a {@link java.awt.Point} object.
+	 * @param point
+	 *            a {@link java.awt.Point} object.
 	 * @return a {@link javax.swing.JPopupMenu} object.
 	 */
 	public JPopupMenu newPopupMenu(final Point point) {
@@ -102,18 +112,21 @@ public class EditMenuFactory
 	}
 
 	/**
-	 * <p>populateEditMenu.</p>
+	 * <p>
+	 * populateEditMenu.
+	 * </p>
 	 *
-	 * @param component a {@link javax.swing.JComponent} object.
-	 * @param locationProvider a {@link de.markusrother.pned.gui.actions.LocationProvider} object.
+	 * @param component
+	 *            a {@link javax.swing.JComponent} object.
+	 * @param locationProvider
+	 *            a {@link de.markusrother.pned.gui.actions.LocationProvider}
+	 *            object.
 	 */
 	private void populateEditMenu(final JComponent component, final LocationProvider locationProvider) {
-		final Object eventSource = component;
 		final ButtonGroup buttonGroup = new ButtonGroup();
 
 		final JRadioButtonMenuItem placeItem = CreatePlaceAction.newMenuItem( //
 				state.getEventBus(), //
-				eventSource, //
 				locationProvider);
 		buttonGroup.add(placeItem);
 		component.add(placeItem);
@@ -121,18 +134,17 @@ public class EditMenuFactory
 
 		final JRadioButtonMenuItem transitionItem = CreateTransitionAction.newMenuItem( //
 				state.getEventBus(), //
-				eventSource, //
 				locationProvider);
 		buttonGroup.add(transitionItem);
 		component.add(transitionItem);
 		transitionItem.setSelected(state.getNodeCreationMode() == TRANSITION);
 
-		final JMenuItem removeNodesItem = RemoveSelectedNodesAction.newMenuItem(eventSource, state);
+		final JMenuItem removeNodesItem = RemoveSelectedNodesAction.newMenuItem(state);
 
 		component.add(removeNodesItem);
 
-		component.add(RemoveOutgoingEdgesAction.newMenuItem(eventSource, state));
-		component.add(RemoveIncomingEdgesAction.newMenuItem(eventSource, state));
+		component.add(RemoveOutgoingEdgesAction.newMenuItem(state));
+		component.add(RemoveIncomingEdgesAction.newMenuItem(state));
 	}
 
 }

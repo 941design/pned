@@ -20,8 +20,8 @@ import de.markusrother.pned.gui.control.commands.NodeListener;
  * </p>
  * <p>
  * Setting the default node type posts a
- * {@link de.markusrother.pned.gui.control.commands.SetNodeTypeCommand} on the provided
- * {@link de.markusrother.pned.control.EventBus}. This is done without
+ * {@link de.markusrother.pned.gui.control.commands.SetNodeTypeCommand} on the
+ * provided {@link de.markusrother.pned.control.EventBus}. This is done without
  * performing other actions. The actual {@link java.awt.event.ActionListener} is
  * implemented by subclasses.
  * </p>
@@ -47,10 +47,6 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 		ItemListener,
 		NodeListener {
 
-	/**
-	 * The posted {@link java.util.EventObject}s' source.
-	 */
-	protected final Object source;
 
 	/**
 	 * A provider of coordinates for newly created nodes.
@@ -71,9 +67,6 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 * @param eventBus
 	 *            an {@link de.markusrother.pned.gui.control.PnEventBus} to be
 	 *            posted to.
-	 * @param source
-	 *            an {@link java.lang.Object} - the posted
-	 *            {@link java.util.EventObject}s' source.
 	 * @param locationProvider
 	 *            a {@link de.markusrother.pned.gui.actions.LocationProvider} to
 	 *            provide coordinates for newly created nodes.
@@ -83,11 +76,10 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 	 *            a {@link java.lang.String} - this action's textual
 	 *            representation.
 	 */
-	protected AbstractCreateNodeAction(final PnEventBus eventBus, final Object source,
-			final LocationProvider locationProvider, final int mnemonic, final String label) {
+	protected AbstractCreateNodeAction(final PnEventBus eventBus, final LocationProvider locationProvider,
+			final int mnemonic, final String label) {
 		super(label);
 		this.eventBus = eventBus;
-		this.source = source;
 		this.locationProvider = locationProvider;
 		putValue(Action.MNEMONIC_KEY, mnemonic);
 		// FIXME - dispose!
@@ -110,7 +102,8 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 
 	/**
 	 * <p>
-	 * Posts {@link de.markusrother.pned.gui.control.commands.SetNodeTypeCommand} on
+	 * Posts
+	 * {@link de.markusrother.pned.gui.control.commands.SetNodeTypeCommand} on
 	 * {@link de.markusrother.pned.control.EventBus}.
 	 * </p>
 	 */

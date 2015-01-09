@@ -33,14 +33,12 @@ public class RemoveSelectedNodesAction extends AbstractStatefulAction
 	 * newMenuItem.
 	 * </p>
 	 *
-	 * @param source
-	 *            a {@link java.lang.Object} object.
 	 * @param state
 	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
 	 * @return a {@link javax.swing.JMenuItem} object.
 	 */
-	public static JMenuItem newMenuItem(final Object source, final PnState state) {
-		return new JMenuItem(new RemoveSelectedNodesAction(source, state));
+	public static JMenuItem newMenuItem(final PnState state) {
+		return new JMenuItem(new RemoveSelectedNodesAction(state));
 	}
 
 	/**
@@ -48,13 +46,11 @@ public class RemoveSelectedNodesAction extends AbstractStatefulAction
 	 * Constructor for RemoveSelectedNodesAction.
 	 * </p>
 	 *
-	 * @param source
-	 *            a {@link java.lang.Object} object.
 	 * @param state
 	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
 	 */
-	public RemoveSelectedNodesAction(final Object source, final PnState state) {
-		super(label, source, state);
+	public RemoveSelectedNodesAction(final PnState state) {
+		super(label, state);
 
 		putValue(Action.MNEMONIC_KEY, mnemonic);
 		final boolean areNodesSelected = state.areNodesSelected();
@@ -64,7 +60,7 @@ public class RemoveSelectedNodesAction extends AbstractStatefulAction
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		getEventBus().removeSelectedNodes(new RemoveSelectedNodesEvent(source));
+		getEventBus().removeSelectedNodes(new RemoveSelectedNodesEvent(this));
 		setEnabled(false);
 	}
 

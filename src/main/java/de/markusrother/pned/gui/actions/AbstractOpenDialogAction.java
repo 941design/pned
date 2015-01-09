@@ -7,8 +7,8 @@ import de.markusrother.pned.gui.control.commands.PnCommandTarget;
 
 /**
  * <p>
- * Superclass for actions that open a custom {@link javax.swing.JDialog} upon
- * performing.
+ * Abstract superclass for actions that open a custom
+ * {@link javax.swing.JDialog} upon performing.
  * </p>
  *
  * @author Markus Rother
@@ -27,16 +27,17 @@ abstract class AbstractOpenDialogAction extends AbstractAction {
 	 * </p>
 	 *
 	 * @param commandTarget
-	 *            an {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
+	 *            an
+	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
-	 * @param label
+	 * @param name
 	 *            a {@link java.lang.String} - this action's textual
 	 *            representation.
 	 * @param mnemonic
 	 *            an int.
 	 */
-	protected AbstractOpenDialogAction(final PnCommandTarget commandTarget, final String label, final int mnemonic) {
-		super(label);
+	protected AbstractOpenDialogAction(final PnCommandTarget commandTarget, final String name, final int mnemonic) {
+		super(name);
 		putValue(Action.MNEMONIC_KEY, mnemonic);
 		this.commandTarget = commandTarget;
 	}

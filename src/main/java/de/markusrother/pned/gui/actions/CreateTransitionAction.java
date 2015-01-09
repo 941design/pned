@@ -21,7 +21,7 @@ import de.markusrother.swing.CustomRadioButtonMenuItem;
  * {@link java.awt.event.ItemListener} for selectable items. It can be used for
  * e.g. {@link javax.swing.JRadioButtonMenuItem}s where toggle and selection
  * (click) trigger separate {@link java.awt.event.ActionEvent}s, such as in
- * {@link #newMenuItem(PnEventBus, Object, LocationProvider)}.
+ * {@link #newMenuItem(PnEventBus, LocationProvider)}.
  * </p>
  *
  * @author Markus Rother
@@ -45,9 +45,6 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	 * @param eventBus
 	 *            an {@link de.markusrother.pned.gui.control.PnEventBus} to be
 	 *            posted to.
-	 * @param source
-	 *            an {@link java.lang.Object} - the posted
-	 *            {@link java.util.EventObject}s' source.
 	 * @param locationProvider
 	 *            a {@link de.markusrother.pned.gui.actions.LocationProvider} to
 	 *            provide coordinates for newly created nodes.
@@ -55,9 +52,8 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	 *         bound.
 	 * @see CustomRadioButtonMenuItem
 	 */
-	public static JRadioButtonMenuItem newMenuItem(final PnEventBus eventBus, final Object source,
-			final LocationProvider locationProvider) {
-		final CreateTransitionAction action = new CreateTransitionAction(eventBus, source, locationProvider);
+	public static JRadioButtonMenuItem newMenuItem(final PnEventBus eventBus, final LocationProvider locationProvider) {
+		final CreateTransitionAction action = new CreateTransitionAction(eventBus, locationProvider);
 		final CustomRadioButtonMenuItem menuItem = new CustomRadioButtonMenuItem(action);
 		menuItem.addItemListener(action);
 		return menuItem;
@@ -71,23 +67,19 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	 * @param eventBus
 	 *            an {@link de.markusrother.pned.gui.control.PnEventBus} to be
 	 *            posted to.
-	 * @param source
-	 *            an {@link java.lang.Object} - the posted
-	 *            {@link java.util.EventObject}s' source.
 	 * @param locationProvider
 	 *            a {@link de.markusrother.pned.gui.actions.LocationProvider} to
 	 *            provide coordinates for newly created nodes.
 	 */
-	private CreateTransitionAction(final PnEventBus eventBus, final Object source,
-			final LocationProvider locationProvider) {
-		super(eventBus, source, locationProvider, mnemonic, label);
+	private CreateTransitionAction(final PnEventBus eventBus, final LocationProvider locationProvider) {
+		super(eventBus, locationProvider, mnemonic, label);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 		final String nodeId = eventBus.requestId();
-		eventBus.createTransition(new TransitionCreationCommand(source, nodeId, locationProvider.getLocation()));
+		eventBus.createTransition(new TransitionCreationCommand(this, nodeId, locationProvider.getLocation()));
 	}
 
 	/** {@inheritDoc} */
@@ -105,7 +97,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	/** {@inheritDoc} */
 	@Override
 	protected void fireSetNodeTypeCommand() {
-		eventBus.setCurrentNodeType(new SetNodeTypeCommand(source, TRANSITION));
+		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, TRANSITION));
 	}
 
 }

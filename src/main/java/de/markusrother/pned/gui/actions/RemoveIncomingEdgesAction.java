@@ -21,25 +21,29 @@ public class RemoveIncomingEdgesAction extends AbstractStatefulAction {
 	private static final String label = "Remove incoming edges";
 
 	/**
-	 * <p>Constructor for RemoveIncomingEdgesAction.</p>
+	 * <p>
+	 * Constructor for RemoveIncomingEdgesAction.
+	 * </p>
 	 *
-	 * @param source a {@link java.lang.Object} object.
-	 * @param state a {@link de.markusrother.pned.gui.core.PnState} object.
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
 	 */
-	public RemoveIncomingEdgesAction(final Object source, final PnState state) {
-		super(label, source, state);
+	public RemoveIncomingEdgesAction(final PnState state) {
+		super(label, state);
 		setEnabled(state.areTargetNodesSelected());
 	}
 
 	/**
-	 * <p>newMenuItem.</p>
+	 * <p>
+	 * newMenuItem.
+	 * </p>
 	 *
-	 * @param source a {@link java.lang.Object} object.
-	 * @param state a {@link de.markusrother.pned.gui.core.PnState} object.
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
 	 * @return a {@link javax.swing.JMenuItem} object.
 	 */
-	public static JMenuItem newMenuItem(final Object source, final PnState state) {
-		return new JMenuItem(new RemoveIncomingEdgesAction(source, state));
+	public static JMenuItem newMenuItem(final PnState state) {
+		return new JMenuItem(new RemoveIncomingEdgesAction(state));
 	}
 
 	/** {@inheritDoc} */
@@ -49,7 +53,7 @@ public class RemoveIncomingEdgesAction extends AbstractStatefulAction {
 		final Collection<String> edgeIds = state.getSelectedIncomingEdgeIds();
 		final PnEventBus eventBus = getEventBus();
 		for (final String edgeId : edgeIds) {
-			eventBus.removeEdge(new EdgeRemoveCommand(source, edgeId));
+			eventBus.removeEdge(new EdgeRemoveCommand(this, edgeId));
 		}
 	}
 

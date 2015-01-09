@@ -7,7 +7,10 @@ import de.markusrother.pned.gui.core.PnState;
 
 /**
  * <p>
- * AbstractGuiAction class.
+ * Abstract superclass for Actions that whose actions may depend on a given
+ * {@link PnState}, representing the state of a
+ * {@link de.markusrother.pned.core.model.PetriNetModel} together with a
+ * {@link de.markusrother.pned.gui.components.PnFrame}.
  * </p>
  *
  * @author Markus Rother
@@ -15,7 +18,7 @@ import de.markusrother.pned.gui.core.PnState;
  */
 abstract class AbstractStatefulAction extends AbstractAction {
 
-	protected final Object source;
+	/** The current state. */
 	protected final PnState state;
 
 	/**
@@ -23,25 +26,25 @@ abstract class AbstractStatefulAction extends AbstractAction {
 	 * Constructor for AbstractGuiAction.
 	 * </p>
 	 *
-	 * @param label
-	 *            a {@link java.lang.String} object.
-	 * @param source
-	 *            a {@link java.lang.Object} object.
+	 * @param name
+	 *            a {@link java.lang.String} - this action's name.
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
+	 *            a {@link de.markusrother.pned.gui.core.PnState} - the current
+	 *            state.
 	 */
-	public AbstractStatefulAction(final String label, final Object source, final PnState state) {
-		super(label);
-		this.source = source;
+	public AbstractStatefulAction(final String name, final PnState state) {
+		super(name);
 		this.state = state;
 	}
 
 	/**
 	 * <p>
-	 * getEventBus.
+	 * Returns the {@link de.markusrother.pned.gui.control.PnEventBus}
+	 * associated with the current state.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.control.PnEventBus} object.
+	 * @return a {@link de.markusrother.pned.gui.control.PnEventBus} - the event
+	 *         target to which events are posted to.
 	 */
 	protected PnEventBus getEventBus() {
 		return state.getEventBus();
