@@ -8,21 +8,33 @@ import javax.swing.SwingWorker;
 import de.markusrother.pned.control.listeners.IdRequestListener;
 
 /**
- * <p>IdRequestWorker class.</p>
+ * <p>
+ * A closure executing an {@link IdRequest} for a given
+ * {@link de.markusrother.pned.control.listeners.IdRequestListener}.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
 class IdRequestWorker extends SwingWorker<String, Object> {
 
+	/** The request to work on. */
 	private final IdRequest request;
+	/** The listener doing the work. */
 	private final IdRequestListener listener;
 
 	/**
-	 * <p>Constructor for IdRequestWorker.</p>
+	 * <p>
+	 * Constructor for IdRequestWorker.
+	 * </p>
 	 *
-	 * @param request a {@link de.markusrother.pned.control.requests.IdRequest} object.
-	 * @param listener a {@link de.markusrother.pned.control.listeners.IdRequestListener} object.
+	 * @param request
+	 *            a {@link de.markusrother.pned.control.requests.IdRequest} -
+	 *            the request to work on.
+	 * @param listener
+	 *            a
+	 *            {@link de.markusrother.pned.control.listeners.IdRequestListener}
+	 *            - the listener doing the work.
 	 */
 	public IdRequestWorker(final IdRequest request, final IdRequestListener listener) {
 		this.request = request;

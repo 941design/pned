@@ -4,17 +4,21 @@ import java.util.concurrent.TimeoutException;
 
 import javax.swing.SwingWorker;
 
+import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.listeners.IdRequestListener;
 import de.markusrother.util.JsonBuilder;
 import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
- * IdRequest class.
+ * An asynchronous request for a new unique identifier. Listeners may or may not
+ * fulfill this request. However, if none does the request will time out with a
+ * {@link java.util.concurrent.TimeoutException}.
  * </p>
  *
  * @author Markus Rother
  * @version 1.0
+ * @see EventBus
  */
 public class IdRequest extends Request<String>
 	implements
@@ -26,7 +30,7 @@ public class IdRequest extends Request<String>
 	 * </p>
 	 *
 	 * @param source
-	 *            a {@link java.lang.Object} object.
+	 *            a {@link java.lang.Object} - this event's source.
 	 */
 	public IdRequest(final Object source) {
 		super(source);
@@ -34,14 +38,14 @@ public class IdRequest extends Request<String>
 
 	/**
 	 * <p>
-	 * createWorker.
+	 * Creates a new {@link javax.swing.SwingWorker} for a given listener.
 	 * </p>
 	 *
 	 * @param l
 	 *            a
 	 *            {@link de.markusrother.pned.control.listeners.IdRequestListener}
-	 *            object.
-	 * @return a {@link javax.swing.SwingWorker} object.
+	 *            - a listener which may or may not fulfill this request.
+	 * @return a {@link javax.swing.SwingWorker} - to execute this request.
 	 */
 	public SwingWorker<String, Object> createWorker(final IdRequestListener l) {
 		return new IdRequestWorker(this, l);

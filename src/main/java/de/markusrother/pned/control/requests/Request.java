@@ -6,31 +6,43 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import de.markusrother.concurrent.Promise;
+import de.markusrother.pned.control.EventBus;
 
 /**
  * <p>
- * Class of events that expect a 'return' value, usually set by one of the
- * requests recipients. This object encapsulates a callback mechanism with the
- * {@link #set(Object)} method. {@code Request} is intended for asynchronous use
- * only, because its {@link #get()} method is blocking.
+ * Class of events that expect a 'return' value, to be set by one of the
+ * requests listeners. Listeners may or may not fulfill this request. However,
+ * if none does the request will time out with a
+ * {@link java.util.concurrent.TimeoutException}. The responsible listener to
+ * this event may set the value with this object's {@link #set(Object)} method.
+ * It may be retrieved asynchronously with this object's {@link #set(Object)}
+ * method.
  * </p>
- *
+ * <p>
+ * <b> {@link Request} is intended for asynchronous use only, because its
+ * {@link #get()} method is blocking. </b>
+ * </p>
+ * <p>
+ * Example:
+ * </p>
+ * 
  * <pre>
  * request = new Request&lt;String&gt;();
  * eventTarget.post(request);
  * String result = rq.get(); // blocking
  * </pre>
  *
- * where it is assumed that {@code request.set(someString)} is called after the
- * request has been posted.
+ * where it is assumed that {@code request.set(someString)} is called by some
+ * responsible instance after the request has been posted to continue.
  *
  * @author Markus Rother
  * @version 1.0
+ * @see EventBus
  */
 public class Request<T> extends EventObject {
 
 	/** The timeout for getting a result. */
-	public static final long defaultTimeoutMillis = 500;
+	public static final long defaultTimeoutMillis = 5000;
 
 	/**
 	 * <p>
@@ -38,7 +50,7 @@ public class Request<T> extends EventObject {
 	 * </p>
 	 *
 	 * @param source
-	 *            a {@link java.lang.Object} - the event's source.
+	 *            a {@link java.lang.Object} - this event's source.
 	 */
 	protected Request(final Object source) {
 		super(source);
