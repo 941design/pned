@@ -44,12 +44,11 @@ public class Place extends AbstractNode
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
-	 * @param placeId
-	 * @param diameter
-	 *            a int.
+	 * @param placeId a {@link java.lang.String} object.
 	 * @param markingEditor
 	 *            a {@link de.markusrother.pned.gui.listeners.MarkingEditor}
 	 *            object.
+	 * @param style a {@link de.markusrother.pned.gui.components.NodeStyleModel} object.
 	 */
 	public Place(final EventBus eventBus, final String placeId, final MarkingEditor markingEditor,
 			final NodeStyleModel style) {
@@ -132,12 +131,14 @@ public class Place extends AbstractNode
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void installListeners() {
 		super.installListeners();
 		markingEditor.addToComponent(this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void suspendListeners() {
 		super.suspendListeners();
@@ -159,6 +160,7 @@ public class Place extends AbstractNode
 				.toString();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void stateChanged(final ChangeEvent e) {
 		if (e.getSource() == this.style) {

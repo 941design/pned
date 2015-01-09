@@ -52,7 +52,7 @@ import de.markusrother.pned.gui.requests.NodeRequest;
  * <p>
  * Abstract PetriNetGuiEventAdapter class.
  * </p>
- * 
+ *
  * FIXME - Name does not fit!
  *
  * @author Markus Rother
@@ -87,6 +87,9 @@ public abstract class PetriNetGuiEventAdapter
 		installListeners();
 	}
 
+	/**
+	 * <p>installListeners.</p>
+	 */
 	protected void installListeners() {
 		eventBus.addListener(PetriNetIOListener.class, this);
 		eventBus.addListener(PetriNetListener.class, this);
@@ -109,6 +112,9 @@ public abstract class PetriNetGuiEventAdapter
 		eventBus.addListener(EdgeCreationListener.class, this);
 	}
 
+	/**
+	 * <p>suspendListeners.</p>
+	 */
 	protected void suspendListeners() {
 		// TODO
 		throw new RuntimeException("TODO");
@@ -240,6 +246,7 @@ public abstract class PetriNetGuiEventAdapter
 		process(cmd);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeEdge(final EdgeRemoveCommand cmd) {
 		process(cmd);

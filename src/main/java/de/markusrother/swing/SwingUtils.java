@@ -3,6 +3,12 @@ package de.markusrother.swing;
 import java.awt.Component;
 import java.awt.Point;
 
+/**
+ * <p>SwingUtils class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class SwingUtils {
 
 	/**

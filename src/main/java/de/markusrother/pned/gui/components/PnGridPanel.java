@@ -106,12 +106,11 @@ public class PnGridPanel extends JLayeredPane
 	/**
 	 * I don't quite like passing this to other classes/methods/constructors,
 	 * while this is not fully initialized!
-	 * 
-	 * @param state2
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
-	 * @param menuFactory
+	 * @param menuFactory a {@link de.markusrother.pned.gui.menus.PnEditorMenuFactory} object.
+	 * @param nodeFactory a {@link de.markusrother.pned.gui.components.NodeFactory} object.
 	 */
 	public PnGridPanel(final GuiEventBus eventBus, final PnEditorMenuFactory menuFactory, final NodeFactory nodeFactory) {
 
@@ -323,6 +322,8 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Edges remove themselves!
 	 */
 	@Override
@@ -440,6 +441,7 @@ public class PnGridPanel extends JLayeredPane
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void componentEntered(final EdgeEditEvent e) {
 		// IGNORE
@@ -475,11 +477,17 @@ public class PnGridPanel extends JLayeredPane
 		suspendListeners();
 	}
 
+	/**
+	 * <p>suspendListeners.</p>
+	 */
 	protected void suspendListeners() {
 		nodeCreator.removeFromComponent(nodeLayer);
 		popupCreator.removeFromComponent(nodeLayer);
 	}
 
+	/**
+	 * <p>installListeners.</p>
+	 */
 	protected void installListeners() {
 		nodeCreator.addToComponent(nodeLayer);
 		popupCreator.addToComponent(nodeLayer);

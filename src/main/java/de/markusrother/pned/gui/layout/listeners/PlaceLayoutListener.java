@@ -8,7 +8,7 @@ import de.markusrother.pned.gui.layout.commands.PlaceLayoutCommand;
  * <p>
  * PlaceLayoutListener interface.
  * </p>
- * 
+ *
  * FIXME rename these to GuiPlaceListener
  *
  * @author Markus Rother

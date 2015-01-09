@@ -83,6 +83,7 @@ public abstract class HoverListener extends MouseAdapter {
 	 * @param p
 	 *            a {@link java.awt.Point} object.
 	 * @return a boolean.
+	 * @param component a {@link java.awt.Component} object.
 	 */
 	protected abstract boolean inHoverArea(Component component, Point p);
 

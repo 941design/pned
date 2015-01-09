@@ -8,6 +8,8 @@ import de.markusrother.util.JsonSerializable;
 /**
  * TODO type
  *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class EdgeRemoveCommand extends EventObject
 	implements
@@ -15,11 +17,22 @@ public class EdgeRemoveCommand extends EventObject
 
 	private final String edgeId;
 
+	/**
+	 * <p>Constructor for EdgeRemoveCommand.</p>
+	 *
+	 * @param source a {@link java.lang.Object} object.
+	 * @param edgeId a {@link java.lang.String} object.
+	 */
 	public EdgeRemoveCommand(final Object source, final String edgeId) {
 		super(source);
 		this.edgeId = edgeId;
 	}
 
+	/**
+	 * <p>Getter for the field <code>edgeId</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getEdgeId() {
 		return edgeId;
 	}

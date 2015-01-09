@@ -20,9 +20,7 @@ public class FileDialogFactory {
 	 * Constructor for FileDialogFactory.
 	 * </p>
 	 *
-	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} to which
-	 *            dialogs are to post their events.
+	 * @param state a {@link de.markusrother.pned.gui.actions.GuiState} object.
 	 */
 	public FileDialogFactory(final GuiState state) {
 		this.state = state;
@@ -46,6 +44,11 @@ public class FileDialogFactory {
 		SaveFileDialog.open(state.getEventBus(), state.getCurrentDirectory());
 	}
 
+	/**
+	 * <p>getCommandTarget.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.listeners.GuiCommandTarget} object.
+	 */
 	public GuiCommandTarget getCommandTarget() {
 		return state.getEventBus();
 	}

@@ -11,7 +11,7 @@ import de.markusrother.swing.RightClickListener;
  * <p>
  * TransitionActivator class.
  * </p>
- * 
+ *
  * TODO - instantiate RCL with Action
  *
  * @author Markus Rother

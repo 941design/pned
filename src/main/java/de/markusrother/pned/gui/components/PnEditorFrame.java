@@ -42,6 +42,7 @@ public class PnEditorFrame extends JFrame
 
 	/** Constant <code>preferredSize</code> */
 	private static final Dimension preferredSize = new Dimension(2000, 1000);
+	/** Constant <code>gridSize</code> */
 	private static final Dimension gridSize = new Dimension(2000, 2000);
 
 	private PnEditorMenuFactory menuFactory;
@@ -101,8 +102,6 @@ public class PnEditorFrame extends JFrame
 	 * <p>
 	 * createNewContext.
 	 * </p>
-	 *
-	 * @return a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
 	private void createNewContext() {
 		final GuiEventBus eventBus = new GuiEventBus();
@@ -116,6 +115,11 @@ public class PnEditorFrame extends JFrame
 		installListeners(eventBus);
 	}
 
+	/**
+	 * <p>installListeners.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
+	 */
 	private void installListeners(final GuiEventBus eventBus) {
 		eventBus.addListener(PetriNetListener.class, this);
 		eventBus.addListener(PetriNetIOListener.class, this);
@@ -161,11 +165,17 @@ public class PnEditorFrame extends JFrame
 		repaint();
 	}
 
+	/**
+	 * <p>removeComponents.</p>
+	 */
 	private void removeComponents() {
 		remove(grid);
 		getContentPane().remove(grid);
 	}
 
+	/**
+	 * <p>createComponents.</p>
+	 */
 	private void createComponents() {
 		final GuiEventBus eventBus = state.getEventBus();
 		this.grid = new PnGridPanel(eventBus, menuFactory, new NodeFactoryImpl(state));
@@ -179,12 +189,18 @@ public class PnEditorFrame extends JFrame
 		pack();
 	}
 
+	/**
+	 * <p>disposeCurrentContext.</p>
+	 */
 	private void disposeCurrentContext() {
 		// Assuming GC takes care of rest.
 		// Can only be gc'ed if EventBus becomes garbage as well.
 		suspendListeners();
 	}
 
+	/**
+	 * <p>suspendListeners.</p>
+	 */
 	private void suspendListeners() {
 		final GuiEventBus eventBus = state.getEventBus();
 		eventBus.removeListener(PetriNetListener.class, this);

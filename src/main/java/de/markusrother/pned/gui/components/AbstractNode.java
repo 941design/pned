@@ -76,6 +76,8 @@ public abstract class AbstractNode extends JPanel
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 * @param layoutManager
 	 *            a {@link java.awt.LayoutManager} object.
+	 * @param id a {@link java.lang.String} object.
+	 * @param style a {@link de.markusrother.pned.gui.components.NodeStyleModel} object.
 	 */
 	public AbstractNode(final EventBus eventBus, final String id, final LayoutManager layoutManager,
 			final NodeStyleModel style) {
@@ -105,6 +107,8 @@ public abstract class AbstractNode extends JPanel
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param id a {@link java.lang.String} object.
+	 * @param style a {@link de.markusrother.pned.gui.components.NodeStyleModel} object.
 	 */
 	public AbstractNode(final EventBus eventBus, final String id, final NodeStyleModel style) {
 		this(eventBus, id, NO_LAYOUT_MANAGER, style);
@@ -468,6 +472,9 @@ public abstract class AbstractNode extends JPanel
 		suspendListeners();
 	}
 
+	/**
+	 * <p>suspendListeners.</p>
+	 */
 	protected void suspendListeners() {
 		suspendHoverListener();
 		// suspendEdgeCreationListener();
@@ -475,6 +482,9 @@ public abstract class AbstractNode extends JPanel
 		suspendDragDropListener();
 	}
 
+	/**
+	 * <p>installListeners.</p>
+	 */
 	protected void installListeners() {
 		resumeHoverListener();
 		// resumeEdgeCreationListener();
@@ -492,6 +502,11 @@ public abstract class AbstractNode extends JPanel
 		}
 	}
 
+	/**
+	 * <p>Setter for the field <code>style</code>.</p>
+	 *
+	 * @param style a {@link de.markusrother.pned.gui.components.NodeStyleModel} object.
+	 */
 	void setStyle(final NodeStyleModel style) {
 		if (this.style != null) {
 			this.style.removeChangeListener(this);

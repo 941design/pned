@@ -17,6 +17,12 @@ import javax.swing.event.MenuListener;
 
 import de.markusrother.pned.gui.menus.DefaultNodeLocationProvider;
 
+/**
+ * <p>EditMenuFactory class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class EditMenuFactory
 	implements
 		MenuListener {
@@ -28,10 +34,20 @@ public class EditMenuFactory
 
 	private final GuiState state;
 
+	/**
+	 * <p>Constructor for EditMenuFactory.</p>
+	 *
+	 * @param state a {@link de.markusrother.pned.gui.actions.GuiState} object.
+	 */
 	public EditMenuFactory(final GuiState state) {
 		this.state = state;
 	}
 
+	/**
+	 * <p>newMenu.</p>
+	 *
+	 * @return a {@link javax.swing.JMenu} object.
+	 */
 	public JMenu newMenu() {
 		final JMenu menu = new JMenu(label);
 		populateEditMenu(menu, DefaultNodeLocationProvider.INSTANCE);
@@ -40,6 +56,12 @@ public class EditMenuFactory
 		return menu;
 	}
 
+	/**
+	 * <p>newPopupMenu.</p>
+	 *
+	 * @param point a {@link java.awt.Point} object.
+	 * @return a {@link javax.swing.JPopupMenu} object.
+	 */
 	public JPopupMenu newPopupMenu(final Point point) {
 		final JPopupMenu popup = new JPopupMenu(label);
 		final LocationProvider locationProvider = new LocationProvider() {
@@ -52,6 +74,7 @@ public class EditMenuFactory
 		return popup;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void menuSelected(final MenuEvent e) {
 		final JMenu menu = (JMenu) e.getSource();
@@ -60,16 +83,24 @@ public class EditMenuFactory
 		populateEditMenu(menu, DefaultNodeLocationProvider.INSTANCE);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void menuDeselected(final MenuEvent e) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void menuCanceled(final MenuEvent e) {
 		// IGNORE
 	}
 
+	/**
+	 * <p>populateEditMenu.</p>
+	 *
+	 * @param component a {@link javax.swing.JComponent} object.
+	 * @param locationProvider a {@link de.markusrother.pned.gui.actions.LocationProvider} object.
+	 */
 	private void populateEditMenu(final JComponent component, final LocationProvider locationProvider) {
 		final Object eventSource = component;
 		final ButtonGroup buttonGroup = new ButtonGroup();

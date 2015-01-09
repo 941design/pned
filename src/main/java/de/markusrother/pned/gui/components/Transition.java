@@ -48,8 +48,8 @@ public class Transition extends AbstractNode
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
-	 * @param extent
-	 *            a int.
+	 * @param transitionId a {@link java.lang.String} object.
+	 * @param style a {@link de.markusrother.pned.gui.components.NodeStyleModel} object.
 	 */
 	public Transition(final EventBus eventBus, final String transitionId, final NodeStyleModel style) {
 		super(eventBus, transitionId, style);
@@ -161,6 +161,7 @@ public class Transition extends AbstractNode
 				.toString();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void stateChanged(final ChangeEvent e) {
 		if (e.getSource() == this.style) {

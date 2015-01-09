@@ -38,8 +38,7 @@ public class PnEditorMenuFactory {
 	 * Constructor for PnEditorMenuFactory.
 	 * </p>
 	 *
-	 * @param eventBus
-	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
+	 * @param state a {@link de.markusrother.pned.gui.actions.GuiState} object.
 	 */
 	public PnEditorMenuFactory(final GuiState state) {
 		this.state = state;
@@ -52,6 +51,7 @@ public class PnEditorMenuFactory {
 	 * newEditMenu.
 	 * </p>
 	 *
+	 * @return a {@link javax.swing.JMenu} object.
 	 */
 	public JMenu newEditMenu() {
 		// TODO - Why not receive the grid, because Actions are grid dependent
@@ -95,6 +95,8 @@ public class PnEditorMenuFactory {
 	 * newPopupMenu.
 	 * </p>
 	 *
+	 * @param point a {@link java.awt.Point} object.
+	 * @return a {@link javax.swing.JPopupMenu} object.
 	 */
 	public JPopupMenu newPopupMenu(final Point point) {
 		return editMenuFactory.newPopupMenu(point);

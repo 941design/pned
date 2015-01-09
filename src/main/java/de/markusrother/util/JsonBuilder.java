@@ -77,11 +77,25 @@ public class JsonBuilder {
 		return this;
 	}
 
+	/**
+	 * <p>append.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @param file a {@link java.io.File} object.
+	 * @return a {@link de.markusrother.util.JsonBuilder} object.
+	 */
 	public JsonBuilder append(final String name, final File file) {
 		final String path = file != null ? file.getAbsolutePath() : "";
 		return append(name, path);
 	}
 
+	/**
+	 * <p>append.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @param object a {@link java.lang.Object} object.
+	 * @return a {@link de.markusrother.util.JsonBuilder} object.
+	 */
 	public JsonBuilder append(final String name, final Object object) {
 		return append(name, object.toString());
 	}

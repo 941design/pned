@@ -16,21 +16,37 @@ import de.markusrother.pned.gui.control.GuiEventBus;
  * everywhere. We would then need a stateful factory. Stateful actions are nicer
  * in a way, because they can be freely shared, as actions should!
  *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class RemoveOutgoingEdgesAction extends AbstractGuiAction {
 
 	/** Constant <code>label="Remove selected nodes"</code> */
 	private static final String label = "Remove outgoing edges";
 
+	/**
+	 * <p>Constructor for RemoveOutgoingEdgesAction.</p>
+	 *
+	 * @param source a {@link java.lang.Object} object.
+	 * @param state a {@link de.markusrother.pned.gui.actions.GuiState} object.
+	 */
 	public RemoveOutgoingEdgesAction(final Object source, final GuiState state) {
 		super(label, source, state);
 		setEnabled(state.areSourceNodesSelected());
 	}
 
+	/**
+	 * <p>newMenuItem.</p>
+	 *
+	 * @param source a {@link java.lang.Object} object.
+	 * @param state a {@link de.markusrother.pned.gui.actions.GuiState} object.
+	 * @return a {@link javax.swing.JMenuItem} object.
+	 */
 	public static JMenuItem newMenuItem(final Object source, final GuiState state) {
 		return new JMenuItem(new RemoveOutgoingEdgesAction(source, state));
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 		// directly!?

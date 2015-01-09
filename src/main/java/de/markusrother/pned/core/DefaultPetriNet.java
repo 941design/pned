@@ -343,6 +343,7 @@ public class DefaultPetriNet
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public EdgeModel getEdge(final String edgeId) {
 		for (final EdgeModel edge : edges) {
@@ -359,11 +360,7 @@ public class DefaultPetriNet
 		edges.remove(edge);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @throws TransitionInactiveException
-	 */
+	/** {@inheritDoc} */
 	@Override
 	public void fireTransition(final String transitionId) throws NoSuchNodeException, TransitionInactiveException {
 		final TransitionModel transition = getTransition(transitionId);

@@ -118,6 +118,7 @@ public class EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeEdge(final EdgeRemoveCommand cmd) {
 		for (final EdgeCreationListener l : getListeners(EdgeCreationListener.class)) {

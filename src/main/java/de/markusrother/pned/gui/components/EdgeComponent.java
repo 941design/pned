@@ -37,7 +37,7 @@ import de.markusrother.swing.HoverListener;
  * TODO - manage the contact-points of source component, too. Create a segment
  * which is invisible, but connected, to the source components center, avoiding
  * flickering.
- * 
+ *
  * FIXME - create subclass for unfinished EdgeComponent
  *
  * @author Markus Rother
@@ -56,6 +56,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 	/** Constant <code>NO_TARGET_COMPONENT</code> */
 	private static final AbstractNode NO_TARGET_COMPONENT = null;
+	/** Constant <code>NO_ID=""</code> */
 	private static final String NO_ID = "";
 
 	/**
@@ -160,6 +161,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * @param targetComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
 	 *            object.
+	 * @param id a {@link java.lang.String} object.
 	 */
 	public EdgeComponent(final EventBus eventBus, final String id, final AbstractNode sourceComponent,
 			final AbstractNode targetComponent) {
@@ -190,6 +192,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *            object.
 	 * @param target
 	 *            a {@link java.awt.Point} object.
+	 * @param id a {@link java.lang.String} object.
 	 */
 	private EdgeComponent(final EventBus eventBus, final String id, final AbstractNode sourceComponent,
 			final AbstractNode targetComponent, final Point source, final Point target) {
@@ -453,11 +456,13 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		repaint();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createEdge(final EdgeCreationCommand cmd) {
 		// IGNORE
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeEdge(final EdgeRemoveCommand cmd) {
 		final String edgeId = cmd.getEdgeId();

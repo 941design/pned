@@ -77,6 +77,12 @@ public interface PetriNetModel {
 	 */
 	TransitionModel getTransition(String transitionId);
 
+	/**
+	 * <p>getEdge.</p>
+	 *
+	 * @param edgeId a {@link java.lang.String} object.
+	 * @return a {@link de.markusrother.pned.core.EdgeModel} object.
+	 */
 	EdgeModel getEdge(String edgeId);
 
 	/**
@@ -263,7 +269,7 @@ public interface PetriNetModel {
 	 *            a {@link java.lang.String} object.
 	 * @throws de.markusrother.pned.core.exceptions.NoSuchNodeException
 	 *             if any.
-	 * @throws TransitionInactiveException
+	 * @throws de.markusrother.pned.core.exceptions.TransitionInactiveException if any.
 	 */
 	void fireTransition(String transitionId) throws NoSuchNodeException, TransitionInactiveException;
 

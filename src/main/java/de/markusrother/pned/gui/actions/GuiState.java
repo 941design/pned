@@ -26,16 +26,37 @@ import de.markusrother.pned.gui.layout.commands.TransitionLayoutCommand;
 import de.markusrother.pned.gui.layout.style.NodeStyle;
 import de.markusrother.pned.util.PetriNetGuiEventAdapter;
 
+/**
+ * <p>GuiState class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class GuiState extends PetriNetGuiEventAdapter {
 
+	/**
+	 * <p>Getter for the field <code>nodeCreationMode</code>.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.NodeCreationMode} object.
+	 */
 	public NodeCreationMode getNodeCreationMode() {
 		return nodeCreationMode;
 	}
 
+	/**
+	 * <p>Setter for the field <code>nodeCreationMode</code>.</p>
+	 *
+	 * @param nodeCreationMode a {@link de.markusrother.pned.gui.NodeCreationMode} object.
+	 */
 	public void setNodeCreationMode(final NodeCreationMode nodeCreationMode) {
 		this.nodeCreationMode = nodeCreationMode;
 	}
 
+	/**
+	 * <p>Getter for the field <code>selectedNodeIds</code>.</p>
+	 *
+	 * @return a {@link java.util.Set} object.
+	 */
 	public Set<String> getSelectedNodeIds() {
 		return selectedNodeIds;
 	}
@@ -50,6 +71,11 @@ public class GuiState extends PetriNetGuiEventAdapter {
 	protected File currentDirectory;
 	protected NodeCreationMode nodeCreationMode;
 
+	/**
+	 * <p>Constructor for GuiState.</p>
+	 *
+	 * @param eventBus a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
+	 */
 	public GuiState(final GuiEventBus eventBus) {
 		this.placeStyle = NodeStyle.newDefault();
 		this.transitionStyle = NodeStyle.newDefault();
@@ -60,6 +86,7 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		setEventBus(eventBus);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void process(final EventObject e) {
 		// IGNORE
@@ -79,6 +106,7 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		selectedNodeIds.clear();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createEdge(final EdgeCreationCommand cmd) {
 		final String edgeId = cmd.getEdgeId();
@@ -88,16 +116,24 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		outgoingEdgesMap.put(edgeId, sourceId);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void nodeRemoved(final NodeRemovalCommand cmd) {
 		selectedNodeIds.clear();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeSelectedNodes(final RemoveSelectedNodesEvent cmd) {
 		selectedNodeIds.clear();
 	}
 
+	/**
+	 * <p>filterTargetNodes.</p>
+	 *
+	 * @param nodeIds a {@link java.util.Set} object.
+	 * @return a {@link java.util.Collection} object.
+	 */
 	private Collection<String> filterTargetNodes(final Set<String> nodeIds) {
 		final Set<String> targetNodeIds = new HashSet<>();
 		for (final String targetId : incomingEdgesMap.values()) {
@@ -108,6 +144,12 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		return Collections.unmodifiableSet(targetNodeIds);
 	}
 
+	/**
+	 * <p>filterSourceNodes.</p>
+	 *
+	 * @param nodeIds a {@link java.util.Set} object.
+	 * @return a {@link java.util.Collection} object.
+	 */
 	private Collection<String> filterSourceNodes(final Set<String> nodeIds) {
 		final Set<String> sourceNodeIds = new HashSet<>();
 		for (final String sourceId : outgoingEdgesMap.values()) {
@@ -118,6 +160,12 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		return Collections.unmodifiableSet(sourceNodeIds);
 	}
 
+	/**
+	 * <p>filterIncomingEdges.</p>
+	 *
+	 * @param nodeIds a {@link java.util.Set} object.
+	 * @return a {@link java.util.Collection} object.
+	 */
 	protected Collection<String> filterIncomingEdges(final Set<String> nodeIds) {
 		final Set<String> edgeIds = new HashSet<>();
 		for (final Entry<String, String> entry : incomingEdgesMap.entrySet()) {
@@ -130,6 +178,12 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		return Collections.unmodifiableSet(edgeIds);
 	}
 
+	/**
+	 * <p>filterOutgoingEdges.</p>
+	 *
+	 * @param nodeIds a {@link java.util.Set} object.
+	 * @return a {@link java.util.Collection} object.
+	 */
 	protected Collection<String> filterOutgoingEdges(final Set<String> nodeIds) {
 		final Set<String> edgeIds = new HashSet<>();
 		for (final Entry<String, String> entry : outgoingEdgesMap.entrySet()) {
@@ -142,26 +196,56 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		return Collections.unmodifiableSet(edgeIds);
 	}
 
+	/**
+	 * <p>areNodesSelected.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean areNodesSelected() {
 		return !selectedNodeIds.isEmpty();
 	}
 
+	/**
+	 * <p>getSelectedTargetNodeIds.</p>
+	 *
+	 * @return a {@link java.util.Collection} object.
+	 */
 	public Collection<String> getSelectedTargetNodeIds() {
 		return filterTargetNodes(getSelectedNodeIds());
 	}
 
+	/**
+	 * <p>getSelectedSourceNodeIds.</p>
+	 *
+	 * @return a {@link java.util.Collection} object.
+	 */
 	public Collection<String> getSelectedSourceNodeIds() {
 		return filterSourceNodes(getSelectedNodeIds());
 	}
 
+	/**
+	 * <p>getSelectedIncomingEdgeIds.</p>
+	 *
+	 * @return a {@link java.util.Collection} object.
+	 */
 	public Collection<String> getSelectedIncomingEdgeIds() {
 		return filterIncomingEdges(getSelectedNodeIds());
 	}
 
+	/**
+	 * <p>getSelectedOutgoingEdgeIds.</p>
+	 *
+	 * @return a {@link java.util.Collection} object.
+	 */
 	public Collection<String> getSelectedOutgoingEdgeIds() {
 		return filterOutgoingEdges(getSelectedNodeIds());
 	}
 
+	/**
+	 * <p>getEventBus.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
+	 */
 	public GuiEventBus getEventBus() {
 		return eventBus;
 	}
@@ -172,14 +256,29 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		currentDirectory = cmd.getFile();
 	}
 
+	/**
+	 * <p>Getter for the field <code>currentDirectory</code>.</p>
+	 *
+	 * @return a {@link java.io.File} object.
+	 */
 	public File getCurrentDirectory() {
 		return currentDirectory;
 	}
 
+	/**
+	 * <p>areSourceNodesSelected.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean areSourceNodesSelected() {
 		return !getSelectedSourceNodeIds().isEmpty();
 	}
 
+	/**
+	 * <p>areTargetNodesSelected.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean areTargetNodesSelected() {
 		return !getSelectedTargetNodeIds().isEmpty();
 	}
@@ -201,6 +300,7 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeEdge(final EdgeRemoveCommand cmd) {
 		final String edgeId = cmd.getEdgeId();
@@ -222,10 +322,20 @@ public class GuiState extends PetriNetGuiEventAdapter {
 		transitionStyle.setSize(size);
 	}
 
+	/**
+	 * <p>Getter for the field <code>placeStyle</code>.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.components.NodeStyleModel} object.
+	 */
 	public NodeStyleModel getPlaceStyle() {
 		return placeStyle;
 	}
 
+	/**
+	 * <p>Getter for the field <code>transitionStyle</code>.</p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.components.NodeStyleModel} object.
+	 */
 	public NodeStyleModel getTransitionStyle() {
 		return transitionStyle;
 	}

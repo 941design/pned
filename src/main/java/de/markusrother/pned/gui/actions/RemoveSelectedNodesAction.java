@@ -32,10 +32,10 @@ public class RemoveSelectedNodesAction extends AbstractGuiAction
 	 * newMenuItem.
 	 * </p>
 	 *
-	 * @param state
-	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
 	 * @param source
 	 *            a {@link java.lang.Object} object.
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.actions.GuiState} object.
 	 * @return a {@link javax.swing.JMenuItem} object.
 	 */
 	public static JMenuItem newMenuItem(final Object source, final GuiState state) {
@@ -47,10 +47,10 @@ public class RemoveSelectedNodesAction extends AbstractGuiAction
 	 * Constructor for RemoveSelectedNodesAction.
 	 * </p>
 	 *
-	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.control.GuiEventBus} object.
 	 * @param source
 	 *            a {@link java.lang.Object} object.
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.actions.GuiState} object.
 	 */
 	public RemoveSelectedNodesAction(final Object source, final GuiState state) {
 		super(label, source, state);

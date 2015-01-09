@@ -166,6 +166,12 @@ public abstract class RightClickTextFieldEdit<T extends Component> extends Right
 	 */
 	public abstract void removeTextField(T editedObject, CheckedTextField textField);
 
+	/**
+	 * <p>isEditing.</p>
+	 *
+	 * @param object a T object.
+	 * @return a boolean.
+	 */
 	public boolean isEditing(final T object) {
 		return editedObject == object;
 	}

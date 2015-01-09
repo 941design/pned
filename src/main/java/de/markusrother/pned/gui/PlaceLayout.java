@@ -10,7 +10,7 @@ import java.awt.Rectangle;
 // TODO - create LayoutManagerAdapter?
 /**
  * used to manage markings in places
- * 
+ *
  * FIXME - rename to PlaceLayoutManager
  *
  * @author Markus Rother

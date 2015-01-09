@@ -86,7 +86,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link EventBus} object.
+	 *            a {@link de.markusrother.pned.core.control.EventBus} object.
 	 */
 	public EventAwarePetriNet(final EventBus eventBus) {
 		this.eventBus = eventBus;
@@ -203,6 +203,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		});
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void removeEdge(final EdgeRemoveCommand cmd) {
 		final String edgeId = cmd.getEdgeId();

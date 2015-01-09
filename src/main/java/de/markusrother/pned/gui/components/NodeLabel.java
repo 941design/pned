@@ -249,12 +249,18 @@ public class NodeLabel extends JLabel
 		suspendListeners();
 	}
 
+	/**
+	 * <p>suspendListeners.</p>
+	 */
 	protected void suspendListeners() {
 		DragDropListener.removeFromComponent(this, dragDropListener);
 		labelEditor.removeFromComponent(this);
 		hoverListener.removeFromComponent(this);
 	}
 
+	/**
+	 * <p>installListeners.</p>
+	 */
 	protected void installListeners() {
 		DragDropListener.addToComponent(this, dragDropListener);
 		labelEditor.addToComponent(this);
