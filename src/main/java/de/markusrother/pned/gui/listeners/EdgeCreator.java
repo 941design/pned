@@ -1,12 +1,12 @@
 package de.markusrother.pned.gui.listeners;
 
-import static de.markusrother.pned.gui.components.PnGridPanel.getCenter;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.COMPONENT_ENTERED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.COMPONENT_EXITED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_CANCELLED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_FINISHED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_MOVED;
 import static de.markusrother.pned.gui.events.EdgeEditEvent.Type.EDGE_STARTED;
+import static de.markusrother.swing.SwingUtils.getCenter;
 
 import java.awt.Component;
 import java.awt.Container;

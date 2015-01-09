@@ -104,23 +104,6 @@ public class PnGridPanel extends JLayeredPane
 	}
 
 	/**
-	 * <p>
-	 * getCenter.
-	 * </p>
-	 *
-	 * @param component
-	 *            a {@link java.awt.Component} object.
-	 * @return a {@link java.awt.Point} object.
-	 */
-	public static Point getCenter(final Component component) {
-		final Point point = component.getLocation();
-		point.translate( //
-				(int) Math.floor((component.getWidth() + 0.5) / 2.0), //
-				(int) Math.floor((component.getHeight() + 0.5) / 2.0));
-		return point;
-	}
-
-	/**
 	 * I don't quite like passing this to other classes/methods/constructors,
 	 * while this is not fully initialized!
 	 * 
@@ -332,7 +315,10 @@ public class PnGridPanel extends JLayeredPane
 		final String edgeId = cmd.getEdgeId();
 		final AbstractNode sourceNode = requestNode(cmd.getSourceId());
 		final AbstractNode targetNode = requestNode(cmd.getTargetId());
-		final EdgeComponent edge = new EdgeComponent(eventBus, edgeId, sourceNode, targetNode);
+		final EdgeComponent edge = new EdgeComponent(eventBus, //
+				edgeId, //
+				sourceNode, //
+				targetNode);
 		addEdgeComponent(edge);
 	}
 

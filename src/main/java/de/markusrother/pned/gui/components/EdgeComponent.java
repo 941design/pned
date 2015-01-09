@@ -1,5 +1,6 @@
 package de.markusrother.pned.gui.components;
 
+import static de.markusrother.swing.SwingUtils.getCenter;
 import static de.markusrother.util.TrigUtils.getRadiansOfDelta;
 
 import java.awt.Component;
@@ -55,10 +56,6 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 	/** Constant <code>NO_TARGET_COMPONENT</code> */
 	private static final AbstractNode NO_TARGET_COMPONENT = null;
-	/** Constant <code>NO_SOURCE</code> */
-	private static final Point NO_SOURCE = new Point();
-	/** Constant <code>NO_TARGET</code> */
-	private static final Point NO_TARGET = new Point();
 	private static final String NO_ID = "";
 
 	/**
@@ -166,7 +163,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 */
 	public EdgeComponent(final EventBus eventBus, final String id, final AbstractNode sourceComponent,
 			final AbstractNode targetComponent) {
-		this(eventBus, id, sourceComponent, targetComponent, NO_SOURCE, NO_TARGET);
+		this(eventBus, id, sourceComponent, targetComponent, getCenter(sourceComponent), getCenter(targetComponent));
 		reconnect();
 	}
 
@@ -405,18 +402,14 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	/** {@inheritDoc} */
 	@Override
 	public void nodeMoved(final NodeMotionCommand event) {
-		boolean repaint = false;
+		final String movedNodeId = event.getNodeId();
 		final String sourceId = getSourceId();
 		final String targetId = getTargetId();
-		if (event.getNodeId().contains(sourceId)) {
+		if (movedNodeId.equals(sourceId) || movedNodeId.equals(targetId)) {
+			// Must always reconnect to both nodes, because moving any changes
+			// the edges angle.
 			connectToSource();
-			repaint = true;
-		}
-		if (event.getNodeId().contains(targetId)) {
 			connectToTarget();
-			repaint = true;
-		}
-		if (repaint) {
 			repaint();
 		}
 	}

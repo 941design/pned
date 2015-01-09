@@ -130,8 +130,9 @@ public class Transition extends AbstractNode
 	@Override
 	public void transitionActivated(final TransitionActivationEvent e) {
 		final String myId = getId();
-		if (myId.equals(e.getTransitionId())) {
+		if (myId.equals(e.getTransitionId()) && !isActive) {
 			isActive = true;
+			repaint();
 		}
 	}
 
@@ -139,8 +140,9 @@ public class Transition extends AbstractNode
 	@Override
 	public void transitionDeactivated(final TransitionActivationEvent e) {
 		final String myId = getId();
-		if (myId.equals(e.getTransitionId())) {
+		if (myId.equals(e.getTransitionId()) && isActive) {
 			isActive = false;
+			repaint();
 		}
 	}
 
