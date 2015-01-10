@@ -14,21 +14,13 @@ import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.MarkingEditCommand;
 import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.events.MarkingChangeEvent;
-import de.markusrother.pned.control.events.MarkingEventObject;
 import de.markusrother.pned.control.events.MarkingEventListener;
+import de.markusrother.pned.control.events.MarkingEventObject;
 import de.markusrother.pned.gui.components.listeners.MarkingEditor;
 import de.markusrother.pned.gui.core.model.NodeStyleModel;
 import de.markusrother.util.JsonBuilder;
 
 /**
- * TODO - on hover create pop up with + / - to add/remove weights
- *
- * TODO - create floating label next to place, which listens to component move
- * events.
- *
- * TODO - create generic, pluggable component dragged listener.
- *
- * TODO - create model {marking, label}
  *
  * @author Markus Rother
  * @version 1.0
@@ -53,10 +45,12 @@ public class Place extends AbstractNode
 	 * @param marking
 	 *            a {@link de.markusrother.pned.gui.components.Marking} object.
 	 * @param markingEditor
-	 *            a {@link de.markusrother.pned.gui.components.listeners.MarkingEditor}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.listeners.MarkingEditor}
 	 *            object.
 	 * @param markingEditor
-	 *            a {@link de.markusrother.pned.gui.components.listeners.MarkingEditor}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.listeners.MarkingEditor}
 	 *            object.
 	 * @param style
 	 *            a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
@@ -147,9 +141,14 @@ public class Place extends AbstractNode
 	}
 
 	/**
-	 * <p>delegateSetMarking.</p>
+	 * <p>
+	 * delegateSetMarking.
+	 * </p>
 	 *
-	 * @param evt a {@link de.markusrother.pned.control.events.MarkingEventObject} object.
+	 * @param evt
+	 *            a
+	 *            {@link de.markusrother.pned.control.events.MarkingEventObject}
+	 *            object.
 	 */
 	private void delegateSetMarking(final MarkingEventObject evt) {
 		final String myId = getId();

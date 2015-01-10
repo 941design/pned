@@ -16,11 +16,6 @@ import de.markusrother.swing.DragDropListener;
 /**
  * Creates selection by clicking on a single component.
  *
- * mousePressed is not sufficient, because we want to distinguish behavior of
- * click vs. drag.
- *
- * TODO - make nice!
- *
  * @author Markus Rother
  * @version 1.0
  */
@@ -72,12 +67,6 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 	 *            object.
 	 */
 	private void makeCurrentSelection(final AbstractNode node) {
-		// Must not return if node is part of multiselection!
-		// No events when reselecting the already selected node.
-		// Node may have been selected by another other mechanism, such as
-		// multiselection. Although we would not have to unselect the given
-		// node, we must invoke cancellation of all nodes to deselect the other
-		// selected nodes.
 		if (node.isSelected() && !node.isPartOfMultiselection()) {
 			// IGNORE - Nothing to do, node is already selected.
 		} else {
@@ -98,10 +87,6 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 	/** {@inheritDoc} */
 	@Override
 	public void startDrag(final AbstractNode node, final Point dragStart) {
-		// If mouse is pressed down on unselected node, we receive a startDrag
-		// (based on mouseDragged) without the preceding mouseClicked!
-		// We need to activate the selection for the nodes actual DragDrop
-		// listener!
 		if (node.isPartOfMultiselection()) {
 			// dragging multiselection has precedence
 			return;

@@ -7,8 +7,6 @@ import de.markusrother.pned.gui.components.ComponentState;
 import de.markusrother.swing.HoverAdapter;
 
 /**
- * TODO - subclass for node types
- *
  * @author Markus Rother
  * @version 1.0
  */
@@ -18,7 +16,9 @@ public class NodeHoverListener extends HoverAdapter {
 	public static NodeHoverListener INSTANCE = new NodeHoverListener();
 
 	/**
-	 * <p>Constructor for NodeHoverListener.</p>
+	 * <p>
+	 * Constructor for NodeHoverListener.
+	 * </p>
 	 */
 	private NodeHoverListener() {
 	}
@@ -36,4 +36,5 @@ public class NodeHoverListener extends HoverAdapter {
 		final AbstractNode node = (AbstractNode) component;
 		node.setState(ComponentState.DEFAULT);
 	}
+
 }

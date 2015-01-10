@@ -12,8 +12,6 @@ import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.swing.DragDropListener;
 
 /**
- * TODO - rename (node specific)
- *
  * @author Markus Rother
  * @version 1.0
  */

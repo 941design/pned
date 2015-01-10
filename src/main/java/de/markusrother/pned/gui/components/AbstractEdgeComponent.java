@@ -1,36 +1,23 @@
 package de.markusrother.pned.gui.components;
 
 import static de.markusrother.util.MathUtils.getRadiansOfDelta;
+import static de.markusrother.util.MathUtils.round;
 
 import java.awt.Component;
 import java.awt.Point;
-import java.awt.geom.Point2D;
 
 import javax.swing.JComponent;
 
 /**
- * TODO - does this require source and target to have the same parent?
+ * <p>
+ * Abstract superclass for edges connecting components. Either source or target
+ * component may not be set. Source or target is then called unbound.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
-public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U extends Component & DefinitelyBounded> extends JComponent {
-
-	/**
-	 * <p>
-	 * round.
-	 * </p>
-	 *
-	 * @param point
-	 *            a {@link java.awt.geom.Point2D} object.
-	 * @return a {@link java.awt.Point} object.
-	 */
-	private static Point round(final Point2D point) {
-		// TODO - could go to util class
-		return new Point( //
-				(int) Math.floor(point.getX() + 0.5), //
-				(int) Math.floor(point.getY() + 0.5));
-	}
+public abstract class AbstractEdgeComponent<T extends Component & Bounded, U extends Component & Bounded> extends JComponent {
 
 	Point source;
 	Point target;
@@ -106,7 +93,7 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	 */
 	public void setSourceComponent(final T sourceComponent) {
 		this.sourceComponent = sourceComponent;
-		connectToSource();
+		reconnectToSource();
 	}
 
 	/**
@@ -119,7 +106,7 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	 */
 	public void setTargetComponent(final U targetComponent) {
 		this.targetComponent = targetComponent;
-		connectToTarget();
+		reconnectToTarget();
 	}
 
 	/**
@@ -201,15 +188,9 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 		repaint();
 	}
 
-	/**
-	 * TODO - Currently requires component to be added to parent already, to
-	 * retrieve position!
-	 *
-	 * TODO - could be done in revalidate()!
-	 */
-	public void connectToSource() {
+	public void reconnectToSource() {
 		final double angle = getAngle();
-		connectToSource(angle);
+		reconnectToSource(angle);
 	}
 
 	/**
@@ -220,25 +201,16 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	 * @param angle
 	 *            a double.
 	 */
-	private void connectToSource(final double angle) {
+	private void reconnectToSource(final double angle) {
 		final Point intersection = sourceComponent.getLocation();
 		final Point boundary = round(sourceComponent.getBoundaryPoint(angle));
-		// TODO - must move because...
 		intersection.translate(boundary.x, boundary.y);
 		source = intersection;
 	}
 
-	/**
-	 * TODO - Currently requires component to be added to parent already, to
-	 * retrieve position!
-	 *
-	 * TODO - should this become the setter?
-	 *
-	 * TODO - could be done in revalidate()!
-	 */
-	public void connectToTarget() {
+	public void reconnectToTarget() {
 		final double angle = getAngle();
-		connectToTarget(angle);
+		reconnectToTarget(angle);
 	}
 
 	/**
@@ -249,7 +221,7 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	 * @param angle
 	 *            a double.
 	 */
-	private void connectToTarget(final double angle) {
+	private void reconnectToTarget(final double angle) {
 		final Point intersection = targetComponent.getLocation();
 		final Point boundary = round(targetComponent.getBoundaryPoint(angle + Math.PI));
 		// TODO - must move because...

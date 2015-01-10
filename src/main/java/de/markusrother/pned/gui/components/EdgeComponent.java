@@ -392,8 +392,8 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		if (movedNodeId.equals(sourceId) || movedNodeId.equals(targetId)) {
 			// Must always reconnect to both nodes, because moving any changes
 			// the edges angle.
-			connectToSource();
-			connectToTarget();
+			reconnectToSource();
+			reconnectToTarget();
 			repaint();
 		}
 	}
@@ -432,8 +432,8 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * </p>
 	 */
 	private void reconnect() {
-		connectToSource();
-		connectToTarget();
+		reconnectToSource();
+		reconnectToTarget();
 		repaint();
 	}
 

@@ -7,7 +7,8 @@ import de.markusrother.pned.gui.core.model.EdgeStyleModel;
 
 /**
  * <p>
- * NodeFactoryImpl class.
+ * Factory for {@link Place}s, {@link Transition}s, {@link EdgeComponent}s, and
+ * {@link Marking}s.
  * </p>
  *
  * @author Markus Rother

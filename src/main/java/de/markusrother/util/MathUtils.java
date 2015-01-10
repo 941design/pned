@@ -3,6 +3,7 @@ package de.markusrother.util;
 import static java.lang.Math.PI;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 
 /**
  * <p>
@@ -61,6 +62,21 @@ public class MathUtils {
 	 */
 	public static double getRadiansOfCoordinate(final Point point) {
 		return Math.atan2(point.y, point.x);
+	}
+
+	/**
+	 * <p>
+	 * round.
+	 * </p>
+	 *
+	 * @param point
+	 *            a {@link java.awt.geom.Point2D} object.
+	 * @return a {@link java.awt.Point} object.
+	 */
+	public static Point round(final Point2D point) {
+		return new Point( //
+				(int) Math.floor(point.getX() + 0.5), //
+				(int) Math.floor(point.getY() + 0.5));
 	}
 
 }

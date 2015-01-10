@@ -32,9 +32,9 @@ import de.markusrother.swing.Selectable;
 import de.markusrother.util.JsonSerializable;
 
 /**
- * TODO - We can get rid entirely of the single component drag listener, if we
- * always use multi-selections. Then the click event could simply also activate
- * a selection!
+ * <p>
+ * Abstract superclass for node components.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -48,7 +48,7 @@ public abstract class AbstractNode extends JPanel
 		EdgeEditListener,
 		Selectable,
 		Disposable,
-		DefinitelyBounded,
+		Bounded,
 		Stylable<NodeStyleModel>,
 		JsonSerializable {
 

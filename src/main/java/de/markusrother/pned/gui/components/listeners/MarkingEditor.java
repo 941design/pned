@@ -69,7 +69,7 @@ public class MarkingEditor extends RightClickTextFieldEdit<Place>
 	/** {@inheritDoc} */
 	@Override
 	public void cancelEdit(final Place place) {
-		// IGNORE
+		// TODO - dispose and assert removal of listeners!
 	}
 
 	/** {@inheritDoc} */
@@ -78,6 +78,7 @@ public class MarkingEditor extends RightClickTextFieldEdit<Place>
 		eventBus.setMarking(new MarkingEditCommand(this, //
 				place.getId(), //
 				Integer.valueOf(text))); // Validated by markingPattern!
+		// TODO - dispose and assert removal of listeners!
 	}
 
 	/** {@inheritDoc} */

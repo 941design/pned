@@ -41,17 +41,6 @@ import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.GridComponent;
 
 /**
- * TODO - create MouseListener/Adapter which distinguishes between left and
- * right click!
- *
- * Each listener should have its own method to be added to components, because
- * it may be a MouseMotion- or a MouseListener, or both. That should not be the
- * callers responsibility.
- *
- * TODO - public method to add nodes at logical locations?
- *
- * TODO - Dispatch all events to all layers: the grid (node layer), the edge
- * layer, and possibly the root layer, using layer.dispatchEvent(e).
  *
  * @author Markus Rother
  * @version 1.0
@@ -369,11 +358,6 @@ public class PnGridPanel extends JLayeredPane
 	/** {@inheritDoc} */
 	@Override
 	public void nodesSelected(final NodeMultiSelectionEvent event) {
-		// TODO - changing selections are not yet repsected!
-		// TODO - This could be done by the EventBus or some object listening to
-		// the EventBus: PnedPropertyChangeMulticaster. However, We would still
-		// have to duplicate that information here (e.g. node creation type).
-		// Also, property changes are gui only.
 		firePropertyChange("multiselection", false, true);
 		currentSelection.addAll(event.getNodes());
 		// TODO - Extract MultiSelectionDragDropListener
