@@ -115,13 +115,7 @@ public class PnState extends PnEventAdapter
 		selectedNodeIds.clear();
 	}
 
-	/**
-	 * <p>
-	 * Getter for the field <code>nodeCreationMode</code>.
-	 * </p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.core.NodeCreationMode} object.
-	 */
+	@Override
 	public NodeCreationMode getNodeCreationMode() {
 		return nodeCreationMode;
 	}
@@ -139,13 +133,7 @@ public class PnState extends PnEventAdapter
 		this.nodeCreationMode = nodeCreationMode;
 	}
 
-	/**
-	 * <p>
-	 * Getter for the field <code>selectedNodeIds</code>.
-	 * </p>
-	 *
-	 * @return a {@link java.util.Set} object.
-	 */
+	@Override
 	public Set<String> getSelectedNodeIds() {
 		return selectedNodeIds;
 	}
@@ -230,68 +218,32 @@ public class PnState extends PnEventAdapter
 		return Collections.unmodifiableSet(edgeIds);
 	}
 
-	/**
-	 * <p>
-	 * areNodesSelected.
-	 * </p>
-	 *
-	 * @return a boolean.
-	 */
+	@Override
 	public boolean areNodesSelected() {
 		return !selectedNodeIds.isEmpty();
 	}
 
-	/**
-	 * <p>
-	 * getSelectedTargetNodeIds.
-	 * </p>
-	 *
-	 * @return a {@link java.util.Collection} object.
-	 */
+	@Override
 	public Collection<String> getSelectedTargetNodeIds() {
 		return filterTargetNodes(getSelectedNodeIds());
 	}
 
-	/**
-	 * <p>
-	 * getSelectedSourceNodeIds.
-	 * </p>
-	 *
-	 * @return a {@link java.util.Collection} object.
-	 */
+	@Override
 	public Collection<String> getSelectedSourceNodeIds() {
 		return filterSourceNodes(getSelectedNodeIds());
 	}
 
-	/**
-	 * <p>
-	 * getSelectedIncomingEdgeIds.
-	 * </p>
-	 *
-	 * @return a {@link java.util.Collection} object.
-	 */
+	@Override
 	public Collection<String> getSelectedIncomingEdgeIds() {
 		return filterIncomingEdges(getSelectedNodeIds());
 	}
 
-	/**
-	 * <p>
-	 * getSelectedOutgoingEdgeIds.
-	 * </p>
-	 *
-	 * @return a {@link java.util.Collection} object.
-	 */
+	@Override
 	public Collection<String> getSelectedOutgoingEdgeIds() {
 		return filterOutgoingEdges(getSelectedNodeIds());
 	}
 
-	/**
-	 * <p>
-	 * getEventBus.
-	 * </p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.control.PnEventBus} object.
-	 */
+	@Override
 	public PnEventBus getEventBus() {
 		return eventBus;
 	}
@@ -302,35 +254,17 @@ public class PnState extends PnEventAdapter
 		currentDirectory = cmd.getFile();
 	}
 
-	/**
-	 * <p>
-	 * Getter for the field <code>currentDirectory</code>.
-	 * </p>
-	 *
-	 * @return a {@link java.io.File} object.
-	 */
+	@Override
 	public File getCurrentDirectory() {
 		return currentDirectory;
 	}
 
-	/**
-	 * <p>
-	 * areSourceNodesSelected.
-	 * </p>
-	 *
-	 * @return a boolean.
-	 */
+	@Override
 	public boolean areSourceNodesSelected() {
 		return !getSelectedSourceNodeIds().isEmpty();
 	}
 
-	/**
-	 * <p>
-	 * areTargetNodesSelected.
-	 * </p>
-	 *
-	 * @return a boolean.
-	 */
+	@Override
 	public boolean areTargetNodesSelected() {
 		return !getSelectedTargetNodeIds().isEmpty();
 	}
@@ -388,50 +322,22 @@ public class PnState extends PnEventAdapter
 		edgeStyle.setSize(size);
 	}
 
-	/**
-	 * <p>
-	 * Getter for the field <code>placeStyle</code>.
-	 * </p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
-	 *         object.
-	 */
+	@Override
 	public NodeStyleModel getPlaceStyle() {
 		return placeStyle;
 	}
 
-	/**
-	 * <p>
-	 * Getter for the field <code>transitionStyle</code>.
-	 * </p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
-	 *         object.
-	 */
+	@Override
 	public NodeStyleModel getTransitionStyle() {
 		return transitionStyle;
 	}
 
-	/**
-	 * <p>
-	 * Getter for the field <code>edgeStyle</code>.
-	 * </p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
-	 *         object.
-	 */
+	@Override
 	public EdgeStyleModel getEdgeStyle() {
 		return edgeStyle;
 	}
 
-	/**
-	 * <p>
-	 * Getter for the field <code>markingStyle</code>.
-	 * </p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.core.model.MarkingStyleModel}
-	 *         object.
-	 */
+	@Override
 	public MarkingStyleModel getMarkingStyle() {
 		return markingStyle;
 	}
