@@ -6,7 +6,7 @@ import de.markusrother.pned.control.EventBus;
 
 /**
  * <p>
- * Event logger that prints all events to {@link System#out}.
+ * Event logger that prints all events to {@link java.lang.System#out}.
  * </p>
  *
  * @author Markus Rother

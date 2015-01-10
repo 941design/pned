@@ -169,7 +169,7 @@ public abstract class AbstractEdgeComponent<T extends Component & Bounded, U ext
 	 * <p>
 	 * setUnboundTarget.
 	 * </p>
-	 * 
+	 *
 	 * point may or may not be a valid target. We are not interested on that.
 	 * This method is not responsible for connecting to targets! That is done
 	 * when entering potential target components. Also, we rely on target
@@ -188,6 +188,9 @@ public abstract class AbstractEdgeComponent<T extends Component & Bounded, U ext
 		repaint();
 	}
 
+	/**
+	 * <p>reconnectToSource.</p>
+	 */
 	public void reconnectToSource() {
 		final double angle = getAngle();
 		reconnectToSource(angle);
@@ -208,6 +211,9 @@ public abstract class AbstractEdgeComponent<T extends Component & Bounded, U ext
 		source = intersection;
 	}
 
+	/**
+	 * <p>reconnectToTarget.</p>
+	 */
 	public void reconnectToTarget() {
 		final double angle = getAngle();
 		reconnectToTarget(angle);

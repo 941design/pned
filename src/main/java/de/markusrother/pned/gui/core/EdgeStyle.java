@@ -159,11 +159,13 @@ public class EdgeStyle extends AbstractStyle
 		fireChangeEvent();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Color getSelectionColor() {
 		throw new UnsupportedOperationException();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSelectionColor(final Color color) {
 		throw new UnsupportedOperationException();

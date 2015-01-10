@@ -32,11 +32,14 @@ public interface PnStateModel {
 	/**
 	 * <p>
 	 * Gets current node creation mode, either
-	 * {@link de.markusrother.pned.gui.control.NodeCreationMode#PLACE} or
-	 * {@link de.markusrother.pned.gui.control.NodeCreationMode#TRANSITION}.
+	 * {@link de.markusrother.pned.gui.control.PnState.NodeCreationMode#PLACE}
+	 * or
+	 * {@link de.markusrother.pned.gui.control.PnState.NodeCreationMode#TRANSITION}
+	 * .
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.control.NodeCreationMode}
+	 * @return a
+	 *         {@link de.markusrother.pned.gui.control.PnState.NodeCreationMode}
 	 *         object.
 	 */
 	NodeCreationMode getNodeCreationMode();

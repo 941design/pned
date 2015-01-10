@@ -36,8 +36,18 @@ public interface ShapeModel
 	 */
 	void setShape(Shape shape);
 
+	/**
+	 * <p>getStroke.</p>
+	 *
+	 * @return a {@link java.awt.Stroke} object.
+	 */
 	Stroke getStroke();
 
+	/**
+	 * <p>setStroke.</p>
+	 *
+	 * @param stroke a {@link java.awt.Stroke} object.
+	 */
 	void setStroke(Stroke stroke);
 
 }

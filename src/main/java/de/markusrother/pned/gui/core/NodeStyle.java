@@ -12,7 +12,6 @@ import de.markusrother.pned.gui.core.model.NodeStyleModel;
  * Default implementation of
  * {@link de.markusrother.pned.gui.core.model.NodeStyleModel}.
  * </p>
- * 
  *
  * @author Markus Rother
  * @version 1.0
@@ -69,6 +68,7 @@ public class NodeStyle extends AbstractStyle
 		return defaultColor;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setDefaultColor(final Color defaultColor) {
 		this.defaultColor = defaultColor;
@@ -80,6 +80,7 @@ public class NodeStyle extends AbstractStyle
 		return selectionColor;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSelectionColor(final Color selectionColor) {
 		this.selectionColor = selectionColor;
@@ -91,14 +92,7 @@ public class NodeStyle extends AbstractStyle
 		return hoverColor;
 	}
 
-	/**
-	 * <p>
-	 * Setter for the field <code>hoverColor</code>.
-	 * </p>
-	 *
-	 * @param hoverColor
-	 *            a {@link java.awt.Color} object.
-	 */
+	/** {@inheritDoc} */
 	@Override
 	public void setHoverColor(final Color hoverColor) {
 		this.hoverColor = hoverColor;
@@ -110,6 +104,7 @@ public class NodeStyle extends AbstractStyle
 		return defaultBorder;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setDefaultBorder(final Border defaultBorder) {
 		this.defaultBorder = defaultBorder;
@@ -121,6 +116,7 @@ public class NodeStyle extends AbstractStyle
 		return selectionBorder;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSelectionBorder(final Border selectionBorder) {
 		this.selectionBorder = selectionBorder;
@@ -132,26 +128,31 @@ public class NodeStyle extends AbstractStyle
 		return hoverBorder;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setHoverBorder(final Border hoverBorder) {
 		this.hoverBorder = hoverBorder;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Color getValidColor() {
 		throw new UnsupportedOperationException();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setValidColor(final Color color) {
 		throw new UnsupportedOperationException();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Color getInvalidColor() {
 		throw new UnsupportedOperationException();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setInvalidColor(final Color color) {
 		throw new UnsupportedOperationException();

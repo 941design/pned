@@ -11,7 +11,7 @@ import de.markusrother.swing.ChangeEventSource;
  *
  * @author Markus Rother
  * @version 1.0
- * @see {@link java.awt.Font}
+ * @see java.awt.Font
  */
 public interface FontModel
 	extends
@@ -51,7 +51,7 @@ public interface FontModel
 	 * </p>
 	 *
 	 * @return a int - the current font style.
-	 * @see {@link java.awt.Font}
+	 * @see java.awt.Font
 	 */
 	int getFontStyle();
 
@@ -62,7 +62,7 @@ public interface FontModel
 	 *
 	 * @param fontStyle
 	 *            a int - the new font style.
-	 * @see {@link java.awt.Font}
+	 * @see java.awt.Font
 	 */
 	void setFontStyle(int fontStyle);
 

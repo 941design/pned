@@ -7,6 +7,8 @@ import de.markusrother.pned.gui.components.ComponentState;
 import de.markusrother.swing.HoverAdapter;
 
 /**
+ * <p>NodeHoverListener class.</p>
+ *
  * @author Markus Rother
  * @version 1.0
  */

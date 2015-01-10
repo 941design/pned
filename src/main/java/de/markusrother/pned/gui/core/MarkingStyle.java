@@ -14,8 +14,7 @@ import de.markusrother.pned.gui.core.model.MarkingStyleModel;
  * Default implementation of
  * {@link de.markusrother.pned.gui.core.model.MarkingStyleModel}.
  * </p>
- * 
- * 
+ *
  * @author Markus Rother
  * @version 1.0
  */
@@ -28,7 +27,6 @@ public class MarkingStyle extends AbstractStyle
 	 * Returns new instance of a default
 	 * {@link de.markusrother.pned.gui.core.model.MarkingStyleModel}.
 	 * </p>
-	 * 
 	 *
 	 * @return a {@link de.markusrother.pned.gui.core.model.MarkingStyleModel} -
 	 *         the default style.
@@ -121,11 +119,13 @@ public class MarkingStyle extends AbstractStyle
 		return new Font(fontName, fontStyle, (int) (size / 1.2 + 0.5));
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Stroke getStroke() {
 		throw new UnsupportedOperationException();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setStroke(final Stroke stroke) {
 		throw new UnsupportedOperationException();

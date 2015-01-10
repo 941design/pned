@@ -6,6 +6,8 @@ import de.markusrother.util.JsonBuilder;
 import de.markusrother.util.JsonSerializable;
 
 /**
+ * <p>EdgeRemoveCommand class.</p>
+ *
  * @author Markus Rother
  * @version 1.0
  * @see de.markusrother.pned.control.commands.EdgeCreationListener

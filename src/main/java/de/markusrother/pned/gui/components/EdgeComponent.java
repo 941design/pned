@@ -133,6 +133,18 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 	 * @param sourceComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
+	 * @param sourceComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            object.
+	 * @param sourceComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            object.
+	 * @param sourceComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            object.
+	 * @param sourceComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            object.
 	 * @param source
 	 *            a {@link java.awt.Point} object.
 	 * @param target
@@ -182,7 +194,22 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 	 * @param sourceComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
+	 * @param sourceComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            object.
 	 * @param targetComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            object.
+	 * @param targetComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            object.
+	 * @param sourceComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            object.
+	 * @param sourceComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            object.
+	 * @param sourceComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param sourceComponent
@@ -190,6 +217,15 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 	 *            object.
 	 * @param source
 	 *            a {@link java.awt.Point} object.
+	 * @param targetComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            object.
+	 * @param targetComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            object.
+	 * @param targetComponent
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            object.
 	 * @param targetComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
@@ -400,7 +436,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * TODO - The problem is the order of events! We must respond after the node
 	 * responded to the resizing, otherwise it stays without effect! In practice
 	 * this may not be a problem, because nodes are always created before edges,
@@ -414,7 +450,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * TODO - The problem is the order of events! We must respond after the node
 	 * responded to the resizing, otherwise it stays without effect! In practice
 	 * this may not be a problem, because nodes are always created before edges,

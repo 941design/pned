@@ -12,6 +12,8 @@ import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.swing.DragDropListener;
 
 /**
+ * <p>SelectionDragDropListener class.</p>
+ *
  * @author Markus Rother
  * @version 1.0
  */

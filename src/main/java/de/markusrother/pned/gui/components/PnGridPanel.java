@@ -41,6 +41,7 @@ import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.GridComponent;
 
 /**
+ * <p>PnGridPanel class.</p>
  *
  * @author Markus Rother
  * @version 1.0

@@ -31,7 +31,8 @@ public class SetNodeTypeCommand extends EventObject
 	 * @param source
 	 *            a {@link java.lang.Object} object.
 	 * @param mode
-	 *            a {@link de.markusrother.pned.gui.control.NodeCreationMode}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.control.PnState.NodeCreationMode}
 	 *            object.
 	 */
 	public SetNodeTypeCommand(final Object source, final NodeCreationMode mode) {
@@ -44,7 +45,8 @@ public class SetNodeTypeCommand extends EventObject
 	 * Getter for the field <code>mode</code>.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.control.NodeCreationMode}
+	 * @return a
+	 *         {@link de.markusrother.pned.gui.control.PnState.NodeCreationMode}
 	 *         object.
 	 */
 	public NodeCreationMode getMode() {

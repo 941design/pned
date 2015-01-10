@@ -257,6 +257,8 @@ public class PnState extends PnEventAdapter
 
 	/**
 	 * TODO - Should be decoupled!
+	 *
+	 * @return a {@link de.markusrother.pned.gui.control.PnEventBus} object.
 	 */
 	public PnEventBus getEventBus() {
 		return eventBus;
