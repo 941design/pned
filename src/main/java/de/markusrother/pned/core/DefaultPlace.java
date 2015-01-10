@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.markusrother.pned.core.model.PlaceModel;
 import de.markusrother.util.JsonBuilder;
@@ -50,13 +51,14 @@ public class DefaultPlace extends AbstractDefaultNode
 	/** {@inheritDoc} */
 	@Override
 	@XmlElement(name = "initialMarking")
-	public int getMarking() {
+	@XmlJavaTypeAdapter(MarkingMarshaller.class)
+	public Integer getMarking() {
 		return marking;
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void setMarking(final int marking) {
+	public void setMarking(final Integer marking) {
 		this.marking = marking;
 	}
 

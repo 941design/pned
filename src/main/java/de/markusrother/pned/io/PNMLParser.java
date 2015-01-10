@@ -453,7 +453,6 @@ public class PNMLParser {
 	 *            der Kante
 	 */
 	private void newArc(final String edgeId, final String sourceId, final String targetId) {
-		System.out.println("XXXXXXXXXX");
 		final EdgeCreationCommand cmd = new EdgeCreationCommand(this, //
 				edgeId, //
 				sourceId, //

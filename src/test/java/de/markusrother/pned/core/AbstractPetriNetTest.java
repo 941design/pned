@@ -19,9 +19,9 @@ import de.markusrother.pned.control.commands.EdgeCreationListener;
 import de.markusrother.pned.control.commands.LabelEditCommand;
 import de.markusrother.pned.control.commands.LabelEditListener;
 import de.markusrother.pned.control.commands.MarkingEditCommand;
+import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
-import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
@@ -200,7 +200,7 @@ public abstract class AbstractPetriNetTest
 	}
 
 	private void assertPlaceEquals(final String placeId, final Point origin, final int marking, final PlaceModel place) {
-		Assert.assertEquals(marking, place.getMarking());
+		Assert.assertEquals(marking, (int) place.getMarking());
 		assertNodeEquals(placeId, origin, place);
 	}
 

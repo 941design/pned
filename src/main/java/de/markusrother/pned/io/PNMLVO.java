@@ -10,7 +10,7 @@ public class PNMLVO {
 
 	private final DefaultPetriNet net;
 
-	public PNMLVO() {
+	private @SuppressWarnings("unused") PNMLVO() {
 		this.net = null;
 	}
 

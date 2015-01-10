@@ -2,10 +2,14 @@ package de.markusrother.pned.core.model;
 
 /**
  * <p>
- * Mutable model for Petri net places. In addition to {@link de.markusrother.pned.core.model.NodeModel}s places
- * consist of a mutable marking. The marking is <b>not</b> typed, but is rather
- * a simple weight count.
+ * Mutable model for Petri net places. In addition to
+ * {@link de.markusrother.pned.core.model.NodeModel}s places consist of a
+ * mutable marking. The marking is <b>not</b> typed, but is rather a simple
+ * weight count.
  * </p>
+ * 
+ * TODO - Using boxed integers is a requirement by JAXB, and should be avoided
+ * somehow.
  *
  * @author Markus Rother
  * @version 1.0
@@ -21,7 +25,7 @@ public interface PlaceModel
 	 *
 	 * @return a int - the marking.
 	 */
-	int getMarking();
+	Integer getMarking();
 
 	/**
 	 * <p>
@@ -31,6 +35,6 @@ public interface PlaceModel
 	 * @param marking
 	 *            a int - the new marking.
 	 */
-	void setMarking(int marking);
+	void setMarking(Integer marking);
 
 }
