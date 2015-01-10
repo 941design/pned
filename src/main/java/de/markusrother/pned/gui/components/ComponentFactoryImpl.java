@@ -13,7 +13,7 @@ import de.markusrother.pned.gui.core.model.EdgeStyleModel;
  * @author Markus Rother
  * @version 1.0
  */
-public class NodeFactoryImpl
+public class ComponentFactoryImpl
 	implements
 		NodeFactory,
 		EdgeFactory,
@@ -31,7 +31,7 @@ public class NodeFactoryImpl
 	 * @param state
 	 *            a {@link de.markusrother.pned.gui.control.PnState} object.
 	 */
-	public NodeFactoryImpl(final PnState state) {
+	public ComponentFactoryImpl(final PnState state) {
 		this.state = state;
 		this.markingEditor = new MarkingEditor(state.getEventBus());
 		this.singleNodeSelector = new SingleNodeSelector(state.getEventBus());

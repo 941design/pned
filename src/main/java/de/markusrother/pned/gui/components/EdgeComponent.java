@@ -36,6 +36,8 @@ import de.markusrother.swing.HoverListener;
 /**
  * TODO
  * <ul>
+ * <li>It would be OK and better to couple the EdgeComponent with the
+ * EdgeCreator instead of listening to the EventBus (EdgeEditListener)!</li>
  * <li>Create a segment which is invisible, but connected, to the source
  * components center, avoiding flickering.</li>
  * <li>create subclass for unfinished EdgeComponent</li>
