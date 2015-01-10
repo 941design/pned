@@ -1,16 +1,18 @@
 package de.markusrother.pned.gui.actions;
 
 import javax.swing.AbstractAction;
+import javax.swing.Action;
 
-import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.control.PnState;
+import de.markusrother.pned.gui.control.commands.PnCommandTarget;
 
 /**
  * <p>
- * Abstract superclass for actions which may depend on a given {@link de.markusrother.pned.gui.control.PnState} -
- * the state of a {@link de.markusrother.pned.core.model.PetriNetModel} combined
- * with a {@link de.markusrother.pned.gui.components.PnFrame}. For example, a
- * certain action may only be available when certain conditions are met.
+ * Abstract superclass for actions which may depend on a given
+ * {@link de.markusrother.pned.gui.control.PnState} - the state of a
+ * {@link de.markusrother.pned.core.model.PetriNetModel} combined with a
+ * {@link de.markusrother.pned.gui.components.PnFrame}. For example, a certain
+ * action may only be available when certain conditions are met.
  * </p>
  * <p>
  * Usually, but not necessarily, subclasses post a command to the
@@ -26,6 +28,7 @@ abstract class AbstractStatefulAction extends AbstractAction {
 
 	/** The current state. */
 	protected final PnState state;
+	protected final PnCommandTarget commandTarget;
 
 	/**
 	 * <p>
@@ -35,25 +38,19 @@ abstract class AbstractStatefulAction extends AbstractAction {
 	 * @param name
 	 *            a {@link java.lang.String} - this action's name.
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.control.PnState} - the current
-	 *            state.
+	 *            a {@link de.markusrother.pned.gui.control.PnState} - the
+	 *            current state.
 	 */
-	public AbstractStatefulAction(final String name, final PnState state) {
+	public AbstractStatefulAction(final PnState state, final PnCommandTarget commandTarget, final String name) {
 		super(name);
 		this.state = state;
+		this.commandTarget = commandTarget;
 	}
 
-	/**
-	 * <p>
-	 * Returns the {@link de.markusrother.pned.gui.control.PnEventBus}
-	 * associated with the current state.
-	 * </p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.control.PnEventBus} - the event
-	 *         target to which events are posted to.
-	 */
-	protected PnEventBus getEventBus() {
-		return state.getEventBus();
+	public AbstractStatefulAction(final PnState state, final PnCommandTarget commandTarget, final String name,
+			final int mnemonic) {
+		this(state, commandTarget, name);
+		putValue(Action.MNEMONIC_KEY, mnemonic);
 	}
 
 }

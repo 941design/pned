@@ -64,7 +64,7 @@ public class PnMenuFactory {
 	 * @return a {@link javax.swing.JMenu} object.
 	 */
 	public JMenu newPreferencesMenu() {
-		return new PnPreferencesMenu(state.getEventBus());
+		return new PnPreferencesMenu(state, state.getEventBus());
 	}
 
 	/**

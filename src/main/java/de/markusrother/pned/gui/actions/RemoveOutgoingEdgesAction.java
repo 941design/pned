@@ -5,9 +5,9 @@ import java.util.Collection;
 
 import javax.swing.JMenuItem;
 
-import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.control.PnState;
 import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
+import de.markusrother.pned.gui.control.commands.PnCommandTarget;
 
 /**
  * <p>
@@ -34,12 +34,12 @@ public class RemoveOutgoingEdgesAction extends AbstractStatefulAction {
 	 * </p>
 	 *
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.control.PnState} - the current
-	 *            state.
+	 *            a {@link de.markusrother.pned.gui.control.PnState} - the
+	 *            current state.
 	 * @return a {@link javax.swing.JMenuItem} - the created menu item.
 	 */
-	public static JMenuItem newMenuItem(final PnState state) {
-		return new JMenuItem(new RemoveOutgoingEdgesAction(state));
+	public static JMenuItem newMenuItem(final PnState state, final PnCommandTarget commandTarget) {
+		return new JMenuItem(new RemoveOutgoingEdgesAction(state, commandTarget));
 	}
 
 	/**
@@ -48,11 +48,11 @@ public class RemoveOutgoingEdgesAction extends AbstractStatefulAction {
 	 * </p>
 	 *
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.control.PnState} - the current
-	 *            state.
+	 *            a {@link de.markusrother.pned.gui.control.PnState} - the
+	 *            current state.
 	 */
-	public RemoveOutgoingEdgesAction(final PnState state) {
-		super(name, state);
+	public RemoveOutgoingEdgesAction(final PnState state, final PnCommandTarget commandTarget) {
+		super(state, commandTarget, name);
 		setEnabled(state.areSourceNodesSelected());
 	}
 
@@ -61,9 +61,8 @@ public class RemoveOutgoingEdgesAction extends AbstractStatefulAction {
 	public void actionPerformed(final ActionEvent e) {
 		// directly!?
 		final Collection<String> edgeIds = state.getSelectedOutgoingEdgeIds();
-		final PnEventBus eventBus = getEventBus();
 		for (final String edgeId : edgeIds) {
-			eventBus.removeEdge(new EdgeRemoveCommand(this, edgeId));
+			commandTarget.removeEdge(new EdgeRemoveCommand(this, edgeId));
 		}
 	}
 

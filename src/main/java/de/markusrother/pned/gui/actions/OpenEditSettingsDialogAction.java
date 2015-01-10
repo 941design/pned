@@ -7,6 +7,7 @@ import javax.swing.Action;
 import javax.swing.JMenuItem;
 
 import de.markusrother.pned.gui.components.dialogs.EditSettingsDialog;
+import de.markusrother.pned.gui.control.PnState;
 import de.markusrother.pned.gui.control.commands.PnCommandTarget;
 
 /**
@@ -19,7 +20,7 @@ import de.markusrother.pned.gui.control.commands.PnCommandTarget;
  * @author Markus Rother
  * @version 1.0
  */
-public class OpenEditSettingsDialogAction extends AbstractStatelessAction {
+public class OpenEditSettingsDialogAction extends AbstractStatefulAction {
 
 	/** Constant <code>label="Settings"</code> */
 	private static final String name = "Settings";
@@ -39,8 +40,8 @@ public class OpenEditSettingsDialogAction extends AbstractStatelessAction {
 	 *            to be posted to.
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
 	 */
-	public static JMenuItem newMenuItem(final PnCommandTarget commandTarget) {
-		final Action action = new OpenEditSettingsDialogAction(commandTarget);
+	public static JMenuItem newMenuItem(final PnState state, final PnCommandTarget commandTarget) {
+		final Action action = new OpenEditSettingsDialogAction(state, commandTarget);
 		return new JMenuItem(action);
 	}
 
@@ -54,14 +55,14 @@ public class OpenEditSettingsDialogAction extends AbstractStatelessAction {
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
 	 */
-	public OpenEditSettingsDialogAction(final PnCommandTarget commandTarget) {
-		super(commandTarget, name, mnemonic);
+	public OpenEditSettingsDialogAction(final PnState state, final PnCommandTarget commandTarget) {
+		super(state, commandTarget, name, mnemonic);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		EditSettingsDialog.open(commandTarget);
+		EditSettingsDialog.open(state, commandTarget);
 	}
 
 }

@@ -7,6 +7,7 @@ import javax.swing.Action;
 import javax.swing.JMenuItem;
 
 import de.markusrother.pned.gui.control.PnState;
+import de.markusrother.pned.gui.control.commands.PnCommandTarget;
 import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.control.events.NodeSelectionListener;
 import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
@@ -40,12 +41,12 @@ public class RemoveSelectedNodesAction extends AbstractStatefulAction
 	 * </p>
 	 *
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.control.PnState} - the current
-	 *            state.
+	 *            a {@link de.markusrother.pned.gui.control.PnState} - the
+	 *            current state.
 	 * @return a {@link javax.swing.JMenuItem} - the created menu item.
 	 */
-	public static JMenuItem newMenuItem(final PnState state) {
-		return new JMenuItem(new RemoveSelectedNodesAction(state));
+	public static JMenuItem newMenuItem(final PnState state, final PnCommandTarget commandTarget) {
+		return new JMenuItem(new RemoveSelectedNodesAction(state, commandTarget));
 	}
 
 	/**
@@ -54,11 +55,11 @@ public class RemoveSelectedNodesAction extends AbstractStatefulAction
 	 * </p>
 	 *
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.control.PnState} - the current
-	 *            state.
+	 *            a {@link de.markusrother.pned.gui.control.PnState} - the
+	 *            current state.
 	 */
-	public RemoveSelectedNodesAction(final PnState state) {
-		super(name, state);
+	public RemoveSelectedNodesAction(final PnState state, final PnCommandTarget commandTarget) {
+		super(state, commandTarget, name);
 
 		putValue(Action.MNEMONIC_KEY, mnemonic);
 		setEnabled(state.areNodesSelected());
@@ -71,7 +72,7 @@ public class RemoveSelectedNodesAction extends AbstractStatefulAction
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 		// TODO - iterate over selection and post one event each!
-		getEventBus().removeSelectedNodes(new RemoveSelectedNodesEvent(this));
+		commandTarget.removeSelectedNodes(new RemoveSelectedNodesEvent(this));
 		setEnabled(false);
 	}
 

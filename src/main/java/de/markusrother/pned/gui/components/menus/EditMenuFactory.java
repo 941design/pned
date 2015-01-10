@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
 import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.event.MenuEvent;
@@ -19,6 +18,7 @@ import de.markusrother.pned.gui.actions.RemoveIncomingEdgesAction;
 import de.markusrother.pned.gui.actions.RemoveOutgoingEdgesAction;
 import de.markusrother.pned.gui.actions.RemoveSelectedNodesAction;
 import de.markusrother.pned.gui.control.PnState;
+import de.markusrother.pned.gui.control.commands.PnCommandTarget;
 
 /**
  * <p>
@@ -139,12 +139,10 @@ public class EditMenuFactory
 		component.add(transitionItem);
 		transitionItem.setSelected(state.getNodeCreationMode() == PnState.NodeCreationMode.TRANSITION);
 
-		final JMenuItem removeNodesItem = RemoveSelectedNodesAction.newMenuItem(state);
-
-		component.add(removeNodesItem);
-
-		component.add(RemoveOutgoingEdgesAction.newMenuItem(state));
-		component.add(RemoveIncomingEdgesAction.newMenuItem(state));
+		final PnCommandTarget commandTarget = state.getEventBus();
+		component.add(RemoveSelectedNodesAction.newMenuItem(state, commandTarget));
+		component.add(RemoveOutgoingEdgesAction.newMenuItem(state, commandTarget));
+		component.add(RemoveIncomingEdgesAction.newMenuItem(state, commandTarget));
 	}
 
 }

@@ -12,12 +12,13 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import de.markusrother.pned.gui.control.PnState;
 import de.markusrother.pned.gui.control.commands.EdgeLayoutCommand;
+import de.markusrother.pned.gui.control.commands.LayoutCommand.ChangeType;
 import de.markusrother.pned.gui.control.commands.MarkingLayoutCommand;
 import de.markusrother.pned.gui.control.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.control.commands.PnCommandTarget;
 import de.markusrother.pned.gui.control.commands.TransitionLayoutCommand;
-import de.markusrother.pned.gui.control.commands.LayoutCommand.ChangeType;
 import de.markusrother.swing.ScaleGroup;
 
 /**
@@ -35,11 +36,8 @@ public class EditSettingsDialog extends AbstractDialog {
 
 	/** Constant <code>title="Settings"</code> - this dialog's title. */
 	private static final String title = "Settings";
-	/**
-	 * Constant <code>preferredSize=new Dimension(700, 1000)</code> - this
-	 * dialog's preferred size.
-	 */
-	private static final Dimension preferredSize = new Dimension(700, 1000);
+	/** This dialog's preferred size. */
+	private static final Dimension preferredSize = new Dimension(450, 300);
 
 	/**
 	 * <p>
@@ -51,9 +49,9 @@ public class EditSettingsDialog extends AbstractDialog {
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
 	 */
-	public static void open(final PnCommandTarget commandTarget) {
+	public static void open(final PnState state, final PnCommandTarget commandTarget) {
 		// TODO - take parent component and model
-		final EditSettingsDialog editSettingsDialog = new EditSettingsDialog(commandTarget);
+		final EditSettingsDialog editSettingsDialog = new EditSettingsDialog(state, commandTarget);
 		editSettingsDialog.pack();
 		editSettingsDialog.setVisible(true);
 	}
@@ -67,9 +65,10 @@ public class EditSettingsDialog extends AbstractDialog {
 	 *            an
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
+	 * @param commandTarget2
 	 */
-	private EditSettingsDialog(final PnCommandTarget commandTarget) {
-		super(commandTarget, title);
+	private EditSettingsDialog(final PnState state, final PnCommandTarget commandTarget) {
+		super(state, commandTarget, title);
 
 		setPreferredSize(preferredSize);
 
@@ -90,8 +89,8 @@ public class EditSettingsDialog extends AbstractDialog {
 
 	/**
 	 * <p>
-	 * Creates and returns {@link de.markusrother.swing.ScaleGroup} for adjusting place size for all
-	 * nodes.
+	 * Creates and returns {@link de.markusrother.swing.ScaleGroup} for
+	 * adjusting place size for all nodes.
 	 * </p>
 	 *
 	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
@@ -111,8 +110,8 @@ public class EditSettingsDialog extends AbstractDialog {
 
 	/**
 	 * <p>
-	 * Creates and returns {@link de.markusrother.swing.ScaleGroup} for adjusting transition size for
-	 * all nodes.
+	 * Creates and returns {@link de.markusrother.swing.ScaleGroup} for
+	 * adjusting transition size for all nodes.
 	 * </p>
 	 *
 	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
@@ -132,8 +131,8 @@ public class EditSettingsDialog extends AbstractDialog {
 
 	/**
 	 * <p>
-	 * Creates and returns {@link de.markusrother.swing.ScaleGroup} for adjusting marking size for all
-	 * markings.
+	 * Creates and returns {@link de.markusrother.swing.ScaleGroup} for
+	 * adjusting marking size for all markings.
 	 * </p>
 	 *
 	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
@@ -153,8 +152,8 @@ public class EditSettingsDialog extends AbstractDialog {
 
 	/**
 	 * <p>
-	 * Creates and returns {@link de.markusrother.swing.ScaleGroup} for adjusting edge tip size for
-	 * all edges.
+	 * Creates and returns {@link de.markusrother.swing.ScaleGroup} for
+	 * adjusting edge tip size for all edges.
 	 * </p>
 	 *
 	 * @return a {@link de.markusrother.swing.ScaleGroup} object.
