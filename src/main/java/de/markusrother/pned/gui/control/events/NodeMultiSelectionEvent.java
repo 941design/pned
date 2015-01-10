@@ -15,6 +15,7 @@ import de.markusrother.util.JsonSerializable;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.gui.control.events.NodeSelectionListener
  */
 public class NodeMultiSelectionEvent extends EventObject
 	implements
@@ -75,7 +76,8 @@ public class NodeMultiSelectionEvent extends EventObject
 	 * Getter for the field <code>type</code>.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent.Type}
+	 * @return a
+	 *         {@link de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent.Type}
 	 *         object.
 	 */
 	public Type getType() {

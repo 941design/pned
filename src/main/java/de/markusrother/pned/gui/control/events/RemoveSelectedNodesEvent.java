@@ -11,6 +11,7 @@ import java.util.EventObject;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.gui.components.listeners.NodeRemovalListener
  */
 public class RemoveSelectedNodesEvent extends EventObject {
 

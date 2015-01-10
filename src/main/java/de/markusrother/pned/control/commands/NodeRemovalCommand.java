@@ -14,6 +14,7 @@ import de.markusrother.util.JsonSerializable;
  * @author Markus Rother
  * @version 1.0
  * @see de.markusrother.pned.control.EventBus
+ * @see de.markusrother.pned.gui.components.listeners.NodeRemovalListener
  */
 public class NodeRemovalCommand extends EventObject
 	implements

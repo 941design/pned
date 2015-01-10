@@ -10,6 +10,7 @@ import de.markusrother.util.JsonSerializable;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.control.commands.EdgeCreationListener
  */
 public class EdgeRemoveCommand extends EventObject
 	implements
@@ -18,10 +19,14 @@ public class EdgeRemoveCommand extends EventObject
 	private final String edgeId;
 
 	/**
-	 * <p>Constructor for EdgeRemoveCommand.</p>
+	 * <p>
+	 * Constructor for EdgeRemoveCommand.
+	 * </p>
 	 *
-	 * @param source a {@link java.lang.Object} object.
-	 * @param edgeId a {@link java.lang.String} object.
+	 * @param source
+	 *            a {@link java.lang.Object} object.
+	 * @param edgeId
+	 *            a {@link java.lang.String} object.
 	 */
 	public EdgeRemoveCommand(final Object source, final String edgeId) {
 		super(source);
@@ -29,7 +34,9 @@ public class EdgeRemoveCommand extends EventObject
 	}
 
 	/**
-	 * <p>Getter for the field <code>edgeId</code>.</p>
+	 * <p>
+	 * Getter for the field <code>edgeId</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.
 	 */

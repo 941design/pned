@@ -9,6 +9,7 @@ import java.util.EventObject;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.gui.control.commands.PetriNetListener
  */
 public class PetriNetEditCommand extends EventObject {
 
@@ -36,9 +37,13 @@ public class PetriNetEditCommand extends EventObject {
 	}
 
 	/**
-	 * <p>Getter for the field <code>type</code>.</p>
+	 * <p>
+	 * Getter for the field <code>type</code>.
+	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.control.commands.PetriNetEditCommand.Type} object.
+	 * @return a
+	 *         {@link de.markusrother.pned.gui.control.commands.PetriNetEditCommand.Type}
+	 *         object.
 	 */
 	public Type getType() {
 		return type;

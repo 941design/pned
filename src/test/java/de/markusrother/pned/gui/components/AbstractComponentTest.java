@@ -17,7 +17,7 @@ import de.markusrother.pned.control.commands.LabelEditListener;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.MarkingEditListener;
-import de.markusrother.pned.control.commands.TransitionActivationListener;
+import de.markusrother.pned.control.events.TransitionActivationListener;
 import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.control.commands.EdgeLayoutListener;

@@ -16,6 +16,7 @@ import de.markusrother.util.JsonSerializable;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.gui.control.requests.NodeRequestListener
  */
 public class NodeRequest extends Request<AbstractNode>
 	implements

@@ -10,6 +10,7 @@ package de.markusrother.pned.control.events;
  * @version 1.0
  * @see de.markusrother.pned.control.commands.MarkingEditCommand
  * @see de.markusrother.pned.control.EventBus
+ * @see de.markusrother.pned.control.events.MarkingEventListener
  */
 public class MarkingChangeEvent extends MarkingEventObject {
 

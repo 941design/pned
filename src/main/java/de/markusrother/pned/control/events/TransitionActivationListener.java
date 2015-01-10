@@ -1,8 +1,6 @@
-package de.markusrother.pned.control.commands;
+package de.markusrother.pned.control.events;
 
 import java.util.EventListener;
-
-import de.markusrother.pned.control.events.TransitionActivationEvent;
 
 /**
  * <p>

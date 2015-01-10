@@ -1,6 +1,5 @@
 package de.markusrother.pned.control.events;
 
-import de.markusrother.pned.control.commands.TransitionActivationListener;
 
 /**
  * <p>

@@ -11,6 +11,7 @@ import java.awt.Point;
  * @author Markus Rother
  * @version 1.0
  * @see de.markusrother.pned.control.EventBus
+ * @see de.markusrother.pned.control.commands.NodeCreationListener
  */
 public class TransitionCreationCommand extends AbstractNodeCreationCommand {
 

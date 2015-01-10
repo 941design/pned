@@ -1,11 +1,15 @@
 package de.markusrother.pned;
 
+import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.EventListener;
+import java.util.EventObject;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -20,6 +24,8 @@ import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaMethod;
 import com.thoughtworks.qdox.model.JavaParameter;
 import com.thoughtworks.qdox.model.JavaType;
+
+import de.markusrother.pned.control.requests.Request;
 
 public class JavadocTest {
 
@@ -38,6 +44,52 @@ public class JavadocTest {
 
 	private Collection<JavaClass> getClasses() {
 		return getBuilder().getClasses();
+	}
+
+	private Collection<JavaClass> getListenerClasses() {
+		final Collection<JavaClass> listeners = new LinkedList<>();
+		final Collection<JavaClass> classes = getClasses();
+		for (final JavaClass clazz : classes) {
+			if (isListener(clazz)) {
+				listeners.add(clazz);
+			}
+		}
+		return listeners;
+	}
+
+	private boolean isListener(final JavaClass clazz) {
+		// TODO - Simplify isA should do!
+		if (!clazz.isInterface()) {
+			return false;
+		}
+		final List<JavaClass> interfaces = clazz.getInterfaces();
+		if (interfaces.isEmpty()) {
+			return false;
+		}
+		for (final JavaClass iface : interfaces) {
+			if (iface.isA(EventListener.class.getName())) {
+				return true;
+			}
+			if (isListener(iface)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private Collection<JavaClass> getEventClasses() {
+		final Collection<JavaClass> events = new LinkedList<>();
+		final Collection<JavaClass> classes = getClasses();
+		for (final JavaClass clazz : classes) {
+			if (isEvent(clazz) && !clazz.getFullyQualifiedName().equals(Request.class.getName())) {
+				events.add(clazz);
+			}
+		}
+		return events;
+	}
+
+	private boolean isEvent(final JavaClass clazz) {
+		return clazz.isA(EventObject.class.getName());
 	}
 
 	static abstract class MethodMatcher extends BaseMatcher<JavaMethod> {
@@ -86,6 +138,32 @@ public class JavadocTest {
 
 	}
 
+	static abstract class ClassMatcher extends BaseMatcher<JavaClass> {
+
+		private JavaClass classUnderTest;
+		private String causeOfFailure;
+
+		@Override
+		public boolean matches(final Object item) {
+			this.classUnderTest = (JavaClass) item;
+			return matches(classUnderTest);
+		}
+
+		abstract boolean matches(final JavaClass clazz);
+
+		@Override
+		public void describeTo(final Description description) {
+			description.appendValue(classUnderTest);
+			description.appendValue(causeOfFailure);
+		}
+
+		protected boolean mismatch(final String cause) {
+			this.causeOfFailure = cause;
+			return false;
+		}
+
+	}
+
 	@Test
 	public void testAllParamsHaveDocletInParameterOrder() {
 		final Matcher<JavaMethod> matcher = new MethodMatcher() {
@@ -117,6 +195,32 @@ public class JavadocTest {
 			}
 		};
 		assertMatchesAllMethods(matcher);
+	}
+
+	@Test
+	public void testSeeAlsoDocletsOfEventsHaveQualifiedReferenceToListener() {
+		final Collection<JavaClass> listenerClasses = getListenerClasses();
+		final Collection<JavaClass> eventClasses = getEventClasses();
+		assertThat(eventClasses, everyItem(new ClassMatcher() {
+
+			@Override
+			boolean matches(final JavaClass clazz) {
+				if (clazz.isAbstract()) {
+					return true;
+				}
+				final List<DocletTag> tags = clazz.getTagsByName("see");
+				if (tags.isEmpty()) {
+					return mismatch("No tag: @see");
+				}
+				for (final DocletTag tag : tags) {
+					final String value = tag.getValue();
+					if (value.contains("Listener")) {
+						return true;
+					}
+				}
+				return false;
+			}
+		}));
 	}
 
 	private void assertMatchesAllMethods(final Matcher<JavaMethod> matcher) {

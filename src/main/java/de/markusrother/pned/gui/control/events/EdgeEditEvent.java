@@ -19,6 +19,7 @@ import de.markusrother.util.JsonSerializable;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.gui.control.events.EdgeEditListener
  */
 public class EdgeEditEvent extends EventObject
 	implements
@@ -44,7 +45,8 @@ public class EdgeEditEvent extends EventObject
 	 * </p>
 	 *
 	 * @param type
-	 *            a {@link de.markusrother.pned.gui.control.events.EdgeEditEvent.Type}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.control.events.EdgeEditEvent.Type}
 	 *            object.
 	 * @param source
 	 *            a {@link java.lang.Object} object.
@@ -72,7 +74,8 @@ public class EdgeEditEvent extends EventObject
 	 * Getter for the field <code>type</code>.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.control.events.EdgeEditEvent.Type}
+	 * @return a
+	 *         {@link de.markusrother.pned.gui.control.events.EdgeEditEvent.Type}
 	 *         object.
 	 */
 	public Type getType() {

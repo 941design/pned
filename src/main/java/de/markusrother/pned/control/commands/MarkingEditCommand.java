@@ -10,8 +10,9 @@ import de.markusrother.pned.control.events.MarkingEventObject;
  *
  * @author Markus Rother
  * @version 1.0
- * @see de.markusrother.pned.control.commands.MarkingEditCommand
  * @see de.markusrother.pned.control.EventBus
+ * @see de.markusrother.pned.control.commands.MarkingEditListener
+ * @see de.markusrother.pned.control.events.MarkingChangeEvent
  */
 public class MarkingEditCommand extends MarkingEventObject {
 

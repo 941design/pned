@@ -15,6 +15,7 @@ import de.markusrother.util.JsonSerializable;
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.gui.control.commands.NodeListener
  */
 public class SetNodeTypeCommand extends EventObject
 	implements
@@ -30,7 +31,8 @@ public class SetNodeTypeCommand extends EventObject
 	 * @param source
 	 *            a {@link java.lang.Object} object.
 	 * @param mode
-	 *            a {@link de.markusrother.pned.gui.core.NodeCreationMode} object.
+	 *            a {@link de.markusrother.pned.gui.core.NodeCreationMode}
+	 *            object.
 	 */
 	public SetNodeTypeCommand(final Object source, final NodeCreationMode mode) {
 		super(source);
