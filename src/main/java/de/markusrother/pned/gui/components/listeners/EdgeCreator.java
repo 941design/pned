@@ -4,7 +4,6 @@ import static de.markusrother.pned.gui.control.events.EdgeEditEvent.Type.COMPONE
 import static de.markusrother.pned.gui.control.events.EdgeEditEvent.Type.COMPONENT_EXITED;
 import static de.markusrother.pned.gui.control.events.EdgeEditEvent.Type.EDGE_CANCELLED;
 import static de.markusrother.pned.gui.control.events.EdgeEditEvent.Type.EDGE_FINISHED;
-import static de.markusrother.pned.gui.control.events.EdgeEditEvent.Type.EDGE_MOVED;
 import static de.markusrother.pned.gui.control.events.EdgeEditEvent.Type.EDGE_STARTED;
 import static de.markusrother.swing.SwingUtils.getCenter;
 
@@ -22,14 +21,22 @@ import de.markusrother.pned.gui.control.events.EdgeEditEvent;
 import de.markusrother.swing.MultiClickListener;
 
 /**
- * TODO - This could be split into an initial listener for receiving the double
- * click and an EdgeDrawListener or EdgeEditor. That would avoid all the
- * duplicated edge != null checks.
- *
- * TODO - Drawing could also start upon exit!
+ * <p>
+ * Creator of {@link de.markusrother.pned.gui.components.EdgeComponent}s,
+ * responding to mouse events while drawing the edge.
+ * </p>
+ * 
+ * TODO
+ * <ul>
+ * <li>This could be split into a) one listener for receiving the double click
+ * event and b) another listener for executing the actual drawing. That would
+ * avoid all the duplicated edge != null checks.</li>
+ * <li>Drawing should start upon exiting a component</li>
+ * </ul>
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.gui.control.PnEventBus
  */
 public class EdgeCreator extends MultiClickListener {
 
@@ -47,7 +54,8 @@ public class EdgeCreator extends MultiClickListener {
 	 * @param component
 	 *            a {@link java.awt.Component} object.
 	 * @param listener
-	 *            a {@link de.markusrother.pned.gui.components.listeners.EdgeCreator}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.listeners.EdgeCreator}
 	 *            object.
 	 */
 	public static void addToComponent(final Component component, final EdgeCreator listener) {
@@ -63,7 +71,8 @@ public class EdgeCreator extends MultiClickListener {
 	 * @param component
 	 *            a {@link java.awt.Component} object.
 	 * @param listener
-	 *            a {@link de.markusrother.pned.gui.components.listeners.EdgeCreator}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.listeners.EdgeCreator}
 	 *            object.
 	 */
 	public static void removeFromComponent(final Component component, final EdgeCreator listener) {
@@ -80,7 +89,9 @@ public class EdgeCreator extends MultiClickListener {
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param container
 	 *            a {@link java.awt.Container} object.
-	 * @param edgeFactory a {@link de.markusrother.pned.gui.components.EdgeFactory} object.
+	 * @param edgeFactory
+	 *            a {@link de.markusrother.pned.gui.components.EdgeFactory}
+	 *            object.
 	 */
 	public EdgeCreator(final PnEventBus eventBus, final EdgeFactory edgeFactory, final Container container) {
 		this.eventBus = eventBus;
@@ -288,11 +299,7 @@ public class EdgeCreator extends MultiClickListener {
 	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	private void doMoveEdge(final MouseEvent e) {
-		eventBus.edgeMoved(new EdgeEditEvent(this, //
-				EDGE_MOVED, //
-				edge, //
-				getParentRelativeLocation(e), //
-				e.getComponent()));
+		edge.setUnboundTarget(getParentRelativeLocation(e));
 		container.revalidate();
 		container.repaint();
 	}
@@ -315,6 +322,8 @@ public class EdgeCreator extends MultiClickListener {
 	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	private void doEnterComponent(final MouseEvent e) {
+		// TODO - Let transitions listen to this event to do preview
+		// highlighting.
 		eventBus.componentEntered(new EdgeEditEvent(this, //
 				COMPONENT_ENTERED, //
 				edge, //

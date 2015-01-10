@@ -457,12 +457,6 @@ public abstract class AbstractNode extends JPanel
 
 	/** {@inheritDoc} */
 	@Override
-	public void edgeMoved(final EdgeEditEvent e) {
-		// IGNORE
-	}
-
-	/** {@inheritDoc} */
-	@Override
 	public void edgeCancelled(final EdgeEditEvent e) {
 		installListeners();
 	}

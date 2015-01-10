@@ -139,14 +139,6 @@ public class PnEventBus extends EventBus
 
 	/** {@inheritDoc} */
 	@Override
-	public void edgeMoved(final EdgeEditEvent e) {
-		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
-			l.edgeMoved(e);
-		}
-	}
-
-	/** {@inheritDoc} */
-	@Override
 	public void edgeCancelled(final EdgeEditEvent e) {
 		for (final EdgeEditListener l : getListeners(EdgeEditListener.class)) {
 			l.edgeCancelled(e);

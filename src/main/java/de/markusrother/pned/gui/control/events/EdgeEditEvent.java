@@ -26,7 +26,6 @@ public class EdgeEditEvent extends EventObject
 
 	public enum Type {
 		EDGE_STARTED,
-		EDGE_MOVED,
 		EDGE_CANCELLED,
 		EDGE_FINISHED,
 		COMPONENT_ENTERED,

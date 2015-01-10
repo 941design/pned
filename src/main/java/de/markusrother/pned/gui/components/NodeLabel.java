@@ -228,12 +228,6 @@ public class NodeLabel extends JLabel
 
 	/** {@inheritDoc} */
 	@Override
-	public void edgeMoved(final EdgeEditEvent e) {
-		// IGNORE
-	}
-
-	/** {@inheritDoc} */
-	@Override
 	public void edgeCancelled(final EdgeEditEvent e) {
 		installListeners();
 	}

@@ -329,30 +329,6 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 
 	/** {@inheritDoc} */
 	@Override
-	public void edgeMoved(final EdgeEditEvent e) {
-		if (e.getEdge() != this) {
-			// IGNORE - Not interested in other edges events.
-			return;
-		}
-		if (sourceComponent.equals(e.getComponent())) {
-			// IGNORE - Just moving around on source component.
-			return;
-		}
-		if (hasTargetComponent() && targetComponent.equals(e.getComponent())) {
-			// IGNORE - Just moving around on target component.
-			return;
-		}
-		// e.component() may or may not be a valid target. We are not interested
-		// on that. This method is not responsible for connecting to targets!
-		// That is done when entering potential target components. Also, we rely
-		// on target removal on exiting components. Therefore, we can safely
-		// connect to the point, without being bound to any target component.
-		setUnboundTarget(e.getLocation());
-		repaint();
-	}
-
-	/** {@inheritDoc} */
-	@Override
 	public void edgeCancelled(final EdgeEditEvent e) {
 		if (e.getEdge() != this) {
 			// IGNORE - Not interested in other edges events.

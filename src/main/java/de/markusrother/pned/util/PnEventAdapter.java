@@ -170,12 +170,6 @@ public abstract class PnEventAdapter
 
 	/** {@inheritDoc} */
 	@Override
-	public void edgeMoved(final EdgeEditEvent e) {
-		process(e);
-	}
-
-	/** {@inheritDoc} */
-	@Override
 	public void edgeCancelled(final EdgeEditEvent e) {
 		process(e);
 	}

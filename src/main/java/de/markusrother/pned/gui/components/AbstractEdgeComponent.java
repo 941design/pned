@@ -17,9 +17,12 @@ import javax.swing.JComponent;
 public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U extends Component & DefinitelyBounded> extends JComponent {
 
 	/**
-	 * <p>round.</p>
+	 * <p>
+	 * round.
+	 * </p>
 	 *
-	 * @param point a {@link java.awt.geom.Point2D} object.
+	 * @param point
+	 *            a {@link java.awt.geom.Point2D} object.
 	 * @return a {@link java.awt.Point} object.
 	 */
 	private static Point round(final Point2D point) {
@@ -35,14 +38,22 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	U targetComponent;
 
 	/**
-	 * <p>Constructor for AbstractEdgeComponent.</p>
+	 * <p>
+	 * Constructor for AbstractEdgeComponent.
+	 * </p>
 	 *
-	 * @param sourceComponent a T object.
-	 * @param targetComponent a U object.
-	 * @param sourceComponent a T object.
-	 * @param source a {@link java.awt.Point} object.
-	 * @param targetComponent a U object.
-	 * @param target a {@link java.awt.Point} object.
+	 * @param sourceComponent
+	 *            a T object.
+	 * @param targetComponent
+	 *            a U object.
+	 * @param sourceComponent
+	 *            a T object.
+	 * @param source
+	 *            a {@link java.awt.Point} object.
+	 * @param targetComponent
+	 *            a U object.
+	 * @param target
+	 *            a {@link java.awt.Point} object.
 	 */
 	public AbstractEdgeComponent(final T sourceComponent, final U targetComponent, final Point source,
 			final Point target) {
@@ -53,7 +64,9 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	}
 
 	/**
-	 * <p>Getter for the field <code>sourceComponent</code>.</p>
+	 * <p>
+	 * Getter for the field <code>sourceComponent</code>.
+	 * </p>
 	 *
 	 * @return a T object.
 	 */
@@ -62,7 +75,9 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	}
 
 	/**
-	 * <p>Getter for the field <code>targetComponent</code>.</p>
+	 * <p>
+	 * Getter for the field <code>targetComponent</code>.
+	 * </p>
 	 *
 	 * @return a U object.
 	 */
@@ -71,7 +86,9 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	}
 
 	/**
-	 * <p>getAngle.</p>
+	 * <p>
+	 * getAngle.
+	 * </p>
 	 *
 	 * @return a double.
 	 */
@@ -80,9 +97,12 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	}
 
 	/**
-	 * <p>Setter for the field <code>sourceComponent</code>.</p>
+	 * <p>
+	 * Setter for the field <code>sourceComponent</code>.
+	 * </p>
 	 *
-	 * @param sourceComponent a T object.
+	 * @param sourceComponent
+	 *            a T object.
 	 */
 	public void setSourceComponent(final T sourceComponent) {
 		this.sourceComponent = sourceComponent;
@@ -90,9 +110,12 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	}
 
 	/**
-	 * <p>Setter for the field <code>targetComponent</code>.</p>
+	 * <p>
+	 * Setter for the field <code>targetComponent</code>.
+	 * </p>
 	 *
-	 * @param targetComponent a U object.
+	 * @param targetComponent
+	 *            a U object.
 	 */
 	public void setTargetComponent(final U targetComponent) {
 		this.targetComponent = targetComponent;
@@ -100,7 +123,9 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	}
 
 	/**
-	 * <p>hasSourceComponent.</p>
+	 * <p>
+	 * hasSourceComponent.
+	 * </p>
 	 *
 	 * @return a boolean.
 	 */
@@ -109,7 +134,9 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	}
 
 	/**
-	 * <p>hasTargetComponent.</p>
+	 * <p>
+	 * hasTargetComponent.
+	 * </p>
 	 *
 	 * @return a boolean.
 	 */
@@ -118,23 +145,30 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	}
 
 	/**
-	 * <p>removeSourceComponent.</p>
+	 * <p>
+	 * removeSourceComponent.
+	 * </p>
 	 */
 	public void removeSourceComponent() {
 		sourceComponent = null;
 	}
 
 	/**
-	 * <p>removeTargetComponent.</p>
+	 * <p>
+	 * removeTargetComponent.
+	 * </p>
 	 */
 	public void removeTargetComponent() {
 		targetComponent = null;
 	}
 
 	/**
-	 * <p>setUnboundSource.</p>
+	 * <p>
+	 * setUnboundSource.
+	 * </p>
 	 *
-	 * @param source a {@link java.awt.Point} object.
+	 * @param source
+	 *            a {@link java.awt.Point} object.
 	 */
 	public void setUnboundSource(final Point source) {
 		if (sourceComponent != null) {
@@ -145,13 +179,23 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	}
 
 	/**
-	 * <p>setUnboundTarget.</p>
+	 * <p>
+	 * setUnboundTarget.
+	 * </p>
+	 * 
+	 * point may or may not be a valid target. We are not interested on that.
+	 * This method is not responsible for connecting to targets! That is done
+	 * when entering potential target components. Also, we rely on target
+	 * removal on exiting components. Therefore, we can safely connect to the
+	 * point, without being bound to any target component.
 	 *
-	 * @param target a {@link java.awt.Point} object.
+	 * @param target
+	 *            a {@link java.awt.Point} object.
 	 */
 	public void setUnboundTarget(final Point target) {
 		if (targetComponent != null) {
-			throw new IllegalArgumentException("Edge is connected to target component");
+			// Edge is already connected!
+			return;
 		}
 		this.target = target;
 		repaint();
@@ -169,9 +213,12 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	}
 
 	/**
-	 * <p>connectToSource.</p>
+	 * <p>
+	 * connectToSource.
+	 * </p>
 	 *
-	 * @param angle a double.
+	 * @param angle
+	 *            a double.
 	 */
 	private void connectToSource(final double angle) {
 		final Point intersection = sourceComponent.getLocation();
@@ -195,9 +242,12 @@ public class AbstractEdgeComponent<T extends Component & DefinitelyBounded, U ex
 	}
 
 	/**
-	 * <p>connectToTarget.</p>
+	 * <p>
+	 * connectToTarget.
+	 * </p>
 	 *
-	 * @param angle a double.
+	 * @param angle
+	 *            a double.
 	 */
 	private void connectToTarget(final double angle) {
 		final Point intersection = targetComponent.getLocation();

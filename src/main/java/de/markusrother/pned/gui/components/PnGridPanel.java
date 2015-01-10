@@ -452,12 +452,6 @@ public class PnGridPanel extends JLayeredPane
 
 	/** {@inheritDoc} */
 	@Override
-	public void edgeMoved(final EdgeEditEvent e) {
-		// IGNORE
-	}
-
-	/** {@inheritDoc} */
-	@Override
 	public void edgeCancelled(final EdgeEditEvent e) {
 		installListeners();
 	}
