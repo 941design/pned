@@ -20,6 +20,9 @@ public abstract class RightClickTextFieldEdit<T extends Component> extends Right
 	implements
 		TextListener {
 
+	protected static final boolean SUCCESSFUL = true;
+	protected static final boolean NOT_SUCCESSFUL = false;
+
 	/** Constant <code>trailingWS=10</code> */
 	private static final int trailingWS = 10;
 
@@ -117,7 +120,7 @@ public abstract class RightClickTextFieldEdit<T extends Component> extends Right
 	 * @param text
 	 *            a {@link java.lang.String} object.
 	 */
-	public abstract void finishEdit(T editedObject, String text);
+	public abstract boolean finishEdit(T editedObject, String text);
 
 	/**
 	 * <p>
@@ -183,10 +186,14 @@ public abstract class RightClickTextFieldEdit<T extends Component> extends Right
 	/** {@inheritDoc} */
 	@Override
 	public void textEntered(final ActionEvent e) {
-		finishEdit(editedObject, textField.getText());
-		removeTextField(editedObject, textField);
-		editedObject = null;
-		textField = null;
+		final boolean successful = finishEdit(editedObject, textField.getText());
+		if (successful) {
+			removeTextField(editedObject, textField);
+			editedObject = null;
+			textField = null;
+		} else {
+			textField.markInvalid();
+		}
 	}
 
 	/** {@inheritDoc} */

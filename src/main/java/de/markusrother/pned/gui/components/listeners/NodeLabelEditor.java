@@ -70,11 +70,12 @@ public class NodeLabelEditor extends RightClickTextFieldEdit<LabelComponent>
 
 	/** {@inheritDoc} */
 	@Override
-	public void finishEdit(final LabelComponent nodeLabel, final String text) {
+	public boolean finishEdit(final LabelComponent nodeLabel, final String text) {
 		eventBus.setLabel(new LabelEditCommand(this, //
 				nodeLabel.getNodeId(), //
 				text));
 		nodeLabel.setVisible(true);
+		return SUCCESSFUL;
 	}
 
 	/** {@inheritDoc} */

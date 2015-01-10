@@ -32,7 +32,7 @@ public class MarkingEditor extends RightClickTextFieldEdit<PlaceComponent>
 		NodeSelectionListener {
 
 	/** Constant <code>intPattern</code> */
-	public static final Pattern markingPattern = Pattern.compile("0|[1-9][0-9]*");
+	public static final Pattern markingPattern = Pattern.compile("[0-9]*");
 
 	private final PnEventBus eventBus;
 
@@ -74,10 +74,16 @@ public class MarkingEditor extends RightClickTextFieldEdit<PlaceComponent>
 
 	/** {@inheritDoc} */
 	@Override
-	public void finishEdit(final PlaceComponent place, final String text) {
-		eventBus.setMarking(new MarkingEditCommand(this, //
-				place.getId(), //
-				Integer.valueOf(text))); // Validated by markingPattern!
+	public boolean finishEdit(final PlaceComponent place, final String text) {
+		final String trimmed = text.replaceFirst("^0*(?!$)", "");
+		try {
+			eventBus.setMarking(new MarkingEditCommand(this, //
+					place.getId(), //
+					Integer.valueOf(trimmed))); // Validated by markingPattern!
+			return SUCCESSFUL;
+		} catch (final NumberFormatException e) {
+			return NOT_SUCCESSFUL;
+		}
 		// TODO - dispose and assert removal of listeners!
 	}
 

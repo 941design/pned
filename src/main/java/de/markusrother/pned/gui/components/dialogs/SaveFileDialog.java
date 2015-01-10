@@ -12,8 +12,9 @@ import de.markusrother.pned.gui.control.commands.PnCommandTarget;
 /**
  * <p>
  * File dialog for saving Petri nets to pnml (xml). Successful file selection
- * posts a {@link de.markusrother.pned.control.commands.PetriNetIOCommand} to the
- * provided {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}.
+ * posts a {@link de.markusrother.pned.control.commands.PetriNetIOCommand} to
+ * the provided
+ * {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}.
  * </p>
  *
  * @author Markus Rother
@@ -25,6 +26,7 @@ public class SaveFileDialog extends AbstractFileDialog {
 	private static final String title = "Save file";
 	/** Constant <code>approveButtonLabel="Save"</code> */
 	private static final String approveButtonLabel = "Save";
+	private static final String PNML_SUFFIX = ".pnml";
 
 	/**
 	 * <p>
@@ -32,7 +34,8 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * </p>
 	 *
 	 * @param commandTarget
-	 *            an {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
+	 *            an
+	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
@@ -48,7 +51,8 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * </p>
 	 *
 	 * @param commandTarget
-	 *            an {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
+	 *            an
+	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
@@ -63,7 +67,8 @@ public class SaveFileDialog extends AbstractFileDialog {
 	protected void processSelectedFile(final File file) {
 		// TODO - prompt for overwrite!
 		try {
-			final String path = file.getAbsolutePath();
+			String path = file.getAbsolutePath();
+			path = path.endsWith(PNML_SUFFIX) ? path : path + PNML_SUFFIX;
 			commandTarget.setCurrentDirectory(new PetriNetIOCommand(this, Type.CWD, new File(path)));
 			commandTarget.exportPnml(new PetriNetIOCommand(this, Type.SAVE, file));
 		} catch (final IOException e) {

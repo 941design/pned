@@ -124,11 +124,21 @@ public class CheckedTextField extends JTextField
 	public void actionPerformed(final ActionEvent e) {
 		final String text = getText();
 		if (pattern.matcher(text).matches()) {
-			setForeground(validTextColor);
+			// Marking valid must precede call to listeners, because they may
+			// set the textfield invalid again!
+			markValid();
 			fireTextEnteredEvent(e);
 		} else {
-			setForeground(invalidTextColor);
+			markInvalid();
 		}
+	}
+
+	public void markValid() {
+		setForeground(validTextColor);
+	}
+
+	public void markInvalid() {
+		setForeground(invalidTextColor);
 	}
 
 	/**
