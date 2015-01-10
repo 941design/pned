@@ -15,13 +15,14 @@ import de.markusrother.pned.core.DefaultTransition;
 
 /**
  * <p>
- * A converter of {@link de.markusrother.pned.core.DefaultPetriNet} to pnml (xml).
+ * A converter of {@link de.markusrother.pned.core.DefaultPetriNet} to pnml
+ * (xml).
  * </p>
  *
  * <p>
  * TODO - The marshaller should be able to convert the
- * {@link de.markusrother.pned.core.model.PetriNetModel} interface instead of the
- * implementation, only.
+ * {@link de.markusrother.pned.core.model.PetriNetModel} interface instead of
+ * the implementation, only.
  * </p>
  *
  * @author Markus Rother
@@ -66,11 +67,14 @@ public class PetriNetMarshaller {
 	 *             if any.
 	 */
 	public static void writeXml(final DefaultPetriNet net, final OutputStream out) throws JAXBException {
-		final Class<?>[] context = { DefaultPetriNet.class, DefaultPlace.class, DefaultTransition.class, DefaultEdge.class };
+		final Class<?>[] context = { PNMLVO.class, DefaultPetriNet.class, DefaultPlace.class,
+				DefaultTransition.class, DefaultEdge.class };
+		final PNMLVO pnml = new PNMLVO(net);
 		final JAXBContext jaxbContext = JAXBContext.newInstance(context);
 		final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		jaxbMarshaller.marshal(net, out);
+		jaxbMarshaller.setProperty(Marshaller.JAXB_ENCODING, "utf-8");
+		jaxbMarshaller.marshal(pnml, out);
 	}
 
 }

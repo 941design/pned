@@ -137,8 +137,9 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		final File file = cmd.getFile();
 		try (final FileOutputStream out = new FileOutputStream(file)) {
 			PetriNetMarshaller.writeXml(this, out);
+			// PetriNetMarshaller.writeXml(this, System.out);
 		} catch (final JAXBException e) {
-			throw new IllegalStateException();
+			throw new IllegalStateException(e);
 		}
 	}
 

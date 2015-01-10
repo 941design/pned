@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<net>
+    <place id="viptool.petrinet.datastructure.Place@1769933516">
+        <name>
+            <text>p3</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="500" y="350"/>
+        </graphics>
+        <initialMarking>0</initialMarking>
+    </place>
+    <place id="viptool.petrinet.datastructure.Place@1691183945">
+        <name>
+            <text>p9</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="350" y="150"/>
+        </graphics>
+        <initialMarking>0</initialMarking>
+    </place>
+    <place id="viptool.petrinet.datastructure.Place@1737219581">
+        <name>
+            <text>p0</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="350" y="250"/>
+        </graphics>
+        <initialMarking>0</initialMarking>
+    </place>
+    <place id="viptool.petrinet.datastructure.Place@1472025559">
+        <name>
+            <text>p8</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="600" y="500"/>
+        </graphics>
+        <initialMarking>0</initialMarking>
+    </place>
+    <place id="viptool.petrinet.datastructure.Place@1465011225">
+        <name>
+            <text>p7</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="450" y="400"/>
+        </graphics>
+        <initialMarking>1</initialMarking>
+    </place>
+    <place id="viptool.petrinet.datastructure.Place@1333518620">
+        <name>
+            <text>p4</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="150" y="250"/>
+        </graphics>
+        <initialMarking>1</initialMarking>
+    </place>
+    <place id="viptool.petrinet.datastructure.Place@497410894">
+        <name>
+            <text>p2</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="550" y="250"/>
+        </graphics>
+        <initialMarking>0</initialMarking>
+    </place>
+    <place id="viptool.petrinet.datastructure.Place@2122911943">
+        <name>
+            <text>p6</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="950" y="200"/>
+        </graphics>
+        <initialMarking>0</initialMarking>
+    </place>
+    <place id="viptool.petrinet.datastructure.Place@533503941">
+        <name>
+            <text>p1</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="750" y="200"/>
+        </graphics>
+        <initialMarking>0</initialMarking>
+    </place>
+    <place id="viptool.petrinet.datastructure.Place@1112774658">
+        <name>
+            <text>p5</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="150" y="150"/>
+        </graphics>
+        <initialMarking>1</initialMarking>
+    </place>
+    <transition id="viptool.petrinet.datastructure.Transition@149481994">
+        <name>
+            <text>get water using coffee-pot</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="600" y="400"/>
+        </graphics>
+    </transition>
+    <transition id="viptool.petrinet.datastructure.Transition@778613182">
+        <name>
+            <text>turn off</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="250" y="250"/>
+        </graphics>
+    </transition>
+    <transition id="viptool.petrinet.datastructure.Transition@2005703478">
+        <name>
+            <text>unlock</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="450" y="250"/>
+        </graphics>
+    </transition>
+    <transition id="viptool.petrinet.datastructure.Transition@1707346828">
+        <name>
+            <text>empty strainer</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="650" y="250"/>
+        </graphics>
+    </transition>
+    <transition id="viptool.petrinet.datastructure.Transition@537751478">
+        <name>
+            <text>grind beans</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="250" y="150"/>
+        </graphics>
+    </transition>
+    <transition id="viptool.petrinet.datastructure.Transition@1668466983">
+        <name>
+            <text>get water using glass-pot</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="250" y="500"/>
+        </graphics>
+    </transition>
+    <transition id="viptool.petrinet.datastructure.Transition@1683672416">
+        <name>
+            <text>fill strainer</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="850" y="150"/>
+        </graphics>
+    </transition>
+    <transition id="viptool.petrinet.datastructure.Transition@512660232">
+        <name>
+            <text>assemble and turn on</text>
+            <graphics>
+                <offset x="0" y="0"/>
+            </graphics>
+        </name>
+        <graphics>
+            <position x="1050" y="250"/>
+        </graphics>
+    </transition>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@1220118032" source="viptool.petrinet.datastructure.Place@1472025559" target="viptool.petrinet.datastructure.Transition@512660232"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@430528997" source="viptool.petrinet.datastructure.Transition@778613182" target="viptool.petrinet.datastructure.Place@1737219581"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@1451983473" source="viptool.petrinet.datastructure.Place@1691183945" target="viptool.petrinet.datastructure.Transition@1683672416"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@1584140779" source="viptool.petrinet.datastructure.Place@2122911943" target="viptool.petrinet.datastructure.Transition@512660232"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@212428151" source="viptool.petrinet.datastructure.Transition@2005703478" target="viptool.petrinet.datastructure.Place@1769933516"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@7547505" source="viptool.petrinet.datastructure.Transition@1707346828" target="viptool.petrinet.datastructure.Place@533503941"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@259165512" source="viptool.petrinet.datastructure.Place@1737219581" target="viptool.petrinet.datastructure.Transition@2005703478"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@1097258707" source="viptool.petrinet.datastructure.Transition@1668466983" target="viptool.petrinet.datastructure.Place@1472025559"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@994043862" source="viptool.petrinet.datastructure.Place@1769933516" target="viptool.petrinet.datastructure.Transition@512660232"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@1428645166" source="viptool.petrinet.datastructure.Place@497410894" target="viptool.petrinet.datastructure.Transition@1707346828"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@586442103" source="viptool.petrinet.datastructure.Place@1465011225" target="viptool.petrinet.datastructure.Transition@1668466983"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@206460607" source="viptool.petrinet.datastructure.Place@1769933516" target="viptool.petrinet.datastructure.Transition@149481994"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@1798952457" source="viptool.petrinet.datastructure.Place@1112774658" target="viptool.petrinet.datastructure.Transition@537751478"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@2122048011" source="viptool.petrinet.datastructure.Place@1333518620" target="viptool.petrinet.datastructure.Transition@778613182"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@2145308663" source="viptool.petrinet.datastructure.Place@1465011225" target="viptool.petrinet.datastructure.Transition@149481994"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@1166215941" source="viptool.petrinet.datastructure.Transition@537751478" target="viptool.petrinet.datastructure.Place@1691183945"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@930016431" source="viptool.petrinet.datastructure.Place@533503941" target="viptool.petrinet.datastructure.Transition@1683672416"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@1506275421" source="viptool.petrinet.datastructure.Transition@149481994" target="viptool.petrinet.datastructure.Place@1472025559"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@1111373542" source="viptool.petrinet.datastructure.Transition@149481994" target="viptool.petrinet.datastructure.Place@1769933516"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@1188862395" source="viptool.petrinet.datastructure.Transition@2005703478" target="viptool.petrinet.datastructure.Place@497410894"/>
+    <arc id="viptool.petrinet.datastructure.DefaultEdge@488850902" source="viptool.petrinet.datastructure.Transition@1683672416" target="viptool.petrinet.datastructure.Place@2122911943"/>
+</net>

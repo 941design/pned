@@ -64,7 +64,7 @@ public class LabelVO {
 	 *
 	 * @return a {@link java.lang.String} - the textual content.
 	 */
-	@XmlElement(name = "text")
+	@XmlElement(name = "value")
 	public String getLabel() {
 		return label;
 	}

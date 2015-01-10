@@ -3,6 +3,7 @@ package de.markusrother.pned.util;
 import java.util.EventObject;
 
 import de.markusrother.pned.control.EventBus;
+import de.markusrother.pned.control.commands.PetriNetIOCommand;
 
 /**
  * <p>
@@ -25,6 +26,13 @@ public class EventLogger extends EventAdapter {
 	public static void log(final EventBus eventBus) {
 		final EventLogger logger = new EventLogger();
 		logger.setEventBus(eventBus);
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void exportPnml(final PetriNetIOCommand cmd) {
+		// TODO - If we had access to the net we could write it to System.out.
+		super.exportPnml(cmd);
 	}
 
 	/** {@inheritDoc} */

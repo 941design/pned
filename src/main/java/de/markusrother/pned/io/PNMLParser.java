@@ -76,7 +76,7 @@ import de.markusrother.pned.control.commands.TransitionCreationCommand;
 public class PNMLParser {
 
 	/** Constant <code>initialNodeOrigin</code> */
-	private static final Point initialNodeOrigin = new Point(100, 100);
+	private static final Point initialNodeOrigin = new Point(0, 0);
 
 	/**
 	 * <p>
