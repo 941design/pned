@@ -9,9 +9,9 @@ import de.markusrother.pned.control.commands.MarkingEditCommand;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
-import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.components.Place;
-import de.markusrother.pned.gui.components.Transition;
+import de.markusrother.pned.gui.components.AbstractNodeComponent;
+import de.markusrother.pned.gui.components.PlaceComponent;
+import de.markusrother.pned.gui.components.TransitionComponent;
 import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.control.events.NodeSelectionListener;
@@ -26,7 +26,7 @@ import de.markusrother.swing.RightClickTextFieldEdit;
  * @author Markus Rother
  * @version 1.0
  */
-public class MarkingEditor extends RightClickTextFieldEdit<Place>
+public class MarkingEditor extends RightClickTextFieldEdit<PlaceComponent>
 	implements
 		NodeCreationListener,
 		NodeSelectionListener {
@@ -45,7 +45,7 @@ public class MarkingEditor extends RightClickTextFieldEdit<Place>
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 */
 	public MarkingEditor(final PnEventBus eventBus) {
-		super(Place.class, markingPattern);
+		super(PlaceComponent.class, markingPattern);
 
 		this.eventBus = eventBus;
 
@@ -56,25 +56,25 @@ public class MarkingEditor extends RightClickTextFieldEdit<Place>
 
 	/** {@inheritDoc} */
 	@Override
-	public String getInitialText(final Place place) {
+	public String getInitialText(final PlaceComponent place) {
 		return String.valueOf(place.getMarking());
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void startEdit(final Place place, final MouseEvent e) {
+	public void startEdit(final PlaceComponent place, final MouseEvent e) {
 		// IGNORE
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void cancelEdit(final Place place) {
+	public void cancelEdit(final PlaceComponent place) {
 		// TODO - dispose and assert removal of listeners!
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void finishEdit(final Place place, final String text) {
+	public void finishEdit(final PlaceComponent place, final String text) {
 		eventBus.setMarking(new MarkingEditCommand(this, //
 				place.getId(), //
 				Integer.valueOf(text))); // Validated by markingPattern!
@@ -83,7 +83,7 @@ public class MarkingEditor extends RightClickTextFieldEdit<Place>
 
 	/** {@inheritDoc} */
 	@Override
-	public void addTextField(final Place place, final CheckedTextField textField) {
+	public void addTextField(final PlaceComponent place, final CheckedTextField textField) {
 		// TODO - set location
 		final Container parent = place.getParent();
 		parent.add(textField);
@@ -93,7 +93,7 @@ public class MarkingEditor extends RightClickTextFieldEdit<Place>
 
 	/** {@inheritDoc} */
 	@Override
-	public void removeTextField(final Place place, final CheckedTextField textField) {
+	public void removeTextField(final PlaceComponent place, final CheckedTextField textField) {
 		final Container parent = place.getParent();
 		parent.remove(textField);
 		parent.invalidate();
@@ -103,12 +103,12 @@ public class MarkingEditor extends RightClickTextFieldEdit<Place>
 	/** {@inheritDoc} */
 	@Override
 	public void nodesSelected(final NodeMultiSelectionEvent e) {
-		final Collection<AbstractNode> nodes = e.getNodes();
+		final Collection<AbstractNodeComponent> nodes = e.getNodes();
 		if (nodes.size() != 1) {
 			doCancelEdit();
 		} else {
-			final AbstractNode node = nodes.iterator().next();
-			if (node instanceof Transition || !isEditing((Place) node)) {
+			final AbstractNodeComponent node = nodes.iterator().next();
+			if (node instanceof TransitionComponent || !isEditing((PlaceComponent) node)) {
 				doCancelEdit();
 			}
 		}

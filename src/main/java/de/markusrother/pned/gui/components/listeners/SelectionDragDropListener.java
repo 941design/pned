@@ -6,7 +6,7 @@ import java.awt.Point;
 import java.util.Collection;
 
 import de.markusrother.pned.control.commands.NodeMotionCommand;
-import de.markusrother.pned.gui.components.AbstractNode;
+import de.markusrother.pned.gui.components.AbstractNodeComponent;
 import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.swing.DragDropListener;
@@ -15,9 +15,9 @@ import de.markusrother.swing.DragDropListener;
  * @author Markus Rother
  * @version 1.0
  */
-public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
+public class SelectionDragDropListener extends DragDropListener<AbstractNodeComponent> {
 
-	private final Collection<AbstractNode> nodes;
+	private final Collection<AbstractNodeComponent> nodes;
 	private final PnEventBus eventBus;
 
 	/**
@@ -30,29 +30,29 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 	 * @param nodes
 	 *            a {@link java.util.Collection} object.
 	 */
-	public SelectionDragDropListener(final PnEventBus eventBus, final Collection<AbstractNode> nodes) {
-		super(AbstractNode.class);
+	public SelectionDragDropListener(final PnEventBus eventBus, final Collection<AbstractNodeComponent> nodes) {
+		super(AbstractNodeComponent.class);
 		this.eventBus = eventBus;
 		this.nodes = nodes;
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void startDrag(final AbstractNode draggedNode, final Point dragStart) {
+	public void startDrag(final AbstractNodeComponent draggedNode, final Point dragStart) {
 		// IGNORE
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void onDrag(final AbstractNode draggedNode, final int deltaX, final int deltaY) {
-		for (final AbstractNode node : nodes) {
+	public void onDrag(final AbstractNodeComponent draggedNode, final int deltaX, final int deltaY) {
+		for (final AbstractNodeComponent node : nodes) {
 			eventBus.nodeMoved(new NodeMotionCommand(this, node.getId(), deltaX, deltaY));
 		}
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void endDrag(final AbstractNode draggedNode, final Point dragEnd) {
+	public void endDrag(final AbstractNodeComponent draggedNode, final Point dragEnd) {
 		cancel();
 	}
 
@@ -62,7 +62,7 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 	 * </p>
 	 */
 	public void cancel() {
-		for (final AbstractNode node : nodes) {
+		for (final AbstractNodeComponent node : nodes) {
 			// TODO - This should be done by the node, listening to the cancel
 			// event.
 			node.removeDragListener(this);

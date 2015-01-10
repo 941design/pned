@@ -11,19 +11,19 @@ public class EdgeComponentTest extends AbstractComponentTest<EdgeComponent> {
 
 	private static final String NO_ID = "";
 
-	private Marking createMarking() {
-		return new Marking(eventMulticastMock, //
+	private MarkingComponent createMarking() {
+		return new MarkingComponent(eventMulticastMock, //
 				Mockito.mock(MarkingStyleModel.class));
 	}
 
 	@Override
 	protected EdgeComponent getComponent() {
-		final AbstractNode sourceComponent = new Place(eventMulticastMock, //
+		final AbstractNodeComponent sourceComponent = new PlaceComponent(eventMulticastMock, //
 				NO_ID, //
 				createMarking(), //
 				Mockito.mock(MarkingEditor.class), //
 				NodeStyle.newDefault());
-		final AbstractNode targetComponent = new Transition(eventMulticastMock, //
+		final AbstractNodeComponent targetComponent = new TransitionComponent(eventMulticastMock, //
 				NO_ID, //
 				NodeStyle.newDefault());
 		return new EdgeComponent(eventMulticastMock, //

@@ -74,9 +74,9 @@ public class PnGridPanel extends JLayeredPane
 	// Stateful/Throwaway listeners:
 	SelectionDragDropListener nodeSelectionDragListener;
 
-	private final Set<AbstractNode> currentSelection;
-	private final NodeFactory nodeFactory;
-	private final EdgeFactory edgeFactory;
+	private final Set<AbstractNodeComponent> currentSelection;
+	private final NodeComponentFactory nodeFactory;
+	private final EdgeComponentFactory edgeFactory;
 
 	/**
 	 * <p>
@@ -104,14 +104,14 @@ public class PnGridPanel extends JLayeredPane
 	 *            {@link de.markusrother.pned.gui.components.menus.PnMenuFactory}
 	 *            object.
 	 * @param nodeFactory
-	 *            a {@link de.markusrother.pned.gui.components.NodeFactory}
+	 *            a {@link de.markusrother.pned.gui.components.NodeComponentFactory}
 	 *            object.
 	 * @param edgeFactory
-	 *            a {@link de.markusrother.pned.gui.components.EdgeFactory}
+	 *            a {@link de.markusrother.pned.gui.components.EdgeComponentFactory}
 	 *            object.
 	 */
-	public PnGridPanel(final PnEventBus eventBus, final PnMenuFactory menuFactory, final NodeFactory nodeFactory,
-			final EdgeFactory edgeFactory) {
+	public PnGridPanel(final PnEventBus eventBus, final PnMenuFactory menuFactory, final NodeComponentFactory nodeFactory,
+			final EdgeComponentFactory edgeFactory) {
 
 		this.eventBus = eventBus;
 		this.nodeFactory = nodeFactory;
@@ -201,7 +201,7 @@ public class PnGridPanel extends JLayeredPane
 	public void createPlace(final PlaceCreationCommand cmd) {
 		final String placeId = cmd.getNodeId();
 		final Point origin = cmd.getPoint();
-		final Place place = nodeFactory.newPlace(placeId);
+		final PlaceComponent place = nodeFactory.newPlace(placeId);
 		addNodeComponent(place, origin);
 		createLabelFor(place);
 		place.setEdgeCreationListener(edgeCreator);
@@ -212,7 +212,7 @@ public class PnGridPanel extends JLayeredPane
 	public void createTransition(final TransitionCreationCommand cmd) {
 		final String transitionId = cmd.getNodeId();
 		final Point point = cmd.getPoint();
-		final Transition transition = nodeFactory.newTransition(transitionId);
+		final TransitionComponent transition = nodeFactory.newTransition(transitionId);
 		addNodeComponent(transition, point);
 		createLabelFor(transition);
 		transition.setEdgeCreationListener(edgeCreator);
@@ -230,7 +230,7 @@ public class PnGridPanel extends JLayeredPane
 	 * @param <T>
 	 *            a T object.
 	 */
-	private <T extends AbstractNode> void addNodeComponent(final T node, final Point origin) {
+	private <T extends AbstractNodeComponent> void addNodeComponent(final T node, final Point origin) {
 		final Dimension d = node.getPreferredSize();
 		final Point nodeOrigin = origin.getLocation();
 		// Centering the node component around the requested point:
@@ -246,11 +246,11 @@ public class PnGridPanel extends JLayeredPane
 	 * </p>
 	 *
 	 * @param node
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @return a {@link javax.swing.JLabel} object.
 	 */
-	private JLabel createLabelFor(final AbstractNode node) {
+	private JLabel createLabelFor(final AbstractNodeComponent node) {
 		final Point labelOrigin = node.getLocation();
 		labelOrigin.translate(0, -labelHeight);
 		return createLabel(labelOrigin, node.getId());
@@ -270,7 +270,7 @@ public class PnGridPanel extends JLayeredPane
 	public JLabel createLabel(final Point origin, final String nodeId) {
 		// TODO - We could create an edge that connects label with node, synced
 		// similarly to the node.
-		final NodeLabel label = new NodeLabel(eventBus, nodeLabelEditor, nodeId);
+		final LabelComponent label = new LabelComponent(eventBus, nodeLabelEditor, nodeId);
 		addLabelComponent(label, origin);
 		// eventBus.fireLabelCreatedEvent(null);
 		return label;
@@ -282,12 +282,12 @@ public class PnGridPanel extends JLayeredPane
 	 * </p>
 	 *
 	 * @param label
-	 *            a {@link de.markusrother.pned.gui.components.NodeLabel}
+	 *            a {@link de.markusrother.pned.gui.components.LabelComponent}
 	 *            object.
 	 * @param origin
 	 *            a {@link java.awt.Point} object.
 	 */
-	private void addLabelComponent(final NodeLabel label, final Point origin) {
+	private void addLabelComponent(final LabelComponent label, final Point origin) {
 		label.setBounds(new Rectangle(origin, label.getPreferredSize()));
 		labelLayer.add(label);
 	}
@@ -296,8 +296,8 @@ public class PnGridPanel extends JLayeredPane
 	@Override
 	public void createEdge(final EdgeCreationCommand cmd) {
 		final String edgeId = cmd.getEdgeId();
-		final AbstractNode sourceNode = requestNode(cmd.getSourceId());
-		final AbstractNode targetNode = requestNode(cmd.getTargetId());
+		final AbstractNodeComponent sourceNode = requestNode(cmd.getSourceId());
+		final AbstractNodeComponent targetNode = requestNode(cmd.getTargetId());
 		final EdgeComponent edge = new EdgeComponent(eventBus, //
 				edgeId, //
 				edgeFactory.getEdgeStyle(), //
@@ -323,14 +323,14 @@ public class PnGridPanel extends JLayeredPane
 	 *
 	 * @param nodeId
 	 *            a {@link java.lang.String} object.
-	 * @return a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 * @return a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *         object.
 	 */
-	private AbstractNode requestNode(final String nodeId) {
+	private AbstractNodeComponent requestNode(final String nodeId) {
 		try {
 			final NodeRequest req = new NodeRequest(this, nodeId);
 			eventBus.requestNode(req);
-			final AbstractNode node = req.get(); // TODO - insert timeout here!
+			final AbstractNodeComponent node = req.get(); // TODO - insert timeout here!
 			return node;
 		} catch (final TimeoutException e) {
 			e.printStackTrace();
@@ -362,7 +362,7 @@ public class PnGridPanel extends JLayeredPane
 		currentSelection.addAll(event.getNodes());
 		// TODO - Extract MultiSelectionDragDropListener
 		nodeSelectionDragListener = new SelectionDragDropListener(eventBus, currentSelection);
-		for (final AbstractNode node : currentSelection) {
+		for (final AbstractNodeComponent node : currentSelection) {
 			node.setDragDropListener(nodeSelectionDragListener);
 		}
 	}
@@ -391,7 +391,7 @@ public class PnGridPanel extends JLayeredPane
 	 * @param nodes
 	 *            a {@link java.util.Collection} object.
 	 */
-	private void deselect(final Collection<AbstractNode> nodes) {
+	private void deselect(final Collection<AbstractNodeComponent> nodes) {
 		// NOTE - How nodes are displayed is handled by the nodes
 		// themselves.
 		currentSelection.removeAll(nodes);

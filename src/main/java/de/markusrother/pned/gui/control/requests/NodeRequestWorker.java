@@ -4,7 +4,7 @@ import java.util.concurrent.TimeoutException;
 
 import javax.swing.SwingWorker;
 
-import de.markusrother.pned.gui.components.AbstractNode;
+import de.markusrother.pned.gui.components.AbstractNodeComponent;
 
 /**
  * <p>
@@ -14,7 +14,7 @@ import de.markusrother.pned.gui.components.AbstractNode;
  * @author Markus Rother
  * @version 1.0
  */
-class NodeRequestWorker extends SwingWorker<AbstractNode, Object> {
+class NodeRequestWorker extends SwingWorker<AbstractNodeComponent, Object> {
 
 	protected final NodeRequest request;
 	protected final NodeRequestListener listener;
@@ -39,7 +39,7 @@ class NodeRequestWorker extends SwingWorker<AbstractNode, Object> {
 
 	/** {@inheritDoc} */
 	@Override
-	protected AbstractNode doInBackground() throws TimeoutException {
+	protected AbstractNodeComponent doInBackground() throws TimeoutException {
 		// NOTE - This method is called from a thread-pool!
 		listener.requestNode(request);
 		// TODO - Create a synchronized counter to verify that no threads hang.

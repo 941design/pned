@@ -13,21 +13,21 @@ import de.markusrother.pned.gui.components.listeners.MarkingEditor;
 import de.markusrother.pned.gui.core.NodeStyle;
 import de.markusrother.pned.gui.core.model.MarkingStyleModel;
 
-public class PlaceTest extends AbstractNodeTest<Place> {
+public class PlaceTest extends AbstractNodeTest<PlaceComponent> {
 
 	private static final String NO_ID = null;
 
-	private Place place;
+	private PlaceComponent place;
 
-	private Marking createMarking() {
-		return new Marking(eventMulticastMock, //
+	private MarkingComponent createMarking() {
+		return new MarkingComponent(eventMulticastMock, //
 				Mockito.mock(MarkingStyleModel.class));
 	}
 
 	private void createPlace(final int extent) {
 		final NodeStyle style = NodeStyle.newDefault();
 		style.setSize(extent);
-		place = new Place(eventMulticastMock, //
+		place = new PlaceComponent(eventMulticastMock, //
 				NO_ID, //
 				createMarking(), //
 				Mockito.mock(MarkingEditor.class), //
@@ -70,8 +70,8 @@ public class PlaceTest extends AbstractNodeTest<Place> {
 	}
 
 	@Override
-	protected Place getComponent() {
-		return new Place(eventMulticastMock, //
+	protected PlaceComponent getComponent() {
+		return new PlaceComponent(eventMulticastMock, //
 				NO_ID, //
 				createMarking(), //
 				Mockito.mock(MarkingEditor.class), //

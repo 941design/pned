@@ -7,8 +7,8 @@ import de.markusrother.pned.gui.core.model.EdgeStyleModel;
 
 /**
  * <p>
- * Factory for {@link Place}s, {@link Transition}s, {@link EdgeComponent}s, and
- * {@link Marking}s.
+ * Factory for {@link PlaceComponent}s, {@link TransitionComponent}s, {@link EdgeComponent}s, and
+ * {@link MarkingComponent}s.
  * </p>
  *
  * @author Markus Rother
@@ -16,9 +16,9 @@ import de.markusrother.pned.gui.core.model.EdgeStyleModel;
  */
 public class ComponentFactoryImpl
 	implements
-		NodeFactory,
-		EdgeFactory,
-		MarkingFactory {
+		NodeComponentFactory,
+		EdgeComponentFactory,
+		MarkingComponentFactory {
 
 	private final MarkingEditor markingEditor;
 	private final SingleNodeSelector singleNodeSelector;
@@ -40,10 +40,10 @@ public class ComponentFactoryImpl
 
 	/** {@inheritDoc} */
 	@Override
-	public Place newPlace(final String placeId) {
+	public PlaceComponent newPlace(final String placeId) {
 		// TODO - use currentPlaceStyle!
-		final Marking marking = newMarking();
-		final Place place = new Place(state.getEventBus(), //
+		final MarkingComponent marking = newMarking();
+		final PlaceComponent place = new PlaceComponent(state.getEventBus(), //
 				placeId, //
 				marking, //
 				markingEditor, //
@@ -54,8 +54,8 @@ public class ComponentFactoryImpl
 
 	/** {@inheritDoc} */
 	@Override
-	public Transition newTransition(final String transitionId) {
-		final Transition transition = new Transition(state.getEventBus(), //
+	public TransitionComponent newTransition(final String transitionId) {
+		final TransitionComponent transition = new TransitionComponent(state.getEventBus(), //
 				transitionId, //
 				state.getTransitionStyle());
 		addListenersToNode(transition);
@@ -64,8 +64,8 @@ public class ComponentFactoryImpl
 
 	/** {@inheritDoc} */
 	@Override
-	public Marking newMarking() {
-		final Marking marking = new Marking(state.getEventBus(), //
+	public MarkingComponent newMarking() {
+		final MarkingComponent marking = new MarkingComponent(state.getEventBus(), //
 				state.getMarkingStyle());
 		return marking;
 	}
@@ -76,10 +76,10 @@ public class ComponentFactoryImpl
 	 * </p>
 	 *
 	 * @param node
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 */
-	private void addListenersToNode(final AbstractNode node) {
+	private void addListenersToNode(final AbstractNodeComponent node) {
 		node.setSingleNodeSelector(singleNodeSelector);
 	}
 

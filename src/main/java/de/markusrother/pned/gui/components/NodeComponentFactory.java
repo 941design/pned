@@ -7,22 +7,22 @@ package de.markusrother.pned.gui.components;
  * @author Markus Rother
  * @version 1.0
  */
-public interface NodeFactory {
+public interface NodeComponentFactory {
 
 	/**
 	 * <p>newPlace.</p>
 	 *
 	 * @param id a {@link java.lang.String} object.
-	 * @return a {@link de.markusrother.pned.gui.components.Place} object.
+	 * @return a {@link de.markusrother.pned.gui.components.PlaceComponent} object.
 	 */
-	Place newPlace(String id);
+	PlaceComponent newPlace(String id);
 
 	/**
 	 * <p>newTransition.</p>
 	 *
 	 * @param id a {@link java.lang.String} object.
-	 * @return a {@link de.markusrother.pned.gui.components.Transition} object.
+	 * @return a {@link de.markusrother.pned.gui.components.TransitionComponent} object.
 	 */
-	Transition newTransition(String id);
+	TransitionComponent newTransition(String id);
 
 }

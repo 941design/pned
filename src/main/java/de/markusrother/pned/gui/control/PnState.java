@@ -12,7 +12,7 @@ import java.util.Set;
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
-import de.markusrother.pned.gui.components.AbstractNode;
+import de.markusrother.pned.gui.components.AbstractNodeComponent;
 import de.markusrother.pned.gui.control.commands.EdgeLayoutCommand;
 import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.control.commands.MarkingLayoutCommand;
@@ -100,7 +100,7 @@ public class PnState extends PnEventAdapter
 	/** {@inheritDoc} */
 	@Override
 	public void nodeSelectionFinished(final NodeMultiSelectionEvent event) {
-		for (final AbstractNode node : event.getNodes()) {
+		for (final AbstractNodeComponent node : event.getNodes()) {
 			selectedNodeIds.add(node.getId());
 		}
 	}

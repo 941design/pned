@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import javax.swing.SwingWorker;
 
 import de.markusrother.pned.control.EventBus;
-import de.markusrother.pned.gui.components.AbstractNode;
+import de.markusrother.pned.gui.components.AbstractNodeComponent;
 import de.markusrother.pned.gui.control.commands.EdgeLayoutCommand;
 import de.markusrother.pned.gui.control.commands.EdgeLayoutListener;
 import de.markusrother.pned.gui.control.commands.MarkingLayoutCommand;
@@ -82,7 +82,7 @@ public class PnEventBus extends EventBus
 		// threads without killing them when done, we're in trouble.
 		final ExecutorService threadPool = Executors.newCachedThreadPool();
 		for (final NodeRequestListener l : listeners) {
-			final SwingWorker<AbstractNode, Object> worker = req.createWorker(l);
+			final SwingWorker<AbstractNodeComponent, Object> worker = req.createWorker(l);
 			threadPool.submit(worker);
 			// NOTE - Do NOT use {@code worker.execute();} The default
 			// SwingWorker thread pool is not large enough!

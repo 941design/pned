@@ -39,7 +39,7 @@ import de.markusrother.util.JsonSerializable;
  * @author Markus Rother
  * @version 1.0
  */
-public abstract class AbstractNode extends JPanel
+public abstract class AbstractNodeComponent extends JPanel
 	implements
 		NodeRequestListener,
 		NodeMotionListener,
@@ -56,7 +56,7 @@ public abstract class AbstractNode extends JPanel
 	private static final LayoutManager NO_LAYOUT_MANAGER = null;
 
 	// Listeners:
-	private DragDropListener<AbstractNode> dragDropListener; // selectionHandler
+	private DragDropListener<AbstractNodeComponent> dragDropListener; // selectionHandler
 	private EdgeCreator edgeCreationListener;
 	private SingleNodeSelector singleNodeSelector;
 
@@ -81,7 +81,7 @@ public abstract class AbstractNode extends JPanel
 	 *            a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
 	 *            object.
 	 */
-	public AbstractNode(final EventBus eventBus, final String id, final LayoutManager layoutManager,
+	public AbstractNodeComponent(final EventBus eventBus, final String id, final LayoutManager layoutManager,
 			final NodeStyleModel style) {
 		super(layoutManager);
 		this.eventBus = eventBus;
@@ -115,7 +115,7 @@ public abstract class AbstractNode extends JPanel
 	 *            a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
 	 *            object.
 	 */
-	public AbstractNode(final EventBus eventBus, final String id, final NodeStyleModel style) {
+	public AbstractNodeComponent(final EventBus eventBus, final String id, final NodeStyleModel style) {
 		this(eventBus, id, NO_LAYOUT_MANAGER, style);
 	}
 
@@ -263,7 +263,7 @@ public abstract class AbstractNode extends JPanel
 	 * @param listener
 	 *            a {@link de.markusrother.swing.DragDropListener} object.
 	 */
-	public void removeDragListener(final DragDropListener<AbstractNode> listener) {
+	public void removeDragListener(final DragDropListener<AbstractNodeComponent> listener) {
 		DragDropListener.removeFromComponent(this, listener);
 	}
 

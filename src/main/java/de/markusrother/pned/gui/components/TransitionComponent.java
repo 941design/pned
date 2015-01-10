@@ -30,7 +30,7 @@ import de.markusrother.util.JsonBuilder;
  * @author Markus Rother
  * @version 1.0
  */
-public class Transition extends AbstractNode
+public class TransitionComponent extends AbstractNodeComponent
 	implements
 		TransitionActivationListener {
 
@@ -57,7 +57,7 @@ public class Transition extends AbstractNode
 	 *            a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
 	 *            object.
 	 */
-	public Transition(final EventBus eventBus, final String transitionId, final NodeStyleModel style) {
+	public TransitionComponent(final EventBus eventBus, final String transitionId, final NodeStyleModel style) {
 		super(eventBus, transitionId, style);
 		setOpaque(false);
 

@@ -8,7 +8,7 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
-import de.markusrother.pned.gui.components.AbstractNode;
+import de.markusrother.pned.gui.components.AbstractNodeComponent;
 import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.control.events.PnEventTarget;
 import de.markusrother.swing.DragDropListener;
@@ -19,7 +19,7 @@ import de.markusrother.swing.DragDropListener;
  * @author Markus Rother
  * @version 1.0
  */
-public class SingleNodeSelector extends DragDropListener<AbstractNode> {
+public class SingleNodeSelector extends DragDropListener<AbstractNodeComponent> {
 
 	private final PnEventTarget eventTarget;
 
@@ -34,7 +34,7 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 	 *            object.
 	 */
 	public SingleNodeSelector(final PnEventTarget eventTarget) {
-		super(AbstractNode.class);
+		super(AbstractNodeComponent.class);
 		this.eventTarget = eventTarget;
 	}
 
@@ -45,12 +45,12 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 	 *
 	 * @param component
 	 *            a {@link java.awt.Component} object.
-	 * @return a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 * @return a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *         object.
 	 */
-	private AbstractNode expectAbstractNode(final Component component) {
+	private AbstractNodeComponent expectAbstractNode(final Component component) {
 		try {
-			return (AbstractNode) component;
+			return (AbstractNodeComponent) component;
 		} catch (final ClassCastException e) {
 			// TODO
 			throw new RuntimeException("TODO");
@@ -63,10 +63,10 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 	 * </p>
 	 *
 	 * @param node
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 */
-	private void makeCurrentSelection(final AbstractNode node) {
+	private void makeCurrentSelection(final AbstractNodeComponent node) {
 		if (node.isSelected() && !node.isPartOfMultiselection()) {
 			// IGNORE - Nothing to do, node is already selected.
 		} else {
@@ -86,7 +86,7 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 
 	/** {@inheritDoc} */
 	@Override
-	public void startDrag(final AbstractNode node, final Point dragStart) {
+	public void startDrag(final AbstractNodeComponent node, final Point dragStart) {
 		if (node.isPartOfMultiselection()) {
 			// dragging multiselection has precedence
 			return;
@@ -96,13 +96,13 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 
 	/** {@inheritDoc} */
 	@Override
-	public void onDrag(final AbstractNode node, final int deltaX, final int deltaY) {
+	public void onDrag(final AbstractNodeComponent node, final int deltaX, final int deltaY) {
 		// IGNORE
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void endDrag(final AbstractNode node, final Point dragEnd) {
+	public void endDrag(final AbstractNodeComponent node, final Point dragEnd) {
 		// IGNORE
 	}
 

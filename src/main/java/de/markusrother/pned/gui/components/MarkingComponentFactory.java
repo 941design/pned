@@ -6,13 +6,13 @@ package de.markusrother.pned.gui.components;
  * @author Markus Rother
  * @version 1.0
  */
-public interface MarkingFactory {
+public interface MarkingComponentFactory {
 
 	/**
 	 * <p>newMarking.</p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.components.Marking} object.
+	 * @return a {@link de.markusrother.pned.gui.components.MarkingComponent} object.
 	 */
-	Marking newMarking();
+	MarkingComponent newMarking();
 
 }

@@ -7,7 +7,7 @@ import static de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent.Ty
 
 import java.util.Collection;
 
-import de.markusrother.pned.gui.components.AbstractNode;
+import de.markusrother.pned.gui.components.AbstractNodeComponent;
 import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.control.events.PnEventTarget;
 import de.markusrother.swing.Selector;
@@ -21,7 +21,7 @@ import de.markusrother.swing.Selector;
  * @author Markus Rother
  * @version 1.0
  */
-public class NodeSelector extends Selector<AbstractNode> {
+public class NodeSelector extends Selector<AbstractNodeComponent> {
 
 	private final PnEventTarget eventTarget;
 
@@ -34,7 +34,7 @@ public class NodeSelector extends Selector<AbstractNode> {
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 */
 	public NodeSelector(final PnEventTarget eventTarget) {
-		super(AbstractNode.class);
+		super(AbstractNodeComponent.class);
 		this.eventTarget = eventTarget;
 	}
 
@@ -56,7 +56,7 @@ public class NodeSelector extends Selector<AbstractNode> {
 	 * operation.
 	 */
 	@Override
-	public void addedToSelection(final Collection<AbstractNode> nodes) {
+	public void addedToSelection(final Collection<AbstractNodeComponent> nodes) {
 		eventTarget.nodesSelected(new NodeMultiSelectionEvent(SELECT, this, nodes));
 	}
 
@@ -67,7 +67,7 @@ public class NodeSelector extends Selector<AbstractNode> {
 	 * operation.
 	 */
 	@Override
-	public void removedFromSelection(final Collection<AbstractNode> nodes) {
+	public void removedFromSelection(final Collection<AbstractNodeComponent> nodes) {
 		eventTarget.nodesUnselected(new NodeMultiSelectionEvent(DESELECT, this, nodes));
 	}
 
@@ -77,7 +77,7 @@ public class NodeSelector extends Selector<AbstractNode> {
 	 * Called upon finishing the drag and drop operation.
 	 */
 	@Override
-	public void finishedSelection(final Collection<AbstractNode> nodes) {
+	public void finishedSelection(final Collection<AbstractNodeComponent> nodes) {
 		eventTarget.nodeSelectionFinished(new NodeMultiSelectionEvent(FINISH, this, nodes));
 	}
 

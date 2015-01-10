@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import javax.swing.border.Border;
 
-import de.markusrother.pned.gui.components.NodeLabel;
+import de.markusrother.pned.gui.components.LabelComponent;
 
 /**
  * <p>
@@ -19,7 +19,7 @@ import de.markusrother.pned.gui.components.NodeLabel;
 @Deprecated
 public class NodeLabelStyle
 	implements
-		Style<NodeLabel> {
+		Style<LabelComponent> {
 
 	private Color defaultFg;
 	private Color defaultBg;
@@ -217,7 +217,7 @@ public class NodeLabelStyle
 
 	/** {@inheritDoc} */
 	@Override
-	public void apply(final NodeLabel nodeLabel) {
+	public void apply(final LabelComponent nodeLabel) {
 		// TODO - There must be a nicer mapping of styles to attributes!
 		// nodeLabel.setForeground(state);
 		switch (nodeLabel.getState()) {

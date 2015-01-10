@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 
 import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
-import de.markusrother.pned.gui.components.Transition;
+import de.markusrother.pned.gui.components.TransitionComponent;
 import de.markusrother.swing.RightClickListener;
 
 /**
@@ -36,7 +36,7 @@ public class TransitionActivator extends RightClickListener {
 	/** {@inheritDoc} */
 	@Override
 	public void mouseClickedRight(final MouseEvent e) {
-		final Transition transition = (Transition) e.getSource();
+		final TransitionComponent transition = (TransitionComponent) e.getSource();
 		final TransitionExecutionCommand cmd = new TransitionExecutionCommand(this, transition.getId());
 		eventBus.fireTransition(cmd);
 	}

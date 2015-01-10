@@ -12,7 +12,7 @@ import de.markusrother.swing.LeftClickListener;
 
 /**
  * <p>
- * Creator of {@link de.markusrother.pned.gui.components.AbstractNode}s.
+ * Creator of {@link de.markusrother.pned.gui.components.AbstractNodeComponent}s.
  * </p>
  * 
  * TODO - Create a stateful NodeCreationAction and receive it as constructor

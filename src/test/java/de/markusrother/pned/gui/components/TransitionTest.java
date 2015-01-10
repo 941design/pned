@@ -12,16 +12,16 @@ import org.junit.Test;
 
 import de.markusrother.pned.gui.core.NodeStyle;
 
-public class TransitionTest extends AbstractNodeTest<Transition> {
+public class TransitionTest extends AbstractNodeTest<TransitionComponent> {
 
 	private static final String NO_ID = null;
 
-	private Transition transition;
+	private TransitionComponent transition;
 
 	private void createTransition(final int extent) {
 		final NodeStyle style = NodeStyle.newDefault();
 		style.setSize(extent);
-		transition = new Transition(eventMulticastMock, //
+		transition = new TransitionComponent(eventMulticastMock, //
 				NO_ID, //
 				style);
 	}
@@ -80,8 +80,8 @@ public class TransitionTest extends AbstractNodeTest<Transition> {
 	}
 
 	@Override
-	protected Transition getComponent() {
-		return new Transition(eventMulticastMock, //
+	protected TransitionComponent getComponent() {
+		return new TransitionComponent(eventMulticastMock, //
 				NO_ID, //
 				NodeStyle.newDefault());
 	}

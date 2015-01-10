@@ -5,23 +5,23 @@ import java.util.concurrent.TimeoutException;
 import javax.swing.SwingWorker;
 
 import de.markusrother.pned.control.requests.Request;
-import de.markusrother.pned.gui.components.AbstractNode;
+import de.markusrother.pned.gui.components.AbstractNodeComponent;
 import de.markusrother.util.JsonBuilder;
 import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
  * Duplex event for a concrete
- * {@link de.markusrother.pned.gui.components.AbstractNode} instance. The node
+ * {@link de.markusrother.pned.gui.components.AbstractNodeComponent} instance. The node
  * is expected to listen for this event and answer the request.
  * </p>
  *
  * @author Markus Rother
  * @version 1.0
  * @see de.markusrother.pned.gui.control.requests.NodeRequestListener
- * @see de.markusrother.pned.gui.components.AbstractNode#requestNode(NodeRequest)
+ * @see de.markusrother.pned.gui.components.AbstractNodeComponent#requestNode(NodeRequest)
  */
-public class NodeRequest extends Request<AbstractNode>
+public class NodeRequest extends Request<AbstractNodeComponent>
 	implements
 		JsonSerializable {
 
@@ -65,7 +65,7 @@ public class NodeRequest extends Request<AbstractNode>
 	 *            object.
 	 * @return a {@link javax.swing.SwingWorker} object.
 	 */
-	public SwingWorker<AbstractNode, Object> createWorker(final NodeRequestListener l) {
+	public SwingWorker<AbstractNodeComponent, Object> createWorker(final NodeRequestListener l) {
 		return new NodeRequestWorker(this, l);
 	}
 

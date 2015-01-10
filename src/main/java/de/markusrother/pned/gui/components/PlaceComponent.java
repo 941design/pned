@@ -25,12 +25,12 @@ import de.markusrother.util.JsonBuilder;
  * @author Markus Rother
  * @version 1.0
  */
-public class Place extends AbstractNode
+public class PlaceComponent extends AbstractNodeComponent
 	implements
 		MarkingEditListener,
 		MarkingEventListener {
 
-	private final Marking marking;
+	private final MarkingComponent marking;
 	private final MarkingEditor markingEditor;
 
 	/**
@@ -43,7 +43,7 @@ public class Place extends AbstractNode
 	 * @param placeId
 	 *            a {@link java.lang.String} object.
 	 * @param marking
-	 *            a {@link de.markusrother.pned.gui.components.Marking} object.
+	 *            a {@link de.markusrother.pned.gui.components.MarkingComponent} object.
 	 * @param markingEditor
 	 *            a
 	 *            {@link de.markusrother.pned.gui.components.listeners.MarkingEditor}
@@ -56,9 +56,9 @@ public class Place extends AbstractNode
 	 *            a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
 	 *            object.
 	 */
-	public Place(final EventBus eventBus, final String placeId, final Marking marking,
+	public PlaceComponent(final EventBus eventBus, final String placeId, final MarkingComponent marking,
 			final MarkingEditor markingEditor, final NodeStyleModel style) {
-		super(eventBus, placeId, new PlaceLayoutManager(), style);
+		super(eventBus, placeId, new PlaceComponentLayoutManager(), style);
 		this.marking = marking;
 		this.markingEditor = markingEditor;
 
@@ -68,7 +68,7 @@ public class Place extends AbstractNode
 		eventBus.addListener(MarkingEditListener.class, this);
 		eventBus.addListener(MarkingEventListener.class, this);
 
-		add(this.marking, PlaceLayoutManager.CENTER);
+		add(this.marking, PlaceComponentLayoutManager.CENTER);
 		setOpaque(false);
 	}
 

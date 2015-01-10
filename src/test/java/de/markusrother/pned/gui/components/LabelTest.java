@@ -4,11 +4,11 @@ import org.mockito.Mockito;
 
 import de.markusrother.pned.gui.components.listeners.NodeLabelEditor;
 
-public class LabelTest extends AbstractComponentTest<NodeLabel> {
+public class LabelTest extends AbstractComponentTest<LabelComponent> {
 
 	@Override
-	protected NodeLabel getComponent() {
-		return new NodeLabel(eventMulticastMock, Mockito.mock(NodeLabelEditor.class), null);
+	protected LabelComponent getComponent() {
+		return new LabelComponent(eventMulticastMock, Mockito.mock(NodeLabelEditor.class), null);
 	}
 
 }

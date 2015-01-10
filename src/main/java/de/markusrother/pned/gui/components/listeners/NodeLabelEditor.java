@@ -7,7 +7,7 @@ import de.markusrother.pned.control.commands.LabelEditCommand;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
-import de.markusrother.pned.gui.components.NodeLabel;
+import de.markusrother.pned.gui.components.LabelComponent;
 import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.control.events.NodeSelectionListener;
@@ -22,7 +22,7 @@ import de.markusrother.swing.RightClickTextFieldEdit;
  * @author Markus Rother
  * @version 1.0
  */
-public class NodeLabelEditor extends RightClickTextFieldEdit<NodeLabel>
+public class NodeLabelEditor extends RightClickTextFieldEdit<LabelComponent>
 	implements
 		NodeCreationListener,
 		NodeSelectionListener {
@@ -41,7 +41,7 @@ public class NodeLabelEditor extends RightClickTextFieldEdit<NodeLabel>
 	 *            a {@link de.markusrother.pned.gui.control.PnEventBus} object.
 	 */
 	public NodeLabelEditor(final PnEventBus eventBus) {
-		super(NodeLabel.class, labelPattern);
+		super(LabelComponent.class, labelPattern);
 
 		this.eventBus = eventBus;
 
@@ -52,25 +52,25 @@ public class NodeLabelEditor extends RightClickTextFieldEdit<NodeLabel>
 
 	/** {@inheritDoc} */
 	@Override
-	public String getInitialText(final NodeLabel nodeLabel) {
+	public String getInitialText(final LabelComponent nodeLabel) {
 		return nodeLabel.getText();
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void startEdit(final NodeLabel nodeLabel, final MouseEvent evt) {
+	public void startEdit(final LabelComponent nodeLabel, final MouseEvent evt) {
 		nodeLabel.setVisible(false);
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void cancelEdit(final NodeLabel nodeLabel) {
+	public void cancelEdit(final LabelComponent nodeLabel) {
 		nodeLabel.setVisible(true);
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void finishEdit(final NodeLabel nodeLabel, final String text) {
+	public void finishEdit(final LabelComponent nodeLabel, final String text) {
 		eventBus.setLabel(new LabelEditCommand(this, //
 				nodeLabel.getNodeId(), //
 				text));
@@ -79,7 +79,7 @@ public class NodeLabelEditor extends RightClickTextFieldEdit<NodeLabel>
 
 	/** {@inheritDoc} */
 	@Override
-	public void addTextField(final NodeLabel nodeLabel, final CheckedTextField textField) {
+	public void addTextField(final LabelComponent nodeLabel, final CheckedTextField textField) {
 		// Not nice that we grab parent, here!
 		nodeLabel.getParent().add(textField);
 		nodeLabel.getParent().repaint();
@@ -87,7 +87,7 @@ public class NodeLabelEditor extends RightClickTextFieldEdit<NodeLabel>
 
 	/** {@inheritDoc} */
 	@Override
-	public void removeTextField(final NodeLabel nodeLabel, final CheckedTextField textField) {
+	public void removeTextField(final LabelComponent nodeLabel, final CheckedTextField textField) {
 		// Not nice that we grab parent, here!
 		nodeLabel.getParent().remove(textField);
 		nodeLabel.getParent().repaint();

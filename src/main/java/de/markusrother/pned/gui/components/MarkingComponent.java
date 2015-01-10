@@ -20,7 +20,7 @@ import de.markusrother.pned.gui.core.model.MarkingStyleModel;
  * @author Markus Rother
  * @version 1.0
  */
-public class Marking extends JPanel
+public class MarkingComponent extends JPanel
 	implements
 		Stylable<MarkingStyleModel> {
 
@@ -38,7 +38,7 @@ public class Marking extends JPanel
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param style a {@link de.markusrother.pned.gui.core.model.MarkingStyleModel} object.
 	 */
-	Marking(final EventBus eventBus, final MarkingStyleModel style) {
+	MarkingComponent(final EventBus eventBus, final MarkingStyleModel style) {
 		this.label = new JLabel();
 		label.setFont(style.getFont());
 

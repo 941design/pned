@@ -13,9 +13,9 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
-import de.markusrother.pned.gui.components.AbstractNode;
+import de.markusrother.pned.gui.components.AbstractNodeComponent;
 import de.markusrother.pned.gui.components.EdgeComponent;
-import de.markusrother.pned.gui.components.EdgeFactory;
+import de.markusrother.pned.gui.components.EdgeComponentFactory;
 import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.control.events.EdgeEditEvent;
 import de.markusrother.swing.MultiClickListener;
@@ -41,7 +41,7 @@ import de.markusrother.swing.MultiClickListener;
 public class EdgeCreator extends MultiClickListener {
 
 	private final PnEventBus eventBus;
-	private final EdgeFactory edgeFactory;
+	private final EdgeComponentFactory edgeFactory;
 	private final Container container;
 
 	private EdgeComponent edge;
@@ -90,10 +90,10 @@ public class EdgeCreator extends MultiClickListener {
 	 * @param container
 	 *            a {@link java.awt.Container} object.
 	 * @param edgeFactory
-	 *            a {@link de.markusrother.pned.gui.components.EdgeFactory}
+	 *            a {@link de.markusrother.pned.gui.components.EdgeComponentFactory}
 	 *            object.
 	 */
-	public EdgeCreator(final PnEventBus eventBus, final EdgeFactory edgeFactory, final Container container) {
+	public EdgeCreator(final PnEventBus eventBus, final EdgeComponentFactory edgeFactory, final Container container) {
 		this.eventBus = eventBus;
 		this.edgeFactory = edgeFactory;
 		this.container = container;
@@ -118,12 +118,12 @@ public class EdgeCreator extends MultiClickListener {
 	 *
 	 * @param component
 	 *            a {@link java.awt.Component} object.
-	 * @return a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 * @return a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *         object.
 	 */
-	private AbstractNode expectNode(final Component component) {
+	private AbstractNodeComponent expectNode(final Component component) {
 		try {
-			return (AbstractNode) component;
+			return (AbstractNodeComponent) component;
 		} catch (final ClassCastException e) {
 			e.printStackTrace();
 			// TODO
@@ -190,7 +190,7 @@ public class EdgeCreator extends MultiClickListener {
 	public void mouseDoubleClickedLeft(final MouseEvent e) {
 		final Component component = e.getComponent();
 		if (edge == null) {
-			if (component instanceof AbstractNode) {
+			if (component instanceof AbstractNodeComponent) {
 				doStartEdge(e);
 			}
 		} else {
@@ -211,7 +211,7 @@ public class EdgeCreator extends MultiClickListener {
 	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	private void doStartEdge(final MouseEvent e) {
-		final AbstractNode sourceNode = expectNode(e.getComponent());
+		final AbstractNodeComponent sourceNode = expectNode(e.getComponent());
 		final Point target = e.getPoint();
 		final Point origin = sourceNode.getLocation();
 		target.translate(origin.x, origin.y);
@@ -244,7 +244,7 @@ public class EdgeCreator extends MultiClickListener {
 	 *            a {@link java.awt.event.MouseEvent} object.
 	 */
 	private void doFinishEdge(final MouseEvent e) {
-		final AbstractNode targetNode = expectNode(e.getComponent());
+		final AbstractNodeComponent targetNode = expectNode(e.getComponent());
 		eventBus.edgeFinished(new EdgeEditEvent(this, //
 				EDGE_FINISHED, //
 				edge, //

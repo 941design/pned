@@ -31,7 +31,7 @@ import de.markusrother.swing.DragDropListener;
  * @author Markus Rother
  * @version 1.0
  */
-public class NodeLabel extends JLabel
+public class LabelComponent extends JLabel
 	implements
 		LabelEditListener,
 		NodeMotionListener,
@@ -52,7 +52,7 @@ public class NodeLabel extends JLabel
 		style.setHoverOpacity(true);
 	}
 
-	private final DragDropListener<NodeLabel> dragDropListener;
+	private final DragDropListener<LabelComponent> dragDropListener;
 	private final String nodeId;
 	private final PnEventBus eventBus;
 	private final NodeLabelEditor labelEditor;
@@ -74,7 +74,7 @@ public class NodeLabel extends JLabel
 	 *            {@link de.markusrother.pned.gui.components.listeners.NodeLabelEditor}
 	 *            object.
 	 */
-	public NodeLabel(final PnEventBus eventBus, final NodeLabelEditor labelEditor, final String nodeId) {
+	public LabelComponent(final PnEventBus eventBus, final NodeLabelEditor labelEditor, final String nodeId) {
 		this(eventBus, nodeId, labelEditor, nodeId);
 	}
 
@@ -94,7 +94,7 @@ public class NodeLabel extends JLabel
 	 *            {@link de.markusrother.pned.gui.components.listeners.NodeLabelEditor}
 	 *            object.
 	 */
-	public NodeLabel(final PnEventBus eventBus, final String nodeId, final NodeLabelEditor labelEditor,
+	public LabelComponent(final PnEventBus eventBus, final String nodeId, final NodeLabelEditor labelEditor,
 			final String nodeLabel) {
 		// TODO - Use setters for NOdeLabelEditor and EventBus!
 		super(nodeLabel);
@@ -102,7 +102,7 @@ public class NodeLabel extends JLabel
 		this.eventBus = eventBus;
 		this.nodeId = nodeId;
 
-		this.dragDropListener = new DefaultDragDropListener<>(NodeLabel.class, this);
+		this.dragDropListener = new DefaultDragDropListener<>(LabelComponent.class, this);
 		DragDropListener.addToComponent(this, dragDropListener);
 
 		this.labelEditor = labelEditor;

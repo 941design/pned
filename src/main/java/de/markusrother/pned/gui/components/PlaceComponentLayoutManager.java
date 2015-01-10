@@ -13,7 +13,7 @@ import java.awt.Rectangle;
  * @author Markus Rother
  * @version 1.0
  */
-public class PlaceLayoutManager
+public class PlaceComponentLayoutManager
 	implements
 		LayoutManager {
 

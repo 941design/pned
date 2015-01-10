@@ -46,7 +46,7 @@ import de.markusrother.swing.HoverListener;
  * @author Markus Rother
  * @version 1.0
  */
-public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractNode>
+public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, AbstractNodeComponent>
 	implements
 		NodeRemovalListener,
 		NodeMotionListener,
@@ -58,7 +58,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		Disposable {
 
 	/** Constant <code>NO_TARGET_COMPONENT</code> */
-	private static final AbstractNode NO_TARGET_COMPONENT = null;
+	private static final AbstractNodeComponent NO_TARGET_COMPONENT = null;
 	/** Constant <code>NO_ID=""</code> */
 	private static final String NO_ID = "";
 
@@ -128,17 +128,17 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *            a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param source
 	 *            a {@link java.awt.Point} object.
 	 * @param target
 	 *            a {@link java.awt.Point} object.
 	 */
-	public EdgeComponent(final EventBus eventBus, final EdgeStyleModel style, final AbstractNode sourceComponent,
+	public EdgeComponent(final EventBus eventBus, final EdgeStyleModel style, final AbstractNodeComponent sourceComponent,
 			final Point source, final Point target) {
 		this(eventBus, NO_ID, style, sourceComponent, NO_TARGET_COMPONENT, source, target);
 	}
@@ -151,10 +151,10 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param targetComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param id
 	 *            a {@link java.lang.String} object.
@@ -163,7 +163,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *            object.
 	 */
 	public EdgeComponent(final EventBus eventBus, final String id, final EdgeStyleModel style,
-			final AbstractNode sourceComponent, final AbstractNode targetComponent) {
+			final AbstractNodeComponent sourceComponent, final AbstractNodeComponent targetComponent) {
 		this(eventBus, id, style, sourceComponent, targetComponent, getCenter(sourceComponent),
 				getCenter(targetComponent));
 		reconnect();
@@ -180,18 +180,18 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *            a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param targetComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param source
 	 *            a {@link java.awt.Point} object.
 	 * @param targetComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
+	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param target
 	 *            a {@link java.awt.Point} object.
@@ -199,7 +199,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *            a {@link java.lang.String} object.
 	 */
 	private EdgeComponent(final EventBus eventBus, final String id, final EdgeStyleModel style,
-			final AbstractNode sourceComponent, final AbstractNode targetComponent, final Point source,
+			final AbstractNodeComponent sourceComponent, final AbstractNodeComponent targetComponent, final Point source,
 			final Point target) {
 		super(sourceComponent, targetComponent, source, target);
 
@@ -266,7 +266,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 * @return a boolean.
 	 */
 	public boolean acceptsTarget(final Component component) {
-		return component instanceof AbstractNode //
+		return component instanceof AbstractNodeComponent //
 				&& sourceComponent.getClass() != component.getClass();
 	}
 
@@ -311,7 +311,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 			return;
 		}
 		if (acceptsTarget(e.getComponent())) {
-			setTargetComponent((AbstractNode) e.getComponent());
+			setTargetComponent((AbstractNodeComponent) e.getComponent());
 			setState(ComponentState.VALID);
 		} else {
 			setState(ComponentState.INVALID);
@@ -350,7 +350,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 			throw new IllegalArgumentException();
 		}
 
-		setTargetComponent((AbstractNode) e.getComponent());
+		setTargetComponent((AbstractNodeComponent) e.getComponent());
 
 		final HoverListener hoverListener = EdgeHoverListener.INSTANCE;
 		// TODO - setHoverListener() -> to field.

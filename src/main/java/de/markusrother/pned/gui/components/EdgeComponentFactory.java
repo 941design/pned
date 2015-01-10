@@ -10,7 +10,7 @@ import de.markusrother.pned.gui.core.model.EdgeStyleModel;
  * @author Markus Rother
  * @version 1.0
  */
-public interface EdgeFactory {
+public interface EdgeComponentFactory {
 
 	/**
 	 * <p>

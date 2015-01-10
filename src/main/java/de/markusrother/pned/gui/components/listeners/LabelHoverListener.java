@@ -3,7 +3,7 @@ package de.markusrother.pned.gui.components.listeners;
 import java.awt.Component;
 
 import de.markusrother.pned.gui.components.ComponentState;
-import de.markusrother.pned.gui.components.NodeLabel;
+import de.markusrother.pned.gui.components.LabelComponent;
 import de.markusrother.swing.HoverAdapter;
 
 /**
@@ -17,14 +17,14 @@ public class LabelHoverListener extends HoverAdapter {
 	/** {@inheritDoc} */
 	@Override
 	protected void startHover(final Component component) {
-		final NodeLabel nodeLabel = (NodeLabel) component;
+		final LabelComponent nodeLabel = (LabelComponent) component;
 		nodeLabel.setState(ComponentState.HOVER);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	protected void endHover(final Component component) {
-		final NodeLabel nodeLabel = (NodeLabel) component;
+		final LabelComponent nodeLabel = (LabelComponent) component;
 		nodeLabel.setState(ComponentState.DEFAULT);
 	}
 
