@@ -1,14 +1,12 @@
 package de.markusrother.pned.gui.components;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.xml.stream.XMLStreamException;
 
 import de.markusrother.pned.control.EventAwarePetriNet;
@@ -24,7 +22,6 @@ import de.markusrother.pned.gui.control.commands.PetriNetListener;
 import de.markusrother.pned.gui.control.commands.SetNodeTypeCommand;
 import de.markusrother.pned.io.PNMLParser;
 import de.markusrother.pned.util.PnEventLogger;
-import de.markusrother.swing.CustomScrollPaneUI;
 
 /**
  * <p>
@@ -71,28 +68,6 @@ public class PnFrame extends JFrame
 		final PnEventBus eventBus = state.getEventBus();
 		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, PnState.NodeCreationMode.PLACE));
 		eventBus.setCurrentDirectory(new PetriNetIOCommand(this, PetriNetIOCommand.Type.CWD, currentPath));
-	}
-
-	/**
-	 * <p>
-	 * createAutoResizableScrollPane.
-	 * </p>
-	 *
-	 * @param component
-	 *            a {@link java.awt.Component} object.
-	 * @return a {@link javax.swing.JScrollPane} object.
-	 */
-	private JScrollPane createAutoResizableScrollPane(final Component component) {
-		final JScrollPane scrollPane = new JScrollPane(component, //
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, //
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		// Must set ui manually, because there is no entire LAF configured!
-		// TODO - existing ui should rather be proxied!
-		final CustomScrollPaneUI ui = new CustomScrollPaneUI();
-		ui.addVerticalChangeListener(new VerticalComponentResizer(component));
-		ui.addHorizontalChangeListener(new HorizontalComponentResizer(component));
-		scrollPane.setUI(ui);
-		return scrollPane;
 	}
 
 	/**
@@ -163,17 +138,18 @@ public class PnFrame extends JFrame
 	 * </p>
 	 */
 	private void createComponents() {
-		final PnEventBus eventBus = state.getEventBus();
-		final ComponentFactoryImpl factory = new ComponentFactoryImpl(state);
-		this.grid = new PnGridPanel(eventBus, //
-				menuFactory, //
-				factory, //
-				factory);
-		this.grid.setPreferredSize(gridSize);
-		this.pnedMenuBar = new PnMenuBar(menuFactory);
-		this.scrollPane = createAutoResizableScrollPane(grid);
 
+		final PnEventBus eventBus = state.getEventBus();
+
+		final ComponentFactoryImpl factory = new ComponentFactoryImpl(state);
+
+		this.grid = new PnGridPanel(eventBus, menuFactory, factory, factory);
+		this.pnedMenuBar = new PnMenuBar(menuFactory);
+		this.scrollPane = new JScrollPane(grid);
+		// this.scrollPane.setColumnHeaderView(...);
+		// this.scrollPane.setRowHeaderView(...);
 		add(scrollPane, BorderLayout.CENTER);
+
 		setJMenuBar(pnedMenuBar);
 		setPreferredSize(preferredSize);
 	}

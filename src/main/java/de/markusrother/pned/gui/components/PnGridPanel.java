@@ -202,6 +202,10 @@ public class PnGridPanel extends GridComponent
 	private <T extends AbstractNodeComponent> void addNodeComponent(final T node, final Point origin) {
 		final Dimension d = node.getPreferredSize();
 		final Point nodeOrigin = origin.getLocation();
+		final Dimension preferredSize = getPreferredSize();
+		final int x = nodeOrigin.x > preferredSize.width - 500 ? nodeOrigin.x + 500 : preferredSize.width;
+		final int y = nodeOrigin.y > preferredSize.height - 500 ? nodeOrigin.y + 500 : preferredSize.height;
+		setPreferredSize(new Dimension(x, y));
 		// Centering the node component around the requested point:
 		nodeOrigin.translate(-d.width / 2, -d.height / 2);
 		node.setBounds(new Rectangle(nodeOrigin, node.getPreferredSize()));

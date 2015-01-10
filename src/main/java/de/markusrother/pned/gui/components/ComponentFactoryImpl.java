@@ -7,9 +7,13 @@ import de.markusrother.pned.gui.core.model.EdgeStyleModel;
 
 /**
  * <p>
- * Factory for {@link de.markusrother.pned.gui.components.PlaceComponent}s, {@link de.markusrother.pned.gui.components.TransitionComponent}s, {@link de.markusrother.pned.gui.components.EdgeComponent}s, and
+ * Factory for {@link de.markusrother.pned.gui.components.PlaceComponent}s,
+ * {@link de.markusrother.pned.gui.components.TransitionComponent}s,
+ * {@link de.markusrother.pned.gui.components.EdgeComponent}s, and
  * {@link de.markusrother.pned.gui.components.MarkingComponent}s.
  * </p>
+ * 
+ * FIXME - rename to ComponentFactory
  *
  * @author Markus Rother
  * @version 1.0
@@ -76,7 +80,8 @@ public class ComponentFactoryImpl
 	 * </p>
 	 *
 	 * @param node
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 */
 	private void addListenersToNode(final AbstractNodeComponent node) {
