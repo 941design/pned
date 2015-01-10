@@ -11,9 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.TimeoutException;
 
-import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.EdgeCreationListener;
@@ -41,12 +39,14 @@ import de.markusrother.swing.DragDropListener;
 import de.markusrother.swing.GridComponent;
 
 /**
- * <p>PnGridPanel class.</p>
+ * <p>
+ * PnGridPanel class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
  */
-public class PnGridPanel extends JLayeredPane
+public class PnGridPanel extends GridComponent
 	implements
 		NodeCreationListener,
 		NodeSelectionListener,
@@ -60,10 +60,6 @@ public class PnGridPanel extends JLayeredPane
 	private static final int labelHeight = 20;
 
 	private final PnEventBus eventBus;
-
-	private final JComponent nodeLayer;
-	private final JComponent edgeLayer;
-	private final JComponent labelLayer;
 
 	private final EdgeCreator edgeCreator;
 	private final NodeCreator nodeCreator;
@@ -105,14 +101,17 @@ public class PnGridPanel extends JLayeredPane
 	 *            {@link de.markusrother.pned.gui.components.menus.PnMenuFactory}
 	 *            object.
 	 * @param nodeFactory
-	 *            a {@link de.markusrother.pned.gui.components.NodeComponentFactory}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.NodeComponentFactory}
 	 *            object.
 	 * @param edgeFactory
-	 *            a {@link de.markusrother.pned.gui.components.EdgeComponentFactory}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.EdgeComponentFactory}
 	 *            object.
 	 */
-	public PnGridPanel(final PnEventBus eventBus, final PnMenuFactory menuFactory, final NodeComponentFactory nodeFactory,
-			final EdgeComponentFactory edgeFactory) {
+	public PnGridPanel(final PnEventBus eventBus, final PnMenuFactory menuFactory,
+			final NodeComponentFactory nodeFactory, final EdgeComponentFactory edgeFactory) {
+		super(new Dimension(40, 40), Color.GRAY);
 
 		this.eventBus = eventBus;
 		this.nodeFactory = nodeFactory;
@@ -120,29 +119,18 @@ public class PnGridPanel extends JLayeredPane
 		this.currentSelection = new HashSet<>();
 
 		setPreferredSize(preferredSize);
-		nodeLayer = new GridComponent(new Dimension(40, 40), Color.GRAY);
-		// TODO - get preferred size from parent
-		nodeLayer.setPreferredSize(preferredSize);
-		// Must set bounds manually for JLayeredPane
-		nodeLayer.setBounds(new Rectangle(new Point(0, 0), preferredSize));
-
-		edgeLayer = createLayer(0);
-		edgeLayer.setBackground(Color.LIGHT_GRAY);
-
-		labelLayer = createLayer(10);
 
 		// Listeners that are needed by children, are kept here:
-		this.edgeCreator = new EdgeCreator(eventBus, edgeFactory, edgeLayer);
+		this.edgeCreator = new EdgeCreator(eventBus, edgeFactory, this);
 		this.nodeCreator = new NodeCreator(eventBus);
 		this.multipleNodeSelector = new NodeSelector(eventBus);
 		this.popupCreator = new PnPopupListener(menuFactory);
 		this.nodeLabelEditor = new NodeLabelEditor(eventBus);
 
-		add(nodeLayer, new Integer(1));
-		nodeCreator.addToComponent(nodeLayer);
-		edgeCreator.addToComponent(nodeLayer);
-		popupCreator.addToComponent(nodeLayer);
-		DragDropListener.addToComponent(nodeLayer, multipleNodeSelector);
+		nodeCreator.addToComponent(this);
+		edgeCreator.addToComponent(this);
+		popupCreator.addToComponent(this);
+		DragDropListener.addToComponent(this, multipleNodeSelector);
 
 		// TODO - dispose and assert removal of listeners!
 		eventBus.addListener(NodeCreationListener.class, this);
@@ -152,26 +140,6 @@ public class PnGridPanel extends JLayeredPane
 		// TODO - This is currently without effect, because edge components are
 		// laid on top and prevent mouse events from bubbling!
 		eventBus.addListener(EdgeEditListener.class, this);
-	}
-
-	/**
-	 * <p>
-	 * createLayer.
-	 * </p>
-	 *
-	 * @param i
-	 *            a int.
-	 * @return a {@link javax.swing.JComponent} object.
-	 */
-	private JComponent createLayer(final int i) {
-		final JComponent layer = new JComponent() {
-			// TODO - For some strange reason we cannot add JPanels to
-			// JLayeredPane
-		};
-		// Must set bounds manually for JLayeredPane
-		layer.setBounds(new Rectangle(new Point(0, 0), preferredSize));
-		add(layer, new Integer(i));
-		return layer;
 	}
 
 	/**
@@ -237,8 +205,8 @@ public class PnGridPanel extends JLayeredPane
 		// Centering the node component around the requested point:
 		nodeOrigin.translate(-d.width / 2, -d.height / 2);
 		node.setBounds(new Rectangle(nodeOrigin, node.getPreferredSize()));
-		nodeLayer.add(node);
-		nodeLayer.repaint();
+		add(node);
+		repaint();
 	}
 
 	/**
@@ -247,7 +215,8 @@ public class PnGridPanel extends JLayeredPane
 	 * </p>
 	 *
 	 * @param node
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @return a {@link javax.swing.JLabel} object.
 	 */
@@ -290,7 +259,7 @@ public class PnGridPanel extends JLayeredPane
 	 */
 	private void addLabelComponent(final LabelComponent label, final Point origin) {
 		label.setBounds(new Rectangle(origin, label.getPreferredSize()));
-		labelLayer.add(label);
+		add(label);
 	}
 
 	/** {@inheritDoc} */
@@ -324,14 +293,16 @@ public class PnGridPanel extends JLayeredPane
 	 *
 	 * @param nodeId
 	 *            a {@link java.lang.String} object.
-	 * @return a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 * @return a
+	 *         {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *         object.
 	 */
 	private AbstractNodeComponent requestNode(final String nodeId) {
 		try {
 			final NodeRequest req = new NodeRequest(this, nodeId);
 			eventBus.requestNode(req);
-			final AbstractNodeComponent node = req.get(); // TODO - insert timeout here!
+			final AbstractNodeComponent node = req.get(); // TODO - insert
+															// timeout here!
 			return node;
 		} catch (final TimeoutException e) {
 			e.printStackTrace();
@@ -350,10 +321,10 @@ public class PnGridPanel extends JLayeredPane
 	 *            object.
 	 */
 	private void addEdgeComponent(final EdgeComponent edge) {
-		edge.setBounds(edgeLayer.getBounds());
-		edgeLayer.add(edge);
-		edgeLayer.revalidate();
-		edgeLayer.repaint();
+		edge.setBounds(getBounds());
+		add(edge);
+		revalidate();
+		repaint();
 	}
 
 	/** {@inheritDoc} */
@@ -459,8 +430,8 @@ public class PnGridPanel extends JLayeredPane
 	 * </p>
 	 */
 	protected void suspendListeners() {
-		nodeCreator.removeFromComponent(nodeLayer);
-		popupCreator.removeFromComponent(nodeLayer);
+		nodeCreator.removeFromComponent(this);
+		popupCreator.removeFromComponent(this);
 	}
 
 	/**
@@ -469,8 +440,8 @@ public class PnGridPanel extends JLayeredPane
 	 * </p>
 	 */
 	protected void installListeners() {
-		nodeCreator.addToComponent(nodeLayer);
-		popupCreator.addToComponent(nodeLayer);
+		nodeCreator.addToComponent(this);
+		popupCreator.addToComponent(this);
 	}
 
 }
