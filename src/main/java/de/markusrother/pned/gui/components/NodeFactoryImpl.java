@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.components;
 
 import de.markusrother.pned.gui.components.listeners.MarkingEditor;
 import de.markusrother.pned.gui.components.listeners.SingleNodeSelector;
-import de.markusrother.pned.gui.core.PnState;
+import de.markusrother.pned.gui.control.PnState;
 import de.markusrother.pned.gui.core.model.EdgeStyleModel;
 
 /**
@@ -29,7 +29,7 @@ public class NodeFactoryImpl
 	 * </p>
 	 *
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
+	 *            a {@link de.markusrother.pned.gui.control.PnState} object.
 	 */
 	public NodeFactoryImpl(final PnState state) {
 		this.state = state;

@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 
 import de.markusrother.pned.gui.components.AbstractComponentTest;
 import de.markusrother.pned.gui.control.PnEventBus;
-import de.markusrother.pned.gui.core.PnState;
+import de.markusrother.pned.gui.control.PnState;
 
 public class GuiStateTest {
 

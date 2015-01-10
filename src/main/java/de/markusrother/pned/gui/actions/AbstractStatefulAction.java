@@ -3,11 +3,11 @@ package de.markusrother.pned.gui.actions;
 import javax.swing.AbstractAction;
 
 import de.markusrother.pned.gui.control.PnEventBus;
-import de.markusrother.pned.gui.core.PnState;
+import de.markusrother.pned.gui.control.PnState;
 
 /**
  * <p>
- * Abstract superclass for actions which may depend on a given {@link de.markusrother.pned.gui.core.PnState} -
+ * Abstract superclass for actions which may depend on a given {@link de.markusrother.pned.gui.control.PnState} -
  * the state of a {@link de.markusrother.pned.core.model.PetriNetModel} combined
  * with a {@link de.markusrother.pned.gui.components.PnFrame}. For example, a
  * certain action may only be available when certain conditions are met.
@@ -35,7 +35,7 @@ abstract class AbstractStatefulAction extends AbstractAction {
 	 * @param name
 	 *            a {@link java.lang.String} - this action's name.
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.core.PnState} - the current
+	 *            a {@link de.markusrother.pned.gui.control.PnState} - the current
 	 *            state.
 	 */
 	public AbstractStatefulAction(final String name, final PnState state) {

@@ -1,4 +1,4 @@
-package de.markusrother.pned.gui.core;
+package de.markusrother.pned.gui.control;
 
 import java.io.File;
 import java.util.Collection;
@@ -14,7 +14,6 @@ import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.control.commands.EdgeLayoutCommand;
 import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.control.commands.MarkingLayoutCommand;
@@ -23,6 +22,10 @@ import de.markusrother.pned.gui.control.commands.SetNodeTypeCommand;
 import de.markusrother.pned.gui.control.commands.TransitionLayoutCommand;
 import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.core.EdgeStyle;
+import de.markusrother.pned.gui.core.MarkingStyle;
+import de.markusrother.pned.gui.core.NodeCreationMode;
+import de.markusrother.pned.gui.core.NodeStyle;
 import de.markusrother.pned.gui.core.model.EdgeStyleModel;
 import de.markusrother.pned.gui.core.model.MarkingStyleModel;
 import de.markusrother.pned.gui.core.model.NodeStyleModel;

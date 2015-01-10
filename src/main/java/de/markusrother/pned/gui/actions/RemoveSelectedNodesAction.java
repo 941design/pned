@@ -6,10 +6,10 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
+import de.markusrother.pned.gui.control.PnState;
 import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.control.events.NodeSelectionListener;
 import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
-import de.markusrother.pned.gui.core.PnState;
 
 /**
  * <p>
@@ -17,7 +17,7 @@ import de.markusrother.pned.gui.core.PnState;
  * </p>
  * <p>
  * The selection state can be retrieved from
- * {@link de.markusrother.pned.gui.core.PnState}.
+ * {@link de.markusrother.pned.gui.control.PnState}.
  * </p>
  *
  * @author Markus Rother
@@ -40,7 +40,7 @@ public class RemoveSelectedNodesAction extends AbstractStatefulAction
 	 * </p>
 	 *
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.core.PnState} - the current
+	 *            a {@link de.markusrother.pned.gui.control.PnState} - the current
 	 *            state.
 	 * @return a {@link javax.swing.JMenuItem} - the created menu item.
 	 */
@@ -54,7 +54,7 @@ public class RemoveSelectedNodesAction extends AbstractStatefulAction
 	 * </p>
 	 *
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.core.PnState} - the current
+	 *            a {@link de.markusrother.pned.gui.control.PnState} - the current
 	 *            state.
 	 */
 	public RemoveSelectedNodesAction(final PnState state) {

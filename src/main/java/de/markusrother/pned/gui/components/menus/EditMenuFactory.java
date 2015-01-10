@@ -21,7 +21,7 @@ import de.markusrother.pned.gui.actions.LocationProvider;
 import de.markusrother.pned.gui.actions.RemoveIncomingEdgesAction;
 import de.markusrother.pned.gui.actions.RemoveOutgoingEdgesAction;
 import de.markusrother.pned.gui.actions.RemoveSelectedNodesAction;
-import de.markusrother.pned.gui.core.PnState;
+import de.markusrother.pned.gui.control.PnState;
 
 /**
  * <p>
@@ -48,7 +48,7 @@ public class EditMenuFactory
 	 * </p>
 	 *
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.core.PnState} object.
+	 *            a {@link de.markusrother.pned.gui.control.PnState} object.
 	 */
 	public EditMenuFactory(final PnState state) {
 		this.state = state;

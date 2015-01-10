@@ -6,7 +6,7 @@ import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
 import de.markusrother.pned.gui.components.dialogs.FileDialogFactory;
-import de.markusrother.pned.gui.core.PnState;
+import de.markusrother.pned.gui.control.PnState;
 
 /**
  * TODO - maintain state and keep track of number of selected nodes! Depending
@@ -37,7 +37,7 @@ public class PnMenuFactory {
 	 * Constructor for PnEditorMenuFactory.
 	 * </p>
 	 *
-	 * @param state a {@link de.markusrother.pned.gui.core.PnState} object.
+	 * @param state a {@link de.markusrother.pned.gui.control.PnState} object.
 	 */
 	public PnMenuFactory(final PnState state) {
 		this.state = state;
