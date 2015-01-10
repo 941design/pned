@@ -23,7 +23,6 @@ import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.core.EdgeStyle;
 import de.markusrother.pned.gui.core.MarkingStyle;
-import de.markusrother.pned.gui.core.NodeCreationMode;
 import de.markusrother.pned.gui.core.NodeStyle;
 import de.markusrother.pned.gui.core.model.EdgeStyleModel;
 import de.markusrother.pned.gui.core.model.MarkingStyleModel;
@@ -33,7 +32,13 @@ import de.markusrother.pned.util.PnEventAdapter;
 
 /**
  * <p>
- * GuiState class.
+ * Class representing a {@link de.markusrother.pned.gui.components.PnFrame}s
+ * current state.
+ * </p>
+ * <p>
+ * The state consists of attributes that are not directly related with the
+ * underlying {@link de.markusrother.pned.core.model.PetriNetModel}, but rather
+ * with its visualization.
  * </p>
  *
  * @author Markus Rother
@@ -42,6 +47,17 @@ import de.markusrother.pned.util.PnEventAdapter;
 public class PnState extends PnEventAdapter
 	implements
 		PnStateModel {
+
+	/** The default creation type for new nodes. */
+	public enum NodeCreationMode {
+
+		PLACE,
+		TRANSITION;
+
+		/** Constant <code>defaultCreationMode</code> */
+		public static final NodeCreationMode defaultCreationMode = PLACE;
+
+	}
 
 	protected final NodeStyleModel placeStyle;
 	protected final NodeStyleModel transitionStyle;
@@ -121,19 +137,6 @@ public class PnState extends PnEventAdapter
 	@Override
 	public NodeCreationMode getNodeCreationMode() {
 		return nodeCreationMode;
-	}
-
-	/**
-	 * <p>
-	 * Setter for the field <code>nodeCreationMode</code>.
-	 * </p>
-	 *
-	 * @param nodeCreationMode
-	 *            a {@link de.markusrother.pned.gui.core.NodeCreationMode}
-	 *            object.
-	 */
-	public void setNodeCreationMode(final NodeCreationMode nodeCreationMode) {
-		this.nodeCreationMode = nodeCreationMode;
 	}
 
 	/** {@inheritDoc} */
@@ -252,6 +255,9 @@ public class PnState extends PnEventAdapter
 		return filterOutgoingEdges(getSelectedNodeIds());
 	}
 
+	/**
+	 * TODO - Should be decoupled!
+	 */
 	public PnEventBus getEventBus() {
 		return eventBus;
 	}
@@ -283,18 +289,7 @@ public class PnState extends PnEventAdapter
 	/** {@inheritDoc} */
 	@Override
 	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
-		switch (cmd.getMode()) {
-		case PLACE:
-			// removeState(State.TRANSITION_CREATION);
-			// addState(State.PLACE_CREATION);
-			break;
-		case TRANSITION:
-			// removeState(State.PLACE_CREATION);
-			// addState(State.TRANSITION_CREATION);
-			break;
-		default:
-			throw new IllegalStateException();
-		}
+		nodeCreationMode = cmd.getMode();
 	}
 
 	/** {@inheritDoc} */

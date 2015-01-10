@@ -6,7 +6,7 @@ import de.markusrother.pned.gui.control.PnEventBus;
 
 /**
  * <p>
- * PetriNetGuiEventLogger class.
+ * Event logger that prints all events to {@link System#out}.
  * </p>
  *
  * @author Markus Rother
@@ -34,7 +34,9 @@ public class PnEventLogger extends PnEventAdapter {
 	}
 
 	/**
-	 * <p>log.</p>
+	 * <p>
+	 * log.
+	 * </p>
 	 *
 	 * @param e
 	 *            a {@link java.util.EventObject} object.

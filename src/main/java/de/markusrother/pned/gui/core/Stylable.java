@@ -5,7 +5,8 @@ import javax.swing.event.ChangeListener;
 import de.markusrother.swing.ChangeEventSource;
 
 /**
- * Components that can be styled and listen to changes in that style model.
+ * Components that can be styled and listen to for changes in the given style
+ * model.
  *
  * @param <T>
  *            the Style
@@ -18,7 +19,7 @@ public interface Stylable<T extends ChangeEventSource>
 
 	/**
 	 * <p>
-	 * setStyle.
+	 * Sets new style.
 	 * </p>
 	 *
 	 * @param style

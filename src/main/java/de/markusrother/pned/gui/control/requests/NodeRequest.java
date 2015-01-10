@@ -11,12 +11,15 @@ import de.markusrother.util.JsonSerializable;
 
 /**
  * <p>
- * NodeRequest class.
+ * Duplex event for a concrete
+ * {@link de.markusrother.pned.gui.components.AbstractNode} instance. The node
+ * is expected to listen for this event and answer the request.
  * </p>
  *
  * @author Markus Rother
  * @version 1.0
  * @see de.markusrother.pned.gui.control.requests.NodeRequestListener
+ * @see de.markusrother.pned.gui.components.AbstractNode#requestNode(NodeRequest)
  */
 public class NodeRequest extends Request<AbstractNode>
 	implements
@@ -52,7 +55,8 @@ public class NodeRequest extends Request<AbstractNode>
 
 	/**
 	 * <p>
-	 * createWorker.
+	 * Returns a worker for a given listener that can be executed, dispatching
+	 * this request asynchronously.
 	 * </p>
 	 *
 	 * @param l

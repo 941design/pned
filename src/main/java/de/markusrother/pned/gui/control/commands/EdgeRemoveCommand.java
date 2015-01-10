@@ -6,8 +6,6 @@ import de.markusrother.util.JsonBuilder;
 import de.markusrother.util.JsonSerializable;
 
 /**
- * TODO type
- *
  * @author Markus Rother
  * @version 1.0
  * @see de.markusrother.pned.control.commands.EdgeCreationListener

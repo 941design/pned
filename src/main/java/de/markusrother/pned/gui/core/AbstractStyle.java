@@ -7,7 +7,10 @@ import javax.swing.event.EventListenerList;
 import de.markusrother.swing.ChangeEventSource;
 
 /**
- * <p>AbstractStyle class.</p>
+ * <p>
+ * Abstract superclass for style model implementations that support change
+ * listeners.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -16,10 +19,13 @@ public class AbstractStyle
 	implements
 		ChangeEventSource {
 
-	private final EventListenerList listeners;
+	/** The registered listeners. */
+	protected final EventListenerList listeners;
 
 	/**
-	 * <p>Constructor for AbstractStyle.</p>
+	 * <p>
+	 * Constructor for AbstractStyle.
+	 * </p>
 	 */
 	public AbstractStyle() {
 		listeners = new EventListenerList();
@@ -38,7 +44,9 @@ public class AbstractStyle
 	}
 
 	/**
-	 * <p>fireChangeEvent.</p>
+	 * <p>
+	 * Informs registered listeners of a change in style.
+	 * </p>
 	 */
 	protected void fireChangeEvent() {
 		final ChangeEvent evt = new ChangeEvent(this);

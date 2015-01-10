@@ -3,7 +3,7 @@ package de.markusrother.pned.gui.core.model;
 import java.io.File;
 import java.util.Set;
 
-import de.markusrother.pned.gui.core.NodeCreationMode;
+import de.markusrother.pned.gui.control.PnState.NodeCreationMode;
 
 /**
  * <p>
@@ -32,11 +32,12 @@ public interface PnStateModel {
 	/**
 	 * <p>
 	 * Gets current node creation mode, either
-	 * {@link de.markusrother.pned.gui.core.NodeCreationMode#PLACE} or
-	 * {@link de.markusrother.pned.gui.core.NodeCreationMode#TRANSITION}.
+	 * {@link de.markusrother.pned.gui.control.NodeCreationMode#PLACE} or
+	 * {@link de.markusrother.pned.gui.control.NodeCreationMode#TRANSITION}.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.core.NodeCreationMode} object.
+	 * @return a {@link de.markusrother.pned.gui.control.NodeCreationMode}
+	 *         object.
 	 */
 	NodeCreationMode getNodeCreationMode();
 

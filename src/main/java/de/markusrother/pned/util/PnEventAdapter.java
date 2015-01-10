@@ -7,13 +7,13 @@ import de.markusrother.pned.control.commands.EdgeCreationListener;
 import de.markusrother.pned.control.commands.LabelEditCommand;
 import de.markusrother.pned.control.commands.LabelEditListener;
 import de.markusrother.pned.control.commands.MarkingEditCommand;
+import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeMotionCommand;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PetriNetIOListener;
-import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
@@ -52,10 +52,9 @@ import de.markusrother.pned.gui.control.requests.PnRequestTarget;
 
 /**
  * <p>
- * Abstract PetriNetGuiEventAdapter class.
+ * Adapter that directs all commands, events, and request to a single method:
+ * {@link #process(EventObject)}.
  * </p>
- *
- * FIXME - Name does not fit!
  *
  * @author Markus Rother
  * @version 1.0
@@ -77,9 +76,9 @@ public abstract class PnEventAdapter
 	 * </p>
 	 *
 	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.control.PnEventBus} to
-	 *            which resulting events are posted to and to which is listened
-	 *            to for state changes.
+	 *            a {@link de.markusrother.pned.gui.control.PnEventBus} to which
+	 *            resulting events are posted to and to which is listened to for
+	 *            state changes.
 	 */
 	public void setEventBus(final PnEventBus eventBus) {
 		if (this.eventBus != null) {

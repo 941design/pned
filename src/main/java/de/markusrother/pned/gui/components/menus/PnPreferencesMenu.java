@@ -9,7 +9,7 @@ import de.markusrother.pned.gui.control.commands.PnCommandTarget;
 
 /**
  * <p>
- * PnedPreferencesMenu class.
+ * Preferences menu.
  * </p>
  *
  * @author Markus Rother
@@ -32,7 +32,9 @@ public class PnPreferencesMenu extends JMenu {
 	 */
 	PnPreferencesMenu(final PnCommandTarget commandTarget) {
 		super(label);
+
 		setMnemonic(KeyEvent.VK_P);
+
 		add(OpenEditSettingsDialogAction.newMenuItem(commandTarget));
 	}
 

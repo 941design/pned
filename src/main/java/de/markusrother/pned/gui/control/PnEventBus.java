@@ -30,11 +30,20 @@ import de.markusrother.pned.gui.control.requests.NodeRequestListener;
 import de.markusrother.pned.gui.control.requests.PnRequestTarget;
 
 /**
- * FIXME - Create copy constructor from EventBus
+ * <p>
+ * Channel of communication between components as well as to an instance of
+ * {@link de.markusrother.pned.control.EventAwarePetriNet}.
+ * </p>
+ * <p>
+ * Changes in the GUI are communicated via an instance of this class to other
+ * components, listeners, and other parties interested in state changes. For
+ * example, once a selection starts other listeners must be temporarily
+ * suspended, and once that selection ends they may be reestablished.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
- * @see de.markusrother.pned.gui.control.PnEventBus
+ * @see de.markusrother.pned.control.EventBus
  * @see de.markusrother.pned.control.EventAwarePetriNet
  */
 public class PnEventBus extends EventBus
@@ -63,13 +72,14 @@ public class PnEventBus extends EventBus
 	@Override
 	public void requestNode(final NodeRequest req) {
 		final NodeRequestListener[] listeners = getListeners(NodeRequestListener.class);
-		// final ExecutorService threadPool =
-		// Executors.newFixedThreadPool(listeners.length);
-		// FIXME - use one threadpool as field!
-		// TODO - Create an own ThreadPool and a threadpool factory for each
-		// request. The Threadpool could then cancel threads of the same queue,
-		// if the first yields the searched node!
-		// FIXME
+		// TODO - To be more performant, we could keep a field reference to a
+		// resizable threadpool. Alternatively (better): Create an own
+		// ThreadPool and a threadpool factory for each request. That custom
+		// threadpool can then cancel threads of the same queue, as soon as the
+		// first thread yields a result.
+		// Also NOTE that the number of threads is limited, depending on
+		// hardware settings. If the executor in fact instantiates all those
+		// threads without killing them when done, we're in trouble.
 		final ExecutorService threadPool = Executors.newCachedThreadPool();
 		for (final NodeRequestListener l : listeners) {
 			final SwingWorker<AbstractNode, Object> worker = req.createWorker(l);

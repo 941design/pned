@@ -7,7 +7,7 @@ import java.util.EventObject;
  * RemoveSelectedNodesEvent class.
  * </p>
  *
- * FIXME - Should become single RemoveNodeEvent!
+ * TODO - Should become single RemoveNodeEvent with id!
  *
  * @author Markus Rother
  * @version 1.0

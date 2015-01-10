@@ -3,7 +3,9 @@ package de.markusrother.pned.gui.components.menus;
 import javax.swing.JMenuBar;
 
 /**
- * <p>PnedMenuBar class.</p>
+ * <p>
+ * Menu bar.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -11,9 +13,14 @@ import javax.swing.JMenuBar;
 public class PnMenuBar extends JMenuBar {
 
 	/**
-	 * <p>Constructor for PnedMenuBar.</p>
+	 * <p>
+	 * Constructor for PnedMenuBar.
+	 * </p>
 	 *
-	 * @param menuFactory a {@link de.markusrother.pned.gui.components.menus.PnMenuFactory} object.
+	 * @param menuFactory
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.menus.PnMenuFactory}
+	 *            object.
 	 */
 	public PnMenuBar(final PnMenuFactory menuFactory) {
 		add(menuFactory.newFileMenu());

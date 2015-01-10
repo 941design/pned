@@ -22,7 +22,6 @@ import de.markusrother.pned.gui.control.PnState;
 import de.markusrother.pned.gui.control.commands.PetriNetEditCommand;
 import de.markusrother.pned.gui.control.commands.PetriNetListener;
 import de.markusrother.pned.gui.control.commands.SetNodeTypeCommand;
-import de.markusrother.pned.gui.core.NodeCreationMode;
 import de.markusrother.pned.io.PNMLParser;
 import de.markusrother.pned.util.PnEventLogger;
 import de.markusrother.swing.CustomScrollPaneUI;
@@ -70,7 +69,7 @@ public class PnFrame extends JFrame
 		createComponents();
 
 		final PnEventBus eventBus = state.getEventBus();
-		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, NodeCreationMode.PLACE));
+		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, PnState.NodeCreationMode.PLACE));
 		eventBus.setCurrentDirectory(new PetriNetIOCommand(this, PetriNetIOCommand.Type.CWD, currentPath));
 	}
 

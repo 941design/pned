@@ -1,8 +1,5 @@
 package de.markusrother.pned.gui.components.menus;
 
-import static de.markusrother.pned.gui.core.NodeCreationMode.PLACE;
-import static de.markusrother.pned.gui.core.NodeCreationMode.TRANSITION;
-
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 
@@ -123,6 +120,9 @@ public class EditMenuFactory
 	 *            object.
 	 */
 	private void populateEditMenu(final JComponent component, final LocationProvider locationProvider) {
+
+		// TODO - Check type, cast, then add separators.
+
 		final ButtonGroup buttonGroup = new ButtonGroup();
 
 		final JRadioButtonMenuItem placeItem = CreatePlaceAction.newMenuItem( //
@@ -130,14 +130,14 @@ public class EditMenuFactory
 				locationProvider);
 		buttonGroup.add(placeItem);
 		component.add(placeItem);
-		placeItem.setSelected(state.getNodeCreationMode() == PLACE);
+		placeItem.setSelected(state.getNodeCreationMode() == PnState.NodeCreationMode.PLACE);
 
 		final JRadioButtonMenuItem transitionItem = CreateTransitionAction.newMenuItem( //
 				state.getEventBus(), //
 				locationProvider);
 		buttonGroup.add(transitionItem);
 		component.add(transitionItem);
-		transitionItem.setSelected(state.getNodeCreationMode() == TRANSITION);
+		transitionItem.setSelected(state.getNodeCreationMode() == PnState.NodeCreationMode.TRANSITION);
 
 		final JMenuItem removeNodesItem = RemoveSelectedNodesAction.newMenuItem(state);
 

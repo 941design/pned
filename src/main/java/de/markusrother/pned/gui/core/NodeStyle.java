@@ -9,8 +9,10 @@ import de.markusrother.pned.gui.core.model.NodeStyleModel;
 
 /**
  * <p>
- * NodeStyle class.
+ * Default implementation of
+ * {@link de.markusrother.pned.gui.core.model.NodeStyleModel}.
  * </p>
+ * 
  *
  * @author Markus Rother
  * @version 1.0
@@ -21,10 +23,12 @@ public class NodeStyle extends AbstractStyle
 
 	/**
 	 * <p>
-	 * newDefault.
+	 * Returns new instance of a default
+	 * {@link de.markusrother.pned.gui.core.model.NodeStyleModel}.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.core.NodeStyle} object.
+	 * @return a {@link de.markusrother.pned.gui.core.NodeStyle} - the default
+	 *         style.
 	 */
 	public static NodeStyle newDefault() {
 		final NodeStyle style = new NodeStyle();
@@ -106,14 +110,7 @@ public class NodeStyle extends AbstractStyle
 		return defaultBorder;
 	}
 
-	/**
-	 * <p>
-	 * Setter for the field <code>defaultBorder</code>.
-	 * </p>
-	 *
-	 * @param defaultBorder
-	 *            a {@link javax.swing.border.Border} object.
-	 */
+	@Override
 	public void setDefaultBorder(final Border defaultBorder) {
 		this.defaultBorder = defaultBorder;
 	}
@@ -124,14 +121,7 @@ public class NodeStyle extends AbstractStyle
 		return selectionBorder;
 	}
 
-	/**
-	 * <p>
-	 * Setter for the field <code>selectionBorder</code>.
-	 * </p>
-	 *
-	 * @param selectionBorder
-	 *            a {@link javax.swing.border.Border} object.
-	 */
+	@Override
 	public void setSelectionBorder(final Border selectionBorder) {
 		this.selectionBorder = selectionBorder;
 	}
@@ -142,14 +132,7 @@ public class NodeStyle extends AbstractStyle
 		return hoverBorder;
 	}
 
-	/**
-	 * <p>
-	 * Setter for the field <code>hoverBorder</code>.
-	 * </p>
-	 *
-	 * @param hoverBorder
-	 *            a {@link javax.swing.border.Border} object.
-	 */
+	@Override
 	public void setHoverBorder(final Border hoverBorder) {
 		this.hoverBorder = hoverBorder;
 	}

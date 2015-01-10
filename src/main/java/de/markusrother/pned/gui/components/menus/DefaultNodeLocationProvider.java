@@ -9,6 +9,8 @@ import de.markusrother.pned.gui.actions.LocationProvider;
  * Default, singleton implementation of
  * {@link de.markusrother.pned.gui.actions.LocationProvider}.
  * </p>
+ * 
+ * TODO - This should depend on the current viewport!
  *
  * @author Markus Rother
  * @version 1.0

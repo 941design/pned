@@ -7,8 +7,6 @@ import java.util.EventListener;
  * PlaceLayoutListener interface.
  * </p>
  *
- * FIXME rename these to GuiPlaceListener
- *
  * @author Markus Rother
  * @version 1.0
  */

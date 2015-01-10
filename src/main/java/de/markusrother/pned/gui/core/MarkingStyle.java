@@ -11,9 +11,11 @@ import de.markusrother.pned.gui.core.model.MarkingStyleModel;
 
 /**
  * <p>
- * MarkingStyle class.
+ * Default implementation of
+ * {@link de.markusrother.pned.gui.core.model.MarkingStyleModel}.
  * </p>
- *
+ * 
+ * 
  * @author Markus Rother
  * @version 1.0
  */
@@ -23,11 +25,13 @@ public class MarkingStyle extends AbstractStyle
 
 	/**
 	 * <p>
-	 * newDefault.
+	 * Returns new instance of a default
+	 * {@link de.markusrother.pned.gui.core.model.MarkingStyleModel}.
 	 * </p>
+	 * 
 	 *
-	 * @return a {@link de.markusrother.pned.gui.core.model.MarkingStyleModel}
-	 *         object.
+	 * @return a {@link de.markusrother.pned.gui.core.model.MarkingStyleModel} -
+	 *         the default style.
 	 */
 	public static MarkingStyleModel newDefault() {
 		final MarkingStyleModel markingStyle = new MarkingStyle();

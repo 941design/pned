@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.control.commands;
 
 import java.util.EventObject;
 
-import de.markusrother.pned.gui.core.NodeCreationMode;
+import de.markusrother.pned.gui.control.PnState.NodeCreationMode;
 import de.markusrother.util.JsonBuilder;
 import de.markusrother.util.JsonSerializable;
 
@@ -11,7 +11,7 @@ import de.markusrother.util.JsonSerializable;
  * SetNodeTypeCommand class.
  * </p>
  *
- * FIXME - merge into PetriNetCommand
+ * TODO - merge into PetriNetCommand
  *
  * @author Markus Rother
  * @version 1.0
@@ -31,7 +31,7 @@ public class SetNodeTypeCommand extends EventObject
 	 * @param source
 	 *            a {@link java.lang.Object} object.
 	 * @param mode
-	 *            a {@link de.markusrother.pned.gui.core.NodeCreationMode}
+	 *            a {@link de.markusrother.pned.gui.control.NodeCreationMode}
 	 *            object.
 	 */
 	public SetNodeTypeCommand(final Object source, final NodeCreationMode mode) {
@@ -44,7 +44,8 @@ public class SetNodeTypeCommand extends EventObject
 	 * Getter for the field <code>mode</code>.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.core.NodeCreationMode} object.
+	 * @return a {@link de.markusrother.pned.gui.control.NodeCreationMode}
+	 *         object.
 	 */
 	public NodeCreationMode getMode() {
 		return mode;

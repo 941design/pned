@@ -6,10 +6,8 @@ import de.markusrother.pned.control.EventBus;
 
 /**
  * <p>
- * PetriNetEventLogger class.
+ * Event logger that prints all events to {@link System#out}.
  * </p>
- *
- * FIXME - use compound interfaces
  *
  * @author Markus Rother
  * @version 1.0
@@ -17,9 +15,12 @@ import de.markusrother.pned.control.EventBus;
 public class EventLogger extends EventAdapter {
 
 	/**
-	 * <p>log.</p>
+	 * <p>
+	 * log.
+	 * </p>
 	 *
-	 * @param eventBus a {@link de.markusrother.pned.control.EventBus} object.
+	 * @param eventBus
+	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 */
 	public static void log(final EventBus eventBus) {
 		final EventLogger logger = new EventLogger();

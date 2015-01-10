@@ -1,7 +1,5 @@
 package de.markusrother.pned.gui.actions;
 
-import static de.markusrother.pned.gui.core.NodeCreationMode.TRANSITION;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -10,6 +8,7 @@ import javax.swing.JRadioButtonMenuItem;
 
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.gui.control.PnEventBus;
+import de.markusrother.pned.gui.control.PnState;
 import de.markusrother.pned.gui.control.commands.SetNodeTypeCommand;
 import de.markusrother.swing.CustomRadioButtonMenuItem;
 
@@ -86,7 +85,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	/** {@inheritDoc} */
 	@Override
 	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
-		setSelected(cmd.getMode() == TRANSITION);
+		setSelected(cmd.getMode() == PnState.NodeCreationMode.TRANSITION);
 	}
 
 	/** {@inheritDoc} */
@@ -98,7 +97,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	/** {@inheritDoc} */
 	@Override
 	protected void fireSetNodeTypeCommand() {
-		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, TRANSITION));
+		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, PnState.NodeCreationMode.TRANSITION));
 	}
 
 }

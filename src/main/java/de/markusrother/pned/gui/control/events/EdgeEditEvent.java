@@ -12,10 +12,9 @@ import de.markusrother.util.JsonSerializable;
  * <p>
  * EdgeEditEvent class.
  * </p>
- *
- * FIXME - coordinate handling is somewhat inconsistent
- *
- * FIXME - We could request an id upon initial creation
+ * 
+ * TODO - Sending all of these events over the bus creates a lot of overhead!
+ * Use component listeners?
  *
  * @author Markus Rother
  * @version 1.0

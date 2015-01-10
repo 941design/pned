@@ -12,7 +12,8 @@ import de.markusrother.pned.gui.core.model.EdgeStyleModel;
 
 /**
  * <p>
- * EdgeStyle class.
+ * Default implementation of
+ * {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}.
  * </p>
  *
  * @author Markus Rother
@@ -38,11 +39,12 @@ public class EdgeStyle extends AbstractStyle
 
 	/**
 	 * <p>
-	 * newDefault.
+	 * Returns new instance of a default
+	 * {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}.
 	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
-	 *         object.
+	 * @return a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel} -
+	 *         the default style.
 	 */
 	public static EdgeStyleModel newDefault() {
 		final EdgeStyleModel style = new EdgeStyle();

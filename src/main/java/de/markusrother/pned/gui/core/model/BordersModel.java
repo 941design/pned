@@ -12,8 +12,14 @@ public interface BordersModel {
 
 	Border getDefaultBorder();
 
+	void setDefaultBorder(Border defaultBorder);
+
 	Border getHoverBorder();
 
+	void setHoverBorder(Border hoverBorder);
+
 	Border getSelectionBorder();
+
+	void setSelectionBorder(Border selectionBorder);
 
 }

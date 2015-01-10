@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.util.EventObject;
 
 /**
- * <p>Abstract LayoutCommand class.</p>
+ * <p>
+ * Abstract adapter-like superclass for layout commands.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -35,12 +37,20 @@ public abstract class LayoutCommand extends EventObject {
 	// TODO - private final Ratio ratio;
 
 	/**
-	 * <p>Constructor for LayoutCommand.</p>
+	 * <p>
+	 * Constructor for LayoutCommand.
+	 * </p>
 	 *
-	 * @param source a {@link java.lang.Object} object.
-	 * @param type a {@link de.markusrother.pned.gui.control.commands.LayoutCommand.ChangeType} object.
-	 * @param size a int.
-	 * @param color a {@link java.awt.Color} object.
+	 * @param source
+	 *            a {@link java.lang.Object} object.
+	 * @param type
+	 *            a
+	 *            {@link de.markusrother.pned.gui.control.commands.LayoutCommand.ChangeType}
+	 *            object.
+	 * @param size
+	 *            a int.
+	 * @param color
+	 *            a {@link java.awt.Color} object.
 	 */
 	public LayoutCommand(final Object source, final ChangeType type, final int size, final Color color) {
 		super(source);
@@ -50,16 +60,22 @@ public abstract class LayoutCommand extends EventObject {
 	}
 
 	/**
-	 * <p>Getter for the field <code>type</code>.</p>
+	 * <p>
+	 * Getter for the field <code>type</code>.
+	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.control.commands.LayoutCommand.ChangeType} object.
+	 * @return a
+	 *         {@link de.markusrother.pned.gui.control.commands.LayoutCommand.ChangeType}
+	 *         object.
 	 */
 	public ChangeType getType() {
 		return type;
 	}
 
 	/**
-	 * <p>Getter for the field <code>color</code>.</p>
+	 * <p>
+	 * Getter for the field <code>color</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.awt.Color} object.
 	 */
@@ -68,7 +84,9 @@ public abstract class LayoutCommand extends EventObject {
 	}
 
 	/**
-	 * <p>Getter for the field <code>size</code>.</p>
+	 * <p>
+	 * Getter for the field <code>size</code>.
+	 * </p>
 	 *
 	 * @return a int.
 	 */
