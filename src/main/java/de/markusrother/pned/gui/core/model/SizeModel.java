@@ -3,7 +3,9 @@ package de.markusrother.pned.gui.core.model;
 import de.markusrother.swing.ChangeEventSource;
 
 /**
- * <p>SizeModel interface.</p>
+ * <p>
+ * Model for resizable objects, where size is an implementor-defined measure.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -14,20 +16,20 @@ public interface SizeModel
 
 	/**
 	 * <p>
-	 * getSize.
+	 * Returns current size.
 	 * </p>
 	 *
-	 * @return a int.
+	 * @return a int - an implementor defined measure.
 	 */
 	int getSize();
 
 	/**
 	 * <p>
-	 * setSize.
+	 * Sets new size.
 	 * </p>
 	 *
 	 * @param size
-	 *            a int.
+	 *            a int - an implementor defined measure.
 	 */
 	void setSize(int size);
 

@@ -65,14 +65,7 @@ public class NodeStyle extends AbstractStyle
 		return defaultColor;
 	}
 
-	/**
-	 * <p>
-	 * Setter for the field <code>defaultColor</code>.
-	 * </p>
-	 *
-	 * @param defaultColor
-	 *            a {@link java.awt.Color} object.
-	 */
+	@Override
 	public void setDefaultColor(final Color defaultColor) {
 		this.defaultColor = defaultColor;
 	}
@@ -83,14 +76,7 @@ public class NodeStyle extends AbstractStyle
 		return selectionColor;
 	}
 
-	/**
-	 * <p>
-	 * Setter for the field <code>selectionColor</code>.
-	 * </p>
-	 *
-	 * @param selectionColor
-	 *            a {@link java.awt.Color} object.
-	 */
+	@Override
 	public void setSelectionColor(final Color selectionColor) {
 		this.selectionColor = selectionColor;
 	}
@@ -109,6 +95,7 @@ public class NodeStyle extends AbstractStyle
 	 * @param hoverColor
 	 *            a {@link java.awt.Color} object.
 	 */
+	@Override
 	public void setHoverColor(final Color hoverColor) {
 		this.hoverColor = hoverColor;
 	}
@@ -165,6 +152,26 @@ public class NodeStyle extends AbstractStyle
 	 */
 	public void setHoverBorder(final Border hoverBorder) {
 		this.hoverBorder = hoverBorder;
+	}
+
+	@Override
+	public Color getValidColor() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setValidColor(final Color color) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Color getInvalidColor() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setInvalidColor(final Color color) {
+		throw new UnsupportedOperationException();
 	}
 
 }

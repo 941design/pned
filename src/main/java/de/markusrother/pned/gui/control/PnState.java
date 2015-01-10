@@ -1,7 +1,6 @@
 package de.markusrother.pned.gui.control;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.EventObject;
 import java.util.HashMap;
@@ -152,7 +151,7 @@ public class PnState extends PnEventAdapter
 	 *            a {@link java.util.Set} object.
 	 * @return a {@link java.util.Collection} object.
 	 */
-	private Collection<String> filterTargetNodes(final Set<String> nodeIds) {
+	private Set<String> filterTargetNodes(final Set<String> nodeIds) {
 		final Set<String> targetNodeIds = new HashSet<>();
 		for (final String targetId : incomingEdgesMap.values()) {
 			if (nodeIds.contains(targetId)) {
@@ -171,7 +170,7 @@ public class PnState extends PnEventAdapter
 	 *            a {@link java.util.Set} object.
 	 * @return a {@link java.util.Collection} object.
 	 */
-	private Collection<String> filterSourceNodes(final Set<String> nodeIds) {
+	private Set<String> filterSourceNodes(final Set<String> nodeIds) {
 		final Set<String> sourceNodeIds = new HashSet<>();
 		for (final String sourceId : outgoingEdgesMap.values()) {
 			if (nodeIds.contains(sourceId)) {
@@ -190,7 +189,7 @@ public class PnState extends PnEventAdapter
 	 *            a {@link java.util.Set} object.
 	 * @return a {@link java.util.Collection} object.
 	 */
-	protected Collection<String> filterIncomingEdges(final Set<String> nodeIds) {
+	protected Set<String> filterIncomingEdges(final Set<String> nodeIds) {
 		final Set<String> edgeIds = new HashSet<>();
 		for (final Entry<String, String> entry : incomingEdgesMap.entrySet()) {
 			final String edgeId = entry.getKey();
@@ -211,7 +210,7 @@ public class PnState extends PnEventAdapter
 	 *            a {@link java.util.Set} object.
 	 * @return a {@link java.util.Collection} object.
 	 */
-	protected Collection<String> filterOutgoingEdges(final Set<String> nodeIds) {
+	protected Set<String> filterOutgoingEdges(final Set<String> nodeIds) {
 		final Set<String> edgeIds = new HashSet<>();
 		for (final Entry<String, String> entry : outgoingEdgesMap.entrySet()) {
 			final String edgeId = entry.getKey();
@@ -231,30 +230,28 @@ public class PnState extends PnEventAdapter
 
 	/** {@inheritDoc} */
 	@Override
-	public Collection<String> getSelectedTargetNodeIds() {
+	public Set<String> getSelectedTargetNodeIds() {
 		return filterTargetNodes(getSelectedNodeIds());
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public Collection<String> getSelectedSourceNodeIds() {
+	public Set<String> getSelectedSourceNodeIds() {
 		return filterSourceNodes(getSelectedNodeIds());
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public Collection<String> getSelectedIncomingEdgeIds() {
+	public Set<String> getSelectedIncomingEdgeIds() {
 		return filterIncomingEdges(getSelectedNodeIds());
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public Collection<String> getSelectedOutgoingEdgeIds() {
+	public Set<String> getSelectedOutgoingEdgeIds() {
 		return filterOutgoingEdges(getSelectedNodeIds());
 	}
 
-	/** {@inheritDoc} */
-	@Override
 	public PnEventBus getEventBus() {
 		return eventBus;
 	}

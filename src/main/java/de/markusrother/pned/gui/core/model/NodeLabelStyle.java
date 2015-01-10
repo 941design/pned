@@ -11,7 +11,7 @@ import de.markusrother.pned.gui.components.NodeLabel;
  * NodeLabelStyle class.
  * </p>
  *
- * FIXME OBSOLETE by NodeStyleModel merge apply into label
+ * FIXME OBSOLETE
  *
  * @author Markus Rother
  * @version 1.0

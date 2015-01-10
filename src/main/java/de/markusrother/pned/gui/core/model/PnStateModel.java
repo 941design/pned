@@ -1,122 +1,157 @@
 package de.markusrother.pned.gui.core.model;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.Set;
 
-import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.core.NodeCreationMode;
 
 /**
- * <p>PnStateModel interface.</p>
+ * <p>
+ * Model describing a Petri net's current visualization's state.
+ * </p>
+ * <p>
+ * It is expected that this models state is updated by GUI interactions, hence
+ * there are no setters.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.gui.control.PnEventBus
  */
 public interface PnStateModel {
 
 	/**
-	 * <p>getEventBus.</p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.control.PnEventBus} object.
-	 */
-	PnEventBus getEventBus();
-
-	/**
-	 * <p>getCurrentDirectory.</p>
+	 * <p>
+	 * Gets the current directory.
+	 * </p>
 	 *
 	 * @return a {@link java.io.File} object.
 	 */
 	File getCurrentDirectory();
 
 	/**
-	 * <p>getNodeCreationMode.</p>
+	 * <p>
+	 * Gets current node creation mode, either
+	 * {@link de.markusrother.pned.gui.core.NodeCreationMode#PLACE} or
+	 * {@link de.markusrother.pned.gui.core.NodeCreationMode#TRANSITION}.
+	 * </p>
 	 *
 	 * @return a {@link de.markusrother.pned.gui.core.NodeCreationMode} object.
 	 */
 	NodeCreationMode getNodeCreationMode();
 
 	/**
-	 * <p>areNodesSelected.</p>
+	 * <p>
+	 * Returns true if any nodes are currently selected.
+	 * </p>
 	 *
 	 * @return a boolean.
 	 */
 	boolean areNodesSelected();
 
 	/**
-	 * <p>areSourceNodesSelected.</p>
+	 * <p>
+	 * Returns true if any currently selected nodes are input nodes.
+	 * </p>
 	 *
 	 * @return a boolean.
 	 */
 	boolean areSourceNodesSelected();
 
 	/**
-	 * <p>areTargetNodesSelected.</p>
+	 * <p>
+	 * Returns true if any currently selected nodes are output nodes.
+	 * </p>
 	 *
 	 * @return a boolean.
 	 */
 	boolean areTargetNodesSelected();
 
 	/**
-	 * <p>getSelectedNodeIds.</p>
+	 * <p>
+	 * Returns unique identifiers of all currently selected nodes.
+	 * </p>
 	 *
-	 * @return a {@link java.util.Set} object.
+	 * @return a {@link java.util.Set} of {@link java.lang.String}s.
 	 */
 	Set<String> getSelectedNodeIds();
 
 	/**
-	 * <p>getSelectedSourceNodeIds.</p>
+	 * <p>
+	 * Returns unique identifiers of all currently selected nodes that are input
+	 * nodes.
+	 * </p>
 	 *
-	 * @return a {@link java.util.Collection} object.
+	 * @return a {@link java.util.Set} of {@link java.lang.String}s.
 	 */
-	Collection<String> getSelectedSourceNodeIds();
+	Set<String> getSelectedSourceNodeIds();
 
 	/**
-	 * <p>getSelectedTargetNodeIds.</p>
+	 * <p>
+	 * Returns unique identifiers of all currently selected nodes that are
+	 * output nodes.
+	 * 
+	 * </p>
 	 *
-	 * @return a {@link java.util.Collection} object.
+	 * @return a {@link java.util.Set} of {@link java.lang.String}s.
 	 */
-	Collection<String> getSelectedTargetNodeIds();
+	Set<String> getSelectedTargetNodeIds();
 
 	/**
-	 * <p>getSelectedIncomingEdgeIds.</p>
+	 * <p>
+	 * Returns unique identifiers of all selected nodes incoming edges if any.
+	 * </p>
 	 *
-	 * @return a {@link java.util.Collection} object.
+	 * @return a {@link java.util.Set} of {@link java.lang.String}s.
 	 */
-	Collection<String> getSelectedIncomingEdgeIds();
+	Set<String> getSelectedIncomingEdgeIds();
 
 	/**
-	 * <p>getSelectedOutgoingEdgeIds.</p>
+	 * <p>
+	 * Returns unique identifiers of all selected nodes outgoing edges if any.
+	 * </p>
 	 *
-	 * @return a {@link java.util.Collection} object.
+	 * @return a {@link java.util.Set} of {@link java.lang.String}s.
 	 */
-	Collection<String> getSelectedOutgoingEdgeIds();
+	Set<String> getSelectedOutgoingEdgeIds();
 
 	/**
-	 * <p>getPlaceStyle.</p>
+	 * <p>
+	 * Returns current place styling.
+	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.core.model.NodeStyleModel} object.
+	 * @return a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
+	 *         object.
 	 */
 	NodeStyleModel getPlaceStyle();
 
 	/**
-	 * <p>getTransitionStyle.</p>
+	 * <p>
+	 * Returns current transition styling.
+	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.core.model.NodeStyleModel} object.
+	 * @return a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
+	 *         object.
 	 */
 	NodeStyleModel getTransitionStyle();
 
 	/**
-	 * <p>getEdgeStyle.</p>
+	 * <p>
+	 * Returns current edge styling.
+	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel} object.
+	 * @return a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
+	 *         object.
 	 */
 	EdgeStyleModel getEdgeStyle();
 
 	/**
-	 * <p>getMarkingStyle.</p>
+	 * <p>
+	 * Returns current marking styling.
+	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.core.model.MarkingStyleModel} object.
+	 * @return a {@link de.markusrother.pned.gui.core.model.MarkingStyleModel}
+	 *         object.
 	 */
 	MarkingStyleModel getMarkingStyle();
 

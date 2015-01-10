@@ -2,6 +2,9 @@
 
 * links
   + [[./target/site/apidocs/package-list]]
+
+* packages
+
 *.pned.gui*
 .pned.gui.components
 .pned.gui.components.dialogs
@@ -12,7 +15,7 @@
 .pned.gui.control.events
 .pned.gui.control.requests
 .pned.gui.core
-.pned.gui.core.model
+*.pned.gui.core.model*
 *.pned.gui.actions*
 
 *.pned.control*

@@ -3,6 +3,7 @@ package de.markusrother.pned.gui.core;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 
@@ -21,9 +22,12 @@ public class MarkingStyle extends AbstractStyle
 		MarkingStyleModel {
 
 	/**
-	 * <p>newDefault.</p>
+	 * <p>
+	 * newDefault.
+	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.core.model.MarkingStyleModel} object.
+	 * @return a {@link de.markusrother.pned.gui.core.model.MarkingStyleModel}
+	 *         object.
 	 */
 	public static MarkingStyleModel newDefault() {
 		final MarkingStyleModel markingStyle = new MarkingStyle();
@@ -111,6 +115,16 @@ public class MarkingStyle extends AbstractStyle
 	@Override
 	public Font getFont() {
 		return new Font(fontName, fontStyle, (int) (size / 1.2 + 0.5));
+	}
+
+	@Override
+	public Stroke getStroke() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setStroke(final Stroke stroke) {
+		throw new UnsupportedOperationException();
 	}
 
 }

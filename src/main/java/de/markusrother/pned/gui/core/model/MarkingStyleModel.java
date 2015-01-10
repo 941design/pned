@@ -4,7 +4,8 @@ import de.markusrother.swing.ChangeEventSource;
 
 /**
  * <p>
- * Aggregate interface
+ * Aggregate interface, combining other models to a model describing a place
+ * marking's visual state.
  * </p>
  *
  * @author Markus Rother

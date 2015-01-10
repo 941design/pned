@@ -37,9 +37,12 @@ public class EdgeStyle extends AbstractStyle
 	}
 
 	/**
-	 * <p>newDefault.</p>
+	 * <p>
+	 * newDefault.
+	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel} object.
+	 * @return a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
+	 *         object.
 	 */
 	public static EdgeStyleModel newDefault() {
 		final EdgeStyleModel style = new EdgeStyle();
@@ -152,6 +155,16 @@ public class EdgeStyle extends AbstractStyle
 	public void setShape(final Shape shape) {
 		tip = shape;
 		fireChangeEvent();
+	}
+
+	@Override
+	public Color getSelectionColor() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setSelectionColor(final Color color) {
+		throw new UnsupportedOperationException();
 	}
 
 }
