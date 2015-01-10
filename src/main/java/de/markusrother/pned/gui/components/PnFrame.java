@@ -36,19 +36,12 @@ public class PnFrame extends JFrame
 		PetriNetListener,
 		PetriNetIOListener {
 
-	/** Constant <code>preferredSize</code> */
-	private static final Dimension preferredSize = new Dimension(2000, 1000);
-	/** Constant <code>gridSize</code> */
-	private static final Dimension gridSize = new Dimension(2000, 2000);
-
-	private PnMenuFactory menuFactory;
-	private PnGridPanel grid;
 	private PnMenuBar pnedMenuBar;
-
-	private File currentPath;
-
-	private PnState state;
 	private JScrollPane scrollPane;
+	private PnGridPanel grid;
+	private File currentPath;
+	private PnState state;
+	private PnMenuFactory menuFactory;
 
 	/**
 	 * <p>
@@ -58,16 +51,14 @@ public class PnFrame extends JFrame
 	 * @param title
 	 *            a {@link java.lang.String} object.
 	 */
-	public PnFrame(final String title) {
+	public PnFrame(final String title, final Dimension preferredSize) {
 		super(title);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setPreferredSize(preferredSize);
 
-		createNewContext();
+		createContext();
 		createComponents();
-
-		final PnEventBus eventBus = state.getEventBus();
-		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, PnState.NodeCreationMode.PLACE));
-		eventBus.setCurrentDirectory(new PetriNetIOCommand(this, PetriNetIOCommand.Type.CWD, currentPath));
 	}
 
 	/**
@@ -75,7 +66,7 @@ public class PnFrame extends JFrame
 	 * createNewContext.
 	 * </p>
 	 */
-	private void createNewContext() {
+	private void createContext() {
 		final PnEventBus eventBus = new PnEventBus();
 		PnEventLogger.log(eventBus);
 
@@ -83,8 +74,13 @@ public class PnFrame extends JFrame
 		this.menuFactory = new PnMenuFactory(state);
 
 		createPetriNetModel(eventBus);
-
 		installListeners(eventBus);
+
+		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, //
+				PnState.NodeCreationMode.PLACE));
+		eventBus.setCurrentDirectory(new PetriNetIOCommand(this, //
+				PetriNetIOCommand.Type.CWD, //
+				currentPath));
 	}
 
 	/**
@@ -105,20 +101,22 @@ public class PnFrame extends JFrame
 	 * createPetriNetModel.
 	 * </p>
 	 *
-	 * @param eventMulticaster
+	 * @param eventBus
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 */
-	private void createPetriNetModel(final EventBus eventMulticaster) {
-		EventAwarePetriNet.create(eventMulticaster);
+	private void createPetriNetModel(final EventBus eventBus) {
+		EventAwarePetriNet.create(eventBus);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void createPetriNet(final PetriNetEditCommand cmd) {
-		disposeCurrentContext();
+		removeContext();
 		removeComponents();
-		createNewContext();
+		createContext();
 		createComponents();
+		pack();
+		revalidate();
 		repaint();
 	}
 
@@ -128,8 +126,7 @@ public class PnFrame extends JFrame
 	 * </p>
 	 */
 	private void removeComponents() {
-		remove(grid);
-		getContentPane().remove(grid);
+		remove(scrollPane);
 	}
 
 	/**
@@ -151,7 +148,6 @@ public class PnFrame extends JFrame
 		add(scrollPane, BorderLayout.CENTER);
 
 		setJMenuBar(pnedMenuBar);
-		setPreferredSize(preferredSize);
 	}
 
 	/**
@@ -159,7 +155,7 @@ public class PnFrame extends JFrame
 	 * disposeCurrentContext.
 	 * </p>
 	 */
-	private void disposeCurrentContext() {
+	private void removeContext() {
 		// Assuming GC takes care of rest.
 		// Can only be gc'ed if EventBus becomes garbage as well.
 		suspendListeners();

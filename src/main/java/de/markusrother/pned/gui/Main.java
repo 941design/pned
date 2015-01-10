@@ -1,5 +1,9 @@
 package de.markusrother.pned.gui;
 
+import java.awt.Dimension;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -7,7 +11,8 @@ import de.markusrother.pned.gui.components.PnFrame;
 
 /**
  * <p>
- * Main class. Opens Petri net editor: {@link de.markusrother.pned.gui.components.PnFrame}.
+ * Main class. Opens Petri net editor:
+ * {@link de.markusrother.pned.gui.components.PnFrame}.
  * </p>
  *
  * @author Markus Rother
@@ -34,7 +39,12 @@ public class Main {
 			System.exit(1);
 		}
 
-		final PnFrame frame = new PnFrame(TITLE);
+		final GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		final int width = Math.min(gd.getDisplayMode().getWidth(), 1400);
+		final int height = Math.min(gd.getDisplayMode().getHeight(), 800);
+
+		final PnFrame frame = new PnFrame(TITLE, new Dimension(width, height));
+
 		frame.pack();
 		frame.setVisible(true);
 	}
