@@ -11,32 +11,32 @@ import java.awt.Point;
  * @author Markus Rother
  * @version 1.0
  */
-public class DragDropAdapter extends DragDropListener<Component> {
+public class DragDropAdapter<T extends Component> extends DragDropListener<T> {
 
 	/**
 	 * <p>
 	 * Constructor for DragDropAdapter.
 	 * </p>
 	 */
-	protected DragDropAdapter() {
-		super(Component.class);
+	protected DragDropAdapter(final Class<T> clazz) {
+		super(clazz);
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void startDrag(final Component component, final Point point) {
+	protected void startDrag(final T component, final Point point) {
 		// IGNORE
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void endDrag(final Component component, final Point point) {
+	protected void endDrag(final T component, final Point point) {
 		// IGNORE
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void onDrag(final Component component, final int deltaX, final int deltaY) {
+	protected void onDrag(final T component, final int deltaX, final int deltaY) {
 		// IGNORE
 	}
 

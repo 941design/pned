@@ -101,7 +101,7 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 
 	/** {@inheritDoc} */
 	@Override
-	public void startDrag(final Container container, final Point origin) {
+	protected void startDrag(final Container container, final Point origin) {
 		this.dragOrigin = origin;
 		this.currentSelection = Collections.emptyList();
 		this.selectionPanel = createSelectionPanel(origin);
@@ -112,11 +112,22 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 
 	/** {@inheritDoc} */
 	@Override
-	public void onDrag(final Container container, final int deltaX, final int deltaY) {
+	protected void onDrag(final Container container, final int deltaX, final int deltaY) {
 		final Rectangle oldBounds = selectionPanel.getBounds();
 		final Rectangle newBounds = getNewSelectionBounds(oldBounds, deltaX, deltaY);
 		selectionPanel.setBounds(newBounds);
 		adjustSelectedItems(container, newBounds);
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	protected void endDrag(final Container container, final Point point) {
+		container.remove(selectionPanel);
+		container.repaint();
+		finishedSelection(currentSelection);
+		this.selectionPanel = null;
+		this.dragOrigin = null;
+		this.currentSelection = null;
 	}
 
 	/**
@@ -230,7 +241,7 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 	 * startedSelection.
 	 * </p>
 	 */
-	public abstract void startedSelection();
+	protected abstract void startedSelection();
 
 	/**
 	 * <p>
@@ -240,7 +251,7 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 	 * @param items
 	 *            a {@link java.util.Collection} object.
 	 */
-	public abstract void addedToSelection(Collection<T> items);
+	protected abstract void addedToSelection(Collection<T> items);
 
 	/**
 	 * <p>
@@ -250,7 +261,7 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 	 * @param items
 	 *            a {@link java.util.Collection} object.
 	 */
-	public abstract void removedFromSelection(Collection<T> items);
+	protected abstract void removedFromSelection(Collection<T> items);
 
 	/**
 	 * <p>
@@ -260,7 +271,7 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 	 * @param items
 	 *            a {@link java.util.Collection} object.
 	 */
-	public abstract void finishedSelection(Collection<T> items);
+	protected abstract void finishedSelection(Collection<T> items);
 
 	/**
 	 * <p>
@@ -282,17 +293,6 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 		final int w = Math.abs(r.width + deltaX);
 		final int h = Math.abs(r.height + deltaY);
 		return new Rectangle(x, y, w, h);
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void endDrag(final Container container, final Point point) {
-		container.remove(selectionPanel);
-		container.repaint();
-		finishedSelection(currentSelection);
-		this.selectionPanel = null;
-		this.dragOrigin = null;
-		this.currentSelection = null;
 	}
 
 }

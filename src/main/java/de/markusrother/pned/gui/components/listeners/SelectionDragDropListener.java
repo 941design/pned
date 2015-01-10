@@ -12,7 +12,9 @@ import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.swing.DragDropListener;
 
 /**
- * <p>SelectionDragDropListener class.</p>
+ * <p>
+ * SelectionDragDropListener class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -40,13 +42,13 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNodeComp
 
 	/** {@inheritDoc} */
 	@Override
-	public void startDrag(final AbstractNodeComponent draggedNode, final Point dragStart) {
+	protected void startDrag(final AbstractNodeComponent draggedNode, final Point dragStart) {
 		// IGNORE
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void onDrag(final AbstractNodeComponent draggedNode, final int deltaX, final int deltaY) {
+	protected void onDrag(final AbstractNodeComponent draggedNode, final int deltaX, final int deltaY) {
 		for (final AbstractNodeComponent node : nodes) {
 			eventBus.nodeMoved(new NodeMotionCommand(this, node.getId(), deltaX, deltaY));
 		}
@@ -54,16 +56,16 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNodeComp
 
 	/** {@inheritDoc} */
 	@Override
-	public void endDrag(final AbstractNodeComponent draggedNode, final Point dragEnd) {
-		cancel();
+	protected void endDrag(final AbstractNodeComponent draggedNode, final Point dragEnd) {
+		doCancel();
 	}
 
 	/**
 	 * <p>
-	 * cancel.
+	 * Cancels selection.
 	 * </p>
 	 */
-	public void cancel() {
+	private void doCancel() {
 		for (final AbstractNodeComponent node : nodes) {
 			// TODO - This should be done by the node, listening to the cancel
 			// event.

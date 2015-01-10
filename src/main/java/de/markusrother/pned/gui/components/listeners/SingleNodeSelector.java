@@ -11,7 +11,7 @@ import java.util.Arrays;
 import de.markusrother.pned.gui.components.AbstractNodeComponent;
 import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.control.events.PnEventTarget;
-import de.markusrother.swing.DragDropListener;
+import de.markusrother.swing.DragDropAdapter;
 
 /**
  * Creates selection by clicking on a single component.
@@ -19,7 +19,7 @@ import de.markusrother.swing.DragDropListener;
  * @author Markus Rother
  * @version 1.0
  */
-public class SingleNodeSelector extends DragDropListener<AbstractNodeComponent> {
+public class SingleNodeSelector extends DragDropAdapter<AbstractNodeComponent> {
 
 	private final PnEventTarget eventTarget;
 
@@ -45,7 +45,8 @@ public class SingleNodeSelector extends DragDropListener<AbstractNodeComponent> 
 	 *
 	 * @param component
 	 *            a {@link java.awt.Component} object.
-	 * @return a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 * @return a
+	 *         {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *         object.
 	 */
 	private AbstractNodeComponent expectAbstractNode(final Component component) {
@@ -63,7 +64,8 @@ public class SingleNodeSelector extends DragDropListener<AbstractNodeComponent> 
 	 * </p>
 	 *
 	 * @param node
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 */
 	private void makeCurrentSelection(final AbstractNodeComponent node) {
@@ -92,18 +94,6 @@ public class SingleNodeSelector extends DragDropListener<AbstractNodeComponent> 
 			return;
 		}
 		makeCurrentSelection(node);
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void onDrag(final AbstractNodeComponent node, final int deltaX, final int deltaY) {
-		// IGNORE
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void endDrag(final AbstractNodeComponent node, final Point dragEnd) {
-		// IGNORE
 	}
 
 }

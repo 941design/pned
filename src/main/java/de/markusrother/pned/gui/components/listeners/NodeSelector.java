@@ -45,7 +45,7 @@ public class NodeSelector extends Selector<AbstractNodeComponent> {
 	 * previous selection if any.
 	 */
 	@Override
-	public void startedSelection() {
+	protected void startedSelection() {
 		eventTarget.nodeSelectionCancelled(new NodeMultiSelectionEvent(CANCEL, this));
 	}
 
@@ -56,7 +56,7 @@ public class NodeSelector extends Selector<AbstractNodeComponent> {
 	 * operation.
 	 */
 	@Override
-	public void addedToSelection(final Collection<AbstractNodeComponent> nodes) {
+	protected void addedToSelection(final Collection<AbstractNodeComponent> nodes) {
 		eventTarget.nodesSelected(new NodeMultiSelectionEvent(SELECT, this, nodes));
 	}
 
@@ -67,7 +67,7 @@ public class NodeSelector extends Selector<AbstractNodeComponent> {
 	 * operation.
 	 */
 	@Override
-	public void removedFromSelection(final Collection<AbstractNodeComponent> nodes) {
+	protected void removedFromSelection(final Collection<AbstractNodeComponent> nodes) {
 		eventTarget.nodesUnselected(new NodeMultiSelectionEvent(DESELECT, this, nodes));
 	}
 
@@ -77,7 +77,7 @@ public class NodeSelector extends Selector<AbstractNodeComponent> {
 	 * Called upon finishing the drag and drop operation.
 	 */
 	@Override
-	public void finishedSelection(final Collection<AbstractNodeComponent> nodes) {
+	protected void finishedSelection(final Collection<AbstractNodeComponent> nodes) {
 		eventTarget.nodeSelectionFinished(new NodeMultiSelectionEvent(FINISH, this, nodes));
 	}
 

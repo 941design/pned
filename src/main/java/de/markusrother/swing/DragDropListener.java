@@ -67,7 +67,8 @@ public abstract class DragDropListener<T extends Component> extends MouseAdapter
 	public void mouseDragged(final MouseEvent e) {
 		dragStart = dragStart != null ? dragStart : e.getLocationOnScreen();
 		if (!started) {
-			startDrag(tryCastComponent(e.getComponent()), e.getPoint());
+			final T component = tryCastComponent(e.getComponent());
+			startDrag(component, e.getPoint());
 			started = true;
 		}
 		final Point current = e.getLocationOnScreen();
@@ -125,7 +126,7 @@ public abstract class DragDropListener<T extends Component> extends MouseAdapter
 	 * @param dragStart
 	 *            in component
 	 */
-	public abstract void startDrag(T component, Point dragStart);
+	protected abstract void startDrag(T component, Point dragStart);
 
 	/**
 	 * <p>
@@ -137,7 +138,7 @@ public abstract class DragDropListener<T extends Component> extends MouseAdapter
 	 * @param dragEnd
 	 *            in component
 	 */
-	public abstract void endDrag(T component, Point dragEnd);
+	protected abstract void endDrag(T component, Point dragEnd);
 
 	/**
 	 * No deltas are lost!
@@ -149,6 +150,6 @@ public abstract class DragDropListener<T extends Component> extends MouseAdapter
 	 * @param deltaY
 	 *            a int.
 	 */
-	public abstract void onDrag(T component, int deltaX, int deltaY);
+	protected abstract void onDrag(T component, int deltaX, int deltaY);
 
 }
