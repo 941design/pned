@@ -18,13 +18,13 @@ import de.markusrother.concurrent.Promise;
  * method.
  * </p>
  * <p>
- * <b> {@link Request} is intended for asynchronous use only, because its
+ * <b> {@link de.markusrother.pned.control.requests.Request} is intended for asynchronous use only, because its
  * {@link #get()} method is blocking. </b>
  * </p>
  * <p>
  * Example:
  * </p>
- * 
+ *
  * <pre>
  * request = new Request&lt;String&gt;();
  * eventTarget.post(request);

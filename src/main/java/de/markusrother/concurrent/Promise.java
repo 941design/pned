@@ -14,10 +14,10 @@ import java.util.concurrent.RejectedExecutionException;
  * when {@link java.util.concurrent.Future#get()} is called.
  * </p>
  * <p>
- * A {@link Promise}s value can only be fulfilled once, but asked for
+ * A {@link de.markusrother.concurrent.Promise}s value can only be fulfilled once, but asked for
  * arbitrarily.
  * </p>
- * 
+ *
  * <pre>
  * Promise&lt;String&gt; promise = new Promise&lt;&gt;();
  * // In thread A:
@@ -33,7 +33,7 @@ public class Promise<T> {
 
 	/**
 	 * <p>
-	 * Creates and Returns an already fulfilled {@link Promise}.
+	 * Creates and Returns an already fulfilled {@link de.markusrother.concurrent.Promise}.
 	 * </p>
 	 *
 	 * @param value
@@ -116,7 +116,7 @@ public class Promise<T> {
 
 	/**
 	 * <p>
-	 * Returns whether this {@link Promise} has yet been fulfilled.
+	 * Returns whether this {@link de.markusrother.concurrent.Promise} has yet been fulfilled.
 	 * </p>
 	 *
 	 * @return a boolean - true if a value has been provided.

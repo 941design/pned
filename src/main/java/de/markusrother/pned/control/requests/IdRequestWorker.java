@@ -7,7 +7,7 @@ import javax.swing.SwingWorker;
 
 /**
  * <p>
- * A closure executing an {@link IdRequest} for a given
+ * A closure executing an {@link de.markusrother.pned.control.requests.IdRequest} for a given
  * {@link de.markusrother.pned.control.requests.IdRequestListener}.
  * </p>
  *

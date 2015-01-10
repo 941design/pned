@@ -7,7 +7,7 @@ import de.markusrother.pned.gui.core.PnState;
 
 /**
  * <p>
- * Abstract superclass for actions which may depend on a given {@link PnState} -
+ * Abstract superclass for actions which may depend on a given {@link de.markusrother.pned.gui.core.PnState} -
  * the state of a {@link de.markusrother.pned.core.model.PetriNetModel} combined
  * with a {@link de.markusrother.pned.gui.components.PnFrame}. For example, a
  * certain action may only be available when certain conditions are met.

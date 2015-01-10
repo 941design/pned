@@ -51,7 +51,7 @@ public class Place extends AbstractNode
 	 * @param placeId
 	 *            a {@link java.lang.String} object.
 	 * @param marking
-	 *            a {@link Marking} object.
+	 *            a {@link de.markusrother.pned.gui.components.Marking} object.
 	 * @param markingEditor
 	 *            a {@link de.markusrother.pned.gui.components.listeners.MarkingEditor}
 	 *            object.
@@ -146,6 +146,11 @@ public class Place extends AbstractNode
 		delegateSetMarking(evt);
 	}
 
+	/**
+	 * <p>delegateSetMarking.</p>
+	 *
+	 * @param evt a {@link de.markusrother.pned.control.events.MarkingEventObject} object.
+	 */
 	private void delegateSetMarking(final MarkingEventObject evt) {
 		final String myId = getId();
 		final String placeId = evt.getPlaceId();

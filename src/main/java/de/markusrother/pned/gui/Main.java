@@ -7,7 +7,7 @@ import de.markusrother.pned.gui.components.PnFrame;
 
 /**
  * <p>
- * Main class. Opens Petri net editor: {@link PnFrame}.
+ * Main class. Opens Petri net editor: {@link de.markusrother.pned.gui.components.PnFrame}.
  * </p>
  *
  * @author Markus Rother

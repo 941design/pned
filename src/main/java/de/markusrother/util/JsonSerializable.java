@@ -3,7 +3,7 @@ package de.markusrother.util;
 /**
  * <p>
  * Implementors of this interface can be serialized to JSON by a call to
- * {@link JsonSerializable#toJson()}, which returns a String.
+ * {@link de.markusrother.util.JsonSerializable#toJson()}, which returns a String.
  * </p>
  *
  * @author Markus Rother

@@ -9,7 +9,7 @@ import java.awt.Color;
  *
  * @author Markus Rother
  * @version 1.0
- * @see de.markusrother.pned.gui.control.commands.MarkingLayoutListener;
+ * @see de.markusrother.pned.gui.control.commands.MarkingLayoutListener
  */
 public class MarkingLayoutCommand extends LayoutCommand {
 

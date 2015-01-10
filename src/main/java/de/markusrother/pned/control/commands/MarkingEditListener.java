@@ -2,8 +2,6 @@ package de.markusrother.pned.control.commands;
 
 import java.util.EventListener;
 
-import de.markusrother.pned.control.events.MarkingEventObject;
-
 /**
  * <p>
  * PlaceEditListener interface.
@@ -24,7 +22,7 @@ public interface MarkingEditListener
 	 *
 	 * @param evt
 	 *            a
-	 *            {@link de.markusrother.pned.control.events.MarkingEventObject}
+	 *            {@link de.markusrother.pned.control.commands.MarkingEditCommand}
 	 *            object.
 	 */
 	void setMarking(MarkingEditCommand evt);

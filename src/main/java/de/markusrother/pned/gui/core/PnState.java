@@ -115,6 +115,7 @@ public class PnState extends PnEventAdapter
 		selectedNodeIds.clear();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public NodeCreationMode getNodeCreationMode() {
 		return nodeCreationMode;
@@ -133,6 +134,7 @@ public class PnState extends PnEventAdapter
 		this.nodeCreationMode = nodeCreationMode;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Set<String> getSelectedNodeIds() {
 		return selectedNodeIds;
@@ -218,31 +220,37 @@ public class PnState extends PnEventAdapter
 		return Collections.unmodifiableSet(edgeIds);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean areNodesSelected() {
 		return !selectedNodeIds.isEmpty();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Collection<String> getSelectedTargetNodeIds() {
 		return filterTargetNodes(getSelectedNodeIds());
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Collection<String> getSelectedSourceNodeIds() {
 		return filterSourceNodes(getSelectedNodeIds());
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Collection<String> getSelectedIncomingEdgeIds() {
 		return filterIncomingEdges(getSelectedNodeIds());
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Collection<String> getSelectedOutgoingEdgeIds() {
 		return filterOutgoingEdges(getSelectedNodeIds());
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public PnEventBus getEventBus() {
 		return eventBus;
@@ -254,16 +262,19 @@ public class PnState extends PnEventAdapter
 		currentDirectory = cmd.getFile();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public File getCurrentDirectory() {
 		return currentDirectory;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean areSourceNodesSelected() {
 		return !getSelectedSourceNodeIds().isEmpty();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean areTargetNodesSelected() {
 		return !getSelectedTargetNodeIds().isEmpty();
@@ -322,21 +333,25 @@ public class PnState extends PnEventAdapter
 		edgeStyle.setSize(size);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public NodeStyleModel getPlaceStyle() {
 		return placeStyle;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public NodeStyleModel getTransitionStyle() {
 		return transitionStyle;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public EdgeStyleModel getEdgeStyle() {
 		return edgeStyle;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public MarkingStyleModel getMarkingStyle() {
 		return markingStyle;
