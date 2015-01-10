@@ -7,8 +7,12 @@ import java.awt.event.MouseEvent;
 
 /**
  * <p>
- * Abstract HoverListener class.
+ * A mouse listener wrapper encapsulating hover events, where the hover area are
+ * the component bounds.
  * </p>
+ * 
+ * TODO - Call the implementor to check whether an event is in the components
+ * intended hover area, such as isInHoverArea(MouseEvent e).
  *
  * @author Markus Rother
  * @version 1.0
@@ -38,7 +42,8 @@ public abstract class HoverListener extends MouseAdapter {
 	 * @param component
 	 *            a {@link java.awt.Component} object.
 	 * @param listener
-	 *            a {@link de.markusrother.pned.gui.components.listeners.NodeHoverListener}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.listeners.NodeHoverListener}
 	 *            object.
 	 */
 	public static void removeFromComponent(final Component component, final HoverListener listener) {
@@ -72,9 +77,6 @@ public abstract class HoverListener extends MouseAdapter {
 		}
 	}
 
-	// TODO - this should default to the component area. Either create another
-	// constructor which takes a predicate or create a subclass where this
-	// method is abstract. Alternatively, getHoverArea() -> Shape
 	/**
 	 * <p>
 	 * inHoverArea.
@@ -83,7 +85,8 @@ public abstract class HoverListener extends MouseAdapter {
 	 * @param p
 	 *            a {@link java.awt.Point} object.
 	 * @return a boolean.
-	 * @param component a {@link java.awt.Component} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
 	 */
 	protected abstract boolean inHoverArea(Component component, Point p);
 

@@ -17,13 +17,13 @@ import de.markusrother.pned.control.commands.EdgeCreationListener;
 import de.markusrother.pned.control.commands.LabelEditCommand;
 import de.markusrother.pned.control.commands.LabelEditListener;
 import de.markusrother.pned.control.commands.MarkingEditCommand;
+import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeMotionCommand;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PetriNetIOListener;
-import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
@@ -150,7 +150,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 		try {
 			createPlace(nodeId, point);
 		} catch (final UnavailableIdException e) {
-			// FIXME - create RequestException
+			// TODO - create RequestException
 			throw new RuntimeException("TODO");
 		}
 	}
@@ -167,7 +167,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 					transition.getId());
 			fireTransitionAcivationEvents(Arrays.asList(evt));
 		} catch (final UnavailableIdException e) {
-			// FIXME - create RequestException
+			// TODO - create RequestException
 			throw new RuntimeException("TODO");
 		}
 	}
@@ -189,7 +189,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 						createEdge(sourceId, targetId);
 					}
 				} catch (final NoSuchNodeException | UnavailableIdException e) {
-					// FIXME - throw some generic exception
+					// TODO - throw some generic exception
 					throw new RuntimeException("TODO");
 				}
 			}
@@ -268,7 +268,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 				try {
 					setMarking(placeId, marking);
 				} catch (final NoSuchNodeException e) {
-					// FIXME - throw some generic exception
+					// TODO - throw some generic exception
 					throw new RuntimeException("TODO");
 				}
 			}
@@ -286,7 +286,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 				try {
 					setLabel(placeId, label);
 				} catch (final NoSuchNodeException e) {
-					// FIXME - throw some generic exception
+					// TODO - throw some generic exception
 					throw new RuntimeException("TODO");
 				}
 			}
@@ -425,7 +425,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
 			fireTransitionAcivationEvents(events);
 
 		} catch (final TransitionInactiveException e) {
-			// FIXME - throw some generic exception
+			// TODO - throw some generic exception
 			throw new RuntimeException("TODO - Trying to fire inactive transition");
 		}
 	}

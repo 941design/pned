@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
 
 /**
  * <p>
- * Abstract MultiClickListener class.
+ * A mouse listener wrapper dispatching click events.
  * </p>
  *
  * @author Markus Rother
@@ -17,38 +17,52 @@ import javax.swing.SwingUtilities;
 public abstract class MultiClickListener extends MouseAdapter {
 
 	/**
-	 * <p>addToComponent.</p>
+	 * <p>
+	 * addToComponent.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
-	 * @param listener a {@link de.markusrother.swing.MultiClickListener} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
+	 * @param listener
+	 *            a {@link de.markusrother.swing.MultiClickListener} object.
 	 */
 	public static void addToComponent(final Component component, final MultiClickListener listener) {
 		component.addMouseListener(listener);
 	}
 
 	/**
-	 * <p>removeFromComponent.</p>
+	 * <p>
+	 * removeFromComponent.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
-	 * @param listener a {@link de.markusrother.swing.MultiClickListener} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
+	 * @param listener
+	 *            a {@link de.markusrother.swing.MultiClickListener} object.
 	 */
 	public static void removeFromComponent(final Component component, final MultiClickListener listener) {
 		component.removeMouseListener(listener);
 	}
 
 	/**
-	 * <p>addToComponent.</p>
+	 * <p>
+	 * addToComponent.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
 	 */
 	public void addToComponent(final Component component) {
 		addToComponent(component, this);
 	}
 
 	/**
-	 * <p>removeFromComponent.</p>
+	 * <p>
+	 * removeFromComponent.
+	 * </p>
 	 *
-	 * @param component a {@link java.awt.Component} object.
+	 * @param component
+	 *            a {@link java.awt.Component} object.
 	 */
 	public void removeFromComponent(final Component component) {
 		removeFromComponent(component, this);

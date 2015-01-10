@@ -7,9 +7,7 @@ import java.util.EventListener;
  * TransitionActivationListener interface.
  * </p>
  *
- * FIXME - Create TransitionActivationCommand
- *
- * FIXME - merge with TransitionListener
+ * TODO - merge with TransitionListener
  *
  * @author Markus Rother
  * @version 1.0

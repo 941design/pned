@@ -3,7 +3,9 @@ package de.markusrother.swing;
 import java.awt.event.MouseEvent;
 
 /**
- * <p>Abstract LeftClickListener class.</p>
+ * <p>
+ * A mouse listener wrapper encapsulating left click events.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0

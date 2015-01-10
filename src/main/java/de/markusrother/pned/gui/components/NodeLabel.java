@@ -70,7 +70,8 @@ public class NodeLabel extends JLabel
 	 * @param nodeId
 	 *            a {@link java.lang.String} object.
 	 * @param labelEditor
-	 *            a {@link de.markusrother.pned.gui.components.listeners.NodeLabelEditor}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.listeners.NodeLabelEditor}
 	 *            object.
 	 */
 	public NodeLabel(final PnEventBus eventBus, final NodeLabelEditor labelEditor, final String nodeId) {
@@ -89,7 +90,8 @@ public class NodeLabel extends JLabel
 	 * @param nodeLabel
 	 *            a {@link java.lang.String} object.
 	 * @param labelEditor
-	 *            a {@link de.markusrother.pned.gui.components.listeners.NodeLabelEditor}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.listeners.NodeLabelEditor}
 	 *            object.
 	 */
 	public NodeLabel(final PnEventBus eventBus, final String nodeId, final NodeLabelEditor labelEditor,
@@ -109,7 +111,7 @@ public class NodeLabel extends JLabel
 		this.hoverListener = new LabelHoverListener();
 		this.hoverListener.addToComponent(this);
 
-		// FIXME - dispose and test disposal!
+		// TODO - dispose and assert removal of listeners!
 		eventBus.addListener(LabelEditListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeMotionListener.class, this);
@@ -249,7 +251,9 @@ public class NodeLabel extends JLabel
 	}
 
 	/**
-	 * <p>suspendListeners.</p>
+	 * <p>
+	 * suspendListeners.
+	 * </p>
 	 */
 	protected void suspendListeners() {
 		DragDropListener.removeFromComponent(this, dragDropListener);
@@ -258,7 +262,9 @@ public class NodeLabel extends JLabel
 	}
 
 	/**
-	 * <p>installListeners.</p>
+	 * <p>
+	 * installListeners.
+	 * </p>
 	 */
 	protected void installListeners() {
 		DragDropListener.addToComponent(this, dragDropListener);

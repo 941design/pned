@@ -92,7 +92,7 @@ public abstract class AbstractNode extends JPanel
 
 		HoverListener.addToComponent(this, NodeHoverListener.INSTANCE);
 
-		// FIXME - refactor to installListeners() / suspendListeners
+		// TODO - refactor to installListeners() / suspendListeners
 		// TODO - In prospect to JDK8, I do not use Adapters. Default
 		// implementations in adapters allow us to remove the ignored methods.
 		eventBus.addListener(NodeMotionListener.class, this);
@@ -243,7 +243,8 @@ public abstract class AbstractNode extends JPanel
 	 * </p>
 	 *
 	 * @param listener
-	 *            a {@link de.markusrother.pned.gui.components.listeners.EdgeCreator}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.listeners.EdgeCreator}
 	 *            object.
 	 */
 	void setEdgeCreationListener(final EdgeCreator listener) {
@@ -434,7 +435,8 @@ public abstract class AbstractNode extends JPanel
 	/** {@inheritDoc} */
 	@Override
 	public void dispose() {
-		// FIXME - this was actually called suspend listeners!
+		// TODO - this was actually called suspend listeners, which would be
+		// more appropriate!
 		eventBus.removeListener(NodeRemovalListener.class, this);
 		eventBus.removeListener(NodeSelectionListener.class, this);
 		eventBus.removeListener(EdgeEditListener.class, this);

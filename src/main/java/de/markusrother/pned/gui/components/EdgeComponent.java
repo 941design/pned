@@ -34,11 +34,12 @@ import de.markusrother.pned.gui.core.model.EdgeStyleModel;
 import de.markusrother.swing.HoverListener;
 
 /**
- * TODO - manage the contact-points of source component, too. Create a segment
- * which is invisible, but connected, to the source components center, avoiding
- * flickering.
- *
- * FIXME - create subclass for unfinished EdgeComponent
+ * TODO
+ * <ul>
+ * <li>Create a segment which is invisible, but connected, to the source
+ * components center, avoiding flickering.</li>
+ * <li>create subclass for unfinished EdgeComponent</li>
+ * </ul>
  *
  * @author Markus Rother
  * @version 1.0
@@ -121,7 +122,9 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
-	 * @param style a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel} object.
+	 * @param style
+	 *            a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
+	 *            object.
 	 * @param sourceComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
 	 *            object.
@@ -153,7 +156,9 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *            object.
 	 * @param id
 	 *            a {@link java.lang.String} object.
-	 * @param style a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel} object.
+	 * @param style
+	 *            a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
+	 *            object.
 	 */
 	public EdgeComponent(final EventBus eventBus, final String id, final EdgeStyleModel style,
 			final AbstractNode sourceComponent, final AbstractNode targetComponent) {
@@ -169,7 +174,9 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
-	 * @param style a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel} object.
+	 * @param style
+	 *            a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
+	 *            object.
 	 * @param sourceComponent
 	 *            a {@link de.markusrother.pned.gui.components.AbstractNode}
 	 *            object.
@@ -357,7 +364,6 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 	/** {@inheritDoc} */
 	@Override
 	public void edgeFinished(final EdgeEditEvent e) {
-		// FIXME - Why dose this receive its own creation event?
 		if (e.getEdge() != this) {
 			// IGNORE - Not interested in other edges events.
 			return;
@@ -414,23 +420,31 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNode, AbstractN
 		}
 	}
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * TODO - The problem is the order of events! We must respond after the node
+	 * responded to the resizing, otherwise it stays without effect! In practice
+	 * this may not be a problem, because nodes are always created before edges,
+	 * and hence precede in the listeners list, but that is coincidence and
+	 * fragile.
+	 */
 	@Override
 	public void setSize(final TransitionLayoutCommand cmd) {
-		// TODO - use revalidate();
-		// FIXME - The problem is the order of events! We must NOT
-		// respond to a command, but to an event after the fact! Hence,
-		// we must to create the event in addition to the command!
 		reconnect();
 	}
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * TODO - The problem is the order of events! We must respond after the node
+	 * responded to the resizing, otherwise it stays without effect! In practice
+	 * this may not be a problem, because nodes are always created before edges,
+	 * and hence precede in the listeners list, but that is coincidence and
+	 * fragile.
+	 */
 	@Override
 	public void setSize(final PlaceLayoutCommand cmd) {
-		// TODO - use revalidate();
-		// FIXME - The problem is the order of events! We must NOT
-		// respond to a command, but to an event after the fact! Hence,
-		// we must to create the event in addition to the command!
 		reconnect();
 	}
 

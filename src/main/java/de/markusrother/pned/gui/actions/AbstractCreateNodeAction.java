@@ -82,7 +82,7 @@ abstract class AbstractCreateNodeAction extends AbstractAction
 		this.eventBus = eventBus;
 		this.locationProvider = locationProvider;
 		putValue(Action.MNEMONIC_KEY, mnemonic);
-		// FIXME - dispose!
+		// TODO - dispose and assert removal of listeners!
 		eventBus.addListener(NodeListener.class, this);
 	}
 

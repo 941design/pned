@@ -10,7 +10,12 @@ import javax.swing.plaf.basic.BasicRadioButtonMenuItemUI;
 import sun.swing.MenuItemLayoutHelper;
 
 /**
- * <p>CustomRadioButtonMenuItemUI class.</p>
+ * <p>
+ * Helper to distinguish a menu item click into a) toggle of a radio button or
+ * b) actual selection.
+ * </p>
+ * 
+ * TODO - This is a hacky solution which is but should not be UI dependent!
  *
  * @author Markus Rother
  * @version 1.0
@@ -22,16 +27,22 @@ public class CustomRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
 	private MenuSelectionManager cachedMsm;
 
 	/**
-	 * <p>Constructor for CustomRadioButtonMenuItemUI.</p>
+	 * <p>
+	 * Constructor for CustomRadioButtonMenuItemUI.
+	 * </p>
 	 *
-	 * @param menuItem a {@link de.markusrother.swing.CustomRadioButtonMenuItem} object.
+	 * @param menuItem
+	 *            a {@link de.markusrother.swing.CustomRadioButtonMenuItem}
+	 *            object.
 	 */
 	CustomRadioButtonMenuItemUI(final CustomRadioButtonMenuItem menuItem) {
 		this.menuItem = menuItem;
 	}
 
 	/**
-	 * <p>waitForCachingMsm.</p>
+	 * <p>
+	 * waitForCachingMsm.
+	 * </p>
 	 */
 	private void waitForCachingMsm() {
 		while (cachedMsm == null) {
@@ -62,7 +73,8 @@ public class CustomRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
 			waitForCachingMsm();
 			super.doClick(cachedMsm);
 		} else {
-			// FIXME - create and call custom event listener
+			// TODO - We could actually register callers via a custom listener
+			// for either event.
 			// Only radio button was toggled!
 			menuItem.setSelected(true);
 		}
@@ -70,7 +82,9 @@ public class CustomRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
 	}
 
 	/**
-	 * <p>getTextRect.</p>
+	 * <p>
+	 * getTextRect.
+	 * </p>
 	 *
 	 * @return a {@link java.awt.Rectangle} object.
 	 */

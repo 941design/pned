@@ -3,7 +3,9 @@ package de.markusrother.swing;
 import java.awt.event.MouseEvent;
 
 /**
- * <p>Abstract RightClickListener class.</p>
+ * <p>
+ * A mouse listener wrapper encapsulating right click events.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0

@@ -209,9 +209,6 @@ public class PnFrame extends JFrame
 	/** {@inheritDoc} */
 	@Override
 	public void importPnml(final PetriNetIOCommand cmd) {
-		// FIXME - Creation and import should be handled by separate commands!
-		// Or export should also be handled here, instead of EventAwarePetriNet
-		// itself!
 		createPetriNet(new PetriNetEditCommand(this, PetriNetEditCommand.Type.NEW));
 		final File file = cmd.getFile();
 		try {

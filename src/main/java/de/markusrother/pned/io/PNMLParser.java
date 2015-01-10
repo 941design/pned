@@ -63,25 +63,15 @@ import de.markusrother.pned.control.commands.TransitionCreationCommand;
  * <li>{@link #parse(XMLEventReader, CommandTarget)}</li>
  * </ul>
  * <p>
- * TODO - There should be a single interface similar to
- * {@link de.markusrother.pned.control.commands.CommandTarget} extending all
- * listeners necessary to create a Petri Net.
- * </p>
- * <p>
- * FIXME - Test against malformed xml/pnml.
- * </p>
- * <p>
- * FIXME - Rename all events needed here, to commands.
- * </p>
- * <p>
- * FIXME - Move {@link de.markusrother.pned.control.commands.CommandTarget} and
- * all events needed here, to a different package.
+ * TODO - Test against malformed xml/pnml.
  * </p>
  *
  * @author unknown
  * @author Markus Rother
  * @version 1.0
- * @see CommandTarget
+ * @see de.markusrother.pned.control.commands.CommandTarget
+ * @see de.markusrother.pned.control.EventBus
+ * @see de.markusrother.pned.control.EventAwarePetriNet
  */
 public class PNMLParser {
 
@@ -97,8 +87,7 @@ public class PNMLParser {
 	 * @param resource
 	 *            a {@link java.net.URL} to be read.
 	 * @param eventTarget
-	 *            an
-	 *            {@link de.markusrother.pned.control.commands.CommandTarget}
+	 *            an {@link de.markusrother.pned.control.commands.CommandTarget}
 	 *            to which parsed results are broadcasted as events.
 	 * @throws javax.xml.stream.XMLStreamException
 	 *             if any.
@@ -121,8 +110,7 @@ public class PNMLParser {
 	 * @param file
 	 *            a {@link java.io.File} to be read.
 	 * @param eventTarget
-	 *            an
-	 *            {@link de.markusrother.pned.control.commands.CommandTarget}
+	 *            an {@link de.markusrother.pned.control.commands.CommandTarget}
 	 *            to which parsed results are broadcasted as events.
 	 * @throws java.io.FileNotFoundException
 	 *             if any.
@@ -143,8 +131,7 @@ public class PNMLParser {
 	 * @param inputStream
 	 *            a {@link java.io.InputStream} to be read.
 	 * @param eventTarget
-	 *            an
-	 *            {@link de.markusrother.pned.control.commands.CommandTarget}
+	 *            an {@link de.markusrother.pned.control.commands.CommandTarget}
 	 *            to which parsed results are broadcasted as events.
 	 * @throws javax.xml.stream.XMLStreamException
 	 *             if any.
@@ -164,8 +151,7 @@ public class PNMLParser {
 	 * @param xmlEventReader
 	 *            a {@link javax.xml.stream.XMLEventReader} to be read.
 	 * @param eventTarget
-	 *            an
-	 *            {@link de.markusrother.pned.control.commands.CommandTarget}
+	 *            an {@link de.markusrother.pned.control.commands.CommandTarget}
 	 *            to which parsed results are broadcasted as events.
 	 */
 	public static void parse(final XMLEventReader xmlEventReader, final CommandTarget eventTarget) {
@@ -488,7 +474,7 @@ public class PNMLParser {
 	 *            a {@link java.lang.String} y Position des Elements
 	 */
 	private void setPosition(final String elementId, final String x, final String y) {
-		// FIXME - catch NumberFormatException!
+		// TODO - catch NumberFormatException!
 		final int deltaX = Integer.valueOf(x);
 		final int deltaY = Integer.valueOf(y);
 		final NodeMotionCommand e = new NodeMotionCommand(this, //

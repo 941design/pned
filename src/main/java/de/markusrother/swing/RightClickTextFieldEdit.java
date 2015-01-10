@@ -9,11 +9,12 @@ import java.util.regex.Pattern;
 
 /**
  * <p>
- * Abstract AbstractRightClickTextFieldEditor class.
+ * A pseudo popup, displaying a validated text field.
  * </p>
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.swing.CheckedTextField
  */
 public abstract class RightClickTextFieldEdit<T extends Component> extends RightClickListener
 	implements
@@ -167,9 +168,12 @@ public abstract class RightClickTextFieldEdit<T extends Component> extends Right
 	public abstract void removeTextField(T editedObject, CheckedTextField textField);
 
 	/**
-	 * <p>isEditing.</p>
+	 * <p>
+	 * isEditing.
+	 * </p>
 	 *
-	 * @param object a T object.
+	 * @param object
+	 *            a T object.
 	 * @return a boolean.
 	 */
 	public boolean isEditing(final T object) {

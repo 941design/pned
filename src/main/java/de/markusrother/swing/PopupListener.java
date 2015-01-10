@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 
 /**
  * <p>
- * Abstract PopupListener class.
+ * A mouse listener wrapper encapsulating popup request events.
  * </p>
  *
  * @author Markus Rother

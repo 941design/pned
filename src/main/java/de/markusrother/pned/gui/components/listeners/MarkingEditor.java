@@ -49,7 +49,7 @@ public class MarkingEditor extends RightClickTextFieldEdit<Place>
 
 		this.eventBus = eventBus;
 
-		// FIXME - dispose!
+		// TODO - dispose and assert removal of listeners!
 		eventBus.addListener(NodeCreationListener.class, this);
 		eventBus.addListener(NodeSelectionListener.class, this);
 	}

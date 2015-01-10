@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 /**
  * <p>
- * CheckedTextField class.
+ * A text field that is validated by a regular expression.
  * </p>
  *
  * @author Markus Rother
@@ -86,9 +86,12 @@ public class CheckedTextField extends JTextField
 	}
 
 	/**
-	 * <p>cancel.</p>
+	 * <p>
+	 * cancel.
+	 * </p>
 	 *
-	 * @param e a {@link java.awt.AWTEvent} object.
+	 * @param e
+	 *            a {@link java.awt.AWTEvent} object.
 	 */
 	private void cancel(final AWTEvent e) {
 		for (final TextListener l : listeners) {

@@ -6,10 +6,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * <p>LabelledCheckedTextField class.</p>
+ * <p>
+ * A validated text field with a label.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.swing.CheckedTextField
  */
 public class LabelledCheckedTextField extends JPanel {
 
@@ -21,21 +24,30 @@ public class LabelledCheckedTextField extends JPanel {
 	private final CheckedTextField checkedTextField;
 
 	/**
-	 * <p>Constructor for LabelledCheckedTextField.</p>
+	 * <p>
+	 * Constructor for LabelledCheckedTextField.
+	 * </p>
 	 *
-	 * @param label a {@link java.lang.String} object.
-	 * @param pattern a {@link java.util.regex.Pattern} object.
+	 * @param label
+	 *            a {@link java.lang.String} object.
+	 * @param pattern
+	 *            a {@link java.util.regex.Pattern} object.
 	 */
 	public LabelledCheckedTextField(final String label, final Pattern pattern) {
 		this(label, pattern, defaultTextFieldSize);
 	}
 
 	/**
-	 * <p>Constructor for LabelledCheckedTextField.</p>
+	 * <p>
+	 * Constructor for LabelledCheckedTextField.
+	 * </p>
 	 *
-	 * @param label a {@link java.lang.String} object.
-	 * @param pattern a {@link java.util.regex.Pattern} object.
-	 * @param jTextFieldSize a int.
+	 * @param label
+	 *            a {@link java.lang.String} object.
+	 * @param pattern
+	 *            a {@link java.util.regex.Pattern} object.
+	 * @param jTextFieldSize
+	 *            a int.
 	 */
 	public LabelledCheckedTextField(final String label, final Pattern pattern, final int jTextFieldSize) {
 		this.jLabel = new JLabel(label);
@@ -45,25 +57,33 @@ public class LabelledCheckedTextField extends JPanel {
 	}
 
 	/**
-	 * <p>addTextListener.</p>
+	 * <p>
+	 * addTextListener.
+	 * </p>
 	 *
-	 * @param listener a {@link de.markusrother.swing.TextListener} object.
+	 * @param listener
+	 *            a {@link de.markusrother.swing.TextListener} object.
 	 */
 	public void addTextListener(final TextListener listener) {
 		checkedTextField.addTextListener(listener);
 	}
 
 	/**
-	 * <p>removeTextListener.</p>
+	 * <p>
+	 * removeTextListener.
+	 * </p>
 	 *
-	 * @param listener a {@link de.markusrother.swing.TextListener} object.
+	 * @param listener
+	 *            a {@link de.markusrother.swing.TextListener} object.
 	 */
 	public void removeTextListener(final TextListener listener) {
 		checkedTextField.removeTextListener(listener);
 	}
 
 	/**
-	 * <p>getText.</p>
+	 * <p>
+	 * getText.
+	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.
 	 */
@@ -72,9 +92,12 @@ public class LabelledCheckedTextField extends JPanel {
 	}
 
 	/**
-	 * <p>setText.</p>
+	 * <p>
+	 * setText.
+	 * </p>
 	 *
-	 * @param text a {@link java.lang.String} object.
+	 * @param text
+	 *            a {@link java.lang.String} object.
 	 */
 	public void setText(final String text) {
 		checkedTextField.setText(text);

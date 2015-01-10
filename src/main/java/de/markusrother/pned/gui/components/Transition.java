@@ -24,6 +24,8 @@ import de.markusrother.util.JsonBuilder;
  * <p>
  * Transition class.
  * </p>
+ * 
+ * TODO - apply TransitionStyle
  *
  * @author Markus Rother
  * @version 1.0
@@ -32,7 +34,7 @@ public class Transition extends AbstractNode
 	implements
 		TransitionActivationListener {
 
-	// FIXME - move to TransitionStyleModel
+	// TODO - move to TransitionStyleModel
 
 	/** Constant <code>activatedColor</code> */
 	private static final Color activatedColor = Color.GREEN;
@@ -49,8 +51,11 @@ public class Transition extends AbstractNode
 	 *
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
-	 * @param transitionId a {@link java.lang.String} object.
-	 * @param style a {@link de.markusrother.pned.gui.core.model.NodeStyleModel} object.
+	 * @param transitionId
+	 *            a {@link java.lang.String} object.
+	 * @param style
+	 *            a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
+	 *            object.
 	 */
 	public Transition(final EventBus eventBus, final String transitionId, final NodeStyleModel style) {
 		super(eventBus, transitionId, style);
@@ -59,7 +64,7 @@ public class Transition extends AbstractNode
 		this.activator = new TransitionActivator(eventBus);
 		activator.addToComponent(this);
 
-		// FIXME - dispose!
+		// TODO - dispose and assert removal of listeners!
 		eventBus.addListener(TransitionActivationListener.class, this);
 	}
 

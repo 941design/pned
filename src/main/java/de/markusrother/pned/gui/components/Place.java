@@ -64,7 +64,7 @@ public class Place extends AbstractNode
 	 */
 	public Place(final EventBus eventBus, final String placeId, final Marking marking,
 			final MarkingEditor markingEditor, final NodeStyleModel style) {
-		super(eventBus, placeId, new PlaceLayout(), style);
+		super(eventBus, placeId, new PlaceLayoutManager(), style);
 		this.marking = marking;
 		this.markingEditor = markingEditor;
 
@@ -74,7 +74,7 @@ public class Place extends AbstractNode
 		eventBus.addListener(MarkingEditListener.class, this);
 		eventBus.addListener(MarkingEventListener.class, this);
 
-		add(this.marking, PlaceLayout.CENTER);
+		add(this.marking, PlaceLayoutManager.CENTER);
 		setOpaque(false);
 	}
 

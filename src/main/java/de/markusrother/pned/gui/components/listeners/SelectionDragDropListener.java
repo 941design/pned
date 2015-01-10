@@ -20,7 +20,6 @@ import de.markusrother.swing.DragDropListener;
 public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 
 	private final Collection<AbstractNode> nodes;
-	// FIXME - GuiCommandTarget should suffice
 	private final PnEventBus eventBus;
 
 	/**
@@ -66,7 +65,8 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNode> {
 	 */
 	public void cancel() {
 		for (final AbstractNode node : nodes) {
-			// TODO - This should be done by the node, too.
+			// TODO - This should be done by the node, listening to the cancel
+			// event.
 			node.removeDragListener(this);
 		}
 		eventBus.nodeSelectionCancelled(new NodeMultiSelectionEvent(CANCEL, this));

@@ -16,8 +16,17 @@ import javax.swing.event.ChangeListener;
 
 /**
  * <p>
- * ScaleGroup class.
+ * Panel consisting of label, validated text field and slider.
  * </p>
+ * 
+ * TODO
+ * <ul>
+ * <li>
+ * Create LogarithmicRangeModel</li>
+ * <li>Limit to Integer.MAX_VALUE</li>
+ * <li>Create own LayoutManager, try BorderLayout, or use EmptyBorders for
+ * padding.</li>
+ * </ul>
  *
  * @author Markus Rother
  * @version 1.0
@@ -38,7 +47,6 @@ public class ScaleGroup extends JPanel
 		}
 	}
 
-	// TODO - Limit to Integer.MAX_VALUE
 	/** Constant <code>intPattern</code> */
 	public static final Pattern intPattern = Pattern.compile("0|([1-9][0-9]*)");
 
@@ -73,10 +81,6 @@ public class ScaleGroup extends JPanel
 	 *            a {@link javax.swing.BoundedRangeModel} object.
 	 */
 	public ScaleGroup(final String label, final Orientation orientation, final BoundedRangeModel model) {
-
-		// TODO - Create LogarithmicRangeModel
-		// TODO - Create own LayoutManager, try BorderLayout, or use
-		// EmptyBorders for padding.
 
 		setLayout(new BoxLayout(this, orientation.boxLayoutConstant));
 

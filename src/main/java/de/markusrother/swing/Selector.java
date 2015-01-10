@@ -15,8 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 /**
- * Class used to mark multiple components a.k.a select them for future
- * processing.
+ * Class used to mark multiple components, selecting them for future processing.
  *
  * This listener must not be registered at the components themselves, but for
  * the container that contains the components to be selected. Therefore, this
@@ -69,7 +68,7 @@ public abstract class Selector<T extends Selectable> extends DragDropListener<Co
 	private JPanel createSelectionPanel(final Point origin) {
 		// TODO - either make abstract or add layout manager!
 		final JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(Color.CYAN, 3)); // FIXME - constructor
+		panel.setBorder(new LineBorder(Color.CYAN, 3)); // TODO - constructor
 														// params
 		panel.setBounds(new Rectangle(origin, new Dimension()));
 		panel.setOpaque(false);

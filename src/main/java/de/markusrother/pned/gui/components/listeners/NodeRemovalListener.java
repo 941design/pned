@@ -9,6 +9,8 @@ import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
  * <p>
  * NodeRemovalListener interface.
  * </p>
+ * 
+ * TODO - merge both events.
  *
  * @author Markus Rother
  * @version 1.0
@@ -17,15 +19,14 @@ public interface NodeRemovalListener
 	extends
 		EventListener {
 
-	// TODO - What is the difference, exactly?
-
 	/**
 	 * <p>
 	 * nodeRemoved.
 	 * </p>
 	 *
 	 * @param cmd
-	 *            a {@link de.markusrother.pned.control.commands.NodeRemovalCommand}
+	 *            a
+	 *            {@link de.markusrother.pned.control.commands.NodeRemovalCommand}
 	 *            object.
 	 */
 	void nodeRemoved(NodeRemovalCommand cmd);
@@ -34,8 +35,6 @@ public interface NodeRemovalListener
 	 * <p>
 	 * removeSelectedNodes.
 	 * </p>
-	 *
-	 * FIXME - separate
 	 *
 	 * @param cmd
 	 *            a

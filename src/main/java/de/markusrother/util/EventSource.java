@@ -4,7 +4,7 @@ import java.util.EventListener;
 
 /**
  * <p>
- * PetriNetCommandSource interface.
+ * A producer of events.
  * </p>
  *
  *

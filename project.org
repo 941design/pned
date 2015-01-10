@@ -7,14 +7,14 @@
 
 *.pned.gui*
 .pned.gui.components
-.pned.gui.components.dialogs
-.pned.gui.components.menus
+*.pned.gui.components.dialogs*
+*.pned.gui.components.menus*
 .pned.gui.components.listeners
-.pned.gui.control
-.pned.gui.control.commands
-.pned.gui.control.events
-.pned.gui.control.requests
-.pned.gui.core
+*.pned.gui.control*
+*.pned.gui.control.commands*
+*.pned.gui.control.events*
+*.pned.gui.control.requests*
+*.pned.gui.core*
 *.pned.gui.core.model*
 *.pned.gui.actions*
 
@@ -26,12 +26,13 @@
 *.pned.core*
 *.pned.core.model*
 
-.pned.util
+*.pned.util*
 
 *.concurrent*
-.util
-.swing
+*.util*
+*.swing*
 
 TODO
++ File not found may still crash
 + AbstractCreateNodeAction and subclasses
-+ Interface for PnState PnStateModel
+

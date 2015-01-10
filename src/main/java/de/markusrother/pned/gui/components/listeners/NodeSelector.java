@@ -45,14 +45,12 @@ import de.markusrother.swing.Selector;
  * NodeSelector class.
  * </p>
  *
- * FIXME - What is the difference between SelectionDragDropoListener???
  *
  * @author Markus Rother
  * @version 1.0
  */
 public class NodeSelector extends Selector<AbstractNode> {
 
-	// FIXME - GuiCommandTarget should do
 	private final PnEventTarget eventTarget;
 
 	/**

@@ -9,8 +9,8 @@ import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
 import de.markusrother.pned.gui.components.AbstractNode;
-import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
+import de.markusrother.pned.gui.control.events.PnEventTarget;
 import de.markusrother.swing.DragDropListener;
 
 /**
@@ -26,20 +26,21 @@ import de.markusrother.swing.DragDropListener;
  */
 public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 
-	// FIXME - GuiCommandTarget should suffice
-	private final PnEventBus eventBus;
+	private final PnEventTarget eventTarget;
 
 	/**
 	 * <p>
 	 * Constructor for SingleNodeSelector.
 	 * </p>
 	 *
-	 * @param eventBus
-	 *            a {@link de.markusrother.pned.control.EventBus} object.
+	 * @param eventTarget
+	 *            a
+	 *            {@link de.markusrother.pned.gui.control.events.PnEventTarget}
+	 *            object.
 	 */
-	public SingleNodeSelector(final PnEventBus eventBus) {
+	public SingleNodeSelector(final PnEventTarget eventTarget) {
 		super(AbstractNode.class);
-		this.eventBus = eventBus;
+		this.eventTarget = eventTarget;
 	}
 
 	/**
@@ -82,8 +83,8 @@ public class SingleNodeSelector extends DragDropListener<AbstractNode> {
 		} else {
 			// NOTE - Do NOT rely on event status change within this method!
 			// We have to cancel other singly selected nodes, too:
-			eventBus.nodeSelectionCancelled(new NodeMultiSelectionEvent(CANCEL, this));
-			eventBus.nodesSelected(new NodeMultiSelectionEvent(SELECT, this, Arrays.asList(node)));
+			eventTarget.nodeSelectionCancelled(new NodeMultiSelectionEvent(CANCEL, this));
+			eventTarget.nodesSelected(new NodeMultiSelectionEvent(SELECT, this, Arrays.asList(node)));
 		}
 	}
 

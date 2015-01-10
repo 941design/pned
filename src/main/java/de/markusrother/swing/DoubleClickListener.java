@@ -3,7 +3,9 @@ package de.markusrother.swing;
 import java.awt.event.MouseEvent;
 
 /**
- * <p>Abstract DoubleClickListener class.</p>
+ * <p>
+ * A mouse listener wrapper encapsulating double click events.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0

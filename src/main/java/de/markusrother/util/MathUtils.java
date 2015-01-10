@@ -6,7 +6,7 @@ import java.awt.Point;
 
 /**
  * <p>
- * TrigUtils class.
+ * MathUtils class.
  * </p>
  *
  * @author Markus Rother
@@ -51,9 +51,12 @@ public class MathUtils {
 	}
 
 	/**
-	 * <p>getRadiansOfCoordinate.</p>
+	 * <p>
+	 * getRadiansOfCoordinate.
+	 * </p>
 	 *
-	 * @param point a {@link java.awt.Point} object.
+	 * @param point
+	 *            a {@link java.awt.Point} object.
 	 * @return a double.
 	 */
 	public static double getRadiansOfCoordinate(final Point point) {

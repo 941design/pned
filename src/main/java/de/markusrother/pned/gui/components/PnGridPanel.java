@@ -111,15 +111,18 @@ public class PnGridPanel extends JLayeredPane
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param menuFactory
-	 *            a {@link de.markusrother.pned.gui.components.menus.PnMenuFactory}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.menus.PnMenuFactory}
 	 *            object.
 	 * @param nodeFactory
 	 *            a {@link de.markusrother.pned.gui.components.NodeFactory}
 	 *            object.
-	 * @param edgeFactory a {@link de.markusrother.pned.gui.components.EdgeFactory} object.
+	 * @param edgeFactory
+	 *            a {@link de.markusrother.pned.gui.components.EdgeFactory}
+	 *            object.
 	 */
-	public PnGridPanel(final PnEventBus eventBus, final PnMenuFactory menuFactory,
-			final NodeFactory nodeFactory, final EdgeFactory edgeFactory) {
+	public PnGridPanel(final PnEventBus eventBus, final PnMenuFactory menuFactory, final NodeFactory nodeFactory,
+			final EdgeFactory edgeFactory) {
 
 		this.eventBus = eventBus;
 		this.nodeFactory = nodeFactory;
@@ -127,8 +130,6 @@ public class PnGridPanel extends JLayeredPane
 		this.currentSelection = new HashSet<>();
 
 		setPreferredSize(preferredSize);
-		// setBackground(Color.BLUE);
-		// TODO - set the number of rectangles to be displayed:
 		nodeLayer = new GridComponent(new Dimension(40, 40), Color.GRAY);
 		// TODO - get preferred size from parent
 		nodeLayer.setPreferredSize(preferredSize);
@@ -153,7 +154,7 @@ public class PnGridPanel extends JLayeredPane
 		popupCreator.addToComponent(nodeLayer);
 		DragDropListener.addToComponent(nodeLayer, multipleNodeSelector);
 
-		// FIXME - dispose!
+		// TODO - dispose and assert removal of listeners!
 		eventBus.addListener(NodeCreationListener.class, this);
 		eventBus.addListener(NodeSelectionListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
@@ -206,20 +207,6 @@ public class PnGridPanel extends JLayeredPane
 		return offset;
 	}
 
-	/**
-	 * <p>
-	 * removeSelectedNodes.
-	 * </p>
-	 */
-	public void removeSelectedNodes() {
-		// FIXME - create a currentSelection object which listens to this event.
-		// Use the RemoveSelectedNodesAction for this.
-		// TODO - instead we could trigger the event below!
-		for (final AbstractNode node : currentSelection) {
-			eventBus.nodeRemoved(new NodeRemovalCommand(this, node.getId()));
-		}
-	}
-
 	/** {@inheritDoc} */
 	@Override
 	public void createPlace(final PlaceCreationCommand cmd) {
@@ -255,15 +242,13 @@ public class PnGridPanel extends JLayeredPane
 	 *            a T object.
 	 */
 	private <T extends AbstractNode> void addNodeComponent(final T node, final Point origin) {
-		// TODO - this method is too big!
-		final Dimension d = node.getPreferredSize(); // FIXME - didn't we just
-														// set the preferred
-														// size!
-		final Point nodeOrigin = origin.getLocation(); // TODO - Why?
-		nodeOrigin.translate(-d.width / 2, -d.height / 2); // TODO - Why?
+		final Dimension d = node.getPreferredSize();
+		final Point nodeOrigin = origin.getLocation();
+		// Centering the node component around the requested point:
+		nodeOrigin.translate(-d.width / 2, -d.height / 2);
 		node.setBounds(new Rectangle(nodeOrigin, node.getPreferredSize()));
 		nodeLayer.add(node);
-		nodeLayer.repaint(); // TODO - Why?
+		nodeLayer.repaint();
 	}
 
 	/**
@@ -356,11 +341,11 @@ public class PnGridPanel extends JLayeredPane
 		try {
 			final NodeRequest req = new NodeRequest(this, nodeId);
 			eventBus.requestNode(req);
-			final AbstractNode node = req.get(); // FIXME - insert timeout here!
+			final AbstractNode node = req.get(); // TODO - insert timeout here!
 			return node;
 		} catch (final TimeoutException e) {
 			e.printStackTrace();
-			// FIXME - create custom Exception
+			// TODO - create custom Exception
 			throw new RuntimeException("TODO");
 		}
 	}
@@ -443,7 +428,8 @@ public class PnGridPanel extends JLayeredPane
 	/** {@inheritDoc} */
 	@Override
 	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
-		// IGNORE, FIXME ??
+		// NOTE - Nodes, labels, and edges remove themselves.
+		repaint();
 	}
 
 	/** {@inheritDoc} */

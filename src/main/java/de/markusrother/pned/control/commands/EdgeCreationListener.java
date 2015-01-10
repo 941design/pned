@@ -9,7 +9,7 @@ import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
  * EdgeCreationListener interface.
  * </p>
  *
- * FIXME - rename to EdgeListener
+ * TODO - rename to EdgeListener and merge with other operations.
  *
  * @author Markus Rother
  * @version 1.0
@@ -37,7 +37,8 @@ public interface EdgeCreationListener
 	 * </p>
 	 *
 	 * @param cmd
-	 *            a {@link de.markusrother.pned.gui.control.commands.EdgeRemoveCommand}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.control.commands.EdgeRemoveCommand}
 	 *            object.
 	 */
 	void removeEdge(EdgeRemoveCommand cmd);
