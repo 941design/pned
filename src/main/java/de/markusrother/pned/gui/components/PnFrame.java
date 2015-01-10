@@ -141,7 +141,7 @@ public class PnFrame extends JFrame
 
 		final PnEventBus eventBus = state.getEventBus();
 
-		final ComponentFactoryImpl factory = new ComponentFactoryImpl(state);
+		final ComponentFactory factory = new ComponentFactory(state);
 
 		this.grid = new PnGridPanel(eventBus, menuFactory, factory, factory);
 		this.pnedMenuBar = new PnMenuBar(menuFactory);

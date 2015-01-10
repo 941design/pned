@@ -13,12 +13,11 @@ import de.markusrother.pned.gui.core.model.EdgeStyleModel;
  * {@link de.markusrother.pned.gui.components.MarkingComponent}s.
  * </p>
  * 
- * FIXME - rename to ComponentFactory
  *
  * @author Markus Rother
  * @version 1.0
  */
-public class ComponentFactoryImpl
+public class ComponentFactory
 	implements
 		NodeComponentFactory,
 		EdgeComponentFactory,
@@ -36,7 +35,7 @@ public class ComponentFactoryImpl
 	 * @param state
 	 *            a {@link de.markusrother.pned.gui.control.PnState} object.
 	 */
-	public ComponentFactoryImpl(final PnState state) {
+	public ComponentFactory(final PnState state) {
 		this.state = state;
 		this.markingEditor = new MarkingEditor(state.getEventBus());
 		this.singleNodeSelector = new SingleNodeSelector(state.getEventBus());
