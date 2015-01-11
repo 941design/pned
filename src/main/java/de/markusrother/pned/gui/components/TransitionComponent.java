@@ -37,9 +37,9 @@ public class TransitionComponent extends AbstractNodeComponent
 	// TODO - move to TransitionStyleModel
 
 	/** Constant <code>activatedColor</code> */
-	private static final Color activatedColor = Color.GREEN;
+	private static final Color activatedColor = new Color(120, 220, 120, 220);
 	/** Constant <code>deactivatedColor</code> */
-	private static final Color deactivatedColor = Color.GRAY;
+	private static final Color deactivatedColor = new Color(120, 120, 120, 120);
 
 	private final TransitionActivator activator;
 	private boolean isActive = true;

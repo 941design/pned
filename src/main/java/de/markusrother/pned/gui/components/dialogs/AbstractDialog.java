@@ -32,10 +32,12 @@ public class AbstractDialog extends JDialog {
 	 *            object.
 	 * @param state
 	 */
-	protected AbstractDialog(final PnState state, final PnCommandTarget commandTarget, final String title) {
+	protected AbstractDialog(final PnState state, final PnCommandTarget commandTarget, final String title,
+			final boolean modal) {
 		this.state = state;
 		this.commandTarget = commandTarget;
 		setTitle(title);
+		setModal(modal);
 	}
 
 }

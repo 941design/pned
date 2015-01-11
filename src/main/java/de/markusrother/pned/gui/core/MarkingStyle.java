@@ -22,6 +22,8 @@ public class MarkingStyle extends AbstractStyle
 	implements
 		MarkingStyleModel {
 
+	private static final double FONT_SIZE_RATIO = 1.6;
+
 	/**
 	 * <p>
 	 * Returns new instance of a default
@@ -116,7 +118,7 @@ public class MarkingStyle extends AbstractStyle
 	/** {@inheritDoc} */
 	@Override
 	public Font getFont() {
-		return new Font(fontName, fontStyle, (int) (size / 1.2 + 0.5));
+		return new Font(fontName, fontStyle, (int) (size * FONT_SIZE_RATIO));
 	}
 
 	/** {@inheritDoc} */

@@ -33,11 +33,11 @@ public class NodeStyle extends AbstractStyle
 		final NodeStyle style = new NodeStyle();
 		style.setSize(40);
 		style.setDefaultColor(new Color(120, 120, 120, 120));
-		style.setHoverColor(new Color(160, 220, 180, 120));
+		style.setHoverColor(new Color(160, 180, 220, 120));
 		style.setSelectionColor(new Color(160, 160, 160, 120));
 		style.setDefaultBorder(null);
 		style.setSelectionBorder(new LineBorder(Color.MAGENTA, 2));
-		style.setHoverBorder(new LineBorder(Color.GREEN, 2));
+		style.setHoverBorder(new LineBorder(Color.BLUE, 2));
 		return style;
 	}
 

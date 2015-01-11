@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 
+import javax.swing.BoundedRangeModel;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
@@ -68,7 +69,7 @@ public class EditSettingsDialog extends AbstractDialog {
 	 * @param commandTarget2
 	 */
 	private EditSettingsDialog(final PnState state, final PnCommandTarget commandTarget) {
-		super(state, commandTarget, title);
+		super(state, commandTarget, title, true);
 
 		setPreferredSize(preferredSize);
 
@@ -97,6 +98,10 @@ public class EditSettingsDialog extends AbstractDialog {
 	 */
 	private ScaleGroup createPlaceScale() {
 		final ScaleGroup scale = new ScaleGroup("Place", ScaleGroup.Orientation.HORIZONTAL);
+		final BoundedRangeModel boundedRangeModel = scale.getModel();
+		boundedRangeModel.setMinimum(10);
+		boundedRangeModel.setMaximum(250);
+		boundedRangeModel.setValue(state.getPlaceStyle().getSize());
 		scale.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(final ChangeEvent e) {
@@ -118,6 +123,10 @@ public class EditSettingsDialog extends AbstractDialog {
 	 */
 	private ScaleGroup createTransitionScale() {
 		final ScaleGroup scale = new ScaleGroup("Transition", ScaleGroup.Orientation.HORIZONTAL);
+		final BoundedRangeModel boundedRangeModel = scale.getModel();
+		boundedRangeModel.setMinimum(10);
+		boundedRangeModel.setMaximum(250);
+		boundedRangeModel.setValue(state.getTransitionStyle().getSize());
 		scale.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(final ChangeEvent e) {
@@ -139,6 +148,10 @@ public class EditSettingsDialog extends AbstractDialog {
 	 */
 	private ScaleGroup createMarkingScale() {
 		final ScaleGroup scale = new ScaleGroup("Marking", ScaleGroup.Orientation.HORIZONTAL);
+		final BoundedRangeModel boundedRangeModel = scale.getModel();
+		boundedRangeModel.setMinimum(5);
+		boundedRangeModel.setMaximum(125);
+		boundedRangeModel.setValue(state.getMarkingStyle().getSize());
 		scale.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(final ChangeEvent e) {
@@ -160,6 +173,10 @@ public class EditSettingsDialog extends AbstractDialog {
 	 */
 	private ScaleGroup createEdgeTipScale() {
 		final ScaleGroup scale = new ScaleGroup("Edge tip", ScaleGroup.Orientation.HORIZONTAL);
+		final BoundedRangeModel boundedRangeModel = scale.getModel();
+		boundedRangeModel.setMinimum(5);
+		boundedRangeModel.setMaximum(50);
+		boundedRangeModel.setValue(state.getEdgeStyle().getSize());
 		scale.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(final ChangeEvent e) {
