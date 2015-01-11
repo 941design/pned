@@ -14,6 +14,7 @@
 
   <!-- PROPERTIES -->
   <properties>
+    <final.name>8544832_rother_markus</final.name>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.7</java.version>
     <junit.version>4.11</junit.version>
@@ -113,6 +114,7 @@
 	      <mainClass>de.markusrother.pned.gui.Main</mainClass>
 	    </manifest>
 	  </archive>
+          <finalName>${final.name}</finalName>
 	</configuration>
       </plugin>
       
