@@ -124,18 +124,34 @@
         <groupId>org.codehaus.mojo</groupId>
         <executions>
           <execution>
-            <id>Create javadoc archive</id>
+            <id>Create src and javadoc archive</id>
             <phase>site</phase>
             <goals>
               <goal>exec</goal>
             </goals>
             <configuration>
-              <workingDirectory>${project.build.directory}/site</workingDirectory>
+              <workingDirectory>${basedir}</workingDirectory>
               <executable>zip</executable>
               <arguments>
                 <argument>-r</argument>
-                <argument>${project.build.directory}/doc.zip</argument>
-                <argument>apidocs</argument>
+                <argument>${project.build.directory}/8544832_rother_markus.zip</argument>
+                <argument>./target/site/apidocs</argument>
+                <argument>./src/main/java</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>Copy manual to target</id>
+            <phase>site</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <workingDirectory>${basedir}</workingDirectory>
+              <executable>cp</executable>
+              <arguments>
+                <argument>./src/main/resources/manual.pdf</argument>
+                <argument>${project.build.directory}/8544832_rother_markus.pdf</argument>
               </arguments>
             </configuration>
           </execution>
