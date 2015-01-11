@@ -36,6 +36,8 @@ public class PnFrame extends JFrame
 		PetriNetListener,
 		PetriNetIOListener {
 
+	private final boolean isLogging;
+
 	private PnMenuBar pnedMenuBar;
 	private JScrollPane scrollPane;
 	private PnGridPanel grid;
@@ -52,9 +54,11 @@ public class PnFrame extends JFrame
 	 *            a {@link java.lang.String} object.
 	 * @param preferredSize
 	 *            a {@link java.awt.Dimension} object.
+	 * @param isLogging
 	 */
-	public PnFrame(final String title, final Dimension preferredSize) {
+	public PnFrame(final String title, final Dimension preferredSize, final boolean isLogging) {
 		super(title);
+		this.isLogging = isLogging;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(preferredSize);
@@ -70,7 +74,10 @@ public class PnFrame extends JFrame
 	 */
 	private void createContext() {
 		final PnEventBus eventBus = new PnEventBus();
-		PnEventLogger.log(eventBus);
+
+		if (isLogging) {
+			PnEventLogger.log(eventBus);
+		}
 
 		this.state = new PnState(eventBus);
 		this.menuFactory = new PnMenuFactory(state);
