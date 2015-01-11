@@ -40,6 +40,7 @@ abstract class AbstractStatefulAction extends AbstractAction {
 	 * @param state
 	 *            a {@link de.markusrother.pned.gui.control.PnState} - the
 	 *            current state.
+	 * @param commandTarget a {@link de.markusrother.pned.gui.control.commands.PnCommandTarget} object.
 	 */
 	public AbstractStatefulAction(final PnState state, final PnCommandTarget commandTarget, final String name) {
 		super(name);
@@ -47,6 +48,14 @@ abstract class AbstractStatefulAction extends AbstractAction {
 		this.commandTarget = commandTarget;
 	}
 
+	/**
+	 * <p>Constructor for AbstractStatefulAction.</p>
+	 *
+	 * @param state a {@link de.markusrother.pned.gui.control.PnState} object.
+	 * @param commandTarget a {@link de.markusrother.pned.gui.control.commands.PnCommandTarget} object.
+	 * @param name a {@link java.lang.String} object.
+	 * @param mnemonic a int.
+	 */
 	public AbstractStatefulAction(final PnState state, final PnCommandTarget commandTarget, final String name,
 			final int mnemonic) {
 		this(state, commandTarget, name);

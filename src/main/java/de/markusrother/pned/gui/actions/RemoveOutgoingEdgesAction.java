@@ -37,6 +37,7 @@ public class RemoveOutgoingEdgesAction extends AbstractStatefulAction {
 	 *            a {@link de.markusrother.pned.gui.control.PnState} - the
 	 *            current state.
 	 * @return a {@link javax.swing.JMenuItem} - the created menu item.
+	 * @param commandTarget a {@link de.markusrother.pned.gui.control.commands.PnCommandTarget} object.
 	 */
 	public static JMenuItem newMenuItem(final PnState state, final PnCommandTarget commandTarget) {
 		return new JMenuItem(new RemoveOutgoingEdgesAction(state, commandTarget));
@@ -50,6 +51,7 @@ public class RemoveOutgoingEdgesAction extends AbstractStatefulAction {
 	 * @param state
 	 *            a {@link de.markusrother.pned.gui.control.PnState} - the
 	 *            current state.
+	 * @param commandTarget a {@link de.markusrother.pned.gui.control.commands.PnCommandTarget} object.
 	 */
 	public RemoveOutgoingEdgesAction(final PnState state, final PnCommandTarget commandTarget) {
 		super(state, commandTarget, name);

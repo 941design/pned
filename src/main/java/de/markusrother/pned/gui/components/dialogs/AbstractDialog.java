@@ -30,7 +30,8 @@ public class AbstractDialog extends JDialog {
 	 *            a
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            object.
-	 * @param state
+	 * @param state a {@link de.markusrother.pned.gui.control.PnState} object.
+	 * @param modal a boolean.
 	 */
 	protected AbstractDialog(final PnState state, final PnCommandTarget commandTarget, final String title,
 			final boolean modal) {

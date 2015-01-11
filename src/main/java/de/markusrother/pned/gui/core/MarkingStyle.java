@@ -22,6 +22,7 @@ public class MarkingStyle extends AbstractStyle
 	implements
 		MarkingStyleModel {
 
+	/** Constant <code>FONT_SIZE_RATIO=1.6</code> */
 	private static final double FONT_SIZE_RATIO = 1.6;
 
 	/**

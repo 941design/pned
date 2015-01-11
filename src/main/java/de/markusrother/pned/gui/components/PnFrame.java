@@ -50,6 +50,7 @@ public class PnFrame extends JFrame
 	 *
 	 * @param title
 	 *            a {@link java.lang.String} object.
+	 * @param preferredSize a {@link java.awt.Dimension} object.
 	 */
 	public PnFrame(final String title, final Dimension preferredSize) {
 		super(title);

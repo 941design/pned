@@ -2,6 +2,12 @@ package de.markusrother.pned.core;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+/**
+ * <p>MarkingMarshaller class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class MarkingMarshaller extends XmlAdapter<MarkingVO, Integer> {
 
 	/** {@inheritDoc} */

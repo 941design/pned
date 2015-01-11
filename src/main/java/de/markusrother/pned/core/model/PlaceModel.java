@@ -33,7 +33,7 @@ public interface PlaceModel
 	 * </p>
 	 *
 	 * @param marking
-	 *            a int - the new marking.
+	 *            a {@link java.lang.Integer} - the new marking.
 	 */
 	void setMarking(Integer marking);
 

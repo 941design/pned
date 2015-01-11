@@ -21,6 +21,7 @@ import de.markusrother.pned.gui.core.model.NodeStyleModel;
 import de.markusrother.util.JsonBuilder;
 
 /**
+ * <p>PlaceComponent class.</p>
  *
  * @author Markus Rother
  * @version 1.0

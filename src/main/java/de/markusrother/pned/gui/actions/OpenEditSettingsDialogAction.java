@@ -34,6 +34,8 @@ public class OpenEditSettingsDialogAction extends AbstractStatefulAction {
 	 * .
 	 * </p>
 	 *
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.control.PnState} object.
 	 * @param commandTarget
 	 *            a
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
@@ -50,6 +52,8 @@ public class OpenEditSettingsDialogAction extends AbstractStatefulAction {
 	 * Constructor for EditSettingsAction.
 	 * </p>
 	 *
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.control.PnState} object.
 	 * @param commandTarget
 	 *            a
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}

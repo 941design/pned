@@ -133,10 +133,16 @@ public class CheckedTextField extends JTextField
 		}
 	}
 
+	/**
+	 * <p>markValid.</p>
+	 */
 	public void markValid() {
 		setForeground(validTextColor);
 	}
 
+	/**
+	 * <p>markInvalid.</p>
+	 */
 	public void markInvalid() {
 		setForeground(invalidTextColor);
 	}

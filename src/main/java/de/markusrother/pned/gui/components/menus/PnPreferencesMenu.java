@@ -30,6 +30,7 @@ public class PnPreferencesMenu extends JMenu {
 	 *            a
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            object.
+	 * @param state a {@link de.markusrother.pned.gui.control.PnState} object.
 	 */
 	PnPreferencesMenu(final PnState state, final PnCommandTarget commandTarget) {
 		super(label);

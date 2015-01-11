@@ -14,7 +14,7 @@ import org.junit.Test;
 public class XmlMarshallingTest extends AbstractPetriNetTest {
 
 	private static final String DOT = ".*?";
-	private static final String textRegex = "<text>" + DOT + "(\\w*)" + DOT + "</text>"; //
+	private static final String textRegex = "<value>" + DOT + "(\\w*)" + DOT + "</value>"; //
 	private static final String markingRegex = "<initialMarking>" + DOT + "(\\d+)" + DOT + "</initialMarking>"; //
 	private static final String positionRegex = "" //
 			+ "<graphics>" + DOT //
@@ -44,7 +44,8 @@ public class XmlMarshallingTest extends AbstractPetriNetTest {
 	private String xml;
 
 	private void buildXml() throws JAXBException {
-		final Class<?>[] context = { DefaultPetriNet.class, DefaultPlace.class, DefaultTransition.class, DefaultEdge.class };
+		final Class<?>[] context = { DefaultPetriNet.class, DefaultPlace.class, DefaultTransition.class,
+				DefaultEdge.class };
 		final JAXBContext jaxbContext = JAXBContext.newInstance(context);
 		final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -116,7 +117,7 @@ public class XmlMarshallingTest extends AbstractPetriNetTest {
 	public void testPlaceLabelIsMarshalled() throws Exception {
 		createPlace(p1, l1);
 		assertXmlContains("<name>");
-		assertXmlContains("<text>%s</text>", l1);
+		assertXmlContains("<value>%s</value>", l1);
 		assertXmlMatches(textRegex);
 		assertXmlMatches(labelRegex);
 		assertRegexCaptures(labelRegex, l1);

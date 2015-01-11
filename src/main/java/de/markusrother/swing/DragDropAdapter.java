@@ -17,6 +17,8 @@ public class DragDropAdapter<T extends Component> extends DragDropListener<T> {
 	 * <p>
 	 * Constructor for DragDropAdapter.
 	 * </p>
+	 *
+	 * @param clazz a {@link java.lang.Class} object.
 	 */
 	protected DragDropAdapter(final Class<T> clazz) {
 		super(clazz);

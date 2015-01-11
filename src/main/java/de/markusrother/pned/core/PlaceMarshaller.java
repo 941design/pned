@@ -5,6 +5,8 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 /**
  * Currently unused!
  *
+ * @author Markus Rother
+ * @version 1.0
  */
 public class PlaceMarshaller extends XmlAdapter<PlaceVO, DefaultPlace> {
 

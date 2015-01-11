@@ -26,6 +26,7 @@ public class SaveFileDialog extends AbstractFileDialog {
 	private static final String title = "Save file";
 	/** Constant <code>approveButtonLabel="Save"</code> */
 	private static final String approveButtonLabel = "Save";
+	/** Constant <code>PNML_SUFFIX=".pnml"</code> */
 	private static final String PNML_SUFFIX = ".pnml";
 
 	/**
