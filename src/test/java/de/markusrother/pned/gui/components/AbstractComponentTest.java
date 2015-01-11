@@ -1,5 +1,6 @@
 package de.markusrother.pned.gui.components;
 
+import java.awt.event.ComponentListener;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.EventListener;
@@ -14,9 +15,9 @@ import org.mockito.Mockito;
 
 import de.markusrother.pned.control.commands.EdgeCreationListener;
 import de.markusrother.pned.control.commands.LabelEditListener;
+import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeMotionListener;
-import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.events.TransitionActivationListener;
 import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.control.PnEventBus;
@@ -35,6 +36,7 @@ public abstract class AbstractComponentTest<T> {
 	private static final Collection<Class<? extends EventListener>> excludedEventListenerInterfaces = new LinkedList<>();
 	static {
 		excludedEventListenerInterfaces.add(ChangeListener.class);
+		excludedEventListenerInterfaces.add(ComponentListener.class);
 	}
 
 	protected PnEventBus eventMulticastMock;
