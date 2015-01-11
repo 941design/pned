@@ -50,7 +50,8 @@ public class PnFrame extends JFrame
 	 *
 	 * @param title
 	 *            a {@link java.lang.String} object.
-	 * @param preferredSize a {@link java.awt.Dimension} object.
+	 * @param preferredSize
+	 *            a {@link java.awt.Dimension} object.
 	 */
 	public PnFrame(final String title, final Dimension preferredSize) {
 		super(title);
@@ -188,7 +189,7 @@ public class PnFrame extends JFrame
 			PNMLParser.parse(file, state.getEventBus());
 		} catch (FileNotFoundException | XMLStreamException e) {
 			// FIXME
-			throw new RuntimeException("TODO");
+			throw new RuntimeException("TODO - Invalid file name!");
 		}
 	}
 
