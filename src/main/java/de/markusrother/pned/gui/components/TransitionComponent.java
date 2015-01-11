@@ -155,7 +155,7 @@ public class TransitionComponent extends AbstractNodeComponent
 	/** {@inheritDoc} */
 	@Override
 	public String toString() {
-		return toJson();
+		return getClass().getSimpleName() + ": " + toJson();
 	}
 
 	/** {@inheritDoc} */

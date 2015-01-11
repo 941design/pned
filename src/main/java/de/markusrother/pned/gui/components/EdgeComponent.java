@@ -8,7 +8,10 @@ import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.geom.Line2D;
 
 import javax.swing.event.ChangeEvent;
@@ -32,6 +35,8 @@ import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.gui.core.Stylable;
 import de.markusrother.pned.gui.core.model.EdgeStyleModel;
 import de.markusrother.swing.HoverListener;
+import de.markusrother.util.JsonBuilder;
+import de.markusrother.util.JsonSerializable;
 
 /**
  * TODO
@@ -55,7 +60,9 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		PlaceLayoutListener,
 		TransitionLayoutListener,
 		Stylable<EdgeStyleModel>,
-		Disposable {
+		JsonSerializable,
+		Disposable,
+		ComponentListener {
 
 	/** Constant <code>NO_TARGET_COMPONENT</code> */
 	private static final AbstractNodeComponent NO_TARGET_COMPONENT = null;
@@ -128,30 +135,36 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 	 *            a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param source
 	 *            a {@link java.awt.Point} object.
 	 * @param target
 	 *            a {@link java.awt.Point} object.
 	 */
-	public EdgeComponent(final EventBus eventBus, final EdgeStyleModel style, final AbstractNodeComponent sourceComponent,
-			final Point source, final Point target) {
+	public EdgeComponent(final EventBus eventBus, final EdgeStyleModel style,
+			final AbstractNodeComponent sourceComponent, final Point source, final Point target) {
 		this(eventBus, NO_ID, style, sourceComponent, NO_TARGET_COMPONENT, source, target);
 	}
 
@@ -163,10 +176,12 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 	 * @param eventBus
 	 *            a {@link de.markusrother.pned.control.EventBus} object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param targetComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param id
 	 *            a {@link java.lang.String} object.
@@ -192,42 +207,54 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 	 *            a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param targetComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param targetComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param sourceComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param source
 	 *            a {@link java.awt.Point} object.
 	 * @param targetComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param targetComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param targetComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param targetComponent
-	 *            a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *            object.
 	 * @param target
 	 *            a {@link java.awt.Point} object.
@@ -235,8 +262,8 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 	 *            a {@link java.lang.String} object.
 	 */
 	private EdgeComponent(final EventBus eventBus, final String id, final EdgeStyleModel style,
-			final AbstractNodeComponent sourceComponent, final AbstractNodeComponent targetComponent, final Point source,
-			final Point target) {
+			final AbstractNodeComponent sourceComponent, final AbstractNodeComponent targetComponent,
+			final Point source, final Point target) {
 		super(sourceComponent, targetComponent, source, target);
 
 		this.eventBus = eventBus;
@@ -509,4 +536,49 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		this.style.addChangeListener(this);
 	}
 
+	/** {@inheritDoc} */
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() + ": " + toJson();
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public String toJson() {
+		final JsonBuilder builder = new JsonBuilder();
+		return builder.append("id", id) //
+				.append("sourceId", getSourceId()) //
+				.append("targetId", getTargetId()) //
+				.toString();
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void componentResized(final ComponentEvent e) {
+		final Component component = e.getComponent();
+		final Container parent = getParent();
+		if (component == parent) {
+			// We must adjust our bounds, otherwise the edge component does not
+			// show when source or target are dragged out of bounds
+			setBounds(new Rectangle(new Point(0, 0), parent.getPreferredSize()));
+		}
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void componentMoved(final ComponentEvent e) {
+		// IGNORE
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void componentShown(final ComponentEvent e) {
+		// IGNORE
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void componentHidden(final ComponentEvent e) {
+		// IGNORE
+	}
 }

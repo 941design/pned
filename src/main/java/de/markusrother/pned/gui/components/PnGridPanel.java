@@ -278,6 +278,9 @@ public class PnGridPanel extends GridComponent
 				sourceNode, //
 				targetNode);
 		addEdgeComponent(edge);
+		// EdgeComponents must respond to resizing by also adjusting their bound
+		// to match ours.
+		addComponentListener(edge);
 	}
 
 	/**
@@ -325,7 +328,9 @@ public class PnGridPanel extends GridComponent
 	 *            object.
 	 */
 	private void addEdgeComponent(final EdgeComponent edge) {
-		edge.setBounds(getBounds());
+		// We must set bounds origin to (0,0), because it may become negative
+		// when viewport changes:
+		edge.setBounds(new Rectangle(new Point(0, 0), getPreferredSize()));
 		add(edge);
 		revalidate();
 		repaint();

@@ -10,6 +10,7 @@ import static de.markusrother.swing.SwingUtils.getCenter;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
@@ -90,7 +91,8 @@ public class EdgeCreator extends MultiClickListener {
 	 * @param container
 	 *            a {@link java.awt.Container} object.
 	 * @param edgeFactory
-	 *            a {@link de.markusrother.pned.gui.components.EdgeComponentFactory}
+	 *            a
+	 *            {@link de.markusrother.pned.gui.components.EdgeComponentFactory}
 	 *            object.
 	 */
 	public EdgeCreator(final PnEventBus eventBus, final EdgeComponentFactory edgeFactory, final Container container) {
@@ -118,7 +120,8 @@ public class EdgeCreator extends MultiClickListener {
 	 *
 	 * @param component
 	 *            a {@link java.awt.Component} object.
-	 * @return a {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+	 * @return a
+	 *         {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
 	 *         object.
 	 */
 	private AbstractNodeComponent expectNode(final Component component) {
@@ -222,7 +225,9 @@ public class EdgeCreator extends MultiClickListener {
 				sourceNode,//
 				source,//
 				target);
-		edge.setBounds(container.getBounds());
+		// We must set bounds origin to (0,0), because it may become negative
+		// when viewport changes:
+		edge.setBounds(new Rectangle(new Point(0, 0), container.getPreferredSize()));
 		container.add(edge);
 		container.repaint();
 		// Must add to edge component because the edge has the same bounds as

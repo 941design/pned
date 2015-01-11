@@ -21,7 +21,9 @@ import de.markusrother.pned.gui.core.model.NodeStyleModel;
 import de.markusrother.util.JsonBuilder;
 
 /**
- * <p>PlaceComponent class.</p>
+ * <p>
+ * PlaceComponent class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
@@ -44,7 +46,8 @@ public class PlaceComponent extends AbstractNodeComponent
 	 * @param placeId
 	 *            a {@link java.lang.String} object.
 	 * @param marking
-	 *            a {@link de.markusrother.pned.gui.components.MarkingComponent} object.
+	 *            a {@link de.markusrother.pned.gui.components.MarkingComponent}
+	 *            object.
 	 * @param markingEditor
 	 *            a
 	 *            {@link de.markusrother.pned.gui.components.listeners.MarkingEditor}
@@ -176,7 +179,7 @@ public class PlaceComponent extends AbstractNodeComponent
 	/** {@inheritDoc} */
 	@Override
 	public String toString() {
-		return toJson();
+		return getClass().getSimpleName() + ": " + toJson();
 	}
 
 	/** {@inheritDoc} */
