@@ -57,6 +57,16 @@ public class SelectionDragDropListener extends DragDropListener<AbstractNodeComp
 	/** {@inheritDoc} */
 	@Override
 	protected void endDrag(final AbstractNodeComponent draggedNode, final Point dragEnd) {
+		// TODO - This is where we should fire the node motion command - when
+		// dragging is finished! The challenge is multi-selection, where all
+		// selected nodes must mutually listen to component move events, but
+		// must respond to the dragged node's movement only.
+		// final int deltaX = dragEnd.x - dragStart.x;
+		// final int deltaY = dragEnd.y - dragStart.y;
+		// for (final AbstractNodeComponent node : nodes) {
+		// eventBus.nodeMoved(new NodeMotionCommand(this, node.getId(), deltaX,
+		// deltaY));
+		// }
 		doCancel();
 	}
 

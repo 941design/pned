@@ -47,8 +47,8 @@ public abstract class DragDropListener<T extends Component> extends MouseAdapter
 
 	private final Class<T> type;
 
-	private Point dragStart;
-	private boolean started; // OBSOLETE
+	protected Point dragStart;
+	protected boolean started; // OBSOLETE
 
 	/**
 	 * <p>
@@ -92,10 +92,10 @@ public abstract class DragDropListener<T extends Component> extends MouseAdapter
 	/** {@inheritDoc} */
 	@Override
 	public void mouseReleased(final MouseEvent e) {
-		dragStart = null;
 		if (started) {
 			endDrag(tryCastComponent(e.getComponent()), e.getPoint());
 		}
+		dragStart = null;
 	}
 
 	/**

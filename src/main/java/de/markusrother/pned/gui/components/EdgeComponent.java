@@ -19,8 +19,6 @@ import javax.swing.event.ChangeEvent;
 import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.EdgeCreationListener;
-import de.markusrother.pned.control.commands.NodeMotionCommand;
-import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.gui.components.listeners.EdgeHoverListener;
 import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
@@ -54,7 +52,6 @@ import de.markusrother.util.JsonSerializable;
 public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, AbstractNodeComponent>
 	implements
 		NodeRemovalListener,
-		NodeMotionListener,
 		EdgeCreationListener,
 		EdgeEditListener,
 		PlaceLayoutListener,
@@ -274,10 +271,16 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 
 		eventBus.addListener(EdgeCreationListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
-		eventBus.addListener(NodeMotionListener.class, this);
 		eventBus.addListener(PlaceLayoutListener.class, this);
 		eventBus.addListener(TransitionLayoutListener.class, this);
 		eventBus.addListener(EdgeEditListener.class, this);
+
+		sourceComponent.addComponentListener(this);
+		if (targetComponent != null) {
+			// This check will become obsolete, once we have an
+			// UnfinishedEdgeComponent class.
+			targetComponent.addComponentListener(this);
+		}
 	}
 
 	/** {@inheritDoc} */
@@ -434,7 +437,6 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		// TODO - create generic removeAllListeners()
 		eventBus.removeListener(EdgeCreationListener.class, this);
 		eventBus.removeListener(NodeRemovalListener.class, this);
-		eventBus.removeListener(NodeMotionListener.class, this);
 		eventBus.removeListener(PlaceLayoutListener.class, this);
 		eventBus.removeListener(TransitionLayoutListener.class, this);
 		eventBus.removeListener(EdgeEditListener.class, this);
@@ -444,21 +446,6 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		parent.remove(this);
 		parent.revalidate();
 		parent.repaint();
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void nodeMoved(final NodeMotionCommand event) {
-		final String movedNodeId = event.getNodeId();
-		final String sourceId = getSourceId();
-		final String targetId = getTargetId();
-		if (movedNodeId.equals(sourceId) || movedNodeId.equals(targetId)) {
-			// Must always reconnect to both nodes, because moving any changes
-			// the edges angle.
-			reconnectToSource();
-			reconnectToTarget();
-			repaint();
-		}
 	}
 
 	/**
@@ -561,13 +548,25 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 			// We must adjust our bounds, otherwise the edge component does not
 			// show when source or target are dragged out of bounds
 			setBounds(new Rectangle(new Point(0, 0), parent.getPreferredSize()));
+		} else {
+			// IGNORE
 		}
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void componentMoved(final ComponentEvent e) {
-		// IGNORE
+		// TODO - currently unused. see SelectionDragDropListener.
+		final Component component = e.getComponent();
+		if (component == sourceComponent || component == targetComponent) {
+			reconnectToSource();
+			reconnectToTarget();
+			repaint();
+		} else {
+			// IGNORE
+		}
+		// TODO
+		throw new RuntimeException("TODO");
 	}
 
 	/** {@inheritDoc} */
