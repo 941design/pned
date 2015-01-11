@@ -1,0 +1,61 @@
+#+AUTHOR: Markus Rother
+#+TITLE: TODO
+
+** TODO
+  1. Create test for listener removal on dispose
+  2. Create a TransitionStyle object
+  3. File not found throws uncaught exception
+  4. Firing un-activated transition throws uncaught exception. Suspend
+     listener?
+  5. Refactor node movement (multi-selection) into AWT component
+     listener. Fire the current nodemoved event only when movement
+     finished.
+  6. Add padding to labels
+  7. Make labels and their fonts resizable.
+  8. Allow to remove selected nodes with DEL. (Add key listener to
+     PnFrame to send a generic deletion event?)
+  9. Abort Edge creation with ESC. (Add key listener to PnFrame to
+     send a generic abort event?)
+  10. Add confirmation buttons to settings dialog
+  11. [TEST] - Create two nodes with same id.
+  12. Node selection and removal has two events each that do
+      essentially the same thing
+  13. Decouple state and event bus
+  14. Improve threading of requests. (reuse threads, kill them when
+      done, etc.)
+  15. A simple Map<String, AbstractNode> would obsolete the NodeRequest
+  16. Create test for XML round-trip
+  17. Optically nicer edit settings dialog
+  18. Include color pickers in edit settings dialog
+  19. Instead of XML annotations create a JAXB config file to decouple
+      the DefaultPetriNet from .pned.io
+  20. Simplify listeners to have one listener per component in each
+      package .pned.core and .pned.gui.components
+  21. Define a behaviour for dragging out of bounds
+  22. Smoothen enlargement of scroll pane
+  23. Create toolbar symbols for edit operations
+  24. For outgoing edges - always draw the first segment invisible
+  25. Start an issue-tracker for this project
+  26. Adjust EdgeComponent size when moving (Profile which is better -
+      maximizing edge components or minimizing their bounds and
+      adjusting when necessary)
+  27. Only fire component enter events for accepted components (edge).
+  28. Create unfinished edge component in addition to the normal edge
+      component
+  29. Add name of current file to status (name) bar
+  30. Confirm successful save
+  31. Confirm overwriting
+  32. Show popup if single nodes are selected
+  33. Change to JDK8
+  34. Include grid color in settings
+  35. Make node shapes and styles pluggable
+
+** ideas
+   Instead of suspending listeners, I could also create MouseAdapters
+   for each component which manage state and do not forward events
+   unless state criteria is met!  dispatchEvent(e) would have to be
+   overwritten in that component. I would state-dependent dispatch to
+   selected listeners only.  One could randomly add listeners and
+   never worry about suspending them any more.
+
+
