@@ -1,4 +1,4 @@
-package de.markusrother.pned.core;
+package de.markusrother.pned.io;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
@@ -33,7 +33,7 @@ public class MarkingVO {
 	/**
 	 * <p>Getter for the field <code>marking</code>.</p>
 	 *
-	 * @return a {@link de.markusrother.pned.core.IntegerValueVO} object.
+	 * @return a {@link de.markusrother.pned.io.IntegerValueVO} object.
 	 */
 	@XmlElement(name = "token")
 	public IntegerValueVO getMarking() {

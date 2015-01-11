@@ -1,6 +1,8 @@
-package de.markusrother.pned.core;
+package de.markusrother.pned.io;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+
+import de.markusrother.pned.core.DefaultPlace;
 
 /**
  * Currently unused!

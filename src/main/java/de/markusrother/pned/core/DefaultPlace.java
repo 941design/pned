@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.markusrother.pned.core.model.PlaceModel;
+import de.markusrother.pned.io.MarkingMarshaller;
 import de.markusrother.util.JsonBuilder;
 
 /**
