@@ -12,9 +12,13 @@ import de.markusrother.util.JsonSerializable;
 /**
  * <p>
  * Duplex event for a concrete
- * {@link de.markusrother.pned.gui.components.AbstractNodeComponent} instance. The node
- * is expected to listen for this event and answer the request.
+ * {@link de.markusrother.pned.gui.components.AbstractNodeComponent} instance.
+ * The node is expected to listen for this event and answer the request.
  * </p>
+ * 
+ * TODO - This request is only needed by PnGrid to retrieve nodes when creating
+ * edges. As the PnGrid is also (currently) responsible for creating nodes it
+ * could store them in a {@code Map<String,AbstractNode>}.
  *
  * @author Markus Rother
  * @version 1.0
