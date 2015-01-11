@@ -556,7 +556,6 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 	/** {@inheritDoc} */
 	@Override
 	public void componentMoved(final ComponentEvent e) {
-		// TODO - currently unused. see SelectionDragDropListener.
 		final Component component = e.getComponent();
 		if (component == sourceComponent || component == targetComponent) {
 			reconnectToSource();
@@ -565,8 +564,6 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		} else {
 			// IGNORE
 		}
-		// TODO
-		throw new RuntimeException("TODO");
 	}
 
 	/** {@inheritDoc} */

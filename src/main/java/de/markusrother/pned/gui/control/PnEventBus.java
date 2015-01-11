@@ -76,7 +76,9 @@ public class PnEventBus extends EventBus
 		// resizable threadpool. Alternatively (better): Create an own
 		// ThreadPool and a threadpool factory for each request. That custom
 		// threadpool can then cancel threads of the same queue, as soon as the
-		// first thread yields a result.
+		// first thread yields a result. What we need is a compromise between a
+		// Executors.newSingleThreadExecutor() and the cached or fixed size
+		// pools!
 		// Also NOTE that the number of threads is limited, depending on
 		// hardware settings. If the executor in fact instantiates all those
 		// threads without killing them when done, we're in trouble.
