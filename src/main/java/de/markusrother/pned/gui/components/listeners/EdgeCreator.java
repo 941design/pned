@@ -260,7 +260,6 @@ public class EdgeCreator extends MultiClickListener {
 				edgeId, //
 				edge.getSourceId(), //
 				edge.getTargetId()));
-		edge.dispose();
 		edge = null;
 	}
 
@@ -278,7 +277,6 @@ public class EdgeCreator extends MultiClickListener {
 				edge, //
 				getParentRelativeLocation(e), //
 				e.getComponent()));
-		edge.dispose();
 		edge = null;
 	}
 

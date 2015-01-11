@@ -369,7 +369,11 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		// IGNORE
 	}
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * Only used by unfinished edges!
+	 */
 	@Override
 	public void componentEntered(final EdgeEditEvent e) {
 		if (e.getEdge() != this) {
@@ -384,7 +388,11 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		}
 	}
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * Only used by unfinished edges!
+	 */
 	@Override
 	public void componentExited(final EdgeEditEvent e) {
 		if (e.getEdge() != this) {
@@ -395,7 +403,11 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		setState(ComponentState.DEFAULT);
 	}
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * Only used by unfinished edges!
+	 */
 	@Override
 	public void edgeCancelled(final EdgeEditEvent e) {
 		if (e.getEdge() != this) {
@@ -405,7 +417,11 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		dispose();
 	}
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 *
+	 * Only used by unfinished edges!
+	 */
 	@Override
 	public void edgeFinished(final EdgeEditEvent e) {
 		if (e.getEdge() != this) {
@@ -423,6 +439,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		HoverListener.addToComponent(this, hoverListener);
 
 		setState(ComponentState.DEFAULT);
+		dispose();
 	}
 
 	/** {@inheritDoc} */
@@ -440,6 +457,14 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		eventBus.removeListener(PlaceLayoutListener.class, this);
 		eventBus.removeListener(TransitionLayoutListener.class, this);
 		eventBus.removeListener(EdgeEditListener.class, this);
+
+		sourceComponent.removeComponentListener(this);
+		if (targetComponent != null) {
+			// This check will become obsolete, once we have an
+			// UnfinishedEdgeComponent class.
+			targetComponent.removeComponentListener(this);
+		}
+
 		// TODO - may require synchronization, if two removal events are fired
 		// before this is properly removed from eventBus.
 		final Container parent = getParent();
