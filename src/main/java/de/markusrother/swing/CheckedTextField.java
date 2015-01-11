@@ -104,6 +104,12 @@ public class CheckedTextField extends JTextField
 	public void keyTyped(final KeyEvent e) {
 		if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
 			cancel(e);
+		} else {
+			if (textIsValid()) {
+				markValid();
+			} else {
+				markInvalid();
+			}
 		}
 	}
 
@@ -122,8 +128,7 @@ public class CheckedTextField extends JTextField
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		final String text = getText();
-		if (pattern.matcher(text).matches()) {
+		if (textIsValid()) {
 			// Marking valid must precede call to listeners, because they may
 			// set the textfield invalid again!
 			markValid();
@@ -134,14 +139,26 @@ public class CheckedTextField extends JTextField
 	}
 
 	/**
-	 * <p>markValid.</p>
+	 * Returns true if current text is valid.
+	 */
+	protected boolean textIsValid() {
+		final String text = getText();
+		return pattern.matcher(text).matches();
+	}
+
+	/**
+	 * <p>
+	 * markValid.
+	 * </p>
 	 */
 	public void markValid() {
 		setForeground(validTextColor);
 	}
 
 	/**
-	 * <p>markInvalid.</p>
+	 * <p>
+	 * markInvalid.
+	 * </p>
 	 */
 	public void markInvalid() {
 		setForeground(invalidTextColor);
