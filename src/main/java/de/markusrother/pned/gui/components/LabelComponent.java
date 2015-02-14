@@ -19,6 +19,8 @@ import de.markusrother.pned.gui.control.PnEventBus;
 import de.markusrother.pned.gui.control.events.EdgeEditEvent;
 import de.markusrother.pned.gui.control.events.EdgeEditListener;
 import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.control.requests.LabelRequest;
+import de.markusrother.pned.gui.control.requests.LabelRequestListener;
 import de.markusrother.pned.gui.core.model.NodeLabelStyle;
 import de.markusrother.swing.DefaultDragDropListener;
 import de.markusrother.swing.DragDropListener;
@@ -34,6 +36,7 @@ import de.markusrother.swing.DragDropListener;
 public class LabelComponent extends JLabel
 	implements
 		LabelEditListener,
+		LabelRequestListener,
 		NodeMotionListener,
 		NodeRemovalListener,
 		EdgeEditListener,
@@ -94,7 +97,9 @@ public class LabelComponent extends JLabel
 	 *            {@link de.markusrother.pned.gui.components.listeners.NodeLabelEditor}
 	 *            object.
 	 */
-	public LabelComponent(final PnEventBus eventBus, final String nodeId, final NodeLabelEditor labelEditor,
+	public LabelComponent(final PnEventBus eventBus,
+			final String nodeId,
+			final NodeLabelEditor labelEditor,
 			final String nodeLabel) {
 		// TODO - Use setters for NOdeLabelEditor and EventBus!
 		super(nodeLabel);
@@ -113,6 +118,7 @@ public class LabelComponent extends JLabel
 
 		// TODO - dispose and assert removal of listeners!
 		eventBus.addListener(LabelEditListener.class, this);
+		eventBus.addListener(LabelRequestListener.class, this);
 		eventBus.addListener(NodeRemovalListener.class, this);
 		eventBus.addListener(NodeMotionListener.class, this);
 		eventBus.addListener(EdgeEditListener.class, this);
@@ -264,6 +270,13 @@ public class LabelComponent extends JLabel
 		DragDropListener.addToComponent(this, dragDropListener);
 		labelEditor.addToComponent(this);
 		hoverListener.addToComponent(this);
+	}
+
+	@Override
+	public void requestLabel(final LabelRequest req) {
+		if (nodeId.equals(req.getNodeId())) {
+			req.set(this);
+		}
 	}
 
 }

@@ -20,7 +20,6 @@ import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.EdgeCreationListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
-import de.markusrother.pned.gui.components.listeners.EdgeHoverListener;
 import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.control.commands.PlaceLayoutCommand;
@@ -30,17 +29,18 @@ import de.markusrother.pned.gui.control.commands.TransitionLayoutListener;
 import de.markusrother.pned.gui.control.events.EdgeEditEvent;
 import de.markusrother.pned.gui.control.events.EdgeEditListener;
 import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.control.requests.EdgeRequest;
+import de.markusrother.pned.gui.control.requests.EdgeRequestListener;
 import de.markusrother.pned.gui.core.Stylable;
 import de.markusrother.pned.gui.core.model.EdgeStyleModel;
-import de.markusrother.swing.HoverListener;
 import de.markusrother.util.JsonBuilder;
 import de.markusrother.util.JsonSerializable;
 
 /**
  * TODO
  * <ul>
- * <li>It would be OK and better to couple the EdgeComponent with the
- * EdgeCreator instead of listening to the EventBus (EdgeEditListener)!</li>
+ * <li>It would be better to couple the EdgeComponent with the EdgeCreator
+ * instead of listening to the EventBus (EdgeEditListener)!</li>
  * <li>Create a segment which is invisible, but connected, to the source
  * components center, avoiding flickering.</li>
  * <li>create subclass for unfinished EdgeComponent</li>
@@ -54,6 +54,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		NodeRemovalListener,
 		EdgeCreationListener,
 		EdgeEditListener,
+		EdgeRequestListener,
 		PlaceLayoutListener,
 		TransitionLayoutListener,
 		Stylable<EdgeStyleModel>,
@@ -66,56 +67,9 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 	/** Constant <code>NO_ID=""</code> */
 	private static final String NO_ID = "";
 
-	/**
-	 * <p>
-	 * getSourceId.
-	 * </p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getSourceId() {
-		return sourceComponent.getId();
-	}
-
-	/**
-	 * <p>
-	 * getTargetId.
-	 * </p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getTargetId() {
-		return targetComponent == null ? null : targetComponent.getId();
-	}
-
 	private Shape tip;
 	private Line2D line;
 	private ComponentState state;
-
-	/**
-	 * <p>
-	 * Getter for the field <code>state</code>.
-	 * </p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.components.ComponentState}
-	 *         object.
-	 */
-	public ComponentState getState() {
-		return state;
-	}
-
-	/**
-	 * <p>
-	 * Setter for the field <code>state</code>.
-	 * </p>
-	 *
-	 * @param state
-	 *            a {@link de.markusrother.pned.gui.components.ComponentState}
-	 *            object.
-	 */
-	public void setState(final ComponentState state) {
-		this.state = state;
-	}
 
 	private final EventBus eventBus;
 	private EdgeStyleModel style;
@@ -160,8 +114,11 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 	 * @param target
 	 *            a {@link java.awt.Point} object.
 	 */
-	public EdgeComponent(final EventBus eventBus, final EdgeStyleModel style,
-			final AbstractNodeComponent sourceComponent, final Point source, final Point target) {
+	public EdgeComponent(final EventBus eventBus,
+			final EdgeStyleModel style,
+			final AbstractNodeComponent sourceComponent,
+			final Point source,
+			final Point target) {
 		this(eventBus, NO_ID, style, sourceComponent, NO_TARGET_COMPONENT, source, target);
 	}
 
@@ -186,8 +143,11 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 	 *            a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
 	 *            object.
 	 */
-	public EdgeComponent(final EventBus eventBus, final String id, final EdgeStyleModel style,
-			final AbstractNodeComponent sourceComponent, final AbstractNodeComponent targetComponent) {
+	public EdgeComponent(final EventBus eventBus,
+			final String id,
+			final EdgeStyleModel style,
+			final AbstractNodeComponent sourceComponent,
+			final AbstractNodeComponent targetComponent) {
 		this(eventBus, id, style, sourceComponent, targetComponent, getCenter(sourceComponent),
 				getCenter(targetComponent));
 		reconnect();
@@ -258,9 +218,13 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 	 * @param id
 	 *            a {@link java.lang.String} object.
 	 */
-	private EdgeComponent(final EventBus eventBus, final String id, final EdgeStyleModel style,
-			final AbstractNodeComponent sourceComponent, final AbstractNodeComponent targetComponent,
-			final Point source, final Point target) {
+	private EdgeComponent(final EventBus eventBus,
+			final String id,
+			final EdgeStyleModel style,
+			final AbstractNodeComponent sourceComponent,
+			final AbstractNodeComponent targetComponent,
+			final Point source,
+			final Point target) {
 		super(sourceComponent, targetComponent, source, target);
 
 		this.eventBus = eventBus;
@@ -274,6 +238,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		eventBus.addListener(PlaceLayoutListener.class, this);
 		eventBus.addListener(TransitionLayoutListener.class, this);
 		eventBus.addListener(EdgeEditListener.class, this);
+		eventBus.addListener(EdgeRequestListener.class, this);
 
 		sourceComponent.addComponentListener(this);
 		if (targetComponent != null) {
@@ -281,6 +246,53 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 			// UnfinishedEdgeComponent class.
 			targetComponent.addComponentListener(this);
 		}
+	}
+
+	/**
+	 * <p>
+	 * getSourceId.
+	 * </p>
+	 *
+	 * @return a {@link java.lang.String} - the source node's unique identifier.
+	 */
+	public String getSourceId() {
+		return sourceComponent.getId();
+	}
+
+	/**
+	 * <p>
+	 * getTargetId.
+	 * </p>
+	 *
+	 * @return a {@link java.lang.String} - the target node's unique identifier.
+	 */
+	public String getTargetId() {
+		return targetComponent == null ? null : targetComponent.getId();
+	}
+
+	/**
+	 * <p>
+	 * Getter for the field <code>state</code>.
+	 * </p>
+	 *
+	 * @return a {@link de.markusrother.pned.gui.components.ComponentState}
+	 *         object.
+	 */
+	public ComponentState getState() {
+		return state;
+	}
+
+	/**
+	 * <p>
+	 * Setter for the field <code>state</code>.
+	 * </p>
+	 *
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.components.ComponentState}
+	 *            object.
+	 */
+	public void setState(final ComponentState state) {
+		this.state = state;
 	}
 
 	/** {@inheritDoc} */
@@ -424,22 +436,9 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 	 */
 	@Override
 	public void edgeFinished(final EdgeEditEvent e) {
-		if (e.getEdge() != this) {
-			// IGNORE - Not interested in other edges events.
-			return;
+		if (e.getEdge() == this) {
+			dispose();
 		}
-		if (!acceptsTarget(e.getComponent())) {
-			throw new IllegalArgumentException();
-		}
-
-		setTargetComponent((AbstractNodeComponent) e.getComponent());
-
-		final HoverListener hoverListener = EdgeHoverListener.INSTANCE;
-		// TODO - setHoverListener() -> to field.
-		HoverListener.addToComponent(this, hoverListener);
-
-		setState(ComponentState.DEFAULT);
-		dispose();
 	}
 
 	/** {@inheritDoc} */
@@ -602,4 +601,25 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 	public void componentHidden(final ComponentEvent e) {
 		// IGNORE
 	}
+
+	public boolean inHoverArea(final Point p) {
+		// TODO - currently unused
+		// TODO - adjust to flexible line thickness
+		final double dist = line.ptLineDist(p.x, p.y);
+		// Cosine of angle in source of triangle (source, target, p):
+		final double sourceCos = (source.distanceSq(p) + source.distanceSq(target) - target.distanceSq(p)) //
+				/ (2 * source.distance(p) * source.distance(target));
+		// Cosine of angle in target of triangle (source, target, p):
+		final double targetCos = (target.distanceSq(p) + target.distanceSq(source) - source.distanceSq(p)) //
+				/ (2 * target.distance(p) * target.distance(source));
+		return sourceCos > 0 && targetCos > 0 && dist <= 10;
+	}
+
+	@Override
+	public void requestEdge(final EdgeRequest req) {
+		if (id.equals(req.getEdgeId())) {
+			req.set(this);
+		}
+	}
+
 }

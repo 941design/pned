@@ -46,6 +46,10 @@ import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.control.events.NodeSelectionListener;
 import de.markusrother.pned.gui.control.events.PnEventTarget;
 import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
+import de.markusrother.pned.gui.control.requests.EdgeRequest;
+import de.markusrother.pned.gui.control.requests.EdgeRequestListener;
+import de.markusrother.pned.gui.control.requests.LabelRequest;
+import de.markusrother.pned.gui.control.requests.LabelRequestListener;
 import de.markusrother.pned.gui.control.requests.NodeRequest;
 import de.markusrother.pned.gui.control.requests.NodeRequestListener;
 import de.markusrother.pned.gui.control.requests.PnRequestTarget;
@@ -106,6 +110,7 @@ public abstract class PnEventAdapter
 		eventBus.addListener(NodeRequestListener.class, this);
 		eventBus.addListener(PlaceLayoutListener.class, this);
 		eventBus.addListener(LabelEditListener.class, this);
+		eventBus.addListener(LabelRequestListener.class, this);
 		eventBus.addListener(TransitionListener.class, this);
 		eventBus.addListener(TransitionActivationListener.class, this);
 		eventBus.addListener(TransitionLayoutListener.class, this);
@@ -114,6 +119,7 @@ public abstract class PnEventAdapter
 		eventBus.addListener(NodeSelectionListener.class, this);
 		eventBus.addListener(IdRequestListener.class, this);
 		eventBus.addListener(EdgeCreationListener.class, this);
+		eventBus.addListener(EdgeRequestListener.class, this);
 	}
 
 	/**
@@ -219,6 +225,18 @@ public abstract class PnEventAdapter
 	/** {@inheritDoc} */
 	@Override
 	public void requestNode(final NodeRequest req) {
+		process(req);
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void requestLabel(final LabelRequest req) {
+		process(req);
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void requestEdge(final EdgeRequest req) {
 		process(req);
 	}
 

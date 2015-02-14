@@ -29,6 +29,17 @@ public class NodeRequest extends Request<AbstractNodeComponent>
 	implements
 		JsonSerializable {
 
+	public static AbstractNodeComponent doRequestNode(final String nodeId, final PnRequestTarget requestTarget) {
+		try {
+			final NodeRequest req = new NodeRequest(NodeRequest.class, nodeId);
+			requestTarget.requestNode(req);
+			final AbstractNodeComponent node = req.get();
+			return node;
+		} catch (final TimeoutException e) {
+			throw new RuntimeException("TODO", e);
+		}
+	}
+
 	private final String nodeId;
 
 	/**

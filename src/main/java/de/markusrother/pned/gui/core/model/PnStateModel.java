@@ -119,6 +119,8 @@ public interface PnStateModel {
 	 */
 	Set<String> getSelectedOutgoingEdgeIds();
 
+	Set<String> getSelectedNodesEdgeIds();
+
 	/**
 	 * <p>
 	 * Returns current place styling.

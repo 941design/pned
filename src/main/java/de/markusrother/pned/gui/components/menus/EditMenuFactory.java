@@ -2,6 +2,7 @@ package de.markusrother.pned.gui.components.menus;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.util.Set;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
@@ -14,6 +15,7 @@ import javax.swing.event.MenuListener;
 import de.markusrother.pned.gui.actions.CreatePlaceAction;
 import de.markusrother.pned.gui.actions.CreateTransitionAction;
 import de.markusrother.pned.gui.actions.LocationProvider;
+import de.markusrother.pned.gui.actions.RemoveEdgeAction;
 import de.markusrother.pned.gui.actions.RemoveIncomingEdgesAction;
 import de.markusrother.pned.gui.actions.RemoveOutgoingEdgesAction;
 import de.markusrother.pned.gui.actions.RemoveSelectedNodesAction;
@@ -113,36 +115,41 @@ public class EditMenuFactory
 	 * populateEditMenu.
 	 * </p>
 	 *
-	 * @param component
+	 * @param menuComponent
 	 *            a {@link javax.swing.JComponent} object.
 	 * @param locationProvider
 	 *            a {@link de.markusrother.pned.gui.actions.LocationProvider}
 	 *            object.
 	 */
-	private void populateEditMenu(final JComponent component, final LocationProvider locationProvider) {
+	private void populateEditMenu(final JComponent menuComponent, final LocationProvider locationProvider) {
 
 		// TODO - Check type, cast, then add separators.
 
 		final ButtonGroup buttonGroup = new ButtonGroup();
 
-		final JRadioButtonMenuItem placeItem = CreatePlaceAction.newMenuItem( //
+		final JRadioButtonMenuItem createPlaceItem = CreatePlaceAction.newMenuItem( //
 				state.getEventBus(), //
 				locationProvider);
-		buttonGroup.add(placeItem);
-		component.add(placeItem);
-		placeItem.setSelected(state.getNodeCreationMode() == PnState.NodeCreationMode.PLACE);
+		buttonGroup.add(createPlaceItem);
+		menuComponent.add(createPlaceItem);
+		createPlaceItem.setSelected(state.getNodeCreationMode() == PnState.NodeCreationMode.PLACE);
 
-		final JRadioButtonMenuItem transitionItem = CreateTransitionAction.newMenuItem( //
+		final JRadioButtonMenuItem createTransitionItem = CreateTransitionAction.newMenuItem( //
 				state.getEventBus(), //
 				locationProvider);
-		buttonGroup.add(transitionItem);
-		component.add(transitionItem);
-		transitionItem.setSelected(state.getNodeCreationMode() == PnState.NodeCreationMode.TRANSITION);
+		buttonGroup.add(createTransitionItem);
+		menuComponent.add(createTransitionItem);
+		createTransitionItem.setSelected(state.getNodeCreationMode() == PnState.NodeCreationMode.TRANSITION);
 
 		final PnCommandTarget commandTarget = state.getEventBus();
-		component.add(RemoveSelectedNodesAction.newMenuItem(state, commandTarget));
-		component.add(RemoveOutgoingEdgesAction.newMenuItem(state, commandTarget));
-		component.add(RemoveIncomingEdgesAction.newMenuItem(state, commandTarget));
+		menuComponent.add(RemoveSelectedNodesAction.newMenuItem(state, commandTarget));
+		menuComponent.add(RemoveOutgoingEdgesAction.newMenuItem(state, commandTarget));
+		menuComponent.add(RemoveIncomingEdgesAction.newMenuItem(state, commandTarget));
+
+		final Set<String> edgeIds = state.getSelectedNodesEdgeIds();
+		for (final String edgeId : edgeIds) {
+			menuComponent.add(RemoveEdgeAction.newMenuItem(state, edgeId));
+		}
 	}
 
 }

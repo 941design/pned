@@ -225,6 +225,13 @@ public class PnState extends PnEventAdapter
 		return Collections.unmodifiableSet(edgeIds);
 	}
 
+	protected Set<String> collectAllEdges(final Set<String> nodeIds) {
+		final Set<String> edgeIds = new HashSet<>();
+		edgeIds.addAll(filterIncomingEdges(nodeIds));
+		edgeIds.addAll(filterOutgoingEdges(nodeIds));
+		return edgeIds;
+	}
+
 	/** {@inheritDoc} */
 	@Override
 	public boolean areNodesSelected() {
@@ -253,6 +260,12 @@ public class PnState extends PnEventAdapter
 	@Override
 	public Set<String> getSelectedOutgoingEdgeIds() {
 		return filterOutgoingEdges(getSelectedNodeIds());
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public Set<String> getSelectedNodesEdgeIds() {
+		return collectAllEdges(getSelectedNodeIds());
 	}
 
 	/**

@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.TimeoutException;
 
 import javax.swing.JLabel;
 
@@ -109,8 +108,10 @@ public class PnGridPanel extends GridComponent
 	 *            {@link de.markusrother.pned.gui.components.EdgeComponentFactory}
 	 *            object.
 	 */
-	public PnGridPanel(final PnEventBus eventBus, final PnMenuFactory menuFactory,
-			final NodeComponentFactory nodeFactory, final EdgeComponentFactory edgeFactory) {
+	public PnGridPanel(final PnEventBus eventBus,
+			final PnMenuFactory menuFactory,
+			final NodeComponentFactory nodeFactory,
+			final EdgeComponentFactory edgeFactory) {
 		super(new Dimension(40, 40), Color.GRAY);
 
 		this.eventBus = eventBus;
@@ -270,8 +271,8 @@ public class PnGridPanel extends GridComponent
 	@Override
 	public void createEdge(final EdgeCreationCommand cmd) {
 		final String edgeId = cmd.getEdgeId();
-		final AbstractNodeComponent sourceNode = requestNode(cmd.getSourceId());
-		final AbstractNodeComponent targetNode = requestNode(cmd.getTargetId());
+		final AbstractNodeComponent sourceNode = NodeRequest.doRequestNode(cmd.getSourceId(), eventBus);
+		final AbstractNodeComponent targetNode = NodeRequest.doRequestNode(cmd.getTargetId(), eventBus);
 		final EdgeComponent edge = new EdgeComponent(eventBus, //
 				edgeId, //
 				edgeFactory.getEdgeStyle(), //
@@ -291,31 +292,6 @@ public class PnGridPanel extends GridComponent
 	@Override
 	public void removeEdge(final EdgeRemoveCommand cmd) {
 		// IGNORE
-	}
-
-	/**
-	 * <p>
-	 * requestNode.
-	 * </p>
-	 *
-	 * @param nodeId
-	 *            a {@link java.lang.String} object.
-	 * @return a
-	 *         {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *         object.
-	 */
-	private AbstractNodeComponent requestNode(final String nodeId) {
-		try {
-			final NodeRequest req = new NodeRequest(this, nodeId);
-			eventBus.requestNode(req);
-			final AbstractNodeComponent node = req.get(); // TODO - insert
-															// timeout here!
-			return node;
-		} catch (final TimeoutException e) {
-			e.printStackTrace();
-			// TODO - create custom Exception
-			throw new RuntimeException("TODO");
-		}
 	}
 
 	/**

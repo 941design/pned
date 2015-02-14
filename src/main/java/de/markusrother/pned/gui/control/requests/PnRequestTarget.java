@@ -17,7 +17,9 @@ import de.markusrother.pned.control.requests.RequestTarget;
 public interface PnRequestTarget
 	extends
 		RequestTarget,
-		NodeRequestListener {
+		NodeRequestListener,
+		LabelRequestListener,
+		EdgeRequestListener {
 
 	// NOTHING
 

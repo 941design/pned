@@ -6,7 +6,6 @@ import java.util.concurrent.Executors;
 import javax.swing.SwingWorker;
 
 import de.markusrother.pned.control.EventBus;
-import de.markusrother.pned.gui.components.AbstractNodeComponent;
 import de.markusrother.pned.gui.control.commands.EdgeLayoutCommand;
 import de.markusrother.pned.gui.control.commands.EdgeLayoutListener;
 import de.markusrother.pned.gui.control.commands.MarkingLayoutCommand;
@@ -25,6 +24,10 @@ import de.markusrother.pned.gui.control.events.EdgeEditListener;
 import de.markusrother.pned.gui.control.events.NodeMultiSelectionEvent;
 import de.markusrother.pned.gui.control.events.NodeSelectionListener;
 import de.markusrother.pned.gui.control.events.PnEventTarget;
+import de.markusrother.pned.gui.control.requests.EdgeRequest;
+import de.markusrother.pned.gui.control.requests.EdgeRequestListener;
+import de.markusrother.pned.gui.control.requests.LabelRequest;
+import de.markusrother.pned.gui.control.requests.LabelRequestListener;
 import de.markusrother.pned.gui.control.requests.NodeRequest;
 import de.markusrother.pned.gui.control.requests.NodeRequestListener;
 import de.markusrother.pned.gui.control.requests.PnRequestTarget;
@@ -84,10 +87,30 @@ public class PnEventBus extends EventBus
 		// threads without killing them when done, we're in trouble.
 		final ExecutorService threadPool = Executors.newCachedThreadPool();
 		for (final NodeRequestListener l : listeners) {
-			final SwingWorker<AbstractNodeComponent, Object> worker = req.createWorker(l);
+			final SwingWorker<?, Object> worker = req.createWorker(l);
 			threadPool.submit(worker);
 			// NOTE - Do NOT use {@code worker.execute();} The default
 			// SwingWorker thread pool is not large enough!
+		}
+	}
+
+	@Override
+	public void requestLabel(final LabelRequest req) {
+		final LabelRequestListener[] listeners = getListeners(LabelRequestListener.class);
+		final ExecutorService threadPool = Executors.newCachedThreadPool();
+		for (final LabelRequestListener l : listeners) {
+			final SwingWorker<?, Object> worker = req.createWorker(l);
+			threadPool.submit(worker);
+		}
+	}
+
+	@Override
+	public void requestEdge(final EdgeRequest req) {
+		final EdgeRequestListener[] listeners = getListeners(EdgeRequestListener.class);
+		final ExecutorService threadPool = Executors.newCachedThreadPool();
+		for (final EdgeRequestListener l : listeners) {
+			final SwingWorker<?, Object> worker = req.createWorker(l);
+			threadPool.submit(worker);
 		}
 	}
 
