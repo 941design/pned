@@ -6,7 +6,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
-import de.markusrother.pned.gui.components.dialogs.FileDialogFactory;
+import de.markusrother.pned.gui.components.dialogs.OpenFileDialog;
+import de.markusrother.pned.gui.control.commands.PnCommandTarget;
+import de.markusrother.pned.gui.core.model.PnStateModel;
 
 /**
  * <p>
@@ -17,7 +19,7 @@ import de.markusrother.pned.gui.components.dialogs.FileDialogFactory;
  * @author Markus Rother
  * @version 1.0
  */
-public class OpenImportDialogAction extends AbstractOpenFileDialogAction {
+public class OpenImportDialogAction extends AbstractStatefulAction {
 
 	/** Constant <code>menuLabel="Import"</code> */
 	private static final String name = "Import";
@@ -31,13 +33,9 @@ public class OpenImportDialogAction extends AbstractOpenFileDialogAction {
 	 * </p>
 	 *
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
-	 * @param fileDialogFactory
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
-	 *            - to instantiate the dialog.
 	 */
-	public static JMenuItem newMenuItem(final FileDialogFactory fileDialogFactory) {
-		final Action action = new OpenImportDialogAction(fileDialogFactory);
+	public static JMenuItem newMenuItem(final PnStateModel state, final PnCommandTarget commandTarget) {
+		final Action action = new OpenImportDialogAction(state, commandTarget);
 		return new JMenuItem(action);
 	}
 
@@ -45,20 +43,15 @@ public class OpenImportDialogAction extends AbstractOpenFileDialogAction {
 	 * <p>
 	 * Constructor for OpenImportDialogAction.
 	 * </p>
-	 *
-	 * @param fileDialogFactory
-	 *            an
-	 *            {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
-	 *            - to instantiate the dialog.
 	 */
-	private OpenImportDialogAction(final FileDialogFactory fileDialogFactory) {
-		super(fileDialogFactory, name, actionMnemonic);
+	private OpenImportDialogAction(final PnStateModel state, final PnCommandTarget commandTarget) {
+		super(state, commandTarget, name, actionMnemonic);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		fileDialogFactory.openImportDialog();
+		OpenFileDialog.open(state, commandTarget);
 	}
 
 }

@@ -6,7 +6,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
-import de.markusrother.pned.gui.components.dialogs.FileDialogFactory;
+import de.markusrother.pned.gui.components.dialogs.SaveFileDialog;
+import de.markusrother.pned.gui.control.commands.PnCommandTarget;
+import de.markusrother.pned.gui.core.model.PnStateModel;
 
 /**
  * <p>
@@ -18,7 +20,7 @@ import de.markusrother.pned.gui.components.dialogs.FileDialogFactory;
  * @author Markus Rother
  * @version 1.0
  */
-public class OpenExportDialogAction extends AbstractOpenFileDialogAction {
+public class OpenExportDialogAction extends AbstractStatefulAction {
 
 	/** Constant <code>menuLabel="Export"</code> */
 	private static final String name = "Export";
@@ -30,15 +32,11 @@ public class OpenExportDialogAction extends AbstractOpenFileDialogAction {
 	 * Creates and returns a {@link javax.swing.JMenuItem} where selection opens
 	 * a {@link de.markusrother.pned.gui.components.dialogs.SaveFileDialog}.
 	 * </p>
-	 *
-	 * @param fileDialogFactory
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
-	 *            - to instantiate the dialog.
+	 * 
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
 	 */
-	public static JMenuItem newMenuItem(final FileDialogFactory fileDialogFactory) {
-		final Action action = new OpenExportDialogAction(fileDialogFactory);
+	public static JMenuItem newMenuItem(final PnStateModel state, final PnCommandTarget commandTarget) {
+		final Action action = new OpenExportDialogAction(state, commandTarget);
 		return new JMenuItem(action);
 	}
 
@@ -46,20 +44,15 @@ public class OpenExportDialogAction extends AbstractOpenFileDialogAction {
 	 * <p>
 	 * Constructor for OpenExportDialogAction.
 	 * </p>
-	 *
-	 * @param fileDialogFactory
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
-	 *            - to instantiate the dialog.
 	 */
-	private OpenExportDialogAction(final FileDialogFactory fileDialogFactory) {
-		super(fileDialogFactory, name, actionMnemonic);
+	private OpenExportDialogAction(final PnStateModel state, final PnCommandTarget commandTarget) {
+		super(state, commandTarget, name, actionMnemonic);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		fileDialogFactory.openExportDialog();
+		SaveFileDialog.open(state, commandTarget);
 	}
 
 }

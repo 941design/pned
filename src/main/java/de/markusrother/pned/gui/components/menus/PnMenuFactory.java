@@ -5,7 +5,6 @@ import java.awt.Point;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
-import de.markusrother.pned.gui.components.dialogs.FileDialogFactory;
 import de.markusrother.pned.gui.control.PnState;
 
 /**
@@ -16,7 +15,6 @@ import de.markusrother.pned.gui.control.PnState;
  */
 public class PnMenuFactory {
 
-	private final FileDialogFactory fileDialogFactory;
 	private final EditMenuFactory editMenuFactory;
 	private final PnState state;
 
@@ -30,7 +28,6 @@ public class PnMenuFactory {
 	 */
 	public PnMenuFactory(final PnState state) {
 		this.state = state;
-		this.fileDialogFactory = new FileDialogFactory(state);
 		this.editMenuFactory = new EditMenuFactory(state);
 	}
 
@@ -53,7 +50,7 @@ public class PnMenuFactory {
 	 * @return a {@link javax.swing.JMenu} object.
 	 */
 	public JMenu newFileMenu() {
-		return new PnFileMenu(state, state.getEventBus(), fileDialogFactory);
+		return new PnFileMenu(state, state.getEventBus());
 	}
 
 	/**
