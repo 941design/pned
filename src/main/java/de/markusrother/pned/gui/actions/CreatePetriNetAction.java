@@ -9,6 +9,7 @@ import javax.swing.JMenuItem;
 import de.markusrother.pned.gui.control.commands.PetriNetEditCommand;
 import de.markusrother.pned.gui.control.commands.PetriNetEditCommand.Type;
 import de.markusrother.pned.gui.control.commands.PnCommandTarget;
+import de.markusrother.pned.gui.core.model.PnStateModel;
 
 /**
  * <p>
@@ -19,7 +20,7 @@ import de.markusrother.pned.gui.control.commands.PnCommandTarget;
  * @version 1.0
  * @see de.markusrother.pned.gui.control.PnEventBus
  */
-public class CreatePetriNetAction extends AbstractStatelessAction {
+public class CreatePetriNetAction extends AbstractStatefulAction {
 
 	/** Constant <code>menuLabel="New"</code> */
 	private static final String name = "New";
@@ -38,8 +39,8 @@ public class CreatePetriNetAction extends AbstractStatelessAction {
 	 *            to be posted to.
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
 	 */
-	public static JMenuItem newMenuItem(final PnCommandTarget commandTarget) {
-		return new JMenuItem(new CreatePetriNetAction(commandTarget));
+	public static JMenuItem newMenuItem(final PnStateModel state, final PnCommandTarget commandTarget) {
+		return new JMenuItem(new CreatePetriNetAction(state, commandTarget));
 	}
 
 	/**
@@ -52,14 +53,18 @@ public class CreatePetriNetAction extends AbstractStatelessAction {
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
 	 */
-	private CreatePetriNetAction(final PnCommandTarget eventTarget) {
-		super(eventTarget, name);
+	private CreatePetriNetAction(final PnStateModel state, final PnCommandTarget eventTarget) {
+		super(state, eventTarget, name);
 		putValue(Action.MNEMONIC_KEY, actionMnemonic);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
+		if (state.isDirty()) {
+			// TODO
+			throw new RuntimeException("TODO");
+		}
 		final PetriNetEditCommand cmd = new PetriNetEditCommand(this, Type.NEW);
 		commandTarget.createPetriNet(cmd);
 	}

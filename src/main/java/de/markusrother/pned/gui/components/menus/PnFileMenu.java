@@ -9,6 +9,7 @@ import de.markusrother.pned.gui.actions.OpenExportDialogAction;
 import de.markusrother.pned.gui.actions.OpenImportDialogAction;
 import de.markusrother.pned.gui.components.dialogs.FileDialogFactory;
 import de.markusrother.pned.gui.control.commands.PnCommandTarget;
+import de.markusrother.pned.gui.core.model.PnStateModel;
 
 /**
  * <p>
@@ -37,12 +38,12 @@ public class PnFileMenu extends JMenu {
 	 *            {@link de.markusrother.pned.gui.components.dialogs.FileDialogFactory}
 	 *            .
 	 */
-	PnFileMenu(final PnCommandTarget commandTarget, final FileDialogFactory fileDialogFactory) {
+	PnFileMenu(final PnStateModel state, final PnCommandTarget commandTarget, final FileDialogFactory fileDialogFactory) {
 		super(label);
 
 		setMnemonic(KeyEvent.VK_F);
 
-		add(CreatePetriNetAction.newMenuItem(commandTarget));
+		add(CreatePetriNetAction.newMenuItem(state, commandTarget));
 		add(OpenImportDialogAction.newMenuItem(fileDialogFactory));
 		add(OpenExportDialogAction.newMenuItem(fileDialogFactory));
 	}

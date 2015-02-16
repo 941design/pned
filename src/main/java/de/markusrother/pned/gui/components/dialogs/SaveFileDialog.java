@@ -8,6 +8,7 @@ import javax.swing.JFileChooser;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand.Type;
 import de.markusrother.pned.gui.control.commands.PnCommandTarget;
+import de.markusrother.pned.gui.core.model.PnStateModel;
 
 /**
  * <p>
@@ -41,8 +42,8 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
 	 */
-	public static void open(final PnCommandTarget commandTarget, final File dir) {
-		final SaveFileDialog dialog = new SaveFileDialog(commandTarget, dir);
+	public static void open(final PnStateModel state, final PnCommandTarget commandTarget) {
+		final SaveFileDialog dialog = new SaveFileDialog(state, commandTarget);
 		dialog.showDialogAndProcessResult();
 	}
 
@@ -58,8 +59,8 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
 	 */
-	private SaveFileDialog(final PnCommandTarget commandTarget, final File dir) {
-		super(commandTarget, title, dir, approveButtonLabel);
+	private SaveFileDialog(final PnStateModel state, final PnCommandTarget commandTarget) {
+		super(state, commandTarget, title, approveButtonLabel);
 		setDialogType(JFileChooser.SAVE_DIALOG);
 	}
 

@@ -8,6 +8,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import de.markusrother.pned.gui.control.commands.PnCommandTarget;
+import de.markusrother.pned.gui.core.model.PnStateModel;
 
 /**
  * <p>
@@ -26,6 +27,8 @@ public abstract class AbstractFileDialog extends JFileChooser {
 	private static final Component NO_PARENT_COMPONENT = null;
 	/** Constant <code>pnmlFileFilter</code> - for displaying only *.pnml files. */
 	private static FileFilter pnmlFileFilter = new FileNameExtensionFilter(".pnml", "pnml");
+
+	protected final PnStateModel state;
 
 	/**
 	 * The {@link de.markusrother.pned.gui.control.commands.PnCommandTarget} to
@@ -52,11 +55,14 @@ public abstract class AbstractFileDialog extends JFileChooser {
 	 * @param dir
 	 *            a {@link java.io.File} - the current directory.
 	 */
-	protected AbstractFileDialog(final PnCommandTarget commandTarget, final String title, final File dir,
+	protected AbstractFileDialog(final PnStateModel state,
+			final PnCommandTarget commandTarget,
+			final String title,
 			final String approveButtonLabel) {
+		this.state = state;
 		this.commandTarget = commandTarget;
 		this.approveButtonLabel = approveButtonLabel;
-		setCurrentDirectory(dir);
+		setCurrentDirectory(state.getCurrentDirectory());
 		setDialogTitle(title);
 		setFileFilter(pnmlFileFilter);
 		addChoosableFileFilter(pnmlFileFilter);

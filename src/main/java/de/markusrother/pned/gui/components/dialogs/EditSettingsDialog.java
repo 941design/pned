@@ -13,13 +13,13 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import de.markusrother.pned.gui.control.PnState;
 import de.markusrother.pned.gui.control.commands.EdgeLayoutCommand;
 import de.markusrother.pned.gui.control.commands.LayoutCommand.ChangeType;
 import de.markusrother.pned.gui.control.commands.MarkingLayoutCommand;
 import de.markusrother.pned.gui.control.commands.PlaceLayoutCommand;
 import de.markusrother.pned.gui.control.commands.PnCommandTarget;
 import de.markusrother.pned.gui.control.commands.TransitionLayoutCommand;
+import de.markusrother.pned.gui.core.model.PnStateModel;
 import de.markusrother.swing.ScaleGroup;
 
 /**
@@ -52,7 +52,7 @@ public class EditSettingsDialog extends AbstractDialog {
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
 	 */
-	public static void open(final PnState state, final PnCommandTarget commandTarget) {
+	public static void open(final PnStateModel state, final PnCommandTarget commandTarget) {
 		// TODO - take parent component and model
 		final EditSettingsDialog editSettingsDialog = new EditSettingsDialog(state, commandTarget);
 		editSettingsDialog.pack();
@@ -71,7 +71,7 @@ public class EditSettingsDialog extends AbstractDialog {
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
 	 */
-	private EditSettingsDialog(final PnState state, final PnCommandTarget commandTarget) {
+	private EditSettingsDialog(final PnStateModel state, final PnCommandTarget commandTarget) {
 		super(state, commandTarget, title, true);
 
 		setPreferredSize(preferredSize);

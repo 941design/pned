@@ -53,7 +53,7 @@ public class PnMenuFactory {
 	 * @return a {@link javax.swing.JMenu} object.
 	 */
 	public JMenu newFileMenu() {
-		return new PnFileMenu(state.getEventBus(), fileDialogFactory);
+		return new PnFileMenu(state, state.getEventBus(), fileDialogFactory);
 	}
 
 	/**

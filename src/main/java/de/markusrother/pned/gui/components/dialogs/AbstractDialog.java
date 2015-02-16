@@ -2,8 +2,8 @@ package de.markusrother.pned.gui.components.dialogs;
 
 import javax.swing.JDialog;
 
-import de.markusrother.pned.gui.control.PnState;
 import de.markusrother.pned.gui.control.commands.PnCommandTarget;
+import de.markusrother.pned.gui.core.model.PnStateModel;
 
 /**
  * <p>
@@ -17,7 +17,7 @@ public class AbstractDialog extends JDialog {
 
 	/** The event target to be posted to. */
 	protected final PnCommandTarget commandTarget;
-	protected final PnState state;
+	protected final PnStateModel state;
 
 	/**
 	 ** <p>
@@ -30,10 +30,14 @@ public class AbstractDialog extends JDialog {
 	 *            a
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            object.
-	 * @param state a {@link de.markusrother.pned.gui.control.PnState} object.
-	 * @param modal a boolean.
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.control.PnState} object.
+	 * @param modal
+	 *            a boolean.
 	 */
-	protected AbstractDialog(final PnState state, final PnCommandTarget commandTarget, final String title,
+	protected AbstractDialog(final PnStateModel state,
+			final PnCommandTarget commandTarget,
+			final String title,
 			final boolean modal) {
 		this.state = state;
 		this.commandTarget = commandTarget;

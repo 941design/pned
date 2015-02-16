@@ -20,7 +20,8 @@ public class FileDialogFactory {
 	 * Constructor for FileDialogFactory.
 	 * </p>
 	 *
-	 * @param state a {@link de.markusrother.pned.gui.control.PnState} object.
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.control.PnState} object.
 	 */
 	public FileDialogFactory(final PnState state) {
 		this.state = state;
@@ -28,26 +29,32 @@ public class FileDialogFactory {
 
 	/**
 	 * <p>
-	 * Opens an {@link de.markusrother.pned.gui.components.dialogs.OpenFileDialog}.
+	 * Opens an
+	 * {@link de.markusrother.pned.gui.components.dialogs.OpenFileDialog}.
 	 * </p>
 	 */
 	public void openImportDialog() {
-		OpenFileDialog.open(state.getEventBus(), state.getCurrentDirectory());
+		OpenFileDialog.open(state, state.getEventBus());
 	}
 
 	/**
 	 * <p>
-	 * Opens a {@link de.markusrother.pned.gui.components.dialogs.SaveFileDialog}.
+	 * Opens a
+	 * {@link de.markusrother.pned.gui.components.dialogs.SaveFileDialog}.
 	 * </p>
 	 */
 	public void openExportDialog() {
-		SaveFileDialog.open(state.getEventBus(), state.getCurrentDirectory());
+		SaveFileDialog.open(state, state.getEventBus());
 	}
 
 	/**
-	 * <p>getCommandTarget.</p>
+	 * <p>
+	 * getCommandTarget.
+	 * </p>
 	 *
-	 * @return a {@link de.markusrother.pned.gui.control.commands.PnCommandTarget} object.
+	 * @return a
+	 *         {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
+	 *         object.
 	 */
 	public PnCommandTarget getCommandTarget() {
 		return state.getEventBus();

@@ -2,15 +2,26 @@ package de.markusrother.pned.gui.control;
 
 import java.util.EventObject;
 
+import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
+import de.markusrother.pned.gui.control.commands.PetriNetEditCommand;
+import de.markusrother.pned.gui.control.commands.PetriNetListener;
 import de.markusrother.pned.util.CommandAdapter;
 
-public class DirtyStateListener extends CommandAdapter {
+public class DirtyStateListener extends CommandAdapter
+	implements
+		PetriNetListener {
 
 	private boolean dirty;
 
 	public boolean isDirty() {
 		return dirty;
+	}
+
+	@Override
+	public void setEventBus(final EventBus eventBus) {
+		super.setEventBus(eventBus);
+		eventBus.addListener(PetriNetListener.class, this);
 	}
 
 	/** {@inheritDoc} */
@@ -34,6 +45,11 @@ public class DirtyStateListener extends CommandAdapter {
 	/** {@inheritDoc} */
 	@Override
 	public void exportPnml(final PetriNetIOCommand cmd) {
+		dirty = false;
+	}
+
+	@Override
+	public void createPetriNet(final PetriNetEditCommand cmd) {
 		dirty = false;
 	}
 
