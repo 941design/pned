@@ -44,12 +44,10 @@
   29. Create unfinished edge component in addition to the normal edge
       component
   30. Add name of current file to status (name) bar
-  31. Confirm successful save
-  32. Confirm overwriting
-  33. Show popup if single nodes are selected
-  34. Change to JDK8
-  35. Include grid color in settings
-  36. Make node shapes and styles pluggable
+  31. Show popup if single nodes are selected
+  32. Change to JDK8
+  33. Include grid color in settings
+  34. Make node shapes and styles pluggable
 
 ** ideas
    Instead of suspending listeners, I could also create MouseAdapters
