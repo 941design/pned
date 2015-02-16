@@ -95,10 +95,17 @@ public class PnState extends PnEventAdapter
 		setEventBus(eventBus);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setEventBus(final PnEventBus eventBus) {
 		super.setEventBus(eventBus);
 		dirtyStateListener.setEventBus(eventBus);
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void setDirty(final boolean dirty) {
+		dirtyStateListener.setDirty(dirty);
 	}
 
 	/** {@inheritDoc} */

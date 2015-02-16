@@ -160,4 +160,6 @@ public interface PnStateModel {
 
 	boolean isDirty();
 
+	void setDirty(boolean b);
+
 }

@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.Action;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import de.markusrother.pned.gui.control.commands.PetriNetEditCommand;
 import de.markusrother.pned.gui.control.commands.PetriNetEditCommand.Type;
@@ -62,8 +63,13 @@ public class CreatePetriNetAction extends AbstractStatefulAction {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 		if (state.isDirty()) {
-			// TODO
-			throw new RuntimeException("TODO");
+			// TODO - Could also be wrapped in an action!
+			final int result = JOptionPane.showConfirmDialog(null,
+					"The current net contains unsaved changes, which will be discarded. Proceed?", "Confirm creation",
+					JOptionPane.YES_NO_OPTION);
+			if (result != 0) {
+				return;
+			}
 		}
 		final PetriNetEditCommand cmd = new PetriNetEditCommand(this, Type.NEW);
 		commandTarget.createPetriNet(cmd);

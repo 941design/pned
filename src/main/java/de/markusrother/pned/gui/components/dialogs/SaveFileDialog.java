@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand.Type;
@@ -67,11 +68,18 @@ public class SaveFileDialog extends AbstractFileDialog {
 	/** {@inheritDoc} */
 	@Override
 	protected void processSelectedFile(final File file) {
-		// TODO - prompt for overwrite!
 		try {
 			String path = file.getAbsolutePath();
 			path = path.endsWith(PNML_SUFFIX) ? path : path + PNML_SUFFIX;
 			commandTarget.setCurrentDirectory(new PetriNetIOCommand(this, Type.CWD, new File(path)));
+			if (file.exists()) {
+				final int result = JOptionPane.showConfirmDialog(null,
+						"The selected file already exists and will be overwritten. Proceed?", "Confirm save",
+						JOptionPane.YES_NO_OPTION);
+				if (result != 0) {
+					return;
+				}
+			}
 			commandTarget.exportPnml(new PetriNetIOCommand(this, Type.SAVE, file));
 		} catch (final IOException e) {
 			// TODO

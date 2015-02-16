@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand.Type;
@@ -60,7 +61,6 @@ public class OpenFileDialog extends AbstractFileDialog {
 	private OpenFileDialog(final PnStateModel state, final PnCommandTarget commandTarget) {
 		super(state, commandTarget, title, approveButtonLabel);
 		setDialogType(JFileChooser.OPEN_DIALOG);
-
 	}
 
 	/** {@inheritDoc} */
@@ -71,10 +71,18 @@ public class OpenFileDialog extends AbstractFileDialog {
 			final String path = file.getAbsolutePath();
 			commandTarget.setCurrentDirectory(new PetriNetIOCommand(this, Type.CWD, new File(path)));
 			if (state.isDirty()) {
-				// TODO
-				throw new RuntimeException("TODO");
+				// TODO - Could also be wrapped in an action!
+				final int result = JOptionPane.showConfirmDialog(null,
+						"The current net contains unsaved changes, which will be discarded. Proceed?",
+						"Confirm import", JOptionPane.YES_NO_OPTION);
+				if (result != 0) {
+					return;
+				}
 			}
 			commandTarget.importPnml(new PetriNetIOCommand(this, Type.OPEN, file));
+			// We have to set clean manually, because the net was created by a
+			// chain of commands, which did set the model dirty.
+			state.setDirty(false);
 		} catch (final IOException e) {
 			// TODO
 			throw new RuntimeException("TODO", e);

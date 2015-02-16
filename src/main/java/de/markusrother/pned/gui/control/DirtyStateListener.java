@@ -18,6 +18,10 @@ public class DirtyStateListener extends CommandAdapter
 		return dirty;
 	}
 
+	public void setDirty(final boolean dirty) {
+		this.dirty = dirty;
+	}
+
 	@Override
 	public void setEventBus(final EventBus eventBus) {
 		super.setEventBus(eventBus);
