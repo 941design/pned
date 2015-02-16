@@ -85,7 +85,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	/** {@inheritDoc} */
 	@Override
 	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
-		setSelected(cmd.getMode() == PnState.NodeCreationMode.TRANSITION);
+		setSelected(cmd.getMode() == PnState.NewNodeType.TRANSITION);
 	}
 
 	/** {@inheritDoc} */
@@ -97,7 +97,7 @@ public class CreateTransitionAction extends AbstractCreateNodeAction {
 	/** {@inheritDoc} */
 	@Override
 	protected void fireSetNodeTypeCommand() {
-		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, PnState.NodeCreationMode.TRANSITION));
+		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, PnState.NewNodeType.TRANSITION));
 	}
 
 }

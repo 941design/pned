@@ -86,7 +86,7 @@ public class PnFrame extends JFrame
 		installListeners(eventBus);
 
 		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, //
-				PnState.NodeCreationMode.PLACE));
+				PnState.NewNodeType.PLACE));
 		eventBus.setCurrentDirectory(new PetriNetIOCommand(this, //
 				PetriNetIOCommand.Type.CWD, //
 				currentPath));

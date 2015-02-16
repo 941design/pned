@@ -2,7 +2,7 @@ package de.markusrother.pned.gui.control.commands;
 
 import java.util.EventObject;
 
-import de.markusrother.pned.gui.control.PnState.NodeCreationMode;
+import de.markusrother.pned.gui.control.PnState.NewNodeType;
 import de.markusrother.util.JsonBuilder;
 import de.markusrother.util.JsonSerializable;
 
@@ -21,7 +21,7 @@ public class SetNodeTypeCommand extends EventObject
 	implements
 		JsonSerializable {
 
-	private final NodeCreationMode mode;
+	private final NewNodeType mode;
 
 	/**
 	 * <p>
@@ -32,10 +32,10 @@ public class SetNodeTypeCommand extends EventObject
 	 *            a {@link java.lang.Object} object.
 	 * @param mode
 	 *            a
-	 *            {@link de.markusrother.pned.gui.control.PnState.NodeCreationMode}
+	 *            {@link de.markusrother.pned.gui.control.PnState.NewNodeType}
 	 *            object.
 	 */
-	public SetNodeTypeCommand(final Object source, final NodeCreationMode mode) {
+	public SetNodeTypeCommand(final Object source, final NewNodeType mode) {
 		super(source);
 		this.mode = mode;
 	}
@@ -46,10 +46,10 @@ public class SetNodeTypeCommand extends EventObject
 	 * </p>
 	 *
 	 * @return a
-	 *         {@link de.markusrother.pned.gui.control.PnState.NodeCreationMode}
+	 *         {@link de.markusrother.pned.gui.control.PnState.NewNodeType}
 	 *         object.
 	 */
-	public NodeCreationMode getMode() {
+	public NewNodeType getMode() {
 		return mode;
 	}
 

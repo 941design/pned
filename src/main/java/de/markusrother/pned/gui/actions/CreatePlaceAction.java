@@ -85,7 +85,7 @@ public class CreatePlaceAction extends AbstractCreateNodeAction {
 	/** {@inheritDoc} */
 	@Override
 	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
-		setSelected(cmd.getMode() == PnState.NodeCreationMode.PLACE);
+		setSelected(cmd.getMode() == PnState.NewNodeType.PLACE);
 	}
 
 	/** {@inheritDoc} */
@@ -97,7 +97,7 @@ public class CreatePlaceAction extends AbstractCreateNodeAction {
 	/** {@inheritDoc} */
 	@Override
 	protected void fireSetNodeTypeCommand() {
-		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, PnState.NodeCreationMode.PLACE));
+		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, PnState.NewNodeType.PLACE));
 	}
 
 }

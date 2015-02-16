@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
-import de.markusrother.pned.gui.control.PnState.NodeCreationMode;
+import de.markusrother.pned.gui.control.PnState.NewNodeType;
 import de.markusrother.pned.gui.control.commands.NodeListener;
 import de.markusrother.pned.gui.control.commands.SetNodeTypeCommand;
 import de.markusrother.swing.LeftClickListener;
@@ -25,7 +25,7 @@ public class NodeCreator extends LeftClickListener
 	implements
 		NodeListener {
 
-	private NodeCreationMode mode;
+	private NewNodeType mode;
 	private final EventBus eventBus;
 
 	/**
@@ -38,7 +38,7 @@ public class NodeCreator extends LeftClickListener
 	 */
 	public NodeCreator(final EventBus eventBus) {
 		this.eventBus = eventBus;
-		this.mode = NodeCreationMode.defaultCreationMode;
+		this.mode = NewNodeType.defaultCreationMode;
 		eventBus.addListener(NodeListener.class, this);
 	}
 

@@ -132,14 +132,14 @@ public class EditMenuFactory
 				locationProvider);
 		buttonGroup.add(createPlaceItem);
 		menuComponent.add(createPlaceItem);
-		createPlaceItem.setSelected(state.getNodeCreationMode() == PnState.NodeCreationMode.PLACE);
+		createPlaceItem.setSelected(state.getNewNodeType() == PnState.NewNodeType.PLACE);
 
 		final JRadioButtonMenuItem createTransitionItem = CreateTransitionAction.newMenuItem( //
 				state.getEventBus(), //
 				locationProvider);
 		buttonGroup.add(createTransitionItem);
 		menuComponent.add(createTransitionItem);
-		createTransitionItem.setSelected(state.getNodeCreationMode() == PnState.NodeCreationMode.TRANSITION);
+		createTransitionItem.setSelected(state.getNewNodeType() == PnState.NewNodeType.TRANSITION);
 
 		final PnCommandTarget commandTarget = state.getEventBus();
 		menuComponent.add(RemoveSelectedNodesAction.newMenuItem(state, commandTarget));

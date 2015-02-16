@@ -49,13 +49,13 @@ public class PnState extends PnEventAdapter
 		PnStateModel {
 
 	/** The default creation type for new nodes. */
-	public enum NodeCreationMode {
+	public enum NewNodeType {
 
 		PLACE,
 		TRANSITION;
 
 		/** Constant <code>defaultCreationMode</code> */
-		public static final NodeCreationMode defaultCreationMode = PLACE;
+		public static final NewNodeType defaultCreationMode = PLACE;
 
 	}
 
@@ -69,7 +69,8 @@ public class PnState extends PnEventAdapter
 
 	/** The current directory in which to do file operations. */
 	protected File currentDirectory;
-	protected NodeCreationMode nodeCreationMode;
+	/** The type of newly created nodes */
+	protected NewNodeType newNodeType;
 
 	/**
 	 * <p>
@@ -84,7 +85,7 @@ public class PnState extends PnEventAdapter
 		this.transitionStyle = NodeStyle.newDefault();
 		this.markingStyle = MarkingStyle.newDefault();
 		this.edgeStyle = EdgeStyle.newDefault();
-		this.nodeCreationMode = NodeCreationMode.defaultCreationMode;
+		this.newNodeType = NewNodeType.defaultCreationMode;
 		this.selectedNodeIds = new HashSet<>();
 		this.incomingEdgesMap = new HashMap<>();
 		this.outgoingEdgesMap = new HashMap<>();
@@ -135,8 +136,8 @@ public class PnState extends PnEventAdapter
 
 	/** {@inheritDoc} */
 	@Override
-	public NodeCreationMode getNodeCreationMode() {
-		return nodeCreationMode;
+	public NewNodeType getNewNodeType() {
+		return newNodeType;
 	}
 
 	/** {@inheritDoc} */
@@ -304,7 +305,7 @@ public class PnState extends PnEventAdapter
 	/** {@inheritDoc} */
 	@Override
 	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
-		nodeCreationMode = cmd.getMode();
+		newNodeType = cmd.getMode();
 	}
 
 	/** {@inheritDoc} */
