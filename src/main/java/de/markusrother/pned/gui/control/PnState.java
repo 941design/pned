@@ -69,8 +69,10 @@ public class PnState extends PnEventAdapter
 
 	/** The current directory in which to do file operations. */
 	protected File currentDirectory;
-	/** The type of newly created nodes */
+	/** The type of newly created nodes. */
 	protected NewNodeType newNodeType;
+	/** Guards flag for unsaved changes. */
+	private final DirtyStateListener dirtyStateListener;
 
 	/**
 	 * <p>
@@ -89,7 +91,14 @@ public class PnState extends PnEventAdapter
 		this.selectedNodeIds = new HashSet<>();
 		this.incomingEdgesMap = new HashMap<>();
 		this.outgoingEdgesMap = new HashMap<>();
+		this.dirtyStateListener = new DirtyStateListener();
 		setEventBus(eventBus);
+	}
+
+	@Override
+	public void setEventBus(final PnEventBus eventBus) {
+		super.setEventBus(eventBus);
+		dirtyStateListener.setEventBus(eventBus);
 	}
 
 	/** {@inheritDoc} */
@@ -366,6 +375,12 @@ public class PnState extends PnEventAdapter
 	@Override
 	public MarkingStyleModel getMarkingStyle() {
 		return markingStyle;
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public boolean isDirty() {
+		return dirtyStateListener.isDirty();
 	}
 
 }

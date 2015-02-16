@@ -32,14 +32,11 @@ public interface PnStateModel {
 	/**
 	 * <p>
 	 * Gets current node creation mode, either
-	 * {@link de.markusrother.pned.gui.control.PnState.NewNodeType#PLACE}
-	 * or
-	 * {@link de.markusrother.pned.gui.control.PnState.NewNodeType#TRANSITION}
-	 * .
+	 * {@link de.markusrother.pned.gui.control.PnState.NewNodeType#PLACE} or
+	 * {@link de.markusrother.pned.gui.control.PnState.NewNodeType#TRANSITION} .
 	 * </p>
 	 *
-	 * @return a
-	 *         {@link de.markusrother.pned.gui.control.PnState.NewNodeType}
+	 * @return a {@link de.markusrother.pned.gui.control.PnState.NewNodeType}
 	 *         object.
 	 */
 	NewNodeType getNewNodeType();
@@ -160,5 +157,7 @@ public interface PnStateModel {
 	 *         object.
 	 */
 	MarkingStyleModel getMarkingStyle();
+
+	boolean isDirty();
 
 }
