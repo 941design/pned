@@ -582,6 +582,11 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		// IGNORE
 	}
 
+	/**
+	 * @param p
+	 *            a {@link java.awt.Point} object.
+	 * @return a boolean
+	 */
 	public boolean inHoverArea(final Point p) {
 		// TODO - currently unused
 		// TODO - adjust to flexible line thickness
@@ -595,6 +600,7 @@ public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, 
 		return sourceCos > 0 && targetCos > 0 && dist <= 10;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void requestEdge(final EdgeRequest req) {
 		if (id.equals(req.getEdgeId())) {

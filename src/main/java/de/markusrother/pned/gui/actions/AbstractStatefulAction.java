@@ -39,8 +39,8 @@ abstract class AbstractStatefulAction extends AbstractAction {
 	 * @param name
 	 *            a {@link java.lang.String} - this action's name.
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.control.PnStateModel} - the
-	 *            current state.
+	 *            a {@link de.markusrother.pned.gui.core.model.PnStateModel} -
+	 *            the current state.
 	 * @param commandTarget
 	 *            a
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
@@ -58,7 +58,7 @@ abstract class AbstractStatefulAction extends AbstractAction {
 	 * </p>
 	 *
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.control.PnStateModel}
+	 *            a {@link de.markusrother.pned.gui.core.model.PnStateModel}
 	 *            object.
 	 * @param commandTarget
 	 *            a

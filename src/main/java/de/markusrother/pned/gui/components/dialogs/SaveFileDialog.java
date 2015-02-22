@@ -36,11 +36,13 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 * Opens this dialog.
 	 * </p>
 	 *
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.core.model.PnStateModel}
+	 *            object.
 	 * @param commandTarget
 	 *            an
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
-	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
 	 */
 	public static void open(final PnStateModel state, final PnCommandTarget commandTarget) {
 		final SaveFileDialog dialog = new SaveFileDialog(state, commandTarget);
@@ -56,7 +58,9 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 *            an
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
-	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.core.model.PnStateModel}
+	 *            object.
 	 */
 	private SaveFileDialog(final PnStateModel state, final PnCommandTarget commandTarget) {
 		super(state, commandTarget, title, approveButtonLabel);

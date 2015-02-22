@@ -34,11 +34,13 @@ public class OpenFileDialog extends AbstractFileDialog {
 	 * Opens this dialog.
 	 * </p>
 	 *
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.core.model.PnStateModel}
+	 *            object.
 	 * @param commandTarget
 	 *            a
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            object.
-	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
 	 */
 	public static void open(final PnStateModel state, final PnCommandTarget commandTarget) {
 		final OpenFileDialog dialog = new OpenFileDialog(state, commandTarget);
@@ -54,7 +56,9 @@ public class OpenFileDialog extends AbstractFileDialog {
 	 *            an
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
-	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
+	 * @param state
+	 *            a {@link de.markusrother.pned.gui.core.model.PnStateModel}
+	 *            object.
 	 */
 	private OpenFileDialog(final PnStateModel state, final PnCommandTarget commandTarget) {
 		super(state, commandTarget, title, approveButtonLabel);

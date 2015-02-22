@@ -46,7 +46,8 @@ public class EditSettingsDialog extends AbstractDialog {
 	 * </p>
 	 *
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.control.PnState} object.
+	 *            a {@link de.markusrother.pned.gui.core.model.PnStateModel}
+	 *            object.
 	 * @param commandTarget
 	 *            an
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
@@ -65,7 +66,8 @@ public class EditSettingsDialog extends AbstractDialog {
 	 * </p>
 	 * 
 	 * @param state
-	 *            a {@link de.markusrother.pned.gui.control.PnState} object.
+	 *            a {@link de.markusrother.pned.gui.core.model.PnStateModel}
+	 *            object.
 	 * @param commandTarget
 	 *            an
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}

@@ -8,19 +8,30 @@ import de.markusrother.pned.control.requests.Request;
 import de.markusrother.pned.gui.components.LabelComponent;
 
 /**
- * <p>LabelRequest class.</p>
+ * <p>
+ * LabelRequest class.
+ * </p>
  *
  * @author Markus Rother
  * @version 1.0
+ * @see de.markusrother.pned.gui.control.requests.LabelRequestListener
+ * @see de.markusrother.pned.gui.components.LabelComponent#requestLabel(LabelRequest)
  */
 public class LabelRequest extends Request<LabelComponent> {
 
 	/**
-	 * <p>doRequestLabel.</p>
+	 * <p>
+	 * doRequestLabel.
+	 * </p>
 	 *
-	 * @param nodeId a {@link java.lang.String} object.
-	 * @param requestTarget a {@link de.markusrother.pned.gui.control.requests.PnRequestTarget} object.
-	 * @return a {@link de.markusrother.pned.gui.components.LabelComponent} object.
+	 * @param nodeId
+	 *            a {@link java.lang.String} object.
+	 * @param requestTarget
+	 *            a
+	 *            {@link de.markusrother.pned.gui.control.requests.PnRequestTarget}
+	 *            object.
+	 * @return a {@link de.markusrother.pned.gui.components.LabelComponent}
+	 *         object.
 	 */
 	public static LabelComponent doRequestLabel(final String nodeId, final PnRequestTarget requestTarget) {
 		try {
@@ -36,10 +47,14 @@ public class LabelRequest extends Request<LabelComponent> {
 	private final String nodeId;
 
 	/**
-	 * <p>Constructor for LabelRequest.</p>
+	 * <p>
+	 * Constructor for LabelRequest.
+	 * </p>
 	 *
-	 * @param source a {@link java.lang.Object} object.
-	 * @param nodeId a {@link java.lang.String} object.
+	 * @param source
+	 *            a {@link java.lang.Object} object.
+	 * @param nodeId
+	 *            a {@link java.lang.String} object.
 	 */
 	public LabelRequest(final Object source, final String nodeId) {
 		super(source);
@@ -47,9 +62,14 @@ public class LabelRequest extends Request<LabelComponent> {
 	}
 
 	/**
-	 * <p>createWorker.</p>
+	 * <p>
+	 * createWorker.
+	 * </p>
 	 *
-	 * @param l a {@link de.markusrother.pned.gui.control.requests.LabelRequestListener} object.
+	 * @param l
+	 *            a
+	 *            {@link de.markusrother.pned.gui.control.requests.LabelRequestListener}
+	 *            object.
 	 * @return a {@link javax.swing.SwingWorker} object.
 	 */
 	public SwingWorker<LabelComponent, Object> createWorker(final LabelRequestListener l) {
@@ -57,7 +77,9 @@ public class LabelRequest extends Request<LabelComponent> {
 	}
 
 	/**
-	 * <p>Getter for the field <code>nodeId</code>.</p>
+	 * <p>
+	 * Getter for the field <code>nodeId</code>.
+	 * </p>
 	 *
 	 * @return a {@link java.lang.String} object.
 	 */
