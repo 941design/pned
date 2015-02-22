@@ -13,22 +13,22 @@ import java.awt.Point;
  */
 public class HoverAdapter extends HoverListener {
 
-	/** {@inheritDoc} */
-	@Override
-	protected boolean inHoverArea(final Component component, final Point p) {
-		return true;
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected boolean inHoverArea(final Component component, final Point p) {
+        return true;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	protected void startHover(final Component component) {
-		// IGNORE
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected void startHover(final Component component) {
+        // IGNORE
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	protected void endHover(final Component component) {
-		// IGNORE
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected void endHover(final Component component) {
+        // IGNORE
+    }
 
 }

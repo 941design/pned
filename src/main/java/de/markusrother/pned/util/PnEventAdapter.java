@@ -64,292 +64,292 @@ import de.markusrother.pned.gui.control.requests.PnRequestTarget;
  * @version 1.0
  */
 public abstract class PnEventAdapter
-	implements
-		PnCommandTarget,
-		PnEventTarget,
-		PnRequestTarget {
+    implements
+        PnCommandTarget,
+        PnEventTarget,
+        PnRequestTarget {
 
-	/**
-	 * The event target which is listened to.
-	 */
-	protected PnEventBus eventBus;
+    /**
+     * The event target which is listened to.
+     */
+    protected PnEventBus eventBus;
 
-	/**
-	 * <p>
-	 * Setter for the field <code>eventBus</code>.
-	 * </p>
-	 *
-	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.control.PnEventBus} to which
-	 *            resulting events are posted to and to which is listened to for
-	 *            state changes.
-	 */
-	public void setEventBus(final PnEventBus eventBus) {
-		if (this.eventBus != null) {
-			suspendListeners();
-		}
-		this.eventBus = eventBus;
-		installListeners();
-	}
+    /**
+     * <p>
+     * Setter for the field <code>eventBus</code>.
+     * </p>
+     *
+     * @param eventBus
+     *            a {@link de.markusrother.pned.gui.control.PnEventBus} to which
+     *            resulting events are posted to and to which is listened to for
+     *            state changes.
+     */
+    public void setEventBus(final PnEventBus eventBus) {
+        if (this.eventBus != null) {
+            suspendListeners();
+        }
+        this.eventBus = eventBus;
+        installListeners();
+    }
 
-	/**
-	 * <p>
-	 * installListeners.
-	 * </p>
-	 */
-	protected void installListeners() {
-		eventBus.addListener(PetriNetIOListener.class, this);
-		eventBus.addListener(PetriNetListener.class, this);
-		eventBus.addListener(NodeListener.class, this);
-		eventBus.addListener(NodeRemovalListener.class, this);
-		eventBus.addListener(NodeCreationListener.class, this);
-		eventBus.addListener(NodeMotionListener.class, this);
-		eventBus.addListener(MarkingEditListener.class, this);
-		eventBus.addListener(MarkingEventListener.class, this);
-		eventBus.addListener(EdgeEditListener.class, this);
-		eventBus.addListener(NodeRequestListener.class, this);
-		eventBus.addListener(PlaceLayoutListener.class, this);
-		eventBus.addListener(LabelEditListener.class, this);
-		eventBus.addListener(LabelRequestListener.class, this);
-		eventBus.addListener(TransitionListener.class, this);
-		eventBus.addListener(TransitionActivationListener.class, this);
-		eventBus.addListener(TransitionLayoutListener.class, this);
-		eventBus.addListener(EdgeLayoutListener.class, this);
-		eventBus.addListener(MarkingLayoutListener.class, this);
-		eventBus.addListener(NodeSelectionListener.class, this);
-		eventBus.addListener(IdRequestListener.class, this);
-		eventBus.addListener(EdgeCreationListener.class, this);
-		eventBus.addListener(EdgeRequestListener.class, this);
-	}
+    /**
+     * <p>
+     * installListeners.
+     * </p>
+     */
+    protected void installListeners() {
+        eventBus.addListener(PetriNetIOListener.class, this);
+        eventBus.addListener(PetriNetListener.class, this);
+        eventBus.addListener(NodeListener.class, this);
+        eventBus.addListener(NodeRemovalListener.class, this);
+        eventBus.addListener(NodeCreationListener.class, this);
+        eventBus.addListener(NodeMotionListener.class, this);
+        eventBus.addListener(MarkingEditListener.class, this);
+        eventBus.addListener(MarkingEventListener.class, this);
+        eventBus.addListener(EdgeEditListener.class, this);
+        eventBus.addListener(NodeRequestListener.class, this);
+        eventBus.addListener(PlaceLayoutListener.class, this);
+        eventBus.addListener(LabelEditListener.class, this);
+        eventBus.addListener(LabelRequestListener.class, this);
+        eventBus.addListener(TransitionListener.class, this);
+        eventBus.addListener(TransitionActivationListener.class, this);
+        eventBus.addListener(TransitionLayoutListener.class, this);
+        eventBus.addListener(EdgeLayoutListener.class, this);
+        eventBus.addListener(MarkingLayoutListener.class, this);
+        eventBus.addListener(NodeSelectionListener.class, this);
+        eventBus.addListener(IdRequestListener.class, this);
+        eventBus.addListener(EdgeCreationListener.class, this);
+        eventBus.addListener(EdgeRequestListener.class, this);
+    }
 
-	/**
-	 * <p>
-	 * suspendListeners.
-	 * </p>
-	 */
-	protected void suspendListeners() {
-		// TODO
-		throw new RuntimeException("TODO");
-	}
+    /**
+     * <p>
+     * suspendListeners.
+     * </p>
+     */
+    protected void suspendListeners() {
+        // TODO
+        throw new RuntimeException("TODO");
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
-		process(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
+        process(cmd);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void nodesSelected(final NodeMultiSelectionEvent event) {
-		process(event);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void nodesSelected(final NodeMultiSelectionEvent event) {
+        process(event);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void nodesUnselected(final NodeMultiSelectionEvent event) {
-		process(event);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void nodesUnselected(final NodeMultiSelectionEvent event) {
+        process(event);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void nodeSelectionFinished(final NodeMultiSelectionEvent e) {
-		process(e);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void nodeSelectionFinished(final NodeMultiSelectionEvent e) {
+        process(e);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void nodeSelectionCancelled(final NodeMultiSelectionEvent e) {
-		process(e);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void nodeSelectionCancelled(final NodeMultiSelectionEvent e) {
+        process(e);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void componentEntered(final EdgeEditEvent e) {
-		process(e);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void componentEntered(final EdgeEditEvent e) {
+        process(e);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void componentExited(final EdgeEditEvent e) {
-		process(e);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void componentExited(final EdgeEditEvent e) {
+        process(e);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void edgeCancelled(final EdgeEditEvent e) {
-		process(e);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void edgeCancelled(final EdgeEditEvent e) {
+        process(e);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void edgeFinished(final EdgeEditEvent e) {
-		process(e);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void edgeFinished(final EdgeEditEvent e) {
+        process(e);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void edgeStarted(final EdgeEditEvent e) {
-		process(e);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void edgeStarted(final EdgeEditEvent e) {
+        process(e);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setSize(final PlaceLayoutCommand cmd) {
-		process(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setSize(final PlaceLayoutCommand cmd) {
+        process(cmd);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setSize(final TransitionLayoutCommand cmd) {
-		process(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setSize(final TransitionLayoutCommand cmd) {
+        process(cmd);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setSize(final EdgeLayoutCommand cmd) {
-		process(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setSize(final EdgeLayoutCommand cmd) {
+        process(cmd);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setSize(final MarkingLayoutCommand cmd) {
-		process(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setSize(final MarkingLayoutCommand cmd) {
+        process(cmd);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void createPetriNet(final PetriNetEditCommand cmd) {
-		process(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void createPetriNet(final PetriNetEditCommand cmd) {
+        process(cmd);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void requestNode(final NodeRequest req) {
-		process(req);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void requestNode(final NodeRequest req) {
+        process(req);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void requestLabel(final LabelRequest req) {
-		process(req);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void requestLabel(final LabelRequest req) {
+        process(req);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void requestEdge(final EdgeRequest req) {
-		process(req);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void requestEdge(final EdgeRequest req) {
+        process(req);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setCurrentDirectory(final PetriNetIOCommand cmd) {
-		process(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setCurrentDirectory(final PetriNetIOCommand cmd) {
+        process(cmd);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void createPlace(final PlaceCreationCommand cmd) {
-		process(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void createPlace(final PlaceCreationCommand cmd) {
+        process(cmd);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void createTransition(final TransitionCreationCommand cmd) {
-		process(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void createTransition(final TransitionCreationCommand cmd) {
+        process(cmd);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void createEdge(final EdgeCreationCommand cmd) {
-		process(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void createEdge(final EdgeCreationCommand cmd) {
+        process(cmd);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void removeEdge(final EdgeRemoveCommand cmd) {
-		process(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void removeEdge(final EdgeRemoveCommand cmd) {
+        process(cmd);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void nodeMoved(final NodeMotionCommand e) {
-		process(e);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void nodeMoved(final NodeMotionCommand e) {
+        process(e);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void nodeRemoved(final NodeRemovalCommand e) {
-		process(e);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void nodeRemoved(final NodeRemovalCommand e) {
+        process(e);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
-		process(e);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
+        process(e);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setMarking(final MarkingChangeEvent evt) {
-		process(evt);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setMarking(final MarkingChangeEvent evt) {
+        process(evt);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setMarking(final MarkingEditCommand evt) {
-		process(evt);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setMarking(final MarkingEditCommand evt) {
+        process(evt);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setLabel(final LabelEditCommand e) {
-		process(e);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setLabel(final LabelEditCommand e) {
+        process(e);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void transitionActivated(final TransitionActivationEvent e) {
-		process(e);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void transitionActivated(final TransitionActivationEvent e) {
+        process(e);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void transitionDeactivated(final TransitionActivationEvent e) {
-		process(e);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void transitionDeactivated(final TransitionActivationEvent e) {
+        process(e);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void importPnml(final PetriNetIOCommand cmd) {
-		process(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void importPnml(final PetriNetIOCommand cmd) {
+        process(cmd);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void exportPnml(final PetriNetIOCommand cmd) {
-		process(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void exportPnml(final PetriNetIOCommand cmd) {
+        process(cmd);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void requestId(final IdRequest req) {
-		process(req);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void requestId(final IdRequest req) {
+        process(req);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void fireTransition(final TransitionExecutionCommand cmd) {
-		process(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void fireTransition(final TransitionExecutionCommand cmd) {
+        process(cmd);
+    }
 
-	/**
-	 * <p>
-	 * process.
-	 * </p>
-	 *
-	 * @param e
-	 *            a {@link java.util.EventObject} object.
-	 */
-	protected abstract void process(final EventObject e);
+    /**
+     * <p>
+     * process.
+     * </p>
+     *
+     * @param e
+     *            a {@link java.util.EventObject} object.
+     */
+    protected abstract void process(final EventObject e);
 
 }

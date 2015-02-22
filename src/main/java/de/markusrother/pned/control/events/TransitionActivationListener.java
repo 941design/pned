@@ -14,31 +14,31 @@ import java.util.EventListener;
  * @see de.markusrother.pned.control.EventBus
  */
 public interface TransitionActivationListener
-	extends
-		EventListener {
+    extends
+        EventListener {
 
-	/**
-	 * <p>
-	 * transitionActivated.
-	 * </p>
-	 *
-	 * @param e
-	 *            a
-	 *            {@link de.markusrother.pned.control.events.TransitionActivationEvent}
-	 *            object.
-	 */
-	void transitionActivated(TransitionActivationEvent e);
+    /**
+     * <p>
+     * transitionActivated.
+     * </p>
+     *
+     * @param e
+     *            a
+     *            {@link de.markusrother.pned.control.events.TransitionActivationEvent}
+     *            object.
+     */
+    void transitionActivated(TransitionActivationEvent e);
 
-	/**
-	 * <p>
-	 * transitionDeactivated.
-	 * </p>
-	 *
-	 * @param e
-	 *            a
-	 *            {@link de.markusrother.pned.control.events.TransitionActivationEvent}
-	 *            object.
-	 */
-	void transitionDeactivated(TransitionActivationEvent e);
+    /**
+     * <p>
+     * transitionDeactivated.
+     * </p>
+     *
+     * @param e
+     *            a
+     *            {@link de.markusrother.pned.control.events.TransitionActivationEvent}
+     *            object.
+     */
+    void transitionDeactivated(TransitionActivationEvent e);
 
 }

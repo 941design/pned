@@ -15,34 +15,34 @@ import de.markusrother.pned.gui.core.model.PnStateModel;
  */
 public class AbstractDialog extends JDialog {
 
-	/** The event target to be posted to. */
-	protected final PnCommandTarget commandTarget;
-	protected final PnStateModel state;
+    /** The event target to be posted to. */
+    protected final PnCommandTarget commandTarget;
+    protected final PnStateModel state;
 
-	/**
-	 ** <p>
-	 * Constructor for AbstractDialog.
-	 * </p>
-	 *
-	 * @param title
-	 *            a {@link java.lang.String} - this dialogs title.
-	 * @param commandTarget
-	 *            a
-	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
-	 *            object.
-	 * @param state
-	 *            a {@link de.markusrother.pned.gui.control.PnState} object.
-	 * @param modal
-	 *            a boolean.
-	 */
-	protected AbstractDialog(final PnStateModel state,
-			final PnCommandTarget commandTarget,
-			final String title,
-			final boolean modal) {
-		this.state = state;
-		this.commandTarget = commandTarget;
-		setTitle(title);
-		setModal(modal);
-	}
+    /**
+     ** <p>
+     * Constructor for AbstractDialog.
+     * </p>
+     *
+     * @param title
+     *            a {@link java.lang.String} - this dialogs title.
+     * @param commandTarget
+     *            a
+     *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
+     *            object.
+     * @param state
+     *            a {@link de.markusrother.pned.gui.control.PnState} object.
+     * @param modal
+     *            a boolean.
+     */
+    protected AbstractDialog(final PnStateModel state,
+            final PnCommandTarget commandTarget,
+            final String title,
+            final boolean modal) {
+        this.state = state;
+        this.commandTarget = commandTarget;
+        setTitle(title);
+        setModal(modal);
+    }
 
 }

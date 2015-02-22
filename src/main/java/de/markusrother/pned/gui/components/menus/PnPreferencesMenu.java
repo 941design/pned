@@ -18,26 +18,26 @@ import de.markusrother.pned.gui.control.commands.PnCommandTarget;
  */
 public class PnPreferencesMenu extends JMenu {
 
-	/** Constant <code>label="Preferences"</code> */
-	private static final String label = "Preferences";
+    /** Constant <code>label="Preferences"</code> */
+    private static final String label = "Preferences";
 
-	/**
-	 * <p>
-	 * Constructor for PnedPreferencesMenu.
-	 * </p>
-	 *
-	 * @param commandTarget
-	 *            a
-	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
-	 *            object.
-	 * @param state a {@link de.markusrother.pned.gui.control.PnState} object.
-	 */
-	PnPreferencesMenu(final PnState state, final PnCommandTarget commandTarget) {
-		super(label);
+    /**
+     * <p>
+     * Constructor for PnedPreferencesMenu.
+     * </p>
+     *
+     * @param commandTarget
+     *            a
+     *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
+     *            object.
+     * @param state a {@link de.markusrother.pned.gui.control.PnState} object.
+     */
+    PnPreferencesMenu(final PnState state, final PnCommandTarget commandTarget) {
+        super(label);
 
-		setMnemonic(KeyEvent.VK_P);
+        setMnemonic(KeyEvent.VK_P);
 
-		add(OpenEditSettingsDialogAction.newMenuItem(state, commandTarget));
-	}
+        add(OpenEditSettingsDialogAction.newMenuItem(state, commandTarget));
+    }
 
 }

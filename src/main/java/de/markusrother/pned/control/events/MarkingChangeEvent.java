@@ -14,21 +14,21 @@ package de.markusrother.pned.control.events;
  */
 public class MarkingChangeEvent extends MarkingEventObject {
 
-	/**
-	 * <p>
-	 * Constructor for MarkingChangeEvent.
-	 * </p>
-	 *
-	 * @param source
-	 *            a {@link java.lang.Object} - this event's source.
-	 * @param placeId
-	 *            a {@link java.lang.String} - the unique identifier of the
-	 *            place to be changed.
-	 * @param marking
-	 *            a int - the new marking.
-	 */
-	public MarkingChangeEvent(final Object source, final String placeId, final int marking) {
-		super(source, placeId, marking);
-	}
+    /**
+     * <p>
+     * Constructor for MarkingChangeEvent.
+     * </p>
+     *
+     * @param source
+     *            a {@link java.lang.Object} - this event's source.
+     * @param placeId
+     *            a {@link java.lang.String} - the unique identifier of the
+     *            place to be changed.
+     * @param marking
+     *            a int - the new marking.
+     */
+    public MarkingChangeEvent(final Object source, final String placeId, final int marking) {
+        super(source, placeId, marking);
+    }
 
 }

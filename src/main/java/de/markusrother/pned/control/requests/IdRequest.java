@@ -20,53 +20,53 @@ import de.markusrother.util.JsonSerializable;
  * @see de.markusrother.pned.control.requests.IdRequestListener
  */
 public class IdRequest extends Request<String>
-	implements
+    implements
 
-		JsonSerializable {
-	/**
-	 * <p>
-	 * Constructor for IdRequest.
-	 * </p>
-	 *
-	 * @param source
-	 *            a {@link java.lang.Object} - this event's source.
-	 */
-	public IdRequest(final Object source) {
-		super(source);
-	}
+        JsonSerializable {
+    /**
+     * <p>
+     * Constructor for IdRequest.
+     * </p>
+     *
+     * @param source
+     *            a {@link java.lang.Object} - this event's source.
+     */
+    public IdRequest(final Object source) {
+        super(source);
+    }
 
-	/**
-	 * <p>
-	 * Creates a new {@link javax.swing.SwingWorker} for a given listener.
-	 * </p>
-	 *
-	 * @param l
-	 *            a
-	 *            {@link de.markusrother.pned.control.requests.IdRequestListener}
-	 *            - a listener which may or may not fulfill this request.
-	 * @return a {@link javax.swing.SwingWorker} - to execute this request.
-	 */
-	public SwingWorker<String, Object> createWorker(final IdRequestListener l) {
-		return new IdRequestWorker(this, l);
-	}
+    /**
+     * <p>
+     * Creates a new {@link javax.swing.SwingWorker} for a given listener.
+     * </p>
+     *
+     * @param l
+     *            a
+     *            {@link de.markusrother.pned.control.requests.IdRequestListener}
+     *            - a listener which may or may not fulfill this request.
+     * @return a {@link javax.swing.SwingWorker} - to execute this request.
+     */
+    public SwingWorker<String, Object> createWorker(final IdRequestListener l) {
+        return new IdRequestWorker(this, l);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + ':' + toJson();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + ':' + toJson();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public String toJson() {
-		try {
-			final JsonBuilder builder = new JsonBuilder();
-			return builder.append("id", get()) //
-					.toString();
-		} catch (final TimeoutException e) {
-			// TODO
-			throw new RuntimeException("TODO");
-		}
-	}
+    /** {@inheritDoc} */
+    @Override
+    public String toJson() {
+        try {
+            final JsonBuilder builder = new JsonBuilder();
+            return builder.append("id", get()) //
+                    .toString();
+        } catch (final TimeoutException e) {
+            // TODO
+            throw new RuntimeException("TODO");
+        }
+    }
 
 }

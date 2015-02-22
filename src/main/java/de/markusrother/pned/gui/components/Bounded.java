@@ -10,12 +10,12 @@ import java.awt.geom.Point2D;
  */
 interface Bounded {
 
-	/**
-	 * Returns boundary point of this object at a given angle.
-	 *
-	 * @param theta
-	 *            growing clockwise
-	 * @return A Point on the boundary.
-	 */
-	Point2D getBoundaryPoint(final double theta);
+    /**
+     * Returns boundary point of this object at a given angle.
+     *
+     * @param theta
+     *            growing clockwise
+     * @return A Point on the boundary.
+     */
+    Point2D getBoundaryPoint(final double theta);
 }

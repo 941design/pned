@@ -12,12 +12,12 @@ import de.markusrother.swing.ChangeEventSource;
  * @version 1.0
  */
 public interface NodeStyleModel
-	extends
-		ChangeEventSource,
-		ColorsModel,
-		SizeModel,
-		BordersModel {
+    extends
+        ChangeEventSource,
+        ColorsModel,
+        SizeModel,
+        BordersModel {
 
-	// NOTHING
+    // NOTHING
 
 }

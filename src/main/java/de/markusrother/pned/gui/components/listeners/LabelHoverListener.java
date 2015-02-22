@@ -14,18 +14,18 @@ import de.markusrother.swing.HoverAdapter;
  */
 public class LabelHoverListener extends HoverAdapter {
 
-	/** {@inheritDoc} */
-	@Override
-	protected void startHover(final Component component) {
-		final LabelComponent nodeLabel = (LabelComponent) component;
-		nodeLabel.setState(ComponentState.HOVER);
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected void startHover(final Component component) {
+        final LabelComponent nodeLabel = (LabelComponent) component;
+        nodeLabel.setState(ComponentState.HOVER);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	protected void endHover(final Component component) {
-		final LabelComponent nodeLabel = (LabelComponent) component;
-		nodeLabel.setState(ComponentState.DEFAULT);
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected void endHover(final Component component) {
+        final LabelComponent nodeLabel = (LabelComponent) component;
+        nodeLabel.setState(ComponentState.DEFAULT);
+    }
 
 }

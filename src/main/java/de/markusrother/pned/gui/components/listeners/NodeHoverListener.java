@@ -14,29 +14,29 @@ import de.markusrother.swing.HoverAdapter;
  */
 public class NodeHoverListener extends HoverAdapter {
 
-	/** Constant <code>INSTANCE</code> */
-	public static NodeHoverListener INSTANCE = new NodeHoverListener();
+    /** Constant <code>INSTANCE</code> */
+    public static NodeHoverListener INSTANCE = new NodeHoverListener();
 
-	/**
-	 * <p>
-	 * Constructor for NodeHoverListener.
-	 * </p>
-	 */
-	private NodeHoverListener() {
-	}
+    /**
+     * <p>
+     * Constructor for NodeHoverListener.
+     * </p>
+     */
+    private NodeHoverListener() {
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	protected void startHover(final Component component) {
-		final AbstractNodeComponent node = (AbstractNodeComponent) component;
-		node.setState(ComponentState.HOVER);
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected void startHover(final Component component) {
+        final AbstractNodeComponent node = (AbstractNodeComponent) component;
+        node.setState(ComponentState.HOVER);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	protected void endHover(final Component component) {
-		final AbstractNodeComponent node = (AbstractNodeComponent) component;
-		node.setState(ComponentState.DEFAULT);
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected void endHover(final Component component) {
+        final AbstractNodeComponent node = (AbstractNodeComponent) component;
+        node.setState(ComponentState.DEFAULT);
+    }
 
 }

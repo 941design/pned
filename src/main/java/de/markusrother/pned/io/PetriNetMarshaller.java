@@ -30,51 +30,51 @@ import de.markusrother.pned.core.DefaultTransition;
  */
 public class PetriNetMarshaller {
 
-	/**
-	 * <p>
-	 * Creates and returns pnml (xml) for a given Petri Net.
-	 * </p>
-	 *
-	 * @param net
-	 *            the {@link de.markusrother.pned.core.DefaultPetriNet} to be
-	 *            converted.
-	 * @return a {@link java.lang.String} - the generated pnml (xml).
-	 * @throws javax.xml.bind.JAXBException
-	 *             if any.
-	 * @throws java.io.IOException
-	 *             if any.
-	 */
-	public static String createXml(final DefaultPetriNet net) throws JAXBException, IOException {
-		try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-			writeXml(net, out);
-			final String xml = new String(out.toByteArray());
-			return xml;
-		}
-	}
+    /**
+     * <p>
+     * Creates and returns pnml (xml) for a given Petri Net.
+     * </p>
+     *
+     * @param net
+     *            the {@link de.markusrother.pned.core.DefaultPetriNet} to be
+     *            converted.
+     * @return a {@link java.lang.String} - the generated pnml (xml).
+     * @throws javax.xml.bind.JAXBException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     */
+    public static String createXml(final DefaultPetriNet net) throws JAXBException, IOException {
+        try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            writeXml(net, out);
+            final String xml = new String(out.toByteArray());
+            return xml;
+        }
+    }
 
-	/**
-	 * <p>
-	 * Creates pnml (xml) from a given Petri Net and writes it to the given
-	 * stream.
-	 * </p>
-	 *
-	 * @param net
-	 *            the {@link de.markusrother.pned.core.DefaultPetriNet} to be
-	 *            converted.
-	 * @param out
-	 *            the {@link java.io.OutputStream} to be written to.
-	 * @throws javax.xml.bind.JAXBException
-	 *             if any.
-	 */
-	public static void writeXml(final DefaultPetriNet net, final OutputStream out) throws JAXBException {
-		final Class<?>[] context = { PNMLVO.class, DefaultPetriNet.class, DefaultPlace.class,
-				DefaultTransition.class, DefaultEdge.class };
-		final PNMLVO pnml = new PNMLVO(net);
-		final JAXBContext jaxbContext = JAXBContext.newInstance(context);
-		final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		jaxbMarshaller.setProperty(Marshaller.JAXB_ENCODING, "utf-8");
-		jaxbMarshaller.marshal(pnml, out);
-	}
+    /**
+     * <p>
+     * Creates pnml (xml) from a given Petri Net and writes it to the given
+     * stream.
+     * </p>
+     *
+     * @param net
+     *            the {@link de.markusrother.pned.core.DefaultPetriNet} to be
+     *            converted.
+     * @param out
+     *            the {@link java.io.OutputStream} to be written to.
+     * @throws javax.xml.bind.JAXBException
+     *             if any.
+     */
+    public static void writeXml(final DefaultPetriNet net, final OutputStream out) throws JAXBException {
+        final Class<?>[] context = { PNMLVO.class, DefaultPetriNet.class, DefaultPlace.class,
+                DefaultTransition.class, DefaultEdge.class };
+        final PNMLVO pnml = new PNMLVO(net);
+        final JAXBContext jaxbContext = JAXBContext.newInstance(context);
+        final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        jaxbMarshaller.setProperty(Marshaller.JAXB_ENCODING, "utf-8");
+        jaxbMarshaller.marshal(pnml, out);
+    }
 
 }

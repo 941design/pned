@@ -11,18 +11,18 @@ import java.util.EventListener;
  * @version 1.0
  */
 public interface NodeRequestListener
-	extends
-		EventListener {
+    extends
+        EventListener {
 
-	/**
-	 * <p>
-	 * requestNode.
-	 * </p>
-	 *
-	 * @param req
-	 *            a {@link de.markusrother.pned.gui.control.requests.NodeRequest}
-	 *            object.
-	 */
-	void requestNode(NodeRequest req);
+    /**
+     * <p>
+     * requestNode.
+     * </p>
+     *
+     * @param req
+     *            a {@link de.markusrother.pned.gui.control.requests.NodeRequest}
+     *            object.
+     */
+    void requestNode(NodeRequest req);
 
 }

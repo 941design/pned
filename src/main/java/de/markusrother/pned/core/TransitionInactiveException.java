@@ -13,17 +13,17 @@ import de.markusrother.pned.core.model.TransitionModel;
  */
 public class TransitionInactiveException extends PetriNetException {
 
-	/**
-	 * <p>
-	 * Constructor for TransitionInactiveException.
-	 * </p>
-	 *
-	 * @param transition
-	 *            a {@link de.markusrother.pned.core.model.TransitionModel} -
-	 *            the transition that cannot be executed.
-	 */
-	public TransitionInactiveException(final TransitionModel transition) {
-		super("Transition is not active: " + transition.getId());
-	}
+    /**
+     * <p>
+     * Constructor for TransitionInactiveException.
+     * </p>
+     *
+     * @param transition
+     *            a {@link de.markusrother.pned.core.model.TransitionModel} -
+     *            the transition that cannot be executed.
+     */
+    public TransitionInactiveException(final TransitionModel transition) {
+        super("Transition is not active: " + transition.getId());
+    }
 
 }

@@ -14,16 +14,16 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  */
 public class LabelMarshaller extends XmlAdapter<LabelVO, String> {
 
-	/** {@inheritDoc} */
-	@Override
-	public String unmarshal(final LabelVO v) throws Exception {
-		throw new UnsupportedOperationException("TODO");
-	}
+    /** {@inheritDoc} */
+    @Override
+    public String unmarshal(final LabelVO v) throws Exception {
+        throw new UnsupportedOperationException("TODO");
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public LabelVO marshal(final String label) {
-		return new LabelVO(label);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public LabelVO marshal(final String label) {
+        return new LabelVO(label);
+    }
 
 }

@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
  * <pre>
  * ...
  * &lt;graphics&gt;
- * 	&lt;offset x="23" y="42"/&gt;
+ *     &lt;offset x="23" y="42"/&gt;
  * &lt;/graphics&gt;
  * ...
  * </pre>
@@ -25,33 +25,33 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class RelativeGraphicsVO extends AbstractGraphicsVO {
 
-	/**
-	 * <p>
-	 * Default constructor needed by XmlMarshaller!
-	 * </p>
-	 */
-	private @SuppressWarnings("unused") RelativeGraphicsVO() {
-		// IGNORE
-	}
+    /**
+     * <p>
+     * Default constructor needed by XmlMarshaller!
+     * </p>
+     */
+    private @SuppressWarnings("unused") RelativeGraphicsVO() {
+        // IGNORE
+    }
 
-	/**
-	 * <p>
-	 * Constructor for RelativeGraphicsVO.
-	 * </p>
-	 *
-	 * @param point
-	 *            a {@link java.awt.Point} representing the graphic's relative
-	 *            coordinates.
-	 */
-	public RelativeGraphicsVO(final Point point) {
-		super(point);
-	}
+    /**
+     * <p>
+     * Constructor for RelativeGraphicsVO.
+     * </p>
+     *
+     * @param point
+     *            a {@link java.awt.Point} representing the graphic's relative
+     *            coordinates.
+     */
+    public RelativeGraphicsVO(final Point point) {
+        super(point);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	@XmlElement(name = "offset")
-	public LocationVO getLocation() {
-		return location;
-	}
+    /** {@inheritDoc} */
+    @Override
+    @XmlElement(name = "offset")
+    public LocationVO getLocation() {
+        return location;
+    }
 
 }

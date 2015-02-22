@@ -32,178 +32,178 @@ import de.markusrother.pned.util.PnEventLogger;
  * @version 1.0
  */
 public class PnFrame extends JFrame
-	implements
-		PetriNetListener,
-		PetriNetIOListener {
+    implements
+        PetriNetListener,
+        PetriNetIOListener {
 
-	private final boolean isLogging;
+    private final boolean isLogging;
 
-	private PnMenuBar pnedMenuBar;
-	private JScrollPane scrollPane;
-	private PnGridPanel grid;
-	private File currentPath;
-	private PnState state;
-	private PnMenuFactory menuFactory;
+    private PnMenuBar pnedMenuBar;
+    private JScrollPane scrollPane;
+    private PnGridPanel grid;
+    private File currentPath;
+    private PnState state;
+    private PnMenuFactory menuFactory;
 
-	/**
-	 * <p>
-	 * Constructor for PnEditorFrame.
-	 * </p>
-	 *
-	 * @param title
-	 *            a {@link java.lang.String} object.
-	 * @param preferredSize
-	 *            a {@link java.awt.Dimension} object.
-	 * @param isLogging a boolean.
-	 */
-	public PnFrame(final String title, final Dimension preferredSize, final boolean isLogging) {
-		super(title);
-		this.isLogging = isLogging;
+    /**
+     * <p>
+     * Constructor for PnEditorFrame.
+     * </p>
+     *
+     * @param title
+     *            a {@link java.lang.String} object.
+     * @param preferredSize
+     *            a {@link java.awt.Dimension} object.
+     * @param isLogging a boolean.
+     */
+    public PnFrame(final String title, final Dimension preferredSize, final boolean isLogging) {
+        super(title);
+        this.isLogging = isLogging;
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setPreferredSize(preferredSize);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setPreferredSize(preferredSize);
 
-		createContext();
-		createComponents();
-	}
+        createContext();
+        createComponents();
+    }
 
-	/**
-	 * <p>
-	 * createNewContext.
-	 * </p>
-	 */
-	private void createContext() {
-		final PnEventBus eventBus = new PnEventBus();
+    /**
+     * <p>
+     * createNewContext.
+     * </p>
+     */
+    private void createContext() {
+        final PnEventBus eventBus = new PnEventBus();
 
-		if (isLogging) {
-			PnEventLogger.log(eventBus);
-		}
+        if (isLogging) {
+            PnEventLogger.log(eventBus);
+        }
 
-		this.state = new PnState(eventBus);
-		this.menuFactory = new PnMenuFactory(state);
+        this.state = new PnState(eventBus);
+        this.menuFactory = new PnMenuFactory(state);
 
-		createPetriNetModel(eventBus);
-		installListeners(eventBus);
+        createPetriNetModel(eventBus);
+        installListeners(eventBus);
 
-		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, //
-				PnState.NewNodeType.PLACE));
-		eventBus.setCurrentDirectory(new PetriNetIOCommand(this, //
-				PetriNetIOCommand.Type.CWD, //
-				currentPath));
-	}
+        eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, //
+                PnState.NewNodeType.PLACE));
+        eventBus.setCurrentDirectory(new PetriNetIOCommand(this, //
+                PetriNetIOCommand.Type.CWD, //
+                currentPath));
+    }
 
-	/**
-	 * <p>
-	 * installListeners.
-	 * </p>
-	 *
-	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.control.PnEventBus} object.
-	 */
-	private void installListeners(final PnEventBus eventBus) {
-		eventBus.addListener(PetriNetListener.class, this);
-		eventBus.addListener(PetriNetIOListener.class, this);
-	}
+    /**
+     * <p>
+     * installListeners.
+     * </p>
+     *
+     * @param eventBus
+     *            a {@link de.markusrother.pned.gui.control.PnEventBus} object.
+     */
+    private void installListeners(final PnEventBus eventBus) {
+        eventBus.addListener(PetriNetListener.class, this);
+        eventBus.addListener(PetriNetIOListener.class, this);
+    }
 
-	/**
-	 * <p>
-	 * createPetriNetModel.
-	 * </p>
-	 *
-	 * @param eventBus
-	 *            a {@link de.markusrother.pned.control.EventBus} object.
-	 */
-	private void createPetriNetModel(final EventBus eventBus) {
-		EventAwarePetriNet.create(eventBus);
-	}
+    /**
+     * <p>
+     * createPetriNetModel.
+     * </p>
+     *
+     * @param eventBus
+     *            a {@link de.markusrother.pned.control.EventBus} object.
+     */
+    private void createPetriNetModel(final EventBus eventBus) {
+        EventAwarePetriNet.create(eventBus);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void createPetriNet(final PetriNetEditCommand cmd) {
-		removeContext();
-		removeComponents();
-		createContext();
-		createComponents();
-		pack();
-		revalidate();
-		repaint();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void createPetriNet(final PetriNetEditCommand cmd) {
+        removeContext();
+        removeComponents();
+        createContext();
+        createComponents();
+        pack();
+        revalidate();
+        repaint();
+    }
 
-	/**
-	 * <p>
-	 * removeComponents.
-	 * </p>
-	 */
-	private void removeComponents() {
-		remove(scrollPane);
-	}
+    /**
+     * <p>
+     * removeComponents.
+     * </p>
+     */
+    private void removeComponents() {
+        remove(scrollPane);
+    }
 
-	/**
-	 * <p>
-	 * createComponents.
-	 * </p>
-	 */
-	private void createComponents() {
+    /**
+     * <p>
+     * createComponents.
+     * </p>
+     */
+    private void createComponents() {
 
-		final PnEventBus eventBus = state.getEventBus();
+        final PnEventBus eventBus = state.getEventBus();
 
-		final ComponentFactory factory = new ComponentFactory(state);
+        final ComponentFactory factory = new ComponentFactory(state);
 
-		this.grid = new PnGridPanel(eventBus, menuFactory, factory, factory);
-		this.pnedMenuBar = new PnMenuBar(menuFactory);
-		this.scrollPane = new JScrollPane(grid);
-		// this.scrollPane.setColumnHeaderView(...);
-		// this.scrollPane.setRowHeaderView(...);
-		add(scrollPane, BorderLayout.CENTER);
+        this.grid = new PnGridPanel(eventBus, menuFactory, factory, factory);
+        this.pnedMenuBar = new PnMenuBar(menuFactory);
+        this.scrollPane = new JScrollPane(grid);
+        // this.scrollPane.setColumnHeaderView(...);
+        // this.scrollPane.setRowHeaderView(...);
+        add(scrollPane, BorderLayout.CENTER);
 
-		setJMenuBar(pnedMenuBar);
-	}
+        setJMenuBar(pnedMenuBar);
+    }
 
-	/**
-	 * <p>
-	 * disposeCurrentContext.
-	 * </p>
-	 */
-	private void removeContext() {
-		// Assuming GC takes care of rest.
-		// Can only be gc'ed if EventBus becomes garbage as well.
-		suspendListeners();
-	}
+    /**
+     * <p>
+     * disposeCurrentContext.
+     * </p>
+     */
+    private void removeContext() {
+        // Assuming GC takes care of rest.
+        // Can only be gc'ed if EventBus becomes garbage as well.
+        suspendListeners();
+    }
 
-	/**
-	 * <p>
-	 * suspendListeners.
-	 * </p>
-	 */
-	private void suspendListeners() {
-		final PnEventBus eventBus = state.getEventBus();
-		eventBus.removeListener(PetriNetListener.class, this);
-		eventBus.removeListener(PetriNetIOListener.class, this);
-	}
+    /**
+     * <p>
+     * suspendListeners.
+     * </p>
+     */
+    private void suspendListeners() {
+        final PnEventBus eventBus = state.getEventBus();
+        eventBus.removeListener(PetriNetListener.class, this);
+        eventBus.removeListener(PetriNetIOListener.class, this);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setCurrentDirectory(final PetriNetIOCommand cmd) {
-		this.currentPath = cmd.getFile();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setCurrentDirectory(final PetriNetIOCommand cmd) {
+        this.currentPath = cmd.getFile();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void importPnml(final PetriNetIOCommand cmd) {
-		createPetriNet(new PetriNetEditCommand(this, PetriNetEditCommand.Type.NEW));
-		final File file = cmd.getFile();
-		try {
-			PNMLParser.parse(file, state.getEventBus());
-		} catch (FileNotFoundException | XMLStreamException e) {
-			// FIXME
-			throw new RuntimeException("TODO - Invalid file name!");
-		}
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void importPnml(final PetriNetIOCommand cmd) {
+        createPetriNet(new PetriNetEditCommand(this, PetriNetEditCommand.Type.NEW));
+        final File file = cmd.getFile();
+        try {
+            PNMLParser.parse(file, state.getEventBus());
+        } catch (FileNotFoundException | XMLStreamException e) {
+            // FIXME
+            throw new RuntimeException("TODO - Invalid file name!");
+        }
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void exportPnml(final PetriNetIOCommand cmd) {
-		// IGNORE - exported by EventAwarePetriNet
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void exportPnml(final PetriNetIOCommand cmd) {
+        // IGNORE - exported by EventAwarePetriNet
+    }
 
 }

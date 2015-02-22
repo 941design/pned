@@ -11,17 +11,17 @@ package de.markusrother.pned.core;
  */
 public class UnavailableIdException extends PetriNetException {
 
-	/**
-	 * <p>
-	 * Constructor for UnavailableIdException.
-	 * </p>
-	 *
-	 * @param elementId
-	 *            a {@link java.lang.String} - the identifier that is no longer
-	 *            available.
-	 */
-	public UnavailableIdException(final String elementId) {
-		super("The id: " + elementId + " is not available");
-	}
+    /**
+     * <p>
+     * Constructor for UnavailableIdException.
+     * </p>
+     *
+     * @param elementId
+     *            a {@link java.lang.String} - the identifier that is no longer
+     *            available.
+     */
+    public UnavailableIdException(final String elementId) {
+        super("The id: " + elementId + " is not available");
+    }
 
 }

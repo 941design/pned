@@ -19,28 +19,28 @@ import de.markusrother.swing.PopupListener;
  */
 public class PnPopupListener extends PopupListener {
 
-	private final PnMenuFactory menuFactory;
+    private final PnMenuFactory menuFactory;
 
-	/**
-	 * <p>
-	 * Constructor for PnGridPopupListener.
-	 * </p>
-	 *
-	 * @param menuFactory
-	 *            a {@link de.markusrother.pned.gui.components.PnGridPanel}
-	 *            object.
-	 */
-	public PnPopupListener(final PnMenuFactory menuFactory) {
-		this.menuFactory = menuFactory;
-	}
+    /**
+     * <p>
+     * Constructor for PnGridPopupListener.
+     * </p>
+     *
+     * @param menuFactory
+     *            a {@link de.markusrother.pned.gui.components.PnGridPanel}
+     *            object.
+     */
+    public PnPopupListener(final PnMenuFactory menuFactory) {
+        this.menuFactory = menuFactory;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void popup(final MouseEvent e) {
-		final Point point = e.getPoint();
-		final Component component = e.getComponent();
-		final JPopupMenu popup = menuFactory.newPopupMenu(point);
-		popup.show(component, point.x, point.y);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void popup(final MouseEvent e) {
+        final Point point = e.getPoint();
+        final Component component = e.getComponent();
+        final JPopupMenu popup = menuFactory.newPopupMenu(point);
+        popup.show(component, point.x, point.y);
+    }
 
 }

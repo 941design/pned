@@ -13,21 +13,21 @@ import java.awt.event.ActionEvent;
  */
 public interface TextListener {
 
-	/**
-	 * <p>
-	 * textEntered.
-	 * </p>
-	 *
-	 * @param e
-	 *            a {@link java.awt.event.ActionEvent} object.
-	 */
-	void textEntered(ActionEvent e);
+    /**
+     * <p>
+     * textEntered.
+     * </p>
+     *
+     * @param e
+     *            a {@link java.awt.event.ActionEvent} object.
+     */
+    void textEntered(ActionEvent e);
 
-	/**
-	 * <p>cancel.</p>
-	 *
-	 * @param e a {@link java.awt.AWTEvent} object.
-	 */
-	void cancel(AWTEvent e);
+    /**
+     * <p>cancel.</p>
+     *
+     * @param e a {@link java.awt.AWTEvent} object.
+     */
+    void cancel(AWTEvent e);
 
 }

@@ -19,11 +19,11 @@ package de.markusrother.pned.gui.components;
  */
 public enum ComponentState {
 
-	DEFAULT,
-	HOVER,
-	SINGLE_SELECTED,
-	MULTI_SELECTED,
-	VALID,
-	INVALID;
+    DEFAULT,
+    HOVER,
+    SINGLE_SELECTED,
+    MULTI_SELECTED,
+    VALID,
+    INVALID;
 
 }

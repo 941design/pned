@@ -12,13 +12,13 @@ import de.markusrother.swing.ChangeEventSource;
  * @version 1.0
  */
 public interface MarkingStyleModel
-	extends
-		ChangeEventSource,
-		FontModel,
-		ColorModel,
-		SizeModel,
-		ShapeModel {
+    extends
+        ChangeEventSource,
+        FontModel,
+        ColorModel,
+        SizeModel,
+        ShapeModel {
 
-	// NOTHING
+    // NOTHING
 
 }

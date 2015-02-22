@@ -20,54 +20,54 @@ import de.markusrother.util.JsonBuilder;
  */
 @XmlRootElement(name = "place")
 public class DefaultPlace extends AbstractDefaultNode
-	implements
-		PlaceModel {
+    implements
+        PlaceModel {
 
-	/** The current marking. */
-	private int marking;
+    /** The current marking. */
+    private int marking;
 
-	/**
-	 * <p>
-	 * Default constructor needed by XmlMarshaller!
-	 * </p>
-	 */
-	private @SuppressWarnings("unused") DefaultPlace() {
-		// IGNORE
-	}
+    /**
+     * <p>
+     * Default constructor needed by XmlMarshaller!
+     * </p>
+     */
+    private @SuppressWarnings("unused") DefaultPlace() {
+        // IGNORE
+    }
 
-	/**
-	 * <p>
-	 * Instantiates a valid {@link de.markusrother.pned.core.model.PlaceModel}.
-	 * </p>
-	 *
-	 * @param nodeId
-	 *            a {@link java.lang.String} - this place's unique id.
-	 * @param point
-	 *            a {@link java.awt.Point} - this place's coordinates.
-	 */
-	public DefaultPlace(final String nodeId, final Point point) {
-		super(nodeId, point);
-	}
+    /**
+     * <p>
+     * Instantiates a valid {@link de.markusrother.pned.core.model.PlaceModel}.
+     * </p>
+     *
+     * @param nodeId
+     *            a {@link java.lang.String} - this place's unique id.
+     * @param point
+     *            a {@link java.awt.Point} - this place's coordinates.
+     */
+    public DefaultPlace(final String nodeId, final Point point) {
+        super(nodeId, point);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	@XmlElement(name = "initialMarking")
-	@XmlJavaTypeAdapter(MarkingMarshaller.class)
-	public Integer getMarking() {
-		return marking;
-	}
+    /** {@inheritDoc} */
+    @Override
+    @XmlElement(name = "initialMarking")
+    @XmlJavaTypeAdapter(MarkingMarshaller.class)
+    public Integer getMarking() {
+        return marking;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setMarking(final Integer marking) {
-		this.marking = marking;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setMarking(final Integer marking) {
+        this.marking = marking;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	protected void writeAttributesAsString(final JsonBuilder jb) {
-		super.writeAttributesAsString(jb);
-		jb.append("marking", marking);
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected void writeAttributesAsString(final JsonBuilder jb) {
+        super.writeAttributesAsString(jb);
+        jb.append("marking", marking);
+    }
 
 }

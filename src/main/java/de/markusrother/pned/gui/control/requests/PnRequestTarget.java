@@ -15,12 +15,12 @@ import de.markusrother.pned.control.requests.RequestTarget;
  * @see de.markusrother.pned.control.EventAwarePetriNet
  */
 public interface PnRequestTarget
-	extends
-		RequestTarget,
-		NodeRequestListener,
-		LabelRequestListener,
-		EdgeRequestListener {
+    extends
+        RequestTarget,
+        NodeRequestListener,
+        LabelRequestListener,
+        EdgeRequestListener {
 
-	// NOTHING
+    // NOTHING
 
 }

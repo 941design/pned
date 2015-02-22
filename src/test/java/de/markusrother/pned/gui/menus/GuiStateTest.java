@@ -12,15 +12,15 @@ import de.markusrother.pned.gui.control.PnState;
 
 public class GuiStateTest {
 
-	@Test
-	public void testAllListenersAdded() {
-		final PnEventBus eventBus = Mockito.mock(PnEventBus.class);
-		final PnState state = new PnState(eventBus);
-		final List<Class<EventListener>> listenerClasses = AbstractComponentTest.getEventListenerClasses(state
-				.getClass());
-		for (final Class<EventListener> listenerClass : listenerClasses) {
-			Mockito.verify(eventBus, Mockito.times(1)).addListener(listenerClass, state);
-		}
-	}
+    @Test
+    public void testAllListenersAdded() {
+        final PnEventBus eventBus = Mockito.mock(PnEventBus.class);
+        final PnState state = new PnState(eventBus);
+        final List<Class<EventListener>> listenerClasses = AbstractComponentTest.getEventListenerClasses(state
+                .getClass());
+        for (final Class<EventListener> listenerClass : listenerClasses) {
+            Mockito.verify(eventBus, Mockito.times(1)).addListener(listenerClass, state);
+        }
+    }
 
 }

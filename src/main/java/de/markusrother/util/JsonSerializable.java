@@ -11,13 +11,13 @@ package de.markusrother.util;
  */
 public interface JsonSerializable {
 
-	/**
-	 * <p>
-	 * Returns a JSON representation of this object.
-	 * </p>
-	 *
-	 * @return a {@link java.lang.String} - the JSON String.
-	 */
-	String toJson();
+    /**
+     * <p>
+     * Returns a JSON representation of this object.
+     * </p>
+     *
+     * @return a {@link java.lang.String} - the JSON String.
+     */
+    String toJson();
 
 }

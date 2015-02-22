@@ -27,54 +27,54 @@ import de.markusrother.pned.gui.core.model.PnStateModel;
  */
 abstract class AbstractStatefulAction extends AbstractAction {
 
-	/** The current state. */
-	protected final PnStateModel state;
-	protected final PnCommandTarget commandTarget;
+    /** The current state. */
+    protected final PnStateModel state;
+    protected final PnCommandTarget commandTarget;
 
-	/**
-	 * <p>
-	 * Constructor for AbstractGuiAction.
-	 * </p>
-	 *
-	 * @param name
-	 *            a {@link java.lang.String} - this action's name.
-	 * @param state
-	 *            a {@link de.markusrother.pned.gui.core.model.PnStateModel} -
-	 *            the current state.
-	 * @param commandTarget
-	 *            a
-	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
-	 *            object.
-	 */
-	public AbstractStatefulAction(final PnStateModel state, final PnCommandTarget commandTarget, final String name) {
-		super(name);
-		this.state = state;
-		this.commandTarget = commandTarget;
-	}
+    /**
+     * <p>
+     * Constructor for AbstractGuiAction.
+     * </p>
+     *
+     * @param name
+     *            a {@link java.lang.String} - this action's name.
+     * @param state
+     *            a {@link de.markusrother.pned.gui.core.model.PnStateModel} -
+     *            the current state.
+     * @param commandTarget
+     *            a
+     *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
+     *            object.
+     */
+    public AbstractStatefulAction(final PnStateModel state, final PnCommandTarget commandTarget, final String name) {
+        super(name);
+        this.state = state;
+        this.commandTarget = commandTarget;
+    }
 
-	/**
-	 * <p>
-	 * Constructor for AbstractStatefulAction.
-	 * </p>
-	 *
-	 * @param state
-	 *            a {@link de.markusrother.pned.gui.core.model.PnStateModel}
-	 *            object.
-	 * @param commandTarget
-	 *            a
-	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
-	 *            object.
-	 * @param name
-	 *            a {@link java.lang.String} object.
-	 * @param mnemonic
-	 *            a int.
-	 */
-	public AbstractStatefulAction(final PnStateModel state,
-			final PnCommandTarget commandTarget,
-			final String name,
-			final int mnemonic) {
-		this(state, commandTarget, name);
-		putValue(Action.MNEMONIC_KEY, mnemonic);
-	}
+    /**
+     * <p>
+     * Constructor for AbstractStatefulAction.
+     * </p>
+     *
+     * @param state
+     *            a {@link de.markusrother.pned.gui.core.model.PnStateModel}
+     *            object.
+     * @param commandTarget
+     *            a
+     *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
+     *            object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param mnemonic
+     *            a int.
+     */
+    public AbstractStatefulAction(final PnStateModel state,
+            final PnCommandTarget commandTarget,
+            final String name,
+            final int mnemonic) {
+        this(state, commandTarget, name);
+        putValue(Action.MNEMONIC_KEY, mnemonic);
+    }
 
 }

@@ -12,13 +12,13 @@ import java.awt.Point;
  */
 public interface LocationProvider {
 
-	/**
-	 * <p>
-	 * Returns a coordinate.
-	 * </p>
-	 *
-	 * @return a {@link java.awt.Point} - the requested coordinate.
-	 */
-	Point getLocation();
+    /**
+     * <p>
+     * Returns a coordinate.
+     * </p>
+     *
+     * @return a {@link java.awt.Point} - the requested coordinate.
+     */
+    Point getLocation();
 
 }

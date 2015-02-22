@@ -16,31 +16,31 @@ import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
  * @version 1.0
  */
 public interface NodeRemovalListener
-	extends
-		EventListener {
+    extends
+        EventListener {
 
-	/**
-	 * <p>
-	 * nodeRemoved.
-	 * </p>
-	 *
-	 * @param cmd
-	 *            a
-	 *            {@link de.markusrother.pned.control.commands.NodeRemovalCommand}
-	 *            object.
-	 */
-	void nodeRemoved(NodeRemovalCommand cmd);
+    /**
+     * <p>
+     * nodeRemoved.
+     * </p>
+     *
+     * @param cmd
+     *            a
+     *            {@link de.markusrother.pned.control.commands.NodeRemovalCommand}
+     *            object.
+     */
+    void nodeRemoved(NodeRemovalCommand cmd);
 
-	/**
-	 * <p>
-	 * removeSelectedNodes.
-	 * </p>
-	 *
-	 * @param cmd
-	 *            a
-	 *            {@link de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent}
-	 *            object.
-	 */
-	void removeSelectedNodes(RemoveSelectedNodesEvent cmd);
+    /**
+     * <p>
+     * removeSelectedNodes.
+     * </p>
+     *
+     * @param cmd
+     *            a
+     *            {@link de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent}
+     *            object.
+     */
+    void removeSelectedNodes(RemoveSelectedNodesEvent cmd);
 
 }

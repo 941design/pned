@@ -14,40 +14,40 @@ import de.markusrother.swing.ChangeEventSource;
  * @version 1.0
  */
 public interface ShapeModel
-	extends
-		ChangeEventSource {
+    extends
+        ChangeEventSource {
 
-	/**
-	 * <p>
-	 * Returns current shape.
-	 * </p>
-	 *
-	 * @return a {@link java.awt.Shape} object.
-	 */
-	Shape getShape();
+    /**
+     * <p>
+     * Returns current shape.
+     * </p>
+     *
+     * @return a {@link java.awt.Shape} object.
+     */
+    Shape getShape();
 
-	/**
-	 * <p>
-	 * Sets new shape.
-	 * </p>
-	 *
-	 * @param shape
-	 *            a {@link java.awt.Shape} object.
-	 */
-	void setShape(Shape shape);
+    /**
+     * <p>
+     * Sets new shape.
+     * </p>
+     *
+     * @param shape
+     *            a {@link java.awt.Shape} object.
+     */
+    void setShape(Shape shape);
 
-	/**
-	 * <p>getStroke.</p>
-	 *
-	 * @return a {@link java.awt.Stroke} object.
-	 */
-	Stroke getStroke();
+    /**
+     * <p>getStroke.</p>
+     *
+     * @return a {@link java.awt.Stroke} object.
+     */
+    Stroke getStroke();
 
-	/**
-	 * <p>setStroke.</p>
-	 *
-	 * @param stroke a {@link java.awt.Stroke} object.
-	 */
-	void setStroke(Stroke stroke);
+    /**
+     * <p>setStroke.</p>
+     *
+     * @param stroke a {@link java.awt.Stroke} object.
+     */
+    void setStroke(Stroke stroke);
 
 }

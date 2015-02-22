@@ -13,17 +13,17 @@ package de.markusrother.pned.core;
  */
 public class NoSuchNodeException extends PetriNetException {
 
-	/**
-	 * <p>
-	 * Constructor for NoSuchNodeException.
-	 * </p>
-	 *
-	 * @param nodeId
-	 *            a {@link java.lang.String} - the identifier for which there
-	 *            was no node.
-	 */
-	public NoSuchNodeException(final String nodeId) {
-		super("No such node: " + nodeId);
-	}
+    /**
+     * <p>
+     * Constructor for NoSuchNodeException.
+     * </p>
+     *
+     * @param nodeId
+     *            a {@link java.lang.String} - the identifier for which there
+     *            was no node.
+     */
+    public NoSuchNodeException(final String nodeId) {
+        super("No such node: " + nodeId);
+    }
 
 }

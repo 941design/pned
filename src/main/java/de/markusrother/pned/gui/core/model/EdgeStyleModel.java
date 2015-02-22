@@ -12,12 +12,12 @@ import de.markusrother.swing.ChangeEventSource;
  * @version 1.0
  */
 public interface EdgeStyleModel
-	extends
-		ChangeEventSource,
-		ShapeModel,
-		SizeModel,
-		ColorsModel {
+    extends
+        ChangeEventSource,
+        ShapeModel,
+        SizeModel,
+        ColorsModel {
 
-	// NOTHING
+    // NOTHING
 
 }

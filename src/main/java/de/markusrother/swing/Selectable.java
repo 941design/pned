@@ -10,12 +10,12 @@ import java.awt.Rectangle;
  */
 public interface Selectable {
 
-	/**
-	 * <p>isContained.</p>
-	 *
-	 * @param r a {@link java.awt.Rectangle} object.
-	 * @return a boolean.
-	 */
-	boolean isContained(Rectangle r);
+    /**
+     * <p>isContained.</p>
+     *
+     * @param r a {@link java.awt.Rectangle} object.
+     * @return a boolean.
+     */
+    boolean isContained(Rectangle r);
 
 }

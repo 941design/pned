@@ -12,30 +12,30 @@ import de.markusrother.pned.gui.core.model.EdgeStyleModel;
  */
 public interface EdgeComponentFactory {
 
-	/**
-	 * <p>
-	 * newEdge.
-	 * </p>
-	 *
-	 * @param edgeId
-	 *            a {@link java.lang.String} object.
-	 * @param sourceId
-	 *            a {@link java.lang.String} object.
-	 * @param targetId
-	 *            a {@link java.lang.String} object.
-	 * @return a {@link de.markusrother.pned.gui.components.EdgeComponent}
-	 *         object.
-	 */
-	EdgeComponent newEdge(String edgeId, String sourceId, String targetId);
+    /**
+     * <p>
+     * newEdge.
+     * </p>
+     *
+     * @param edgeId
+     *            a {@link java.lang.String} object.
+     * @param sourceId
+     *            a {@link java.lang.String} object.
+     * @param targetId
+     *            a {@link java.lang.String} object.
+     * @return a {@link de.markusrother.pned.gui.components.EdgeComponent}
+     *         object.
+     */
+    EdgeComponent newEdge(String edgeId, String sourceId, String targetId);
 
-	/**
-	 * <p>
-	 * getEdgeStyle.
-	 * </p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
-	 *         object.
-	 */
-	EdgeStyleModel getEdgeStyle();
+    /**
+     * <p>
+     * getEdgeStyle.
+     * </p>
+     *
+     * @return a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
+     *         object.
+     */
+    EdgeStyleModel getEdgeStyle();
 
 }

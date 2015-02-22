@@ -12,19 +12,19 @@ import java.util.EventListener;
  * @see de.markusrother.pned.control.EventBus
  */
 public interface LabelEditListener
-	extends
-		EventListener {
+    extends
+        EventListener {
 
-	/**
-	 * <p>
-	 * setLabel.
-	 * </p>
-	 *
-	 * @param cmd
-	 *            a
-	 *            {@link de.markusrother.pned.control.commands.LabelEditCommand}
-	 *            object.
-	 */
-	void setLabel(LabelEditCommand cmd);
+    /**
+     * <p>
+     * setLabel.
+     * </p>
+     *
+     * @param cmd
+     *            a
+     *            {@link de.markusrother.pned.control.commands.LabelEditCommand}
+     *            object.
+     */
+    void setLabel(LabelEditCommand cmd);
 
 }

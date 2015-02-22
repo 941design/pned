@@ -15,26 +15,26 @@ package de.markusrother.pned.core.model;
  * @version 1.0
  */
 public interface PlaceModel
-	extends
-		NodeModel {
+    extends
+        NodeModel {
 
-	/**
-	 * <p>
-	 * Returns this place's current marking.
-	 * </p>
-	 *
-	 * @return a int - the marking.
-	 */
-	Integer getMarking();
+    /**
+     * <p>
+     * Returns this place's current marking.
+     * </p>
+     *
+     * @return a int - the marking.
+     */
+    Integer getMarking();
 
-	/**
-	 * <p>
-	 * Sets this place's marking.
-	 * </p>
-	 *
-	 * @param marking
-	 *            a {@link java.lang.Integer} - the new marking.
-	 */
-	void setMarking(Integer marking);
+    /**
+     * <p>
+     * Sets this place's marking.
+     * </p>
+     *
+     * @param marking
+     *            a {@link java.lang.Integer} - the new marking.
+     */
+    void setMarking(Integer marking);
 
 }

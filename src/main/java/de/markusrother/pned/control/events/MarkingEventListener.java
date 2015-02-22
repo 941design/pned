@@ -11,19 +11,19 @@ import java.util.EventListener;
  * @version 1.0
  */
 public interface MarkingEventListener
-	extends
-		EventListener {
+    extends
+        EventListener {
 
-	/**
-	 * <p>
-	 * setMarking.
-	 * </p>
-	 *
-	 * @param evt
-	 *            a
-	 *            {@link de.markusrother.pned.control.events.MarkingChangeEvent}
-	 *            object.
-	 */
-	void setMarking(MarkingChangeEvent evt);
+    /**
+     * <p>
+     * setMarking.
+     * </p>
+     *
+     * @param evt
+     *            a
+     *            {@link de.markusrother.pned.control.events.MarkingChangeEvent}
+     *            object.
+     */
+    void setMarking(MarkingChangeEvent evt);
 
 }

@@ -9,14 +9,14 @@ import java.util.EventListener;
  * @version 1.0
  */
 public interface NodeListener
-	extends
-		EventListener {
+    extends
+        EventListener {
 
-	/**
-	 * <p>setCurrentNodeType.</p>
-	 *
-	 * @param cmd a {@link de.markusrother.pned.gui.control.commands.SetNodeTypeCommand} object.
-	 */
-	void setCurrentNodeType(SetNodeTypeCommand cmd);
+    /**
+     * <p>setCurrentNodeType.</p>
+     *
+     * @param cmd a {@link de.markusrother.pned.gui.control.commands.SetNodeTypeCommand} object.
+     */
+    void setCurrentNodeType(SetNodeTypeCommand cmd);
 
 }

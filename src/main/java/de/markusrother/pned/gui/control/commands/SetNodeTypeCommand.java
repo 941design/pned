@@ -18,53 +18,53 @@ import de.markusrother.util.JsonSerializable;
  * @see de.markusrother.pned.gui.control.commands.NodeListener
  */
 public class SetNodeTypeCommand extends EventObject
-	implements
-		JsonSerializable {
+    implements
+        JsonSerializable {
 
-	private final NewNodeType mode;
+    private final NewNodeType mode;
 
-	/**
-	 * <p>
-	 * Constructor for SetNodeTypeCommand.
-	 * </p>
-	 *
-	 * @param source
-	 *            a {@link java.lang.Object} object.
-	 * @param mode
-	 *            a
-	 *            {@link de.markusrother.pned.gui.control.PnState.NewNodeType}
-	 *            object.
-	 */
-	public SetNodeTypeCommand(final Object source, final NewNodeType mode) {
-		super(source);
-		this.mode = mode;
-	}
+    /**
+     * <p>
+     * Constructor for SetNodeTypeCommand.
+     * </p>
+     *
+     * @param source
+     *            a {@link java.lang.Object} object.
+     * @param mode
+     *            a
+     *            {@link de.markusrother.pned.gui.control.PnState.NewNodeType}
+     *            object.
+     */
+    public SetNodeTypeCommand(final Object source, final NewNodeType mode) {
+        super(source);
+        this.mode = mode;
+    }
 
-	/**
-	 * <p>
-	 * Getter for the field <code>mode</code>.
-	 * </p>
-	 *
-	 * @return a
-	 *         {@link de.markusrother.pned.gui.control.PnState.NewNodeType}
-	 *         object.
-	 */
-	public NewNodeType getMode() {
-		return mode;
-	}
+    /**
+     * <p>
+     * Getter for the field <code>mode</code>.
+     * </p>
+     *
+     * @return a
+     *         {@link de.markusrother.pned.gui.control.PnState.NewNodeType}
+     *         object.
+     */
+    public NewNodeType getMode() {
+        return mode;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + ':' + toJson();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + ':' + toJson();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public String toJson() {
-		final JsonBuilder builder = new JsonBuilder();
-		return builder.append("type", mode.name()) //
-				.toString();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public String toJson() {
+        final JsonBuilder builder = new JsonBuilder();
+        return builder.append("type", mode.name()) //
+                .toString();
+    }
 
 }

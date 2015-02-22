@@ -12,20 +12,20 @@ import javax.swing.JMenuBar;
  */
 public class PnMenuBar extends JMenuBar {
 
-	/**
-	 * <p>
-	 * Constructor for PnedMenuBar.
-	 * </p>
-	 *
-	 * @param menuFactory
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.menus.PnMenuFactory}
-	 *            object.
-	 */
-	public PnMenuBar(final PnMenuFactory menuFactory) {
-		add(menuFactory.newFileMenu());
-		add(menuFactory.newEditMenu());
-		add(menuFactory.newPreferencesMenu());
-	}
+    /**
+     * <p>
+     * Constructor for PnedMenuBar.
+     * </p>
+     *
+     * @param menuFactory
+     *            a
+     *            {@link de.markusrother.pned.gui.components.menus.PnMenuFactory}
+     *            object.
+     */
+    public PnMenuBar(final PnMenuFactory menuFactory) {
+        add(menuFactory.newFileMenu());
+        add(menuFactory.newEditMenu());
+        add(menuFactory.newPreferencesMenu());
+    }
 
 }

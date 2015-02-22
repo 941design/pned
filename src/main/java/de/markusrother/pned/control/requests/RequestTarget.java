@@ -12,9 +12,9 @@ package de.markusrother.pned.control.requests;
  * @see de.markusrother.pned.control.EventAwarePetriNet
  */
 public interface RequestTarget
-	extends
-		IdRequestListener {
+    extends
+        IdRequestListener {
 
-	// NOTHING
+    // NOTHING
 
 }

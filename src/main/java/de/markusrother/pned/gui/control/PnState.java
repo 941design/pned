@@ -45,355 +45,355 @@ import de.markusrother.pned.util.PnEventAdapter;
  * @version 1.0
  */
 public class PnState extends PnEventAdapter
-	implements
-		PnStateModel {
+    implements
+        PnStateModel {
 
-	/** The default creation type for new nodes. */
-	public enum NewNodeType {
+    /** The default creation type for new nodes. */
+    public enum NewNodeType {
 
-		PLACE,
-		TRANSITION;
+        PLACE,
+        TRANSITION;
 
-		/** Constant <code>defaultCreationMode</code> */
-		public static final NewNodeType defaultCreationMode = PLACE;
+        /** Constant <code>defaultCreationMode</code> */
+        public static final NewNodeType defaultCreationMode = PLACE;
 
-	}
+    }
 
-	protected final NodeStyleModel placeStyle;
-	protected final NodeStyleModel transitionStyle;
-	protected final MarkingStyleModel markingStyle;
-	protected final EdgeStyleModel edgeStyle;
-	protected final Set<String> selectedNodeIds;
-	protected final Map<String, String> incomingEdgesMap;
-	protected final Map<String, String> outgoingEdgesMap;
+    protected final NodeStyleModel placeStyle;
+    protected final NodeStyleModel transitionStyle;
+    protected final MarkingStyleModel markingStyle;
+    protected final EdgeStyleModel edgeStyle;
+    protected final Set<String> selectedNodeIds;
+    protected final Map<String, String> incomingEdgesMap;
+    protected final Map<String, String> outgoingEdgesMap;
 
-	/** The current directory in which to do file operations. */
-	protected File currentDirectory;
-	/** The type of newly created nodes. */
-	protected NewNodeType newNodeType;
-	/** Guards flag for unsaved changes. */
-	private final DirtyStateListener dirtyStateListener;
+    /** The current directory in which to do file operations. */
+    protected File currentDirectory;
+    /** The type of newly created nodes. */
+    protected NewNodeType newNodeType;
+    /** Guards flag for unsaved changes. */
+    private final DirtyStateListener dirtyStateListener;
 
-	/**
-	 * <p>
-	 * Constructor for GuiState.
-	 * </p>
-	 *
-	 * @param eventBus
-	 *            a {@link de.markusrother.pned.gui.control.PnEventBus} object.
-	 */
-	public PnState(final PnEventBus eventBus) {
-		this.placeStyle = NodeStyle.newDefault();
-		this.transitionStyle = NodeStyle.newDefault();
-		this.markingStyle = MarkingStyle.newDefault();
-		this.edgeStyle = EdgeStyle.newDefault();
-		this.newNodeType = NewNodeType.defaultCreationMode;
-		this.selectedNodeIds = new HashSet<>();
-		this.incomingEdgesMap = new HashMap<>();
-		this.outgoingEdgesMap = new HashMap<>();
-		this.dirtyStateListener = new DirtyStateListener();
-		setEventBus(eventBus);
-	}
+    /**
+     * <p>
+     * Constructor for GuiState.
+     * </p>
+     *
+     * @param eventBus
+     *            a {@link de.markusrother.pned.gui.control.PnEventBus} object.
+     */
+    public PnState(final PnEventBus eventBus) {
+        this.placeStyle = NodeStyle.newDefault();
+        this.transitionStyle = NodeStyle.newDefault();
+        this.markingStyle = MarkingStyle.newDefault();
+        this.edgeStyle = EdgeStyle.newDefault();
+        this.newNodeType = NewNodeType.defaultCreationMode;
+        this.selectedNodeIds = new HashSet<>();
+        this.incomingEdgesMap = new HashMap<>();
+        this.outgoingEdgesMap = new HashMap<>();
+        this.dirtyStateListener = new DirtyStateListener();
+        setEventBus(eventBus);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setEventBus(final PnEventBus eventBus) {
-		super.setEventBus(eventBus);
-		dirtyStateListener.setEventBus(eventBus);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setEventBus(final PnEventBus eventBus) {
+        super.setEventBus(eventBus);
+        dirtyStateListener.setEventBus(eventBus);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setDirty(final boolean dirty) {
-		dirtyStateListener.setDirty(dirty);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setDirty(final boolean dirty) {
+        dirtyStateListener.setDirty(dirty);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	protected void process(final EventObject e) {
-		// IGNORE
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected void process(final EventObject e) {
+        // IGNORE
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void nodeSelectionFinished(final NodeMultiSelectionEvent event) {
-		for (final AbstractNodeComponent node : event.getNodes()) {
-			selectedNodeIds.add(node.getId());
-		}
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void nodeSelectionFinished(final NodeMultiSelectionEvent event) {
+        for (final AbstractNodeComponent node : event.getNodes()) {
+            selectedNodeIds.add(node.getId());
+        }
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void nodeSelectionCancelled(final NodeMultiSelectionEvent event) {
-		selectedNodeIds.clear();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void nodeSelectionCancelled(final NodeMultiSelectionEvent event) {
+        selectedNodeIds.clear();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void createEdge(final EdgeCreationCommand cmd) {
-		final String edgeId = cmd.getEdgeId();
-		final String targetId = cmd.getTargetId();
-		final String sourceId = cmd.getSourceId();
-		incomingEdgesMap.put(edgeId, targetId);
-		outgoingEdgesMap.put(edgeId, sourceId);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void createEdge(final EdgeCreationCommand cmd) {
+        final String edgeId = cmd.getEdgeId();
+        final String targetId = cmd.getTargetId();
+        final String sourceId = cmd.getSourceId();
+        incomingEdgesMap.put(edgeId, targetId);
+        outgoingEdgesMap.put(edgeId, sourceId);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void nodeRemoved(final NodeRemovalCommand cmd) {
-		selectedNodeIds.clear();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void nodeRemoved(final NodeRemovalCommand cmd) {
+        selectedNodeIds.clear();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void removeSelectedNodes(final RemoveSelectedNodesEvent cmd) {
-		selectedNodeIds.clear();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void removeSelectedNodes(final RemoveSelectedNodesEvent cmd) {
+        selectedNodeIds.clear();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public NewNodeType getNewNodeType() {
-		return newNodeType;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public NewNodeType getNewNodeType() {
+        return newNodeType;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public Set<String> getSelectedNodeIds() {
-		return selectedNodeIds;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Set<String> getSelectedNodeIds() {
+        return selectedNodeIds;
+    }
 
-	/**
-	 * <p>
-	 * filterTargetNodes.
-	 * </p>
-	 *
-	 * @param nodeIds
-	 *            a {@link java.util.Set} object.
-	 * @return a {@link java.util.Collection} object.
-	 */
-	private Set<String> filterTargetNodes(final Set<String> nodeIds) {
-		final Set<String> targetNodeIds = new HashSet<>();
-		for (final String targetId : incomingEdgesMap.values()) {
-			if (nodeIds.contains(targetId)) {
-				targetNodeIds.add(targetId);
-			}
-		}
-		return Collections.unmodifiableSet(targetNodeIds);
-	}
+    /**
+     * <p>
+     * filterTargetNodes.
+     * </p>
+     *
+     * @param nodeIds
+     *            a {@link java.util.Set} object.
+     * @return a {@link java.util.Collection} object.
+     */
+    private Set<String> filterTargetNodes(final Set<String> nodeIds) {
+        final Set<String> targetNodeIds = new HashSet<>();
+        for (final String targetId : incomingEdgesMap.values()) {
+            if (nodeIds.contains(targetId)) {
+                targetNodeIds.add(targetId);
+            }
+        }
+        return Collections.unmodifiableSet(targetNodeIds);
+    }
 
-	/**
-	 * <p>
-	 * filterSourceNodes.
-	 * </p>
-	 *
-	 * @param nodeIds
-	 *            a {@link java.util.Set} object.
-	 * @return a {@link java.util.Collection} object.
-	 */
-	private Set<String> filterSourceNodes(final Set<String> nodeIds) {
-		final Set<String> sourceNodeIds = new HashSet<>();
-		for (final String sourceId : outgoingEdgesMap.values()) {
-			if (nodeIds.contains(sourceId)) {
-				sourceNodeIds.add(sourceId);
-			}
-		}
-		return Collections.unmodifiableSet(sourceNodeIds);
-	}
+    /**
+     * <p>
+     * filterSourceNodes.
+     * </p>
+     *
+     * @param nodeIds
+     *            a {@link java.util.Set} object.
+     * @return a {@link java.util.Collection} object.
+     */
+    private Set<String> filterSourceNodes(final Set<String> nodeIds) {
+        final Set<String> sourceNodeIds = new HashSet<>();
+        for (final String sourceId : outgoingEdgesMap.values()) {
+            if (nodeIds.contains(sourceId)) {
+                sourceNodeIds.add(sourceId);
+            }
+        }
+        return Collections.unmodifiableSet(sourceNodeIds);
+    }
 
-	/**
-	 * <p>
-	 * filterIncomingEdges.
-	 * </p>
-	 *
-	 * @param nodeIds
-	 *            a {@link java.util.Set} object.
-	 * @return a {@link java.util.Collection} object.
-	 */
-	protected Set<String> filterIncomingEdges(final Set<String> nodeIds) {
-		final Set<String> edgeIds = new HashSet<>();
-		for (final Entry<String, String> entry : incomingEdgesMap.entrySet()) {
-			final String edgeId = entry.getKey();
-			final String targetId = entry.getValue();
-			if (nodeIds.contains(targetId)) {
-				edgeIds.add(edgeId);
-			}
-		}
-		return Collections.unmodifiableSet(edgeIds);
-	}
+    /**
+     * <p>
+     * filterIncomingEdges.
+     * </p>
+     *
+     * @param nodeIds
+     *            a {@link java.util.Set} object.
+     * @return a {@link java.util.Collection} object.
+     */
+    protected Set<String> filterIncomingEdges(final Set<String> nodeIds) {
+        final Set<String> edgeIds = new HashSet<>();
+        for (final Entry<String, String> entry : incomingEdgesMap.entrySet()) {
+            final String edgeId = entry.getKey();
+            final String targetId = entry.getValue();
+            if (nodeIds.contains(targetId)) {
+                edgeIds.add(edgeId);
+            }
+        }
+        return Collections.unmodifiableSet(edgeIds);
+    }
 
-	/**
-	 * <p>
-	 * filterOutgoingEdges.
-	 * </p>
-	 *
-	 * @param nodeIds
-	 *            a {@link java.util.Set} object.
-	 * @return a {@link java.util.Collection} object.
-	 */
-	protected Set<String> filterOutgoingEdges(final Set<String> nodeIds) {
-		final Set<String> edgeIds = new HashSet<>();
-		for (final Entry<String, String> entry : outgoingEdgesMap.entrySet()) {
-			final String edgeId = entry.getKey();
-			final String targetId = entry.getValue();
-			if (nodeIds.contains(targetId)) {
-				edgeIds.add(edgeId);
-			}
-		}
-		return Collections.unmodifiableSet(edgeIds);
-	}
+    /**
+     * <p>
+     * filterOutgoingEdges.
+     * </p>
+     *
+     * @param nodeIds
+     *            a {@link java.util.Set} object.
+     * @return a {@link java.util.Collection} object.
+     */
+    protected Set<String> filterOutgoingEdges(final Set<String> nodeIds) {
+        final Set<String> edgeIds = new HashSet<>();
+        for (final Entry<String, String> entry : outgoingEdgesMap.entrySet()) {
+            final String edgeId = entry.getKey();
+            final String targetId = entry.getValue();
+            if (nodeIds.contains(targetId)) {
+                edgeIds.add(edgeId);
+            }
+        }
+        return Collections.unmodifiableSet(edgeIds);
+    }
 
-	/**
-	 * <p>collectAllEdges.</p>
-	 *
-	 * @param nodeIds a {@link java.util.Set} object.
-	 * @return a {@link java.util.Set} object.
-	 */
-	protected Set<String> collectAllEdges(final Set<String> nodeIds) {
-		final Set<String> edgeIds = new HashSet<>();
-		edgeIds.addAll(filterIncomingEdges(nodeIds));
-		edgeIds.addAll(filterOutgoingEdges(nodeIds));
-		return edgeIds;
-	}
+    /**
+     * <p>collectAllEdges.</p>
+     *
+     * @param nodeIds a {@link java.util.Set} object.
+     * @return a {@link java.util.Set} object.
+     */
+    protected Set<String> collectAllEdges(final Set<String> nodeIds) {
+        final Set<String> edgeIds = new HashSet<>();
+        edgeIds.addAll(filterIncomingEdges(nodeIds));
+        edgeIds.addAll(filterOutgoingEdges(nodeIds));
+        return edgeIds;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public boolean areNodesSelected() {
-		return !selectedNodeIds.isEmpty();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public boolean areNodesSelected() {
+        return !selectedNodeIds.isEmpty();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public Set<String> getSelectedTargetNodeIds() {
-		return filterTargetNodes(getSelectedNodeIds());
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Set<String> getSelectedTargetNodeIds() {
+        return filterTargetNodes(getSelectedNodeIds());
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public Set<String> getSelectedSourceNodeIds() {
-		return filterSourceNodes(getSelectedNodeIds());
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Set<String> getSelectedSourceNodeIds() {
+        return filterSourceNodes(getSelectedNodeIds());
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public Set<String> getSelectedIncomingEdgeIds() {
-		return filterIncomingEdges(getSelectedNodeIds());
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Set<String> getSelectedIncomingEdgeIds() {
+        return filterIncomingEdges(getSelectedNodeIds());
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public Set<String> getSelectedOutgoingEdgeIds() {
-		return filterOutgoingEdges(getSelectedNodeIds());
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Set<String> getSelectedOutgoingEdgeIds() {
+        return filterOutgoingEdges(getSelectedNodeIds());
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public Set<String> getSelectedNodesEdgeIds() {
-		return collectAllEdges(getSelectedNodeIds());
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Set<String> getSelectedNodesEdgeIds() {
+        return collectAllEdges(getSelectedNodeIds());
+    }
 
-	/**
-	 * TODO - Should be decoupled!
-	 *
-	 * @return a {@link de.markusrother.pned.gui.control.PnEventBus} object.
-	 */
-	public PnEventBus getEventBus() {
-		return eventBus;
-	}
+    /**
+     * TODO - Should be decoupled!
+     *
+     * @return a {@link de.markusrother.pned.gui.control.PnEventBus} object.
+     */
+    public PnEventBus getEventBus() {
+        return eventBus;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setCurrentDirectory(final PetriNetIOCommand cmd) {
-		currentDirectory = cmd.getFile();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setCurrentDirectory(final PetriNetIOCommand cmd) {
+        currentDirectory = cmd.getFile();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public File getCurrentDirectory() {
-		return currentDirectory;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public File getCurrentDirectory() {
+        return currentDirectory;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public boolean areSourceNodesSelected() {
-		return !getSelectedSourceNodeIds().isEmpty();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public boolean areSourceNodesSelected() {
+        return !getSelectedSourceNodeIds().isEmpty();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public boolean areTargetNodesSelected() {
-		return !getSelectedTargetNodeIds().isEmpty();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public boolean areTargetNodesSelected() {
+        return !getSelectedTargetNodeIds().isEmpty();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
-		newNodeType = cmd.getMode();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
+        newNodeType = cmd.getMode();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void removeEdge(final EdgeRemoveCommand cmd) {
-		final String edgeId = cmd.getEdgeId();
-		incomingEdgesMap.remove(edgeId);
-		outgoingEdgesMap.remove(edgeId);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void removeEdge(final EdgeRemoveCommand cmd) {
+        final String edgeId = cmd.getEdgeId();
+        incomingEdgesMap.remove(edgeId);
+        outgoingEdgesMap.remove(edgeId);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setSize(final PlaceLayoutCommand cmd) {
-		final int size = cmd.getSize();
-		placeStyle.setSize(size);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setSize(final PlaceLayoutCommand cmd) {
+        final int size = cmd.getSize();
+        placeStyle.setSize(size);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setSize(final TransitionLayoutCommand cmd) {
-		final int size = cmd.getSize();
-		transitionStyle.setSize(size);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setSize(final TransitionLayoutCommand cmd) {
+        final int size = cmd.getSize();
+        transitionStyle.setSize(size);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setSize(final MarkingLayoutCommand cmd) {
-		final int size = cmd.getSize();
-		markingStyle.setSize(size);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setSize(final MarkingLayoutCommand cmd) {
+        final int size = cmd.getSize();
+        markingStyle.setSize(size);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setSize(final EdgeLayoutCommand cmd) {
-		final int size = cmd.getSize();
-		edgeStyle.setSize(size);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setSize(final EdgeLayoutCommand cmd) {
+        final int size = cmd.getSize();
+        edgeStyle.setSize(size);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public NodeStyleModel getPlaceStyle() {
-		return placeStyle;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public NodeStyleModel getPlaceStyle() {
+        return placeStyle;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public NodeStyleModel getTransitionStyle() {
-		return transitionStyle;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public NodeStyleModel getTransitionStyle() {
+        return transitionStyle;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public EdgeStyleModel getEdgeStyle() {
-		return edgeStyle;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public EdgeStyleModel getEdgeStyle() {
+        return edgeStyle;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public MarkingStyleModel getMarkingStyle() {
-		return markingStyle;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public MarkingStyleModel getMarkingStyle() {
+        return markingStyle;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public boolean isDirty() {
-		return dirtyStateListener.isDirty();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public boolean isDirty() {
+        return dirtyStateListener.isDirty();
+    }
 
 }

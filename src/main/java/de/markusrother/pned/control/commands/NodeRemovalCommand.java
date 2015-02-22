@@ -17,51 +17,51 @@ import de.markusrother.util.JsonSerializable;
  * @see de.markusrother.pned.gui.components.listeners.NodeRemovalListener
  */
 public class NodeRemovalCommand extends EventObject
-	implements
-		JsonSerializable {
+    implements
+        JsonSerializable {
 
-	private final String nodeId;
+    private final String nodeId;
 
-	/**
-	 * <p>
-	 * Constructor for NodeRemovalEvent.
-	 * </p>
-	 *
-	 * @param source
-	 *            a {@link java.lang.Object} - this event's source.
-	 * @param nodeId
-	 *            a {@link java.lang.String} - the unique identifier of the node
-	 *            to be removed.
-	 */
-	public NodeRemovalCommand(final Object source, final String nodeId) {
-		super(source);
-		this.nodeId = nodeId;
-	}
+    /**
+     * <p>
+     * Constructor for NodeRemovalEvent.
+     * </p>
+     *
+     * @param source
+     *            a {@link java.lang.Object} - this event's source.
+     * @param nodeId
+     *            a {@link java.lang.String} - the unique identifier of the node
+     *            to be removed.
+     */
+    public NodeRemovalCommand(final Object source, final String nodeId) {
+        super(source);
+        this.nodeId = nodeId;
+    }
 
-	/**
-	 * <p>
-	 * Getter for the field <code>nodeId</code>.
-	 * </p>
-	 *
-	 * @return a {@link java.lang.String} - the unique identifier of the node to
-	 *         be removed.
-	 */
-	public String getNodeId() {
-		return nodeId;
-	}
+    /**
+     * <p>
+     * Getter for the field <code>nodeId</code>.
+     * </p>
+     *
+     * @return a {@link java.lang.String} - the unique identifier of the node to
+     *         be removed.
+     */
+    public String getNodeId() {
+        return nodeId;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + ':' + toJson();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + ':' + toJson();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public String toJson() {
-		final JsonBuilder builder = new JsonBuilder();
-		return builder.append("nodeId", nodeId) //
-				.toString();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public String toJson() {
+        final JsonBuilder builder = new JsonBuilder();
+        return builder.append("nodeId", nodeId) //
+                .toString();
+    }
 
 }

@@ -12,19 +12,19 @@ import java.util.EventListener;
  * @see de.markusrother.pned.control.EventBus
  */
 public interface NodeMotionListener
-	extends
-		EventListener {
+    extends
+        EventListener {
 
-	/**
-	 * <p>
-	 * nodeMoved.
-	 * </p>
-	 *
-	 * @param e
-	 *            a
-	 *            {@link de.markusrother.pned.control.commands.NodeMotionCommand}
-	 *            object.
-	 */
-	public void nodeMoved(NodeMotionCommand e);
+    /**
+     * <p>
+     * nodeMoved.
+     * </p>
+     *
+     * @param e
+     *            a
+     *            {@link de.markusrother.pned.control.commands.NodeMotionCommand}
+     *            object.
+     */
+    public void nodeMoved(NodeMotionCommand e);
 
 }

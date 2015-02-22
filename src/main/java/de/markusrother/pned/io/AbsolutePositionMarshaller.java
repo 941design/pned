@@ -17,15 +17,15 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  */
 public class AbsolutePositionMarshaller extends XmlAdapter<AbsoluteGraphicsVO, Point> {
 
-	/** {@inheritDoc} */
-	@Override
-	public Point unmarshal(final AbsoluteGraphicsVO v) throws Exception {
-		throw new UnsupportedOperationException("TODO");
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Point unmarshal(final AbsoluteGraphicsVO v) throws Exception {
+        throw new UnsupportedOperationException("TODO");
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public AbsoluteGraphicsVO marshal(final Point point) {
-		return new AbsoluteGraphicsVO(point);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public AbsoluteGraphicsVO marshal(final Point point) {
+        return new AbsoluteGraphicsVO(point);
+    }
 }

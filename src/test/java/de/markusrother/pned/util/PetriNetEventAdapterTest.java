@@ -12,21 +12,21 @@ import de.markusrother.pned.gui.components.AbstractComponentTest;
 
 public class PetriNetEventAdapterTest {
 
-	@Test
-	public void testComponentAddsItselfToListeners() {
-		final EventBus eventBus = Mockito.mock(EventBus.class);
-		final EventAdapter adapter = new EventAdapter() {
-			@Override
-			protected void process(final EventObject e) {
-				// IGNORE
-			}
-		};
-		adapter.setEventBus(eventBus);
-		final List<Class<EventListener>> listenerClasses = AbstractComponentTest.getEventListenerClasses(adapter
-				.getClass());
-		for (final Class<EventListener> listenerClass : listenerClasses) {
-			Mockito.verify(eventBus, Mockito.times(1)).addListener(listenerClass, adapter);
-		}
-	}
+    @Test
+    public void testComponentAddsItselfToListeners() {
+        final EventBus eventBus = Mockito.mock(EventBus.class);
+        final EventAdapter adapter = new EventAdapter() {
+            @Override
+            protected void process(final EventObject e) {
+                // IGNORE
+            }
+        };
+        adapter.setEventBus(eventBus);
+        final List<Class<EventListener>> listenerClasses = AbstractComponentTest.getEventListenerClasses(adapter
+                .getClass());
+        for (final Class<EventListener> listenerClass : listenerClasses) {
+            Mockito.verify(eventBus, Mockito.times(1)).addListener(listenerClass, adapter);
+        }
+    }
 
 }

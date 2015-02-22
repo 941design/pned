@@ -8,11 +8,11 @@ package de.markusrother.pned.gui.components;
  */
 public interface MarkingComponentFactory {
 
-	/**
-	 * <p>newMarking.</p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.components.MarkingComponent} object.
-	 */
-	MarkingComponent newMarking();
+    /**
+     * <p>newMarking.</p>
+     *
+     * @return a {@link de.markusrother.pned.gui.components.MarkingComponent} object.
+     */
+    MarkingComponent newMarking();
 
 }

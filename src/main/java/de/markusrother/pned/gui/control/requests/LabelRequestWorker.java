@@ -12,25 +12,25 @@ import de.markusrother.pned.gui.components.LabelComponent;
  */
 public class LabelRequestWorker extends SwingWorker<LabelComponent, Object> {
 
-	private final LabelRequest request;
-	private final LabelRequestListener listener;
+    private final LabelRequest request;
+    private final LabelRequestListener listener;
 
-	/**
-	 * <p>Constructor for LabelRequestWorker.</p>
-	 *
-	 * @param request a {@link de.markusrother.pned.gui.control.requests.LabelRequest} object.
-	 * @param listener a {@link de.markusrother.pned.gui.control.requests.LabelRequestListener} object.
-	 */
-	public LabelRequestWorker(final LabelRequest request, final LabelRequestListener listener) {
-		this.request = request;
-		this.listener = listener;
-	}
+    /**
+     * <p>Constructor for LabelRequestWorker.</p>
+     *
+     * @param request a {@link de.markusrother.pned.gui.control.requests.LabelRequest} object.
+     * @param listener a {@link de.markusrother.pned.gui.control.requests.LabelRequestListener} object.
+     */
+    public LabelRequestWorker(final LabelRequest request, final LabelRequestListener listener) {
+        this.request = request;
+        this.listener = listener;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	protected LabelComponent doInBackground() throws Exception {
-		listener.requestLabel(request);
-		return request.get();
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected LabelComponent doInBackground() throws Exception {
+        listener.requestLabel(request);
+        return request.get();
+    }
 
 }

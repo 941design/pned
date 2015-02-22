@@ -13,12 +13,12 @@ import de.markusrother.pned.control.commands.CommandTarget;
  * @see de.markusrother.pned.control.EventAwarePetriNet
  */
 public interface PnCommandTarget
-	extends
-		CommandTarget,
-		LayoutCommandTarget,
-		PetriNetListener,
-		NodeListener {
+    extends
+        CommandTarget,
+        LayoutCommandTarget,
+        PetriNetListener,
+        NodeListener {
 
-	// NOTHING
+    // NOTHING
 
 }

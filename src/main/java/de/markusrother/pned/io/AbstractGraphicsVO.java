@@ -11,7 +11,7 @@ import java.awt.Point;
  * <pre>
  * ...
  * &lt;graphics&gt;
- * 	&lt;offset x="23" y="42"/&gt;
+ *     &lt;offset x="23" y="42"/&gt;
  * &lt;/graphics&gt;
  * ...
  * </pre>
@@ -23,41 +23,41 @@ import java.awt.Point;
  */
 public abstract class AbstractGraphicsVO {
 
-	/**
-	 * The graphic's coordinates.
-	 */
-	protected final LocationVO location;
+    /**
+     * The graphic's coordinates.
+     */
+    protected final LocationVO location;
 
-	/**
-	 * <p>
-	 * Default constructor needed by XmlMarshaller!
-	 * </p>
-	 */
-	protected AbstractGraphicsVO() {
-		// IGNORE
-		this.location = null;
-	}
+    /**
+     * <p>
+     * Default constructor needed by XmlMarshaller!
+     * </p>
+     */
+    protected AbstractGraphicsVO() {
+        // IGNORE
+        this.location = null;
+    }
 
-	/**
-	 * <p>
-	 * Constructor for AbstractGraphicsVO.
-	 * </p>
-	 *
-	 * @param point
-	 *            a {@link java.awt.Point} representing the graphic's
-	 *            coordinates.
-	 */
-	public AbstractGraphicsVO(final Point point) {
-		this.location = new LocationVO(point);
-	}
+    /**
+     * <p>
+     * Constructor for AbstractGraphicsVO.
+     * </p>
+     *
+     * @param point
+     *            a {@link java.awt.Point} representing the graphic's
+     *            coordinates.
+     */
+    public AbstractGraphicsVO(final Point point) {
+        this.location = new LocationVO(point);
+    }
 
-	/**
-	 * <p>
-	 * Getter for the field <code>location</code>.
-	 * </p>
-	 *
-	 * @return a {@link de.markusrother.pned.io.LocationVO} value object
-	 *         representing the graphic's coordinates.
-	 */
-	abstract LocationVO getLocation();
+    /**
+     * <p>
+     * Getter for the field <code>location</code>.
+     * </p>
+     *
+     * @return a {@link de.markusrother.pned.io.LocationVO} value object
+     *         representing the graphic's coordinates.
+     */
+    abstract LocationVO getLocation();
 }

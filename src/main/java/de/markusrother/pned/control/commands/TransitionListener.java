@@ -12,19 +12,19 @@ import java.util.EventListener;
  * @see de.markusrother.pned.control.EventBus
  */
 public interface TransitionListener
-	extends
-		EventListener {
+    extends
+        EventListener {
 
-	/**
-	 * <p>
-	 * fireTransition.
-	 * </p>
-	 *
-	 * @param cmd
-	 *            a
-	 *            {@link de.markusrother.pned.control.commands.TransitionExecutionCommand}
-	 *            object.
-	 */
-	void fireTransition(TransitionExecutionCommand cmd);
+    /**
+     * <p>
+     * fireTransition.
+     * </p>
+     *
+     * @param cmd
+     *            a
+     *            {@link de.markusrother.pned.control.commands.TransitionExecutionCommand}
+     *            object.
+     */
+    void fireTransition(TransitionExecutionCommand cmd);
 
 }

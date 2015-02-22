@@ -14,56 +14,56 @@ import de.markusrother.swing.ChangeEventSource;
  * @see java.awt.Font
  */
 public interface FontModel
-	extends
-		ChangeEventSource {
+    extends
+        ChangeEventSource {
 
-	/**
-	 * <p>
-	 * Gets current font.
-	 * </p>
-	 *
-	 * @return a {@link java.awt.Font} - the current font.
-	 */
-	Font getFont();
+    /**
+     * <p>
+     * Gets current font.
+     * </p>
+     *
+     * @return a {@link java.awt.Font} - the current font.
+     */
+    Font getFont();
 
-	/**
-	 * <p>
-	 * Gets current font name.
-	 * </p>
-	 *
-	 * @return a {@link java.lang.String} - the current font name.
-	 */
-	String getFontName();
+    /**
+     * <p>
+     * Gets current font name.
+     * </p>
+     *
+     * @return a {@link java.lang.String} - the current font name.
+     */
+    String getFontName();
 
-	/**
-	 * <p>
-	 * Sets new font name.
-	 * </p>
-	 *
-	 * @param fontName
-	 *            a {@link java.lang.String} - the new font name.
-	 */
-	void setFontName(String fontName);
+    /**
+     * <p>
+     * Sets new font name.
+     * </p>
+     *
+     * @param fontName
+     *            a {@link java.lang.String} - the new font name.
+     */
+    void setFontName(String fontName);
 
-	/**
-	 * <p>
-	 * Gets current font style.
-	 * </p>
-	 *
-	 * @return a int - the current font style.
-	 * @see java.awt.Font
-	 */
-	int getFontStyle();
+    /**
+     * <p>
+     * Gets current font style.
+     * </p>
+     *
+     * @return a int - the current font style.
+     * @see java.awt.Font
+     */
+    int getFontStyle();
 
-	/**
-	 * <p>
-	 * Sets new font style.
-	 * </p>
-	 *
-	 * @param fontStyle
-	 *            a int - the new font style.
-	 * @see java.awt.Font
-	 */
-	void setFontStyle(int fontStyle);
+    /**
+     * <p>
+     * Sets new font style.
+     * </p>
+     *
+     * @param fontStyle
+     *            a int - the new font style.
+     * @see java.awt.Font
+     */
+    void setFontStyle(int fontStyle);
 
 }

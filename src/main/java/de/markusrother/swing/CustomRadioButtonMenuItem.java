@@ -15,18 +15,18 @@ import javax.swing.JRadioButtonMenuItem;
  */
 public class CustomRadioButtonMenuItem extends JRadioButtonMenuItem {
 
-	/**
-	 * <p>
-	 * Constructor for CustomRadioButtonMenuItem.
-	 * </p>
-	 *
-	 * @param action
-	 *            a {@link javax.swing.AbstractAction} object.
-	 */
-	public CustomRadioButtonMenuItem(final AbstractAction action) {
-		super(action);
-		setUI(new CustomRadioButtonMenuItemUI(this));
-		addMouseListener((MouseListener) ui);
-	}
+    /**
+     * <p>
+     * Constructor for CustomRadioButtonMenuItem.
+     * </p>
+     *
+     * @param action
+     *            a {@link javax.swing.AbstractAction} object.
+     */
+    public CustomRadioButtonMenuItem(final AbstractAction action) {
+        super(action);
+        setUI(new CustomRadioButtonMenuItemUI(this));
+        addMouseListener((MouseListener) ui);
+    }
 
 }

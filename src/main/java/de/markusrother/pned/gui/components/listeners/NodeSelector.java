@@ -22,62 +22,62 @@ import de.markusrother.swing.Selector;
  */
 public class NodeSelector extends Selector<AbstractNodeComponent> {
 
-	private final PnEventTarget eventTarget;
+    private final PnEventTarget eventTarget;
 
-	/**
-	 * <p>
-	 * Constructor for NodeSelector.
-	 * </p>
-	 *
-	 * @param eventTarget
-	 *            a {@link de.markusrother.pned.control.EventBus} object.
-	 */
-	public NodeSelector(final PnEventTarget eventTarget) {
-		super(AbstractNodeComponent.class);
-		this.eventTarget = eventTarget;
-	}
+    /**
+     * <p>
+     * Constructor for NodeSelector.
+     * </p>
+     *
+     * @param eventTarget
+     *            a {@link de.markusrother.pned.control.EventBus} object.
+     */
+    public NodeSelector(final PnEventTarget eventTarget) {
+        super(AbstractNodeComponent.class);
+        this.eventTarget = eventTarget;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * Called when starting a new selection by drag and drop movement, canceling
-	 * previous selection if any.
-	 */
-	@Override
-	protected void startedSelection() {
-		eventTarget.nodeSelectionCancelled(new NodeMultiSelectionEvent(CANCEL, this));
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * Called when starting a new selection by drag and drop movement, canceling
+     * previous selection if any.
+     */
+    @Override
+    protected void startedSelection() {
+        eventTarget.nodeSelectionCancelled(new NodeMultiSelectionEvent(CANCEL, this));
+    }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * Called for every incremental addition of nodes during a drag and drop
-	 * operation.
-	 */
-	@Override
-	protected void addedToSelection(final Collection<AbstractNodeComponent> nodes) {
-		eventTarget.nodesSelected(new NodeMultiSelectionEvent(SELECT, this, nodes));
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * Called for every incremental addition of nodes during a drag and drop
+     * operation.
+     */
+    @Override
+    protected void addedToSelection(final Collection<AbstractNodeComponent> nodes) {
+        eventTarget.nodesSelected(new NodeMultiSelectionEvent(SELECT, this, nodes));
+    }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * Called for every incremental removal of nodes during a drag and drop
-	 * operation.
-	 */
-	@Override
-	protected void removedFromSelection(final Collection<AbstractNodeComponent> nodes) {
-		eventTarget.nodesUnselected(new NodeMultiSelectionEvent(DESELECT, this, nodes));
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * Called for every incremental removal of nodes during a drag and drop
+     * operation.
+     */
+    @Override
+    protected void removedFromSelection(final Collection<AbstractNodeComponent> nodes) {
+        eventTarget.nodesUnselected(new NodeMultiSelectionEvent(DESELECT, this, nodes));
+    }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * Called upon finishing the drag and drop operation.
-	 */
-	@Override
-	protected void finishedSelection(final Collection<AbstractNodeComponent> nodes) {
-		eventTarget.nodeSelectionFinished(new NodeMultiSelectionEvent(FINISH, this, nodes));
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * Called upon finishing the drag and drop operation.
+     */
+    @Override
+    protected void finishedSelection(final Collection<AbstractNodeComponent> nodes) {
+        eventTarget.nodeSelectionFinished(new NodeMultiSelectionEvent(FINISH, this, nodes));
+    }
 
 }

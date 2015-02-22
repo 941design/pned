@@ -12,16 +12,16 @@ import de.markusrother.pned.core.DefaultPlace;
  */
 public class PlaceMarshaller extends XmlAdapter<PlaceVO, DefaultPlace> {
 
-	/** {@inheritDoc} */
-	@Override
-	public DefaultPlace unmarshal(final PlaceVO v) throws Exception {
-		throw new UnsupportedOperationException("TODO");
-	}
+    /** {@inheritDoc} */
+    @Override
+    public DefaultPlace unmarshal(final PlaceVO v) throws Exception {
+        throw new UnsupportedOperationException("TODO");
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public PlaceVO marshal(final DefaultPlace place) {
-		return new PlaceVO(place);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public PlaceVO marshal(final DefaultPlace place) {
+        return new PlaceVO(place);
+    }
 
 }

@@ -14,17 +14,17 @@ import de.markusrother.swing.ChangeEventSource;
  * @version 1.0
  */
 public interface Stylable<T extends ChangeEventSource>
-	extends
-		ChangeListener {
+    extends
+        ChangeListener {
 
-	/**
-	 * <p>
-	 * Sets new style.
-	 * </p>
-	 *
-	 * @param style
-	 *            a T object.
-	 */
-	void setStyle(T style);
+    /**
+     * <p>
+     * Sets new style.
+     * </p>
+     *
+     * @param style
+     *            a T object.
+     */
+    void setStyle(T style);
 
 }

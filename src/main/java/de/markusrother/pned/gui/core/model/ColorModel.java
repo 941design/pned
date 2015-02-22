@@ -14,26 +14,26 @@ import de.markusrother.swing.ChangeEventSource;
  * @version 1.0
  */
 public interface ColorModel
-	extends
-		ChangeEventSource {
+    extends
+        ChangeEventSource {
 
-	/**
-	 * <p>
-	 * Returns this objects color.
-	 * </p>
-	 *
-	 * @return a {@link java.awt.Color} - the objects current color.
-	 */
-	Color getColor();
+    /**
+     * <p>
+     * Returns this objects color.
+     * </p>
+     *
+     * @return a {@link java.awt.Color} - the objects current color.
+     */
+    Color getColor();
 
-	/**
-	 * <p>
-	 * Sets this objects color.
-	 * </p>
-	 *
-	 * @param color
-	 *            a {@link java.awt.Color} - the objects new color.
-	 */
-	void setColor(Color color);
+    /**
+     * <p>
+     * Sets this objects color.
+     * </p>
+     *
+     * @param color
+     *            a {@link java.awt.Color} - the objects new color.
+     */
+    void setColor(Color color);
 
 }

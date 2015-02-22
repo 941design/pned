@@ -13,10 +13,10 @@ package de.markusrother.pned.control.events;
  * @see de.markusrother.pned.control.EventAwarePetriNet
  */
 public interface EventTarget
-	extends
-		MarkingEventListener,
-		TransitionActivationListener {
+    extends
+        MarkingEventListener,
+        TransitionActivationListener {
 
-	// NOTHING
+    // NOTHING
 
 }

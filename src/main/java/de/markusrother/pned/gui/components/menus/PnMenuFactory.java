@@ -15,66 +15,66 @@ import de.markusrother.pned.gui.control.PnState;
  */
 public class PnMenuFactory {
 
-	private final EditMenuFactory editMenuFactory;
-	private final PnState state;
+    private final EditMenuFactory editMenuFactory;
+    private final PnState state;
 
-	/**
-	 * <p>
-	 * Constructor for PnEditorMenuFactory.
-	 * </p>
-	 *
-	 * @param state
-	 *            a {@link de.markusrother.pned.gui.control.PnState} object.
-	 */
-	public PnMenuFactory(final PnState state) {
-		this.state = state;
-		this.editMenuFactory = new EditMenuFactory(state);
-	}
+    /**
+     * <p>
+     * Constructor for PnEditorMenuFactory.
+     * </p>
+     *
+     * @param state
+     *            a {@link de.markusrother.pned.gui.control.PnState} object.
+     */
+    public PnMenuFactory(final PnState state) {
+        this.state = state;
+        this.editMenuFactory = new EditMenuFactory(state);
+    }
 
-	/**
-	 * <p>
-	 * newEditMenu.
-	 * </p>
-	 *
-	 * @return a {@link javax.swing.JMenu} object.
-	 */
-	public JMenu newEditMenu() {
-		return editMenuFactory.newMenu();
-	}
+    /**
+     * <p>
+     * newEditMenu.
+     * </p>
+     *
+     * @return a {@link javax.swing.JMenu} object.
+     */
+    public JMenu newEditMenu() {
+        return editMenuFactory.newMenu();
+    }
 
-	/**
-	 * <p>
-	 * newFileMenu.
-	 * </p>
-	 *
-	 * @return a {@link javax.swing.JMenu} object.
-	 */
-	public JMenu newFileMenu() {
-		return new PnFileMenu(state, state.getEventBus());
-	}
+    /**
+     * <p>
+     * newFileMenu.
+     * </p>
+     *
+     * @return a {@link javax.swing.JMenu} object.
+     */
+    public JMenu newFileMenu() {
+        return new PnFileMenu(state, state.getEventBus());
+    }
 
-	/**
-	 * <p>
-	 * newPreferencesMenu.
-	 * </p>
-	 *
-	 * @return a {@link javax.swing.JMenu} object.
-	 */
-	public JMenu newPreferencesMenu() {
-		return new PnPreferencesMenu(state, state.getEventBus());
-	}
+    /**
+     * <p>
+     * newPreferencesMenu.
+     * </p>
+     *
+     * @return a {@link javax.swing.JMenu} object.
+     */
+    public JMenu newPreferencesMenu() {
+        return new PnPreferencesMenu(state, state.getEventBus());
+    }
 
-	/**
-	 * <p>
-	 * newPopupMenu.
-	 * </p>
-	 *
-	 * @param point
-	 *            a {@link java.awt.Point} - at which to show the popup.
-	 * @return a {@link javax.swing.JPopupMenu} object.
-	 */
-	public JPopupMenu newPopupMenu(final Point point) {
-		return editMenuFactory.newPopupMenu(point);
-	}
+    /**
+     * <p>
+     * newPopupMenu.
+     * </p>
+     *
+     * @param point
+     *            a {@link java.awt.Point} - at which to show the popup.
+     * @return a {@link javax.swing.JPopupMenu} object.
+     */
+    public JPopupMenu newPopupMenu(final Point point) {
+        return editMenuFactory.newPopupMenu(point);
+    }
 
 }

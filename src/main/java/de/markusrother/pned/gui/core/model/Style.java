@@ -15,13 +15,13 @@ import java.awt.Component;
 @Deprecated
 public interface Style<T extends Component> {
 
-	/**
-	 * <p>
-	 * apply.
-	 * </p>
-	 *
-	 * @param t
-	 *            a T object.
-	 */
-	void apply(T t);
+    /**
+     * <p>
+     * apply.
+     * </p>
+     *
+     * @param t
+     *            a T object.
+     */
+    void apply(T t);
 }

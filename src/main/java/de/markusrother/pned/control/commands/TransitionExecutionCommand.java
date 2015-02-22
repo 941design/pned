@@ -17,51 +17,51 @@ import de.markusrother.util.JsonSerializable;
  * @see de.markusrother.pned.control.commands.TransitionListener
  */
 public class TransitionExecutionCommand extends EventObject
-	implements
-		JsonSerializable {
+    implements
+        JsonSerializable {
 
-	private final String transitionId;
+    private final String transitionId;
 
-	/**
-	 * <p>
-	 * Constructor for TransitionExecutionCommand.
-	 * </p>
-	 *
-	 * @param source
-	 *            a {@link java.lang.Object} - this event's source.
-	 * @param transitionId
-	 *            a {@link java.lang.String} - the unique identifier of the
-	 *            transition to be fired.
-	 */
-	public TransitionExecutionCommand(final Object source, final String transitionId) {
-		super(source);
-		this.transitionId = transitionId;
-	}
+    /**
+     * <p>
+     * Constructor for TransitionExecutionCommand.
+     * </p>
+     *
+     * @param source
+     *            a {@link java.lang.Object} - this event's source.
+     * @param transitionId
+     *            a {@link java.lang.String} - the unique identifier of the
+     *            transition to be fired.
+     */
+    public TransitionExecutionCommand(final Object source, final String transitionId) {
+        super(source);
+        this.transitionId = transitionId;
+    }
 
-	/**
-	 * <p>
-	 * Getter for the field <code>transitionId</code>.
-	 * </p>
-	 *
-	 * @return a {@link java.lang.String} - the unique identifier of the
-	 *         transition to be fired.
-	 */
-	public String getTransitionId() {
-		return transitionId;
-	}
+    /**
+     * <p>
+     * Getter for the field <code>transitionId</code>.
+     * </p>
+     *
+     * @return a {@link java.lang.String} - the unique identifier of the
+     *         transition to be fired.
+     */
+    public String getTransitionId() {
+        return transitionId;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + ':' + toJson();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + ':' + toJson();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public String toJson() {
-		final JsonBuilder builder = new JsonBuilder();
-		return builder.append("transitionId", transitionId) //
-				.toString();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public String toJson() {
+        final JsonBuilder builder = new JsonBuilder();
+        return builder.append("transitionId", transitionId) //
+                .toString();
+    }
 
 }

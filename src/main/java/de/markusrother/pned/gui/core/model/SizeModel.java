@@ -11,26 +11,26 @@ import de.markusrother.swing.ChangeEventSource;
  * @version 1.0
  */
 public interface SizeModel
-	extends
-		ChangeEventSource {
+    extends
+        ChangeEventSource {
 
-	/**
-	 * <p>
-	 * Returns current size.
-	 * </p>
-	 *
-	 * @return a int - an implementor defined measure.
-	 */
-	int getSize();
+    /**
+     * <p>
+     * Returns current size.
+     * </p>
+     *
+     * @return a int - an implementor defined measure.
+     */
+    int getSize();
 
-	/**
-	 * <p>
-	 * Sets new size.
-	 * </p>
-	 *
-	 * @param size
-	 *            a int - an implementor defined measure.
-	 */
-	void setSize(int size);
+    /**
+     * <p>
+     * Sets new size.
+     * </p>
+     *
+     * @param size
+     *            a int - an implementor defined measure.
+     */
+    void setSize(int size);
 
 }

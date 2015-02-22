@@ -20,28 +20,28 @@ import de.markusrother.pned.gui.core.model.PnStateModel;
  */
 public class PnFileMenu extends JMenu {
 
-	/** Constant <code>label="File"</code> */
-	private static final String label = "File";
+    /** Constant <code>label="File"</code> */
+    private static final String label = "File";
 
-	/**
-	 * <p>
-	 * Constructor for PnedFileMenu.
-	 * </p>
-	 *
-	 * @param commandTarget
-	 *            a
-	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
-	 *            object.
-	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
-	 */
-	PnFileMenu(final PnStateModel state, final PnCommandTarget commandTarget) {
-		super(label);
+    /**
+     * <p>
+     * Constructor for PnedFileMenu.
+     * </p>
+     *
+     * @param commandTarget
+     *            a
+     *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
+     *            object.
+     * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
+     */
+    PnFileMenu(final PnStateModel state, final PnCommandTarget commandTarget) {
+        super(label);
 
-		setMnemonic(KeyEvent.VK_F);
+        setMnemonic(KeyEvent.VK_F);
 
-		add(CreatePetriNetAction.newMenuItem(state, commandTarget));
-		add(OpenImportDialogAction.newMenuItem(state, commandTarget));
-		add(OpenExportDialogAction.newMenuItem(state, commandTarget));
-	}
+        add(CreatePetriNetAction.newMenuItem(state, commandTarget));
+        add(OpenImportDialogAction.newMenuItem(state, commandTarget));
+        add(OpenExportDialogAction.newMenuItem(state, commandTarget));
+    }
 
 }

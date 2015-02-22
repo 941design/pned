@@ -9,14 +9,14 @@ import java.util.EventListener;
  * @version 1.0
  */
 public interface EdgeLayoutListener
-	extends
-		EventListener {
+    extends
+        EventListener {
 
-	/**
-	 * <p>setSize.</p>
-	 *
-	 * @param cmd a {@link de.markusrother.pned.gui.control.commands.EdgeLayoutCommand} object.
-	 */
-	void setSize(EdgeLayoutCommand cmd);
+    /**
+     * <p>setSize.</p>
+     *
+     * @param cmd a {@link de.markusrother.pned.gui.control.commands.EdgeLayoutCommand} object.
+     */
+    void setSize(EdgeLayoutCommand cmd);
 
 }

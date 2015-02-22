@@ -12,19 +12,19 @@ import java.util.EventListener;
  * @see de.markusrother.pned.control.EventBus
  */
 public interface MarkingEditListener
-	extends
-		EventListener {
+    extends
+        EventListener {
 
-	/**
-	 * <p>
-	 * setMarking.
-	 * </p>
-	 *
-	 * @param evt
-	 *            a
-	 *            {@link de.markusrother.pned.control.commands.MarkingEditCommand}
-	 *            object.
-	 */
-	void setMarking(MarkingEditCommand evt);
+    /**
+     * <p>
+     * setMarking.
+     * </p>
+     *
+     * @param evt
+     *            a
+     *            {@link de.markusrother.pned.control.commands.MarkingEditCommand}
+     *            object.
+     */
+    void setMarking(MarkingEditCommand evt);
 
 }

@@ -8,11 +8,11 @@ package de.markusrother.pned.gui.components;
  */
 interface Disposable {
 
-	/**
-	 * <p>
-	 * dispose.
-	 * </p>
-	 */
-	void dispose();
+    /**
+     * <p>
+     * dispose.
+     * </p>
+     */
+    void dispose();
 
 }

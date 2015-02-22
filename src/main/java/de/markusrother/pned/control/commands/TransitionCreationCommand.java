@@ -15,22 +15,22 @@ import java.awt.Point;
  */
 public class TransitionCreationCommand extends AbstractNodeCreationCommand {
 
-	/**
-	 * <p>
-	 * Constructor for TransitionCreationCommand.
-	 * </p>
-	 *
-	 * @param source
-	 *            a {@link java.lang.Object} - this event's source.
-	 * @param nodeId
-	 *            a {@link java.lang.String} - the unique identifier of the
-	 *            transition.
-	 * @param point
-	 *            a {@link java.awt.Point} - the location at which to create the
-	 *            new transition.
-	 */
-	public TransitionCreationCommand(final Object source, final String nodeId, final Point point) {
-		super(source, nodeId, point);
-	}
+    /**
+     * <p>
+     * Constructor for TransitionCreationCommand.
+     * </p>
+     *
+     * @param source
+     *            a {@link java.lang.Object} - this event's source.
+     * @param nodeId
+     *            a {@link java.lang.String} - the unique identifier of the
+     *            transition.
+     * @param point
+     *            a {@link java.awt.Point} - the location at which to create the
+     *            new transition.
+     */
+    public TransitionCreationCommand(final Object source, final String nodeId, final Point point) {
+        super(source, nodeId, point);
+    }
 
 }

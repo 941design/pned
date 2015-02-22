@@ -9,9 +9,9 @@ package de.markusrother.pned.core.model;
  * @version 1.0
  */
 public interface TransitionModel
-	extends
-		NodeModel {
+    extends
+        NodeModel {
 
-	// NOTHING
+    // NOTHING
 
 }

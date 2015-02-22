@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
  * <pre>
  * ...
  * &lt;graphics&gt;
- * 	&lt;position x="23" y="42"/&gt;
+ *     &lt;position x="23" y="42"/&gt;
  * &lt;/graphics&gt;
  * ...
  * </pre>
@@ -25,33 +25,33 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class AbsoluteGraphicsVO extends AbstractGraphicsVO {
 
-	/**
-	 * <p>
-	 * Default constructor needed by XmlMarshaller!
-	 * </p>
-	 */
-	private @SuppressWarnings("unused") AbsoluteGraphicsVO() {
-		// IGNORE
-	}
+    /**
+     * <p>
+     * Default constructor needed by XmlMarshaller!
+     * </p>
+     */
+    private @SuppressWarnings("unused") AbsoluteGraphicsVO() {
+        // IGNORE
+    }
 
-	/**
-	 * <p>
-	 * Constructor for AbsoluteGraphicsVO.
-	 * </p>
-	 *
-	 * @param point
-	 *            a {@link java.awt.Point} representing the graphic's absolute
-	 *            coordinates.
-	 */
-	public AbsoluteGraphicsVO(final Point point) {
-		super(point);
-	}
+    /**
+     * <p>
+     * Constructor for AbsoluteGraphicsVO.
+     * </p>
+     *
+     * @param point
+     *            a {@link java.awt.Point} representing the graphic's absolute
+     *            coordinates.
+     */
+    public AbsoluteGraphicsVO(final Point point) {
+        super(point);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	@XmlElement(name = "position")
-	public LocationVO getLocation() {
-		return location;
-	}
+    /** {@inheritDoc} */
+    @Override
+    @XmlElement(name = "position")
+    public LocationVO getLocation() {
+        return location;
+    }
 
 }

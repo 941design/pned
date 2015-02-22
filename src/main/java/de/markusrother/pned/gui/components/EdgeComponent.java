@@ -50,562 +50,562 @@ import de.markusrother.util.JsonSerializable;
  * @version 1.0
  */
 public class EdgeComponent extends AbstractEdgeComponent<AbstractNodeComponent, AbstractNodeComponent>
-	implements
-		NodeRemovalListener,
-		EdgeCreationListener,
-		EdgeEditListener,
-		EdgeRequestListener,
-		PlaceLayoutListener,
-		TransitionLayoutListener,
-		Stylable<EdgeStyleModel>,
-		JsonSerializable,
-		Disposable,
-		ComponentListener {
+    implements
+        NodeRemovalListener,
+        EdgeCreationListener,
+        EdgeEditListener,
+        EdgeRequestListener,
+        PlaceLayoutListener,
+        TransitionLayoutListener,
+        Stylable<EdgeStyleModel>,
+        JsonSerializable,
+        Disposable,
+        ComponentListener {
 
-	/** Constant <code>NO_TARGET_COMPONENT</code> */
-	private static final AbstractNodeComponent NO_TARGET_COMPONENT = null;
-	/** Constant <code>NO_ID=""</code> */
-	private static final String NO_ID = "";
+    /** Constant <code>NO_TARGET_COMPONENT</code> */
+    private static final AbstractNodeComponent NO_TARGET_COMPONENT = null;
+    /** Constant <code>NO_ID=""</code> */
+    private static final String NO_ID = "";
 
-	private Shape tip;
-	private Line2D line;
-	private ComponentState state;
+    private Shape tip;
+    private Line2D line;
+    private ComponentState state;
 
-	private final EventBus eventBus;
-	private EdgeStyleModel style;
-	private final String id;
+    private final EventBus eventBus;
+    private EdgeStyleModel style;
+    private final String id;
 
-	/**
-	 * <p>
-	 * Constructor for EdgeComponent.
-	 * </p>
-	 *
-	 * @param eventBus
-	 *            a {@link de.markusrother.pned.control.EventBus} object.
-	 * @param style
-	 *            a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
-	 *            object.
-	 * @param sourceComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param source
-	 *            a {@link java.awt.Point} object.
-	 * @param target
-	 *            a {@link java.awt.Point} object.
-	 */
-	public EdgeComponent(final EventBus eventBus,
-			final EdgeStyleModel style,
-			final AbstractNodeComponent sourceComponent,
-			final Point source,
-			final Point target) {
-		this(eventBus, NO_ID, style, sourceComponent, NO_TARGET_COMPONENT, source, target);
-	}
+    /**
+     * <p>
+     * Constructor for EdgeComponent.
+     * </p>
+     *
+     * @param eventBus
+     *            a {@link de.markusrother.pned.control.EventBus} object.
+     * @param style
+     *            a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
+     *            object.
+     * @param sourceComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param source
+     *            a {@link java.awt.Point} object.
+     * @param target
+     *            a {@link java.awt.Point} object.
+     */
+    public EdgeComponent(final EventBus eventBus,
+            final EdgeStyleModel style,
+            final AbstractNodeComponent sourceComponent,
+            final Point source,
+            final Point target) {
+        this(eventBus, NO_ID, style, sourceComponent, NO_TARGET_COMPONENT, source, target);
+    }
 
-	/**
-	 * <p>
-	 * Constructor for EdgeComponent.
-	 * </p>
-	 *
-	 * @param eventBus
-	 *            a {@link de.markusrother.pned.control.EventBus} object.
-	 * @param sourceComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param targetComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param id
-	 *            a {@link java.lang.String} object.
-	 * @param style
-	 *            a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
-	 *            object.
-	 */
-	public EdgeComponent(final EventBus eventBus,
-			final String id,
-			final EdgeStyleModel style,
-			final AbstractNodeComponent sourceComponent,
-			final AbstractNodeComponent targetComponent) {
-		this(eventBus, id, style, sourceComponent, targetComponent, getCenter(sourceComponent),
-				getCenter(targetComponent));
-		reconnect();
-	}
+    /**
+     * <p>
+     * Constructor for EdgeComponent.
+     * </p>
+     *
+     * @param eventBus
+     *            a {@link de.markusrother.pned.control.EventBus} object.
+     * @param sourceComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param targetComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param id
+     *            a {@link java.lang.String} object.
+     * @param style
+     *            a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
+     *            object.
+     */
+    public EdgeComponent(final EventBus eventBus,
+            final String id,
+            final EdgeStyleModel style,
+            final AbstractNodeComponent sourceComponent,
+            final AbstractNodeComponent targetComponent) {
+        this(eventBus, id, style, sourceComponent, targetComponent, getCenter(sourceComponent),
+                getCenter(targetComponent));
+        reconnect();
+    }
 
-	/**
-	 * <p>
-	 * Constructor for EdgeComponent.
-	 * </p>
-	 *
-	 * @param eventBus
-	 *            a {@link de.markusrother.pned.control.EventBus} object.
-	 * @param style
-	 *            a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
-	 *            object.
-	 * @param sourceComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param sourceComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param targetComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param targetComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param sourceComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param sourceComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param sourceComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param sourceComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param source
-	 *            a {@link java.awt.Point} object.
-	 * @param targetComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param targetComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param targetComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param targetComponent
-	 *            a
-	 *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
-	 *            object.
-	 * @param target
-	 *            a {@link java.awt.Point} object.
-	 * @param id
-	 *            a {@link java.lang.String} object.
-	 */
-	private EdgeComponent(final EventBus eventBus,
-			final String id,
-			final EdgeStyleModel style,
-			final AbstractNodeComponent sourceComponent,
-			final AbstractNodeComponent targetComponent,
-			final Point source,
-			final Point target) {
-		super(sourceComponent, targetComponent, source, target);
+    /**
+     * <p>
+     * Constructor for EdgeComponent.
+     * </p>
+     *
+     * @param eventBus
+     *            a {@link de.markusrother.pned.control.EventBus} object.
+     * @param style
+     *            a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
+     *            object.
+     * @param sourceComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param sourceComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param targetComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param targetComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param sourceComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param sourceComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param sourceComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param sourceComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param source
+     *            a {@link java.awt.Point} object.
+     * @param targetComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param targetComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param targetComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param targetComponent
+     *            a
+     *            {@link de.markusrother.pned.gui.components.AbstractNodeComponent}
+     *            object.
+     * @param target
+     *            a {@link java.awt.Point} object.
+     * @param id
+     *            a {@link java.lang.String} object.
+     */
+    private EdgeComponent(final EventBus eventBus,
+            final String id,
+            final EdgeStyleModel style,
+            final AbstractNodeComponent sourceComponent,
+            final AbstractNodeComponent targetComponent,
+            final Point source,
+            final Point target) {
+        super(sourceComponent, targetComponent, source, target);
 
-		this.eventBus = eventBus;
-		this.id = id;
+        this.eventBus = eventBus;
+        this.id = id;
 
-		setStyle(style);
-		setState(ComponentState.DEFAULT);
+        setStyle(style);
+        setState(ComponentState.DEFAULT);
 
-		eventBus.addListener(EdgeCreationListener.class, this);
-		eventBus.addListener(NodeRemovalListener.class, this);
-		eventBus.addListener(PlaceLayoutListener.class, this);
-		eventBus.addListener(TransitionLayoutListener.class, this);
-		eventBus.addListener(EdgeEditListener.class, this);
-		eventBus.addListener(EdgeRequestListener.class, this);
+        eventBus.addListener(EdgeCreationListener.class, this);
+        eventBus.addListener(NodeRemovalListener.class, this);
+        eventBus.addListener(PlaceLayoutListener.class, this);
+        eventBus.addListener(TransitionLayoutListener.class, this);
+        eventBus.addListener(EdgeEditListener.class, this);
+        eventBus.addListener(EdgeRequestListener.class, this);
 
-		sourceComponent.addComponentListener(this);
-		if (targetComponent != null) {
-			// This check will become obsolete, once we have an
-			// UnfinishedEdgeComponent class.
-			targetComponent.addComponentListener(this);
-		}
-	}
+        sourceComponent.addComponentListener(this);
+        if (targetComponent != null) {
+            // This check will become obsolete, once we have an
+            // UnfinishedEdgeComponent class.
+            targetComponent.addComponentListener(this);
+        }
+    }
 
-	/**
-	 * <p>
-	 * getSourceId.
-	 * </p>
-	 *
-	 * @return a {@link java.lang.String} - the source node's unique identifier.
-	 */
-	public String getSourceId() {
-		return sourceComponent.getId();
-	}
+    /**
+     * <p>
+     * getSourceId.
+     * </p>
+     *
+     * @return a {@link java.lang.String} - the source node's unique identifier.
+     */
+    public String getSourceId() {
+        return sourceComponent.getId();
+    }
 
-	/**
-	 * <p>
-	 * getTargetId.
-	 * </p>
-	 *
-	 * @return a {@link java.lang.String} - the target node's unique identifier.
-	 */
-	public String getTargetId() {
-		return targetComponent == null ? null : targetComponent.getId();
-	}
+    /**
+     * <p>
+     * getTargetId.
+     * </p>
+     *
+     * @return a {@link java.lang.String} - the target node's unique identifier.
+     */
+    public String getTargetId() {
+        return targetComponent == null ? null : targetComponent.getId();
+    }
 
-	/**
-	 * <p>
-	 * Getter for the field <code>state</code>.
-	 * </p>
-	 *
-	 * @return a {@link de.markusrother.pned.gui.components.ComponentState}
-	 *         object.
-	 */
-	public ComponentState getState() {
-		return state;
-	}
+    /**
+     * <p>
+     * Getter for the field <code>state</code>.
+     * </p>
+     *
+     * @return a {@link de.markusrother.pned.gui.components.ComponentState}
+     *         object.
+     */
+    public ComponentState getState() {
+        return state;
+    }
 
-	/**
-	 * <p>
-	 * Setter for the field <code>state</code>.
-	 * </p>
-	 *
-	 * @param state
-	 *            a {@link de.markusrother.pned.gui.components.ComponentState}
-	 *            object.
-	 */
-	public void setState(final ComponentState state) {
-		this.state = state;
-	}
+    /**
+     * <p>
+     * Setter for the field <code>state</code>.
+     * </p>
+     *
+     * @param state
+     *            a {@link de.markusrother.pned.gui.components.ComponentState}
+     *            object.
+     */
+    public void setState(final ComponentState state) {
+        this.state = state;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	protected void paintComponent(final Graphics g) {
-		super.paintComponent(g);
-		switch (state) {
-		case HOVER:
-			g.setColor(style.getHoverColor());
-			break;
-		case INVALID:
-			g.setColor(style.getInvalidColor());
-			break;
-		case VALID:
-			g.setColor(style.getValidColor());
-			break;
-		case MULTI_SELECTED:
-		case SINGLE_SELECTED:
-		case DEFAULT:
-			g.setColor(style.getDefaultColor());
-			break;
-		default:
-			throw new IllegalStateException();
-		}
+    /** {@inheritDoc} */
+    @Override
+    protected void paintComponent(final Graphics g) {
+        super.paintComponent(g);
+        switch (state) {
+        case HOVER:
+            g.setColor(style.getHoverColor());
+            break;
+        case INVALID:
+            g.setColor(style.getInvalidColor());
+            break;
+        case VALID:
+            g.setColor(style.getValidColor());
+            break;
+        case MULTI_SELECTED:
+        case SINGLE_SELECTED:
+        case DEFAULT:
+            g.setColor(style.getDefaultColor());
+            break;
+        default:
+            throw new IllegalStateException();
+        }
 
-		final Graphics2D g2 = (Graphics2D) g;
+        final Graphics2D g2 = (Graphics2D) g;
 
-		// Draw line:
-		g2.setStroke(style.getStroke());
-		line = new Line2D.Double(source, target);
-		g2.draw(line);
+        // Draw line:
+        g2.setStroke(style.getStroke());
+        line = new Line2D.Double(source, target);
+        g2.draw(line);
 
-		// Draw tip:
-		g2.translate(target.x, target.y);
-		g2.rotate(getRadiansOfDelta(source, target));
-		g2.fill(style.getShape());
+        // Draw tip:
+        g2.translate(target.x, target.y);
+        g2.rotate(getRadiansOfDelta(source, target));
+        g2.fill(style.getShape());
 
-		// TODO - Currently the edge component is as large as the entire grid!
-		// We could optimize a little, here.
-	}
+        // TODO - Currently the edge component is as large as the entire grid!
+        // We could optimize a little, here.
+    }
 
-	/**
-	 * <p>
-	 * acceptsTarget.
-	 * </p>
-	 *
-	 * @param component
-	 *            a {@link java.awt.Component} object.
-	 * @return a boolean.
-	 */
-	public boolean acceptsTarget(final Component component) {
-		return component instanceof AbstractNodeComponent //
-				&& sourceComponent.getClass() != component.getClass();
-	}
+    /**
+     * <p>
+     * acceptsTarget.
+     * </p>
+     *
+     * @param component
+     *            a {@link java.awt.Component} object.
+     * @return a boolean.
+     */
+    public boolean acceptsTarget(final Component component) {
+        return component instanceof AbstractNodeComponent //
+                && sourceComponent.getClass() != component.getClass();
+    }
 
-	/**
-	 * <p>
-	 * edgeContains.
-	 * </p>
-	 *
-	 * @param point
-	 *            a {@link java.awt.Point} object.
-	 * @return a boolean.
-	 */
-	public boolean edgeContains(final Point point) {
-		// WTF !? line.contains(point) returns false, with the explanation:
-		// "lines never contain AREAS" WTF! A point is not an area...
-		// TODO - line thickness is variable!
-		return line != null && (line.ptSegDistSq(point) < 5 || tip.contains(point));
-	}
+    /**
+     * <p>
+     * edgeContains.
+     * </p>
+     *
+     * @param point
+     *            a {@link java.awt.Point} object.
+     * @return a boolean.
+     */
+    public boolean edgeContains(final Point point) {
+        // WTF !? line.contains(point) returns false, with the explanation:
+        // "lines never contain AREAS" WTF! A point is not an area...
+        // TODO - line thickness is variable!
+        return line != null && (line.ptSegDistSq(point) < 5 || tip.contains(point));
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void nodeRemoved(final NodeRemovalCommand e) {
-		final String sourceId = getSourceId();
-		final String targetId = getTargetId();
-		final String nodeId = e.getNodeId();
-		if (nodeId.equals(sourceId) || nodeId.equals(targetId)) {
-			dispose();
-		}
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void nodeRemoved(final NodeRemovalCommand e) {
+        final String sourceId = getSourceId();
+        final String targetId = getTargetId();
+        final String nodeId = e.getNodeId();
+        if (nodeId.equals(sourceId) || nodeId.equals(targetId)) {
+            dispose();
+        }
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
-		// IGNORE
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void removeSelectedNodes(final RemoveSelectedNodesEvent e) {
+        // IGNORE
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * Only used by unfinished edges!
-	 */
-	@Override
-	public void componentEntered(final EdgeEditEvent e) {
-		if (e.getEdge() != this) {
-			// IGNORE - Not interested in other edges events.
-			return;
-		}
-		if (acceptsTarget(e.getComponent())) {
-			setTargetComponent((AbstractNodeComponent) e.getComponent());
-			setState(ComponentState.VALID);
-		} else {
-			setState(ComponentState.INVALID);
-		}
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     * Only used by unfinished edges!
+     */
+    @Override
+    public void componentEntered(final EdgeEditEvent e) {
+        if (e.getEdge() != this) {
+            // IGNORE - Not interested in other edges events.
+            return;
+        }
+        if (acceptsTarget(e.getComponent())) {
+            setTargetComponent((AbstractNodeComponent) e.getComponent());
+            setState(ComponentState.VALID);
+        } else {
+            setState(ComponentState.INVALID);
+        }
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * Only used by unfinished edges!
-	 */
-	@Override
-	public void componentExited(final EdgeEditEvent e) {
-		if (e.getEdge() != this) {
-			// IGNORE - Not interested in other edges events.
-			return;
-		}
-		removeTargetComponent();
-		setState(ComponentState.DEFAULT);
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     * Only used by unfinished edges!
+     */
+    @Override
+    public void componentExited(final EdgeEditEvent e) {
+        if (e.getEdge() != this) {
+            // IGNORE - Not interested in other edges events.
+            return;
+        }
+        removeTargetComponent();
+        setState(ComponentState.DEFAULT);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * Only used by unfinished edges!
-	 */
-	@Override
-	public void edgeCancelled(final EdgeEditEvent e) {
-		if (e.getEdge() != this) {
-			// IGNORE - Not interested in other edges events.
-			return;
-		}
-		dispose();
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     * Only used by unfinished edges!
+     */
+    @Override
+    public void edgeCancelled(final EdgeEditEvent e) {
+        if (e.getEdge() != this) {
+            // IGNORE - Not interested in other edges events.
+            return;
+        }
+        dispose();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * Only used by unfinished edges!
-	 */
-	@Override
-	public void edgeFinished(final EdgeEditEvent e) {
-		if (e.getEdge() == this) {
-			dispose();
-		}
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * Only used by unfinished edges!
+     */
+    @Override
+    public void edgeFinished(final EdgeEditEvent e) {
+        if (e.getEdge() == this) {
+            dispose();
+        }
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void edgeStarted(final EdgeEditEvent e) {
-		// IGNORE - If we weren't started we would not exist...
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void edgeStarted(final EdgeEditEvent e) {
+        // IGNORE - If we weren't started we would not exist...
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void dispose() {
-		// TODO - create generic removeAllListeners()
-		eventBus.removeListener(EdgeCreationListener.class, this);
-		eventBus.removeListener(NodeRemovalListener.class, this);
-		eventBus.removeListener(PlaceLayoutListener.class, this);
-		eventBus.removeListener(TransitionLayoutListener.class, this);
-		eventBus.removeListener(EdgeEditListener.class, this);
+    /** {@inheritDoc} */
+    @Override
+    public void dispose() {
+        // TODO - create generic removeAllListeners()
+        eventBus.removeListener(EdgeCreationListener.class, this);
+        eventBus.removeListener(NodeRemovalListener.class, this);
+        eventBus.removeListener(PlaceLayoutListener.class, this);
+        eventBus.removeListener(TransitionLayoutListener.class, this);
+        eventBus.removeListener(EdgeEditListener.class, this);
 
-		sourceComponent.removeComponentListener(this);
-		if (targetComponent != null) {
-			// This check will become obsolete, once we have an
-			// UnfinishedEdgeComponent class.
-			targetComponent.removeComponentListener(this);
-		}
+        sourceComponent.removeComponentListener(this);
+        if (targetComponent != null) {
+            // This check will become obsolete, once we have an
+            // UnfinishedEdgeComponent class.
+            targetComponent.removeComponentListener(this);
+        }
 
-		// TODO - may require synchronization, if two removal events are fired
-		// before this is properly removed from eventBus.
-		final Container parent = getParent();
-		parent.remove(this);
-		parent.revalidate();
-		parent.repaint();
-	}
+        // TODO - may require synchronization, if two removal events are fired
+        // before this is properly removed from eventBus.
+        final Container parent = getParent();
+        parent.remove(this);
+        parent.revalidate();
+        parent.repaint();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * TODO - The problem is the order of events! We must respond after the node
-	 * responded to the resizing, otherwise it stays without effect! In practice
-	 * this may not be a problem, because nodes are always created before edges,
-	 * and hence precede in the listeners list, but that is coincidence and
-	 * fragile.
-	 */
-	@Override
-	public void setSize(final TransitionLayoutCommand cmd) {
-		reconnect();
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * TODO - The problem is the order of events! We must respond after the node
+     * responded to the resizing, otherwise it stays without effect! In practice
+     * this may not be a problem, because nodes are always created before edges,
+     * and hence precede in the listeners list, but that is coincidence and
+     * fragile.
+     */
+    @Override
+    public void setSize(final TransitionLayoutCommand cmd) {
+        reconnect();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * TODO - The problem is the order of events! We must respond after the node
-	 * responded to the resizing, otherwise it stays without effect! In practice
-	 * this may not be a problem, because nodes are always created before edges,
-	 * and hence precede in the listeners list, but that is coincidence and
-	 * fragile.
-	 */
-	@Override
-	public void setSize(final PlaceLayoutCommand cmd) {
-		reconnect();
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * TODO - The problem is the order of events! We must respond after the node
+     * responded to the resizing, otherwise it stays without effect! In practice
+     * this may not be a problem, because nodes are always created before edges,
+     * and hence precede in the listeners list, but that is coincidence and
+     * fragile.
+     */
+    @Override
+    public void setSize(final PlaceLayoutCommand cmd) {
+        reconnect();
+    }
 
-	/**
-	 * <p>
-	 * reconnect.
-	 * </p>
-	 */
-	private void reconnect() {
-		reconnectToSource();
-		reconnectToTarget();
-		repaint();
-	}
+    /**
+     * <p>
+     * reconnect.
+     * </p>
+     */
+    private void reconnect() {
+        reconnectToSource();
+        reconnectToTarget();
+        repaint();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void createEdge(final EdgeCreationCommand cmd) {
-		// IGNORE
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void createEdge(final EdgeCreationCommand cmd) {
+        // IGNORE
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void removeEdge(final EdgeRemoveCommand cmd) {
-		final String edgeId = cmd.getEdgeId();
-		if (this.id.equals(edgeId)) {
-			dispose();
-		}
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void removeEdge(final EdgeRemoveCommand cmd) {
+        final String edgeId = cmd.getEdgeId();
+        if (this.id.equals(edgeId)) {
+            dispose();
+        }
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void stateChanged(final ChangeEvent e) {
-		if (e.getSource() == this.style) {
-			invalidate();
-			repaint();
-		} else {
-			throw new RuntimeException("Unexpected event source " + e.getSource());
-		}
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void stateChanged(final ChangeEvent e) {
+        if (e.getSource() == this.style) {
+            invalidate();
+            repaint();
+        } else {
+            throw new RuntimeException("Unexpected event source " + e.getSource());
+        }
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setStyle(final EdgeStyleModel style) {
-		if (this.style != null) {
-			this.style.removeChangeListener(this);
-		}
-		this.style = style;
-		this.style.addChangeListener(this);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setStyle(final EdgeStyleModel style) {
+        if (this.style != null) {
+            this.style.removeChangeListener(this);
+        }
+        this.style = style;
+        this.style.addChangeListener(this);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + ": " + toJson();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + ": " + toJson();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public String toJson() {
-		final JsonBuilder builder = new JsonBuilder();
-		return builder.append("id", id) //
-				.append("sourceId", getSourceId()) //
-				.append("targetId", getTargetId()) //
-				.toString();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public String toJson() {
+        final JsonBuilder builder = new JsonBuilder();
+        return builder.append("id", id) //
+                .append("sourceId", getSourceId()) //
+                .append("targetId", getTargetId()) //
+                .toString();
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void componentResized(final ComponentEvent e) {
-		final Component component = e.getComponent();
-		final Container parent = getParent();
-		if (component == parent) {
-			// We must adjust our bounds, otherwise the edge component does not
-			// show when source or target are dragged out of bounds
-			setBounds(new Rectangle(new Point(0, 0), parent.getPreferredSize()));
-		} else {
-			// IGNORE
-		}
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void componentResized(final ComponentEvent e) {
+        final Component component = e.getComponent();
+        final Container parent = getParent();
+        if (component == parent) {
+            // We must adjust our bounds, otherwise the edge component does not
+            // show when source or target are dragged out of bounds
+            setBounds(new Rectangle(new Point(0, 0), parent.getPreferredSize()));
+        } else {
+            // IGNORE
+        }
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void componentMoved(final ComponentEvent e) {
-		final Component component = e.getComponent();
-		if (component == sourceComponent || component == targetComponent) {
-			reconnectToSource();
-			reconnectToTarget();
-			repaint();
-		} else {
-			// IGNORE
-		}
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void componentMoved(final ComponentEvent e) {
+        final Component component = e.getComponent();
+        if (component == sourceComponent || component == targetComponent) {
+            reconnectToSource();
+            reconnectToTarget();
+            repaint();
+        } else {
+            // IGNORE
+        }
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void componentShown(final ComponentEvent e) {
-		// IGNORE
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void componentShown(final ComponentEvent e) {
+        // IGNORE
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void componentHidden(final ComponentEvent e) {
-		// IGNORE
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void componentHidden(final ComponentEvent e) {
+        // IGNORE
+    }
 
-	/**
-	 * @param p
-	 *            a {@link java.awt.Point} object.
-	 * @return a boolean
-	 */
-	public boolean inHoverArea(final Point p) {
-		// TODO - currently unused
-		// TODO - adjust to flexible line thickness
-		final double dist = line.ptLineDist(p.x, p.y);
-		// Cosine of angle in source of triangle (source, target, p):
-		final double sourceCos = (source.distanceSq(p) + source.distanceSq(target) - target.distanceSq(p)) //
-				/ (2 * source.distance(p) * source.distance(target));
-		// Cosine of angle in target of triangle (source, target, p):
-		final double targetCos = (target.distanceSq(p) + target.distanceSq(source) - source.distanceSq(p)) //
-				/ (2 * target.distance(p) * target.distance(source));
-		return sourceCos > 0 && targetCos > 0 && dist <= 10;
-	}
+    /**
+     * @param p
+     *            a {@link java.awt.Point} object.
+     * @return a boolean
+     */
+    public boolean inHoverArea(final Point p) {
+        // TODO - currently unused
+        // TODO - adjust to flexible line thickness
+        final double dist = line.ptLineDist(p.x, p.y);
+        // Cosine of angle in source of triangle (source, target, p):
+        final double sourceCos = (source.distanceSq(p) + source.distanceSq(target) - target.distanceSq(p)) //
+                / (2 * source.distance(p) * source.distance(target));
+        // Cosine of angle in target of triangle (source, target, p):
+        final double targetCos = (target.distanceSq(p) + target.distanceSq(source) - source.distanceSq(p)) //
+                / (2 * target.distance(p) * target.distance(source));
+        return sourceCos > 0 && targetCos > 0 && dist <= 10;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void requestEdge(final EdgeRequest req) {
-		if (id.equals(req.getEdgeId())) {
-			req.set(this);
-		}
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void requestEdge(final EdgeRequest req) {
+        if (id.equals(req.getEdgeId())) {
+            req.set(this);
+        }
+    }
 
 }

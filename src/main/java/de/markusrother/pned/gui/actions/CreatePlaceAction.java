@@ -30,74 +30,74 @@ import de.markusrother.swing.CustomRadioButtonMenuItem;
  */
 public class CreatePlaceAction extends AbstractCreateNodeAction {
 
-	/** Constant <code>label="Create place"</code> */
-	private static final String label = "Create place";
-	/** Constant <code>mnemonic=KeyEvent.VK_P</code> */
-	private static final int mnemonic = KeyEvent.VK_P;
+    /** Constant <code>label="Create place"</code> */
+    private static final String label = "Create place";
+    /** Constant <code>mnemonic=KeyEvent.VK_P</code> */
+    private static final int mnemonic = KeyEvent.VK_P;
 
-	/**
-	 * <p>
-	 * Creates and returns a {@link javax.swing.JRadioButtonMenuItem} where
-	 * toggle and click on label trigger separate actions as described here
-	 * {@link de.markusrother.pned.gui.actions.CreatePlaceAction}.
-	 * </p>
-	 *
-	 * @param eventBus
-	 *            an {@link de.markusrother.pned.gui.control.PnEventBus} to be
-	 *            posted to.
-	 * @param locationProvider
-	 *            a {@link de.markusrother.pned.gui.actions.LocationProvider} to
-	 *            provide coordinates for newly created nodes.
-	 * @return a {@link javax.swing.JRadioButtonMenuItem} with this action
-	 *         bound.
-	 * @see CustomRadioButtonMenuItem
-	 */
-	public static JRadioButtonMenuItem newMenuItem(final PnEventBus eventBus, final LocationProvider locationProvider) {
-		final CreatePlaceAction action = new CreatePlaceAction(eventBus, locationProvider);
-		final CustomRadioButtonMenuItem menuItem = new CustomRadioButtonMenuItem(action);
-		menuItem.addItemListener(action);
-		return menuItem;
-	}
+    /**
+     * <p>
+     * Creates and returns a {@link javax.swing.JRadioButtonMenuItem} where
+     * toggle and click on label trigger separate actions as described here
+     * {@link de.markusrother.pned.gui.actions.CreatePlaceAction}.
+     * </p>
+     *
+     * @param eventBus
+     *            an {@link de.markusrother.pned.gui.control.PnEventBus} to be
+     *            posted to.
+     * @param locationProvider
+     *            a {@link de.markusrother.pned.gui.actions.LocationProvider} to
+     *            provide coordinates for newly created nodes.
+     * @return a {@link javax.swing.JRadioButtonMenuItem} with this action
+     *         bound.
+     * @see CustomRadioButtonMenuItem
+     */
+    public static JRadioButtonMenuItem newMenuItem(final PnEventBus eventBus, final LocationProvider locationProvider) {
+        final CreatePlaceAction action = new CreatePlaceAction(eventBus, locationProvider);
+        final CustomRadioButtonMenuItem menuItem = new CustomRadioButtonMenuItem(action);
+        menuItem.addItemListener(action);
+        return menuItem;
+    }
 
-	/**
-	 * <p>
-	 * Constructor for CreatePlaceAction.
-	 * </p>
-	 *
-	 * @param eventBus
-	 *            an {@link de.markusrother.pned.gui.control.PnEventBus} to be
-	 *            posted to.
-	 * @param locationProvider
-	 *            a {@link de.markusrother.pned.gui.actions.LocationProvider} to
-	 *            provide coordinates for newly created nodes.
-	 */
-	private CreatePlaceAction(final PnEventBus eventBus, final LocationProvider locationProvider) {
-		super(eventBus, locationProvider, mnemonic, label);
-	}
+    /**
+     * <p>
+     * Constructor for CreatePlaceAction.
+     * </p>
+     *
+     * @param eventBus
+     *            an {@link de.markusrother.pned.gui.control.PnEventBus} to be
+     *            posted to.
+     * @param locationProvider
+     *            a {@link de.markusrother.pned.gui.actions.LocationProvider} to
+     *            provide coordinates for newly created nodes.
+     */
+    private CreatePlaceAction(final PnEventBus eventBus, final LocationProvider locationProvider) {
+        super(eventBus, locationProvider, mnemonic, label);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void actionPerformed(final ActionEvent e) {
-		final String nodeId = eventBus.requestId();
-		eventBus.createPlace(new PlaceCreationCommand(this, nodeId, locationProvider.getLocation()));
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void actionPerformed(final ActionEvent e) {
+        final String nodeId = eventBus.requestId();
+        eventBus.createPlace(new PlaceCreationCommand(this, nodeId, locationProvider.getLocation()));
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
-		setSelected(cmd.getMode() == PnState.NewNodeType.PLACE);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setCurrentNodeType(final SetNodeTypeCommand cmd) {
+        setSelected(cmd.getMode() == PnState.NewNodeType.PLACE);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setSelected(final boolean selected) {
-		putValue(Action.NAME, label + (selected ? " (default)" : ""));
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setSelected(final boolean selected) {
+        putValue(Action.NAME, label + (selected ? " (default)" : ""));
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	protected void fireSetNodeTypeCommand() {
-		eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, PnState.NewNodeType.PLACE));
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected void fireSetNodeTypeCommand() {
+        eventBus.setCurrentNodeType(new SetNodeTypeCommand(this, PnState.NewNodeType.PLACE));
+    }
 
 }

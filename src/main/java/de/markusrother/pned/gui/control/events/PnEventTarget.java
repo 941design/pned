@@ -15,11 +15,11 @@ import de.markusrother.pned.control.events.EventTarget;
  * @see de.markusrother.pned.control.EventAwarePetriNet
  */
 public interface PnEventTarget
-	extends
-		EventTarget,
-		NodeSelectionListener,
-		EdgeEditListener {
+    extends
+        EventTarget,
+        NodeSelectionListener,
+        EdgeEditListener {
 
-	// NOTHING
+    // NOTHING
 
 }

@@ -15,16 +15,16 @@ import java.util.EventObject;
  */
 public class RemoveSelectedNodesEvent extends EventObject {
 
-	/**
-	 * <p>
-	 * Constructor for RemoveSelectedNodesEvent.
-	 * </p>
-	 *
-	 * @param source
-	 *            a {@link java.lang.Object} object.
-	 */
-	public RemoveSelectedNodesEvent(final Object source) {
-		super(source);
-	}
+    /**
+     * <p>
+     * Constructor for RemoveSelectedNodesEvent.
+     * </p>
+     *
+     * @param source
+     *            a {@link java.lang.Object} object.
+     */
+    public RemoveSelectedNodesEvent(final Object source) {
+        super(source);
+    }
 
 }

@@ -44,79 +44,79 @@ import de.markusrother.pned.gui.control.commands.NodeListener;
  * @see de.markusrother.pned.gui.control.PnEventBus
  */
 abstract class AbstractCreateNodeAction extends AbstractAction
-	implements
-		ItemListener,
-		NodeListener {
+    implements
+        ItemListener,
+        NodeListener {
 
-	/**
-	 * A provider of coordinates for newly created nodes.
-	 */
-	protected final LocationProvider locationProvider;
+    /**
+     * A provider of coordinates for newly created nodes.
+     */
+    protected final LocationProvider locationProvider;
 
-	/**
-	 * The event target to which events are posted to, and from which new node
-	 * ids are requested from.
-	 */
-	protected final PnEventBus eventBus;
+    /**
+     * The event target to which events are posted to, and from which new node
+     * ids are requested from.
+     */
+    protected final PnEventBus eventBus;
 
-	/**
-	 * <p>
-	 * Constructor for AbstractNodeAction.
-	 * </p>
-	 *
-	 * @param eventBus
-	 *            an {@link de.markusrother.pned.gui.control.PnEventBus} to be
-	 *            posted to.
-	 * @param locationProvider
-	 *            a {@link de.markusrother.pned.gui.actions.LocationProvider} to
-	 *            provide coordinates for newly created nodes.
-	 * @param mnemonic
-	 *            an int.
-	 * @param name
-	 *            a {@link java.lang.String} - this action's textual
-	 *            representation.
-	 */
-	protected AbstractCreateNodeAction(final PnEventBus eventBus, final LocationProvider locationProvider,
-			final int mnemonic, final String name) {
-		super(name);
-		this.eventBus = eventBus;
-		this.locationProvider = locationProvider;
-		putValue(Action.MNEMONIC_KEY, mnemonic);
-		// TODO - dispose and assert removal of listeners!
-		eventBus.addListener(NodeListener.class, this);
-	}
+    /**
+     * <p>
+     * Constructor for AbstractNodeAction.
+     * </p>
+     *
+     * @param eventBus
+     *            an {@link de.markusrother.pned.gui.control.PnEventBus} to be
+     *            posted to.
+     * @param locationProvider
+     *            a {@link de.markusrother.pned.gui.actions.LocationProvider} to
+     *            provide coordinates for newly created nodes.
+     * @param mnemonic
+     *            an int.
+     * @param name
+     *            a {@link java.lang.String} - this action's textual
+     *            representation.
+     */
+    protected AbstractCreateNodeAction(final PnEventBus eventBus, final LocationProvider locationProvider,
+            final int mnemonic, final String name) {
+        super(name);
+        this.eventBus = eventBus;
+        this.locationProvider = locationProvider;
+        putValue(Action.MNEMONIC_KEY, mnemonic);
+        // TODO - dispose and assert removal of listeners!
+        eventBus.addListener(NodeListener.class, this);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void itemStateChanged(final ItemEvent e) {
-		final int stateChange = e.getStateChange();
-		if (stateChange == ItemEvent.SELECTED) {
-			setSelected(true);
-			fireSetNodeTypeCommand();
-		} else if (stateChange == ItemEvent.DESELECTED) {
-			setSelected(false);
-		} else {
-			// IGNORE - Should not happen.
-		}
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void itemStateChanged(final ItemEvent e) {
+        final int stateChange = e.getStateChange();
+        if (stateChange == ItemEvent.SELECTED) {
+            setSelected(true);
+            fireSetNodeTypeCommand();
+        } else if (stateChange == ItemEvent.DESELECTED) {
+            setSelected(false);
+        } else {
+            // IGNORE - Should not happen.
+        }
+    }
 
-	/**
-	 * <p>
-	 * Posts
-	 * {@link de.markusrother.pned.gui.control.commands.SetNodeTypeCommand} on
-	 * {@link de.markusrother.pned.control.EventBus}.
-	 * </p>
-	 */
-	protected abstract void fireSetNodeTypeCommand();
+    /**
+     * <p>
+     * Posts
+     * {@link de.markusrother.pned.gui.control.commands.SetNodeTypeCommand} on
+     * {@link de.markusrother.pned.control.EventBus}.
+     * </p>
+     */
+    protected abstract void fireSetNodeTypeCommand();
 
-	/**
-	 * <p>
-	 * Toggles selection state of this action. E.g. to adapt visualization.
-	 * </p>
-	 *
-	 * @param selected
-	 *            a boolean.
-	 */
-	protected abstract void setSelected(final boolean selected);
+    /**
+     * <p>
+     * Toggles selection state of this action. E.g. to adapt visualization.
+     * </p>
+     *
+     * @param selected
+     *            a boolean.
+     */
+    protected abstract void setSelected(final boolean selected);
 
 }

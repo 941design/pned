@@ -9,14 +9,14 @@ import java.util.EventListener;
  * @version 1.0
  */
 public interface PetriNetListener
-	extends
-		EventListener {
+    extends
+        EventListener {
 
-	/**
-	 * <p>disposePetriNet.</p>
-	 *
-	 * @param cmd a {@link de.markusrother.pned.gui.control.commands.PetriNetEditCommand} object.
-	 */
-	void createPetriNet(PetriNetEditCommand cmd);
+    /**
+     * <p>disposePetriNet.</p>
+     *
+     * @param cmd a {@link de.markusrother.pned.gui.control.commands.PetriNetEditCommand} object.
+     */
+    void createPetriNet(PetriNetEditCommand cmd);
 
 }

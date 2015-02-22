@@ -9,14 +9,14 @@ import java.util.EventListener;
  * @version 1.0
  */
 public interface LabelRequestListener
-	extends
-		EventListener {
+    extends
+        EventListener {
 
-	/**
-	 * <p>requestLabel.</p>
-	 *
-	 * @param req a {@link de.markusrother.pned.gui.control.requests.LabelRequest} object.
-	 */
-	void requestLabel(LabelRequest req);
+    /**
+     * <p>requestLabel.</p>
+     *
+     * @param req a {@link de.markusrother.pned.gui.control.requests.LabelRequest} object.
+     */
+    void requestLabel(LabelRequest req);
 
 }

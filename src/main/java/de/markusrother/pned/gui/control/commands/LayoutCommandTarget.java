@@ -12,12 +12,12 @@ package de.markusrother.pned.gui.control.commands;
  * @see de.markusrother.pned.control.EventAwarePetriNet
  */
 public interface LayoutCommandTarget
-	extends
-		PlaceLayoutListener,
-		TransitionLayoutListener,
-		EdgeLayoutListener,
-		MarkingLayoutListener {
+    extends
+        PlaceLayoutListener,
+        TransitionLayoutListener,
+        EdgeLayoutListener,
+        MarkingLayoutListener {
 
-	// NOTHING
+    // NOTHING
 
 }

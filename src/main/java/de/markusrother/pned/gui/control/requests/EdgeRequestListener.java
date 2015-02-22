@@ -9,14 +9,14 @@ import java.util.EventListener;
  * @version 1.0
  */
 public interface EdgeRequestListener
-	extends
-		EventListener {
+    extends
+        EventListener {
 
-	/**
-	 * <p>requestEdge.</p>
-	 *
-	 * @param req a {@link de.markusrother.pned.gui.control.requests.EdgeRequest} object.
-	 */
-	void requestEdge(EdgeRequest req);
+    /**
+     * <p>requestEdge.</p>
+     *
+     * @param req a {@link de.markusrother.pned.gui.control.requests.EdgeRequest} object.
+     */
+    void requestEdge(EdgeRequest req);
 
 }

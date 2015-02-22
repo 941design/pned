@@ -20,38 +20,38 @@ import de.markusrother.pned.gui.components.PnFrame;
  */
 public class Main {
 
-	/** Constant <code>TITLE="Markus Rother (8544832)"</code> */
-	private static final String TITLE = "Markus Rother (8544832)";
+    /** Constant <code>TITLE="Markus Rother (8544832)"</code> */
+    private static final String TITLE = "Markus Rother (8544832)";
 
-	/**
-	 * <p>
-	 * main.
-	 * </p>
-	 *
-	 * @param args
-	 *            an array of {@link java.lang.String} objects.
-	 */
-	public static void main(final String[] args) {
+    /**
+     * <p>
+     * main.
+     * </p>
+     *
+     * @param args
+     *            an array of {@link java.lang.String} objects.
+     */
+    public static void main(final String[] args) {
 
-		// TODO - Take path to log to.
-		// TODO - Take flag to log model events only or all events.
-		final boolean isLogging = args.length > 0 && args[0].equals("-log");
+        // TODO - Take path to log to.
+        // TODO - Take flag to log model events only or all events.
+        final boolean isLogging = args.length > 0 && args[0].equals("-log");
 
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e) {
-			System.exit(1);
-		}
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException e) {
+            System.exit(1);
+        }
 
-		final GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		final int width = Math.min(gd.getDisplayMode().getWidth(), 1400);
-		final int height = Math.min(gd.getDisplayMode().getHeight(), 800);
+        final GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        final int width = Math.min(gd.getDisplayMode().getWidth(), 1400);
+        final int height = Math.min(gd.getDisplayMode().getHeight(), 800);
 
-		final PnFrame frame = new PnFrame(TITLE, new Dimension(width, height), isLogging);
+        final PnFrame frame = new PnFrame(TITLE, new Dimension(width, height), isLogging);
 
-		frame.pack();
-		frame.setVisible(true);
-	}
+        frame.pack();
+        frame.setVisible(true);
+    }
 
 }

@@ -6,9 +6,9 @@ import de.markusrother.pned.gui.components.listeners.NodeLabelEditor;
 
 public class LabelTest extends AbstractComponentTest<LabelComponent> {
 
-	@Override
-	protected LabelComponent getComponent() {
-		return new LabelComponent(eventMulticastMock, Mockito.mock(NodeLabelEditor.class), null);
-	}
+    @Override
+    protected LabelComponent getComponent() {
+        return new LabelComponent(eventMulticastMock, Mockito.mock(NodeLabelEditor.class), null);
+    }
 
 }

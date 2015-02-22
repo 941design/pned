@@ -40,71 +40,71 @@ import de.markusrother.concurrent.Promise;
  */
 public class Request<T> extends EventObject {
 
-	/** The timeout for getting a result. */
-	public static final long defaultTimeoutMillis = 5000;
+    /** The timeout for getting a result. */
+    public static final long defaultTimeoutMillis = 5000;
 
-	/**
-	 * <p>
-	 * Constructor for Request.
-	 * </p>
-	 *
-	 * @param source
-	 *            a {@link java.lang.Object} - this event's source.
-	 */
-	protected Request(final Object source) {
-		super(source);
-		this.promise = new Promise<>();
-	}
+    /**
+     * <p>
+     * Constructor for Request.
+     * </p>
+     *
+     * @param source
+     *            a {@link java.lang.Object} - this event's source.
+     */
+    protected Request(final Object source) {
+        super(source);
+        this.promise = new Promise<>();
+    }
 
-	/** The pending value holding object. */
-	private final Promise<T> promise;
+    /** The pending value holding object. */
+    private final Promise<T> promise;
 
-	/**
-	 * <p>
-	 * Returns this requests 'return' value.
-	 * </p>
-	 *
-	 * @return a T - the actual value.
-	 * @throws java.util.concurrent.TimeoutException
-	 *             if no value was set until exceeding the
-	 *             {@link #defaultTimeoutMillis}.
-	 */
-	public T get() throws TimeoutException {
-		return get(defaultTimeoutMillis, TimeUnit.MILLISECONDS);
-	}
+    /**
+     * <p>
+     * Returns this requests 'return' value.
+     * </p>
+     *
+     * @return a T - the actual value.
+     * @throws java.util.concurrent.TimeoutException
+     *             if no value was set until exceeding the
+     *             {@link #defaultTimeoutMillis}.
+     */
+    public T get() throws TimeoutException {
+        return get(defaultTimeoutMillis, TimeUnit.MILLISECONDS);
+    }
 
-	/**
-	 * <p>
-	 * Returns this requests 'return' value.
-	 * </p>
-	 *
-	 * @return a T - the actual value.
-	 * @throws java.util.concurrent.TimeoutException
-	 *             if no value was set until exceeding the
-	 *             {@link #defaultTimeoutMillis}.
-	 * @param timeout
-	 *            a long.
-	 * @param unit
-	 *            a {@link java.util.concurrent.TimeUnit} object.
-	 */
-	public T get(final long timeout, final TimeUnit unit) throws TimeoutException {
-		try {
-			return promise.ask().get(timeout, unit);
-		} catch (InterruptedException | ExecutionException e) {
-			throw new IllegalStateException(e);
-		}
-	}
+    /**
+     * <p>
+     * Returns this requests 'return' value.
+     * </p>
+     *
+     * @return a T - the actual value.
+     * @throws java.util.concurrent.TimeoutException
+     *             if no value was set until exceeding the
+     *             {@link #defaultTimeoutMillis}.
+     * @param timeout
+     *            a long.
+     * @param unit
+     *            a {@link java.util.concurrent.TimeUnit} object.
+     */
+    public T get(final long timeout, final TimeUnit unit) throws TimeoutException {
+        try {
+            return promise.ask().get(timeout, unit);
+        } catch (InterruptedException | ExecutionException e) {
+            throw new IllegalStateException(e);
+        }
+    }
 
-	/**
-	 * <p>
-	 * Sets this requests 'return' value.
-	 * </p>
-	 *
-	 * @param obj
-	 *            a T - the value to be set.
-	 */
-	public void set(final T obj) {
-		promise.fulfill(obj);
-	}
+    /**
+     * <p>
+     * Sets this requests 'return' value.
+     * </p>
+     *
+     * @param obj
+     *            a T - the value to be set.
+     */
+    public void set(final T obj) {
+        promise.fulfill(obj);
+    }
 
 }

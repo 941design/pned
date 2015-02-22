@@ -14,16 +14,16 @@ import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
  * @see de.markusrother.pned.control.EventAwarePetriNet
  */
 public interface CommandTarget
-	extends
-		PetriNetIOListener,
-		NodeCreationListener,
-		EdgeCreationListener,
-		NodeMotionListener,
-		NodeRemovalListener,
-		MarkingEditListener,
-		LabelEditListener,
-		TransitionListener {
+    extends
+        PetriNetIOListener,
+        NodeCreationListener,
+        EdgeCreationListener,
+        NodeMotionListener,
+        NodeRemovalListener,
+        MarkingEditListener,
+        LabelEditListener,
+        TransitionListener {
 
-	// NOTHING
+    // NOTHING
 
 }

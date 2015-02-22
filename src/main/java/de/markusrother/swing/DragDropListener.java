@@ -15,141 +15,141 @@ import java.awt.event.MouseEvent;
  */
 public abstract class DragDropListener<T extends Component> extends MouseAdapter {
 
-	/**
-	 * <p>
-	 * addToComponent.
-	 * </p>
-	 *
-	 * @param component
-	 *            a {@link java.awt.Component} object.
-	 * @param listener
-	 *            a {@link de.markusrother.swing.DragDropListener} object.
-	 */
-	public static void addToComponent(final Component component, final DragDropListener<?> listener) {
-		component.addMouseListener(listener);
-		component.addMouseMotionListener(listener);
-	}
+    /**
+     * <p>
+     * addToComponent.
+     * </p>
+     *
+     * @param component
+     *            a {@link java.awt.Component} object.
+     * @param listener
+     *            a {@link de.markusrother.swing.DragDropListener} object.
+     */
+    public static void addToComponent(final Component component, final DragDropListener<?> listener) {
+        component.addMouseListener(listener);
+        component.addMouseMotionListener(listener);
+    }
 
-	/**
-	 * <p>
-	 * removeFromComponent.
-	 * </p>
-	 *
-	 * @param component
-	 *            a {@link java.awt.Component} object.
-	 * @param listener
-	 *            a {@link de.markusrother.swing.DragDropListener} object.
-	 */
-	public static void removeFromComponent(final Component component, final DragDropListener<?> listener) {
-		component.removeMouseListener(listener);
-		component.removeMouseMotionListener(listener);
-	}
+    /**
+     * <p>
+     * removeFromComponent.
+     * </p>
+     *
+     * @param component
+     *            a {@link java.awt.Component} object.
+     * @param listener
+     *            a {@link de.markusrother.swing.DragDropListener} object.
+     */
+    public static void removeFromComponent(final Component component, final DragDropListener<?> listener) {
+        component.removeMouseListener(listener);
+        component.removeMouseMotionListener(listener);
+    }
 
-	private final Class<T> type;
+    private final Class<T> type;
 
-	protected Point dragStart;
-	protected boolean started; // OBSOLETE
+    protected Point dragStart;
+    protected boolean started; // OBSOLETE
 
-	/**
-	 * <p>
-	 * Constructor for DragDropListener.
-	 * </p>
-	 *
-	 * @param type
-	 *            a {@link java.lang.Class} object.
-	 */
-	protected DragDropListener(final Class<T> type) {
-		this.type = type;
-	}
+    /**
+     * <p>
+     * Constructor for DragDropListener.
+     * </p>
+     *
+     * @param type
+     *            a {@link java.lang.Class} object.
+     */
+    protected DragDropListener(final Class<T> type) {
+        this.type = type;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void mouseDragged(final MouseEvent e) {
-		dragStart = dragStart != null ? dragStart : e.getLocationOnScreen();
-		if (!started) {
-			final T component = tryCastComponent(e.getComponent());
-			startDrag(component, e.getPoint());
-			started = true;
-		}
-		final Point current = e.getLocationOnScreen();
-		final int deltaX = current.x - dragStart.x;
-		final int deltaY = current.y - dragStart.y;
-		dragStart.translate(deltaX, deltaY);
-		onDrag(tryCastComponent(e.getComponent()), deltaX, deltaY);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void mouseDragged(final MouseEvent e) {
+        dragStart = dragStart != null ? dragStart : e.getLocationOnScreen();
+        if (!started) {
+            final T component = tryCastComponent(e.getComponent());
+            startDrag(component, e.getPoint());
+            started = true;
+        }
+        final Point current = e.getLocationOnScreen();
+        final int deltaX = current.x - dragStart.x;
+        final int deltaY = current.y - dragStart.y;
+        dragStart.translate(deltaX, deltaY);
+        onDrag(tryCastComponent(e.getComponent()), deltaX, deltaY);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void mousePressed(final MouseEvent e) {
-		dragStart = e.getLocationOnScreen();
-		// Resetting flag here, because this event mostly precedes
-		// mouseDragged(). However, it does NOT always precede! Assume the
-		// mousePressed event is caught by a component which is on top of this,
-		// and the event does not bubble. TODO, TEST!
-		started = false;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void mousePressed(final MouseEvent e) {
+        dragStart = e.getLocationOnScreen();
+        // Resetting flag here, because this event mostly precedes
+        // mouseDragged(). However, it does NOT always precede! Assume the
+        // mousePressed event is caught by a component which is on top of this,
+        // and the event does not bubble. TODO, TEST!
+        started = false;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void mouseReleased(final MouseEvent e) {
-		if (started) {
-			endDrag(tryCastComponent(e.getComponent()), e.getPoint());
-		}
-		dragStart = null;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void mouseReleased(final MouseEvent e) {
+        if (started) {
+            endDrag(tryCastComponent(e.getComponent()), e.getPoint());
+        }
+        dragStart = null;
+    }
 
-	/**
-	 * <p>
-	 * tryCastComponent.
-	 * </p>
-	 *
-	 * @param component
-	 *            a {@link java.awt.Component} object.
-	 * @return a T object.
-	 */
-	private T tryCastComponent(final Component component) {
-		if (type.isInstance(component)) {
-			return type.cast(component);
-		} else {
-			// TODO - what exception type?
-			throw new IllegalArgumentException();
-		}
-	}
+    /**
+     * <p>
+     * tryCastComponent.
+     * </p>
+     *
+     * @param component
+     *            a {@link java.awt.Component} object.
+     * @return a T object.
+     */
+    private T tryCastComponent(final Component component) {
+        if (type.isInstance(component)) {
+            return type.cast(component);
+        } else {
+            // TODO - what exception type?
+            throw new IllegalArgumentException();
+        }
+    }
 
-	/**
-	 * <p>
-	 * startDrag.
-	 * </p>
-	 *
-	 * @param component
-	 *            a T object.
-	 * @param dragStart
-	 *            in component
-	 */
-	protected abstract void startDrag(T component, Point dragStart);
+    /**
+     * <p>
+     * startDrag.
+     * </p>
+     *
+     * @param component
+     *            a T object.
+     * @param dragStart
+     *            in component
+     */
+    protected abstract void startDrag(T component, Point dragStart);
 
-	/**
-	 * <p>
-	 * endDrag.
-	 * </p>
-	 *
-	 * @param component
-	 *            a T object.
-	 * @param dragEnd
-	 *            in component
-	 */
-	protected abstract void endDrag(T component, Point dragEnd);
+    /**
+     * <p>
+     * endDrag.
+     * </p>
+     *
+     * @param component
+     *            a T object.
+     * @param dragEnd
+     *            in component
+     */
+    protected abstract void endDrag(T component, Point dragEnd);
 
-	/**
-	 * No deltas are lost!
-	 *
-	 * @param component
-	 *            a T object.
-	 * @param deltaX
-	 *            a int.
-	 * @param deltaY
-	 *            a int.
-	 */
-	protected abstract void onDrag(T component, int deltaX, int deltaY);
+    /**
+     * No deltas are lost!
+     *
+     * @param component
+     *            a T object.
+     * @param deltaX
+     *            a int.
+     * @param deltaY
+     *            a int.
+     */
+    protected abstract void onDrag(T component, int deltaX, int deltaY);
 
 }

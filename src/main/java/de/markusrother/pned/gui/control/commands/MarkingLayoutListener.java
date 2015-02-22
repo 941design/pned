@@ -11,19 +11,19 @@ import java.util.EventListener;
  * @version 1.0
  */
 public interface MarkingLayoutListener
-	extends
-		EventListener {
+    extends
+        EventListener {
 
-	/**
-	 * <p>
-	 * setSize.
-	 * </p>
-	 *
-	 * @param cmd
-	 *            a
-	 *            {@link de.markusrother.pned.gui.control.commands.MarkingLayoutCommand}
-	 *            object.
-	 */
-	void setSize(MarkingLayoutCommand cmd);
+    /**
+     * <p>
+     * setSize.
+     * </p>
+     *
+     * @param cmd
+     *            a
+     *            {@link de.markusrother.pned.gui.control.commands.MarkingLayoutCommand}
+     *            object.
+     */
+    void setSize(MarkingLayoutCommand cmd);
 
 }

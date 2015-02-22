@@ -15,34 +15,34 @@ import de.markusrother.swing.HoverListener;
  */
 public class EdgeHoverListener extends HoverListener {
 
-	/** Constant <code>INSTANCE</code> */
-	public static EdgeHoverListener INSTANCE = new EdgeHoverListener();
+    /** Constant <code>INSTANCE</code> */
+    public static EdgeHoverListener INSTANCE = new EdgeHoverListener();
 
-	/**
-	 * <p>Constructor for EdgeHoverListener.</p>
-	 */
-	private EdgeHoverListener() {
-	}
+    /**
+     * <p>Constructor for EdgeHoverListener.</p>
+     */
+    private EdgeHoverListener() {
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	protected boolean inHoverArea(final Component component, final Point p) {
-		final EdgeComponent edge = (EdgeComponent) component;
-		return edge.edgeContains(p);
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected boolean inHoverArea(final Component component, final Point p) {
+        final EdgeComponent edge = (EdgeComponent) component;
+        return edge.edgeContains(p);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	protected void startHover(final Component component) {
-		final EdgeComponent edge = (EdgeComponent) component;
-		edge.setState(ComponentState.HOVER);
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected void startHover(final Component component) {
+        final EdgeComponent edge = (EdgeComponent) component;
+        edge.setState(ComponentState.HOVER);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	protected void endHover(final Component component) {
-		final EdgeComponent edge = (EdgeComponent) component;
-		edge.setState(ComponentState.DEFAULT);
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected void endHover(final Component component) {
+        final EdgeComponent edge = (EdgeComponent) component;
+        edge.setState(ComponentState.DEFAULT);
+    }
 
 }

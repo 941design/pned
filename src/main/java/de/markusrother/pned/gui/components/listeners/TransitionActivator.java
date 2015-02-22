@@ -19,26 +19,26 @@ import de.markusrother.swing.RightClickListener;
  */
 public class TransitionActivator extends RightClickListener {
 
-	private final EventBus eventBus;
+    private final EventBus eventBus;
 
-	/**
-	 * <p>
-	 * Constructor for TransitionActivator.
-	 * </p>
-	 *
-	 * @param eventBus
-	 *            a {@link de.markusrother.pned.control.EventBus} object.
-	 */
-	public TransitionActivator(final EventBus eventBus) {
-		this.eventBus = eventBus;
-	}
+    /**
+     * <p>
+     * Constructor for TransitionActivator.
+     * </p>
+     *
+     * @param eventBus
+     *            a {@link de.markusrother.pned.control.EventBus} object.
+     */
+    public TransitionActivator(final EventBus eventBus) {
+        this.eventBus = eventBus;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void mouseClickedRight(final MouseEvent e) {
-		final TransitionComponent transition = (TransitionComponent) e.getSource();
-		final TransitionExecutionCommand cmd = new TransitionExecutionCommand(this, transition.getId());
-		eventBus.fireTransition(cmd);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void mouseClickedRight(final MouseEvent e) {
+        final TransitionComponent transition = (TransitionComponent) e.getSource();
+        final TransitionExecutionCommand cmd = new TransitionExecutionCommand(this, transition.getId());
+        eventBus.fireTransition(cmd);
+    }
 
 }
