@@ -32,6 +32,7 @@ public class PnFileMenu extends JMenu {
 	 *            a
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            object.
+	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
 	 */
 	PnFileMenu(final PnStateModel state, final PnCommandTarget commandTarget) {
 		super(label);

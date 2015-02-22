@@ -140,6 +140,8 @@ public class CheckedTextField extends JTextField
 
 	/**
 	 * Returns true if current text is valid.
+	 *
+	 * @return a boolean.
 	 */
 	protected boolean textIsValid() {
 		final String text = getText();

@@ -40,8 +40,7 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 *            an
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
-	 * @param dir
-	 *            a {@link java.io.File} - the current directory.
+	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
 	 */
 	public static void open(final PnStateModel state, final PnCommandTarget commandTarget) {
 		final SaveFileDialog dialog = new SaveFileDialog(state, commandTarget);
@@ -57,8 +56,7 @@ public class SaveFileDialog extends AbstractFileDialog {
 	 *            an
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
-	 * @param dir
-	 *            a {@link java.io.File} - the current directory.
+	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
 	 */
 	private SaveFileDialog(final PnStateModel state, final PnCommandTarget commandTarget) {
 		super(state, commandTarget, title, approveButtonLabel);

@@ -8,20 +8,37 @@ import de.markusrother.pned.gui.control.commands.PetriNetEditCommand;
 import de.markusrother.pned.gui.control.commands.PetriNetListener;
 import de.markusrother.pned.util.CommandAdapter;
 
+/**
+ * <p>DirtyStateListener class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class DirtyStateListener extends CommandAdapter
 	implements
 		PetriNetListener {
 
 	private boolean dirty;
 
+	/**
+	 * <p>isDirty.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isDirty() {
 		return dirty;
 	}
 
+	/**
+	 * <p>Setter for the field <code>dirty</code>.</p>
+	 *
+	 * @param dirty a boolean.
+	 */
 	public void setDirty(final boolean dirty) {
 		this.dirty = dirty;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setEventBus(final EventBus eventBus) {
 		super.setEventBus(eventBus);
@@ -52,6 +69,7 @@ public class DirtyStateListener extends CommandAdapter
 		dirty = false;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void createPetriNet(final PetriNetEditCommand cmd) {
 		dirty = false;

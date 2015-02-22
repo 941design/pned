@@ -29,6 +29,13 @@ public class NodeRequest extends Request<AbstractNodeComponent>
 	implements
 		JsonSerializable {
 
+	/**
+	 * <p>doRequestNode.</p>
+	 *
+	 * @param nodeId a {@link java.lang.String} object.
+	 * @param requestTarget a {@link de.markusrother.pned.gui.control.requests.PnRequestTarget} object.
+	 * @return a {@link de.markusrother.pned.gui.components.AbstractNodeComponent} object.
+	 */
 	public static AbstractNodeComponent doRequestNode(final String nodeId, final PnRequestTarget requestTarget) {
 		try {
 			final NodeRequest req = new NodeRequest(NodeRequest.class, nodeId);

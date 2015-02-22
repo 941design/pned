@@ -34,6 +34,9 @@ public class EdgeCreationCommand extends EventObject
 	 *
 	 * @param source
 	 *            a {@link java.lang.Object} - this event's source.
+	 * @param sourceId
+	 *            a {@link java.lang.String} - the new edge's source node's
+	 *            unique identifier.
 	 * @param edgeId
 	 *            a {@link java.lang.String} - the new edge's unique identifier.
 	 * @param sourceId

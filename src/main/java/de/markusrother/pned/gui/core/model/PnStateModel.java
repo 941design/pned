@@ -116,6 +116,11 @@ public interface PnStateModel {
 	 */
 	Set<String> getSelectedOutgoingEdgeIds();
 
+	/**
+	 * <p>getSelectedNodesEdgeIds.</p>
+	 *
+	 * @return a {@link java.util.Set} object.
+	 */
 	Set<String> getSelectedNodesEdgeIds();
 
 	/**
@@ -158,8 +163,18 @@ public interface PnStateModel {
 	 */
 	MarkingStyleModel getMarkingStyle();
 
+	/**
+	 * <p>isDirty.</p>
+	 *
+	 * @return a boolean.
+	 */
 	boolean isDirty();
 
+	/**
+	 * <p>setDirty.</p>
+	 *
+	 * @param b a boolean.
+	 */
 	void setDirty(boolean b);
 
 }

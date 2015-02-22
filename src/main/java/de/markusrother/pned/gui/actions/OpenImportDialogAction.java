@@ -33,6 +33,8 @@ public class OpenImportDialogAction extends AbstractStatefulAction {
 	 * </p>
 	 *
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
+	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
+	 * @param commandTarget a {@link de.markusrother.pned.gui.control.commands.PnCommandTarget} object.
 	 */
 	public static JMenuItem newMenuItem(final PnStateModel state, final PnCommandTarget commandTarget) {
 		final Action action = new OpenImportDialogAction(state, commandTarget);
@@ -43,6 +45,9 @@ public class OpenImportDialogAction extends AbstractStatefulAction {
 	 * <p>
 	 * Constructor for OpenImportDialogAction.
 	 * </p>
+	 *
+	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
+	 * @param commandTarget a {@link de.markusrother.pned.gui.control.commands.PnCommandTarget} object.
 	 */
 	private OpenImportDialogAction(final PnStateModel state, final PnCommandTarget commandTarget) {
 		super(state, commandTarget, name, actionMnemonic);

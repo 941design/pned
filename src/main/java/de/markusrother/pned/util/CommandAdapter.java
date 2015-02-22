@@ -24,6 +24,12 @@ import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
 
+/**
+ * <p>Abstract CommandAdapter class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public abstract class CommandAdapter
 	implements
 		CommandTarget {

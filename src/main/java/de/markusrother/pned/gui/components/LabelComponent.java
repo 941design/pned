@@ -272,6 +272,7 @@ public class LabelComponent extends JLabel
 		hoverListener.addToComponent(this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void requestLabel(final LabelRequest req) {
 		if (nodeId.equals(req.getNodeId())) {

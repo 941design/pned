@@ -14,8 +14,21 @@ import de.markusrother.pned.gui.control.requests.EdgeRequest;
 import de.markusrother.pned.gui.control.requests.LabelRequest;
 import de.markusrother.pned.gui.control.requests.PnRequestTarget;
 
+/**
+ * <p>RemoveEdgeAction class.</p>
+ *
+ * @author Markus Rother
+ * @version 1.0
+ */
 public class RemoveEdgeAction extends AbstractStatelessAction {
 
+	/**
+	 * <p>newMenuItem.</p>
+	 *
+	 * @param state a {@link de.markusrother.pned.gui.control.PnState} object.
+	 * @param edgeId a {@link java.lang.String} object.
+	 * @return a {@link javax.swing.JMenuItem} object.
+	 */
 	public static JMenuItem newMenuItem(final PnState state, final String edgeId) {
 		final PnCommandTarget commandTarget = state.getEventBus();
 		final PnRequestTarget requestTarget = state.getEventBus();
@@ -28,6 +41,13 @@ public class RemoveEdgeAction extends AbstractStatelessAction {
 		return new JMenuItem(new RemoveEdgeAction(commandTarget, edgeId, name));
 	}
 
+	/**
+	 * <p>requestLabel.</p>
+	 *
+	 * @param nodeId a {@link java.lang.String} object.
+	 * @param requestTarget a {@link de.markusrother.pned.gui.control.requests.PnRequestTarget} object.
+	 * @return a {@link de.markusrother.pned.gui.components.LabelComponent} object.
+	 */
 	private static LabelComponent requestLabel(final String nodeId, final PnRequestTarget requestTarget) {
 		try {
 			final LabelRequest req = new LabelRequest(RemoveEdgeAction.class, nodeId);
@@ -41,11 +61,19 @@ public class RemoveEdgeAction extends AbstractStatelessAction {
 
 	private final String edgeId;
 
+	/**
+	 * <p>Constructor for RemoveEdgeAction.</p>
+	 *
+	 * @param commandTarget a {@link de.markusrother.pned.gui.control.commands.PnCommandTarget} object.
+	 * @param edgeId a {@link java.lang.String} object.
+	 * @param name a {@link java.lang.String} object.
+	 */
 	public RemoveEdgeAction(final PnCommandTarget commandTarget, final String edgeId, final String name) {
 		super(commandTarget, name);
 		this.edgeId = edgeId;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 		final EdgeRemoveCommand cmd = new EdgeRemoveCommand(this, edgeId);

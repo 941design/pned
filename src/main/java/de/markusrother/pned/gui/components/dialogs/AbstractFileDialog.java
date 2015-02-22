@@ -52,8 +52,7 @@ public abstract class AbstractFileDialog extends JFileChooser {
 	 *            a {@link java.lang.String} - the dialog's title.
 	 * @param approveButtonLabel
 	 *            a {@link java.lang.String} - the approve button label.
-	 * @param dir
-	 *            a {@link java.io.File} - the current directory.
+	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
 	 */
 	protected AbstractFileDialog(final PnStateModel state,
 			final PnCommandTarget commandTarget,

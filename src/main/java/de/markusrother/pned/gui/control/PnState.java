@@ -242,6 +242,12 @@ public class PnState extends PnEventAdapter
 		return Collections.unmodifiableSet(edgeIds);
 	}
 
+	/**
+	 * <p>collectAllEdges.</p>
+	 *
+	 * @param nodeIds a {@link java.util.Set} object.
+	 * @return a {@link java.util.Set} object.
+	 */
 	protected Set<String> collectAllEdges(final Set<String> nodeIds) {
 		final Set<String> edgeIds = new HashSet<>();
 		edgeIds.addAll(filterIncomingEdges(nodeIds));

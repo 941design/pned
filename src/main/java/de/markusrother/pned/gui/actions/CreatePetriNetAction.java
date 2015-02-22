@@ -39,6 +39,7 @@ public class CreatePetriNetAction extends AbstractStatefulAction {
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
+	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
 	 */
 	public static JMenuItem newMenuItem(final PnStateModel state, final PnCommandTarget commandTarget) {
 		return new JMenuItem(new CreatePetriNetAction(state, commandTarget));
@@ -53,6 +54,7 @@ public class CreatePetriNetAction extends AbstractStatefulAction {
 	 *            a
 	 *            {@link de.markusrother.pned.gui.control.commands.PnCommandTarget}
 	 *            to be posted to.
+	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
 	 */
 	private CreatePetriNetAction(final PnStateModel state, final PnCommandTarget eventTarget) {
 		super(state, eventTarget, name);

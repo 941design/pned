@@ -94,6 +94,7 @@ public class PnEventBus extends EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void requestLabel(final LabelRequest req) {
 		final LabelRequestListener[] listeners = getListeners(LabelRequestListener.class);
@@ -104,6 +105,7 @@ public class PnEventBus extends EventBus
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void requestEdge(final EdgeRequest req) {
 		final EdgeRequestListener[] listeners = getListeners(EdgeRequestListener.class);

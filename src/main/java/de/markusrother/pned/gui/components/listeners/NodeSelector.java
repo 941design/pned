@@ -17,7 +17,6 @@ import de.markusrother.swing.Selector;
  * NodeSelector class.
  * </p>
  *
- *
  * @author Markus Rother
  * @version 1.0
  */

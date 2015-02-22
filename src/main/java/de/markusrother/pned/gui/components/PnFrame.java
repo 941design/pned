@@ -54,7 +54,7 @@ public class PnFrame extends JFrame
 	 *            a {@link java.lang.String} object.
 	 * @param preferredSize
 	 *            a {@link java.awt.Dimension} object.
-	 * @param isLogging
+	 * @param isLogging a boolean.
 	 */
 	public PnFrame(final String title, final Dimension preferredSize, final boolean isLogging) {
 		super(title);

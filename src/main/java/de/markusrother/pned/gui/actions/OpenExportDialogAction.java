@@ -32,7 +32,9 @@ public class OpenExportDialogAction extends AbstractStatefulAction {
 	 * Creates and returns a {@link javax.swing.JMenuItem} where selection opens
 	 * a {@link de.markusrother.pned.gui.components.dialogs.SaveFileDialog}.
 	 * </p>
-	 * 
+	 *
+	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
+	 * @param commandTarget a {@link de.markusrother.pned.gui.control.commands.PnCommandTarget} object.
 	 * @return a {@link javax.swing.JMenuItem} with this action bound.
 	 */
 	public static JMenuItem newMenuItem(final PnStateModel state, final PnCommandTarget commandTarget) {
@@ -44,6 +46,9 @@ public class OpenExportDialogAction extends AbstractStatefulAction {
 	 * <p>
 	 * Constructor for OpenExportDialogAction.
 	 * </p>
+	 *
+	 * @param state a {@link de.markusrother.pned.gui.core.model.PnStateModel} object.
+	 * @param commandTarget a {@link de.markusrother.pned.gui.control.commands.PnCommandTarget} object.
 	 */
 	private OpenExportDialogAction(final PnStateModel state, final PnCommandTarget commandTarget) {
 		super(state, commandTarget, name, actionMnemonic);
