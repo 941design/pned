@@ -1,7 +1,5 @@
 package de.markusrother.pned.util;
 
-import java.util.EventObject;
-
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.EdgeCreationListener;
 import de.markusrother.pned.control.commands.LabelEditCommand;
@@ -18,6 +16,7 @@ import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
 import de.markusrother.pned.control.commands.TransitionListener;
+import de.markusrother.pned.control.commands.TransitionsExecutionCommand;
 import de.markusrother.pned.control.events.MarkingChangeEvent;
 import de.markusrother.pned.control.events.MarkingEventListener;
 import de.markusrother.pned.control.events.TransitionActivationEvent;
@@ -54,6 +53,8 @@ import de.markusrother.pned.gui.control.requests.NodeRequest;
 import de.markusrother.pned.gui.control.requests.NodeRequestListener;
 import de.markusrother.pned.gui.control.requests.PnRequestTarget;
 
+import java.util.EventObject;
+
 /**
  * <p>
  * Adapter that directs all commands, events, and request to a single method:
@@ -64,7 +65,7 @@ import de.markusrother.pned.gui.control.requests.PnRequestTarget;
  * @version 1.0
  */
 public abstract class PnEventAdapter
-    implements
+        implements
         PnCommandTarget,
         PnEventTarget,
         PnRequestTarget {
@@ -79,10 +80,9 @@ public abstract class PnEventAdapter
      * Setter for the field <code>eventBus</code>.
      * </p>
      *
-     * @param eventBus
-     *            a {@link de.markusrother.pned.gui.control.PnEventBus} to which
-     *            resulting events are posted to and to which is listened to for
-     *            state changes.
+     * @param eventBus a {@link de.markusrother.pned.gui.control.PnEventBus} to which
+     *                 resulting events are posted to and to which is listened to for
+     *                 state changes.
      */
     public void setEventBus(final PnEventBus eventBus) {
         if (this.eventBus != null) {
@@ -342,13 +342,18 @@ public abstract class PnEventAdapter
         process(cmd);
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public void fireTransitions(TransitionsExecutionCommand cmd) {
+        process(cmd);
+    }
+
     /**
      * <p>
      * process.
      * </p>
      *
-     * @param e
-     *            a {@link java.util.EventObject} object.
+     * @param e a {@link java.util.EventObject} object.
      */
     protected abstract void process(final EventObject e);
 

@@ -1,16 +1,5 @@
 package de.markusrother.pned.control;
 
-import java.awt.Point;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
-
-import javax.xml.bind.JAXBException;
-
 import de.markusrother.pned.control.commands.CommandTarget;
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.EdgeCreationListener;
@@ -28,6 +17,7 @@ import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
 import de.markusrother.pned.control.commands.TransitionListener;
+import de.markusrother.pned.control.commands.TransitionsExecutionCommand;
 import de.markusrother.pned.control.events.MarkingChangeEvent;
 import de.markusrother.pned.control.events.TransitionActivationEvent;
 import de.markusrother.pned.control.events.TransitionActivationEvent.Type;
@@ -47,6 +37,19 @@ import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.io.PetriNetMarshaller;
 
+import javax.xml.bind.JAXBException;
+import java.awt.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
+
 /**
  * <p>
  * Petri net implementation that can be maintained by sending and receiving
@@ -57,8 +60,9 @@ import de.markusrother.pned.io.PetriNetMarshaller;
  * @version 1.0
  * @see de.markusrother.pned.control.EventBus
  */
-public class EventAwarePetriNet extends DefaultPetriNet
-    implements
+public class EventAwarePetriNet
+        extends DefaultPetriNet
+        implements
         CommandTarget,
         RequestTarget {
 
@@ -70,8 +74,7 @@ public class EventAwarePetriNet extends DefaultPetriNet
      * create.
      * </p>
      *
-     * @param eventBus
-     *            a {@link de.markusrother.pned.control.EventBus} object.
+     * @param eventBus a {@link de.markusrother.pned.control.EventBus} object.
      * @return a {@link de.markusrother.pned.control.EventAwarePetriNet} object.
      */
     public static EventAwarePetriNet create(final EventBus eventBus) {
@@ -84,9 +87,8 @@ public class EventAwarePetriNet extends DefaultPetriNet
      * which can be manipulated by sending events.
      * </p>
      *
-     * @param eventBus
-     *            a {@link de.markusrother.pned.control.EventBus} - the channel
-     *            of event communication.
+     * @param eventBus a {@link de.markusrother.pned.control.EventBus} - the channel
+     *                 of event communication.
      */
     public EventAwarePetriNet(final EventBus eventBus) {
         this.eventBus = eventBus;
@@ -303,9 +305,8 @@ public class EventAwarePetriNet extends DefaultPetriNet
      * activation state of one or more transitions.
      * </p>
      *
-     * @param runnable
-     *            a {@link java.lang.Runnable} - a change inducing closure to be
-     *            evaluated.
+     * @param runnable a {@link java.lang.Runnable} - a change inducing closure to be
+     *                 evaluated.
      */
     private void maybeFireTransitionActivationEvents(final Runnable runnable) {
         final Collection<TransitionActivationEvent> events = new LinkedList<>();
@@ -332,22 +333,21 @@ public class EventAwarePetriNet extends DefaultPetriNet
      * Fires the provided events, one for each toggled transition state.
      * </p>
      *
-     * @param events
-     *            a {@link java.util.Collection} of
-     *            {@link de.markusrother.pned.control.events.TransitionActivationEvent}
-     *            - the changing events.
+     * @param events a {@link java.util.Collection} of
+     *               {@link de.markusrother.pned.control.events.TransitionActivationEvent}
+     *               - the changing events.
      */
     private void fireTransitionAcivationEvents(final Collection<TransitionActivationEvent> events) {
         for (final TransitionActivationEvent evt : events) {
             switch (evt.getType()) {
-            case ACTIVATION:
-                eventBus.transitionActivated(evt);
-                break;
-            case DEACTIVATION:
-                eventBus.transitionDeactivated(evt);
-                break;
-            default:
-                throw new IllegalStateException();
+                case ACTIVATION:
+                    eventBus.transitionActivated(evt);
+                    break;
+                case DEACTIVATION:
+                    eventBus.transitionDeactivated(evt);
+                    break;
+                default:
+                    throw new IllegalStateException();
             }
         }
     }
@@ -358,11 +358,10 @@ public class EventAwarePetriNet extends DefaultPetriNet
      * {@link de.markusrother.pned.core.model.TransitionModel}.
      * </p>
      *
-     * @param deactivated
-     *            a {@link java.util.Collection} - the transitions to be
-     *            deactivated.
+     * @param deactivated a {@link java.util.Collection} - the transitions to be
+     *                    deactivated.
      * @return a {@link java.util.Collection} - the events resulting from
-     *         deactivation.
+     * deactivation.
      */
     private Collection<TransitionActivationEvent> createTransitionDeactivationEvents(
             final Collection<TransitionModel> deactivated) {
@@ -382,11 +381,10 @@ public class EventAwarePetriNet extends DefaultPetriNet
      * {@link de.markusrother.pned.core.model.TransitionModel}.
      * </p>
      *
-     * @param activated
-     *            a {@link java.util.Collection} - the transitions to be
-     *            activated.
+     * @param activated a {@link java.util.Collection} - the transitions to be
+     *                  activated.
      * @return a {@link java.util.Collection} - the events resulting from
-     *         activation.
+     * activation.
      */
     private Collection<TransitionActivationEvent> createTransitionActivationEvent(
             final Collection<TransitionModel> activated) {
@@ -428,6 +426,35 @@ public class EventAwarePetriNet extends DefaultPetriNet
         } catch (final TransitionInactiveException e) {
             // TODO - throw some generic exception
             throw new RuntimeException("TODO - Trying to fire inactive transition");
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void fireTransitions(TransitionsExecutionCommand cmd) {
+        final Collection<String> transitionIds = cmd.getTransitionIds();
+        final Collection<TransitionModel> tt = getTransitions(transitionIds);
+        final Map<PlaceModel, Integer> placeMap = new HashMap<>();
+        for (TransitionModel transition : tt) {
+            Collection<PlaceModel> inputPlaces = getInputPlaces(transition);
+            for (PlaceModel place : inputPlaces) {
+                if (placeMap.containsKey(place)) {
+                    final int value = placeMap.get(place);
+                    placeMap.put(place, value - 1);
+                } else {
+                    placeMap.put(place, place.getMarking() - 1);
+                }
+            }
+        }
+        for (Entry<PlaceModel, Integer> entry : placeMap.entrySet()) {
+            if (entry.getValue() < 0) {
+                // TODO
+                throw new RuntimeException("TODO");
+            }
+        }
+        for (String transitionId : transitionIds) {
+            final TransitionExecutionCommand singleCmd = new TransitionExecutionCommand(this, transitionId);
+            fireTransition(singleCmd);
         }
     }
 

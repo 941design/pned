@@ -1,29 +1,23 @@
 package de.markusrother.pned.control;
 
-import java.io.IOException;
-import java.util.EventListener;
-import java.util.concurrent.TimeoutException;
-
-import javax.swing.SwingWorker;
-import javax.swing.event.EventListenerList;
-
 import de.markusrother.pned.control.commands.CommandTarget;
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.EdgeCreationListener;
 import de.markusrother.pned.control.commands.LabelEditCommand;
 import de.markusrother.pned.control.commands.LabelEditListener;
 import de.markusrother.pned.control.commands.MarkingEditCommand;
+import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeMotionCommand;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
 import de.markusrother.pned.control.commands.PetriNetIOListener;
-import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
 import de.markusrother.pned.control.commands.TransitionListener;
+import de.markusrother.pned.control.commands.TransitionsExecutionCommand;
 import de.markusrother.pned.control.events.EventTarget;
 import de.markusrother.pned.control.events.MarkingChangeEvent;
 import de.markusrother.pned.control.events.MarkingEventListener;
@@ -37,17 +31,23 @@ import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
 import de.markusrother.util.EventSource;
 
+import javax.swing.*;
+import javax.swing.event.EventListenerList;
+import java.io.IOException;
+import java.util.EventListener;
+import java.util.concurrent.TimeoutException;
+
 /**
  * <p>
  * Channel of communication between <b>a single</b>
  * {@link de.markusrother.pned.control.EventAwarePetriNet} and other interested
  * parties.
  * </p>
- * 
+ * <p/>
  * <p>
  * The following example illustrates event forwarding to the Petri net:
  * </p>
- * 
+ * <p/>
  * <pre>
  * EventBus eventBus = new EventBus();
  * PetriNetModel net = new EventAwarePetriNet(eventBus);
@@ -56,11 +56,11 @@ import de.markusrother.util.EventSource;
  * eventBus.createPlace(...);
  * eventBus.createEdge(...);
  * </pre>
- * 
+ * <p/>
  * <p>
  * The following example illustrates event tapping by a logger:
  * </p>
- * 
+ * <p/>
  * <pre>
  * EventBus eventBus = new EventBus();
  * PetriNetModel net = new EventAwarePetriNet(eventBus);
@@ -72,7 +72,7 @@ import de.markusrother.util.EventSource;
  * @version 1.0
  */
 public class EventBus
-    implements
+        implements
         EventSource,
         CommandTarget,
         EventTarget,
@@ -226,6 +226,14 @@ public class EventBus
     public void fireTransition(final TransitionExecutionCommand cmd) {
         for (final TransitionListener l : getListeners(TransitionListener.class)) {
             l.fireTransition(cmd);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void fireTransitions(TransitionsExecutionCommand cmd) {
+        for (final TransitionListener l : getListeners(TransitionListener.class)) {
+            l.fireTransitions(cmd);
         }
     }
 

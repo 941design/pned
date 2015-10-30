@@ -1,23 +1,22 @@
 package de.markusrother.pned.core;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
 import de.markusrother.pned.control.EventAwarePetriNet;
 import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.EdgeCreationListener;
 import de.markusrother.pned.control.commands.LabelEditListener;
+import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.commands.NodeCreationListener;
 import de.markusrother.pned.control.commands.NodeMotionListener;
 import de.markusrother.pned.control.commands.PetriNetIOListener;
-import de.markusrother.pned.control.commands.MarkingEditListener;
 import de.markusrother.pned.control.requests.IdRequestListener;
 import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * TODO
- * 
+ * <p/>
  * <ul>
  * <li>use same id twice</li>
  * <li>multiple edges</li>
@@ -25,9 +24,9 @@ import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
  * <li>circular structure</li>
  * <li>remove non-existing node</li>
  * </ul>
- *
  */
-public class EventAwarePetriNetTest extends AbstractPetriNetTest {
+public class EventAwarePetriNetTest
+        extends AbstractPetriNetTest {
 
     @Test
     public void testAllListenersAdded() {
@@ -359,6 +358,65 @@ public class EventAwarePetriNetTest extends AbstractPetriNetTest {
     @Test(expected = Exception.class)
     public void testFailFiringNonexistingTransition() {
         fireTransition(t1);
+    }
+
+    @Test(expected = Exception.class)
+    public void testFireMultipleInactiveTransitions() {
+        // Set up:
+        createPlace(p1);
+        createTransition(t1);
+        createTransition(t2);
+        createEdge(e1, p1, t1);
+        createEdge(e2, p1, t2);
+        // Assert preconditions:
+        assertActiveTransitionsContains(t1, DEFAULT_ORIGIN);
+        assertActiveTransitionsContains(t2, DEFAULT_ORIGIN);
+        // Change:
+        fireTransitions(t1, t2);
+    }
+
+    @Test
+    public void testFireMultipleTransitions() {
+        // Set up:
+        createPlace(p1, 2);
+        createPlace(p2);
+        createPlace(p3);
+        createTransition(t1);
+        createTransition(t2);
+        createEdge(e1, p1, t1);
+        createEdge(e2, p1, t2);
+        createEdge(e3, t1, p2);
+        createEdge(e4, t2, p3);
+        // Assert preconditions:
+        assertActiveTransitionsContains(t1, DEFAULT_ORIGIN);
+        assertActiveTransitionsContains(t2, DEFAULT_ORIGIN);
+        // Change:
+        fireTransitions(t1, t2);
+        // Assert postconditions:
+        assertTransitionWasActivated(t1);
+        assertTransitionWasActivated(t2);
+        assertPlacesContains(p1, DEFAULT_ORIGIN, 0);
+        assertPlacesContains(p2, DEFAULT_ORIGIN, 1);
+        assertPlacesContains(p3, DEFAULT_ORIGIN, 1);
+    }
+
+    @Test(expected = Exception.class)
+    public void testFireConflictingMultipleTransitions() {
+        // Set up:
+        createPlace(p1, 1);
+        createPlace(p2);
+        createPlace(p3);
+        createTransition(t1);
+        createTransition(t2);
+        createEdge(e1, p1, t1);
+        createEdge(e2, p1, t2);
+        createEdge(e3, t1, p2);
+        createEdge(e4, t2, p3);
+        // Assert preconditions:
+        assertActiveTransitionsContains(t1, DEFAULT_ORIGIN);
+        assertActiveTransitionsContains(t2, DEFAULT_ORIGIN);
+        // Change:
+        fireTransitions(t1, t2);
     }
 
 }

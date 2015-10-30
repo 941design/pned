@@ -1,7 +1,5 @@
 package de.markusrother.pned.util;
 
-import java.util.EventObject;
-
 import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.CommandTarget;
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
@@ -20,9 +18,12 @@ import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
 import de.markusrother.pned.control.commands.TransitionListener;
+import de.markusrother.pned.control.commands.TransitionsExecutionCommand;
 import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.control.commands.EdgeRemoveCommand;
 import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
+
+import java.util.EventObject;
 
 /**
  * <p>Abstract CommandAdapter class.</p>
@@ -31,7 +32,7 @@ import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
  * @version 1.0
  */
 public abstract class CommandAdapter
-    implements
+        implements
         CommandTarget {
 
     /**
@@ -39,8 +40,7 @@ public abstract class CommandAdapter
      * setEventBus.
      * </p>
      *
-     * @param eventBus
-     *            a {@link de.markusrother.pned.control.EventBus} object.
+     * @param eventBus a {@link de.markusrother.pned.control.EventBus} object.
      */
     public void setEventBus(final EventBus eventBus) {
         eventBus.addListener(PetriNetIOListener.class, this);
@@ -131,13 +131,18 @@ public abstract class CommandAdapter
         process(cmd);
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public void fireTransitions(TransitionsExecutionCommand cmd) {
+        process(cmd);
+    }
+
     /**
      * <p>
      * process.
      * </p>
      *
-     * @param e
-     *            a {@link java.util.EventObject} object.
+     * @param e a {@link java.util.EventObject} object.
      */
     protected abstract void process(final EventObject e);
 

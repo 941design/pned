@@ -1,17 +1,5 @@
 package de.markusrother.pned.core;
 
-import static org.junit.Assert.assertEquals;
-
-import java.awt.Point;
-import java.util.Collection;
-import java.util.EventListener;
-import java.util.EventObject;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.junit.Assert;
-import org.junit.Before;
-
 import de.markusrother.pned.control.EventAwarePetriNet;
 import de.markusrother.pned.control.EventBus;
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
@@ -26,6 +14,7 @@ import de.markusrother.pned.control.commands.PlaceCreationCommand;
 import de.markusrother.pned.control.commands.TransitionCreationCommand;
 import de.markusrother.pned.control.commands.TransitionExecutionCommand;
 import de.markusrother.pned.control.commands.TransitionListener;
+import de.markusrother.pned.control.commands.TransitionsExecutionCommand;
 import de.markusrother.pned.control.events.MarkingChangeEvent;
 import de.markusrother.pned.control.events.TransitionActivationEvent;
 import de.markusrother.pned.control.events.TransitionActivationEvent.Type;
@@ -35,9 +24,21 @@ import de.markusrother.pned.core.model.TransitionModel;
 import de.markusrother.pned.gui.components.listeners.NodeRemovalListener;
 import de.markusrother.pned.gui.control.events.RemoveSelectedNodesEvent;
 import de.markusrother.pned.util.EventAdapter;
+import org.junit.Assert;
+import org.junit.Before;
+
+import java.awt.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.EventListener;
+import java.util.EventObject;
+import java.util.LinkedList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractPetriNetTest
-    implements
+        implements
         NodeCreationListener,
         NodeRemovalListener,
         TransitionListener,
@@ -160,10 +161,22 @@ public abstract class AbstractPetriNetTest
         fireTransition(cmd);
     }
 
+    protected void fireTransitions(final String... transitionIds) {
+        final TransitionsExecutionCommand cmd = new TransitionsExecutionCommand(source, Arrays.asList(transitionIds));
+        fireTransitions(cmd);
+    }
+
     @Override
     public void fireTransition(final TransitionExecutionCommand cmd) {
         for (final TransitionListener l : getListeners(TransitionListener.class)) {
             l.fireTransition(cmd);
+        }
+    }
+
+    @Override
+    public void fireTransitions(final TransitionsExecutionCommand cmd) {
+        for (final TransitionListener l : getListeners(TransitionListener.class)) {
+            l.fireTransitions(cmd);
         }
     }
 
