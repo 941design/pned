@@ -1,9 +1,10 @@
 package de.markusrother.pned.gui.core.model;
 
-import java.io.File;
-import java.util.Set;
-
 import de.markusrother.pned.gui.control.PnState.NewNodeType;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface PnStateModel {
      * </p>
      *
      * @return a {@link de.markusrother.pned.gui.control.PnState.NewNodeType}
-     *         object.
+     * object.
      */
     NewNodeType getNewNodeType();
 
@@ -91,7 +92,7 @@ public interface PnStateModel {
      * <p>
      * Returns unique identifiers of all currently selected nodes that are
      * output nodes.
-     * 
+     * <p/>
      * </p>
      *
      * @return a {@link java.util.Set} of {@link java.lang.String}s.
@@ -129,7 +130,7 @@ public interface PnStateModel {
      * </p>
      *
      * @return a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
-     *         object.
+     * object.
      */
     NodeStyleModel getPlaceStyle();
 
@@ -139,7 +140,7 @@ public interface PnStateModel {
      * </p>
      *
      * @return a {@link de.markusrother.pned.gui.core.model.NodeStyleModel}
-     *         object.
+     * object.
      */
     NodeStyleModel getTransitionStyle();
 
@@ -149,7 +150,7 @@ public interface PnStateModel {
      * </p>
      *
      * @return a {@link de.markusrother.pned.gui.core.model.EdgeStyleModel}
-     *         object.
+     * object.
      */
     EdgeStyleModel getEdgeStyle();
 
@@ -159,7 +160,7 @@ public interface PnStateModel {
      * </p>
      *
      * @return a {@link de.markusrother.pned.gui.core.model.MarkingStyleModel}
-     *         object.
+     * object.
      */
     MarkingStyleModel getMarkingStyle();
 
@@ -176,5 +177,13 @@ public interface PnStateModel {
      * @param b a boolean.
      */
     void setDirty(boolean b);
+
+    /**
+     * <p>getSelectedTransitionIds</p>
+     *
+     * @return a {@link java.util.Collection} of {@link java.lang.String}s
+     * -- the requested transition ids.
+     */
+    Collection<String> getSelectedTransitionIds();
 
 }

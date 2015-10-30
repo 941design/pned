@@ -1,19 +1,8 @@
 package de.markusrother.pned.gui.components.menus;
 
-import java.awt.Point;
-import java.awt.event.KeyEvent;
-import java.util.Set;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JComponent;
-import javax.swing.JMenu;
-import javax.swing.JPopupMenu;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
-
 import de.markusrother.pned.gui.actions.CreatePlaceAction;
 import de.markusrother.pned.gui.actions.CreateTransitionAction;
+import de.markusrother.pned.gui.actions.FireTransitionsAction;
 import de.markusrother.pned.gui.actions.LocationProvider;
 import de.markusrother.pned.gui.actions.RemoveEdgeAction;
 import de.markusrother.pned.gui.actions.RemoveIncomingEdgesAction;
@@ -21,6 +10,13 @@ import de.markusrother.pned.gui.actions.RemoveOutgoingEdgesAction;
 import de.markusrother.pned.gui.actions.RemoveSelectedNodesAction;
 import de.markusrother.pned.gui.control.PnState;
 import de.markusrother.pned.gui.control.commands.PnCommandTarget;
+
+import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.Set;
 
 /**
  * <p>
@@ -31,7 +27,7 @@ import de.markusrother.pned.gui.control.commands.PnCommandTarget;
  * @version 1.0
  */
 public class EditMenuFactory
-    implements
+        implements
         MenuListener {
 
     /** Constant <code>label="Edit"</code> */
@@ -46,8 +42,7 @@ public class EditMenuFactory
      * Constructor for EditMenuFactory.
      * </p>
      *
-     * @param state
-     *            a {@link de.markusrother.pned.gui.control.PnState} object.
+     * @param state a {@link de.markusrother.pned.gui.control.PnState} object.
      */
     public EditMenuFactory(final PnState state) {
         this.state = state;
@@ -73,8 +68,7 @@ public class EditMenuFactory
      * newPopupMenu.
      * </p>
      *
-     * @param point
-     *            a {@link java.awt.Point} object.
+     * @param point a {@link java.awt.Point} object.
      * @return a {@link javax.swing.JPopupMenu} object.
      */
     public JPopupMenu newPopupMenu(final Point point) {
@@ -115,11 +109,9 @@ public class EditMenuFactory
      * populateEditMenu.
      * </p>
      *
-     * @param menuComponent
-     *            a {@link javax.swing.JComponent} object.
-     * @param locationProvider
-     *            a {@link de.markusrother.pned.gui.actions.LocationProvider}
-     *            object.
+     * @param menuComponent    a {@link javax.swing.JComponent} object.
+     * @param locationProvider a {@link de.markusrother.pned.gui.actions.LocationProvider}
+     *                         object.
      */
     private void populateEditMenu(final JComponent menuComponent, final LocationProvider locationProvider) {
 
@@ -150,6 +142,8 @@ public class EditMenuFactory
         for (final String edgeId : edgeIds) {
             menuComponent.add(RemoveEdgeAction.newMenuItem(state, edgeId));
         }
+
+        menuComponent.add(FireTransitionsAction.newMenuItem(state, commandTarget));
     }
 
 }

@@ -1,14 +1,5 @@
 package de.markusrother.pned.gui.control;
 
-import java.io.File;
-import java.util.Collections;
-import java.util.EventObject;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import de.markusrother.pned.control.commands.EdgeCreationCommand;
 import de.markusrother.pned.control.commands.NodeRemovalCommand;
 import de.markusrother.pned.control.commands.PetriNetIOCommand;
@@ -30,6 +21,16 @@ import de.markusrother.pned.gui.core.model.NodeStyleModel;
 import de.markusrother.pned.gui.core.model.PnStateModel;
 import de.markusrother.pned.util.PnEventAdapter;
 
+import java.io.File;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EventObject;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 /**
  * <p>
  * Class representing a {@link de.markusrother.pned.gui.components.PnFrame}s
@@ -44,8 +45,9 @@ import de.markusrother.pned.util.PnEventAdapter;
  * @author Markus Rother
  * @version 1.0
  */
-public class PnState extends PnEventAdapter
-    implements
+public class PnState
+        extends PnEventAdapter
+        implements
         PnStateModel {
 
     /** The default creation type for new nodes. */
@@ -79,8 +81,7 @@ public class PnState extends PnEventAdapter
      * Constructor for GuiState.
      * </p>
      *
-     * @param eventBus
-     *            a {@link de.markusrother.pned.gui.control.PnEventBus} object.
+     * @param eventBus a {@link de.markusrother.pned.gui.control.PnEventBus} object.
      */
     public PnState(final PnEventBus eventBus) {
         this.placeStyle = NodeStyle.newDefault();
@@ -167,8 +168,7 @@ public class PnState extends PnEventAdapter
      * filterTargetNodes.
      * </p>
      *
-     * @param nodeIds
-     *            a {@link java.util.Set} object.
+     * @param nodeIds a {@link java.util.Set} object.
      * @return a {@link java.util.Collection} object.
      */
     private Set<String> filterTargetNodes(final Set<String> nodeIds) {
@@ -186,8 +186,7 @@ public class PnState extends PnEventAdapter
      * filterSourceNodes.
      * </p>
      *
-     * @param nodeIds
-     *            a {@link java.util.Set} object.
+     * @param nodeIds a {@link java.util.Set} object.
      * @return a {@link java.util.Collection} object.
      */
     private Set<String> filterSourceNodes(final Set<String> nodeIds) {
@@ -205,8 +204,7 @@ public class PnState extends PnEventAdapter
      * filterIncomingEdges.
      * </p>
      *
-     * @param nodeIds
-     *            a {@link java.util.Set} object.
+     * @param nodeIds a {@link java.util.Set} object.
      * @return a {@link java.util.Collection} object.
      */
     protected Set<String> filterIncomingEdges(final Set<String> nodeIds) {
@@ -226,8 +224,7 @@ public class PnState extends PnEventAdapter
      * filterOutgoingEdges.
      * </p>
      *
-     * @param nodeIds
-     *            a {@link java.util.Set} object.
+     * @param nodeIds a {@link java.util.Set} object.
      * @return a {@link java.util.Collection} object.
      */
     protected Set<String> filterOutgoingEdges(final Set<String> nodeIds) {
@@ -394,6 +391,13 @@ public class PnState extends PnEventAdapter
     @Override
     public boolean isDirty() {
         return dirtyStateListener.isDirty();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Collection<String> getSelectedTransitionIds() {
+        // TODO - may contain places!!!
+        return getSelectedNodeIds();
     }
 
 }
