@@ -1,46 +1,24 @@
 package de.markusrother.pned.gui;
 
-import java.awt.Dimension;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import de.markusrother.pned.gui.components.PnFrame;
 
-/**
- * <p>
- * Main class. Opens Petri net editor:
- * {@link de.markusrother.pned.gui.components.PnFrame}.
- * </p>
- *
- * @author Markus Rother
- * @version 1.0
- */
+import javax.swing.*;
+import java.awt.*;
+
 public class Main {
 
-    /** Constant <code>TITLE="Markus Rother (8544832)"</code> */
     private static final String TITLE = "Markus Rother (8544832)";
 
-    /**
-     * <p>
-     * main.
-     * </p>
-     *
-     * @param args
-     *            an array of {@link java.lang.String} objects.
-     */
     public static void main(final String[] args) {
 
         // TODO - Take path to log to.
         // TODO - Take flag to log model events only or all events.
-        final boolean isLogging = args.length > 0 && args[0].equals("-log");
+        // final boolean isLogging = args.length > 0 && args[0].equals("-log");
+        final boolean isLogging = true;
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | UnsupportedLookAndFeelException e) {
+        } catch (Exception e) {
             System.exit(1);
         }
 
